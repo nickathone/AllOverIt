@@ -1,4 +1,10 @@
-# Spackle
+# **Spackle**
 A general purpose library containing a variety of classes, utilities, and helpers to fill in regularly occuring software development gaps.
 
-Refer to the online [Documentation](https://mjfreelancing.github.io/Spackle/) for usage information.
+## Reflection with flexible binding options
+
+## Expressions
+
+## General purpose extension methods
+
+## Often-used utilities

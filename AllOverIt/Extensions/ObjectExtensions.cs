@@ -1,0 +1,169 @@
+﻿using AllOverIt.Bindings;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace AllOverIt.Extensions
+{
+  public static class ObjectExtensions
+  {
+    /// <summary>
+    /// Specifies the binding options to use when calculating the hash code of an object when using
+    /// <see cref="CalculateHashCode{TType}(TType,System.Collections.Generic.IEnumerable{string},System.Collections.Generic.IEnumerable{string})"/>.
+    /// </summary>
+    public static BindingOptions DefaultHashCodeBindings { get; set; } = BindingOptions.Instance | BindingOptions.AllAccessor | BindingOptions.AllVisibility;
+
+    /// <summary>Creates a dictionary containing property names and associated values.</summary>
+    /// <param name="instance">The object instance to obtain property names and values from.</param>
+    /// <param name="includeNulls">If <c>true</c> then <c>null</c> value properties will be returned, otherwise they will be omitted.</param>
+    /// <param name="bindingOptions">Binding options that determines how property names are resolved.</param>
+    /// <returns>Returns  a dictionary containing property names and associated values.</returns>
+    public static IDictionary<string, object> ToPropertyDictionary(this object instance, bool includeNulls = false, BindingOptions bindingOptions = BindingOptions.Default)
+    {
+      var type = instance.GetType();
+      var propertyInfo = type.GetPropertyInfo(bindingOptions, false);
+
+      var propInfos = from prop in propertyInfo
+                      where prop.CanRead
+                      let value = prop.GetValue(instance)
+                      where includeNulls || value != null
+                      select new KeyValuePair<string, object>(prop.Name, value);
+
+      return propInfos.ToDictionary(item => item.Key, item => item.Value);
+    }
+
+    /// <summary>Determines if the specified object is an integral type (signed or unsigned).</summary>
+    /// <param name="instance">The object instance to be compared to an integral type.</param>
+    /// <returns>Returns <c>true</c> if the specified object is an integral type (signed or unsigned).</returns>
+    public static bool IsIntegral(this object instance)
+    {
+      return instance is byte || instance is sbyte || instance is short || instance is ushort
+             || instance is int || instance is uint || instance is long || instance is ulong;
+    }
+
+    /// <summary>Converts the provided source <paramref name="instance"/> to a specified type.</summary>
+    /// <typeparam name="TType">The type that <paramref name="instance"/> is to be converted to.</typeparam>
+    /// <param name="instance">The object instance to be converted.</param>
+    /// <param name="defaultValue">The default value to be returned when <paramref name="instance"/> is null.</param>
+    /// <returns>Returns <paramref name="instance"/> converted to the specified <typeparam name="TType"></typeparam>.</returns>
+    public static TType As<TType>(this object instance, TType defaultValue = default)
+    {
+      if (instance == null)
+      {
+        return defaultValue;
+      }
+
+      // return same value if no conversion is required or the destination is a class reference
+      var isClassType = typeof(TType).IsClassType() && typeof(TType) != typeof(string);
+
+      if (typeof(TType) == instance.GetType() || typeof(TType) == typeof(object) || isClassType)
+      {
+        return (TType)instance;
+      }
+
+      // convert from integral to bool (conversion from a string is handled further below)
+      if (typeof(TType) == typeof(bool) && instance.IsIntegral())
+      {
+        var intValue = (int)Convert.ChangeType(instance, typeof(int));
+
+        if (intValue < 0 || intValue > 1)
+        {
+          throw new InvalidCastException($"Cannot convert integral '{intValue}' to a Boolean.");
+        }
+
+        // convert the integral to a boolean
+        instance = (bool)Convert.ChangeType(intValue, typeof(bool));
+
+        return (TType)instance;
+      }
+
+      // converting from Enum to byte, sbyte, short, ushort, int, uint, long, or ulong
+      if (instance is Enum && typeof(TType).IsIntegralType())
+      {
+        // cater for when Enum has an underlying type other than 'int'
+        instance = GetEnumAsUnderlyingValue(instance, instance.GetType());
+
+        // now attempt to perform the converted value to the required type
+        return (TType)Convert.ChangeType(instance, typeof(TType));
+      }
+
+      // converting from byte, sbyte, short, ushort, int, uint, long, or ulong to Enum
+      if (typeof(TType).IsEnumType() && instance.IsIntegral())
+      {
+        // cater for when Enum has an underlying type other than 'int'
+        instance = GetEnumAsUnderlyingValue(instance, typeof(TType));
+
+        if (!Enum.IsDefined(typeof(TType), instance))
+        {
+          throw new InvalidCastException($"Cannot cast '{instance}' to a '{typeof(TType)}' value.");
+        }
+
+        return (TType)instance;
+      }
+
+      if (typeof(TType) == typeof(bool) || instance is bool || typeof(TType) == typeof(char) || instance is char)
+      {
+        return (TType)Convert.ChangeType(instance, typeof(TType));
+      }
+
+      // all other cases
+      return StringExtensions.As($"{instance}", defaultValue, true);
+    }
+
+    /// <summary>Converts the provided source <paramref name="instance"/> to a specified nullable type.</summary>
+    /// <typeparam name="TType">The (nullable) type that <paramref name="instance"/> is to be converted to.</typeparam>
+    /// <param name="instance">The object instance to be converted.</param>
+    /// <param name="defaultValue">The default value to be returned when <paramref name="instance"/> is null.</param>
+    /// <returns>Returns <paramref name="instance"/> converted to the specified <typeparam name="TType"></typeparam>.</returns>
+    public static TType? AsNullable<TType>(this object instance, TType? defaultValue = null)
+      where TType : struct
+    {
+      return instance == null
+        ? defaultValue
+        : ObjectExtensions.As<TType>(instance);
+    }
+
+    // properties are ordered by name before calculating the hash
+    // uses the static 'DefaultHashCodeBindings' to locate the properties
+    public static int CalculateHashCode<TType>(this TType instance, IEnumerable<string> includeProperties = null, IEnumerable<string> excludeProperties = null)
+    {
+      // includeProperties = null => include all
+      // excludeProperties = null => exclude none
+
+      var inclusions = includeProperties?.AsReadOnlyList();
+      var exclusions = excludeProperties?.AsReadOnlyList();
+
+      var objType = typeof(TType);
+
+      // uses declaredOnly = false so base class properties are included
+      // ordering by name to make the calculations predictable
+      var properties = from property in objType.GetPropertyInfo(DefaultHashCodeBindings)
+        where (inclusions == null || inclusions.Contains(property.Name)) &&
+              (exclusions == null || !exclusions.Contains(property.Name))
+        orderby property.Name
+        select property.GetValue(instance);
+
+      return AggregateHashCode(properties);
+    }
+
+    // can be used against properties, fields, method calls, anything that returns on object; hence no ordering is applied
+    public static int CalculateHashCode<TType>(this TType instance, params Func<TType, object>[] propertyResolvers)
+    {
+      var properties = propertyResolvers.Select(propertyResolver => propertyResolver.Invoke(instance));
+
+      return AggregateHashCode(properties);
+    }
+
+    private static int AggregateHashCode(IEnumerable<object> properties)
+    {
+      return properties.Aggregate(17, (current, property) => current * 23 + (property?.GetHashCode() ?? 0));
+    }
+
+    // gets the enum value as its underlying type (such as short)
+    private static object GetEnumAsUnderlyingValue(object instance, Type enumType)
+    {
+      var underlyingType = Enum.GetUnderlyingType(enumType);
+      return Convert.ChangeType(instance, underlyingType);
+    }
+  }
+}
