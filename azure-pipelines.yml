@@ -95,7 +95,7 @@ stages:
         #packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg;-:$(Build.ArtifactStagingDirectory)/*.Tests.nupkg'
         packagesToPush: '$(Pipeline.Workspace)/packages/prereleases/*.nupkg'
         nuGetFeedType: 'internal'
-        publishVstsFeed: 'Spackle/spacklesandbox'
+        publishVstsFeed: 'AllOverIt/aoisandbox'
 
 
 - stage: 'PublishReleaseNuGetPackage'
