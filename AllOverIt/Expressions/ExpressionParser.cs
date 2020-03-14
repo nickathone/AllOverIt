@@ -128,9 +128,9 @@ namespace AllOverIt.Expressions
         isNegated = expression.NodeType == ExpressionType.Not || expression.NodeType == ExpressionType.Negate;
       }
 
-      if (expression is UnaryExpression unary)
+      if (expression is UnaryExpression)
       {
-        return ResolveExpression(unary.Operand, isNegated);
+        return ResolveExpression(expression.RemoveUnary(), isNegated);
       }
 
       static ExpressionInfoType GetMemberExpressionInfoType(MemberExpression memberExpression)
@@ -161,45 +161,38 @@ namespace AllOverIt.Expressions
 
     private static ConstantExpressionInfo ParseConstantExpression(Expression expression)
     {
-      object value = null;
-
       // get the single constant or array of values 
-      switch (expression)
+      var value = expression switch
       {
-        case NewArrayExpression arrayExpression:
-          // resolve the expression of each array element (limited to constant, field, and property expressions)
-          // value =
-          //   (from itemExpression in arrayExpression.Expressions
-          //     let info = GetExpressionInfo(itemExpression,
-          //       type => type == ExpressionInfoType.Constant ||
-          //               type == ExpressionInfoType.Field ||
-          //               type == ExpressionInfoType.Property)
-          //     select ((IExpressionValue) info).Value)
-          //   .ToArray();
+        // resolve the expression of each array element (limited to constant, field, and property expressions)
+        // value =
+        //   (from itemExpression in arrayExpression.Expressions
+        //     let info = GetExpressionInfo(itemExpression,
+        //       type => type == ExpressionInfoType.Constant ||
+        //               type == ExpressionInfoType.Field ||
+        //               type == ExpressionInfoType.Property)
+        //     select ((IExpressionValue) info).Value)
+        //   .ToArray();
 
-          // This approach allows for the following scenarios using:
-          //   static int f() { return 2; }
-          //
-          //   Scenario 1:
-          //     Expression<Func<int[]>> exp = () => new [] {1, f() + 2, 3};
-          //
-          //   Scenario 2:
-          //     Expression<Func<object[]>> exp = () => new object[] {1, f() + 2, 3};
-          //
-          //   In the first scenario, the first and last elements are resolved as constant expressions whereas
-          //   the second element is compiled and invoked.
-          //
-          //   In the second scenario, all elements are compiled and invoked due to object casting
-          value = arrayExpression.Expressions.GetValues().ToArray();
-          break;
+        // This approach allows for the following scenarios using:
+        //   static int f() { return 2; }
+        //
+        //   Scenario 1:
+        //     Expression<Func<int[]>> exp = () => new [] {1, f() + 2, 3};
+        //
+        //   Scenario 2:
+        //     Expression<Func<object[]>> exp = () => new object[] {1, f() + 2, 3};
+        //
+        //   In the first scenario, the first and last elements are resolved as constant expressions whereas
+        //   the second element is compiled and invoked.
+        //
+        //   In the second scenario, all elements are compiled and invoked due to object casting
+        NewArrayExpression arrayExpression => arrayExpression.Expressions.GetValues().ToArray(),
 
-        case ConstantExpression constantExpression:
-          value = constantExpression.Value;
-          break;
+        ConstantExpression constantExpression => constantExpression.Value,
 
-        default:
-          throw new ExpressionParserException("The constant expression could not be parsed.");
-      }
+        _ => throw new ExpressionParserException("The constant expression could not be parsed.")
+      };
 
       return new ConstantExpressionInfo(expression, value);
     }

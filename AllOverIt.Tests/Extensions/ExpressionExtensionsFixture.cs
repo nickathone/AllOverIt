@@ -83,6 +83,35 @@ namespace AllOverIt.Tests.Extensions
         actual.Should().BeEquivalentTo(expected);
       }
 
+      public class RemoveUnary : ExpressionExtensionsFixture
+      {
+        [Fact]
+        public void Should_Remove_Unary_Expression()
+        {
+          int[] values = { 1, 2, 3 };
+          Expression<Func<int>> expression = () => values.Length;
+
+          var actual = ExpressionExtensions.RemoveUnary(expression.Body);
+
+          var unary = expression.Body as UnaryExpression;
+          var expected = (MemberExpression) unary.Operand;
+
+          actual.Should().BeSameAs(expected);
+        }
+
+        [Fact]
+        public void Should_Return_Same_Expression()
+        {
+          var value = Create<int>();
+          Expression<Func<int>> expression = () => value;
+
+          var actual = ExpressionExtensions.RemoveUnary(expression.Body);
+
+          var expected = expression.Body;
+
+          actual.Should().BeSameAs(expected);
+        }
+      }
 
       private static int GetSum(int val1, int val2)
       {

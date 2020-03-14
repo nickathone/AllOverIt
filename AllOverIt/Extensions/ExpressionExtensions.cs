@@ -34,6 +34,16 @@ namespace AllOverIt.Extensions
       return expressions.Select(GetValue);
     }
 
+    public static Expression RemoveUnary(this Expression expression)
+    {
+      if (expression is UnaryExpression unary)
+      {
+        return unary.Operand;
+      }
+
+      return expression;
+    }
+
     private static object GetValue(MemberExpression memberExpression)
     {
       var value = GetValue(memberExpression.Expression);
