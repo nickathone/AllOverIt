@@ -1,0 +1,644 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/Data/GitHub/mjfreelancing/Projects/AllOverIt/DocFx",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Bindings.BindingOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Bindings.BindingOptions.html",
+          "hash": "gX4DYYM7pB9xR8vmyXQQNA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Bindings.BindingOptionsHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Bindings.BindingOptionsHelper.html",
+          "hash": "tb4sV83f54hyJwhljTyUIA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Bindings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Bindings.html",
+          "hash": "IiaJg2udcfEuuqs7j2gAPw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Exceptions.ExpressionParserException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Exceptions.ExpressionParserException.html",
+          "hash": "36WAsI2CyjWCkoo4cAIXYQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Exceptions.html",
+          "hash": "+Q696LJ/3JmIVmIEamlakQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.ExpressionParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.ExpressionParser.html",
+          "hash": "3KsnqBjjNJmdiBphm3WX8g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.IExpressionParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.IExpressionParser.html",
+          "hash": "lGLtgYJFPPJmRM6eRaMTWg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.IExpressionValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.IExpressionValue.html",
+          "hash": "6dDZiS3geZXLP8cEqnS6DQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.html",
+          "hash": "wJvUZoxsww7k/q6rDlGtIA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.ConditionalExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.ConditionalExpressionInfo.html",
+          "hash": "G3ROn8xkgn8ZZTl7rdjNZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.ConstantExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.ConstantExpressionInfo.html",
+          "hash": "XEyx6yoexiIRAxPdogOeew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.ExpressionInfoBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.ExpressionInfoBase.html",
+          "hash": "ekq6rqExcnCFbtKThC5AYQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.ExpressionInfoType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.ExpressionInfoType.html",
+          "hash": "PnskVRU8nm+us2boi6jh1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.FieldExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.FieldExpressionInfo.html",
+          "hash": "wiPBUX11lqi1Tlp8BDwEVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.IExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.IExpressionInfo.html",
+          "hash": "3rXdRKiSUuJhI20OucukkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.INegatableExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.INegatableExpressionInfo.html",
+          "hash": "DcvEyg/Xsy3JED4l3qmExw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.MemberInitExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.MemberInitExpressionInfo.html",
+          "hash": "GN5z6J3oodLg5GTxL6APiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.MethodCallExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.MethodCallExpressionInfo.html",
+          "hash": "MJ2kIGq0HVgKttp9P0qFcw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.NewExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.NewExpressionInfo.html",
+          "hash": "oir3d3EWnOVImq9wq4kpXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.PropertyExpressionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.PropertyExpressionInfo.html",
+          "hash": "KbMmPJ6cNEMALwB/FSjofw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.Info.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.Info.html",
+          "hash": "69TeKa7iANeDbhQyBx8fwg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.ParameterRebinder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.ParameterRebinder.html",
+          "hash": "xgRisSzDhkO8pxAR/2BXqQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.PredicateBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.PredicateBuilder.html",
+          "hash": "qVuZWN7mz67ELOe3xgpbVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Expressions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Expressions.html",
+          "hash": "ljgYnM3Gq30uqR4k5hZ0Bg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.ComparableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.ComparableExtensions.html",
+          "hash": "LyARXPzi0z4x1dhf7qvrkw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.DictionaryExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.DictionaryExtensions.html",
+          "hash": "lhnIO4ZJnSCg3f4zg9s8gw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.DoubleExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.DoubleExtensions.html",
+          "hash": "iXOM+LAOYok64jtJUQiktw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.EnumerableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.EnumerableExtensions.html",
+          "hash": "uWHrQHApvbc566H1eAn+Xg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.ExpressionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.ExpressionExtensions.html",
+          "hash": "han7jQLSlyhPLwfPTLmSdg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.ObjectExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.ObjectExtensions.html",
+          "hash": "xDZW3QRN2TarD8SwrwY9xQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.PropertyInfoExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.PropertyInfoExtensions.html",
+          "hash": "LIhmgoNpHp9wfudyxSbBpg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.StringExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.StringExtensions.html",
+          "hash": "gmjG6YICM4VW5mJJn1HsaQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.TaskEx.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.TaskEx.html",
+          "hash": "Vc9/m+Ed+gD0QEKI1zujqw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.TypeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.TypeExtensions.html",
+          "hash": "cW2itbLRzAPzI3W5qZr3jA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.TypeInfoExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.TypeInfoExtensions.html",
+          "hash": "ftz4M3DczPdiD59RzmeBSg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.html",
+          "hash": "m59CR5FGhvSrlk9fMPNM2g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Helpers.EnumHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Helpers.EnumHelper.html",
+          "hash": "UAryqNCKVspEDJzhtgtDwA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Helpers.Raii-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Helpers.Raii-1.html",
+          "hash": "WJwxDQQCifFQNm0SFEBqBg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Helpers.Raii.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Helpers.Raii.html",
+          "hash": "pycOTWkaBpjZXuMUHnzy8w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Helpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Helpers.html",
+          "hash": "5hXFFCNhot/f6smUyjFfHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "XuWjqej8DnfaU/6Ws0e7wg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "gDoKuFzGBmgDgmLN2Vi4kA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo128.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo128.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo50.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo50.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "b9Z55lzxz0vxqYfmNQfpaQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/intro.html",
+          "hash": "zeY6+b7j4R2DoIWoWPWFQA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "library/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "library/toc.html",
+          "hash": "gB8AESyvNru97tzIZofEEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "wDgNr2bQ8qpIdquWeq5zSA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 40,
+          "skipped_file_count": 40
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 2
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
