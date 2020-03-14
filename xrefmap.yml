@@ -145,17 +145,17 @@ references:
   commentId: T:AllOverIt.Expressions.ExpressionParser
   fullName: AllOverIt.Expressions.ExpressionParser
   nameWithType: ExpressionParser
-- uid: AllOverIt.Expressions.ExpressionParser.Parse(Expression)
+- uid: AllOverIt.Expressions.ExpressionParser.Parse(System.Linq.Expressions.Expression)
   name: Parse(Expression)
-  href: api/AllOverIt.Expressions.ExpressionParser.html#AllOverIt_Expressions_ExpressionParser_Parse_Expression_
-  commentId: M:AllOverIt.Expressions.ExpressionParser.Parse(Expression)
-  fullName: AllOverIt.Expressions.ExpressionParser.Parse(Expression)
+  href: api/AllOverIt.Expressions.ExpressionParser.html#AllOverIt_Expressions_ExpressionParser_Parse_System_Linq_Expressions_Expression_
+  commentId: M:AllOverIt.Expressions.ExpressionParser.Parse(System.Linq.Expressions.Expression)
+  fullName: AllOverIt.Expressions.ExpressionParser.Parse(System.Linq.Expressions.Expression)
   nameWithType: ExpressionParser.Parse(Expression)
-- uid: AllOverIt.Expressions.ExpressionParser.Parse(Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
+- uid: AllOverIt.Expressions.ExpressionParser.Parse(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
   name: Parse(Expression, ExpressionInfoType)
-  href: api/AllOverIt.Expressions.ExpressionParser.html#AllOverIt_Expressions_ExpressionParser_Parse_Expression_AllOverIt_Expressions_Info_ExpressionInfoType_
-  commentId: M:AllOverIt.Expressions.ExpressionParser.Parse(Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
-  fullName: AllOverIt.Expressions.ExpressionParser.Parse(Expression, AllOverIt.Expressions.Info.ExpressionInfoType)
+  href: api/AllOverIt.Expressions.ExpressionParser.html#AllOverIt_Expressions_ExpressionParser_Parse_System_Linq_Expressions_Expression_AllOverIt_Expressions_Info_ExpressionInfoType_
+  commentId: M:AllOverIt.Expressions.ExpressionParser.Parse(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
+  fullName: AllOverIt.Expressions.ExpressionParser.Parse(System.Linq.Expressions.Expression, AllOverIt.Expressions.Info.ExpressionInfoType)
   nameWithType: ExpressionParser.Parse(Expression, ExpressionInfoType)
 - uid: AllOverIt.Expressions.ExpressionParser.Parse*
   name: Parse
@@ -170,17 +170,17 @@ references:
   commentId: T:AllOverIt.Expressions.IExpressionParser
   fullName: AllOverIt.Expressions.IExpressionParser
   nameWithType: IExpressionParser
-- uid: AllOverIt.Expressions.IExpressionParser.Parse(Expression)
+- uid: AllOverIt.Expressions.IExpressionParser.Parse(System.Linq.Expressions.Expression)
   name: Parse(Expression)
-  href: api/AllOverIt.Expressions.IExpressionParser.html#AllOverIt_Expressions_IExpressionParser_Parse_Expression_
-  commentId: M:AllOverIt.Expressions.IExpressionParser.Parse(Expression)
-  fullName: AllOverIt.Expressions.IExpressionParser.Parse(Expression)
+  href: api/AllOverIt.Expressions.IExpressionParser.html#AllOverIt_Expressions_IExpressionParser_Parse_System_Linq_Expressions_Expression_
+  commentId: M:AllOverIt.Expressions.IExpressionParser.Parse(System.Linq.Expressions.Expression)
+  fullName: AllOverIt.Expressions.IExpressionParser.Parse(System.Linq.Expressions.Expression)
   nameWithType: IExpressionParser.Parse(Expression)
-- uid: AllOverIt.Expressions.IExpressionParser.Parse(Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
+- uid: AllOverIt.Expressions.IExpressionParser.Parse(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
   name: Parse(Expression, ExpressionInfoType)
-  href: api/AllOverIt.Expressions.IExpressionParser.html#AllOverIt_Expressions_IExpressionParser_Parse_Expression_AllOverIt_Expressions_Info_ExpressionInfoType_
-  commentId: M:AllOverIt.Expressions.IExpressionParser.Parse(Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
-  fullName: AllOverIt.Expressions.IExpressionParser.Parse(Expression, AllOverIt.Expressions.Info.ExpressionInfoType)
+  href: api/AllOverIt.Expressions.IExpressionParser.html#AllOverIt_Expressions_IExpressionParser_Parse_System_Linq_Expressions_Expression_AllOverIt_Expressions_Info_ExpressionInfoType_
+  commentId: M:AllOverIt.Expressions.IExpressionParser.Parse(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
+  fullName: AllOverIt.Expressions.IExpressionParser.Parse(System.Linq.Expressions.Expression, AllOverIt.Expressions.Info.ExpressionInfoType)
   nameWithType: IExpressionParser.Parse(Expression, ExpressionInfoType)
 - uid: AllOverIt.Expressions.IExpressionParser.Parse*
   name: Parse
@@ -220,11 +220,11 @@ references:
   commentId: T:AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo
   fullName: AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo
   nameWithType: BinaryComparisonExpressionInfo
-- uid: AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.#ctor(Expression,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo,ExpressionType)
+- uid: AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.#ctor(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo,System.Linq.Expressions.ExpressionType)
   name: BinaryComparisonExpressionInfo(Expression, IExpressionInfo, IExpressionInfo, ExpressionType)
-  href: api/AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.html#AllOverIt_Expressions_Info_BinaryComparisonExpressionInfo__ctor_Expression_AllOverIt_Expressions_Info_IExpressionInfo_AllOverIt_Expressions_Info_IExpressionInfo_ExpressionType_
-  commentId: M:AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.#ctor(Expression,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo,ExpressionType)
-  fullName: AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.BinaryComparisonExpressionInfo(Expression, AllOverIt.Expressions.Info.IExpressionInfo, AllOverIt.Expressions.Info.IExpressionInfo, ExpressionType)
+  href: api/AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.html#AllOverIt_Expressions_Info_BinaryComparisonExpressionInfo__ctor_System_Linq_Expressions_Expression_AllOverIt_Expressions_Info_IExpressionInfo_AllOverIt_Expressions_Info_IExpressionInfo_System_Linq_Expressions_ExpressionType_
+  commentId: M:AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.#ctor(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo,System.Linq.Expressions.ExpressionType)
+  fullName: AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.BinaryComparisonExpressionInfo(System.Linq.Expressions.Expression, AllOverIt.Expressions.Info.IExpressionInfo, AllOverIt.Expressions.Info.IExpressionInfo, System.Linq.Expressions.ExpressionType)
   nameWithType: BinaryComparisonExpressionInfo.BinaryComparisonExpressionInfo(Expression, IExpressionInfo, IExpressionInfo, ExpressionType)
 - uid: AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.#ctor*
   name: BinaryComparisonExpressionInfo
@@ -278,11 +278,11 @@ references:
   commentId: T:AllOverIt.Expressions.Info.ConditionalExpressionInfo
   fullName: AllOverIt.Expressions.Info.ConditionalExpressionInfo
   nameWithType: ConditionalExpressionInfo
-- uid: AllOverIt.Expressions.Info.ConditionalExpressionInfo.#ctor(Expression,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo)
+- uid: AllOverIt.Expressions.Info.ConditionalExpressionInfo.#ctor(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo)
   name: ConditionalExpressionInfo(Expression, IExpressionInfo, IExpressionInfo, IExpressionInfo)
-  href: api/AllOverIt.Expressions.Info.ConditionalExpressionInfo.html#AllOverIt_Expressions_Info_ConditionalExpressionInfo__ctor_Expression_AllOverIt_Expressions_Info_IExpressionInfo_AllOverIt_Expressions_Info_IExpressionInfo_AllOverIt_Expressions_Info_IExpressionInfo_
-  commentId: M:AllOverIt.Expressions.Info.ConditionalExpressionInfo.#ctor(Expression,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo)
-  fullName: AllOverIt.Expressions.Info.ConditionalExpressionInfo.ConditionalExpressionInfo(Expression, AllOverIt.Expressions.Info.IExpressionInfo, AllOverIt.Expressions.Info.IExpressionInfo, AllOverIt.Expressions.Info.IExpressionInfo)
+  href: api/AllOverIt.Expressions.Info.ConditionalExpressionInfo.html#AllOverIt_Expressions_Info_ConditionalExpressionInfo__ctor_System_Linq_Expressions_Expression_AllOverIt_Expressions_Info_IExpressionInfo_AllOverIt_Expressions_Info_IExpressionInfo_AllOverIt_Expressions_Info_IExpressionInfo_
+  commentId: M:AllOverIt.Expressions.Info.ConditionalExpressionInfo.#ctor(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo,AllOverIt.Expressions.Info.IExpressionInfo)
+  fullName: AllOverIt.Expressions.Info.ConditionalExpressionInfo.ConditionalExpressionInfo(System.Linq.Expressions.Expression, AllOverIt.Expressions.Info.IExpressionInfo, AllOverIt.Expressions.Info.IExpressionInfo, AllOverIt.Expressions.Info.IExpressionInfo)
   nameWithType: ConditionalExpressionInfo.ConditionalExpressionInfo(Expression, IExpressionInfo, IExpressionInfo, IExpressionInfo)
 - uid: AllOverIt.Expressions.Info.ConditionalExpressionInfo.#ctor*
   name: ConditionalExpressionInfo
@@ -336,11 +336,11 @@ references:
   commentId: T:AllOverIt.Expressions.Info.ConstantExpressionInfo
   fullName: AllOverIt.Expressions.Info.ConstantExpressionInfo
   nameWithType: ConstantExpressionInfo
-- uid: AllOverIt.Expressions.Info.ConstantExpressionInfo.#ctor(Expression,System.Object)
+- uid: AllOverIt.Expressions.Info.ConstantExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Object)
   name: ConstantExpressionInfo(Expression, Object)
-  href: api/AllOverIt.Expressions.Info.ConstantExpressionInfo.html#AllOverIt_Expressions_Info_ConstantExpressionInfo__ctor_Expression_System_Object_
-  commentId: M:AllOverIt.Expressions.Info.ConstantExpressionInfo.#ctor(Expression,System.Object)
-  fullName: AllOverIt.Expressions.Info.ConstantExpressionInfo.ConstantExpressionInfo(Expression, System.Object)
+  href: api/AllOverIt.Expressions.Info.ConstantExpressionInfo.html#AllOverIt_Expressions_Info_ConstantExpressionInfo__ctor_System_Linq_Expressions_Expression_System_Object_
+  commentId: M:AllOverIt.Expressions.Info.ConstantExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Object)
+  fullName: AllOverIt.Expressions.Info.ConstantExpressionInfo.ConstantExpressionInfo(System.Linq.Expressions.Expression, System.Object)
   nameWithType: ConstantExpressionInfo.ConstantExpressionInfo(Expression, Object)
 - uid: AllOverIt.Expressions.Info.ConstantExpressionInfo.#ctor*
   name: ConstantExpressionInfo
@@ -368,11 +368,11 @@ references:
   commentId: T:AllOverIt.Expressions.Info.ExpressionInfoBase
   fullName: AllOverIt.Expressions.Info.ExpressionInfoBase
   nameWithType: ExpressionInfoBase
-- uid: AllOverIt.Expressions.Info.ExpressionInfoBase.#ctor(Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
+- uid: AllOverIt.Expressions.Info.ExpressionInfoBase.#ctor(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
   name: ExpressionInfoBase(Expression, ExpressionInfoType)
-  href: api/AllOverIt.Expressions.Info.ExpressionInfoBase.html#AllOverIt_Expressions_Info_ExpressionInfoBase__ctor_Expression_AllOverIt_Expressions_Info_ExpressionInfoType_
-  commentId: M:AllOverIt.Expressions.Info.ExpressionInfoBase.#ctor(Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
-  fullName: AllOverIt.Expressions.Info.ExpressionInfoBase.ExpressionInfoBase(Expression, AllOverIt.Expressions.Info.ExpressionInfoType)
+  href: api/AllOverIt.Expressions.Info.ExpressionInfoBase.html#AllOverIt_Expressions_Info_ExpressionInfoBase__ctor_System_Linq_Expressions_Expression_AllOverIt_Expressions_Info_ExpressionInfoType_
+  commentId: M:AllOverIt.Expressions.Info.ExpressionInfoBase.#ctor(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.ExpressionInfoType)
+  fullName: AllOverIt.Expressions.Info.ExpressionInfoBase.ExpressionInfoBase(System.Linq.Expressions.Expression, AllOverIt.Expressions.Info.ExpressionInfoType)
   nameWithType: ExpressionInfoBase.ExpressionInfoBase(Expression, ExpressionInfoType)
 - uid: AllOverIt.Expressions.Info.ExpressionInfoBase.#ctor*
   name: ExpressionInfoBase
@@ -467,11 +467,11 @@ references:
   commentId: T:AllOverIt.Expressions.Info.FieldExpressionInfo
   fullName: AllOverIt.Expressions.Info.FieldExpressionInfo
   nameWithType: FieldExpressionInfo
-- uid: AllOverIt.Expressions.Info.FieldExpressionInfo.#ctor(Expression,FieldInfo,System.Object,System.Boolean)
+- uid: AllOverIt.Expressions.Info.FieldExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Reflection.FieldInfo,System.Object,System.Boolean)
   name: FieldExpressionInfo(Expression, FieldInfo, Object, Boolean)
-  href: api/AllOverIt.Expressions.Info.FieldExpressionInfo.html#AllOverIt_Expressions_Info_FieldExpressionInfo__ctor_Expression_FieldInfo_System_Object_System_Boolean_
-  commentId: M:AllOverIt.Expressions.Info.FieldExpressionInfo.#ctor(Expression,FieldInfo,System.Object,System.Boolean)
-  fullName: AllOverIt.Expressions.Info.FieldExpressionInfo.FieldExpressionInfo(Expression, FieldInfo, System.Object, System.Boolean)
+  href: api/AllOverIt.Expressions.Info.FieldExpressionInfo.html#AllOverIt_Expressions_Info_FieldExpressionInfo__ctor_System_Linq_Expressions_Expression_System_Reflection_FieldInfo_System_Object_System_Boolean_
+  commentId: M:AllOverIt.Expressions.Info.FieldExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Reflection.FieldInfo,System.Object,System.Boolean)
+  fullName: AllOverIt.Expressions.Info.FieldExpressionInfo.FieldExpressionInfo(System.Linq.Expressions.Expression, System.Reflection.FieldInfo, System.Object, System.Boolean)
   nameWithType: FieldExpressionInfo.FieldExpressionInfo(Expression, FieldInfo, Object, Boolean)
 - uid: AllOverIt.Expressions.Info.FieldExpressionInfo.#ctor*
   name: FieldExpressionInfo
@@ -576,13 +576,13 @@ references:
   commentId: T:AllOverIt.Expressions.Info.MemberInitExpressionInfo
   fullName: AllOverIt.Expressions.Info.MemberInitExpressionInfo
   nameWithType: MemberInitExpressionInfo
-- uid: AllOverIt.Expressions.Info.MemberInitExpressionInfo.#ctor(Expression,IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})
+- uid: AllOverIt.Expressions.Info.MemberInitExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})
   name: MemberInitExpressionInfo(Expression, IEnumerable<IExpressionInfo>, IEnumerable<IExpressionInfo>)
-  href: api/AllOverIt.Expressions.Info.MemberInitExpressionInfo.html#AllOverIt_Expressions_Info_MemberInitExpressionInfo__ctor_Expression_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__
-  commentId: M:AllOverIt.Expressions.Info.MemberInitExpressionInfo.#ctor(Expression,IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})
+  href: api/AllOverIt.Expressions.Info.MemberInitExpressionInfo.html#AllOverIt_Expressions_Info_MemberInitExpressionInfo__ctor_System_Linq_Expressions_Expression_System_Collections_Generic_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__System_Collections_Generic_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__
+  commentId: M:AllOverIt.Expressions.Info.MemberInitExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})
   name.vb: MemberInitExpressionInfo(Expression, IEnumerable(Of IExpressionInfo), IEnumerable(Of IExpressionInfo))
-  fullName: AllOverIt.Expressions.Info.MemberInitExpressionInfo.MemberInitExpressionInfo(Expression, IEnumerable<AllOverIt.Expressions.Info.IExpressionInfo>, IEnumerable<AllOverIt.Expressions.Info.IExpressionInfo>)
-  fullName.vb: AllOverIt.Expressions.Info.MemberInitExpressionInfo.MemberInitExpressionInfo(Expression, IEnumerable(Of AllOverIt.Expressions.Info.IExpressionInfo), IEnumerable(Of AllOverIt.Expressions.Info.IExpressionInfo))
+  fullName: AllOverIt.Expressions.Info.MemberInitExpressionInfo.MemberInitExpressionInfo(System.Linq.Expressions.Expression, System.Collections.Generic.IEnumerable<AllOverIt.Expressions.Info.IExpressionInfo>, System.Collections.Generic.IEnumerable<AllOverIt.Expressions.Info.IExpressionInfo>)
+  fullName.vb: AllOverIt.Expressions.Info.MemberInitExpressionInfo.MemberInitExpressionInfo(System.Linq.Expressions.Expression, System.Collections.Generic.IEnumerable(Of AllOverIt.Expressions.Info.IExpressionInfo), System.Collections.Generic.IEnumerable(Of AllOverIt.Expressions.Info.IExpressionInfo))
   nameWithType: MemberInitExpressionInfo.MemberInitExpressionInfo(Expression, IEnumerable<IExpressionInfo>, IEnumerable<IExpressionInfo>)
   nameWithType.vb: MemberInitExpressionInfo.MemberInitExpressionInfo(Expression, IEnumerable(Of IExpressionInfo), IEnumerable(Of IExpressionInfo))
 - uid: AllOverIt.Expressions.Info.MemberInitExpressionInfo.#ctor*
@@ -624,13 +624,13 @@ references:
   commentId: T:AllOverIt.Expressions.Info.MethodCallExpressionInfo
   fullName: AllOverIt.Expressions.Info.MethodCallExpressionInfo
   nameWithType: MethodCallExpressionInfo
-- uid: AllOverIt.Expressions.Info.MethodCallExpressionInfo.#ctor(Expression,AllOverIt.Expressions.Info.IExpressionInfo,MethodInfo,IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},System.Boolean)
+- uid: AllOverIt.Expressions.Info.MethodCallExpressionInfo.#ctor(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.IExpressionInfo,System.Reflection.MethodInfo,System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},System.Boolean)
   name: MethodCallExpressionInfo(Expression, IExpressionInfo, MethodInfo, IEnumerable<IExpressionInfo>, Boolean)
-  href: api/AllOverIt.Expressions.Info.MethodCallExpressionInfo.html#AllOverIt_Expressions_Info_MethodCallExpressionInfo__ctor_Expression_AllOverIt_Expressions_Info_IExpressionInfo_MethodInfo_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__System_Boolean_
-  commentId: M:AllOverIt.Expressions.Info.MethodCallExpressionInfo.#ctor(Expression,AllOverIt.Expressions.Info.IExpressionInfo,MethodInfo,IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},System.Boolean)
+  href: api/AllOverIt.Expressions.Info.MethodCallExpressionInfo.html#AllOverIt_Expressions_Info_MethodCallExpressionInfo__ctor_System_Linq_Expressions_Expression_AllOverIt_Expressions_Info_IExpressionInfo_System_Reflection_MethodInfo_System_Collections_Generic_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__System_Boolean_
+  commentId: M:AllOverIt.Expressions.Info.MethodCallExpressionInfo.#ctor(System.Linq.Expressions.Expression,AllOverIt.Expressions.Info.IExpressionInfo,System.Reflection.MethodInfo,System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},System.Boolean)
   name.vb: MethodCallExpressionInfo(Expression, IExpressionInfo, MethodInfo, IEnumerable(Of IExpressionInfo), Boolean)
-  fullName: AllOverIt.Expressions.Info.MethodCallExpressionInfo.MethodCallExpressionInfo(Expression, AllOverIt.Expressions.Info.IExpressionInfo, MethodInfo, IEnumerable<AllOverIt.Expressions.Info.IExpressionInfo>, System.Boolean)
-  fullName.vb: AllOverIt.Expressions.Info.MethodCallExpressionInfo.MethodCallExpressionInfo(Expression, AllOverIt.Expressions.Info.IExpressionInfo, MethodInfo, IEnumerable(Of AllOverIt.Expressions.Info.IExpressionInfo), System.Boolean)
+  fullName: AllOverIt.Expressions.Info.MethodCallExpressionInfo.MethodCallExpressionInfo(System.Linq.Expressions.Expression, AllOverIt.Expressions.Info.IExpressionInfo, System.Reflection.MethodInfo, System.Collections.Generic.IEnumerable<AllOverIt.Expressions.Info.IExpressionInfo>, System.Boolean)
+  fullName.vb: AllOverIt.Expressions.Info.MethodCallExpressionInfo.MethodCallExpressionInfo(System.Linq.Expressions.Expression, AllOverIt.Expressions.Info.IExpressionInfo, System.Reflection.MethodInfo, System.Collections.Generic.IEnumerable(Of AllOverIt.Expressions.Info.IExpressionInfo), System.Boolean)
   nameWithType: MethodCallExpressionInfo.MethodCallExpressionInfo(Expression, IExpressionInfo, MethodInfo, IEnumerable<IExpressionInfo>, Boolean)
   nameWithType.vb: MethodCallExpressionInfo.MethodCallExpressionInfo(Expression, IExpressionInfo, MethodInfo, IEnumerable(Of IExpressionInfo), Boolean)
 - uid: AllOverIt.Expressions.Info.MethodCallExpressionInfo.#ctor*
@@ -698,13 +698,13 @@ references:
   commentId: T:AllOverIt.Expressions.Info.NewExpressionInfo
   fullName: AllOverIt.Expressions.Info.NewExpressionInfo
   nameWithType: NewExpressionInfo
-- uid: AllOverIt.Expressions.Info.NewExpressionInfo.#ctor(Expression,IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})
+- uid: AllOverIt.Expressions.Info.NewExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})
   name: NewExpressionInfo(Expression, IEnumerable<IExpressionInfo>)
-  href: api/AllOverIt.Expressions.Info.NewExpressionInfo.html#AllOverIt_Expressions_Info_NewExpressionInfo__ctor_Expression_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__
-  commentId: M:AllOverIt.Expressions.Info.NewExpressionInfo.#ctor(Expression,IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})
+  href: api/AllOverIt.Expressions.Info.NewExpressionInfo.html#AllOverIt_Expressions_Info_NewExpressionInfo__ctor_System_Linq_Expressions_Expression_System_Collections_Generic_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__
+  commentId: M:AllOverIt.Expressions.Info.NewExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})
   name.vb: NewExpressionInfo(Expression, IEnumerable(Of IExpressionInfo))
-  fullName: AllOverIt.Expressions.Info.NewExpressionInfo.NewExpressionInfo(Expression, IEnumerable<AllOverIt.Expressions.Info.IExpressionInfo>)
-  fullName.vb: AllOverIt.Expressions.Info.NewExpressionInfo.NewExpressionInfo(Expression, IEnumerable(Of AllOverIt.Expressions.Info.IExpressionInfo))
+  fullName: AllOverIt.Expressions.Info.NewExpressionInfo.NewExpressionInfo(System.Linq.Expressions.Expression, System.Collections.Generic.IEnumerable<AllOverIt.Expressions.Info.IExpressionInfo>)
+  fullName.vb: AllOverIt.Expressions.Info.NewExpressionInfo.NewExpressionInfo(System.Linq.Expressions.Expression, System.Collections.Generic.IEnumerable(Of AllOverIt.Expressions.Info.IExpressionInfo))
   nameWithType: NewExpressionInfo.NewExpressionInfo(Expression, IEnumerable<IExpressionInfo>)
   nameWithType.vb: NewExpressionInfo.NewExpressionInfo(Expression, IEnumerable(Of IExpressionInfo))
 - uid: AllOverIt.Expressions.Info.NewExpressionInfo.#ctor*
@@ -733,11 +733,11 @@ references:
   commentId: T:AllOverIt.Expressions.Info.PropertyExpressionInfo
   fullName: AllOverIt.Expressions.Info.PropertyExpressionInfo
   nameWithType: PropertyExpressionInfo
-- uid: AllOverIt.Expressions.Info.PropertyExpressionInfo.#ctor(Expression,PropertyInfo,System.Object,System.Boolean)
+- uid: AllOverIt.Expressions.Info.PropertyExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Reflection.PropertyInfo,System.Object,System.Boolean)
   name: PropertyExpressionInfo(Expression, PropertyInfo, Object, Boolean)
-  href: api/AllOverIt.Expressions.Info.PropertyExpressionInfo.html#AllOverIt_Expressions_Info_PropertyExpressionInfo__ctor_Expression_PropertyInfo_System_Object_System_Boolean_
-  commentId: M:AllOverIt.Expressions.Info.PropertyExpressionInfo.#ctor(Expression,PropertyInfo,System.Object,System.Boolean)
-  fullName: AllOverIt.Expressions.Info.PropertyExpressionInfo.PropertyExpressionInfo(Expression, PropertyInfo, System.Object, System.Boolean)
+  href: api/AllOverIt.Expressions.Info.PropertyExpressionInfo.html#AllOverIt_Expressions_Info_PropertyExpressionInfo__ctor_System_Linq_Expressions_Expression_System_Reflection_PropertyInfo_System_Object_System_Boolean_
+  commentId: M:AllOverIt.Expressions.Info.PropertyExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Reflection.PropertyInfo,System.Object,System.Boolean)
+  fullName: AllOverIt.Expressions.Info.PropertyExpressionInfo.PropertyExpressionInfo(System.Linq.Expressions.Expression, System.Reflection.PropertyInfo, System.Object, System.Boolean)
   nameWithType: PropertyExpressionInfo.PropertyExpressionInfo(Expression, PropertyInfo, Object, Boolean)
 - uid: AllOverIt.Expressions.Info.PropertyExpressionInfo.#ctor*
   name: PropertyExpressionInfo
@@ -791,13 +791,13 @@ references:
   commentId: T:AllOverIt.Expressions.ParameterRebinder
   fullName: AllOverIt.Expressions.ParameterRebinder
   nameWithType: ParameterRebinder
-- uid: AllOverIt.Expressions.ParameterRebinder.ReplaceParameters(IDictionary{ParameterExpression,ParameterExpression},Expression)
+- uid: AllOverIt.Expressions.ParameterRebinder.ReplaceParameters(System.Collections.Generic.IDictionary{System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression},System.Linq.Expressions.Expression)
   name: ReplaceParameters(IDictionary<ParameterExpression, ParameterExpression>, Expression)
-  href: api/AllOverIt.Expressions.ParameterRebinder.html#AllOverIt_Expressions_ParameterRebinder_ReplaceParameters_IDictionary_ParameterExpression_ParameterExpression__Expression_
-  commentId: M:AllOverIt.Expressions.ParameterRebinder.ReplaceParameters(IDictionary{ParameterExpression,ParameterExpression},Expression)
+  href: api/AllOverIt.Expressions.ParameterRebinder.html#AllOverIt_Expressions_ParameterRebinder_ReplaceParameters_System_Collections_Generic_IDictionary_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_ParameterExpression__System_Linq_Expressions_Expression_
+  commentId: M:AllOverIt.Expressions.ParameterRebinder.ReplaceParameters(System.Collections.Generic.IDictionary{System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression},System.Linq.Expressions.Expression)
   name.vb: ReplaceParameters(IDictionary(Of ParameterExpression, ParameterExpression), Expression)
-  fullName: AllOverIt.Expressions.ParameterRebinder.ReplaceParameters(IDictionary<ParameterExpression, ParameterExpression>, Expression)
-  fullName.vb: AllOverIt.Expressions.ParameterRebinder.ReplaceParameters(IDictionary(Of ParameterExpression, ParameterExpression), Expression)
+  fullName: AllOverIt.Expressions.ParameterRebinder.ReplaceParameters(System.Collections.Generic.IDictionary<System.Linq.Expressions.ParameterExpression, System.Linq.Expressions.ParameterExpression>, System.Linq.Expressions.Expression)
+  fullName.vb: AllOverIt.Expressions.ParameterRebinder.ReplaceParameters(System.Collections.Generic.IDictionary(Of System.Linq.Expressions.ParameterExpression, System.Linq.Expressions.ParameterExpression), System.Linq.Expressions.Expression)
   nameWithType: ParameterRebinder.ReplaceParameters(IDictionary<ParameterExpression, ParameterExpression>, Expression)
   nameWithType.vb: ParameterRebinder.ReplaceParameters(IDictionary(Of ParameterExpression, ParameterExpression), Expression)
 - uid: AllOverIt.Expressions.ParameterRebinder.ReplaceParameters*
@@ -807,11 +807,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Expressions.ParameterRebinder.ReplaceParameters
   nameWithType: ParameterRebinder.ReplaceParameters
-- uid: AllOverIt.Expressions.ParameterRebinder.VisitParameter(ParameterExpression)
+- uid: AllOverIt.Expressions.ParameterRebinder.VisitParameter(System.Linq.Expressions.ParameterExpression)
   name: VisitParameter(ParameterExpression)
-  href: api/AllOverIt.Expressions.ParameterRebinder.html#AllOverIt_Expressions_ParameterRebinder_VisitParameter_ParameterExpression_
-  commentId: M:AllOverIt.Expressions.ParameterRebinder.VisitParameter(ParameterExpression)
-  fullName: AllOverIt.Expressions.ParameterRebinder.VisitParameter(ParameterExpression)
+  href: api/AllOverIt.Expressions.ParameterRebinder.html#AllOverIt_Expressions_ParameterRebinder_VisitParameter_System_Linq_Expressions_ParameterExpression_
+  commentId: M:AllOverIt.Expressions.ParameterRebinder.VisitParameter(System.Linq.Expressions.ParameterExpression)
+  fullName: AllOverIt.Expressions.ParameterRebinder.VisitParameter(System.Linq.Expressions.ParameterExpression)
   nameWithType: ParameterRebinder.VisitParameter(ParameterExpression)
 - uid: AllOverIt.Expressions.ParameterRebinder.VisitParameter*
   name: VisitParameter
@@ -833,13 +833,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Expressions.PredicateBuilder.And
   nameWithType: PredicateBuilder.And
-- uid: AllOverIt.Expressions.PredicateBuilder.And``1(Expression{Func{``0,System.Boolean}},Expression{Func{``0,System.Boolean}})
+- uid: AllOverIt.Expressions.PredicateBuilder.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})
   name: And<TType>(Expression<Func<TType, Boolean>>, Expression<Func<TType, Boolean>>)
-  href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_And__1_Expression_Func___0_System_Boolean___Expression_Func___0_System_Boolean___
-  commentId: M:AllOverIt.Expressions.PredicateBuilder.And``1(Expression{Func{``0,System.Boolean}},Expression{Func{``0,System.Boolean}})
+  href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_And__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Linq_Expressions_Expression_System_Func___0_System_Boolean___
+  commentId: M:AllOverIt.Expressions.PredicateBuilder.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})
   name.vb: And(Of TType)(Expression(Of Func(Of TType, Boolean)), Expression(Of Func(Of TType, Boolean)))
-  fullName: AllOverIt.Expressions.PredicateBuilder.And<TType>(Expression<Func<TType, System.Boolean>>, Expression<Func<TType, System.Boolean>>)
-  fullName.vb: AllOverIt.Expressions.PredicateBuilder.And(Of TType)(Expression(Of Func(Of TType, System.Boolean)), Expression(Of Func(Of TType, System.Boolean)))
+  fullName: AllOverIt.Expressions.PredicateBuilder.And<TType>(System.Linq.Expressions.Expression<System.Func<TType, System.Boolean>>, System.Linq.Expressions.Expression<System.Func<TType, System.Boolean>>)
+  fullName.vb: AllOverIt.Expressions.PredicateBuilder.And(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of TType, System.Boolean)), System.Linq.Expressions.Expression(Of System.Func(Of TType, System.Boolean)))
   nameWithType: PredicateBuilder.And<TType>(Expression<Func<TType, Boolean>>, Expression<Func<TType, Boolean>>)
   nameWithType.vb: PredicateBuilder.And(Of TType)(Expression(Of Func(Of TType, Boolean)), Expression(Of Func(Of TType, Boolean)))
 - uid: AllOverIt.Expressions.PredicateBuilder.False*
@@ -865,13 +865,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Expressions.PredicateBuilder.Not
   nameWithType: PredicateBuilder.Not
-- uid: AllOverIt.Expressions.PredicateBuilder.Not``1(Expression{Func{``0,System.Boolean}})
+- uid: AllOverIt.Expressions.PredicateBuilder.Not``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})
   name: Not<TType>(Expression<Func<TType, Boolean>>)
-  href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_Not__1_Expression_Func___0_System_Boolean___
-  commentId: M:AllOverIt.Expressions.PredicateBuilder.Not``1(Expression{Func{``0,System.Boolean}})
+  href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_Not__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___
+  commentId: M:AllOverIt.Expressions.PredicateBuilder.Not``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})
   name.vb: Not(Of TType)(Expression(Of Func(Of TType, Boolean)))
-  fullName: AllOverIt.Expressions.PredicateBuilder.Not<TType>(Expression<Func<TType, System.Boolean>>)
-  fullName.vb: AllOverIt.Expressions.PredicateBuilder.Not(Of TType)(Expression(Of Func(Of TType, System.Boolean)))
+  fullName: AllOverIt.Expressions.PredicateBuilder.Not<TType>(System.Linq.Expressions.Expression<System.Func<TType, System.Boolean>>)
+  fullName.vb: AllOverIt.Expressions.PredicateBuilder.Not(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of TType, System.Boolean)))
   nameWithType: PredicateBuilder.Not<TType>(Expression<Func<TType, Boolean>>)
   nameWithType.vb: PredicateBuilder.Not(Of TType)(Expression(Of Func(Of TType, Boolean)))
 - uid: AllOverIt.Expressions.PredicateBuilder.Or*
@@ -881,13 +881,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Expressions.PredicateBuilder.Or
   nameWithType: PredicateBuilder.Or
-- uid: AllOverIt.Expressions.PredicateBuilder.Or``1(Expression{Func{``0,System.Boolean}},Expression{Func{``0,System.Boolean}})
+- uid: AllOverIt.Expressions.PredicateBuilder.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})
   name: Or<TType>(Expression<Func<TType, Boolean>>, Expression<Func<TType, Boolean>>)
-  href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_Or__1_Expression_Func___0_System_Boolean___Expression_Func___0_System_Boolean___
-  commentId: M:AllOverIt.Expressions.PredicateBuilder.Or``1(Expression{Func{``0,System.Boolean}},Expression{Func{``0,System.Boolean}})
+  href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_Or__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Linq_Expressions_Expression_System_Func___0_System_Boolean___
+  commentId: M:AllOverIt.Expressions.PredicateBuilder.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})
   name.vb: Or(Of TType)(Expression(Of Func(Of TType, Boolean)), Expression(Of Func(Of TType, Boolean)))
-  fullName: AllOverIt.Expressions.PredicateBuilder.Or<TType>(Expression<Func<TType, System.Boolean>>, Expression<Func<TType, System.Boolean>>)
-  fullName.vb: AllOverIt.Expressions.PredicateBuilder.Or(Of TType)(Expression(Of Func(Of TType, System.Boolean)), Expression(Of Func(Of TType, System.Boolean)))
+  fullName: AllOverIt.Expressions.PredicateBuilder.Or<TType>(System.Linq.Expressions.Expression<System.Func<TType, System.Boolean>>, System.Linq.Expressions.Expression<System.Func<TType, System.Boolean>>)
+  fullName.vb: AllOverIt.Expressions.PredicateBuilder.Or(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of TType, System.Boolean)), System.Linq.Expressions.Expression(Of System.Func(Of TType, System.Boolean)))
   nameWithType: PredicateBuilder.Or<TType>(Expression<Func<TType, Boolean>>, Expression<Func<TType, Boolean>>)
   nameWithType.vb: PredicateBuilder.Or(Of TType)(Expression(Of Func(Of TType, Boolean)), Expression(Of Func(Of TType, Boolean)))
 - uid: AllOverIt.Expressions.PredicateBuilder.True*
@@ -913,15 +913,6 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Expressions.PredicateBuilder.Where
   nameWithType: PredicateBuilder.Where
-- uid: AllOverIt.Expressions.PredicateBuilder.Where``1(Expression{Func{``0,System.Boolean}})
-  name: Where<TType>(Expression<Func<TType, Boolean>>)
-  href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_Where__1_Expression_Func___0_System_Boolean___
-  commentId: M:AllOverIt.Expressions.PredicateBuilder.Where``1(Expression{Func{``0,System.Boolean}})
-  name.vb: Where(Of TType)(Expression(Of Func(Of TType, Boolean)))
-  fullName: AllOverIt.Expressions.PredicateBuilder.Where<TType>(Expression<Func<TType, System.Boolean>>)
-  fullName.vb: AllOverIt.Expressions.PredicateBuilder.Where(Of TType)(Expression(Of Func(Of TType, System.Boolean)))
-  nameWithType: PredicateBuilder.Where<TType>(Expression<Func<TType, Boolean>>)
-  nameWithType.vb: PredicateBuilder.Where(Of TType)(Expression(Of Func(Of TType, Boolean)))
 - uid: AllOverIt.Expressions.PredicateBuilder.Where``1(System.Boolean)
   name: Where<TType>(Boolean)
   href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_Where__1_System_Boolean_
@@ -931,6 +922,15 @@ references:
   fullName.vb: AllOverIt.Expressions.PredicateBuilder.Where(Of TType)(System.Boolean)
   nameWithType: PredicateBuilder.Where<TType>(Boolean)
   nameWithType.vb: PredicateBuilder.Where(Of TType)(Boolean)
+- uid: AllOverIt.Expressions.PredicateBuilder.Where``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})
+  name: Where<TType>(Expression<Func<TType, Boolean>>)
+  href: api/AllOverIt.Expressions.PredicateBuilder.html#AllOverIt_Expressions_PredicateBuilder_Where__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___
+  commentId: M:AllOverIt.Expressions.PredicateBuilder.Where``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})
+  name.vb: Where(Of TType)(Expression(Of Func(Of TType, Boolean)))
+  fullName: AllOverIt.Expressions.PredicateBuilder.Where<TType>(System.Linq.Expressions.Expression<System.Func<TType, System.Boolean>>)
+  fullName.vb: AllOverIt.Expressions.PredicateBuilder.Where(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of TType, System.Boolean)))
+  nameWithType: PredicateBuilder.Where<TType>(Expression<Func<TType, Boolean>>)
+  nameWithType.vb: PredicateBuilder.Where(Of TType)(Expression(Of Func(Of TType, Boolean)))
 - uid: AllOverIt.Extensions
   name: AllOverIt.Extensions
   href: api/AllOverIt.Extensions.html
@@ -950,13 +950,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ComparableExtensions.EqualTo
   nameWithType: ComparableExtensions.EqualTo
-- uid: AllOverIt.Extensions.ComparableExtensions.EqualTo``1(IComparable{``0},``0)
+- uid: AllOverIt.Extensions.ComparableExtensions.EqualTo``1(System.IComparable{``0},``0)
   name: EqualTo<TType>(IComparable<TType>, TType)
-  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_EqualTo__1_IComparable___0____0_
-  commentId: M:AllOverIt.Extensions.ComparableExtensions.EqualTo``1(IComparable{``0},``0)
+  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_EqualTo__1_System_IComparable___0____0_
+  commentId: M:AllOverIt.Extensions.ComparableExtensions.EqualTo``1(System.IComparable{``0},``0)
   name.vb: EqualTo(Of TType)(IComparable(Of TType), TType)
-  fullName: AllOverIt.Extensions.ComparableExtensions.EqualTo<TType>(IComparable<TType>, TType)
-  fullName.vb: AllOverIt.Extensions.ComparableExtensions.EqualTo(Of TType)(IComparable(Of TType), TType)
+  fullName: AllOverIt.Extensions.ComparableExtensions.EqualTo<TType>(System.IComparable<TType>, TType)
+  fullName.vb: AllOverIt.Extensions.ComparableExtensions.EqualTo(Of TType)(System.IComparable(Of TType), TType)
   nameWithType: ComparableExtensions.EqualTo<TType>(IComparable<TType>, TType)
   nameWithType.vb: ComparableExtensions.EqualTo(Of TType)(IComparable(Of TType), TType)
 - uid: AllOverIt.Extensions.ComparableExtensions.GreaterThan*
@@ -966,13 +966,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ComparableExtensions.GreaterThan
   nameWithType: ComparableExtensions.GreaterThan
-- uid: AllOverIt.Extensions.ComparableExtensions.GreaterThan``1(IComparable{``0},``0)
+- uid: AllOverIt.Extensions.ComparableExtensions.GreaterThan``1(System.IComparable{``0},``0)
   name: GreaterThan<TType>(IComparable<TType>, TType)
-  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_GreaterThan__1_IComparable___0____0_
-  commentId: M:AllOverIt.Extensions.ComparableExtensions.GreaterThan``1(IComparable{``0},``0)
+  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_GreaterThan__1_System_IComparable___0____0_
+  commentId: M:AllOverIt.Extensions.ComparableExtensions.GreaterThan``1(System.IComparable{``0},``0)
   name.vb: GreaterThan(Of TType)(IComparable(Of TType), TType)
-  fullName: AllOverIt.Extensions.ComparableExtensions.GreaterThan<TType>(IComparable<TType>, TType)
-  fullName.vb: AllOverIt.Extensions.ComparableExtensions.GreaterThan(Of TType)(IComparable(Of TType), TType)
+  fullName: AllOverIt.Extensions.ComparableExtensions.GreaterThan<TType>(System.IComparable<TType>, TType)
+  fullName.vb: AllOverIt.Extensions.ComparableExtensions.GreaterThan(Of TType)(System.IComparable(Of TType), TType)
   nameWithType: ComparableExtensions.GreaterThan<TType>(IComparable<TType>, TType)
   nameWithType.vb: ComparableExtensions.GreaterThan(Of TType)(IComparable(Of TType), TType)
 - uid: AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual*
@@ -982,13 +982,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual
   nameWithType: ComparableExtensions.GreaterThanOrEqual
-- uid: AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual``1(IComparable{``0},``0)
+- uid: AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual``1(System.IComparable{``0},``0)
   name: GreaterThanOrEqual<TType>(IComparable<TType>, TType)
-  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_GreaterThanOrEqual__1_IComparable___0____0_
-  commentId: M:AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual``1(IComparable{``0},``0)
+  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_GreaterThanOrEqual__1_System_IComparable___0____0_
+  commentId: M:AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual``1(System.IComparable{``0},``0)
   name.vb: GreaterThanOrEqual(Of TType)(IComparable(Of TType), TType)
-  fullName: AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual<TType>(IComparable<TType>, TType)
-  fullName.vb: AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual(Of TType)(IComparable(Of TType), TType)
+  fullName: AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual<TType>(System.IComparable<TType>, TType)
+  fullName.vb: AllOverIt.Extensions.ComparableExtensions.GreaterThanOrEqual(Of TType)(System.IComparable(Of TType), TType)
   nameWithType: ComparableExtensions.GreaterThanOrEqual<TType>(IComparable<TType>, TType)
   nameWithType.vb: ComparableExtensions.GreaterThanOrEqual(Of TType)(IComparable(Of TType), TType)
 - uid: AllOverIt.Extensions.ComparableExtensions.LessThan*
@@ -998,13 +998,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ComparableExtensions.LessThan
   nameWithType: ComparableExtensions.LessThan
-- uid: AllOverIt.Extensions.ComparableExtensions.LessThan``1(IComparable{``0},``0)
+- uid: AllOverIt.Extensions.ComparableExtensions.LessThan``1(System.IComparable{``0},``0)
   name: LessThan<TType>(IComparable<TType>, TType)
-  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_LessThan__1_IComparable___0____0_
-  commentId: M:AllOverIt.Extensions.ComparableExtensions.LessThan``1(IComparable{``0},``0)
+  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_LessThan__1_System_IComparable___0____0_
+  commentId: M:AllOverIt.Extensions.ComparableExtensions.LessThan``1(System.IComparable{``0},``0)
   name.vb: LessThan(Of TType)(IComparable(Of TType), TType)
-  fullName: AllOverIt.Extensions.ComparableExtensions.LessThan<TType>(IComparable<TType>, TType)
-  fullName.vb: AllOverIt.Extensions.ComparableExtensions.LessThan(Of TType)(IComparable(Of TType), TType)
+  fullName: AllOverIt.Extensions.ComparableExtensions.LessThan<TType>(System.IComparable<TType>, TType)
+  fullName.vb: AllOverIt.Extensions.ComparableExtensions.LessThan(Of TType)(System.IComparable(Of TType), TType)
   nameWithType: ComparableExtensions.LessThan<TType>(IComparable<TType>, TType)
   nameWithType.vb: ComparableExtensions.LessThan(Of TType)(IComparable(Of TType), TType)
 - uid: AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual*
@@ -1014,13 +1014,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual
   nameWithType: ComparableExtensions.LessThanOrEqual
-- uid: AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual``1(IComparable{``0},``0)
+- uid: AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual``1(System.IComparable{``0},``0)
   name: LessThanOrEqual<TType>(IComparable<TType>, TType)
-  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_LessThanOrEqual__1_IComparable___0____0_
-  commentId: M:AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual``1(IComparable{``0},``0)
+  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_LessThanOrEqual__1_System_IComparable___0____0_
+  commentId: M:AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual``1(System.IComparable{``0},``0)
   name.vb: LessThanOrEqual(Of TType)(IComparable(Of TType), TType)
-  fullName: AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual<TType>(IComparable<TType>, TType)
-  fullName.vb: AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual(Of TType)(IComparable(Of TType), TType)
+  fullName: AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual<TType>(System.IComparable<TType>, TType)
+  fullName.vb: AllOverIt.Extensions.ComparableExtensions.LessThanOrEqual(Of TType)(System.IComparable(Of TType), TType)
   nameWithType: ComparableExtensions.LessThanOrEqual<TType>(IComparable<TType>, TType)
   nameWithType.vb: ComparableExtensions.LessThanOrEqual(Of TType)(IComparable(Of TType), TType)
 - uid: AllOverIt.Extensions.ComparableExtensions.NotEqualTo*
@@ -1030,13 +1030,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ComparableExtensions.NotEqualTo
   nameWithType: ComparableExtensions.NotEqualTo
-- uid: AllOverIt.Extensions.ComparableExtensions.NotEqualTo``1(IComparable{``0},``0)
+- uid: AllOverIt.Extensions.ComparableExtensions.NotEqualTo``1(System.IComparable{``0},``0)
   name: NotEqualTo<TType>(IComparable<TType>, TType)
-  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_NotEqualTo__1_IComparable___0____0_
-  commentId: M:AllOverIt.Extensions.ComparableExtensions.NotEqualTo``1(IComparable{``0},``0)
+  href: api/AllOverIt.Extensions.ComparableExtensions.html#AllOverIt_Extensions_ComparableExtensions_NotEqualTo__1_System_IComparable___0____0_
+  commentId: M:AllOverIt.Extensions.ComparableExtensions.NotEqualTo``1(System.IComparable{``0},``0)
   name.vb: NotEqualTo(Of TType)(IComparable(Of TType), TType)
-  fullName: AllOverIt.Extensions.ComparableExtensions.NotEqualTo<TType>(IComparable<TType>, TType)
-  fullName.vb: AllOverIt.Extensions.ComparableExtensions.NotEqualTo(Of TType)(IComparable(Of TType), TType)
+  fullName: AllOverIt.Extensions.ComparableExtensions.NotEqualTo<TType>(System.IComparable<TType>, TType)
+  fullName.vb: AllOverIt.Extensions.ComparableExtensions.NotEqualTo(Of TType)(System.IComparable(Of TType), TType)
   nameWithType: ComparableExtensions.NotEqualTo<TType>(IComparable<TType>, TType)
   nameWithType.vb: ComparableExtensions.NotEqualTo(Of TType)(IComparable(Of TType), TType)
 - uid: AllOverIt.Extensions.DictionaryExtensions
@@ -1052,13 +1052,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.DictionaryExtensions.GetOrSet
   nameWithType: DictionaryExtensions.GetOrSet
-- uid: AllOverIt.Extensions.DictionaryExtensions.GetOrSet``2(IDictionary{``0,``1},``0,Func{``1})
+- uid: AllOverIt.Extensions.DictionaryExtensions.GetOrSet``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.Func{``1})
   name: GetOrSet<TKey, TValue>(IDictionary<TKey, TValue>, TKey, Func<TValue>)
-  href: api/AllOverIt.Extensions.DictionaryExtensions.html#AllOverIt_Extensions_DictionaryExtensions_GetOrSet__2_IDictionary___0___1____0_Func___1__
-  commentId: M:AllOverIt.Extensions.DictionaryExtensions.GetOrSet``2(IDictionary{``0,``1},``0,Func{``1})
+  href: api/AllOverIt.Extensions.DictionaryExtensions.html#AllOverIt_Extensions_DictionaryExtensions_GetOrSet__2_System_Collections_Generic_IDictionary___0___1____0_System_Func___1__
+  commentId: M:AllOverIt.Extensions.DictionaryExtensions.GetOrSet``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.Func{``1})
   name.vb: GetOrSet(Of TKey, TValue)(IDictionary(Of TKey, TValue), TKey, Func(Of TValue))
-  fullName: AllOverIt.Extensions.DictionaryExtensions.GetOrSet<TKey, TValue>(IDictionary<TKey, TValue>, TKey, Func<TValue>)
-  fullName.vb: AllOverIt.Extensions.DictionaryExtensions.GetOrSet(Of TKey, TValue)(IDictionary(Of TKey, TValue), TKey, Func(Of TValue))
+  fullName: AllOverIt.Extensions.DictionaryExtensions.GetOrSet<TKey, TValue>(System.Collections.Generic.IDictionary<TKey, TValue>, TKey, System.Func<TValue>)
+  fullName.vb: AllOverIt.Extensions.DictionaryExtensions.GetOrSet(Of TKey, TValue)(System.Collections.Generic.IDictionary(Of TKey, TValue), TKey, System.Func(Of TValue))
   nameWithType: DictionaryExtensions.GetOrSet<TKey, TValue>(IDictionary<TKey, TValue>, TKey, Func<TValue>)
   nameWithType.vb: DictionaryExtensions.GetOrSet(Of TKey, TValue)(IDictionary(Of TKey, TValue), TKey, Func(Of TValue))
 - uid: AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault*
@@ -1068,13 +1068,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault
   nameWithType: DictionaryExtensions.GetValueOrDefault
-- uid: AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault``2(IDictionary{``0,``1},``0,``1)
+- uid: AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)
   name: GetValueOrDefault<TKey, TValue>(IDictionary<TKey, TValue>, TKey, TValue)
-  href: api/AllOverIt.Extensions.DictionaryExtensions.html#AllOverIt_Extensions_DictionaryExtensions_GetValueOrDefault__2_IDictionary___0___1____0___1_
-  commentId: M:AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault``2(IDictionary{``0,``1},``0,``1)
+  href: api/AllOverIt.Extensions.DictionaryExtensions.html#AllOverIt_Extensions_DictionaryExtensions_GetValueOrDefault__2_System_Collections_Generic_IDictionary___0___1____0___1_
+  commentId: M:AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)
   name.vb: GetValueOrDefault(Of TKey, TValue)(IDictionary(Of TKey, TValue), TKey, TValue)
-  fullName: AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault<TKey, TValue>(IDictionary<TKey, TValue>, TKey, TValue)
-  fullName.vb: AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault(Of TKey, TValue)(IDictionary(Of TKey, TValue), TKey, TValue)
+  fullName: AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault<TKey, TValue>(System.Collections.Generic.IDictionary<TKey, TValue>, TKey, TValue)
+  fullName.vb: AllOverIt.Extensions.DictionaryExtensions.GetValueOrDefault(Of TKey, TValue)(System.Collections.Generic.IDictionary(Of TKey, TValue), TKey, TValue)
   nameWithType: DictionaryExtensions.GetValueOrDefault<TKey, TValue>(IDictionary<TKey, TValue>, TKey, TValue)
   nameWithType.vb: DictionaryExtensions.GetValueOrDefault(Of TKey, TValue)(IDictionary(Of TKey, TValue), TKey, TValue)
 - uid: AllOverIt.Extensions.DoubleExtensions
@@ -1122,13 +1122,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.EnumerableExtensions.AsList
   nameWithType: EnumerableExtensions.AsList
-- uid: AllOverIt.Extensions.EnumerableExtensions.AsList``1(IEnumerable{``0})
+- uid: AllOverIt.Extensions.EnumerableExtensions.AsList``1(System.Collections.Generic.IEnumerable{``0})
   name: AsList<TType>(IEnumerable<TType>)
-  href: api/AllOverIt.Extensions.EnumerableExtensions.html#AllOverIt_Extensions_EnumerableExtensions_AsList__1_IEnumerable___0__
-  commentId: M:AllOverIt.Extensions.EnumerableExtensions.AsList``1(IEnumerable{``0})
+  href: api/AllOverIt.Extensions.EnumerableExtensions.html#AllOverIt_Extensions_EnumerableExtensions_AsList__1_System_Collections_Generic_IEnumerable___0__
+  commentId: M:AllOverIt.Extensions.EnumerableExtensions.AsList``1(System.Collections.Generic.IEnumerable{``0})
   name.vb: AsList(Of TType)(IEnumerable(Of TType))
-  fullName: AllOverIt.Extensions.EnumerableExtensions.AsList<TType>(IEnumerable<TType>)
-  fullName.vb: AllOverIt.Extensions.EnumerableExtensions.AsList(Of TType)(IEnumerable(Of TType))
+  fullName: AllOverIt.Extensions.EnumerableExtensions.AsList<TType>(System.Collections.Generic.IEnumerable<TType>)
+  fullName.vb: AllOverIt.Extensions.EnumerableExtensions.AsList(Of TType)(System.Collections.Generic.IEnumerable(Of TType))
   nameWithType: EnumerableExtensions.AsList<TType>(IEnumerable<TType>)
   nameWithType.vb: EnumerableExtensions.AsList(Of TType)(IEnumerable(Of TType))
 - uid: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList*
@@ -1138,13 +1138,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList
   nameWithType: EnumerableExtensions.AsReadOnlyList
-- uid: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList``1(IEnumerable{``0})
+- uid: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList``1(System.Collections.Generic.IEnumerable{``0})
   name: AsReadOnlyList<TType>(IEnumerable<TType>)
-  href: api/AllOverIt.Extensions.EnumerableExtensions.html#AllOverIt_Extensions_EnumerableExtensions_AsReadOnlyList__1_IEnumerable___0__
-  commentId: M:AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList``1(IEnumerable{``0})
+  href: api/AllOverIt.Extensions.EnumerableExtensions.html#AllOverIt_Extensions_EnumerableExtensions_AsReadOnlyList__1_System_Collections_Generic_IEnumerable___0__
+  commentId: M:AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList``1(System.Collections.Generic.IEnumerable{``0})
   name.vb: AsReadOnlyList(Of TType)(IEnumerable(Of TType))
-  fullName: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList<TType>(IEnumerable<TType>)
-  fullName.vb: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList(Of TType)(IEnumerable(Of TType))
+  fullName: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList<TType>(System.Collections.Generic.IEnumerable<TType>)
+  fullName.vb: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList(Of TType)(System.Collections.Generic.IEnumerable(Of TType))
   nameWithType: EnumerableExtensions.AsReadOnlyList<TType>(IEnumerable<TType>)
   nameWithType.vb: EnumerableExtensions.AsReadOnlyList(Of TType)(IEnumerable(Of TType))
 - uid: AllOverIt.Extensions.ExpressionExtensions
@@ -1153,11 +1153,11 @@ references:
   commentId: T:AllOverIt.Extensions.ExpressionExtensions
   fullName: AllOverIt.Extensions.ExpressionExtensions
   nameWithType: ExpressionExtensions
-- uid: AllOverIt.Extensions.ExpressionExtensions.GetValue(Expression)
+- uid: AllOverIt.Extensions.ExpressionExtensions.GetValue(System.Linq.Expressions.Expression)
   name: GetValue(Expression)
-  href: api/AllOverIt.Extensions.ExpressionExtensions.html#AllOverIt_Extensions_ExpressionExtensions_GetValue_Expression_
-  commentId: M:AllOverIt.Extensions.ExpressionExtensions.GetValue(Expression)
-  fullName: AllOverIt.Extensions.ExpressionExtensions.GetValue(Expression)
+  href: api/AllOverIt.Extensions.ExpressionExtensions.html#AllOverIt_Extensions_ExpressionExtensions_GetValue_System_Linq_Expressions_Expression_
+  commentId: M:AllOverIt.Extensions.ExpressionExtensions.GetValue(System.Linq.Expressions.Expression)
+  fullName: AllOverIt.Extensions.ExpressionExtensions.GetValue(System.Linq.Expressions.Expression)
   nameWithType: ExpressionExtensions.GetValue(Expression)
 - uid: AllOverIt.Extensions.ExpressionExtensions.GetValue*
   name: GetValue
@@ -1166,13 +1166,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ExpressionExtensions.GetValue
   nameWithType: ExpressionExtensions.GetValue
-- uid: AllOverIt.Extensions.ExpressionExtensions.GetValues(IEnumerable{Expression})
+- uid: AllOverIt.Extensions.ExpressionExtensions.GetValues(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})
   name: GetValues(IEnumerable<Expression>)
-  href: api/AllOverIt.Extensions.ExpressionExtensions.html#AllOverIt_Extensions_ExpressionExtensions_GetValues_IEnumerable_Expression__
-  commentId: M:AllOverIt.Extensions.ExpressionExtensions.GetValues(IEnumerable{Expression})
+  href: api/AllOverIt.Extensions.ExpressionExtensions.html#AllOverIt_Extensions_ExpressionExtensions_GetValues_System_Collections_Generic_IEnumerable_System_Linq_Expressions_Expression__
+  commentId: M:AllOverIt.Extensions.ExpressionExtensions.GetValues(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})
   name.vb: GetValues(IEnumerable(Of Expression))
-  fullName: AllOverIt.Extensions.ExpressionExtensions.GetValues(IEnumerable<Expression>)
-  fullName.vb: AllOverIt.Extensions.ExpressionExtensions.GetValues(IEnumerable(Of Expression))
+  fullName: AllOverIt.Extensions.ExpressionExtensions.GetValues(System.Collections.Generic.IEnumerable<System.Linq.Expressions.Expression>)
+  fullName.vb: AllOverIt.Extensions.ExpressionExtensions.GetValues(System.Collections.Generic.IEnumerable(Of System.Linq.Expressions.Expression))
   nameWithType: ExpressionExtensions.GetValues(IEnumerable<Expression>)
   nameWithType.vb: ExpressionExtensions.GetValues(IEnumerable(Of Expression))
 - uid: AllOverIt.Extensions.ExpressionExtensions.GetValues*
@@ -1182,6 +1182,19 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ExpressionExtensions.GetValues
   nameWithType: ExpressionExtensions.GetValues
+- uid: AllOverIt.Extensions.ExpressionExtensions.RemoveUnary(System.Linq.Expressions.Expression)
+  name: RemoveUnary(Expression)
+  href: api/AllOverIt.Extensions.ExpressionExtensions.html#AllOverIt_Extensions_ExpressionExtensions_RemoveUnary_System_Linq_Expressions_Expression_
+  commentId: M:AllOverIt.Extensions.ExpressionExtensions.RemoveUnary(System.Linq.Expressions.Expression)
+  fullName: AllOverIt.Extensions.ExpressionExtensions.RemoveUnary(System.Linq.Expressions.Expression)
+  nameWithType: ExpressionExtensions.RemoveUnary(Expression)
+- uid: AllOverIt.Extensions.ExpressionExtensions.RemoveUnary*
+  name: RemoveUnary
+  href: api/AllOverIt.Extensions.ExpressionExtensions.html#AllOverIt_Extensions_ExpressionExtensions_RemoveUnary_
+  commentId: Overload:AllOverIt.Extensions.ExpressionExtensions.RemoveUnary
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.ExpressionExtensions.RemoveUnary
+  nameWithType: ExpressionExtensions.RemoveUnary
 - uid: AllOverIt.Extensions.ObjectExtensions
   name: ObjectExtensions
   href: api/AllOverIt.Extensions.ObjectExtensions.html
@@ -1227,24 +1240,24 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode
   nameWithType: ObjectExtensions.CalculateHashCode
-- uid: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,Func{``0,System.Object}[])
-  name: CalculateHashCode<TType>(TType, Func<TType, Object>[])
-  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_Func___0_System_Object____
-  commentId: M:AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,Func{``0,System.Object}[])
-  name.vb: CalculateHashCode(Of TType)(TType, Func(Of TType, Object)())
-  fullName: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode<TType>(TType, Func<TType, System.Object>[])
-  fullName.vb: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode(Of TType)(TType, Func(Of TType, System.Object)())
-  nameWithType: ObjectExtensions.CalculateHashCode<TType>(TType, Func<TType, Object>[])
-  nameWithType.vb: ObjectExtensions.CalculateHashCode(Of TType)(TType, Func(Of TType, Object)())
-- uid: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,IEnumerable{System.String},IEnumerable{System.String})
+- uid: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})
   name: CalculateHashCode<TType>(TType, IEnumerable<String>, IEnumerable<String>)
-  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_IEnumerable_System_String__IEnumerable_System_String__
-  commentId: M:AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,IEnumerable{System.String},IEnumerable{System.String})
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String__
+  commentId: M:AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})
   name.vb: CalculateHashCode(Of TType)(TType, IEnumerable(Of String), IEnumerable(Of String))
-  fullName: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode<TType>(TType, IEnumerable<System.String>, IEnumerable<System.String>)
-  fullName.vb: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode(Of TType)(TType, IEnumerable(Of System.String), IEnumerable(Of System.String))
+  fullName: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode<TType>(TType, System.Collections.Generic.IEnumerable<System.String>, System.Collections.Generic.IEnumerable<System.String>)
+  fullName.vb: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode(Of TType)(TType, System.Collections.Generic.IEnumerable(Of System.String), System.Collections.Generic.IEnumerable(Of System.String))
   nameWithType: ObjectExtensions.CalculateHashCode<TType>(TType, IEnumerable<String>, IEnumerable<String>)
   nameWithType.vb: ObjectExtensions.CalculateHashCode(Of TType)(TType, IEnumerable(Of String), IEnumerable(Of String))
+- uid: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,System.Func{``0,System.Object}[])
+  name: CalculateHashCode<TType>(TType, Func<TType, Object>[])
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Func___0_System_Object____
+  commentId: M:AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,System.Func{``0,System.Object}[])
+  name.vb: CalculateHashCode(Of TType)(TType, Func(Of TType, Object)())
+  fullName: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode<TType>(TType, System.Func<TType, System.Object>[])
+  fullName.vb: AllOverIt.Extensions.ObjectExtensions.CalculateHashCode(Of TType)(TType, System.Func(Of TType, System.Object)())
+  nameWithType: ObjectExtensions.CalculateHashCode<TType>(TType, Func<TType, Object>[])
+  nameWithType.vb: ObjectExtensions.CalculateHashCode(Of TType)(TType, Func(Of TType, Object)())
 - uid: AllOverIt.Extensions.ObjectExtensions.DefaultHashCodeBindings
   name: DefaultHashCodeBindings
   href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_DefaultHashCodeBindings
@@ -1290,11 +1303,11 @@ references:
   commentId: T:AllOverIt.Extensions.PropertyInfoExtensions
   fullName: AllOverIt.Extensions.PropertyInfoExtensions
   nameWithType: PropertyInfoExtensions
-- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsAbstract(PropertyInfo)
+- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsAbstract(System.Reflection.PropertyInfo)
   name: IsAbstract(PropertyInfo)
-  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsAbstract_PropertyInfo_
-  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsAbstract(PropertyInfo)
-  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsAbstract(PropertyInfo)
+  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsAbstract_System_Reflection_PropertyInfo_
+  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsAbstract(System.Reflection.PropertyInfo)
+  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsAbstract(System.Reflection.PropertyInfo)
   nameWithType: PropertyInfoExtensions.IsAbstract(PropertyInfo)
 - uid: AllOverIt.Extensions.PropertyInfoExtensions.IsAbstract*
   name: IsAbstract
@@ -1303,11 +1316,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsAbstract
   nameWithType: PropertyInfoExtensions.IsAbstract
-- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsInternal(PropertyInfo)
+- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsInternal(System.Reflection.PropertyInfo)
   name: IsInternal(PropertyInfo)
-  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsInternal_PropertyInfo_
-  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsInternal(PropertyInfo)
-  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsInternal(PropertyInfo)
+  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsInternal_System_Reflection_PropertyInfo_
+  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsInternal(System.Reflection.PropertyInfo)
+  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsInternal(System.Reflection.PropertyInfo)
   nameWithType: PropertyInfoExtensions.IsInternal(PropertyInfo)
 - uid: AllOverIt.Extensions.PropertyInfoExtensions.IsInternal*
   name: IsInternal
@@ -1316,11 +1329,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsInternal
   nameWithType: PropertyInfoExtensions.IsInternal
-- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsPrivate(PropertyInfo)
+- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsPrivate(System.Reflection.PropertyInfo)
   name: IsPrivate(PropertyInfo)
-  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsPrivate_PropertyInfo_
-  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsPrivate(PropertyInfo)
-  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsPrivate(PropertyInfo)
+  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsPrivate_System_Reflection_PropertyInfo_
+  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsPrivate(System.Reflection.PropertyInfo)
+  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsPrivate(System.Reflection.PropertyInfo)
   nameWithType: PropertyInfoExtensions.IsPrivate(PropertyInfo)
 - uid: AllOverIt.Extensions.PropertyInfoExtensions.IsPrivate*
   name: IsPrivate
@@ -1329,11 +1342,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsPrivate
   nameWithType: PropertyInfoExtensions.IsPrivate
-- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsProtected(PropertyInfo)
+- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsProtected(System.Reflection.PropertyInfo)
   name: IsProtected(PropertyInfo)
-  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsProtected_PropertyInfo_
-  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsProtected(PropertyInfo)
-  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsProtected(PropertyInfo)
+  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsProtected_System_Reflection_PropertyInfo_
+  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsProtected(System.Reflection.PropertyInfo)
+  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsProtected(System.Reflection.PropertyInfo)
   nameWithType: PropertyInfoExtensions.IsProtected(PropertyInfo)
 - uid: AllOverIt.Extensions.PropertyInfoExtensions.IsProtected*
   name: IsProtected
@@ -1342,11 +1355,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsProtected
   nameWithType: PropertyInfoExtensions.IsProtected
-- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsPublic(PropertyInfo)
+- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsPublic(System.Reflection.PropertyInfo)
   name: IsPublic(PropertyInfo)
-  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsPublic_PropertyInfo_
-  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsPublic(PropertyInfo)
-  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsPublic(PropertyInfo)
+  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsPublic_System_Reflection_PropertyInfo_
+  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsPublic(System.Reflection.PropertyInfo)
+  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsPublic(System.Reflection.PropertyInfo)
   nameWithType: PropertyInfoExtensions.IsPublic(PropertyInfo)
 - uid: AllOverIt.Extensions.PropertyInfoExtensions.IsPublic*
   name: IsPublic
@@ -1355,11 +1368,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsPublic
   nameWithType: PropertyInfoExtensions.IsPublic
-- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsStatic(PropertyInfo)
+- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsStatic(System.Reflection.PropertyInfo)
   name: IsStatic(PropertyInfo)
-  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsStatic_PropertyInfo_
-  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsStatic(PropertyInfo)
-  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsStatic(PropertyInfo)
+  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsStatic_System_Reflection_PropertyInfo_
+  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsStatic(System.Reflection.PropertyInfo)
+  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsStatic(System.Reflection.PropertyInfo)
   nameWithType: PropertyInfoExtensions.IsStatic(PropertyInfo)
 - uid: AllOverIt.Extensions.PropertyInfoExtensions.IsStatic*
   name: IsStatic
@@ -1368,11 +1381,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsStatic
   nameWithType: PropertyInfoExtensions.IsStatic
-- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsVirtual(PropertyInfo)
+- uid: AllOverIt.Extensions.PropertyInfoExtensions.IsVirtual(System.Reflection.PropertyInfo)
   name: IsVirtual(PropertyInfo)
-  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsVirtual_PropertyInfo_
-  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsVirtual(PropertyInfo)
-  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsVirtual(PropertyInfo)
+  href: api/AllOverIt.Extensions.PropertyInfoExtensions.html#AllOverIt_Extensions_PropertyInfoExtensions_IsVirtual_System_Reflection_PropertyInfo_
+  commentId: M:AllOverIt.Extensions.PropertyInfoExtensions.IsVirtual(System.Reflection.PropertyInfo)
+  fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsVirtual(System.Reflection.PropertyInfo)
   nameWithType: PropertyInfoExtensions.IsVirtual(PropertyInfo)
 - uid: AllOverIt.Extensions.PropertyInfoExtensions.IsVirtual*
   name: IsVirtual
@@ -1425,13 +1438,13 @@ references:
   commentId: T:AllOverIt.Extensions.TaskEx
   fullName: AllOverIt.Extensions.TaskEx
   nameWithType: TaskEx
-- uid: AllOverIt.Extensions.TaskEx.SafeFireAndForget(Task,System.Boolean,Action{Exception})
+- uid: AllOverIt.Extensions.TaskEx.SafeFireAndForget(System.Threading.Tasks.Task,System.Boolean,System.Action{System.Exception})
   name: SafeFireAndForget(Task, Boolean, Action<Exception>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_SafeFireAndForget_Task_System_Boolean_Action_Exception__
-  commentId: M:AllOverIt.Extensions.TaskEx.SafeFireAndForget(Task,System.Boolean,Action{Exception})
+  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_SafeFireAndForget_System_Threading_Tasks_Task_System_Boolean_System_Action_System_Exception__
+  commentId: M:AllOverIt.Extensions.TaskEx.SafeFireAndForget(System.Threading.Tasks.Task,System.Boolean,System.Action{System.Exception})
   name.vb: SafeFireAndForget(Task, Boolean, Action(Of Exception))
-  fullName: AllOverIt.Extensions.TaskEx.SafeFireAndForget(Task, System.Boolean, Action<Exception>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.SafeFireAndForget(Task, System.Boolean, Action(Of Exception))
+  fullName: AllOverIt.Extensions.TaskEx.SafeFireAndForget(System.Threading.Tasks.Task, System.Boolean, System.Action<System.Exception>)
+  fullName.vb: AllOverIt.Extensions.TaskEx.SafeFireAndForget(System.Threading.Tasks.Task, System.Boolean, System.Action(Of System.Exception))
   nameWithType: TaskEx.SafeFireAndForget(Task, Boolean, Action<Exception>)
   nameWithType.vb: TaskEx.SafeFireAndForget(Task, Boolean, Action(Of Exception))
 - uid: AllOverIt.Extensions.TaskEx.SafeFireAndForget*
@@ -1441,13 +1454,13 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TaskEx.SafeFireAndForget
   nameWithType: TaskEx.SafeFireAndForget
-- uid: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(Action{Exception})
+- uid: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(System.Action{System.Exception})
   name: SetDefaultExceptionHandler(Action<Exception>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_SetDefaultExceptionHandler_Action_Exception__
-  commentId: M:AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(Action{Exception})
+  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_SetDefaultExceptionHandler_System_Action_System_Exception__
+  commentId: M:AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(System.Action{System.Exception})
   name.vb: SetDefaultExceptionHandler(Action(Of Exception))
-  fullName: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(Action<Exception>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(Action(Of Exception))
+  fullName: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(System.Action<System.Exception>)
+  fullName.vb: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(System.Action(Of System.Exception))
   nameWithType: TaskEx.SetDefaultExceptionHandler(Action<Exception>)
   nameWithType.vb: TaskEx.SetDefaultExceptionHandler(Action(Of Exception))
 - uid: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler*
@@ -1464,40 +1477,40 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TaskEx.WhenAll
   nameWithType: TaskEx.WhenAll
-- uid: AllOverIt.Extensions.TaskEx.WhenAll``2(Task{``0},Task{``1})
+- uid: AllOverIt.Extensions.TaskEx.WhenAll``2(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1})
   name: WhenAll<T1, T2>(Task<T1>, Task<T2>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__2_Task___0__Task___1__
-  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``2(Task{``0},Task{``1})
+  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__2_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__
+  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``2(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1})
   name.vb: WhenAll(Of T1, T2)(Task(Of T1), Task(Of T2))
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2>(Task<T1>, Task<T2>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2)(Task(Of T1), Task(Of T2))
+  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>)
+  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2))
   nameWithType: TaskEx.WhenAll<T1, T2>(Task<T1>, Task<T2>)
   nameWithType.vb: TaskEx.WhenAll(Of T1, T2)(Task(Of T1), Task(Of T2))
-- uid: AllOverIt.Extensions.TaskEx.WhenAll``3(Task{``0},Task{``1},Task{``2})
+- uid: AllOverIt.Extensions.TaskEx.WhenAll``3(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2})
   name: WhenAll<T1, T2, T3>(Task<T1>, Task<T2>, Task<T3>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__3_Task___0__Task___1__Task___2__
-  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``3(Task{``0},Task{``1},Task{``2})
+  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__3_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__
+  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``3(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2})
   name.vb: WhenAll(Of T1, T2, T3)(Task(Of T1), Task(Of T2), Task(Of T3))
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3>(Task<T1>, Task<T2>, Task<T3>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3)(Task(Of T1), Task(Of T2), Task(Of T3))
+  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>)
+  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3))
   nameWithType: TaskEx.WhenAll<T1, T2, T3>(Task<T1>, Task<T2>, Task<T3>)
   nameWithType.vb: TaskEx.WhenAll(Of T1, T2, T3)(Task(Of T1), Task(Of T2), Task(Of T3))
-- uid: AllOverIt.Extensions.TaskEx.WhenAll``4(Task{``0},Task{``1},Task{``2},Task{``3})
+- uid: AllOverIt.Extensions.TaskEx.WhenAll``4(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3})
   name: WhenAll<T1, T2, T3, T4>(Task<T1>, Task<T2>, Task<T3>, Task<T4>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__4_Task___0__Task___1__Task___2__Task___3__
-  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``4(Task{``0},Task{``1},Task{``2},Task{``3})
+  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__4_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__System_Threading_Tasks_Task___3__
+  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``4(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3})
   name.vb: WhenAll(Of T1, T2, T3, T4)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4))
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3, T4>(Task<T1>, Task<T2>, Task<T3>, Task<T4>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3, T4)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4))
+  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3, T4>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>, System.Threading.Tasks.Task<T4>)
+  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3, T4)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3), System.Threading.Tasks.Task(Of T4))
   nameWithType: TaskEx.WhenAll<T1, T2, T3, T4>(Task<T1>, Task<T2>, Task<T3>, Task<T4>)
   nameWithType.vb: TaskEx.WhenAll(Of T1, T2, T3, T4)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4))
-- uid: AllOverIt.Extensions.TaskEx.WhenAll``5(Task{``0},Task{``1},Task{``2},Task{``3},Task{``4})
+- uid: AllOverIt.Extensions.TaskEx.WhenAll``5(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3},System.Threading.Tasks.Task{``4})
   name: WhenAll<T1, T2, T3, T4, T5>(Task<T1>, Task<T2>, Task<T3>, Task<T4>, Task<T5>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__5_Task___0__Task___1__Task___2__Task___3__Task___4__
-  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``5(Task{``0},Task{``1},Task{``2},Task{``3},Task{``4})
+  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__5_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__System_Threading_Tasks_Task___3__System_Threading_Tasks_Task___4__
+  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``5(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3},System.Threading.Tasks.Task{``4})
   name.vb: WhenAll(Of T1, T2, T3, T4, T5)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4), Task(Of T5))
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3, T4, T5>(Task<T1>, Task<T2>, Task<T3>, Task<T4>, Task<T5>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3, T4, T5)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4), Task(Of T5))
+  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3, T4, T5>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>, System.Threading.Tasks.Task<T4>, System.Threading.Tasks.Task<T5>)
+  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3, T4, T5)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3), System.Threading.Tasks.Task(Of T4), System.Threading.Tasks.Task(Of T5))
   nameWithType: TaskEx.WhenAll<T1, T2, T3, T4, T5>(Task<T1>, Task<T2>, Task<T3>, Task<T4>, Task<T5>)
   nameWithType.vb: TaskEx.WhenAll(Of T1, T2, T3, T4, T5)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4), Task(Of T5))
 - uid: AllOverIt.Extensions.TypeExtensions
@@ -1506,11 +1519,11 @@ references:
   commentId: T:AllOverIt.Extensions.TypeExtensions
   fullName: AllOverIt.Extensions.TypeExtensions
   nameWithType: TypeExtensions
-- uid: AllOverIt.Extensions.TypeExtensions.GetFriendlyName(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.GetFriendlyName(System.Type)
   name: GetFriendlyName(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetFriendlyName_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.GetFriendlyName(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.GetFriendlyName(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetFriendlyName_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetFriendlyName(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetFriendlyName(System.Type)
   nameWithType: TypeExtensions.GetFriendlyName(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.GetFriendlyName*
   name: GetFriendlyName
@@ -1519,11 +1532,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.GetFriendlyName
   nameWithType: TypeExtensions.GetFriendlyName
-- uid: AllOverIt.Extensions.TypeExtensions.GetGenericArguments(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.GetGenericArguments(System.Type)
   name: GetGenericArguments(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetGenericArguments_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.GetGenericArguments(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.GetGenericArguments(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetGenericArguments_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetGenericArguments(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetGenericArguments(System.Type)
   nameWithType: TypeExtensions.GetGenericArguments(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.GetGenericArguments*
   name: GetGenericArguments
@@ -1532,11 +1545,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.GetGenericArguments
   nameWithType: TypeExtensions.GetGenericArguments
-- uid: AllOverIt.Extensions.TypeExtensions.GetMethods(Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
+- uid: AllOverIt.Extensions.TypeExtensions.GetMethods(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
   name: GetMethods(Type, BindingOptions, Boolean)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethods_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.GetMethods(Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
-  fullName: AllOverIt.Extensions.TypeExtensions.GetMethods(Type, AllOverIt.Bindings.BindingOptions, System.Boolean)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethods_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetMethods(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetMethods(System.Type, AllOverIt.Bindings.BindingOptions, System.Boolean)
   nameWithType: TypeExtensions.GetMethods(Type, BindingOptions, Boolean)
 - uid: AllOverIt.Extensions.TypeExtensions.GetMethods*
   name: GetMethods
@@ -1545,17 +1558,17 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.GetMethods
   nameWithType: TypeExtensions.GetMethods
-- uid: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
+- uid: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
   name: GetPropertyInfo(Type, BindingOptions, Boolean)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
-  fullName: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(Type, AllOverIt.Bindings.BindingOptions, System.Boolean)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type, AllOverIt.Bindings.BindingOptions, System.Boolean)
   nameWithType: TypeExtensions.GetPropertyInfo(Type, BindingOptions, Boolean)
-- uid: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(Type,System.String)
+- uid: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,System.String)
   name: GetPropertyInfo(Type, String)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_Type_System_String_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(Type,System.String)
-  fullName: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(Type, System.String)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_System_String_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,System.String)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type, System.String)
   nameWithType: TypeExtensions.GetPropertyInfo(Type, String)
 - uid: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo*
   name: GetPropertyInfo
@@ -1564,11 +1577,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo
   nameWithType: TypeExtensions.GetPropertyInfo
-- uid: AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(Type,Type)
+- uid: AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(System.Type,System.Type)
   name: IsAssignableFromType(Type, Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsAssignableFromType_Type_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(Type,Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(Type, Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsAssignableFromType_System_Type_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(System.Type,System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(System.Type, System.Type)
   nameWithType: TypeExtensions.IsAssignableFromType(Type, Type)
 - uid: AllOverIt.Extensions.TypeExtensions.IsAssignableFromType*
   name: IsAssignableFromType
@@ -1577,11 +1590,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.IsAssignableFromType
   nameWithType: TypeExtensions.IsAssignableFromType
-- uid: AllOverIt.Extensions.TypeExtensions.IsClassType(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.IsClassType(System.Type)
   name: IsClassType(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsClassType_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsClassType(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsClassType(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsClassType_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsClassType(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsClassType(System.Type)
   nameWithType: TypeExtensions.IsClassType(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.IsClassType*
   name: IsClassType
@@ -1590,11 +1603,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.IsClassType
   nameWithType: TypeExtensions.IsClassType
-- uid: AllOverIt.Extensions.TypeExtensions.IsEnumerableType(Type,System.Boolean)
+- uid: AllOverIt.Extensions.TypeExtensions.IsEnumerableType(System.Type,System.Boolean)
   name: IsEnumerableType(Type, Boolean)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsEnumerableType_Type_System_Boolean_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsEnumerableType(Type,System.Boolean)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsEnumerableType(Type, System.Boolean)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsEnumerableType_System_Type_System_Boolean_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsEnumerableType(System.Type,System.Boolean)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsEnumerableType(System.Type, System.Boolean)
   nameWithType: TypeExtensions.IsEnumerableType(Type, Boolean)
 - uid: AllOverIt.Extensions.TypeExtensions.IsEnumerableType*
   name: IsEnumerableType
@@ -1603,11 +1616,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.IsEnumerableType
   nameWithType: TypeExtensions.IsEnumerableType
-- uid: AllOverIt.Extensions.TypeExtensions.IsEnumType(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.IsEnumType(System.Type)
   name: IsEnumType(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsEnumType_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsEnumType(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsEnumType(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsEnumType_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsEnumType(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsEnumType(System.Type)
   nameWithType: TypeExtensions.IsEnumType(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.IsEnumType*
   name: IsEnumType
@@ -1616,11 +1629,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.IsEnumType
   nameWithType: TypeExtensions.IsEnumType
-- uid: AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(System.Type)
   name: IsGenericEnumerableType(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsGenericEnumerableType_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsGenericEnumerableType_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(System.Type)
   nameWithType: TypeExtensions.IsGenericEnumerableType(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType*
   name: IsGenericEnumerableType
@@ -1629,11 +1642,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType
   nameWithType: TypeExtensions.IsGenericEnumerableType
-- uid: AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(System.Type)
   name: IsGenericNullableType(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsGenericNullableType_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsGenericNullableType_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(System.Type)
   nameWithType: TypeExtensions.IsGenericNullableType(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.IsGenericNullableType*
   name: IsGenericNullableType
@@ -1642,11 +1655,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.IsGenericNullableType
   nameWithType: TypeExtensions.IsGenericNullableType
-- uid: AllOverIt.Extensions.TypeExtensions.IsGenericType(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.IsGenericType(System.Type)
   name: IsGenericType(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsGenericType_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsGenericType(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsGenericType(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsGenericType_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsGenericType(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsGenericType(System.Type)
   nameWithType: TypeExtensions.IsGenericType(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.IsGenericType*
   name: IsGenericType
@@ -1655,11 +1668,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.IsGenericType
   nameWithType: TypeExtensions.IsGenericType
-- uid: AllOverIt.Extensions.TypeExtensions.IsIntegralType(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.IsIntegralType(System.Type)
   name: IsIntegralType(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsIntegralType_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsIntegralType(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsIntegralType(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsIntegralType_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsIntegralType(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsIntegralType(System.Type)
   nameWithType: TypeExtensions.IsIntegralType(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.IsIntegralType*
   name: IsIntegralType
@@ -1668,11 +1681,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.IsIntegralType
   nameWithType: TypeExtensions.IsIntegralType
-- uid: AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(Type)
+- uid: AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(System.Type)
   name: IsPrimitiveType(Type)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsPrimitiveType_Type_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(Type)
-  fullName: AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(Type)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_IsPrimitiveType_System_Type_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(System.Type)
+  fullName: AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(System.Type)
   nameWithType: TypeExtensions.IsPrimitiveType(Type)
 - uid: AllOverIt.Extensions.TypeExtensions.IsPrimitiveType*
   name: IsPrimitiveType
@@ -1687,17 +1700,17 @@ references:
   commentId: T:AllOverIt.Extensions.TypeInfoExtensions
   fullName: AllOverIt.Extensions.TypeInfoExtensions
   nameWithType: TypeInfoExtensions
-- uid: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(TypeInfo,System.Boolean)
+- uid: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo,System.Boolean)
   name: GetPropertyInfo(TypeInfo, Boolean)
-  href: api/AllOverIt.Extensions.TypeInfoExtensions.html#AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_TypeInfo_System_Boolean_
-  commentId: M:AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(TypeInfo,System.Boolean)
-  fullName: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(TypeInfo, System.Boolean)
+  href: api/AllOverIt.Extensions.TypeInfoExtensions.html#AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_Boolean_
+  commentId: M:AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo,System.Boolean)
+  fullName: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo, System.Boolean)
   nameWithType: TypeInfoExtensions.GetPropertyInfo(TypeInfo, Boolean)
-- uid: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(TypeInfo,System.String)
+- uid: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo,System.String)
   name: GetPropertyInfo(TypeInfo, String)
-  href: api/AllOverIt.Extensions.TypeInfoExtensions.html#AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_TypeInfo_System_String_
-  commentId: M:AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(TypeInfo,System.String)
-  fullName: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(TypeInfo, System.String)
+  href: api/AllOverIt.Extensions.TypeInfoExtensions.html#AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_String_
+  commentId: M:AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo,System.String)
+  fullName: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo, System.String)
   nameWithType: TypeInfoExtensions.GetPropertyInfo(TypeInfo, String)
 - uid: AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo*
   name: GetPropertyInfo
@@ -1712,6 +1725,59 @@ references:
   commentId: N:AllOverIt.Helpers
   fullName: AllOverIt.Helpers
   nameWithType: AllOverIt.Helpers
+- uid: AllOverIt.Helpers.AsyncLazy`1
+  name: AsyncLazy<TType>
+  href: api/AllOverIt.Helpers.AsyncLazy-1.html
+  commentId: T:AllOverIt.Helpers.AsyncLazy`1
+  name.vb: AsyncLazy(Of TType)
+  fullName: AllOverIt.Helpers.AsyncLazy<TType>
+  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType)
+  nameWithType: AsyncLazy<TType>
+  nameWithType.vb: AsyncLazy(Of TType)
+- uid: AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{`0})
+  name: AsyncLazy(Func<TType>)
+  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1__ctor_System_Func__0__
+  commentId: M:AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{`0})
+  name.vb: AsyncLazy(Func(Of TType))
+  fullName: AllOverIt.Helpers.AsyncLazy<TType>.AsyncLazy(System.Func<TType>)
+  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).AsyncLazy(System.Func(Of TType))
+  nameWithType: AsyncLazy<TType>.AsyncLazy(Func<TType>)
+  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy(Func(Of TType))
+- uid: AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{System.Threading.Tasks.Task{`0}})
+  name: AsyncLazy(Func<Task<TType>>)
+  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1__ctor_System_Func_System_Threading_Tasks_Task__0___
+  commentId: M:AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{System.Threading.Tasks.Task{`0}})
+  name.vb: AsyncLazy(Func(Of Task(Of TType)))
+  fullName: AllOverIt.Helpers.AsyncLazy<TType>.AsyncLazy(System.Func<System.Threading.Tasks.Task<TType>>)
+  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).AsyncLazy(System.Func(Of System.Threading.Tasks.Task(Of TType)))
+  nameWithType: AsyncLazy<TType>.AsyncLazy(Func<Task<TType>>)
+  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy(Func(Of Task(Of TType)))
+- uid: AllOverIt.Helpers.AsyncLazy`1.#ctor*
+  name: AsyncLazy
+  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1__ctor_
+  commentId: Overload:AllOverIt.Helpers.AsyncLazy`1.#ctor
+  isSpec: "True"
+  fullName: AllOverIt.Helpers.AsyncLazy<TType>.AsyncLazy
+  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).AsyncLazy
+  nameWithType: AsyncLazy<TType>.AsyncLazy
+  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy
+- uid: AllOverIt.Helpers.AsyncLazy`1.GetAwaiter
+  name: GetAwaiter()
+  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1_GetAwaiter
+  commentId: M:AllOverIt.Helpers.AsyncLazy`1.GetAwaiter
+  fullName: AllOverIt.Helpers.AsyncLazy<TType>.GetAwaiter()
+  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).GetAwaiter()
+  nameWithType: AsyncLazy<TType>.GetAwaiter()
+  nameWithType.vb: AsyncLazy(Of TType).GetAwaiter()
+- uid: AllOverIt.Helpers.AsyncLazy`1.GetAwaiter*
+  name: GetAwaiter
+  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1_GetAwaiter_
+  commentId: Overload:AllOverIt.Helpers.AsyncLazy`1.GetAwaiter
+  isSpec: "True"
+  fullName: AllOverIt.Helpers.AsyncLazy<TType>.GetAwaiter
+  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).GetAwaiter
+  nameWithType: AsyncLazy<TType>.GetAwaiter
+  nameWithType.vb: AsyncLazy(Of TType).GetAwaiter
 - uid: AllOverIt.Helpers.EnumHelper
   name: EnumHelper
   href: api/AllOverIt.Helpers.EnumHelper.html
@@ -1740,11 +1806,11 @@ references:
   commentId: T:AllOverIt.Helpers.Raii
   fullName: AllOverIt.Helpers.Raii
   nameWithType: Raii
-- uid: AllOverIt.Helpers.Raii.#ctor(Action,Action)
+- uid: AllOverIt.Helpers.Raii.#ctor(System.Action,System.Action)
   name: Raii(Action, Action)
-  href: api/AllOverIt.Helpers.Raii.html#AllOverIt_Helpers_Raii__ctor_Action_Action_
-  commentId: M:AllOverIt.Helpers.Raii.#ctor(Action,Action)
-  fullName: AllOverIt.Helpers.Raii.Raii(Action, Action)
+  href: api/AllOverIt.Helpers.Raii.html#AllOverIt_Helpers_Raii__ctor_System_Action_System_Action_
+  commentId: M:AllOverIt.Helpers.Raii.#ctor(System.Action,System.Action)
+  fullName: AllOverIt.Helpers.Raii.Raii(System.Action, System.Action)
   nameWithType: Raii.Raii(Action, Action)
 - uid: AllOverIt.Helpers.Raii.#ctor*
   name: Raii
@@ -1781,13 +1847,13 @@ references:
   fullName.vb: AllOverIt.Helpers.Raii(Of TType)
   nameWithType: Raii<TType>
   nameWithType.vb: Raii(Of TType)
-- uid: AllOverIt.Helpers.Raii`1.#ctor(Func{`0},Action{`0})
+- uid: AllOverIt.Helpers.Raii`1.#ctor(System.Func{`0},System.Action{`0})
   name: Raii(Func<TType>, Action<TType>)
-  href: api/AllOverIt.Helpers.Raii-1.html#AllOverIt_Helpers_Raii_1__ctor_Func__0__Action__0__
-  commentId: M:AllOverIt.Helpers.Raii`1.#ctor(Func{`0},Action{`0})
+  href: api/AllOverIt.Helpers.Raii-1.html#AllOverIt_Helpers_Raii_1__ctor_System_Func__0__System_Action__0__
+  commentId: M:AllOverIt.Helpers.Raii`1.#ctor(System.Func{`0},System.Action{`0})
   name.vb: Raii(Func(Of TType), Action(Of TType))
-  fullName: AllOverIt.Helpers.Raii<TType>.Raii(Func<TType>, Action<TType>)
-  fullName.vb: AllOverIt.Helpers.Raii(Of TType).Raii(Func(Of TType), Action(Of TType))
+  fullName: AllOverIt.Helpers.Raii<TType>.Raii(System.Func<TType>, System.Action<TType>)
+  fullName.vb: AllOverIt.Helpers.Raii(Of TType).Raii(System.Func(Of TType), System.Action(Of TType))
   nameWithType: Raii<TType>.Raii(Func<TType>, Action<TType>)
   nameWithType.vb: Raii(Of TType).Raii(Func(Of TType), Action(Of TType))
 - uid: AllOverIt.Helpers.Raii`1.#ctor*

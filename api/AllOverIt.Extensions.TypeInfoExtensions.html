@@ -90,17 +90,41 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">TypeInfoExtensions</span></div>
   </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Extensions.html">AllOverIt.Extensions</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
   <h5 id="AllOverIt_Extensions_TypeInfoExtensions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class TypeInfoExtensions : object</code></pre>
+    <pre><code class="lang-csharp hljs">public static class TypeInfoExtensions</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   <a id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo*"></a>
-  <h4 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_TypeInfo_System_Boolean_" data-uid="AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(TypeInfo,System.Boolean)">GetPropertyInfo(TypeInfo, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Gets all <see cref="!:PropertyInfo"></see> (property metadata) for a given <see cref="!:TypeInfo"></see>.</p>
+  <h4 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_Boolean_" data-uid="AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo,System.Boolean)">GetPropertyInfo(TypeInfo, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Gets all <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given <span class="xref">System.Reflection.TypeInfo</span>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -118,9 +142,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TypeInfo</span></td>
+        <td><span class="xref">System.Reflection.TypeInfo</span></td>
         <td><span class="parametername">typeInfo</span></td>
-        <td><p>The <see cref="!:TypeInfo"></see> to obtain all property metadata.</p>
+        <td><p>The <span class="xref">System.Reflection.TypeInfo</span> to obtain all property metadata.</p>
 </td>
       </tr>
       <tr>
@@ -142,19 +166,19 @@ If false, only property metadata of the declared type is returned.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">PropertyInfo</span>&gt;</td>
-        <td><p>The property metadata, as <see cref="!:PropertyInfo"></see>, of a provided <see cref="!:TypeInfo"></see>.</p>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;</td>
+        <td><p>The property metadata, as <span class="xref">System.Reflection.PropertyInfo</span>, of a provided <span class="xref">System.Reflection.TypeInfo</span>.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_TypeInfo_System_Boolean__remarks">Remarks</h5>
+  <h5 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_Boolean__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first property found, starting at the type represented
 by <param name="typeInfo">.</p>
 </div>
   <a id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo*"></a>
-  <h4 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_TypeInfo_System_String_" data-uid="AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(TypeInfo,System.String)">GetPropertyInfo(TypeInfo, String)</h4>
-  <div class="markdown level1 summary"><p>Gets the <see cref="!:PropertyInfo"></see> (property metadata) for a given property on a <see cref="!:TypeInfo"></see>.</p>
+  <h4 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_String_" data-uid="AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo,System.String)">GetPropertyInfo(TypeInfo, String)</h4>
+  <div class="markdown level1 summary"><p>Gets the <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given property on a <span class="xref">System.Reflection.TypeInfo</span>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -172,9 +196,9 @@ by <param name="typeInfo">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TypeInfo</span></td>
+        <td><span class="xref">System.Reflection.TypeInfo</span></td>
         <td><span class="parametername">typeInfo</span></td>
-        <td><p>The <see cref="!:TypeInfo"></see> to obtain the property metadata from.</p>
+        <td><p>The <span class="xref">System.Reflection.TypeInfo</span> to obtain the property metadata from.</p>
 </td>
       </tr>
       <tr>
@@ -195,13 +219,13 @@ by <param name="typeInfo">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">PropertyInfo</span></td>
-        <td><p>The property metadata, as <see cref="!:PropertyInfo"></see>, of a specified property on the provided <param name="typeInfo">.</p>
+        <td><span class="xref">System.Reflection.PropertyInfo</span></td>
+        <td><p>The property metadata, as <span class="xref">System.Reflection.PropertyInfo</span>, of a specified property on the provided <param name="typeInfo">.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_TypeInfo_System_String__remarks">Remarks</h5>
+  <h5 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_String__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first property found, starting at the type represented
 by <param name="typeInfo">.</p>
 </div>

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class MemberInitExpressionInfo
+    <title>Class AsyncLazy&lt;TType&gt;
    | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class MemberInitExpressionInfo
+    <meta name="title" content="Class AsyncLazy&lt;TType&gt;
    | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
@@ -78,30 +78,30 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Expressions.Info.MemberInitExpressionInfo">
+            <article class="content wrap" id="_content" data-uid="AllOverIt.Helpers.AsyncLazy`1">
   
   
-  <h1 id="AllOverIt_Expressions_Info_MemberInitExpressionInfo" data-uid="AllOverIt.Expressions.Info.MemberInitExpressionInfo" class="text-break">Class MemberInitExpressionInfo
+  <h1 id="AllOverIt_Helpers_AsyncLazy_1" data-uid="AllOverIt.Helpers.AsyncLazy`1" class="text-break">Class AsyncLazy&lt;TType&gt;
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Provides support for lazy initialization using a factory that returns a Task{TType}.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><a class="xref" href="AllOverIt.Expressions.Info.ExpressionInfoBase.html">ExpressionInfoBase</a></div>
-    <div class="level2"><span class="xref">MemberInitExpressionInfo</span></div>
-  </div>
-  <div classs="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="AllOverIt.Expressions.Info.IExpressionInfo.html">IExpressionInfo</a></div>
+    <div class="level1"><span class="xref">System.Lazy</span>&lt;<span class="xref">System.Threading.Tasks.Task</span>&lt;TType&gt;&gt;</div>
+    <div class="level2"><span class="xref">AsyncLazy&lt;TType&gt;</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="AllOverIt.Expressions.Info.ExpressionInfoBase.html#AllOverIt_Expressions_Info_ExpressionInfoBase_Expression">ExpressionInfoBase.Expression</a>
+      <span class="xref">System.Lazy&lt;System.Threading.Tasks.Task&lt;TType&gt;&gt;.ToString()</span>
     </div>
     <div>
-      <a class="xref" href="AllOverIt.Expressions.Info.ExpressionInfoBase.html#AllOverIt_Expressions_Info_ExpressionInfoBase_InfoType">ExpressionInfoBase.InfoType</a>
+      <span class="xref">System.Lazy&lt;System.Threading.Tasks.Task&lt;TType&gt;&gt;.IsValueCreated</span>
+    </div>
+    <div>
+      <span class="xref">System.Lazy&lt;System.Threading.Tasks.Task&lt;TType&gt;&gt;.Value</span>
     </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object)</span>
@@ -121,25 +121,40 @@
     <div>
       <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
     </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Expressions.Info.html">AllOverIt.Expressions.Info</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Helpers.html">AllOverIt.Helpers</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
-  <h5 id="AllOverIt_Expressions_Info_MemberInitExpressionInfo_syntax">Syntax</h5>
+  <h5 id="AllOverIt_Helpers_AsyncLazy_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class MemberInitExpressionInfo : ExpressionInfoBase, IExpressionInfo</code></pre>
+    <pre><code class="lang-csharp hljs">public class AsyncLazy&lt;TType&gt; : Lazy&lt;Task&lt;TType&gt;&gt;</code></pre>
   </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TType</span></td>
+        <td><p>The type that is lazily initialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="constructors">Constructors
   </h3>
-  <a id="AllOverIt_Expressions_Info_MemberInitExpressionInfo__ctor_" data-uid="AllOverIt.Expressions.Info.MemberInitExpressionInfo.#ctor*"></a>
-  <h4 id="AllOverIt_Expressions_Info_MemberInitExpressionInfo__ctor_System_Linq_Expressions_Expression_System_Collections_Generic_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__System_Collections_Generic_IEnumerable_AllOverIt_Expressions_Info_IExpressionInfo__" data-uid="AllOverIt.Expressions.Info.MemberInitExpressionInfo.#ctor(System.Linq.Expressions.Expression,System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo},System.Collections.Generic.IEnumerable{AllOverIt.Expressions.Info.IExpressionInfo})">MemberInitExpressionInfo(Expression, IEnumerable&lt;IExpressionInfo&gt;, IEnumerable&lt;IExpressionInfo&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="AllOverIt_Helpers_AsyncLazy_1__ctor_" data-uid="AllOverIt.Helpers.AsyncLazy`1.#ctor*"></a>
+  <h4 id="AllOverIt_Helpers_AsyncLazy_1__ctor_System_Func__0__" data-uid="AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{`0})">AsyncLazy(Func&lt;TType&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the AsyncLazy{TType} class. When lazy initialization occurs, the specified initialization
+factory is executed asynchronously.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MemberInitExpressionInfo(Expression expression, IEnumerable&lt;IExpressionInfo&gt; bindings, IEnumerable&lt;IExpressionInfo&gt; arguments)</code></pre>
+    <pre><code class="lang-csharp hljs">public AsyncLazy(Func&lt;TType&gt; factory)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -152,33 +167,53 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span></td>
-        <td><span class="parametername">expression</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="AllOverIt.Expressions.Info.IExpressionInfo.html">IExpressionInfo</a>&gt;</td>
-        <td><span class="parametername">bindings</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="AllOverIt.Expressions.Info.IExpressionInfo.html">IExpressionInfo</a>&gt;</td>
-        <td><span class="parametername">arguments</span></td>
-        <td></td>
+        <td><span class="xref">System.Func</span>&lt;TType&gt;</td>
+        <td><span class="parametername">factory</span></td>
+        <td><p>The factory used for lazy initialization of the stored value.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
+  <a id="AllOverIt_Helpers_AsyncLazy_1__ctor_" data-uid="AllOverIt.Helpers.AsyncLazy`1.#ctor*"></a>
+  <h4 id="AllOverIt_Helpers_AsyncLazy_1__ctor_System_Func_System_Threading_Tasks_Task__0___" data-uid="AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{System.Threading.Tasks.Task{`0}})">AsyncLazy(Func&lt;Task&lt;TType&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the AsyncLazy{TType} class. When lazy initialization occurs, the specified initialization
+factory is executed asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AsyncLazy(Func&lt;Task&lt;TType&gt;&gt; factory)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Threading.Tasks.Task</span>&lt;TType&gt;&gt;</td>
+        <td><span class="parametername">factory</span></td>
+        <td><p>The factory used for lazy initialization of the stored value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
   </h3>
-  <a id="AllOverIt_Expressions_Info_MemberInitExpressionInfo_Arguments_" data-uid="AllOverIt.Expressions.Info.MemberInitExpressionInfo.Arguments*"></a>
-  <h4 id="AllOverIt_Expressions_Info_MemberInitExpressionInfo_Arguments" data-uid="AllOverIt.Expressions.Info.MemberInitExpressionInfo.Arguments">Arguments</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="AllOverIt_Helpers_AsyncLazy_1_GetAwaiter_" data-uid="AllOverIt.Helpers.AsyncLazy`1.GetAwaiter*"></a>
+  <h4 id="AllOverIt_Helpers_AsyncLazy_1_GetAwaiter" data-uid="AllOverIt.Helpers.AsyncLazy`1.GetAwaiter">GetAwaiter()</h4>
+  <div class="markdown level1 summary"><p>Gets an awaiter that allows for 'await lazyProp' instead of 'await lazyProp.Value'</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;IExpressionInfo&gt; Arguments { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public TaskAwaiter&lt;TType&gt; GetAwaiter()</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -188,38 +223,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IReadOnlyList</span>&lt;<a class="xref" href="AllOverIt.Expressions.Info.IExpressionInfo.html">IExpressionInfo</a>&gt;</td>
-        <td></td>
+        <td><span class="xref">System.Runtime.CompilerServices.TaskAwaiter</span>&lt;TType&gt;</td>
+        <td><p>An awaiter for the value being initialized.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <a id="AllOverIt_Expressions_Info_MemberInitExpressionInfo_Bindings_" data-uid="AllOverIt.Expressions.Info.MemberInitExpressionInfo.Bindings*"></a>
-  <h4 id="AllOverIt_Expressions_Info_MemberInitExpressionInfo_Bindings" data-uid="AllOverIt.Expressions.Info.MemberInitExpressionInfo.Bindings">Bindings</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;IExpressionInfo&gt; Bindings { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IReadOnlyList</span>&lt;<a class="xref" href="AllOverIt.Expressions.Info.IExpressionInfo.html">IExpressionInfo</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="AllOverIt.Expressions.Info.IExpressionInfo.html">IExpressionInfo</a>
-  </div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
       <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_ToPropertyDictionary_System_Object_System_Boolean_AllOverIt_Bindings_BindingOptions_">ObjectExtensions.ToPropertyDictionary(Object, Boolean, BindingOptions)</a>

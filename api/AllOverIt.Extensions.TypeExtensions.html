@@ -90,16 +90,40 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">TypeExtensions</span></div>
   </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Extensions.html">AllOverIt.Extensions</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
   <h5 id="AllOverIt_Extensions_TypeExtensions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class TypeExtensions : object</code></pre>
+    <pre><code class="lang-csharp hljs">public static class TypeExtensions</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   <a id="AllOverIt_Extensions_TypeExtensions_GetFriendlyName_" data-uid="AllOverIt.Extensions.TypeExtensions.GetFriendlyName*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_GetFriendlyName_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.GetFriendlyName(Type)">GetFriendlyName(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetFriendlyName_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.GetFriendlyName(System.Type)">GetFriendlyName(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -117,7 +141,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -139,7 +163,7 @@
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_GetGenericArguments_" data-uid="AllOverIt.Extensions.TypeExtensions.GetGenericArguments*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_GetGenericArguments_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.GetGenericArguments(Type)">GetGenericArguments(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetGenericArguments_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.GetGenericArguments(System.Type)">GetGenericArguments(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -157,7 +181,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -173,18 +197,18 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">Type</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Type</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_GetMethods_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethods*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_GetMethods_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethods(Type,AllOverIt.Bindings.BindingOptions,System.Boolean)">GetMethods(Type, BindingOptions, Boolean)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetMethods_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethods(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)">GetMethods(Type, BindingOptions, Boolean)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;MethodInfo&gt; GetMethods(this Type type, BindingOptions binding = default(BindingOptions), bool declaredOnly = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;MethodInfo&gt; GetMethods(this Type type, BindingOptions binding = BindingOptions.Static | BindingOptions.Instance | BindingOptions.Abstract | BindingOptions.Virtual | BindingOptions.NonVirtual | BindingOptions.Protected | BindingOptions.Public | BindingOptions.DefaultScope | BindingOptions.DefaultAccessor | BindingOptions.DefaultVisibility | BindingOptions.AllScope | BindingOptions.AllAccessor | BindingOptions.Default, bool declaredOnly = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -197,7 +221,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -223,19 +247,19 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">MethodInfo</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.MethodInfo</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(Type,AllOverIt.Bindings.BindingOptions,System.Boolean)">GetPropertyInfo(Type, BindingOptions, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Gets <see cref="!:PropertyInfo"></see> (property metadata) for a given <see cref="!:Type"></see> and binding option.</p>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)">GetPropertyInfo(Type, BindingOptions, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given <span class="xref">System.Type</span> and binding option.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;PropertyInfo&gt; GetPropertyInfo(this Type type, BindingOptions binding = default(BindingOptions), bool declaredOnly = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;PropertyInfo&gt; GetPropertyInfo(this Type type, BindingOptions binding = BindingOptions.Static | BindingOptions.Instance | BindingOptions.Abstract | BindingOptions.Virtual | BindingOptions.NonVirtual | BindingOptions.Protected | BindingOptions.Public | BindingOptions.DefaultScope | BindingOptions.DefaultAccessor | BindingOptions.DefaultVisibility | BindingOptions.AllScope | BindingOptions.AllAccessor | BindingOptions.Default, bool declaredOnly = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -248,7 +272,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td><p>The type to obtain property metadata for.</p>
 </td>
@@ -278,19 +302,19 @@ If false, only property metadata of the declared type is returned.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">PropertyInfo</span>&gt;</td>
-        <td><p>The property metadata, as <see cref="!:PropertyInfo"></see>, of a provided <see cref="!:Type"></see>.</p>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;</td>
+        <td><p>The property metadata, as <span class="xref">System.Reflection.PropertyInfo</span>, of a provided <span class="xref">System.Type</span>.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_Type_AllOverIt_Bindings_BindingOptions_System_Boolean__remarks">Remarks</h5>
+  <h5 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first property found, starting at the type represented
 by <param name="type">.</p>
 </div>
   <a id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_Type_System_String_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(Type,System.String)">GetPropertyInfo(Type, String)</h4>
-  <div class="markdown level1 summary"><p>Gets the <see cref="!:PropertyInfo"></see> (property metadata) for a given property on a <see cref="!:Type"></see>.</p>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_System_String_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,System.String)">GetPropertyInfo(Type, String)</h4>
+  <div class="markdown level1 summary"><p>Gets the <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given property on a <span class="xref">System.Type</span>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -308,9 +332,9 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td><p>The <see cref="!:Type"></see> to obtain the property metadata from.</p>
+        <td><p>The <span class="xref">System.Type</span> to obtain the property metadata from.</p>
 </td>
       </tr>
       <tr>
@@ -331,18 +355,18 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">PropertyInfo</span></td>
-        <td><p>The property metadata, as <see cref="!:PropertyInfo"></see>, of a specified property on the provided <param name="type">.</p>
+        <td><span class="xref">System.Reflection.PropertyInfo</span></td>
+        <td><p>The property metadata, as <span class="xref">System.Reflection.PropertyInfo</span>, of a specified property on the provided <param name="type">.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_Type_System_String__remarks">Remarks</h5>
+  <h5 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_System_String__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first property found, starting at the type represented
 by <param name="type">.</p>
 </div>
   <a id="AllOverIt_Extensions_TypeExtensions_IsAssignableFromType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsAssignableFromType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsAssignableFromType_Type_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(Type,Type)">IsAssignableFromType(Type, Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsAssignableFromType_System_Type_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(System.Type,System.Type)">IsAssignableFromType(Type, Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -360,12 +384,12 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">fromType</span></td>
         <td></td>
       </tr>
@@ -387,7 +411,7 @@ by <param name="type">.</p>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsClassType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsClassType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsClassType_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsClassType(Type)">IsClassType(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsClassType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsClassType(System.Type)">IsClassType(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -405,7 +429,7 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -427,7 +451,7 @@ by <param name="type">.</p>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsEnumerableType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumerableType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsEnumerableType_Type_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumerableType(Type,System.Boolean)">IsEnumerableType(Type, Boolean)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsEnumerableType_System_Type_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumerableType(System.Type,System.Boolean)">IsEnumerableType(Type, Boolean)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -445,7 +469,7 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -472,7 +496,7 @@ by <param name="type">.</p>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsEnumType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsEnumType_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumType(Type)">IsEnumType(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsEnumType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumType(System.Type)">IsEnumType(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -490,7 +514,7 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -512,7 +536,7 @@ by <param name="type">.</p>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsGenericEnumerableType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericEnumerableType_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(Type)">IsGenericEnumerableType(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericEnumerableType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(System.Type)">IsGenericEnumerableType(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -530,7 +554,7 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -552,7 +576,7 @@ by <param name="type">.</p>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsGenericNullableType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericNullableType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericNullableType_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(Type)">IsGenericNullableType(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericNullableType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(System.Type)">IsGenericNullableType(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -570,7 +594,7 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -592,7 +616,7 @@ by <param name="type">.</p>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsGenericType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericType_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericType(Type)">IsGenericType(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericType(System.Type)">IsGenericType(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -610,7 +634,7 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -632,7 +656,7 @@ by <param name="type">.</p>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsIntegralType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsIntegralType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsIntegralType_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsIntegralType(Type)">IsIntegralType(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsIntegralType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsIntegralType(System.Type)">IsIntegralType(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -650,7 +674,7 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>
@@ -672,7 +696,7 @@ by <param name="type">.</p>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsPrimitiveType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsPrimitiveType*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_IsPrimitiveType_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(Type)">IsPrimitiveType(Type)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsPrimitiveType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(System.Type)">IsPrimitiveType(Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -690,7 +714,7 @@ by <param name="type">.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td></td>
       </tr>

@@ -90,18 +90,42 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">ObjectExtensions</span></div>
   </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Extensions.html">AllOverIt.Extensions</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
   <h5 id="AllOverIt_Extensions_ObjectExtensions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class ObjectExtensions : object</code></pre>
+    <pre><code class="lang-csharp hljs">public static class ObjectExtensions</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <a id="AllOverIt_Extensions_ObjectExtensions_DefaultHashCodeBindings_" data-uid="AllOverIt.Extensions.ObjectExtensions.DefaultHashCodeBindings*"></a>
   <h4 id="AllOverIt_Extensions_ObjectExtensions_DefaultHashCodeBindings" data-uid="AllOverIt.Extensions.ObjectExtensions.DefaultHashCodeBindings">DefaultHashCodeBindings</h4>
   <div class="markdown level1 summary"><p>Specifies the binding options to use when calculating the hash code of an object when using
-<see cref="!:CalculateHashCode&lt;TType>(TType,System.Collections.Generic.IEnumerable&lt;string>,System.Collections.Generic.IEnumerable&lt;string>)"></see>.</p>
+<a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String__">CalculateHashCode&lt;TType&gt;(TType, IEnumerable&lt;String&gt;, IEnumerable&lt;String&gt;)</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -197,8 +221,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType? AsNullable&lt;TType&gt;(this object instance, TType? defaultValue = null)
-
+    <pre><code class="lang-csharp hljs">public static TType? AsNullable&lt;TType&gt;(this object instance, TType? defaultValue = default(TType? ))
     where TType : struct</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -258,12 +281,12 @@
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode_" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode*"></a>
-  <h4 id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_Func___0_System_Object____" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,Func{``0,System.Object}[])">CalculateHashCode&lt;TType&gt;(TType, Func&lt;TType, Object&gt;[])</h4>
+  <h4 id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String__" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">CalculateHashCode&lt;TType&gt;(TType, IEnumerable&lt;String&gt;, IEnumerable&lt;String&gt;)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int CalculateHashCode&lt;TType&gt;(this TType instance, params Func&lt;TType, object&gt;[] propertyResolvers)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int CalculateHashCode&lt;TType&gt;(this TType instance, IEnumerable&lt;string&gt; includeProperties = null, IEnumerable&lt;string&gt; excludeProperties = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -281,8 +304,13 @@
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">Func</span>&lt;TType, <span class="xref">System.Object</span>&gt;[]</td>
-        <td><span class="parametername">propertyResolvers</span></td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">includeProperties</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">excludeProperties</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -318,12 +346,12 @@
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode_" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode*"></a>
-  <h4 id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_IEnumerable_System_String__IEnumerable_System_String__" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,IEnumerable{System.String},IEnumerable{System.String})">CalculateHashCode&lt;TType&gt;(TType, IEnumerable&lt;String&gt;, IEnumerable&lt;String&gt;)</h4>
+  <h4 id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Func___0_System_Object____" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,System.Func{``0,System.Object}[])">CalculateHashCode&lt;TType&gt;(TType, Func&lt;TType, Object&gt;[])</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int CalculateHashCode&lt;TType&gt;(this TType instance, IEnumerable&lt;string&gt; includeProperties = null, IEnumerable&lt;string&gt; excludeProperties = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int CalculateHashCode&lt;TType&gt;(this TType instance, params Func&lt;TType, object&gt;[] propertyResolvers)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -341,13 +369,8 @@
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
-        <td><span class="parametername">includeProperties</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
-        <td><span class="parametername">excludeProperties</span></td>
+        <td><span class="xref">System.Func</span>&lt;TType, <span class="xref">System.Object</span>&gt;[]</td>
+        <td><span class="parametername">propertyResolvers</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -432,7 +455,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IDictionary&lt;string, object&gt; ToPropertyDictionary(this object instance, bool includeNulls = false, BindingOptions bindingOptions = default(BindingOptions))</code></pre>
+    <pre><code class="lang-csharp hljs">public static IDictionary&lt;string, object&gt; ToPropertyDictionary(this object instance, bool includeNulls = false, BindingOptions bindingOptions = BindingOptions.Static | BindingOptions.Instance | BindingOptions.Abstract | BindingOptions.Virtual | BindingOptions.NonVirtual | BindingOptions.Protected | BindingOptions.Public | BindingOptions.DefaultScope | BindingOptions.DefaultAccessor | BindingOptions.DefaultVisibility | BindingOptions.AllScope | BindingOptions.AllAccessor | BindingOptions.Default)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -474,7 +497,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
         <td><p>Returns  a dictionary containing property names and associated values.</p>
 </td>
       </tr>
