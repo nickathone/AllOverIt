@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace AllOverIt.Helpers
+namespace AllOverIt.Tasks
 {
   /// <summary>
   /// Provides support for lazy initialization using a factory that returns a Task{TType}.

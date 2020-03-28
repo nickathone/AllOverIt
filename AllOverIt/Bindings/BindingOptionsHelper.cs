@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace AllOverIt.Bindings
 {
-  public static class BindingOptionsHelper
+  internal static class BindingOptionsHelper
   {
     internal static Func<MethodBase, bool> BuildBindingPredicate(BindingOptions binding)
     {

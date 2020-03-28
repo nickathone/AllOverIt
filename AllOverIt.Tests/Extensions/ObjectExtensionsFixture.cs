@@ -539,7 +539,7 @@ namespace AllOverIt.Tests.Extensions
         var subject = Create<DummyClass>();
 
         // Prop7 is static - the default binding excludes statics
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject, 
+        var expected = ObjectExtensions.CalculateHashCode(subject, 
           model => model.Prop1, model => model.GetProp2(), model => model.Prop3, model => model.Prop4,
           model => model.Prop5, model => model.Prop6, model => model.Prop8
         );
@@ -556,7 +556,7 @@ namespace AllOverIt.Tests.Extensions
         subject.Prop8 = null;
 
         // Prop7 is static - the default binding excludes statics
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject,
+        var expected = ObjectExtensions.CalculateHashCode(subject,
           model => model.Prop1, model => model.GetProp2(), model => model.Prop3, model => model.Prop4,
           model => model.Prop5, model => model.Prop6, model => model.Prop8
         );
@@ -571,7 +571,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var subject = Create<DummyClass>();
 
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject,
+        var expected = ObjectExtensions.CalculateHashCode(subject,
           model => model.Prop1, model => model.GetProp2(), model => model.Prop3, model => model.Prop4,
           model => model.Prop5, model => model.Prop6, model => DummyClass.Prop7, model => model.Prop8
         );
@@ -598,12 +598,12 @@ namespace AllOverIt.Tests.Extensions
         var subject = Create<DummyClass>();
 
         // Prop7 is static - the default binding excludes statics
-        var expected1 = ObjectExtensions.CalculateHashCode<DummyClass>(subject,
+        var expected1 = ObjectExtensions.CalculateHashCode(subject,
           model => model.Prop1, model => model.GetProp2(), model => model.Prop3, model => model.Prop4,
           model => model.Prop5, model => model.Prop6, model => model.Prop8
         );
 
-        var expected2 = ObjectExtensions.CalculateHashCode<DummyClass>(subject,
+        var expected2 = ObjectExtensions.CalculateHashCode(subject,
           model => model.Prop4, model => model.Prop1, model => model.Prop3, model => model.Prop8,
           model => model.Prop5, model => model.Prop6, model => model.GetProp2()
         );
@@ -619,7 +619,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var subject = Create<DummyClass>();
 
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject, model => model.Prop1);
+        var expected = ObjectExtensions.CalculateHashCode(subject, model => model.Prop1);
 
         var actual = ObjectExtensions.CalculateHashCode(subject, new[]{"Prop1"}, null);
 
@@ -631,7 +631,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var subject = Create<DummyClass>();
 
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject, model => model.Prop1, model => model.Prop5);
+        var expected = ObjectExtensions.CalculateHashCode(subject, model => model.Prop1, model => model.Prop5);
 
         var actual = ObjectExtensions.CalculateHashCode(subject, new[] { "Prop1", "Prop4", "Prop5" }, new[] { "Prop4" });
 
@@ -643,7 +643,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var subject = Create<DummyClass>();
 
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject, model => model.Prop1, model => model.Prop4, model => model.Prop5);
+        var expected = ObjectExtensions.CalculateHashCode(subject, model => model.Prop1, model => model.Prop4, model => model.Prop5);
 
         var actual = ObjectExtensions.CalculateHashCode(subject, new[] { "Prop1", "Prop4", "Prop5" }, new[] { "Prop99" });
 
@@ -655,7 +655,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var subject = Create<DummyClass>();
 
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject, model => model.GetProp2(), model => model.Prop3, 
+        var expected = ObjectExtensions.CalculateHashCode(subject, model => model.GetProp2(), model => model.Prop3, 
           model => model.Prop6, model => model.Prop8);
 
         var actual = ObjectExtensions.CalculateHashCode(subject, null, new[] { "Prop1", "Prop4", "Prop5" });
@@ -668,7 +668,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var subject = Create<DummyClass>();
 
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject, model => model.Prop1);
+        var expected = ObjectExtensions.CalculateHashCode(subject, model => model.Prop1);
 
         var actual = ObjectExtensions.CalculateHashCode(subject, new[] { "Prop1", "Prop44", "Prop55" }, null);
 
@@ -683,7 +683,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var subject = Create<DummyClass>();
 
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject, new[]{ "Prop1", "Prop5" });
+        var expected = ObjectExtensions.CalculateHashCode(subject, new[]{ "Prop1", "Prop5" });
 
         var actual = ObjectExtensions.CalculateHashCode(subject, model => model.Prop1, model => model.Prop5);
 
@@ -695,7 +695,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var subject = Create<DummyClass>();
 
-        var expected = ObjectExtensions.CalculateHashCode<DummyClass>(subject, new[] { "Prop1", "Prop2", "Prop5" });
+        var expected = ObjectExtensions.CalculateHashCode(subject, new[] { "Prop1", "Prop2", "Prop5" });
 
         var actual = ObjectExtensions.CalculateHashCode(subject, model => model.Prop1, model => model.GetProp2(), model => model.Prop5);
 

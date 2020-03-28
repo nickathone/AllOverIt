@@ -18,6 +18,7 @@ namespace AllOverIt.Extensions
           ConstantExpression constantExpression => constantExpression.Value,
           MemberExpression memberExpression => GetValue(memberExpression),
           MethodCallExpression methodCallExpression => GetValue(methodCallExpression),
+          LambdaExpression lambdaExpression => GetValue(lambdaExpression.Body),
           _ => GetDynamicInvocationResult(expression)
         };
       }
@@ -31,6 +32,8 @@ namespace AllOverIt.Extensions
 
     public static IEnumerable<object> GetValues(this IEnumerable<Expression> expressions)
     {
+      _ = expressions ?? throw new ArgumentNullException(nameof(expressions));
+
       return expressions.Select(GetValue);
     }
 
