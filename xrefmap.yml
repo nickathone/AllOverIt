@@ -115,12 +115,6 @@ references:
   commentId: F:AllOverIt.Bindings.BindingOptions.Virtual
   fullName: AllOverIt.Bindings.BindingOptions.Virtual
   nameWithType: BindingOptions.Virtual
-- uid: AllOverIt.Bindings.BindingOptionsHelper
-  name: BindingOptionsHelper
-  href: api/AllOverIt.Bindings.BindingOptionsHelper.html
-  commentId: T:AllOverIt.Bindings.BindingOptionsHelper
-  fullName: AllOverIt.Bindings.BindingOptionsHelper
-  nameWithType: BindingOptionsHelper
 - uid: AllOverIt.Expressions
   name: AllOverIt.Expressions
   href: api/AllOverIt.Expressions.html
@@ -1432,87 +1426,55 @@ references:
   fullName.vb: AllOverIt.Extensions.StringExtensions.AsNullable(Of TType)(System.String, System.Boolean)
   nameWithType: StringExtensions.AsNullable<TType>(String, Boolean)
   nameWithType.vb: StringExtensions.AsNullable(Of TType)(String, Boolean)
-- uid: AllOverIt.Extensions.TaskEx
-  name: TaskEx
-  href: api/AllOverIt.Extensions.TaskEx.html
-  commentId: T:AllOverIt.Extensions.TaskEx
-  fullName: AllOverIt.Extensions.TaskEx
-  nameWithType: TaskEx
-- uid: AllOverIt.Extensions.TaskEx.SafeFireAndForget(System.Threading.Tasks.Task,System.Boolean,System.Action{System.Exception})
-  name: SafeFireAndForget(Task, Boolean, Action<Exception>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_SafeFireAndForget_System_Threading_Tasks_Task_System_Boolean_System_Action_System_Exception__
-  commentId: M:AllOverIt.Extensions.TaskEx.SafeFireAndForget(System.Threading.Tasks.Task,System.Boolean,System.Action{System.Exception})
-  name.vb: SafeFireAndForget(Task, Boolean, Action(Of Exception))
-  fullName: AllOverIt.Extensions.TaskEx.SafeFireAndForget(System.Threading.Tasks.Task, System.Boolean, System.Action<System.Exception>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.SafeFireAndForget(System.Threading.Tasks.Task, System.Boolean, System.Action(Of System.Exception))
-  nameWithType: TaskEx.SafeFireAndForget(Task, Boolean, Action<Exception>)
-  nameWithType.vb: TaskEx.SafeFireAndForget(Task, Boolean, Action(Of Exception))
-- uid: AllOverIt.Extensions.TaskEx.SafeFireAndForget*
-  name: SafeFireAndForget
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_SafeFireAndForget_
-  commentId: Overload:AllOverIt.Extensions.TaskEx.SafeFireAndForget
-  isSpec: "True"
-  fullName: AllOverIt.Extensions.TaskEx.SafeFireAndForget
-  nameWithType: TaskEx.SafeFireAndForget
-- uid: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(System.Action{System.Exception})
-  name: SetDefaultExceptionHandler(Action<Exception>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_SetDefaultExceptionHandler_System_Action_System_Exception__
-  commentId: M:AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(System.Action{System.Exception})
-  name.vb: SetDefaultExceptionHandler(Action(Of Exception))
-  fullName: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(System.Action<System.Exception>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler(System.Action(Of System.Exception))
-  nameWithType: TaskEx.SetDefaultExceptionHandler(Action<Exception>)
-  nameWithType.vb: TaskEx.SetDefaultExceptionHandler(Action(Of Exception))
-- uid: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler*
-  name: SetDefaultExceptionHandler
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_SetDefaultExceptionHandler_
-  commentId: Overload:AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler
-  isSpec: "True"
-  fullName: AllOverIt.Extensions.TaskEx.SetDefaultExceptionHandler
-  nameWithType: TaskEx.SetDefaultExceptionHandler
-- uid: AllOverIt.Extensions.TaskEx.WhenAll*
+- uid: AllOverIt.Extensions.TaskUtils
+  name: TaskUtils
+  href: api/AllOverIt.Extensions.TaskUtils.html
+  commentId: T:AllOverIt.Extensions.TaskUtils
+  fullName: AllOverIt.Extensions.TaskUtils
+  nameWithType: TaskUtils
+- uid: AllOverIt.Extensions.TaskUtils.WhenAll*
   name: WhenAll
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll_
-  commentId: Overload:AllOverIt.Extensions.TaskEx.WhenAll
+  href: api/AllOverIt.Extensions.TaskUtils.html#AllOverIt_Extensions_TaskUtils_WhenAll_
+  commentId: Overload:AllOverIt.Extensions.TaskUtils.WhenAll
   isSpec: "True"
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll
-  nameWithType: TaskEx.WhenAll
-- uid: AllOverIt.Extensions.TaskEx.WhenAll``2(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1})
+  fullName: AllOverIt.Extensions.TaskUtils.WhenAll
+  nameWithType: TaskUtils.WhenAll
+- uid: AllOverIt.Extensions.TaskUtils.WhenAll``2(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1})
   name: WhenAll<T1, T2>(Task<T1>, Task<T2>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__2_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__
-  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``2(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1})
+  href: api/AllOverIt.Extensions.TaskUtils.html#AllOverIt_Extensions_TaskUtils_WhenAll__2_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__
+  commentId: M:AllOverIt.Extensions.TaskUtils.WhenAll``2(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1})
   name.vb: WhenAll(Of T1, T2)(Task(Of T1), Task(Of T2))
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2))
-  nameWithType: TaskEx.WhenAll<T1, T2>(Task<T1>, Task<T2>)
-  nameWithType.vb: TaskEx.WhenAll(Of T1, T2)(Task(Of T1), Task(Of T2))
-- uid: AllOverIt.Extensions.TaskEx.WhenAll``3(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2})
+  fullName: AllOverIt.Extensions.TaskUtils.WhenAll<T1, T2>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>)
+  fullName.vb: AllOverIt.Extensions.TaskUtils.WhenAll(Of T1, T2)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2))
+  nameWithType: TaskUtils.WhenAll<T1, T2>(Task<T1>, Task<T2>)
+  nameWithType.vb: TaskUtils.WhenAll(Of T1, T2)(Task(Of T1), Task(Of T2))
+- uid: AllOverIt.Extensions.TaskUtils.WhenAll``3(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2})
   name: WhenAll<T1, T2, T3>(Task<T1>, Task<T2>, Task<T3>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__3_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__
-  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``3(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2})
+  href: api/AllOverIt.Extensions.TaskUtils.html#AllOverIt_Extensions_TaskUtils_WhenAll__3_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__
+  commentId: M:AllOverIt.Extensions.TaskUtils.WhenAll``3(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2})
   name.vb: WhenAll(Of T1, T2, T3)(Task(Of T1), Task(Of T2), Task(Of T3))
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3))
-  nameWithType: TaskEx.WhenAll<T1, T2, T3>(Task<T1>, Task<T2>, Task<T3>)
-  nameWithType.vb: TaskEx.WhenAll(Of T1, T2, T3)(Task(Of T1), Task(Of T2), Task(Of T3))
-- uid: AllOverIt.Extensions.TaskEx.WhenAll``4(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3})
+  fullName: AllOverIt.Extensions.TaskUtils.WhenAll<T1, T2, T3>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>)
+  fullName.vb: AllOverIt.Extensions.TaskUtils.WhenAll(Of T1, T2, T3)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3))
+  nameWithType: TaskUtils.WhenAll<T1, T2, T3>(Task<T1>, Task<T2>, Task<T3>)
+  nameWithType.vb: TaskUtils.WhenAll(Of T1, T2, T3)(Task(Of T1), Task(Of T2), Task(Of T3))
+- uid: AllOverIt.Extensions.TaskUtils.WhenAll``4(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3})
   name: WhenAll<T1, T2, T3, T4>(Task<T1>, Task<T2>, Task<T3>, Task<T4>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__4_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__System_Threading_Tasks_Task___3__
-  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``4(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3})
+  href: api/AllOverIt.Extensions.TaskUtils.html#AllOverIt_Extensions_TaskUtils_WhenAll__4_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__System_Threading_Tasks_Task___3__
+  commentId: M:AllOverIt.Extensions.TaskUtils.WhenAll``4(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3})
   name.vb: WhenAll(Of T1, T2, T3, T4)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4))
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3, T4>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>, System.Threading.Tasks.Task<T4>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3, T4)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3), System.Threading.Tasks.Task(Of T4))
-  nameWithType: TaskEx.WhenAll<T1, T2, T3, T4>(Task<T1>, Task<T2>, Task<T3>, Task<T4>)
-  nameWithType.vb: TaskEx.WhenAll(Of T1, T2, T3, T4)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4))
-- uid: AllOverIt.Extensions.TaskEx.WhenAll``5(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3},System.Threading.Tasks.Task{``4})
+  fullName: AllOverIt.Extensions.TaskUtils.WhenAll<T1, T2, T3, T4>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>, System.Threading.Tasks.Task<T4>)
+  fullName.vb: AllOverIt.Extensions.TaskUtils.WhenAll(Of T1, T2, T3, T4)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3), System.Threading.Tasks.Task(Of T4))
+  nameWithType: TaskUtils.WhenAll<T1, T2, T3, T4>(Task<T1>, Task<T2>, Task<T3>, Task<T4>)
+  nameWithType.vb: TaskUtils.WhenAll(Of T1, T2, T3, T4)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4))
+- uid: AllOverIt.Extensions.TaskUtils.WhenAll``5(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3},System.Threading.Tasks.Task{``4})
   name: WhenAll<T1, T2, T3, T4, T5>(Task<T1>, Task<T2>, Task<T3>, Task<T4>, Task<T5>)
-  href: api/AllOverIt.Extensions.TaskEx.html#AllOverIt_Extensions_TaskEx_WhenAll__5_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__System_Threading_Tasks_Task___3__System_Threading_Tasks_Task___4__
-  commentId: M:AllOverIt.Extensions.TaskEx.WhenAll``5(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3},System.Threading.Tasks.Task{``4})
+  href: api/AllOverIt.Extensions.TaskUtils.html#AllOverIt_Extensions_TaskUtils_WhenAll__5_System_Threading_Tasks_Task___0__System_Threading_Tasks_Task___1__System_Threading_Tasks_Task___2__System_Threading_Tasks_Task___3__System_Threading_Tasks_Task___4__
+  commentId: M:AllOverIt.Extensions.TaskUtils.WhenAll``5(System.Threading.Tasks.Task{``0},System.Threading.Tasks.Task{``1},System.Threading.Tasks.Task{``2},System.Threading.Tasks.Task{``3},System.Threading.Tasks.Task{``4})
   name.vb: WhenAll(Of T1, T2, T3, T4, T5)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4), Task(Of T5))
-  fullName: AllOverIt.Extensions.TaskEx.WhenAll<T1, T2, T3, T4, T5>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>, System.Threading.Tasks.Task<T4>, System.Threading.Tasks.Task<T5>)
-  fullName.vb: AllOverIt.Extensions.TaskEx.WhenAll(Of T1, T2, T3, T4, T5)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3), System.Threading.Tasks.Task(Of T4), System.Threading.Tasks.Task(Of T5))
-  nameWithType: TaskEx.WhenAll<T1, T2, T3, T4, T5>(Task<T1>, Task<T2>, Task<T3>, Task<T4>, Task<T5>)
-  nameWithType.vb: TaskEx.WhenAll(Of T1, T2, T3, T4, T5)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4), Task(Of T5))
+  fullName: AllOverIt.Extensions.TaskUtils.WhenAll<T1, T2, T3, T4, T5>(System.Threading.Tasks.Task<T1>, System.Threading.Tasks.Task<T2>, System.Threading.Tasks.Task<T3>, System.Threading.Tasks.Task<T4>, System.Threading.Tasks.Task<T5>)
+  fullName.vb: AllOverIt.Extensions.TaskUtils.WhenAll(Of T1, T2, T3, T4, T5)(System.Threading.Tasks.Task(Of T1), System.Threading.Tasks.Task(Of T2), System.Threading.Tasks.Task(Of T3), System.Threading.Tasks.Task(Of T4), System.Threading.Tasks.Task(Of T5))
+  nameWithType: TaskUtils.WhenAll<T1, T2, T3, T4, T5>(Task<T1>, Task<T2>, Task<T3>, Task<T4>, Task<T5>)
+  nameWithType.vb: TaskUtils.WhenAll(Of T1, T2, T3, T4, T5)(Task(Of T1), Task(Of T2), Task(Of T3), Task(Of T4), Task(Of T5))
 - uid: AllOverIt.Extensions.TypeExtensions
   name: TypeExtensions
   href: api/AllOverIt.Extensions.TypeExtensions.html
@@ -1725,59 +1687,6 @@ references:
   commentId: N:AllOverIt.Helpers
   fullName: AllOverIt.Helpers
   nameWithType: AllOverIt.Helpers
-- uid: AllOverIt.Helpers.AsyncLazy`1
-  name: AsyncLazy<TType>
-  href: api/AllOverIt.Helpers.AsyncLazy-1.html
-  commentId: T:AllOverIt.Helpers.AsyncLazy`1
-  name.vb: AsyncLazy(Of TType)
-  fullName: AllOverIt.Helpers.AsyncLazy<TType>
-  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType)
-  nameWithType: AsyncLazy<TType>
-  nameWithType.vb: AsyncLazy(Of TType)
-- uid: AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{`0})
-  name: AsyncLazy(Func<TType>)
-  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1__ctor_System_Func__0__
-  commentId: M:AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{`0})
-  name.vb: AsyncLazy(Func(Of TType))
-  fullName: AllOverIt.Helpers.AsyncLazy<TType>.AsyncLazy(System.Func<TType>)
-  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).AsyncLazy(System.Func(Of TType))
-  nameWithType: AsyncLazy<TType>.AsyncLazy(Func<TType>)
-  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy(Func(Of TType))
-- uid: AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{System.Threading.Tasks.Task{`0}})
-  name: AsyncLazy(Func<Task<TType>>)
-  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1__ctor_System_Func_System_Threading_Tasks_Task__0___
-  commentId: M:AllOverIt.Helpers.AsyncLazy`1.#ctor(System.Func{System.Threading.Tasks.Task{`0}})
-  name.vb: AsyncLazy(Func(Of Task(Of TType)))
-  fullName: AllOverIt.Helpers.AsyncLazy<TType>.AsyncLazy(System.Func<System.Threading.Tasks.Task<TType>>)
-  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).AsyncLazy(System.Func(Of System.Threading.Tasks.Task(Of TType)))
-  nameWithType: AsyncLazy<TType>.AsyncLazy(Func<Task<TType>>)
-  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy(Func(Of Task(Of TType)))
-- uid: AllOverIt.Helpers.AsyncLazy`1.#ctor*
-  name: AsyncLazy
-  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1__ctor_
-  commentId: Overload:AllOverIt.Helpers.AsyncLazy`1.#ctor
-  isSpec: "True"
-  fullName: AllOverIt.Helpers.AsyncLazy<TType>.AsyncLazy
-  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).AsyncLazy
-  nameWithType: AsyncLazy<TType>.AsyncLazy
-  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy
-- uid: AllOverIt.Helpers.AsyncLazy`1.GetAwaiter
-  name: GetAwaiter()
-  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1_GetAwaiter
-  commentId: M:AllOverIt.Helpers.AsyncLazy`1.GetAwaiter
-  fullName: AllOverIt.Helpers.AsyncLazy<TType>.GetAwaiter()
-  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).GetAwaiter()
-  nameWithType: AsyncLazy<TType>.GetAwaiter()
-  nameWithType.vb: AsyncLazy(Of TType).GetAwaiter()
-- uid: AllOverIt.Helpers.AsyncLazy`1.GetAwaiter*
-  name: GetAwaiter
-  href: api/AllOverIt.Helpers.AsyncLazy-1.html#AllOverIt_Helpers_AsyncLazy_1_GetAwaiter_
-  commentId: Overload:AllOverIt.Helpers.AsyncLazy`1.GetAwaiter
-  isSpec: "True"
-  fullName: AllOverIt.Helpers.AsyncLazy<TType>.GetAwaiter
-  fullName.vb: AllOverIt.Helpers.AsyncLazy(Of TType).GetAwaiter
-  nameWithType: AsyncLazy<TType>.GetAwaiter
-  nameWithType.vb: AsyncLazy(Of TType).GetAwaiter
 - uid: AllOverIt.Helpers.EnumHelper
   name: EnumHelper
   href: api/AllOverIt.Helpers.EnumHelper.html
@@ -1907,3 +1816,62 @@ references:
   fullName.vb: AllOverIt.Helpers.Raii(Of TType).Dispose
   nameWithType: Raii<TType>.Dispose
   nameWithType.vb: Raii(Of TType).Dispose
+- uid: AllOverIt.Tasks
+  name: AllOverIt.Tasks
+  href: api/AllOverIt.Tasks.html
+  commentId: N:AllOverIt.Tasks
+  fullName: AllOverIt.Tasks
+  nameWithType: AllOverIt.Tasks
+- uid: AllOverIt.Tasks.AsyncLazy`1
+  name: AsyncLazy<TType>
+  href: api/AllOverIt.Tasks.AsyncLazy-1.html
+  commentId: T:AllOverIt.Tasks.AsyncLazy`1
+  name.vb: AsyncLazy(Of TType)
+  fullName: AllOverIt.Tasks.AsyncLazy<TType>
+  fullName.vb: AllOverIt.Tasks.AsyncLazy(Of TType)
+  nameWithType: AsyncLazy<TType>
+  nameWithType.vb: AsyncLazy(Of TType)
+- uid: AllOverIt.Tasks.AsyncLazy`1.#ctor(System.Func{`0})
+  name: AsyncLazy(Func<TType>)
+  href: api/AllOverIt.Tasks.AsyncLazy-1.html#AllOverIt_Tasks_AsyncLazy_1__ctor_System_Func__0__
+  commentId: M:AllOverIt.Tasks.AsyncLazy`1.#ctor(System.Func{`0})
+  name.vb: AsyncLazy(Func(Of TType))
+  fullName: AllOverIt.Tasks.AsyncLazy<TType>.AsyncLazy(System.Func<TType>)
+  fullName.vb: AllOverIt.Tasks.AsyncLazy(Of TType).AsyncLazy(System.Func(Of TType))
+  nameWithType: AsyncLazy<TType>.AsyncLazy(Func<TType>)
+  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy(Func(Of TType))
+- uid: AllOverIt.Tasks.AsyncLazy`1.#ctor(System.Func{System.Threading.Tasks.Task{`0}})
+  name: AsyncLazy(Func<Task<TType>>)
+  href: api/AllOverIt.Tasks.AsyncLazy-1.html#AllOverIt_Tasks_AsyncLazy_1__ctor_System_Func_System_Threading_Tasks_Task__0___
+  commentId: M:AllOverIt.Tasks.AsyncLazy`1.#ctor(System.Func{System.Threading.Tasks.Task{`0}})
+  name.vb: AsyncLazy(Func(Of Task(Of TType)))
+  fullName: AllOverIt.Tasks.AsyncLazy<TType>.AsyncLazy(System.Func<System.Threading.Tasks.Task<TType>>)
+  fullName.vb: AllOverIt.Tasks.AsyncLazy(Of TType).AsyncLazy(System.Func(Of System.Threading.Tasks.Task(Of TType)))
+  nameWithType: AsyncLazy<TType>.AsyncLazy(Func<Task<TType>>)
+  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy(Func(Of Task(Of TType)))
+- uid: AllOverIt.Tasks.AsyncLazy`1.#ctor*
+  name: AsyncLazy
+  href: api/AllOverIt.Tasks.AsyncLazy-1.html#AllOverIt_Tasks_AsyncLazy_1__ctor_
+  commentId: Overload:AllOverIt.Tasks.AsyncLazy`1.#ctor
+  isSpec: "True"
+  fullName: AllOverIt.Tasks.AsyncLazy<TType>.AsyncLazy
+  fullName.vb: AllOverIt.Tasks.AsyncLazy(Of TType).AsyncLazy
+  nameWithType: AsyncLazy<TType>.AsyncLazy
+  nameWithType.vb: AsyncLazy(Of TType).AsyncLazy
+- uid: AllOverIt.Tasks.AsyncLazy`1.GetAwaiter
+  name: GetAwaiter()
+  href: api/AllOverIt.Tasks.AsyncLazy-1.html#AllOverIt_Tasks_AsyncLazy_1_GetAwaiter
+  commentId: M:AllOverIt.Tasks.AsyncLazy`1.GetAwaiter
+  fullName: AllOverIt.Tasks.AsyncLazy<TType>.GetAwaiter()
+  fullName.vb: AllOverIt.Tasks.AsyncLazy(Of TType).GetAwaiter()
+  nameWithType: AsyncLazy<TType>.GetAwaiter()
+  nameWithType.vb: AsyncLazy(Of TType).GetAwaiter()
+- uid: AllOverIt.Tasks.AsyncLazy`1.GetAwaiter*
+  name: GetAwaiter
+  href: api/AllOverIt.Tasks.AsyncLazy-1.html#AllOverIt_Tasks_AsyncLazy_1_GetAwaiter_
+  commentId: Overload:AllOverIt.Tasks.AsyncLazy`1.GetAwaiter
+  isSpec: "True"
+  fullName: AllOverIt.Tasks.AsyncLazy<TType>.GetAwaiter
+  fullName.vb: AllOverIt.Tasks.AsyncLazy(Of TType).GetAwaiter
+  nameWithType: AsyncLazy<TType>.GetAwaiter
+  nameWithType.vb: AsyncLazy(Of TType).GetAwaiter

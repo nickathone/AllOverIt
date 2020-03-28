@@ -18,19 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Bindings.BindingOptions.html",
-          "hash": "OWhoF4Kkl3Pej1m0jvCc/Q=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Bindings.BindingOptionsHelper.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Bindings.BindingOptionsHelper.html",
-          "hash": "tfkpeqFWHtOo5zfBHsRLdg=="
+          "hash": "imMkEOlCDppl9b0JnLvrGQ=="
         }
       },
       "is_incremental": false,
@@ -42,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Bindings.html",
-          "hash": "IiaJg2udcfEuuqs7j2gAPw=="
+          "hash": "c5Za7gWPwMjKyvqD4LYSwA=="
         }
       },
       "is_incremental": false,
@@ -366,7 +354,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.ObjectExtensions.html",
-          "hash": "8m3aA8sc5chzaKSWCrIUxQ=="
+          "hash": "acB63s+TNvz+Xs6Gr2d93A=="
         }
       },
       "is_incremental": false,
@@ -398,11 +386,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Extensions.TaskEx.yml",
+      "source_relative_path": "api/AllOverIt.Extensions.TaskUtils.yml",
       "output": {
         ".html": {
-          "relative_path": "api/AllOverIt.Extensions.TaskEx.html",
-          "hash": "KhjTMEeUQ8ra+K2XTNKDmQ=="
+          "relative_path": "api/AllOverIt.Extensions.TaskUtils.html",
+          "hash": "lGbJqRWoRG5TeK/pyFB5MQ=="
         }
       },
       "is_incremental": false,
@@ -414,7 +402,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.TypeExtensions.html",
-          "hash": "xZ1q8u+o4xYFvKU6zqYJQQ=="
+          "hash": "ZAnHMicQu255lIhOWz2gOg=="
         }
       },
       "is_incremental": false,
@@ -438,19 +426,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.html",
-          "hash": "m59CR5FGhvSrlk9fMPNM2g=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Helpers.AsyncLazy-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Helpers.AsyncLazy-1.html",
-          "hash": "ltptS4cv2RNwGeVBaRtWZw=="
+          "hash": "kZNmi4jPD3yLm63jAO3mgQ=="
         }
       },
       "is_incremental": false,
@@ -498,7 +474,31 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.html",
-          "hash": "nYShIsW2Ho0LAFEi2d+B5Q=="
+          "hash": "5hXFFCNhot/f6smUyjFfHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Tasks.AsyncLazy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Tasks.AsyncLazy-1.html",
+          "hash": "X6WAEG92UlT7bCv/baEFtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Tasks.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Tasks.html",
+          "hash": "KoV5mBPlwlDvF2xXdSNHEA=="
         }
       },
       "is_incremental": false,
@@ -522,7 +522,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Tsdgkkzzd46IHwQYZFOvUQ=="
+          "hash": "xIwlqdHU0sLdA9b+AGYBUQ=="
         }
       },
       "is_incremental": false,
@@ -551,12 +551,15 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "b9Z55lzxz0vxqYfmNQfpaQ=="
+          "hash": "tvWNgpju8t6w2Ihuyazueg=="
         }
       },
       "is_incremental": false,
@@ -564,11 +567,95 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "library/intro.md",
+      "source_relative_path": "library/about/dependencies.md",
       "output": {
         ".html": {
-          "relative_path": "library/intro.html",
-          "hash": "zeY6+b7j4R2DoIWoWPWFQA=="
+          "relative_path": "library/about/dependencies.html",
+          "hash": "h/Wy548YrZwlp390s5ZOsQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/about/versioning.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/about/versioning.html",
+          "hash": "B0ANxBrEgPrky2lJwU/IHw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/about/whoami.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/about/whoami.html",
+          "hash": "1ZAwU0CME+4fMA2HH8NPVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/expressions.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/expressions.html",
+          "hash": "c4TWycs2HmrSye44LEajEQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions.html",
+          "hash": "8dHjR0Gsh7RsM3liMrUryA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/intro.html",
+          "hash": "/+opam+5XKYcJnooRPbuOw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/reflection.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/reflection.html",
+          "hash": "XAwYt3MJnzR3inDAR+Pp0Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/utilities.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/utilities.html",
+          "hash": "f6TvoMTQrzeAUq4ftkX7cw=="
         }
       },
       "is_incremental": false,
@@ -580,7 +667,7 @@
       "output": {
         ".html": {
           "relative_path": "library/toc.html",
-          "hash": "gB8AESyvNru97tzIZofEEg=="
+          "hash": "27Fe4qcTlUmDIgTujHrYOw=="
         }
       },
       "is_incremental": false,
@@ -592,7 +679,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "wDgNr2bQ8qpIdquWeq5zSA=="
+          "hash": "iNnQFSRBQ9A5+ZXUClZ97w=="
         }
       },
       "is_incremental": false,
@@ -608,13 +695,6 @@
         "skipped_file_count": 0
       },
       "processors": {
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
-          "skipped_file_count": 0
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
@@ -626,13 +706,20 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 41,
-          "skipped_file_count": 5
+          "skipped_file_count": 41
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 3,
-          "skipped_file_count": 3
+          "total_file_count": 10,
+          "skipped_file_count": 9
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
         }
       }
     },
