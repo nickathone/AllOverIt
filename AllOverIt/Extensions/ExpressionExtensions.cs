@@ -19,6 +19,7 @@ namespace AllOverIt.Extensions
           MemberExpression memberExpression => GetValue(memberExpression),
           MethodCallExpression methodCallExpression => GetValue(methodCallExpression),
           LambdaExpression lambdaExpression => GetValue(lambdaExpression.Body),
+          ParameterExpression _ => throw new InvalidOperationException("A ParameterExpression does not have a value"),
           _ => GetDynamicInvocationResult(expression)
         };
       }

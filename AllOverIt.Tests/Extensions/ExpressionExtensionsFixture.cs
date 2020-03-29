@@ -24,6 +24,22 @@ namespace AllOverIt.Tests.Extensions
       }
 
       [Fact]
+      public void Should_Throw_For_ParameterExpression()
+      {
+        Expression<Action<int, int>> expression = (a, b) => GetSum(a, b);
+
+        var actual = Invoking(() =>
+        {
+          expression.Body.GetValue();
+        });
+
+        actual
+          .Should()
+          .Throw<InvalidOperationException>()
+          .WithMessage("A ParameterExpression does not have a value");
+      }
+
+      [Fact]
       public void Should_Get_Constant_Expression_Value()
       {
         Expression<Func<int>> expression = () => 10;

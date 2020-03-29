@@ -74,6 +74,18 @@ namespace AllOverIt.Tests.Expressions
       }
 
       [Fact]
+      public void Should_Parse_Parameter_Expression()
+      {
+        Expression<Action<int, int>> expression = (a, b) => DummyCallWithArguments(a, b);
+
+        var expressionInfo = _parser.Parse(expression) as MethodCallExpressionInfo;
+
+        var actual = expressionInfo.Parameters.Select(item => (item as ParameterExpressionInfo).Name);
+
+        actual.Should().BeEquivalentTo("a", "b");
+      }
+
+      [Fact]
       public void Should_Parse_Constant_Expression()
       {
         var value = Create<int>();

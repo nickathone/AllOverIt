@@ -51,6 +51,9 @@ namespace AllOverIt.Expressions
         },
         {
           ExpressionInfoType.New, resolvedInfo => ParseNewExpression(resolvedInfo.Expression as NewExpression)
+        },
+        {
+          ExpressionInfoType.Parameter, resolvedInfo => ParseParameterExpression(resolvedInfo.Expression as ParameterExpression)
         }
       };
 
@@ -132,6 +135,7 @@ namespace AllOverIt.Expressions
       var expressionInfoType = expression switch
       {
         ConstantExpression _ => ExpressionInfoType.Constant,
+        ParameterExpression _ => ExpressionInfoType.Parameter,
         NewArrayExpression _ => ExpressionInfoType.Constant,
         MemberExpression memberExpression => GetMemberExpressionInfoType(memberExpression),
         BinaryExpression _ => ExpressionInfoType.BinaryComparison,
@@ -251,6 +255,11 @@ namespace AllOverIt.Expressions
       var fieldExpressions = expression.Arguments.Select(GetExpressionInfo);
 
       return new NewExpressionInfo(expression, fieldExpressions);
+    }
+
+    private static ParameterExpressionInfo ParseParameterExpression(ParameterExpression expression)
+    {
+      return new ParameterExpressionInfo(expression);
     }
 
     private static IEnumerable<(MemberBindingType BindingType, IExpressionInfo ExpressionInfo)> GetMemberBindingExpressionInfo(IEnumerable<MemberBinding> memberBindings)

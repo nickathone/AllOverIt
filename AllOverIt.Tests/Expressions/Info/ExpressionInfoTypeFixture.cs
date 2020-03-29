@@ -1,7 +1,7 @@
-using AllOverIt.Fixture;
-using FluentAssertions;
 using AllOverIt.Expressions.Info;
+using AllOverIt.Fixture;
 using AllOverIt.Helpers;
+using FluentAssertions;
 using Xunit;
 
 namespace AllOverIt.Tests.Expressions.Info
@@ -17,7 +17,7 @@ namespace AllOverIt.Tests.Expressions.Info
 
         enumValues.Should().BeEquivalentTo(ExpressionInfoType.Constant, ExpressionInfoType.Field, ExpressionInfoType.Property,
           ExpressionInfoType.BinaryComparison, ExpressionInfoType.MethodCall, ExpressionInfoType.Conditional, ExpressionInfoType.MemberInit,
-          ExpressionInfoType.New);
+          ExpressionInfoType.New, ExpressionInfoType.Parameter);
       }
 
       [Fact]
@@ -28,7 +28,8 @@ namespace AllOverIt.Tests.Expressions.Info
         var expected = new[]
         {
           ExpressionInfoType.Constant, ExpressionInfoType.Field, ExpressionInfoType.Property, ExpressionInfoType.BinaryComparison,
-          ExpressionInfoType.MethodCall, ExpressionInfoType.Conditional, ExpressionInfoType.MemberInit, ExpressionInfoType.New
+          ExpressionInfoType.MethodCall, ExpressionInfoType.Conditional, ExpressionInfoType.MemberInit, ExpressionInfoType.New,
+          ExpressionInfoType.Parameter
         }.Length;
 
         // if this test fails then update 'Should_Have_Expected_Values'

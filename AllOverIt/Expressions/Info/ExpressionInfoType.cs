@@ -28,6 +28,9 @@ namespace AllOverIt.Expressions.Info
     MemberInit = 64,
 
     // a new expression
-    New = 128
+    New = 128,
+
+    // A parameter expression
+    Parameter = 256
   }
 }
