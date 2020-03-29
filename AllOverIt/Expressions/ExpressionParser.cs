@@ -110,10 +110,7 @@ namespace AllOverIt.Expressions
       var expressionInfoResolver = ExpressionInfoResolvers.GetValueOrDefault(resolvedInfo.InfoType);
 
       // no test for this condition since it should never happen - if it does then ExpressionInfoResolvers needs extending
-      if (expressionInfoResolver == null)
-      {
-        throw new ExpressionParserException("The expression type could not be resolved.");
-      }
+      _ = expressionInfoResolver ?? throw new NotSupportedException($"The ExpressionInfoType '{resolvedInfo.InfoType}' could not be resolved.");
 
       return expressionInfoResolver.Invoke(resolvedInfo);
     }
