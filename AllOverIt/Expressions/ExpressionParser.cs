@@ -56,20 +56,14 @@ namespace AllOverIt.Expressions
 
     public IExpressionInfo Parse(Expression expression)
     {
-      if (expression == null)
-      {
-        throw new ArgumentNullException(nameof(expression));
-      }
+      _ = expression ?? throw new ArgumentNullException(nameof(expression));
 
       return Parse(expression, type => true);
     }
 
     public IExpressionInfo Parse(Expression expression, ExpressionInfoType filter)
     {
-      if (expression == null)
-      {
-        throw new ArgumentNullException(nameof(expression));
-      }
+      _ = expression ?? throw new ArgumentNullException(nameof(expression));
 
       return Parse(expression, type => filter.HasFlag(type));
     }
@@ -88,10 +82,7 @@ namespace AllOverIt.Expressions
       return GetExpressionInfo(expression, filter);
     }
 
-    private static IExpressionInfo GetExpressionInfo(Expression expression)
-    {
-      return GetExpressionInfo(expression, type => true);
-    }
+    private static IExpressionInfo GetExpressionInfo(Expression expression) => GetExpressionInfo(expression, type => true);
 
     private static IExpressionInfo GetExpressionInfo(Expression expression, Func<ExpressionInfoType, bool> filter)
     {

@@ -23,16 +23,9 @@ namespace AllOverIt.Expressions
     /// <returns>A new expression with the parameter expressions replaced.</returns>
     public static Expression ReplaceParameters(IDictionary<ParameterExpression, ParameterExpression> parameterMap, Expression expression)
     {
-      if (parameterMap == null)
-      {
-        throw new ArgumentNullException(nameof(parameterMap));
-      }
-
-      if (expression == null)
-      {
-        throw new ArgumentNullException(nameof(expression));
-      }
-
+      _ = parameterMap ?? throw new ArgumentNullException(nameof(parameterMap));
+      _ = expression ?? throw new ArgumentNullException(nameof(expression));
+      
       return new ParameterRebinder(parameterMap).Visit(expression);
     }
 

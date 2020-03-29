@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AllOverIt.Bindings
+namespace AllOverIt.Reflection
 {
   /// <Summary>
   /// Specifies binding options that, when combined, provide the ability to filter reflection operations that

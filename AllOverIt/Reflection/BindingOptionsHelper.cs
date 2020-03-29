@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("AllOverIt.Tests")]
 
-namespace AllOverIt.Bindings
+namespace AllOverIt.Reflection
 {
   internal static class BindingOptionsHelper
   {

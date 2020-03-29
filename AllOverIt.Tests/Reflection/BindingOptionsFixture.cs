@@ -1,10 +1,10 @@
 using AllOverIt.Fixture;
-using FluentAssertions;
-using AllOverIt.Bindings;
 using AllOverIt.Helpers;
+using AllOverIt.Reflection;
+using FluentAssertions;
 using Xunit;
 
-namespace AllOverIt.Tests.Bindings
+namespace AllOverIt.Tests.Reflection
 {
   public class BindingOptionsFixture : AoiFixtureBase
   {

@@ -1,14 +1,14 @@
-using AllOverIt.Fixture;
-using FluentAssertions;
-using AllOverIt.Bindings;
 using AllOverIt.Expressions;
 using AllOverIt.Extensions;
+using AllOverIt.Fixture;
+using AllOverIt.Reflection;
+using FluentAssertions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
 
-namespace AllOverIt.Tests.Bindings
+namespace AllOverIt.Tests.Reflection
 {
   public class BindingOptionsHelperFixture : AoiFixtureBase
   {

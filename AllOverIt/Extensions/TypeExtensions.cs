@@ -1,4 +1,4 @@
-﻿using AllOverIt.Bindings;
+﻿using AllOverIt.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +10,19 @@ namespace AllOverIt.Extensions
 {
   public static class TypeExtensions
   {
+    /// <summary>
+    /// Gets the <see cref="PropertyInfo"/> (property metadata) for a given property on a <see cref="Type"/>.
+    /// </summary>
+    /// <param name="type">The <see cref="Type"/> to obtain the property metadata from.</param>
+    /// <param name="propertyName">The name of the property to obtain metadata for.</param>
+    /// <returns>The property metadata, as <see cref="PropertyInfo"/>, of a specified property on the provided <param name="type"></param>.</returns>
+    /// <remarks>When class inheritance is involved, this method returns the first property found, starting at the type represented
+    /// by <param name="type"></param>.</remarks>
+    public static PropertyInfo GetPropertyInfo(this Type type, string propertyName)
+    {
+      return TypeInfoExtensions.GetPropertyInfo(type.GetTypeInfo(), propertyName);
+    }
+
     /// <summary>
     /// Gets <see cref="PropertyInfo"/> (property metadata) for a given <see cref="Type"/> and binding option.
     /// </summary>
@@ -32,19 +45,16 @@ namespace AllOverIt.Extensions
     }
 
     /// <summary>
-    /// Gets the <see cref="PropertyInfo"/> (property metadata) for a given property on a <see cref="Type"/>.
+    /// Gets <see cref="MethodInfo"/> (method metadata) for a given <see cref="Type"/> and binding option.
     /// </summary>
-    /// <param name="type">The <see cref="Type"/> to obtain the property metadata from.</param>
-    /// <param name="propertyName">The name of the property to obtain metadata for.</param>
-    /// <returns>The property metadata, as <see cref="PropertyInfo"/>, of a specified property on the provided <param name="type"></param>.</returns>
-    /// <remarks>When class inheritance is involved, this method returns the first property found, starting at the type represented
+    /// <param name="type">The type to obtain method metadata for.</param>
+    /// <param name="binding">The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</param>
+    /// <param name="declaredOnly">If true, the metadata of properties in the declared class as well as base class(es) are returned.
+    /// If false, only method metadata of the declared type is returned.</param>
+    /// <returns>The method metadata, as <see cref="MethodInfo"/>, of a provided <see cref="Type"/>.</returns>
+    /// <remarks>When class inheritance is involved, this method returns the first method found, starting at the type represented
     /// by <param name="type"></param>.</remarks>
-    public static PropertyInfo GetPropertyInfo(this Type type, string propertyName)
-    {
-      return TypeInfoExtensions.GetPropertyInfo(type.GetTypeInfo(), propertyName);
-    }
-
-    public static IEnumerable<MethodInfo> GetMethods(this Type type, BindingOptions binding = BindingOptions.Default, bool declaredOnly = false)
+    public static IEnumerable<MethodInfo> GetMethodInfo(this Type type, BindingOptions binding = BindingOptions.Default, bool declaredOnly = false)
     {
       var predicate = BindingOptionsHelper.BuildBindingPredicate(binding);
       var currentType = type;

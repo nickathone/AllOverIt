@@ -1,5 +1,5 @@
-﻿using AllOverIt.Bindings;
-using AllOverIt.Extensions;
+﻿using AllOverIt.Extensions;
+using AllOverIt.Reflection;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -277,8 +277,7 @@ namespace AllOverIt.Tests.Extensions
       [Fact]
       public void Should_Throw_When_Invalid_Cast()
       {
-        Invoking(() =>
-            ObjectExtensions.As<DummyUnrelatedClass>(Create<DummyClass>()))
+        Invoking(() => ObjectExtensions.As<DummyUnrelatedClass>(Create<DummyClass>()))
           .Should()
           .Throw<InvalidCastException>()
           .WithMessage("Unable to cast object of type 'DummyClass' to type 'DummyUnrelatedClass'.");
@@ -289,8 +288,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var value = CreateExcluding<short>(0);
 
-        Invoking(() =>
-            ObjectExtensions.As<bool>(value))
+        Invoking(() => ObjectExtensions.As<bool>(value))
           .Should()
           .Throw<InvalidCastException>()
           .WithMessage($"Cannot convert integral '{value}' to a Boolean.");
@@ -301,8 +299,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var value = -CreateExcluding<short>(0);
 
-        Invoking(() =>
-            ObjectExtensions.As<bool>(value))
+        Invoking(() => ObjectExtensions.As<bool>(value))
           .Should()
           .Throw<InvalidCastException>()
           .WithMessage($"Cannot convert integral '{value}' to a Boolean.");
@@ -375,8 +372,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var value = Create<int>() + 100;
 
-        Invoking(() =>
-            ObjectExtensions.As<DummyEnum>(value))
+        Invoking(() => ObjectExtensions.As<DummyEnum>(value))
           .Should()
           .Throw<InvalidCastException>()
           .WithMessage($"Cannot cast '{value}' to a '{typeof(DummyEnum)}' value.");

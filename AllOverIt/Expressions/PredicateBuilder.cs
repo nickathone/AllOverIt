@@ -37,15 +37,8 @@ namespace AllOverIt.Expressions
 
     public static Expression<Func<TType, bool>> Or<TType>(this Expression<Func<TType, bool>> expression1, Expression<Func<TType, bool>> expression2)
     {
-      if (expression1 == null)
-      {
-        throw new ArgumentNullException(nameof(expression1));
-      }
-
-      if (expression2 == null)
-      {
-        throw new ArgumentNullException(nameof(expression2));
-      }
+      _ = expression1 ?? throw new ArgumentNullException(nameof(expression1));
+      _ = expression2 ?? throw new ArgumentNullException(nameof(expression2));
 
       return expression1.Compose(expression2, Expression.OrElse);
 
@@ -55,15 +48,8 @@ namespace AllOverIt.Expressions
 
     public static Expression<Func<TType, bool>> And<TType>(this Expression<Func<TType, bool>> expression1, Expression<Func<TType, bool>> expression2)
     {
-      if (expression1 == null)
-      {
-        throw new ArgumentNullException(nameof(expression1));
-      }
-
-      if (expression2 == null)
-      {
-        throw new ArgumentNullException(nameof(expression2));
-      }
+      _ = expression1 ?? throw new ArgumentNullException(nameof(expression1));
+      _ = expression2 ?? throw new ArgumentNullException(nameof(expression2));
 
       return expression1.Compose(expression2, Expression.AndAlso);
 
@@ -73,10 +59,7 @@ namespace AllOverIt.Expressions
 
     public static Expression<Func<TType, bool>> Not<TType>(this Expression<Func<TType, bool>> expression)
     {
-      if (expression == null)
-      {
-        throw new ArgumentNullException(nameof(expression));
-      }
+      _ = expression ?? throw new ArgumentNullException(nameof(expression));
 
       var negated = Expression.Not(expression.Body);
 

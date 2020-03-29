@@ -13,10 +13,7 @@ namespace AllOverIt.Helpers
     /// <param name="cleanUp">The cleanup action to perform when the object is disposed.</param>
     public Raii(Action initialize, Action cleanUp)
     {
-      if (initialize == null)
-      {
-        throw new ArgumentNullException(nameof(initialize));
-      }
+      _ = initialize ?? throw new ArgumentNullException(nameof(initialize));
 
       _cleanUp = cleanUp ?? throw new ArgumentNullException(nameof(cleanUp));
       initialize.Invoke();
@@ -63,10 +60,7 @@ namespace AllOverIt.Helpers
     /// <param name="cleanUp">The cleanup action to perform when the object is disposed.</param>
     public Raii(Func<TType> initialize, Action<TType> cleanUp)
     {
-      if (initialize == null)
-      {
-        throw new ArgumentNullException(nameof(initialize));
-      }
+      _ = initialize ?? throw new ArgumentNullException(nameof(initialize));
 
       Context = initialize.Invoke();
       _cleanUp = cleanUp ?? throw new ArgumentNullException(nameof(cleanUp));

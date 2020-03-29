@@ -1,4 +1,4 @@
-﻿using AllOverIt.Bindings;
+﻿using AllOverIt.Reflection;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -43,6 +43,45 @@ namespace AllOverIt.Tests.Extensions
     }
 
     public enum DummyEnum { One, Two, Three }
+
+    public class GetPropertyInfo_Property : TypeExtensionsFixture
+    {
+      [Fact]
+      public void Should_Get_Property_In_Super()
+      {
+        var actual = (object)AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(typeof(DummySuperClass), "Prop3");
+
+        actual.Should().BeEquivalentTo(
+          new
+          {
+            Name = "Prop3",
+            PropertyType = typeof(double)
+          }
+        );
+      }
+
+      [Fact]
+      public void Should_Get_Property_In_Base()
+      {
+        var actual = (object)AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(typeof(DummySuperClass), "Prop1");
+
+        actual.Should().BeEquivalentTo(
+          new
+          {
+            Name = "Prop1",
+            PropertyType = typeof(int)
+          }
+        );
+      }
+
+      [Fact]
+      public void Should_Not_Find_Property()
+      {
+        var actual = (object)AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(typeof(DummySuperClass), "PropXYZ");
+
+        actual.Should().BeNull();
+      }
+    }
 
     public class GetPropertyInfo_Bindings : TypeExtensionsFixture
     {
@@ -94,45 +133,6 @@ namespace AllOverIt.Tests.Extensions
         actual.Single(item => item.Name == "Prop4").Should().NotBeNull();
       }
     }
-    
-    public class GetPropertyInfo_Property : TypeExtensionsFixture
-    {
-      [Fact]
-      public void Should_Get_Property_In_Super()
-      {
-        var actual = (object)AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(typeof(DummySuperClass), "Prop3");
-
-        actual.Should().BeEquivalentTo(
-          new
-          {
-            Name = "Prop3",
-            PropertyType = typeof(double)
-          }
-        );
-      }
-
-      [Fact]
-      public void Should_Get_Property_In_Base()
-      {
-        var actual = (object)AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(typeof(DummySuperClass), "Prop1");
-
-        actual.Should().BeEquivalentTo(
-          new
-          {
-            Name = "Prop1",
-            PropertyType = typeof(int)
-          }
-        );
-      }
-
-      [Fact]
-      public void Should_Not_Find_Property()
-      {
-        var actual = (object)AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(typeof(DummySuperClass), "PropXYZ");
-
-        actual.Should().BeNull();
-      }
-    }
 
     public class GetMethods : TypeExtensionsFixture
     {
@@ -144,7 +144,7 @@ namespace AllOverIt.Tests.Extensions
       public void Should_Use_Default_Binding_Not_Declared_Only()
       {
         var actual = AllOverIt.Extensions.TypeExtensions
-          .GetMethods(typeof(DummySuperClass))
+          .GetMethodInfo(typeof(DummySuperClass))
           .Where(item => _knownMethods.Contains(item.Name))
           .Select(item => new
           {
@@ -170,7 +170,7 @@ namespace AllOverIt.Tests.Extensions
       public void Should_Use_Default_Binding_Declared_Only()
       {
         var actual = AllOverIt.Extensions.TypeExtensions
-          .GetMethods(typeof(DummySuperClass), BindingOptions.Default, true)
+          .GetMethodInfo(typeof(DummySuperClass), BindingOptions.Default, true)
           .Where(item => _knownMethods.Contains(item.Name))
           .Select(item => new
           {
@@ -190,7 +190,7 @@ namespace AllOverIt.Tests.Extensions
       public void Should_Get_All_Base_Methods_Only()
       {
         var actual = AllOverIt.Extensions.TypeExtensions
-          .GetMethods(typeof(DummyBaseClass), BindingOptions.All, true)
+          .GetMethodInfo(typeof(DummyBaseClass), BindingOptions.All, true)
           .Where(item => _knownMethods.Contains(item.Name))
           .Select(item => new
           {
@@ -216,7 +216,7 @@ namespace AllOverIt.Tests.Extensions
       public void Should_Get_All_Super_Methods_Only()
       {
         var actual = AllOverIt.Extensions.TypeExtensions
-          .GetMethods(typeof(DummySuperClass), BindingOptions.All, true)
+          .GetMethodInfo(typeof(DummySuperClass), BindingOptions.All, true)
           .Where(item => _knownMethods.Contains(item.Name))
           .Select(item => new
           {
@@ -242,7 +242,7 @@ namespace AllOverIt.Tests.Extensions
       public void Should_Get_Private_Methods_Only()
       {
         var actual = AllOverIt.Extensions.TypeExtensions
-          .GetMethods(typeof(DummySuperClass), BindingOptions.Private, false)   // default scope and visibility is implied
+          .GetMethodInfo(typeof(DummySuperClass), BindingOptions.Private, false)   // default scope and visibility is implied
           .Where(item => _knownMethods.Contains(item.Name))
           .Select(item => new
           {
