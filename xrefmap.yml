@@ -1,120 +1,6 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
-- uid: AllOverIt.Bindings
-  name: AllOverIt.Bindings
-  href: api/AllOverIt.Bindings.html
-  commentId: N:AllOverIt.Bindings
-  fullName: AllOverIt.Bindings
-  nameWithType: AllOverIt.Bindings
-- uid: AllOverIt.Bindings.BindingOptions
-  name: BindingOptions
-  href: api/AllOverIt.Bindings.BindingOptions.html
-  commentId: T:AllOverIt.Bindings.BindingOptions
-  fullName: AllOverIt.Bindings.BindingOptions
-  nameWithType: BindingOptions
-- uid: AllOverIt.Bindings.BindingOptions.Abstract
-  name: Abstract
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Abstract
-  commentId: F:AllOverIt.Bindings.BindingOptions.Abstract
-  fullName: AllOverIt.Bindings.BindingOptions.Abstract
-  nameWithType: BindingOptions.Abstract
-- uid: AllOverIt.Bindings.BindingOptions.All
-  name: All
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_All
-  commentId: F:AllOverIt.Bindings.BindingOptions.All
-  fullName: AllOverIt.Bindings.BindingOptions.All
-  nameWithType: BindingOptions.All
-- uid: AllOverIt.Bindings.BindingOptions.AllAccessor
-  name: AllAccessor
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_AllAccessor
-  commentId: F:AllOverIt.Bindings.BindingOptions.AllAccessor
-  fullName: AllOverIt.Bindings.BindingOptions.AllAccessor
-  nameWithType: BindingOptions.AllAccessor
-- uid: AllOverIt.Bindings.BindingOptions.AllScope
-  name: AllScope
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_AllScope
-  commentId: F:AllOverIt.Bindings.BindingOptions.AllScope
-  fullName: AllOverIt.Bindings.BindingOptions.AllScope
-  nameWithType: BindingOptions.AllScope
-- uid: AllOverIt.Bindings.BindingOptions.AllVisibility
-  name: AllVisibility
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_AllVisibility
-  commentId: F:AllOverIt.Bindings.BindingOptions.AllVisibility
-  fullName: AllOverIt.Bindings.BindingOptions.AllVisibility
-  nameWithType: BindingOptions.AllVisibility
-- uid: AllOverIt.Bindings.BindingOptions.Default
-  name: Default
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Default
-  commentId: F:AllOverIt.Bindings.BindingOptions.Default
-  fullName: AllOverIt.Bindings.BindingOptions.Default
-  nameWithType: BindingOptions.Default
-- uid: AllOverIt.Bindings.BindingOptions.DefaultAccessor
-  name: DefaultAccessor
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_DefaultAccessor
-  commentId: F:AllOverIt.Bindings.BindingOptions.DefaultAccessor
-  fullName: AllOverIt.Bindings.BindingOptions.DefaultAccessor
-  nameWithType: BindingOptions.DefaultAccessor
-- uid: AllOverIt.Bindings.BindingOptions.DefaultScope
-  name: DefaultScope
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_DefaultScope
-  commentId: F:AllOverIt.Bindings.BindingOptions.DefaultScope
-  fullName: AllOverIt.Bindings.BindingOptions.DefaultScope
-  nameWithType: BindingOptions.DefaultScope
-- uid: AllOverIt.Bindings.BindingOptions.DefaultVisibility
-  name: DefaultVisibility
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_DefaultVisibility
-  commentId: F:AllOverIt.Bindings.BindingOptions.DefaultVisibility
-  fullName: AllOverIt.Bindings.BindingOptions.DefaultVisibility
-  nameWithType: BindingOptions.DefaultVisibility
-- uid: AllOverIt.Bindings.BindingOptions.Instance
-  name: Instance
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Instance
-  commentId: F:AllOverIt.Bindings.BindingOptions.Instance
-  fullName: AllOverIt.Bindings.BindingOptions.Instance
-  nameWithType: BindingOptions.Instance
-- uid: AllOverIt.Bindings.BindingOptions.Internal
-  name: Internal
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Internal
-  commentId: F:AllOverIt.Bindings.BindingOptions.Internal
-  fullName: AllOverIt.Bindings.BindingOptions.Internal
-  nameWithType: BindingOptions.Internal
-- uid: AllOverIt.Bindings.BindingOptions.NonVirtual
-  name: NonVirtual
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_NonVirtual
-  commentId: F:AllOverIt.Bindings.BindingOptions.NonVirtual
-  fullName: AllOverIt.Bindings.BindingOptions.NonVirtual
-  nameWithType: BindingOptions.NonVirtual
-- uid: AllOverIt.Bindings.BindingOptions.Private
-  name: Private
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Private
-  commentId: F:AllOverIt.Bindings.BindingOptions.Private
-  fullName: AllOverIt.Bindings.BindingOptions.Private
-  nameWithType: BindingOptions.Private
-- uid: AllOverIt.Bindings.BindingOptions.Protected
-  name: Protected
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Protected
-  commentId: F:AllOverIt.Bindings.BindingOptions.Protected
-  fullName: AllOverIt.Bindings.BindingOptions.Protected
-  nameWithType: BindingOptions.Protected
-- uid: AllOverIt.Bindings.BindingOptions.Public
-  name: Public
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Public
-  commentId: F:AllOverIt.Bindings.BindingOptions.Public
-  fullName: AllOverIt.Bindings.BindingOptions.Public
-  nameWithType: BindingOptions.Public
-- uid: AllOverIt.Bindings.BindingOptions.Static
-  name: Static
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Static
-  commentId: F:AllOverIt.Bindings.BindingOptions.Static
-  fullName: AllOverIt.Bindings.BindingOptions.Static
-  nameWithType: BindingOptions.Static
-- uid: AllOverIt.Bindings.BindingOptions.Virtual
-  name: Virtual
-  href: api/AllOverIt.Bindings.BindingOptions.html#AllOverIt_Bindings_BindingOptions_Virtual
-  commentId: F:AllOverIt.Bindings.BindingOptions.Virtual
-  fullName: AllOverIt.Bindings.BindingOptions.Virtual
-  nameWithType: BindingOptions.Virtual
 - uid: AllOverIt.Expressions
   name: AllOverIt.Expressions
   href: api/AllOverIt.Expressions.html
@@ -1278,11 +1164,11 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ObjectExtensions.IsIntegral
   nameWithType: ObjectExtensions.IsIntegral
-- uid: AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary(System.Object,System.Boolean,AllOverIt.Bindings.BindingOptions)
+- uid: AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary(System.Object,System.Boolean,AllOverIt.Reflection.BindingOptions)
   name: ToPropertyDictionary(Object, Boolean, BindingOptions)
-  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_ToPropertyDictionary_System_Object_System_Boolean_AllOverIt_Bindings_BindingOptions_
-  commentId: M:AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary(System.Object,System.Boolean,AllOverIt.Bindings.BindingOptions)
-  fullName: AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary(System.Object, System.Boolean, AllOverIt.Bindings.BindingOptions)
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_ToPropertyDictionary_System_Object_System_Boolean_AllOverIt_Reflection_BindingOptions_
+  commentId: M:AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary(System.Object,System.Boolean,AllOverIt.Reflection.BindingOptions)
+  fullName: AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary(System.Object, System.Boolean, AllOverIt.Reflection.BindingOptions)
   nameWithType: ObjectExtensions.ToPropertyDictionary(Object, Boolean, BindingOptions)
 - uid: AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary*
   name: ToPropertyDictionary
@@ -1507,24 +1393,24 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.TypeExtensions.GetGenericArguments
   nameWithType: TypeExtensions.GetGenericArguments
-- uid: AllOverIt.Extensions.TypeExtensions.GetMethods(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
-  name: GetMethods(Type, BindingOptions, Boolean)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethods_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.GetMethods(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
-  fullName: AllOverIt.Extensions.TypeExtensions.GetMethods(System.Type, AllOverIt.Bindings.BindingOptions, System.Boolean)
-  nameWithType: TypeExtensions.GetMethods(Type, BindingOptions, Boolean)
-- uid: AllOverIt.Extensions.TypeExtensions.GetMethods*
-  name: GetMethods
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethods_
-  commentId: Overload:AllOverIt.Extensions.TypeExtensions.GetMethods
+- uid: AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)
+  name: GetMethodInfo(Type, BindingOptions, Boolean)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type, AllOverIt.Reflection.BindingOptions, System.Boolean)
+  nameWithType: TypeExtensions.GetMethodInfo(Type, BindingOptions, Boolean)
+- uid: AllOverIt.Extensions.TypeExtensions.GetMethodInfo*
+  name: GetMethodInfo
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethodInfo_
+  commentId: Overload:AllOverIt.Extensions.TypeExtensions.GetMethodInfo
   isSpec: "True"
-  fullName: AllOverIt.Extensions.TypeExtensions.GetMethods
-  nameWithType: TypeExtensions.GetMethods
-- uid: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetMethodInfo
+  nameWithType: TypeExtensions.GetMethodInfo
+- uid: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)
   name: GetPropertyInfo(Type, BindingOptions, Boolean)
-  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_
-  commentId: M:AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)
-  fullName: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type, AllOverIt.Bindings.BindingOptions, System.Boolean)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type, AllOverIt.Reflection.BindingOptions, System.Boolean)
   nameWithType: TypeExtensions.GetPropertyInfo(Type, BindingOptions, Boolean)
 - uid: AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,System.String)
   name: GetPropertyInfo(Type, String)
@@ -1816,6 +1702,167 @@ references:
   fullName.vb: AllOverIt.Helpers.Raii(Of TType).Dispose
   nameWithType: Raii<TType>.Dispose
   nameWithType.vb: Raii(Of TType).Dispose
+- uid: AllOverIt.Reflection
+  name: AllOverIt.Reflection
+  href: api/AllOverIt.Reflection.html
+  commentId: N:AllOverIt.Reflection
+  fullName: AllOverIt.Reflection
+  nameWithType: AllOverIt.Reflection
+- uid: AllOverIt.Reflection.BindingOptions
+  name: BindingOptions
+  href: api/AllOverIt.Reflection.BindingOptions.html
+  commentId: T:AllOverIt.Reflection.BindingOptions
+  fullName: AllOverIt.Reflection.BindingOptions
+  nameWithType: BindingOptions
+- uid: AllOverIt.Reflection.BindingOptions.Abstract
+  name: Abstract
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Abstract
+  commentId: F:AllOverIt.Reflection.BindingOptions.Abstract
+  fullName: AllOverIt.Reflection.BindingOptions.Abstract
+  nameWithType: BindingOptions.Abstract
+- uid: AllOverIt.Reflection.BindingOptions.All
+  name: All
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_All
+  commentId: F:AllOverIt.Reflection.BindingOptions.All
+  fullName: AllOverIt.Reflection.BindingOptions.All
+  nameWithType: BindingOptions.All
+- uid: AllOverIt.Reflection.BindingOptions.AllAccessor
+  name: AllAccessor
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_AllAccessor
+  commentId: F:AllOverIt.Reflection.BindingOptions.AllAccessor
+  fullName: AllOverIt.Reflection.BindingOptions.AllAccessor
+  nameWithType: BindingOptions.AllAccessor
+- uid: AllOverIt.Reflection.BindingOptions.AllScope
+  name: AllScope
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_AllScope
+  commentId: F:AllOverIt.Reflection.BindingOptions.AllScope
+  fullName: AllOverIt.Reflection.BindingOptions.AllScope
+  nameWithType: BindingOptions.AllScope
+- uid: AllOverIt.Reflection.BindingOptions.AllVisibility
+  name: AllVisibility
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_AllVisibility
+  commentId: F:AllOverIt.Reflection.BindingOptions.AllVisibility
+  fullName: AllOverIt.Reflection.BindingOptions.AllVisibility
+  nameWithType: BindingOptions.AllVisibility
+- uid: AllOverIt.Reflection.BindingOptions.Default
+  name: Default
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Default
+  commentId: F:AllOverIt.Reflection.BindingOptions.Default
+  fullName: AllOverIt.Reflection.BindingOptions.Default
+  nameWithType: BindingOptions.Default
+- uid: AllOverIt.Reflection.BindingOptions.DefaultAccessor
+  name: DefaultAccessor
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_DefaultAccessor
+  commentId: F:AllOverIt.Reflection.BindingOptions.DefaultAccessor
+  fullName: AllOverIt.Reflection.BindingOptions.DefaultAccessor
+  nameWithType: BindingOptions.DefaultAccessor
+- uid: AllOverIt.Reflection.BindingOptions.DefaultScope
+  name: DefaultScope
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_DefaultScope
+  commentId: F:AllOverIt.Reflection.BindingOptions.DefaultScope
+  fullName: AllOverIt.Reflection.BindingOptions.DefaultScope
+  nameWithType: BindingOptions.DefaultScope
+- uid: AllOverIt.Reflection.BindingOptions.DefaultVisibility
+  name: DefaultVisibility
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_DefaultVisibility
+  commentId: F:AllOverIt.Reflection.BindingOptions.DefaultVisibility
+  fullName: AllOverIt.Reflection.BindingOptions.DefaultVisibility
+  nameWithType: BindingOptions.DefaultVisibility
+- uid: AllOverIt.Reflection.BindingOptions.Instance
+  name: Instance
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Instance
+  commentId: F:AllOverIt.Reflection.BindingOptions.Instance
+  fullName: AllOverIt.Reflection.BindingOptions.Instance
+  nameWithType: BindingOptions.Instance
+- uid: AllOverIt.Reflection.BindingOptions.Internal
+  name: Internal
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Internal
+  commentId: F:AllOverIt.Reflection.BindingOptions.Internal
+  fullName: AllOverIt.Reflection.BindingOptions.Internal
+  nameWithType: BindingOptions.Internal
+- uid: AllOverIt.Reflection.BindingOptions.NonVirtual
+  name: NonVirtual
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_NonVirtual
+  commentId: F:AllOverIt.Reflection.BindingOptions.NonVirtual
+  fullName: AllOverIt.Reflection.BindingOptions.NonVirtual
+  nameWithType: BindingOptions.NonVirtual
+- uid: AllOverIt.Reflection.BindingOptions.Private
+  name: Private
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Private
+  commentId: F:AllOverIt.Reflection.BindingOptions.Private
+  fullName: AllOverIt.Reflection.BindingOptions.Private
+  nameWithType: BindingOptions.Private
+- uid: AllOverIt.Reflection.BindingOptions.Protected
+  name: Protected
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Protected
+  commentId: F:AllOverIt.Reflection.BindingOptions.Protected
+  fullName: AllOverIt.Reflection.BindingOptions.Protected
+  nameWithType: BindingOptions.Protected
+- uid: AllOverIt.Reflection.BindingOptions.Public
+  name: Public
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Public
+  commentId: F:AllOverIt.Reflection.BindingOptions.Public
+  fullName: AllOverIt.Reflection.BindingOptions.Public
+  nameWithType: BindingOptions.Public
+- uid: AllOverIt.Reflection.BindingOptions.Static
+  name: Static
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Static
+  commentId: F:AllOverIt.Reflection.BindingOptions.Static
+  fullName: AllOverIt.Reflection.BindingOptions.Static
+  nameWithType: BindingOptions.Static
+- uid: AllOverIt.Reflection.BindingOptions.Virtual
+  name: Virtual
+  href: api/AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_Virtual
+  commentId: F:AllOverIt.Reflection.BindingOptions.Virtual
+  fullName: AllOverIt.Reflection.BindingOptions.Virtual
+  nameWithType: BindingOptions.Virtual
+- uid: AllOverIt.Reflection.ReflectionHelper
+  name: ReflectionHelper
+  href: api/AllOverIt.Reflection.ReflectionHelper.html
+  commentId: T:AllOverIt.Reflection.ReflectionHelper
+  fullName: AllOverIt.Reflection.ReflectionHelper
+  nameWithType: ReflectionHelper
+- uid: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo*
+  name: GetMethodInfo
+  href: api/AllOverIt.Reflection.ReflectionHelper.html#AllOverIt_Reflection_ReflectionHelper_GetMethodInfo_
+  commentId: Overload:AllOverIt.Reflection.ReflectionHelper.GetMethodInfo
+  isSpec: "True"
+  fullName: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo
+  nameWithType: ReflectionHelper.GetMethodInfo
+- uid: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(AllOverIt.Reflection.BindingOptions,System.Boolean)
+  name: GetMethodInfo<TType>(BindingOptions, Boolean)
+  href: api/AllOverIt.Reflection.ReflectionHelper.html#AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_AllOverIt_Reflection_BindingOptions_System_Boolean_
+  commentId: M:AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(AllOverIt.Reflection.BindingOptions,System.Boolean)
+  name.vb: GetMethodInfo(Of TType)(BindingOptions, Boolean)
+  fullName: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo<TType>(AllOverIt.Reflection.BindingOptions, System.Boolean)
+  fullName.vb: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo(Of TType)(AllOverIt.Reflection.BindingOptions, System.Boolean)
+  nameWithType: ReflectionHelper.GetMethodInfo<TType>(BindingOptions, Boolean)
+  nameWithType.vb: ReflectionHelper.GetMethodInfo(Of TType)(BindingOptions, Boolean)
+- uid: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo*
+  name: GetPropertyInfo
+  href: api/AllOverIt.Reflection.ReflectionHelper.html#AllOverIt_Reflection_ReflectionHelper_GetPropertyInfo_
+  commentId: Overload:AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo
+  isSpec: "True"
+  fullName: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo
+  nameWithType: ReflectionHelper.GetPropertyInfo
+- uid: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo``1(AllOverIt.Reflection.BindingOptions,System.Boolean)
+  name: GetPropertyInfo<TType>(BindingOptions, Boolean)
+  href: api/AllOverIt.Reflection.ReflectionHelper.html#AllOverIt_Reflection_ReflectionHelper_GetPropertyInfo__1_AllOverIt_Reflection_BindingOptions_System_Boolean_
+  commentId: M:AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo``1(AllOverIt.Reflection.BindingOptions,System.Boolean)
+  name.vb: GetPropertyInfo(Of TType)(BindingOptions, Boolean)
+  fullName: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo<TType>(AllOverIt.Reflection.BindingOptions, System.Boolean)
+  fullName.vb: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo(Of TType)(AllOverIt.Reflection.BindingOptions, System.Boolean)
+  nameWithType: ReflectionHelper.GetPropertyInfo<TType>(BindingOptions, Boolean)
+  nameWithType.vb: ReflectionHelper.GetPropertyInfo(Of TType)(BindingOptions, Boolean)
+- uid: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo``1(System.String)
+  name: GetPropertyInfo<TType>(String)
+  href: api/AllOverIt.Reflection.ReflectionHelper.html#AllOverIt_Reflection_ReflectionHelper_GetPropertyInfo__1_System_String_
+  commentId: M:AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo``1(System.String)
+  name.vb: GetPropertyInfo(Of TType)(String)
+  fullName: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo<TType>(System.String)
+  fullName.vb: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo(Of TType)(System.String)
+  nameWithType: ReflectionHelper.GetPropertyInfo<TType>(String)
+  nameWithType.vb: ReflectionHelper.GetPropertyInfo(Of TType)(String)
 - uid: AllOverIt.Tasks
   name: AllOverIt.Tasks
   href: api/AllOverIt.Tasks.html

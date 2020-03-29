@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Enum ExpressionInfoType
+    <title>Enum BindingOptions
    | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Enum ExpressionInfoType
+    <meta name="title" content="Enum BindingOptions
    | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
@@ -78,19 +78,19 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Expressions.Info.ExpressionInfoType">
+            <article class="content wrap" id="_content" data-uid="AllOverIt.Reflection.BindingOptions">
   
   
-  <h1 id="AllOverIt_Expressions_Info_ExpressionInfoType" data-uid="AllOverIt.Expressions.Info.ExpressionInfoType" class="text-break">Enum ExpressionInfoType
+  <h1 id="AllOverIt_Reflection_BindingOptions" data-uid="AllOverIt.Reflection.BindingOptions" class="text-break">Enum BindingOptions
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Expressions.Info.html">AllOverIt.Expressions.Info</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Reflection.html">AllOverIt.Reflection</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
-  <h5 id="AllOverIt_Expressions_Info_ExpressionInfoType_syntax">Syntax</h5>
+  <h5 id="AllOverIt_Reflection_BindingOptions_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Flags]
-public enum ExpressionInfoType</code></pre>
+public enum BindingOptions</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
@@ -103,36 +103,91 @@ public enum ExpressionInfoType</code></pre>
     <thead>
     <tbody>
       <tr>
-        <td id="AllOverIt_Expressions_Info_ExpressionInfoType_BinaryComparison">BinaryComparison</td>
-        <td></td>
+        <td id="AllOverIt_Reflection_BindingOptions_Abstract">Abstract</td>
+        <td><p>Filter reflection operations to <em>abstract</em> access.</p>
+</td>
       </tr>
       <tr>
-        <td id="AllOverIt_Expressions_Info_ExpressionInfoType_Conditional">Conditional</td>
-        <td></td>
+        <td id="AllOverIt_Reflection_BindingOptions_All">All</td>
+        <td><p>Filter reflection operations to use <a class="xref" href="AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_AllScope">AllScope</a> scope, <a class="xref" href="AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_AllAccessor">AllAccessor</a> access,
+and <a class="xref" href="AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_AllVisibility">AllVisibility</a> visibility.</p>
+</td>
       </tr>
       <tr>
-        <td id="AllOverIt_Expressions_Info_ExpressionInfoType_Constant">Constant</td>
-        <td></td>
+        <td id="AllOverIt_Reflection_BindingOptions_AllAccessor">AllAccessor</td>
+        <td><p>Filter reflection operations to <em>abstract</em>, <em>virtual</em>, or <em>non-virtual</em> access.</p>
+</td>
       </tr>
       <tr>
-        <td id="AllOverIt_Expressions_Info_ExpressionInfoType_Field">Field</td>
-        <td></td>
+        <td id="AllOverIt_Reflection_BindingOptions_AllScope">AllScope</td>
+        <td><p>Filter reflection operations to <em>static</em> or <em>instance</em> scope.</p>
+</td>
       </tr>
       <tr>
-        <td id="AllOverIt_Expressions_Info_ExpressionInfoType_MemberInit">MemberInit</td>
-        <td></td>
+        <td id="AllOverIt_Reflection_BindingOptions_AllVisibility">AllVisibility</td>
+        <td><p>Filter reflection operations to <em>public</em>, <em>protected</em>, <em>private</em>, or <em>internal</em> access.</p>
+</td>
       </tr>
       <tr>
-        <td id="AllOverIt_Expressions_Info_ExpressionInfoType_MethodCall">MethodCall</td>
-        <td></td>
+        <td id="AllOverIt_Reflection_BindingOptions_Default">Default</td>
+        <td><p>Filter reflection operations to use <a class="xref" href="AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_DefaultScope">DefaultScope</a> scope, <a class="xref" href="AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_DefaultAccessor">DefaultAccessor</a> access,
+and <a class="xref" href="AllOverIt.Reflection.BindingOptions.html#AllOverIt_Reflection_BindingOptions_DefaultVisibility">DefaultVisibility</a> visibility.</p>
+</td>
       </tr>
       <tr>
-        <td id="AllOverIt_Expressions_Info_ExpressionInfoType_New">New</td>
-        <td></td>
+        <td id="AllOverIt_Reflection_BindingOptions_DefaultAccessor">DefaultAccessor</td>
+        <td><p>Filter reflection operations to <em>abstract</em>, <em>virtual</em>, or <em>non-virtual</em> access.</p>
+</td>
       </tr>
       <tr>
-        <td id="AllOverIt_Expressions_Info_ExpressionInfoType_Property">Property</td>
-        <td></td>
+        <td id="AllOverIt_Reflection_BindingOptions_DefaultScope">DefaultScope</td>
+        <td><p>Filter reflection operations to <em>static</em> or <em>instance</em> scope.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_DefaultVisibility">DefaultVisibility</td>
+        <td><p>Filter reflection operations to <em>public</em> or <em>protected</em> access.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_Instance">Instance</td>
+        <td><p>Filter reflection operations to <em>instance</em> (non-static) scope.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_Internal">Internal</td>
+        <td><p>Filter reflection operations to <em>internal</em> visibility.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_NonVirtual">NonVirtual</td>
+        <td><p>Filter reflection operations to a <em>non-virtual</em> access.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_Private">Private</td>
+        <td><p>Filter reflection operations to <em>private</em> visibility.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_Protected">Protected</td>
+        <td><p>Filter reflection operations to <em>protected</em> visibility.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_Public">Public</td>
+        <td><p>Filter reflection operations to <em>public</em> visibility.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_Static">Static</td>
+        <td><p>Filter reflection operations to <em>static</em> scope.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Reflection_BindingOptions_Virtual">Virtual</td>
+        <td><p>Filter reflection operations to <em>virtual</em> access.</p>
+</td>
       </tr>
     </tbody>
   </thead></thead></table>
@@ -150,10 +205,10 @@ public enum ExpressionInfoType</code></pre>
       <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_AsNullable__1_System_Object_System_Nullable___0__">ObjectExtensions.AsNullable&lt;TType&gt;(Nullable&lt;TType&gt;)</a>
   </div>
   <div>
-      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String__">ObjectExtensions.CalculateHashCode&lt;ExpressionInfoType&gt;(IEnumerable&lt;String&gt;, IEnumerable&lt;String&gt;)</a>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String__">ObjectExtensions.CalculateHashCode&lt;BindingOptions&gt;(IEnumerable&lt;String&gt;, IEnumerable&lt;String&gt;)</a>
   </div>
   <div>
-      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Func___0_System_Object____">ObjectExtensions.CalculateHashCode&lt;ExpressionInfoType&gt;(Func&lt;ExpressionInfoType, Object&gt;[])</a>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Func___0_System_Object____">ObjectExtensions.CalculateHashCode&lt;BindingOptions&gt;(Func&lt;BindingOptions, Object&gt;[])</a>
   </div>
 </article>
           </div>

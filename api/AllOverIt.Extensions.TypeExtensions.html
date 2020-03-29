@@ -202,13 +202,14 @@
       </tr>
     </tbody>
   </table>
-  <a id="AllOverIt_Extensions_TypeExtensions_GetMethods_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethods*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_GetMethods_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethods(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)">GetMethods(Type, BindingOptions, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethodInfo*"></a>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)">GetMethodInfo(Type, BindingOptions, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.MethodInfo</span> (method metadata) for a given <span class="xref">System.Type</span> and binding option.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;MethodInfo&gt; GetMethods(this Type type, BindingOptions binding = BindingOptions.Static | BindingOptions.Instance | BindingOptions.Abstract | BindingOptions.Virtual | BindingOptions.NonVirtual | BindingOptions.Protected | BindingOptions.Public | BindingOptions.DefaultScope | BindingOptions.DefaultAccessor | BindingOptions.DefaultVisibility | BindingOptions.Default | BindingOptions.AllScope | BindingOptions.AllAccessor, bool declaredOnly = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;MethodInfo&gt; GetMethodInfo(this Type type, BindingOptions binding = BindingOptions.Static | BindingOptions.Instance | BindingOptions.Abstract | BindingOptions.Virtual | BindingOptions.NonVirtual | BindingOptions.Protected | BindingOptions.Public | BindingOptions.DefaultScope | BindingOptions.DefaultAccessor | BindingOptions.DefaultVisibility | BindingOptions.Default | BindingOptions.AllScope | BindingOptions.AllAccessor, bool declaredOnly = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -223,17 +224,21 @@
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to obtain method metadata for.</p>
+</td>
       </tr>
       <tr>
-        <td><a class="xref" href="AllOverIt.Bindings.BindingOptions.html">BindingOptions</a></td>
+        <td><a class="xref" href="AllOverIt.Reflection.BindingOptions.html">BindingOptions</a></td>
         <td><span class="parametername">binding</span></td>
-        <td></td>
+        <td><p>The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">declaredOnly</span></td>
-        <td></td>
+        <td><p>If true, the metadata of properties in the declared class as well as base class(es) are returned.
+If false, only method metadata of the declared type is returned.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -248,12 +253,17 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.MethodInfo</span>&gt;</td>
-        <td></td>
+        <td><p>The method metadata, as <span class="xref">System.Reflection.MethodInfo</span>, of a provided <span class="xref">System.Type</span>.</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first method found, starting at the type represented
+by <param name="type">.</p>
+</div>
   <a id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo*"></a>
-  <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Bindings.BindingOptions,System.Boolean)">GetPropertyInfo(Type, BindingOptions, Boolean)</h4>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)">GetPropertyInfo(Type, BindingOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given <span class="xref">System.Type</span> and binding option.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -278,7 +288,7 @@
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="AllOverIt.Bindings.BindingOptions.html">BindingOptions</a></td>
+        <td><a class="xref" href="AllOverIt.Reflection.BindingOptions.html">BindingOptions</a></td>
         <td><span class="parametername">binding</span></td>
         <td><p>The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</p>
 </td>
@@ -308,7 +318,7 @@ If false, only property metadata of the declared type is returned.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Bindings_BindingOptions_System_Boolean__remarks">Remarks</h5>
+  <h5 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first property found, starting at the type represented
 by <param name="type">.</p>
 </div>

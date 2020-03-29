@@ -80,6 +80,178 @@
 <h1 id="reflection">Reflection</h1>
 
 <hr>
+<p>Reflection provides the ability to dynamically create instances of a type, get the type of an existing object and invoke its methods or access its properties. <strong>AllOverIt</strong> simplifies the access to an object's set of properties and methods by using a set of binding options.</p>
+<h2 id="binding-options">Binding Options</h2>
+<p>To simplify the explanation of using reflection binding options, consider the following class:</p>
+<pre><code class="lang-csharp">public class SomeClass
+{
+  public int Prop1 { get; set; }
+  private int Prop2 { get; set; }
+  internal int Prop3 { get; set; }
+  internal int Prop4 { get; private set; }
+  public static bool Prop5 { get; set; }
+}
+</code></pre>
+<p>This class contains a number of properaties that exhibit three categories of binding options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Refers to whether a property or method is static or instance.</td>
+</tr>
+<tr>
+<td>Accessor</td>
+<td>Refers to whether a property or method is virtual, non-virtual, or abstract.</td>
+</tr>
+<tr>
+<td>Visibility</td>
+<td>Refers to whether a property or method is public, protected, private, or internal.</td>
+</tr>
+</tbody>
+</table>
+<p>When querying for properties and methods the binding must include at least one option from each of the three categories. Where a category option has not been provided then the following defaults will be applied:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Applied</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Static or instance</td>
+</tr>
+<tr>
+<td>Accessor</td>
+<td>Virtual, non-virtual, or abstract.</td>
+</tr>
+<tr>
+<td>Visibility</td>
+<td>Public or protected.</td>
+</tr>
+</tbody>
+</table>
+<p>There are also a number of options defined that provide often-used combinations:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default Applied</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DefaultScope</td>
+<td>Static or instance</td>
+</tr>
+<tr>
+<td>DefaultAccessor</td>
+<td>Virtual, non-virtual, or abstract.</td>
+</tr>
+<tr>
+<td>DefaultVisibility</td>
+<td>Public or protected.</td>
+</tr>
+<tr>
+<td>AllScope</td>
+<td>Static or instance</td>
+</tr>
+<tr>
+<td>AllAccessor</td>
+<td>Virtual, non-virtual, or abstract.</td>
+</tr>
+<tr>
+<td>AllVisibility</td>
+<td>Public, protected, private or internal.</td>
+</tr>
+<tr>
+<td>All</td>
+<td>Combines <strong>AllScope</strong>, <strong>AllAccessor</strong>, and <strong>AllVisibility</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="obtain-property-information">Obtain Property Information</h2>
+<p><code>ProperytInfo</code> can be obtained from an object using any of the following:</p>
+<ol>
+<li>The static <code>ReflectionHelper.GetPropertyInfo()</code> generic methods</li>
+<li>The <code>GetPropertyInfo()</code> extension method of <code>Type</code></li>
+<li>The <code>GetPropertyInfo()</code> extension method of <code>TypeInfo</code></li>
+</ol>
+<p>The following example demonstrates how to obtain property metadata based on a class type.</p>
+<pre><code>public class Person
+{
+  private string FullName { get; set; }
+  public string FirstName { get; set; }
+  public string LastName { get; set; }
+  public int Age { get; set; }
+}
+
+// obtains all property information using the default binding options
+var allInfo = ReflectionHelper.GetPropertyInfo&lt;Person&gt;();
+
+// obtains property information for 'FirstName' (uses default binding options)
+var firstNameInfo = ReflectionHelper.GetPropertyInfo&lt;Person&gt;(&quot;FirstName&quot;);
+
+// obtains property information for the private property called 'FullName'
+var fullNameInfo = ReflectionHelper
+  .GetPropertyInfo&lt;Person&gt;(BindingOptions.Private)
+  .Single(item =&gt; item.Name == &quot;FullName&quot;);
+</code></pre>
+<p>The following example demonstrates how to achieve property information from a class instance using the <em>Type</em> extension method:</p>
+<pre><code>var person = new Person();
+
+var ageInfo = person.GetType().GetPropertyInfo(&quot;Age&quot;);
+</code></pre>
+<h2 id="obtain-method-information">Obtain Method Information</h2>
+<p><code>MethodInfo</code> can be obtained from an object using any of the following:</p>
+<ol>
+<li>The static <code>ReflectionHelper.GetMethodInfo()</code> generic methods</li>
+<li>The <code>GetMethodInfo()</code> extension method of <code>Type</code></li>
+</ol>
+<p>The following example demonstrates how to obtain method metadata based on a class type.</p>
+<pre><code>public class Person
+{
+  public string FirstName { get; set; }
+  public string LastName { get; set; }
+
+  public string GetFullName() =&gt; $&quot;{FirstName} {LastName}&quot;;
+}
+
+// obtains method metadata for 'GetFullName' using default binding options
+var fullNameInfo = ReflectionHelper
+  .GetMethodInfo&lt;Person&gt;()
+  .Single(item =&gt; item.Name == &quot;GetFullName&quot;);
+</code></pre>
+<h2 id="convert-an-object-to-a-dictionarystring-object">Convert an object to a <code>Dictionary&lt;string, object&gt;</code></h2>
+<p>Property names and their values can be converted to a dictionary as shown in the following example:</p>
+<pre><code>public class Person
+{
+  public string FirstName { get; set; }
+  public string MiddleName { get; set; }
+  public string LastName { get; set; }
+}
+
+var person = new Person
+{
+  FirstName = &quot;Malcolm&quot;,
+  LastName = &quot;Smith&quot;
+};
+
+// contains FirstName and LastName
+// excludes null values and uses default binding options
+var nonNullProperties = person.ToPropertyDictionary();
+
+// contains FirstName, MiddleName and LastName
+// includes null values and uses default binding options
+var allProperties = person.ToPropertyDictionary(true);
+</code></pre>
 </article>
           </div>
           
