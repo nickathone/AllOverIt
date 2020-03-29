@@ -93,6 +93,17 @@ namespace AllOverIt.Tests.Extensions
       }
 
       [Fact]
+      public void Should_Throw_Inner_TargetInvocationException()
+      {
+        var message = Create<string>();
+        Expression<Func<int>> expression = () => GetException(message);
+
+        var actual = Invoking(() => expression.Body.GetValue());
+
+        actual.Should().Throw<Exception>().WithMessage(message);
+      }
+
+      [Fact]
       public void Should_Get_Dynamic_Invocation_Expression_Value()
       {
         var val1 = Create<int>();
@@ -109,6 +120,11 @@ namespace AllOverIt.Tests.Extensions
       private static int GetSum(int val1, int val2)
       {
         return val1 + val2;
+      }
+
+      private int GetException(string message)
+      {
+        throw new Exception(message);
       }
     }
 

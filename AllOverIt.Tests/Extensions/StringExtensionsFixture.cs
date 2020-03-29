@@ -11,6 +11,10 @@ namespace AllOverIt.Tests.Extensions
       Dummy1, Dummy2, Dummy3
     }
 
+    //public abstract class DummyClass
+    //{
+    //}
+
     public class As : StringExtensionsFixture
     {
       [Fact]
@@ -44,13 +48,13 @@ namespace AllOverIt.Tests.Extensions
       }
 
       [Fact]
-      public void Should_Return_Default_Value_If_Value_Is_Not_Convertible()
+      public void Should_Throw_When_No_Type_Converter()
       {
-        var defaultValue = Create<int>();
-        
-        var actual = AllOverIt.Extensions.StringExtensions.As(Create<string>(), defaultValue);
-
-        actual.Should().Be(defaultValue);
+        Invoking(
+            () =>AllOverIt.Extensions.StringExtensions.As(Create<string>(), Create<int>()))
+          .Should()
+          .Throw<ArgumentException>()
+          .WithMessage("No converter exists for type 'Int32'.");
       }
 
       [Fact]

@@ -17,8 +17,8 @@ namespace AllOverIt.Tasks
     /// factory is executed asynchronously.
     /// </summary>
     /// <param name="factory">The factory used for lazy initialization of the stored value.</param>
-    public AsyncLazy(Func<TType> factory) :
-      base(() => Task.Factory.StartNew(factory))
+    public AsyncLazy(Func<TType> factory)
+      : base(() => Task.Factory.StartNew(factory))
     { }
 
     /// <summary>
@@ -26,8 +26,8 @@ namespace AllOverIt.Tasks
     /// factory is executed asynchronously.
     /// </summary>
     /// <param name="factory">The factory used for lazy initialization of the stored value.</param>
-    public AsyncLazy(Func<Task<TType>> factory) :
-      base(() => Task.Factory.StartNew(factory).Unwrap())
+    public AsyncLazy(Func<Task<TType>> factory)
+      : base(() => Task.Factory.StartNew(factory).Unwrap())
     { }
 
     /// <summary>

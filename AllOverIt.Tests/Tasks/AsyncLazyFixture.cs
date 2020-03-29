@@ -60,9 +60,9 @@ namespace AllOverIt.Tests.Tasks
       {
         var actual = Awaiting(async () =>
         {
-          Func<IList<int>> factory = null;
+          Func<Task<int>> factory = null;
 
-          var lazy = new AsyncLazy<IList<int>>(factory);
+          var lazy = new AsyncLazy<int>(factory);
 
           await lazy;
         });
@@ -77,7 +77,7 @@ namespace AllOverIt.Tests.Tasks
       {
         var expected = CreateMany<int>();
 
-        var lazy = new AsyncLazy<IReadOnlyList<int>>(() => expected);
+        var lazy = new AsyncLazy<IReadOnlyList<int>>(async () => await Task.FromResult(expected));
 
         var actual = await lazy.Value;
 
@@ -89,7 +89,7 @@ namespace AllOverIt.Tests.Tasks
       {
         var expected = CreateMany<int>();
 
-        var lazy = new AsyncLazy<IReadOnlyList<int>>(() => expected);
+        var lazy = new AsyncLazy<IReadOnlyList<int>>(async () => await Task.FromResult(expected));
 
         var actual = await lazy;
 

@@ -33,15 +33,11 @@ namespace AllOverIt.Extensions
       // perform this after the enum conversion attempt
       if (!TypeDescriptor.GetConverter(typeof(TType)).IsValid(value))
       {
-        return defaultValue;
+        throw new ArgumentException($"No converter exists for type '{typeof(TType).Name}'.");
       }
 
+      // will throw NotSupportedException if the conversion cannot be performed
       var converted = TypeDescriptor.GetConverter(typeof(TType)).ConvertFromString(value);
-
-      if (converted == null)
-      {
-        throw new ArgumentException($"No converter exists for type {typeof(TType)}");
-      }
 
       return (TType)converted;
     }
