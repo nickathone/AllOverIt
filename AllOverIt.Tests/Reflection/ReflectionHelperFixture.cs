@@ -28,7 +28,11 @@ namespace AllOverIt.Tests.Reflection
     {
       public override double Prop3 { get; set; }
       private long Prop4 { get; set; }
+
+#pragma warning disable 649
+      // Unassigned field
       public int Field1;
+#pragma warning restore 649
 
       public void Method3()
       {
@@ -56,12 +60,24 @@ namespace AllOverIt.Tests.Reflection
         throw new NotImplementedException();
       }
 
+#pragma warning disable 8632
+      // Annotation for nullable reference types should only be used in code within a #nullable annotations context
+      // ReSharper disable once UnassignedGetOnlyAutoProperty
       public override Type? DeclaringType { get; }
-      public override MemberTypes MemberType { get; }
-      public override string Name { get; }
-      public override Type? ReflectedType { get; }
-    }
+#pragma warning restore 8632
 
+      // ReSharper disable once UnassignedGetOnlyAutoProperty
+      public override MemberTypes MemberType { get; }
+
+      public override string Name { get; }
+
+#pragma warning disable 8632
+      // Annotation for nullable reference types should only be used in code within a #nullable annotations context
+      // ReSharper disable once UnassignedGetOnlyAutoProperty
+      public override Type? ReflectedType { get; }
+#pragma warning restore 8632
+
+    }
 
     public class GetPropertyInfo_Property : ReflectionHelperFixture
     {
