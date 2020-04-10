@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -47,6 +48,69 @@ namespace AllOverIt.Reflection
     public static IEnumerable<MethodInfo> GetMethodInfo<TType>(BindingOptions binding = BindingOptions.Default, bool declaredOnly = false)
     {
       return typeof(TType).GetMethodInfo(binding, declaredOnly);
+    }
+
+    /// <summary>
+    /// Sets the value of a target property or field using its associated <see cref="MemberInfo"/>.
+    /// </summary>
+    /// <param name="memberInfo">The <see cref="MemberInfo"/> of the property or field to have its value set.</param>
+    /// <param name="target">The target object being updated.</param>
+    /// <param name="value">The value to assign to the property or field.</param>
+    public static void SetMemberValue(MemberInfo memberInfo, object target, object value)
+    {
+      _ = memberInfo ?? throw new ArgumentNullException(nameof(memberInfo));
+      _ = target ?? throw new ArgumentNullException(nameof(target));
+
+      switch (memberInfo)
+      {
+        case PropertyInfo property:
+          property.SetValue(target, value, null);
+          return;
+
+        case FieldInfo field:
+          field.SetValue(target, value);
+          return;
+
+        default:
+          throw new ArgumentOutOfRangeException(nameof(memberInfo), $"Expected {nameof(memberInfo)} to be a property or field");
+      }
+    }
+
+    /// <summary>
+    /// Gets the value of a target property or field using its associated <see cref="MemberInfo"/>.
+    /// </summary>
+    /// <param name="memberInfo">The <see cref="MemberInfo"/> of the property or field being read.</param>
+    /// <param name="target">The target object being read.</param>
+    /// <returns>The value of the property or field referred to by <param name="memberInfo"></param>.</returns>
+    public static object GetMemberValue(MemberInfo memberInfo, object target)
+    {
+      _ = memberInfo ?? throw new ArgumentNullException(nameof(memberInfo));
+      _ = target ?? throw new ArgumentNullException(nameof(target));
+
+      return memberInfo switch
+      {
+        PropertyInfo property => property.GetValue(target),
+        FieldInfo field => field.GetValue(target),
+        _ => throw new ArgumentOutOfRangeException(nameof(memberInfo), $"Expected {nameof(memberInfo)} to be a property or field")
+      };
+    }
+
+    /// <summary>
+    /// Gets the property, field or method call return type associated with the <see cref="memberInfo"/>.
+    /// </summary>
+    /// <param name="memberInfo">The <see cref="MemberInfo"/> of the property, field or method call.</param>
+    /// <returns>The property, field or method call return type.</returns>
+    public static Type GetMemberType(MemberInfo memberInfo)
+    {
+      _ = memberInfo ?? throw new ArgumentNullException(nameof(memberInfo));
+
+      return memberInfo switch
+      {
+        PropertyInfo propertyInfo => propertyInfo.PropertyType,
+        FieldInfo fieldInfo => fieldInfo.FieldType,
+        MethodInfo methodInfo => methodInfo.ReturnType,
+        _ => throw new ArgumentOutOfRangeException(nameof(memberInfo))
+      };
     }
   }
 }
