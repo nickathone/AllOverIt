@@ -5,22 +5,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace AllOverIt.Helpers
-   | AllOverIt </title>
+    <title>StringExtensions | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace AllOverIt.Helpers
-   | AllOverIt ">
+    <meta name="title" content="StringExtensions | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
-    <link rel="shortcut icon" href="../images/logo128.png">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="shortcut icon" href="../../../images/logo128.png">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
     
-    <meta property="docfx:rel" content="../">
+    <meta property="docfx:rel" content="../../../">
     <meta property="docfx:newtab" content="true">
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -36,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/logo50.png" alt="">
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../images/logo50.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -78,24 +76,35 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Helpers">
-  
-  <h1 id="AllOverIt_Helpers" data-uid="AllOverIt.Helpers" class="text-break">Namespace AllOverIt.Helpers
-  </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
-  </h3>
-      <h4><a class="xref" href="AllOverIt.Helpers.EnumHelper.html">EnumHelper</a></h4>
-      <section><p>Provides static, general purpose, methods related to using Enums.</p>
-</section>
-      <h4><a class="xref" href="AllOverIt.Helpers.Raii.html">Raii</a></h4>
-      <section><p>A disposable object implementing the Resource Acquisition Is Initialization idiom.</p>
-</section>
-      <h4><a class="xref" href="AllOverIt.Helpers.Raii-1.html">Raii&lt;TType&gt;</a></h4>
-      <section><p>A strongly-type disposable object implementing the Resource Acquisition Is Initialization  idiom.</p>
-</section>
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="stringextensions">StringExtensions</h2>
+
+<h3 id="asttype-and-asnullablettype">As&lt;TType&gt;() and AsNullable&lt;TType&gt;()</h3>
+<pre><code class="lang-csharp">public static TType As&lt;TType&gt;(this string value, TType defaultValue = default,
+  bool ignoreCase = true);
+
+public static TType? AsNullable&lt;TType&gt;(this string value, bool ignoreCase = true)
+  where TType : struct;
+</code></pre>
+<p>Similar to methods of the same name in the <code>objectextensions</code> namespace, these methods attempt to convert a string to another type, typically Boolean, Integral, or Enum types.</p>
+<p>Supported conversions include byte, sbyte, decimal, double, float, int, uint, long, ulong, short, ushort, string, boolean and enum.</p>
+<p>Char conversions must be performed using the <code>ObjectExtensions.As&lt;TType&gt;()</code> method.</p>
+<p>No attempt is made to avoid overflow or argument exceptions.</p>
+<p>Other conversions are possible if a suitable <code>TypeConverter</code> is available.</p>
+<pre><code class="lang-csharp">// each will return a Boolean True (a variable would
+// normally be in the place of the string)
+var result = &quot;true&quot;.As&lt;bool&gt;();
+var result = &quot;TRUE&quot;.As&lt;bool&gt;();
+var result = &quot;TrUe&quot;.As&lt;bool&gt;();
+var result = &quot;1&quot;.As&lt;bool&gt;();
+
+// each will return NumberStyles.Integer (a variable would
+// normally be in the place of the string)
+var result = &quot;7&quot;.As&lt;NumberStyles&gt;();
+var result = &quot;integer&quot;.As&lt;NumberStyles&gt;();
+var result = &quot;Integer&quot;.As&lt;NumberStyles&gt;();
+var result = &quot;INTEGER&quot;.As&lt;NumberStyles&gt;();
+</code></pre>
 </article>
           </div>
           
@@ -123,8 +132,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
   </body>
 </html>

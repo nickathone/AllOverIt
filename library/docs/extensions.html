@@ -80,6 +80,309 @@
 <h1 id="extension-methods">Extension Methods</h1>
 
 <hr>
+<h2 id="expressionextensions">ExpressionExtensions</h2>
+<p>Refer to the section describing <a href="expressions.html#extensions">Expressions</a> for examples of available extension methods.</p>
+<h2 id="comparableextensions">ComparableExtensions</h2>
+<p>The <code>IComparable</code> interface allows for one object to be custom compared to another. <code>AllOverIt</code> contains the following extension methods:</p>
+<pre><code class="lang-csharp">LessThan&lt;TType&gt;()
+LessThanOrEqual&lt;TType&gt;()
+GreaterThan&lt;TType&gt;()
+GreaterThanOrEqual&lt;TType&gt;()
+EqualTo&lt;TType&gt;()
+NotEqualTo&lt;TType&gt;()
+</code></pre>
+<p>The following example shows how to compare two <code>Person</code> objects based on their <em>Surname</em> and <em>FirstName</em>.</p>
+<pre><code class="lang-csharp">public class Person : IComparable&lt;Person&gt;
+{
+  public string FirstName { get; }
+  public string Surname { get; }
+
+  public Person(string firstName, string surname)
+  {
+    FirstName = firstName;
+    Surname = surname;
+  }
+
+  public int CompareTo(Person other)
+  {
+    // compare by surname, then first name, case insensitively
+    var surnameComparison = CompareName(Surname, other.Surname);
+
+    return surnameComparison != 0
+      ? surnameComparison
+      : CompareName(FirstName, other.FirstName);
+  }
+
+  private static int CompareName(string lhs, string rhs)
+  {
+    return string.Compare(lhs, rhs, StringComparison.InvariantCultureIgnoreCase);
+  }
+}
+</code></pre>
+<p>And this is how it can be used within a LINQ query using the extension methods available in <code>AllOverIt</code>.</p>
+<pre><code class="lang-csharp">var persons = new[]
+{
+  new Person(&quot;Adam&quot;, &quot;Baker&quot;),
+  new Person(&quot;Adam&quot;, &quot;Murphy&quot;),
+  new Person(&quot;Paul&quot;, &quot;Nielson&quot;),
+  new Person(&quot;Jon&quot;, &quot;Nielson&quot;)
+};
+
+// custom comparer will consider them in the following order:
+//   Baker, Adam
+//   Murphy, Adam
+//   Nielson, Jon
+//   Nielson, Paul
+
+var comparisonPerson = new Person(&quot;Amy&quot;, &quot;Myer&quot;);
+
+var actual = persons.Where(
+  item =&gt; item.LessThan(comparisonPerson)
+).AsReadOnlyList();
+
+actual.Should().BeEquivalentTo(
+  new Person(&quot;Adam&quot;, &quot;Baker&quot;),
+  new Person(&quot;Adam&quot;, &quot;Murphy&quot;)
+);
+</code></pre>
+<h2 id="dictionaryextensions">DictionaryExtensions</h2>
+<h3 id="getvalueordefault">GetValueOrDefault()</h3>
+<pre><code class="lang-csharp">public static TValue GetValueOrDefault&lt;TKey, TValue&gt;(
+  this IDictionary&lt;TKey, TValue&gt; dictionary, TKey key,
+  TValue defaultValue = default)
+</code></pre>
+<p>This extension method returns the value associated with a key if found, otherwise it returns a (optional) default value.</p>
+<pre><code class="lang-csharp">// assuming managers is of type Dictionary&lt;int, Person&gt;
+
+// id is an integer identifier to look up
+var person = managers.GetValueOrDefault(id);
+</code></pre>
+<p>If found, the associated <code>Person</code> instance will be returned, otherwise <em>null</em>.</p>
+<pre><code class="lang-csharp">// id is an integer identifier to look up
+// manager is an instance of a Person object
+var person = managers.GetValueOrDefault(id, manager);
+</code></pre>
+<p>If found, the associated <code>Person</code> instance will be returned, otherwise <em>manager</em> will be. The <em>managers</em> dictionary is not mutated if the key is not found.</p>
+<h3 id="getorset">GetOrSet()</h3>
+<pre><code class="lang-csharp">public static TValue GetOrSet&lt;TKey, TValue&gt;(
+  this IDictionary&lt;TKey, TValue&gt; dictionary, TKey key,
+  Func&lt;TValue&gt; valueCreator)
+</code></pre>
+<p>This extension method returns the value associated with a key if found, otherwise it invokes <em>valueCreator</em> to get the value that should be added to the dictionary, and then returned to the caller.</p>
+<pre><code class="lang-csharp">// id is an integer identifier to look up
+// manager is an instance of a Person object
+var person = managers.GetValueOrDefault(id, () =&gt; manager);
+</code></pre>
+<p>If found, the associated <code>Person</code> instance will be returned, otherwise <em>manager</em> will be returned after adding it to the dictionary. The <em>managers</em> dictionary is mutated if the key is not found.</p>
+<h2 id="doubleextensions">DoubleExtensions</h2>
+<p>Comparing double values is problematic due to rounding issues. <code>AllOverIt</code> provides extension methods to help compare a <code>double</code> with another, or zero. The built-in tolerance is defined as <code>1E-7</code>. Overloads exist that allow you to provide your own tolerance.</p>
+<pre><code class="lang-csharp">public static bool IsZero(this double value);
+public static bool IsZero(this double value, double tolerance);
+</code></pre>
+<p>Compares a <code>double</code> value to zero, within a given tolerance.</p>
+<pre><code class="lang-csharp">public static bool IsEqualTo(this double lhs, double rhs);
+public static bool IsEqualTo(this double lhs, double rhs, double tolerance);
+</code></pre>
+<p>Compares to <code>double</code> values with each other, within a given tolerance.</p>
+<h2 id="enumerableextensions">EnumerableExtensions</h2>
+<h3 id="aslist-asreadonlylist-asreadonlycollection">AsList(), AsReadOnlyList(), AsReadOnlyCollection()</h3>
+<pre><code class="lang-csharp">public static IList&lt;TType&gt; AsList&lt;TType&gt;(
+  this IEnumerable&lt;TType&gt; items);
+
+public static IReadOnlyList&lt;TType&gt; AsReadOnlyList&lt;TType&gt;(
+  this IEnumerable&lt;TType&gt; items);
+
+public static IReadOnlyCollection&lt;TType&gt; AsReadOnlyCollection&lt;TType&gt;(
+  this IEnumerable&lt;TType&gt; items);
+</code></pre>
+<p>When working with an Enumerable there is a real concern associated with potentially enumerating it more than once. To overcome this, a commonly used approach is to convert the <code>IEnumerable&lt;TType&gt;</code> to a <code>List&lt;TType&gt;</code> by using the <code>ToList()</code> method.</p>
+<p>If the <code>items</code> being enumerated is already a list, then calling <code>ToList()</code> will create a second list. This can quickly become a memory and performance issue. The <code>AsList()</code>, <code>AsReadOnlyList()</code>, and <code>AsReadOnlyCollection()</code> methods help solve this by determining if a new collection actually needs to be created.</p>
+<p>In all cases, if the <code>IEnumerable&lt;TType&gt;</code> is already a list or read-only collection then the same reference is returned, otherwise a new collection is created.</p>
+<h3 id="isnullorempty">IsNullOrEmpty()</h3>
+<pre><code class="lang-csharp">public static bool IsNullOrEmpty(this IEnumerable items);
+</code></pre>
+<p>Applicable to collections and strings, this method returns <em>true</em> if the instance is <em>null</em> or empty, otherwise false.</p>
+<h2 id="objectextensions">ObjectExtensions</h2>
+<h3 id="topropertydictionary">ToPropertyDictionary()</h3>
+<pre><code class="lang-csharp">public static IDictionary&lt;string, object&gt; ToPropertyDictionary(this object instance,
+  bool includeNulls = false, BindingOptions bindingOptions = BindingOptions.Default);
+</code></pre>
+<p>Use this method to convert any object to a dictionary of property key names mapped to their value. The default options exclude <em>null</em> properties and includes properties that are:</p>
+<ul>
+<li>Static or instance scope</li>
+<li>Abstract, virtual, or non-virtual access</li>
+<li>Public or protected visibility</li>
+</ul>
+<h3 id="asttype">As&lt;TType&gt;()</h3>
+<pre><code class="lang-csharp">public static TType As&lt;TType&gt;(this object instance, TType defaultValue = default);
+</code></pre>
+<p>This method will attempt to convert an object to another type. The following conversions are attempted (in the order shown):</p>
+<ul>
+<li><p>If <em>null</em>, returns <code>defaultValue</code></p>
+</li>
+<li><p>If <code>TType</code> is</p>
+<ul>
+<li>the same type as <code>instance</code>, or</li>
+<li><code>TType</code> is <code>object</code>, or</li>
+<li><code>TType</code> is a class type, but not a <code>string</code>, then</li>
+</ul>
+<p>The original reference is returned, casted to a <code>TType</code>.</p>
+</li>
+<li><p>If <code>TType</code> is a <code>Boolean</code> and <code>instance</code> is an integral type (<code>byte</code>, <code>sbyte</code>, <code>short</code>, <code>ushort</code>, <code>int</code>, <code>uint</code>, <code>long</code>, <code>ulong</code>) then a zero value will be returned as False, and a value of one will be returned as True. All other values will throw an <code>ArgumentOutOfRangeException</code> exception.</p>
+</li>
+<li><p>If <code>instance</code> is an integral value and <code>TType</code> is an <code>Enum</code> then a conversion will be attempted. If the conversion cannot be performed then an <code>ArgumentOutOfRangeException</code> exception will be thrown.</p>
+</li>
+<li><p>If any of the following are true:</p>
+<ul>
+<li><code>TType</code> is a <code>Boolean</code></li>
+<li><code>instance</code> is a <code>Boolean</code></li>
+<li><code>TType</code> is a <code>char</code></li>
+<li><code>instance</code> is a <code>char</code></li>
+</ul>
+<p>Then an attempt to convert <code>instance</code> to <code>TType</code> will be performed using <code>Convert.ChangeType()</code>.</p>
+</li>
+<li><p>In all other cases, <code>instance</code> will be converted to a <code>string</code> (using string interpolation) and passed to <code>StringExtensions.As&lt;TType&gt;()</code> for conversion.</p>
+</li>
+</ul>
+<h3 id="asnullablettype">AsNullable&lt;TType&gt;</h3>
+<pre><code class="lang-csharp">public static TType? AsNullable&lt;TType&gt;(this object instance, TType? defaultValue = null)
+  where TType : struct;
+</code></pre>
+<p>This method behaves identical to <code>As&lt;TType&gt;()</code>.</p>
+<h3 id="calculatehashcode">CalculateHashCode()</h3>
+<p>There are two overloads, each of which are described below.</p>
+<pre><code class="lang-csharp">public static int CalculateHashCode&lt;TType&gt;(this TType instance,
+  IEnumerable&lt;string&gt; includeProperties = null,
+  IEnumerable&lt;string&gt; excludeProperties = null);
+</code></pre>
+<p>This overload uses reflection to find all instance properties and calculate a hash code. The main advantage of using reflection is that it will automatically include properties of all access (abstract, virtual, and non-virtual) and visibility (public, protected, and private). Furthermore, this overload satisfies OCP (Open-Closed Principle) because the hash code will automatically adjust the calculations if properties are added or removed.</p>
+<p>The <code>includeProperties</code> and <code>excludeProperties</code> options exist to provide finer control over which properties are considered for calculating the hash code.</p>
+<ul>
+<li><p>When <code>includeProperties</code> is <em>null</em> then all properties are included, otherwise only those specified are considered.</p>
+</li>
+<li><p>When <code>excludeProperties</code> is <em>null</em> then no properties are excluded, otherwise the specified properties are excluded.</p>
+</li>
+</ul>
+<pre><code class="lang-csharp">public static int CalculateHashCode&lt;TType&gt;(this TType instance,
+  params Func&lt;TType, object&gt;[] propertyResolvers);
+</code></pre>
+<p>This overload calculates the hash code based on explicitly specified properties, fields, or the return result from a method call. If properties are added to the class then you must remember to later include those for them to be considered during the hash code calculation.</p>
+<h2 id="propertyinfoextensions">PropertyInfoExtensions</h2>
+<p>Properties can be declared as abstract, virtual, or static, as well as public, protected, private, or internal. Extension methods exist for each of these cases:</p>
+<pre><code class="lang-csharp">public static bool IsAbstract(this PropertyInfo propertyInfo);
+public static bool IsVirtual(this PropertyInfo propertyInfo);
+public static bool IsStatic(this PropertyInfo propertyInfo);
+public static bool IsPublic(this PropertyInfo propertyInfo);
+public static bool IsProtected(this PropertyInfo propertyInfo);
+public static bool IsPrivate(this PropertyInfo propertyInfo);
+public static bool IsInternal(this PropertyInfo propertyInfo);
+</code></pre>
+<p>These extensions prove to be quite useful when used in conjunction with the <code>TypeInfo</code> extensions or the various methods within <code>ReflectionHelper</code> that return <code>PropertyInfo</code>. For example:</p>
+<pre><code class="lang-csharp">public class Person 
+{
+  public string FirstName { get; set; }
+  public string Surname { get; set; }
+  public int Age { get; set; }
+  public string FullName =&gt; $&quot;{FirstName} {Surname}&quot;;
+}
+</code></pre>
+<p>Assume <code>subject</code> in the following snippet is an instance of <code>Person</code>:</p>
+<pre><code class="lang-csharp">var properties = new[] { &quot;FirstName&quot;, &quot;Surname&quot;, &quot;Age&quot;, &quot;FullName&quot; };
+
+// Using reflection, this will output the value of each property on `subject`
+foreach (var property in properties)
+{
+  // GetPropertyInfo() is an extension method in TypeInfoExtensions
+  var info = typeof(Person).GetPropertyInfo(property);
+  var value = info.GetValue(subject);
+
+  Console.WriteLine($&quot;{property} = {value}&quot;);
+}
+</code></pre>
+<p>The same <code>info</code> can be used to check the visibility of a property:</p>
+<pre><code class="lang-csharp">var isPublic = info.IsPublic();        // true
+var isProtected = info.IsProtected();  // false
+var isPrivate = info.IsPrivate();      // false
+var isInternal = info.IsInternal();    // false
+</code></pre>
+<p>Or accessibility:</p>
+<pre><code class="lang-csharp">var isAbstract = info.IsAbstract();  // false
+var isVirtual = info.IsVirtual();    // false
+var isStatic = info.IsStatic();      // false
+</code></pre>
+<h2 id="stringextensions">StringExtensions</h2>
+<h3 id="asttype-and-asnullablettype">As&lt;TType&gt;() and AsNullable&lt;TType&gt;()</h3>
+<pre><code class="lang-csharp">public static TType As&lt;TType&gt;(this string value, TType defaultValue = default,
+  bool ignoreCase = true);
+
+public static TType? AsNullable&lt;TType&gt;(this string value, bool ignoreCase = true)
+  where TType : struct;
+</code></pre>
+<p>Similar to methods of the same name in the <code>objectextensions</code> namespace, these methods attempt to convert a string to another type, typically Boolean, Integral, or Enum types.</p>
+<p>Supported conversions include byte, sbyte, decimal, double, float, int, uint, long, ulong, short, ushort, string, boolean and enum.</p>
+<p>Char conversions must be performed using the <code>ObjectExtensions.As&lt;TType&gt;()</code> method.</p>
+<p>No attempt is made to avoid overflow or argument exceptions.</p>
+<p>Other conversions are possible if a suitable <code>TypeConverter</code> is available.</p>
+<pre><code class="lang-csharp">// each will return a Boolean True (a variable would
+// normally be in the place of the string)
+var result = &quot;true&quot;.As&lt;bool&gt;();
+var result = &quot;TRUE&quot;.As&lt;bool&gt;();
+var result = &quot;TrUe&quot;.As&lt;bool&gt;();
+var result = &quot;1&quot;.As&lt;bool&gt;();
+
+// each will return NumberStyles.Integer (a variable would
+// normally be in the place of the string)
+var result = &quot;7&quot;.As&lt;NumberStyles&gt;();
+var result = &quot;integer&quot;.As&lt;NumberStyles&gt;();
+var result = &quot;Integer&quot;.As&lt;NumberStyles&gt;();
+var result = &quot;INTEGER&quot;.As&lt;NumberStyles&gt;();
+</code></pre>
+<h2 id="typeextensions">TypeExtensions</h2>
+<p>Property and method metadata can be obtained for a <code>Type</code> using various reflection methods. It can be difficult, however, to easily extract that information when you need to filter down to specific requirements. <code>AllOverIt</code> includes several methods to simplify the process.</p>
+<p>The following class is used in the examples below:</p>
+<pre><code class="lang-csharp">public class PersonBase
+{
+  protected int Id { get; set; }
+}
+
+public class Person : PersonBase
+{
+  public string FirstName { get; set; }
+  public string Surname { get; set; }
+}
+</code></pre>
+<h3 id="getpropertyinfo">GetPropertyInfo()</h3>
+<pre><code class="lang-csharp">public static PropertyInfo GetPropertyInfo(this Type type, string propertyName);
+
+public static IEnumerable&lt;PropertyInfo&gt; GetPropertyInfo(this Type type,
+  BindingOptions binding = BindingOptions.Default, bool declaredOnly = false);
+</code></pre>
+<p>Getting <code>PropertyInfo</code> for public or protected properties, by name, is as simple as:</p>
+<pre><code class="lang-csharp">var firstNameInfo = typeof(Person).GetPropertyInfo(&quot;FirstName&quot;);
+var surnameInfo = typeof(Person).GetPropertyInfo(&quot;Surname&quot;);
+
+// assuming 'subject' is of type 'Person'
+var firstName = firstNameInfo.GetValue(subject);
+var surname = surnameInfo.GetValue(subject);
+</code></pre>
+<p>To get the <code>PropertyInfo</code> of select properties, use any of the following:</p>
+<pre><code class="lang-csharp">// all public and protected properties
+var allInfo = typeof(Person).GetPropertyInfo();
+
+// all properties, including internal and private
+var allInfo = typeof(Person).GetPropertyInfo(BindingOptions.All);
+
+// all properties, including internal and private, of the declared class only
+// (will not return Id)
+var allInfo = typeof(Person).GetPropertyInfo(BindingOptions.All, true);
+</code></pre>
+<h2 id="typeinfoextensions">TypeInfoExtensions</h2>
+<pre><code class="lang-csharp">public static IEnumerable&lt;PropertyInfo&gt; GetPropertyInfo(this TypeInfo typeInfo,
+  bool declaredOnly = false);
+
+public static PropertyInfo GetPropertyInfo(this TypeInfo typeInfo, string propertyName);
+</code></pre>
+<p>These methods are identical to those of the same name in the <code>TypeExtensions</code> namespace, except they extend <code>TypeInfo</code> instead of <code>Type</code>. Refer to <a href="extensions/extensions.md#typeextensions">TypeExtensions</a> for more information.</p>
 </article>
           </div>
           

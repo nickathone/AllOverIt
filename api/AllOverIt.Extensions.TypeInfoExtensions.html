@@ -150,7 +150,8 @@
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">declaredOnly</span></td>
-        <td><p>If true, the metadata of properties in the declared class as well as base class(es) are returned.
+        <td><p>If true, the metadata of properties in the declared class as well as base class(es) are returned
+(if a property is overriden then only the base class <span class="xref">System.Reflection.PropertyInfo</span> is returned).
 If false, only property metadata of the declared type is returned.</p>
 </td>
       </tr>
@@ -178,7 +179,7 @@ by <param name="typeInfo">.</p>
 </div>
   <a id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo*"></a>
   <h4 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_String_" data-uid="AllOverIt.Extensions.TypeInfoExtensions.GetPropertyInfo(System.Reflection.TypeInfo,System.String)">GetPropertyInfo(TypeInfo, String)</h4>
-  <div class="markdown level1 summary"><p>Gets the <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given property on a <span class="xref">System.Reflection.TypeInfo</span>.</p>
+  <div class="markdown level1 summary"><p>Gets the <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given public or protected property on a <span class="xref">System.Reflection.TypeInfo</span>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -227,7 +228,9 @@ by <param name="typeInfo">.</p>
   </table>
   <h5 id="AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_String__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first property found, starting at the type represented
-by <param name="typeInfo">.</p>
+by <param name="typeInfo">. If the property is overriden, this means the base class <span class="xref">System.Reflection.PropertyInfo</span> will not be
+returned. If you require the base class <span class="xref">System.Reflection.PropertyInfo</span> then use the <a class="xref" href="AllOverIt.Extensions.TypeInfoExtensions.html#AllOverIt_Extensions_TypeInfoExtensions_GetPropertyInfo_System_Reflection_TypeInfo_System_Boolean_">GetPropertyInfo(TypeInfo, Boolean)</a>
+method.</p>
 </div>
 </article>
           </div>

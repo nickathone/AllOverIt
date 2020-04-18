@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Utilities | AllOverIt </title>
+    <title>Helpers | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Utilities | AllOverIt ">
+    <meta name="title" content="Helpers | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
     <link rel="shortcut icon" href="../../images/logo128.png">
@@ -77,9 +77,72 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="utilities">Utilities</h1>
+<h1 id="helpers">Helpers</h1>
 
 <hr>
+<h2 id="enumhelper">EnumHelper</h2>
+<pre><code class="lang-csharp">public static IReadOnlyCollection&lt;TType&gt; GetEnumValues&lt;TType&gt;()
+  where TType : struct, Enum;
+</code></pre>
+<p>Provides an easy way to obtain a list of all possible values for a given enum type. For example:</p>
+<pre><code class="lang-csharp">// returns Static, Instance, Abstract, Virtual, NonVirtual, Internal, Private,
+//         Protected, Public, DefaultScope, DefaultAccessor, DefaultVisibility,
+//         Default, AllScope, AllAccessor, AllVisibility, All
+var enumValues = EnumHelper.GetEnumValues&lt;BindingOptions&gt;();
+</code></pre>
+<h2 id="raii">Raii</h2>
+<p>The <code>Raii</code> and <code>Raii&lt;TType&gt;</code> classes implement the Resource Acquisition Is Initialization idiom. During construction a resource is acquired or initialized and during disposal there is an opportunity to perform custom last-minute cleanup. These classes should ideally be used within a <code>using()</code> block to ensure the disposal is deterministic.</p>
+<p>While the <code>Raii</code> class is often used for things such as creating and disposing of database connections, it's also useful for automating actions that need to be performed when a unit of work has been completed. The following example represents a <em>logger</em> that sends a message to an <code>Action</code>. The action is a simplified representation of an injected dependency (this implementation is for illustration purposes only).</p>
+<pre><code class="lang-csharp">public class Logger
+{
+  private class ProfilerContext
+  {
+    public Stopwatch Stopwatch { get; }
+    public string Title { get; }
+
+    public ProfilerContext(string title)
+    {
+      Stopwatch = Stopwatch.StartNew();
+      Title = title;
+    }
+  }
+
+  // use the to emulate logging to some external output
+  private readonly Action&lt;string&gt; _action;
+
+  public Logger(Action&lt;string&gt; action)
+  {
+    _action = action;
+  }
+
+  public void LogMessage(string message)
+  {
+    _action.Invoke(message);;
+  }
+
+  public IDisposable GetProfiler(string title)
+  {
+    return new Raii&lt;ProfilerContext&gt;(
+      () =&gt; new ProfilerContext(title),
+      context =&gt; StopProfiling(context)
+    );
+  }
+
+  private void StopProfiling(ProfilerContext context)
+  {
+    var message = $&quot;{context.Title} took {context.Stopwatch.ElapsedMilliseconds}ms&quot;;
+
+    LogMessage(message);
+  }
+}
+</code></pre>
+<p>The <code>Logger</code> contains a <code>GetProfiler()</code> method that returns an <code>IDisposable</code> in the form of a <code>Raii&lt;ProfilerContext&gt;</code>. During construction of this object a <code>Stopwatch</code> is created and immediately starts running. When the <code>IDisposable</code> is diposed of, the cleanup action is executed, resulting in an elapsed log message being processed via the <code>StopProfiling()</code> method.</p>
+<p>The profiler would be used like so:</p>
+<pre><code class="lang-csharp">using (logger.GetProfiler(title))
+{
+  // the code to be profiled goes here(false);
+}
+</code></pre>
 </article>
           </div>
           

@@ -122,6 +122,98 @@
   </div>
   <h3 id="methods">Methods
   </h3>
+  <a id="AllOverIt_Reflection_ReflectionHelper_GetMemberType_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMemberType*"></a>
+  <h4 id="AllOverIt_Reflection_ReflectionHelper_GetMemberType_System_Reflection_MemberInfo_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMemberType(System.Reflection.MemberInfo)">GetMemberType(MemberInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets the property, field or method call return type associated with the <see cref="!:memberInfo"></see>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Type GetMemberType(MemberInfo memberInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MemberInfo</span></td>
+        <td><span class="parametername">memberInfo</span></td>
+        <td><p>The <span class="xref">System.Reflection.MemberInfo</span> of the property, field or method call.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><p>The property, field or method call return type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="AllOverIt_Reflection_ReflectionHelper_GetMemberValue_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMemberValue*"></a>
+  <h4 id="AllOverIt_Reflection_ReflectionHelper_GetMemberValue_System_Reflection_MemberInfo_System_Object_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMemberValue(System.Reflection.MemberInfo,System.Object)">GetMemberValue(MemberInfo, Object)</h4>
+  <div class="markdown level1 summary"><p>Gets the value of a target property or field using its associated <span class="xref">System.Reflection.MemberInfo</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static object GetMemberValue(MemberInfo memberInfo, object target)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MemberInfo</span></td>
+        <td><span class="parametername">memberInfo</span></td>
+        <td><p>The <span class="xref">System.Reflection.MemberInfo</span> of the property or field being read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">target</span></td>
+        <td><p>The target object being read.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><p>The value of the property or field referred to by <param name="memberInfo">.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <a id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMethodInfo*"></a>
   <h4 id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_AllOverIt_Reflection_BindingOptions_System_Boolean_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(AllOverIt.Reflection.BindingOptions,System.Boolean)">GetMethodInfo&lt;TType&gt;(BindingOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.MethodInfo</span> (method metadata) for a given <typeparam name="TType"></typeparam> and binding option.</p>
@@ -325,6 +417,45 @@ by <typeparam name="TType"></typeparam>.</p>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first property found, starting at the type represented
 by <typeparam name="TType"></typeparam>.</p>
 </div>
+  <a id="AllOverIt_Reflection_ReflectionHelper_SetMemberValue_" data-uid="AllOverIt.Reflection.ReflectionHelper.SetMemberValue*"></a>
+  <h4 id="AllOverIt_Reflection_ReflectionHelper_SetMemberValue_System_Reflection_MemberInfo_System_Object_System_Object_" data-uid="AllOverIt.Reflection.ReflectionHelper.SetMemberValue(System.Reflection.MemberInfo,System.Object,System.Object)">SetMemberValue(MemberInfo, Object, Object)</h4>
+  <div class="markdown level1 summary"><p>Sets the value of a target property or field using its associated <span class="xref">System.Reflection.MemberInfo</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetMemberValue(MemberInfo memberInfo, object target, object value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MemberInfo</span></td>
+        <td><span class="parametername">memberInfo</span></td>
+        <td><p>The <span class="xref">System.Reflection.MemberInfo</span> of the property or field to have its value set.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">target</span></td>
+        <td><p>The target object being updated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to assign to the property or field.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           

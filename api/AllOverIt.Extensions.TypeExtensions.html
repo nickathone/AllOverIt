@@ -264,7 +264,7 @@ by <param name="type">.</p>
 </div>
   <a id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)">GetPropertyInfo(Type, BindingOptions, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given <span class="xref">System.Type</span> and binding option.</p>
+  <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for all properties on a given <span class="xref">System.Type</span> satisfying a given binding option.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -324,7 +324,7 @@ by <param name="type">.</p>
 </div>
   <a id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_System_String_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,System.String)">GetPropertyInfo(Type, String)</h4>
-  <div class="markdown level1 summary"><p>Gets the <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given property on a <span class="xref">System.Type</span>.</p>
+  <div class="markdown level1 summary"><p>Gets the <span class="xref">System.Reflection.PropertyInfo</span> (property metadata) for a given public or protected property on a <span class="xref">System.Type</span>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -512,6 +512,46 @@ by <param name="type">.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static bool IsEnumType(this Type type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="AllOverIt_Extensions_TypeExtensions_IsFloatingType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsFloatingType*"></a>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_IsFloatingType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsFloatingType(System.Type)">IsFloatingType(Type)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsFloatingType(this Type type)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

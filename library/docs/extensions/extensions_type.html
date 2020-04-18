@@ -5,20 +5,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> | AllOverIt </title>
+    <title>TypeExtensions | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" | AllOverIt ">
+    <meta name="title" content="TypeExtensions | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
-    <link rel="shortcut icon" href="../images/logo128.png">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="shortcut icon" href="../../../images/logo128.png">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
     
-    <meta property="docfx:rel" content="../">
+    <meta property="docfx:rel" content="../../../">
     <meta property="docfx:newtab" content="true">
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -34,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/logo50.png" alt="">
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../images/logo50.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -77,8 +77,46 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h2 id="typeextensions">TypeExtensions</h2>
 
-<p>Something</p>
+<p>Property and method metadata can be obtained for a <code>Type</code> using various reflection methods. It can be difficult, however, to easily extract that information when you need to filter down to specific requirements. <code>AllOverIt</code> includes several methods to simplify the process.</p>
+<p>The following class is used in the examples below:</p>
+<pre><code class="lang-csharp">public class PersonBase
+{
+  protected int Id { get; set; }
+}
+
+public class Person : PersonBase
+{
+  public string FirstName { get; set; }
+  public string Surname { get; set; }
+}
+</code></pre>
+<h3 id="getpropertyinfo">GetPropertyInfo()</h3>
+<pre><code class="lang-csharp">public static PropertyInfo GetPropertyInfo(this Type type, string propertyName);
+
+public static IEnumerable&lt;PropertyInfo&gt; GetPropertyInfo(this Type type,
+  BindingOptions binding = BindingOptions.Default, bool declaredOnly = false);
+</code></pre>
+<p>Getting <code>PropertyInfo</code> for public or protected properties, by name, is as simple as:</p>
+<pre><code class="lang-csharp">var firstNameInfo = typeof(Person).GetPropertyInfo(&quot;FirstName&quot;);
+var surnameInfo = typeof(Person).GetPropertyInfo(&quot;Surname&quot;);
+
+// assuming 'subject' is of type 'Person'
+var firstName = firstNameInfo.GetValue(subject);
+var surname = surnameInfo.GetValue(subject);
+</code></pre>
+<p>To get the <code>PropertyInfo</code> of select properties, use any of the following:</p>
+<pre><code class="lang-csharp">// all public and protected properties
+var allInfo = typeof(Person).GetPropertyInfo();
+
+// all properties, including internal and private
+var allInfo = typeof(Person).GetPropertyInfo(BindingOptions.All);
+
+// all properties, including internal and private, of the declared class only
+// (will not return Id)
+var allInfo = typeof(Person).GetPropertyInfo(BindingOptions.All, true);
+</code></pre>
 </article>
           </div>
           
@@ -106,8 +144,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
   </body>
 </html>

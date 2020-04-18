@@ -123,13 +123,13 @@
   <h3 id="methods">Methods
   </h3>
   <a id="AllOverIt_Extensions_StringExtensions_As_" data-uid="AllOverIt.Extensions.StringExtensions.As*"></a>
-  <h4 id="AllOverIt_Extensions_StringExtensions_As__1_System_String___0_System_Boolean_" data-uid="AllOverIt.Extensions.StringExtensions.As``1(System.String,``0,System.Boolean)">As&lt;TType&gt;(String, TType, Boolean)</h4>
+  <h4 id="AllOverIt_Extensions_StringExtensions_As__1_System_String___0_" data-uid="AllOverIt.Extensions.StringExtensions.As``1(System.String,``0)">As&lt;TType&gt;(String, TType)</h4>
   <div class="markdown level1 summary"><p>Converts a given string to another type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType As&lt;TType&gt;(this string value, TType defaultValue = null, bool ignoreCase = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public static TType As&lt;TType&gt;(this string value, TType defaultValue = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -152,12 +152,6 @@
         <td><span class="parametername">defaultValue</span></td>
         <td><p>The value to return if <see cref="!:value"></see> is null, empty or contains whitespace, or is considered
 invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">TType</code> converter.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">ignoreCase</span></td>
-        <td><p>Indicates if the conversion should ignore case-sensitivity.</p>
 </td>
       </tr>
     </tbody>
@@ -194,19 +188,19 @@ invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">
       </tr>
     </tbody>
   </table>
-  <h5 id="AllOverIt_Extensions_StringExtensions_As__1_System_String___0_System_Boolean__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Supported conversions include byte, sbyte, decimal, double, float, int, uint, long, ulong, short, ushort, string and enum.</p>
+  <h5 id="AllOverIt_Extensions_StringExtensions_As__1_System_String___0__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Supported conversions include byte, sbyte, decimal, double, float, int, uint, long, ulong, short, ushort, string, bool and enum.</p>
 <p>Char and Boolean type conversions must be performed using the <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_As__1_System_Object___0_">As&lt;TType&gt;(Object, TType)</a> method.</p>
 <p>No attempt is made to avoid overflow or argument exceptions.</p>
 </div>
   <a id="AllOverIt_Extensions_StringExtensions_AsNullable_" data-uid="AllOverIt.Extensions.StringExtensions.AsNullable*"></a>
-  <h4 id="AllOverIt_Extensions_StringExtensions_AsNullable__1_System_String_System_Boolean_" data-uid="AllOverIt.Extensions.StringExtensions.AsNullable``1(System.String,System.Boolean)">AsNullable&lt;TType&gt;(String, Boolean)</h4>
+  <h4 id="AllOverIt_Extensions_StringExtensions_AsNullable__1_System_String_" data-uid="AllOverIt.Extensions.StringExtensions.AsNullable``1(System.String)">AsNullable&lt;TType&gt;(String)</h4>
   <div class="markdown level1 summary"><p>Converts a given string to another nullable type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType? AsNullable&lt;TType&gt;(this string value, bool ignoreCase = true)
+    <pre><code class="lang-csharp hljs">public static TType? AsNullable&lt;TType&gt;(this string value)
     where TType : struct</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -223,12 +217,6 @@ invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">value</span></td>
         <td><p>The value to be converted.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">ignoreCase</span></td>
-        <td><p>Indicates if the conversion should ignore case-sensitivity.</p>
 </td>
       </tr>
     </tbody>

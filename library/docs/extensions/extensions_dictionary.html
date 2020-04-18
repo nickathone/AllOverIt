@@ -5,22 +5,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace AllOverIt.Bindings
-   | AllOverIt </title>
+    <title>DictionaryExtensions | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace AllOverIt.Bindings
-   | AllOverIt ">
+    <meta name="title" content="DictionaryExtensions | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
-    <link rel="shortcut icon" href="../images/logo128.png">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="shortcut icon" href="../../../images/logo128.png">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
     
-    <meta property="docfx:rel" content="../">
+    <meta property="docfx:rel" content="../../../">
     <meta property="docfx:newtab" content="true">
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -36,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/logo50.png" alt="">
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../images/logo50.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -78,17 +76,37 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Bindings">
-  
-  <h1 id="AllOverIt_Bindings" data-uid="AllOverIt.Bindings" class="text-break">Namespace AllOverIt.Bindings
-  </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="enums">Enums
-  </h3>
-      <h4><a class="xref" href="AllOverIt.Bindings.BindingOptions.html">BindingOptions</a></h4>
-      <section></section>
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="dictionaryextensions">DictionaryExtensions</h2>
+
+<h3 id="getvalueordefault">GetValueOrDefault()</h3>
+<pre><code class="lang-csharp">public static TValue GetValueOrDefault&lt;TKey, TValue&gt;(
+  this IDictionary&lt;TKey, TValue&gt; dictionary, TKey key,
+  TValue defaultValue = default)
+</code></pre>
+<p>This extension method returns the value associated with a key if found, otherwise it returns a (optional) default value.</p>
+<pre><code class="lang-csharp">// assuming managers is of type Dictionary&lt;int, Person&gt;
+
+// id is an integer identifier to look up
+var person = managers.GetValueOrDefault(id);
+</code></pre>
+<p>If found, the associated <code>Person</code> instance will be returned, otherwise <em>null</em>.</p>
+<pre><code class="lang-csharp">// id is an integer identifier to look up
+// manager is an instance of a Person object
+var person = managers.GetValueOrDefault(id, manager);
+</code></pre>
+<p>If found, the associated <code>Person</code> instance will be returned, otherwise <em>manager</em> will be. The <em>managers</em> dictionary is not mutated if the key is not found.</p>
+<h3 id="getorset">GetOrSet()</h3>
+<pre><code class="lang-csharp">public static TValue GetOrSet&lt;TKey, TValue&gt;(
+  this IDictionary&lt;TKey, TValue&gt; dictionary, TKey key,
+  Func&lt;TValue&gt; valueCreator)
+</code></pre>
+<p>This extension method returns the value associated with a key if found, otherwise it invokes <em>valueCreator</em> to get the value that should be added to the dictionary, and then returned to the caller.</p>
+<pre><code class="lang-csharp">// id is an integer identifier to look up
+// manager is an instance of a Person object
+var person = managers.GetValueOrDefault(id, () =&gt; manager);
+</code></pre>
+<p>If found, the associated <code>Person</code> instance will be returned, otherwise <em>manager</em> will be returned after adding it to the dictionary. The <em>managers</em> dictionary is mutated if the key is not found.</p>
 </article>
           </div>
           
@@ -116,8 +134,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
   </body>
 </html>

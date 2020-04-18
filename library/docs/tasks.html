@@ -5,22 +5,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace AllOverIt.Expressions.Info
-   | AllOverIt </title>
+    <title>Tasks | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace AllOverIt.Expressions.Info
-   | AllOverIt ">
+    <meta name="title" content="Tasks | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
-    <link rel="shortcut icon" href="../images/logo128.png">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="shortcut icon" href="../../images/logo128.png">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
     
-    <meta property="docfx:rel" content="../">
+    <meta property="docfx:rel" content="../../">
     <meta property="docfx:newtab" content="true">
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -36,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/logo50.png" alt="">
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../images/logo50.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -78,43 +76,38 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Expressions.Info">
-  
-  <h1 id="AllOverIt_Expressions_Info" data-uid="AllOverIt.Expressions.Info" class="text-break">Namespace AllOverIt.Expressions.Info
-  </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
-  </h3>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.html">BinaryComparisonExpressionInfo</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.ConditionalExpressionInfo.html">ConditionalExpressionInfo</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.ConstantExpressionInfo.html">ConstantExpressionInfo</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.ExpressionInfoBase.html">ExpressionInfoBase</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.FieldExpressionInfo.html">FieldExpressionInfo</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.MemberInitExpressionInfo.html">MemberInitExpressionInfo</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.MethodCallExpressionInfo.html">MethodCallExpressionInfo</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.NewExpressionInfo.html">NewExpressionInfo</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.PropertyExpressionInfo.html">PropertyExpressionInfo</a></h4>
-      <section></section>
-    <h3 id="interfaces">Interfaces
-  </h3>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.IExpressionInfo.html">IExpressionInfo</a></h4>
-      <section></section>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.INegatableExpressionInfo.html">INegatableExpressionInfo</a></h4>
-      <section></section>
-    <h3 id="enums">Enums
-  </h3>
-      <h4><a class="xref" href="AllOverIt.Expressions.Info.ExpressionInfoType.html">ExpressionInfoType</a></h4>
-      <section></section>
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tasks">Tasks</h1>
+
+<hr>
+<h2 id="taskhelper">TaskHelper</h2>
+<h3 id="asynclazyttype">AsyncLazy&lt;TType&gt;</h3>
+<pre><code class="lang-csharp">public class AsyncLazy&lt;TType&gt; : Lazy&lt;Task&lt;TType&gt;&gt;
+  {
+    public AsyncLazy(Func&lt;TType&gt; factory);
+    public AsyncLazy(Func&lt;Task&lt;TType&gt;&gt; factory);
+
+    public TaskAwaiter&lt;TType&gt; GetAwaiter();
+  }
+</code></pre>
+<p>Provides support for lazy initialization using a factory that returns a <code>Task&lt;TType&gt;</code>.</p>
+<p><code>AsyncLazy</code> can be constructed using either a <code>Func&lt;TType&gt;</code> or a <code>Func&lt;Task&lt;TType&gt;&gt;</code>. The <code>GetAwaiter()</code> method allows you to get the result by awaiting the <code>AsyncLazy&lt;TType&gt;</code> instance without the need to reference the <code>Value</code> property as shown in the following example:</p>
+<pre><code class="lang-csharp">var lazyPreferences = new AsyncLazy&lt;Preferences&gt;(() =&gt; GetPreferences());
+
+// ...
+
+var preferences = await lazyPreferences;
+</code></pre>
+<h3 id="whenall">WhenAll</h3>
+<pre><code class="lang-csharp">public static async Task&lt;(T1, T2)&gt; WhenAll&lt;T1, T2&gt;(Task&lt;T1&gt; task1, Task&lt;T2&gt; task2,
+  bool continueOnCapturedContext = false);
+</code></pre>
+<p>Overloads of <code>WhenAll</code> are available to cater for up to seven tasks. They all await for all tasks to complete and return the results as a Tuple, as shown in the following example:</p>
+<pre><code class="lang-csharp">var (preferences, catalog) = await TaskHelper.WhenAll(
+  GetPreferencesAsync(),
+  GetCatalogAsync()
+);
+</code></pre>
 </article>
           </div>
           
@@ -142,8 +135,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
   </body>
 </html>

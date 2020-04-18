@@ -5,20 +5,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Add your introductions here! | AllOverIt </title>
+    <title>PropertyInfoExtensions | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Add your introductions here! | AllOverIt ">
+    <meta name="title" content="PropertyInfoExtensions | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
-    <link rel="shortcut icon" href="../images/logo128.png">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="shortcut icon" href="../../../images/logo128.png">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
     
-    <meta property="docfx:rel" content="../">
+    <meta property="docfx:rel" content="../../../">
     <meta property="docfx:newtab" content="true">
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -34,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/logo50.png" alt="">
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../images/logo50.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -77,8 +77,50 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="add-your-introductions-here">Add your introductions here!</h1>
+<h2 id="propertyinfoextensions">PropertyInfoExtensions</h2>
 
+<p>Properties can be declared as abstract, virtual, or static, as well as public, protected, private, or internal. Extension methods exist for each of these cases:</p>
+<pre><code class="lang-csharp">public static bool IsAbstract(this PropertyInfo propertyInfo);
+public static bool IsVirtual(this PropertyInfo propertyInfo);
+public static bool IsStatic(this PropertyInfo propertyInfo);
+public static bool IsPublic(this PropertyInfo propertyInfo);
+public static bool IsProtected(this PropertyInfo propertyInfo);
+public static bool IsPrivate(this PropertyInfo propertyInfo);
+public static bool IsInternal(this PropertyInfo propertyInfo);
+</code></pre>
+<p>These extensions prove to be quite useful when used in conjunction with the <code>TypeInfo</code> extensions or the various methods within <code>ReflectionHelper</code> that return <code>PropertyInfo</code>. For example:</p>
+<pre><code class="lang-csharp">public class Person 
+{
+  public string FirstName { get; set; }
+  public string Surname { get; set; }
+  public int Age { get; set; }
+  public string FullName =&gt; $&quot;{FirstName} {Surname}&quot;;
+}
+</code></pre>
+<p>Assume <code>subject</code> in the following snippet is an instance of <code>Person</code>:</p>
+<pre><code class="lang-csharp">var properties = new[] { &quot;FirstName&quot;, &quot;Surname&quot;, &quot;Age&quot;, &quot;FullName&quot; };
+
+// Using reflection, this will output the value of each property on `subject`
+foreach (var property in properties)
+{
+  // GetPropertyInfo() is an extension method in TypeInfoExtensions
+  var info = typeof(Person).GetPropertyInfo(property);
+  var value = info.GetValue(subject);
+
+  Console.WriteLine($&quot;{property} = {value}&quot;);
+}
+</code></pre>
+<p>The same <code>info</code> can be used to check the visibility of a property:</p>
+<pre><code class="lang-csharp">var isPublic = info.IsPublic();        // true
+var isProtected = info.IsProtected();  // false
+var isPrivate = info.IsPrivate();      // false
+var isInternal = info.IsInternal();    // false
+</code></pre>
+<p>Or accessibility:</p>
+<pre><code class="lang-csharp">var isAbstract = info.IsAbstract();  // false
+var isVirtual = info.IsVirtual();    // false
+var isStatic = info.IsStatic();      // false
+</code></pre>
 </article>
           </div>
           
@@ -106,8 +148,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
   </body>
 </html>

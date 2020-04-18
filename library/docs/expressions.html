@@ -80,6 +80,166 @@
 <h1 id="expressions">Expressions</h1>
 
 <hr>
+<h2 id="predicatebuilder">PredicateBuilder</h2>
+<p>The following is an example of a lambda expression in the form of a delegate:</p>
+<pre><code class="lang-csharp">Func&lt;Product, bool&gt; isPromoted = product =&gt; product.Promoted;
+</code></pre>
+<p>And the following is the same lambda expression in the form of an expression tree:</p>
+<pre><code class="lang-csharp">Expression&lt;Func&lt;Product, bool&gt;&gt; isPromoted = product =&gt; product.Promoted;
+</code></pre>
+<p>An expression tree can be compiled into the delegate form:</p>
+<pre><code class="lang-csharp">Expression&lt;Func&lt;Product, bool&gt;&gt; isPromoted = product =&gt; product.Promoted;
+
+Func&lt;Product, bool&gt; compiledExpression = isPromoted.Compile();
+</code></pre>
+<p>Expression trees are useful for building composable expressions that can be later compiled into a delegate and used within LINQ queries, amongst other things.</p>
+<p>Consider the following model with two static methods used for building predicates as an expression tree:</p>
+<pre><code class="lang-csharp">private class Product
+{
+  public int Id { get; }
+  public string Category { get; }
+  public bool Promoted { get; }
+
+  public Product(int id, string category, bool promoted)
+  {
+    Id = id;
+    Category = category;
+    Promoted = promoted;
+  }
+
+  public static Expression&lt;Func&lt;Product, bool&gt;&gt; IsPromoted()
+  {
+    return product =&gt; product.Promoted;
+  }
+
+  public static Expression&lt;Func&lt;Product, bool&gt;&gt; IsInCategory(params string[] categories)
+  {
+    var predicate = PredicateBuilder.False&lt;Product&gt;();
+
+    foreach (var category in categories)
+    {
+      var temp = category;    // must capture for the closure
+      predicate = predicate.Or(p =&gt; p.Category.Contains(temp));
+    }
+
+    return predicate;
+  }
+}
+</code></pre>
+<p>The <code>IsPromoted()</code> and <code>IsInCategory()</code> methods return an expression that can participate in any <code>IQueryable</code> based query.</p>
+<p><code>PredicateBuilder</code>, as shown in <code>IsInCategory()</code>, can be used to dynamically build logical <code>And</code> and <code>Or</code> queries. Let's look at a simple example using the above methods:</p>
+<pre><code class="lang-csharp">var products = new List&lt;Product&gt;
+{
+  new Product(1, &quot;Fruit&quot;, true),
+  new Product(2, &quot;Fruit&quot;, false),
+  new Product(3, &quot;Vegetable&quot;, true),
+  new Product(4, &quot;Vegetable&quot;, false),
+  new Product(5, &quot;Vehicle&quot;, true),
+  new Product(6, &quot;Vehicle&quot;, false)
+};
+
+var filtered = _products
+  .AsQueryable()
+  .Where(Product.IsPromoted());
+</code></pre>
+<p>This will return items 1, 3 and 5.</p>
+<p>Let's now compose two queries into one:</p>
+<pre><code class="lang-csharp">var isFoodOrVegetable = Product.IsInCategory(&quot;Fruit&quot;, &quot;Vegetable&quot;);
+var isPromoted = Product.IsPromoted();
+var isPromotedFruitOrVegetable = isFoodOrVegetable.And(isPromoted);
+
+var filtered = _products
+  .AsQueryable()
+  .Where(isPromotedFruitOrVegetable);
+</code></pre>
+<p>The combined query will filter items that are a &quot;Fruit&quot; or &quot;Vegetable&quot;, and is promoted. The combined query will return items 1 and 3.</p>
+<p><code>IQueryable</code> based queries are often used for translating LINQ queries into SQL (or similar) based queries by traversing, and translating, the expression tree. For regular, in-memory queries, it is more efficient to create the composite queries and cache them for future use by compiling them:</p>
+<pre><code class="lang-csharp">// store in a variable for re-use as required
+var compiledPredicate = isPromotedFruitOrVegetable.Compile();
+
+var filtered = _products.Where(compiledPredicate);
+</code></pre>
+<h2 id="extensions">Extensions</h2>
+<h3 id="getvalue">GetValue()</h3>
+<p>The <code>GetValue()</code> extension method can evaluate <code>ConstantExpression</code>, <code>MemberExpression</code> (property and field members), and <code>MethodCallExpression</code> expressions.</p>
+<p>Consider the following class and helper method:</p>
+<pre><code class="lang-csharp">private class ChildClass
+{
+  public int Property { get; set; }
+  public int Field;
+
+  public int GetPropertyValue()
+  {
+    return Property;
+  }
+}
+
+private static int GetValue(Expression&lt;Func&lt;int&gt;&gt; expression)
+{
+  var value = expression.GetValue();
+
+  return value.As&lt;int&gt;();
+}
+</code></pre>
+<p>Each of the following are possible:</p>
+<pre><code class="lang-csharp">// returns 4 (ConstantExpression)
+var value = GetValue(() =&gt; 4);
+</code></pre>
+<pre><code class="lang-csharp">var item = new ChildClass { Property = 10};
+
+// returns 10 (MemberExpression, PropertyInfo)
+var value = GetValue(() =&gt; item.Property);
+</code></pre>
+<pre><code class="lang-csharp">var item = new ChildClass { Field = 20};
+
+// returns 20 (MemberExpression, FieldInfo)
+var value = GetValue(() =&gt; item.Field);
+</code></pre>
+<pre><code class="lang-csharp">var item = new ChildClass { Property = 30};
+
+// returns 30 (MethodCallExpression)
+var value = GetValue(() =&gt; item.GetProperty());
+</code></pre>
+<h3 id="getmemberexpressions">GetMemberExpressions()</h3>
+<p>A <code>MemberExpression</code> may be part of a <code>LambdaExpression</code>, or a <code>UnaryExpression</code> (which may be within a <code>LambdaExpression</code>). <code>GetMemberExpressions()</code> exists to retrieve all linked <code>MemberExpression</code>s without having to be concerned with unwrapping everything.</p>
+<p>As an example, consider the following classes:</p>
+<pre><code class="lang-csharp">private class ChildClass
+{
+  public int Property { get; set; }
+}
+
+private class ParentClass
+{
+  public ChildClass Child { get; set; }
+}
+</code></pre>
+<p>And the following expression:</p>
+<pre><code class="lang-csharp">// 'parent' is an instance of 'ParentClass'
+Expression&lt;Func&lt;int&gt;&gt; expression = () =&gt; parent.Child.Property;
+</code></pre>
+<p>You can use <code>UnwrapMemberExpression()</code> to get the root <code>MemberExpression</code> from the <code>LambdaExpression</code> and then <code>GetMemberExpressions()</code> to obtain all linked <code>MemberExpression</code>s.</p>
+<pre><code class="lang-csharp">// unwrap the LambdaExpression
+var memberExpression = expression.UnwrapMemberExpression();
+
+var members = memberExpression.GetMemberExpressions()
+  .Select(exp =&gt; exp.GetValue())
+  .AsReadOnlyList();
+</code></pre>
+<p>The calls to <code>GetValue()</code> will result in each expression being evaluated:</p>
+<pre><code class="lang-csharp">// members[0] = parent
+// members[1] = parent.Child
+// members[2] = parent.Child.Property
+</code></pre>
+<h3 id="getfieldorproperty">GetFieldOrProperty()</h3>
+<p>Fields and Properties of an expression are both referenced as <code>MemberExpression</code>s. The <code>GetFieldOrProperty()</code> method returns the appropriate <code>MemberInfo</code> details. The following example shows how to get <code>MemberInfo</code> of a property, but the same applies to fields:</p>
+<pre><code class="lang-csharp">Expression&lt;Func&lt;int&gt;&gt; expression = () =&gt; parent.Child.Property;
+
+var memberInfo = expression.GetFieldOrProperty();
+
+var name = memberInfo.Name;
+var value = ReflectionHelper.GetMemberValue(memberInfo, parent.Child);
+</code></pre>
+<p><code>name</code> will have the name of the property (&quot;Property&quot; in this example) and <code>value</code> will have the current value of the property.</p>
 </article>
           </div>
           

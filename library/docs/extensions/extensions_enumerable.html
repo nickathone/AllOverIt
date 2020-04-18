@@ -5,22 +5,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace AllOverIt.Helpers
-   | AllOverIt </title>
+    <title>EnumerableExtensions | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace AllOverIt.Helpers
-   | AllOverIt ">
+    <meta name="title" content="EnumerableExtensions | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
-    <link rel="shortcut icon" href="../images/logo128.png">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="shortcut icon" href="../../../images/logo128.png">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
     
-    <meta property="docfx:rel" content="../">
+    <meta property="docfx:rel" content="../../../">
     <meta property="docfx:newtab" content="true">
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -36,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/logo50.png" alt="">
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../images/logo50.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -78,24 +76,26 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Helpers">
-  
-  <h1 id="AllOverIt_Helpers" data-uid="AllOverIt.Helpers" class="text-break">Namespace AllOverIt.Helpers
-  </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
-  </h3>
-      <h4><a class="xref" href="AllOverIt.Helpers.EnumHelper.html">EnumHelper</a></h4>
-      <section><p>Provides static, general purpose, methods related to using Enums.</p>
-</section>
-      <h4><a class="xref" href="AllOverIt.Helpers.Raii.html">Raii</a></h4>
-      <section><p>A disposable object implementing the Resource Acquisition Is Initialization idiom.</p>
-</section>
-      <h4><a class="xref" href="AllOverIt.Helpers.Raii-1.html">Raii&lt;TType&gt;</a></h4>
-      <section><p>A strongly-type disposable object implementing the Resource Acquisition Is Initialization  idiom.</p>
-</section>
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="enumerableextensions">EnumerableExtensions</h2>
+
+<h3 id="aslist-asreadonlylist-asreadonlycollection">AsList(), AsReadOnlyList(), AsReadOnlyCollection()</h3>
+<pre><code class="lang-csharp">public static IList&lt;TType&gt; AsList&lt;TType&gt;(
+  this IEnumerable&lt;TType&gt; items);
+
+public static IReadOnlyList&lt;TType&gt; AsReadOnlyList&lt;TType&gt;(
+  this IEnumerable&lt;TType&gt; items);
+
+public static IReadOnlyCollection&lt;TType&gt; AsReadOnlyCollection&lt;TType&gt;(
+  this IEnumerable&lt;TType&gt; items);
+</code></pre>
+<p>When working with an Enumerable there is a real concern associated with potentially enumerating it more than once. To overcome this, a commonly used approach is to convert the <code>IEnumerable&lt;TType&gt;</code> to a <code>List&lt;TType&gt;</code> by using the <code>ToList()</code> method.</p>
+<p>If the <code>items</code> being enumerated is already a list, then calling <code>ToList()</code> will create a second list. This can quickly become a memory and performance issue. The <code>AsList()</code>, <code>AsReadOnlyList()</code>, and <code>AsReadOnlyCollection()</code> methods help solve this by determining if a new collection actually needs to be created.</p>
+<p>In all cases, if the <code>IEnumerable&lt;TType&gt;</code> is already a list or read-only collection then the same reference is returned, otherwise a new collection is created.</p>
+<h3 id="isnullorempty">IsNullOrEmpty()</h3>
+<pre><code class="lang-csharp">public static bool IsNullOrEmpty(this IEnumerable items);
+</code></pre>
+<p>Applicable to collections and strings, this method returns <em>true</em> if the instance is <em>null</em> or empty, otherwise false.</p>
 </article>
           </div>
           
@@ -123,8 +123,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
   </body>
 </html>

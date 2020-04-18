@@ -122,9 +122,98 @@
   </div>
   <h3 id="methods">Methods
   </h3>
+  <a id="AllOverIt_Extensions_ExpressionExtensions_GetFieldOrProperty_" data-uid="AllOverIt.Extensions.ExpressionExtensions.GetFieldOrProperty*"></a>
+  <h4 id="AllOverIt_Extensions_ExpressionExtensions_GetFieldOrProperty_System_Linq_Expressions_Expression_" data-uid="AllOverIt.Extensions.ExpressionExtensions.GetFieldOrProperty(System.Linq.Expressions.Expression)">GetFieldOrProperty(Expression)</h4>
+  <div class="markdown level1 summary"><p>Gets the field or property member of a <span class="xref">System.Linq.Expressions.MemberExpression</span>, unwrapped from a <span class="xref">System.Linq.Expressions.LambdaExpression</span> if required.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MemberInfo GetFieldOrProperty(this Expression expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span></td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>The expression containing the field or property member.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MemberInfo</span></td>
+        <td><p>The field or property member.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="AllOverIt_Extensions_ExpressionExtensions_GetMemberExpressions_" data-uid="AllOverIt.Extensions.ExpressionExtensions.GetMemberExpressions*"></a>
+  <h4 id="AllOverIt_Extensions_ExpressionExtensions_GetMemberExpressions_System_Linq_Expressions_MemberExpression_" data-uid="AllOverIt.Extensions.ExpressionExtensions.GetMemberExpressions(System.Linq.Expressions.MemberExpression)">GetMemberExpressions(MemberExpression)</h4>
+  <div class="markdown level1 summary"><p>Recursively get all <span class="xref">System.Linq.Expressions.MemberExpression</span> expressions linked to <param name="expression"></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;MemberExpression&gt; GetMemberExpressions(this MemberExpression expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.MemberExpression</span></td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>The expression to get all linked <span class="xref">System.Linq.Expressions.MemberExpression</span> expressions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Linq.Expressions.MemberExpression</span>&gt;</td>
+        <td><p>All linked <span class="xref">System.Linq.Expressions.MemberExpression</span> expressions, including <param name="expression">.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <a id="AllOverIt_Extensions_ExpressionExtensions_GetValue_" data-uid="AllOverIt.Extensions.ExpressionExtensions.GetValue*"></a>
   <h4 id="AllOverIt_Extensions_ExpressionExtensions_GetValue_System_Linq_Expressions_Expression_" data-uid="AllOverIt.Extensions.ExpressionExtensions.GetValue(System.Linq.Expressions.Expression)">GetValue(Expression)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the value of an expression. Supports constants (<span class="xref">System.Linq.Expressions.ConstantExpression</span>), fields and properties (<span class="xref">System.Linq.Expressions.MemberExpression</span>),
+method calls <span class="xref">System.Linq.Expressions.MethodCallExpression</span>, and other expressions that require dynamic invocation. <span class="xref">System.Linq.Expressions.LambdaExpression</span>
+expressions are also supported if its body can be evaluated.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -143,7 +232,8 @@
       <tr>
         <td><span class="xref">System.Linq.Expressions.Expression</span></td>
         <td><span class="parametername">expression</span></td>
-        <td></td>
+        <td><p>The expression to be evaluated.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -158,57 +248,19 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Object</span></td>
-        <td></td>
+        <td><p>The value of the <param name="expression">.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <a id="AllOverIt_Extensions_ExpressionExtensions_GetValues_" data-uid="AllOverIt.Extensions.ExpressionExtensions.GetValues*"></a>
-  <h4 id="AllOverIt_Extensions_ExpressionExtensions_GetValues_System_Collections_Generic_IEnumerable_System_Linq_Expressions_Expression__" data-uid="AllOverIt.Extensions.ExpressionExtensions.GetValues(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">GetValues(IEnumerable&lt;Expression&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="AllOverIt_Extensions_ExpressionExtensions_UnwrapMemberExpression_" data-uid="AllOverIt.Extensions.ExpressionExtensions.UnwrapMemberExpression*"></a>
+  <h4 id="AllOverIt_Extensions_ExpressionExtensions_UnwrapMemberExpression_System_Linq_Expressions_Expression_" data-uid="AllOverIt.Extensions.ExpressionExtensions.UnwrapMemberExpression(System.Linq.Expressions.Expression)">UnwrapMemberExpression(Expression)</h4>
+  <div class="markdown level1 summary"><p>Gets the <param name="expression"> as a <span class="xref">System.Linq.Expressions.MemberExpression</span>.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;object&gt; GetValues(this IEnumerable&lt;Expression&gt; expressions)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Linq.Expressions.Expression</span>&gt;</td>
-        <td><span class="parametername">expressions</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Object</span>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <a id="AllOverIt_Extensions_ExpressionExtensions_RemoveUnary_" data-uid="AllOverIt.Extensions.ExpressionExtensions.RemoveUnary*"></a>
-  <h4 id="AllOverIt_Extensions_ExpressionExtensions_RemoveUnary_System_Linq_Expressions_Expression_" data-uid="AllOverIt.Extensions.ExpressionExtensions.RemoveUnary(System.Linq.Expressions.Expression)">RemoveUnary(Expression)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Expression RemoveUnary(this Expression expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MemberExpression UnwrapMemberExpression(this Expression expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -223,7 +275,8 @@
       <tr>
         <td><span class="xref">System.Linq.Expressions.Expression</span></td>
         <td><span class="parametername">expression</span></td>
-        <td></td>
+        <td><p>The expression to be unwrapped as a <span class="xref">System.Linq.Expressions.MemberExpression</span>.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -237,8 +290,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span></td>
-        <td></td>
+        <td><span class="xref">System.Linq.Expressions.MemberExpression</span></td>
+        <td><p>If <param name="expression"> is a <span class="xref">System.Linq.Expressions.MemberExpression</span> then the same expression is returned.
+If <param name="expression"> is a <span class="xref">System.Linq.Expressions.LambdaExpression</span> then its Body is returned if it is a
+<span class="xref">System.Linq.Expressions.MemberExpression</span>, or a <span class="xref">System.Linq.Expressions.UnaryExpression</span> whos Operand is a <span class="xref">System.Linq.Expressions.MemberExpression</span>.
+In all other cases, null is returned.</p>
+</td>
       </tr>
     </tbody>
   </table>

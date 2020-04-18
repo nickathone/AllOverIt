@@ -282,7 +282,8 @@
   </table>
   <a id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode_" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode*"></a>
   <h4 id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String__" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">CalculateHashCode&lt;TType&gt;(TType, IEnumerable&lt;String&gt;, IEnumerable&lt;String&gt;)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Uses reflection to find all instance properties and use them to calculate a hash code.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -301,17 +302,20 @@
       <tr>
         <td><span class="xref">TType</span></td>
         <td><span class="parametername">instance</span></td>
-        <td></td>
+        <td><p>The instance having its hash code calculated.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">includeProperties</span></td>
-        <td></td>
+        <td><p>The property names to include. If null, then all non-static properties are used.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">excludeProperties</span></td>
-        <td></td>
+        <td><p>The property names to exclude. If null, then no properties are excluded.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -326,7 +330,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td></td>
+        <td><p>The calculated hash code.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -341,17 +346,22 @@
     <tbody>
       <tr>
         <td><span class="parametername">TType</span></td>
-        <td></td>
+        <td><p>The object type.</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To ensure idempotency, the properties are ordered by their name before calculating the hash.</p>
+</div>
   <a id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode_" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode*"></a>
   <h4 id="AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Func___0_System_Object____" data-uid="AllOverIt.Extensions.ObjectExtensions.CalculateHashCode``1(``0,System.Func{``0,System.Object}[])">CalculateHashCode&lt;TType&gt;(TType, Func&lt;TType, Object&gt;[])</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Calculates the hash code based on explicitly specified properties, fields, or the return result from a method call.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static int CalculateHashCode&lt;TType&gt;(this TType instance, params Func&lt;TType, object&gt;[] propertyResolvers)</code></pre>
+    <pre><code class="lang-csharp hljs">public static int CalculateHashCode&lt;TType&gt;(this TType instance, params Func&lt;TType, object&gt;[] resolvers)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -366,12 +376,14 @@
       <tr>
         <td><span class="xref">TType</span></td>
         <td><span class="parametername">instance</span></td>
-        <td></td>
+        <td><p>The instance having its hash code calculated.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Func</span>&lt;TType, <span class="xref">System.Object</span>&gt;[]</td>
-        <td><span class="parametername">propertyResolvers</span></td>
-        <td></td>
+        <td><span class="parametername">resolvers</span></td>
+        <td><p>One or more resolvers that provide the properties, fields, or method calls used to calculate the hash code.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -386,7 +398,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td></td>
+        <td><p>The calculated hash code.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -401,7 +414,8 @@
     <tbody>
       <tr>
         <td><span class="parametername">TType</span></td>
-        <td></td>
+        <td><p>The object type.</p>
+</td>
       </tr>
     </tbody>
   </table>

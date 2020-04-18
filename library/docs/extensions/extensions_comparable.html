@@ -5,22 +5,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace AllOverIt.Expressions.Exceptions
-   | AllOverIt </title>
+    <title>ComparableExtensions | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace AllOverIt.Expressions.Exceptions
-   | AllOverIt ">
+    <meta name="title" content="ComparableExtensions | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
-    <link rel="shortcut icon" href="../images/logo128.png">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="shortcut icon" href="../../../images/logo128.png">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
     
-    <meta property="docfx:rel" content="../">
+    <meta property="docfx:rel" content="../../../">
     <meta property="docfx:newtab" content="true">
   </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -36,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../images/logo50.png" alt="">
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../images/logo50.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -78,17 +76,71 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Expressions.Exceptions">
-  
-  <h1 id="AllOverIt_Expressions_Exceptions" data-uid="AllOverIt.Expressions.Exceptions" class="text-break">Namespace AllOverIt.Expressions.Exceptions
-  </h1>
-  <div class="markdown level0 summary"></div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
-  </h3>
-      <h4><a class="xref" href="AllOverIt.Expressions.Exceptions.ExpressionParserException.html">ExpressionParserException</a></h4>
-      <section></section>
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="comparableextensions">ComparableExtensions</h2>
+
+<p>The <code>IComparable</code> interface allows for one object to be custom compared to another. <code>AllOverIt</code> contains the following extension methods:</p>
+<pre><code class="lang-csharp">LessThan&lt;TType&gt;()
+LessThanOrEqual&lt;TType&gt;()
+GreaterThan&lt;TType&gt;()
+GreaterThanOrEqual&lt;TType&gt;()
+EqualTo&lt;TType&gt;()
+NotEqualTo&lt;TType&gt;()
+</code></pre>
+<p>The following example shows how to compare two <code>Person</code> objects based on their <em>Surname</em> and <em>FirstName</em>.</p>
+<pre><code class="lang-csharp">public class Person : IComparable&lt;Person&gt;
+{
+  public string FirstName { get; }
+  public string Surname { get; }
+
+  public Person(string firstName, string surname)
+  {
+    FirstName = firstName;
+    Surname = surname;
+  }
+
+  public int CompareTo(Person other)
+  {
+    // compare by surname, then first name, case insensitively
+    var surnameComparison = CompareName(Surname, other.Surname);
+
+    return surnameComparison != 0
+      ? surnameComparison
+      : CompareName(FirstName, other.FirstName);
+  }
+
+  private static int CompareName(string lhs, string rhs)
+  {
+    return string.Compare(lhs, rhs, StringComparison.InvariantCultureIgnoreCase);
+  }
+}
+</code></pre>
+<p>And this is how it can be used within a LINQ query using the extension methods available in <code>AllOverIt</code>.</p>
+<pre><code class="lang-csharp">var persons = new[]
+{
+  new Person(&quot;Adam&quot;, &quot;Baker&quot;),
+  new Person(&quot;Adam&quot;, &quot;Murphy&quot;),
+  new Person(&quot;Paul&quot;, &quot;Nielson&quot;),
+  new Person(&quot;Jon&quot;, &quot;Nielson&quot;)
+};
+
+// custom comparer will consider them in the following order:
+//   Baker, Adam
+//   Murphy, Adam
+//   Nielson, Jon
+//   Nielson, Paul
+
+var comparisonPerson = new Person(&quot;Amy&quot;, &quot;Myer&quot;);
+
+var actual = persons.Where(
+  item =&gt; item.LessThan(comparisonPerson)
+).AsReadOnlyList();
+
+actual.Should().BeEquivalentTo(
+  new Person(&quot;Adam&quot;, &quot;Baker&quot;),
+  new Person(&quot;Adam&quot;, &quot;Murphy&quot;)
+);
+</code></pre>
 </article>
           </div>
           
@@ -116,8 +168,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
   </body>
 </html>

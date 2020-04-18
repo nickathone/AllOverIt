@@ -14,222 +14,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Exceptions.ExpressionParserException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Exceptions.ExpressionParserException.html",
-          "hash": "cPVATl0Yn6/cmUeWrSfWNA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Exceptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Exceptions.html",
-          "hash": "+Q696LJ/3JmIVmIEamlakQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.ExpressionParser.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.ExpressionParser.html",
-          "hash": "ZUDA/1cIewGEN6nDD2OVOg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.IExpressionParser.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.IExpressionParser.html",
-          "hash": "K6/7rAc4pT8UomwmW7WvfQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.IExpressionValue.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.IExpressionValue.html",
-          "hash": "bGAZSsF6gx9LdxIB8DsLBw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.BinaryComparisonExpressionInfo.html",
-          "hash": "mmcB1ueVptxNk7iwU6n5Xw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.ConditionalExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.ConditionalExpressionInfo.html",
-          "hash": "K9ucl/lTyDhVVZvJEENBWQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.ConstantExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.ConstantExpressionInfo.html",
-          "hash": "p90D9W4IaUNyMG66rMozOg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.ExpressionInfoBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.ExpressionInfoBase.html",
-          "hash": "elVYbLWfJxAB+LqmubQPWw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.ExpressionInfoType.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.ExpressionInfoType.html",
-          "hash": "3pb856ScI4W0X8VKGOzP3A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.FieldExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.FieldExpressionInfo.html",
-          "hash": "MJpizj8V2Evs1yqUxe4V+A=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.IExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.IExpressionInfo.html",
-          "hash": "BAALHXeDcpcykWDwdZnU+Q=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.INegatableExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.INegatableExpressionInfo.html",
-          "hash": "n8yNVhR4Ehx2RxNkadrXhA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.MemberInitExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.MemberInitExpressionInfo.html",
-          "hash": "R5/iqWCNS9oHDWYUwt41XQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.MethodCallExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.MethodCallExpressionInfo.html",
-          "hash": "Sv6MoDlnGjB7e2BKQc++rg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.NewExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.NewExpressionInfo.html",
-          "hash": "YSNmumGEbr1lX3rBQWXhGA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.PropertyExpressionInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.PropertyExpressionInfo.html",
-          "hash": "+SS7LuzQYEdeJ5D4q94jzQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Expressions.Info.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Expressions.Info.html",
-          "hash": "69TeKa7iANeDbhQyBx8fwg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/AllOverIt.Expressions.ParameterRebinder.yml",
       "output": {
         ".html": {
@@ -258,7 +42,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Expressions.html",
-          "hash": "ljgYnM3Gq30uqR4k5hZ0Bg=="
+          "hash": "OrqSaWfEcBA6mXFZdp892w=="
         }
       },
       "is_incremental": false,
@@ -294,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.DoubleExtensions.html",
-          "hash": "pEeew54BRQ9nzExsO49xcA=="
+          "hash": "fD5HRWSsg1Q838QsLJ1NaA=="
         }
       },
       "is_incremental": false,
@@ -306,7 +90,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.EnumerableExtensions.html",
-          "hash": "v+0UlXNHWDs/YUCIMZYd9A=="
+          "hash": "uVwzG5qbDABxcyP6MVngdA=="
         }
       },
       "is_incremental": false,
@@ -318,7 +102,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.ExpressionExtensions.html",
-          "hash": "xjQKbkaWm4fIb2oaXfLS2A=="
+          "hash": "RrnNGMRrb7rCJoQOqw/upg=="
         }
       },
       "is_incremental": false,
@@ -330,7 +114,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.ObjectExtensions.html",
-          "hash": "yHgvy0SpPB27VrsMUm56Ng=="
+          "hash": "YEmzltOB5tUd3tD4m6p7Hg=="
         }
       },
       "is_incremental": false,
@@ -342,7 +126,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.PropertyInfoExtensions.html",
-          "hash": "/4uBcQDUwIDI1wE1ouGf/A=="
+          "hash": "qU4CyeRw78uMU4Peop/LoA=="
         }
       },
       "is_incremental": false,
@@ -354,19 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.StringExtensions.html",
-          "hash": "WWCr78gIfpG6x9dc2DLEJg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/AllOverIt.Extensions.TaskUtils.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/AllOverIt.Extensions.TaskUtils.html",
-          "hash": "lGbJqRWoRG5TeK/pyFB5MQ=="
+          "hash": "63StEjmiBGZsDMwI6r7p1g=="
         }
       },
       "is_incremental": false,
@@ -378,7 +150,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.TypeExtensions.html",
-          "hash": "tTS0mENg6QU3Rsl5uZzx4w=="
+          "hash": "qJHDUGIsVb7DLX4+UjQIAQ=="
         }
       },
       "is_incremental": false,
@@ -390,7 +162,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.TypeInfoExtensions.html",
-          "hash": "L9xjzU1drV80+QKZ1W2kEg=="
+          "hash": "adctRoSBrPlNWi/lsOxocw=="
         }
       },
       "is_incremental": false,
@@ -402,7 +174,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.html",
-          "hash": "kZNmi4jPD3yLm63jAO3mgQ=="
+          "hash": "NOYYNGhBKfi0AQRefHHo6Q=="
         }
       },
       "is_incremental": false,
@@ -426,7 +198,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.Raii-1.html",
-          "hash": "/btTPmhTUkzxVBWJIsEgXQ=="
+          "hash": "FxghSDnZoy43t3cwmhmjWg=="
         }
       },
       "is_incremental": false,
@@ -438,7 +210,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.Raii.html",
-          "hash": "H/V98vti9/KGJ7K683YGag=="
+          "hash": "aLgWH6mLRyAFSiVJPJ4KJA=="
         }
       },
       "is_incremental": false,
@@ -450,7 +222,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.html",
-          "hash": "5hXFFCNhot/f6smUyjFfHg=="
+          "hash": "PmEY+bq3HHsnX5fGnX61og=="
         }
       },
       "is_incremental": false,
@@ -474,7 +246,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Reflection.ReflectionHelper.html",
-          "hash": "zoJ+NhNPqQs495G5bPjxsg=="
+          "hash": "4LxKnWeDM8UsSAVEmqaXAQ=="
         }
       },
       "is_incremental": false,
@@ -506,11 +278,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Tasks.TaskHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Tasks.TaskHelper.html",
+          "hash": "4EHgVsBQPeUI0oyN61jtpg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AllOverIt.Tasks.yml",
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Tasks.html",
-          "hash": "KoV5mBPlwlDvF2xXdSNHEA=="
+          "hash": "C64RI4J/wD3IYDQygTttfA=="
         }
       },
       "is_incremental": false,
@@ -534,7 +318,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "0MVaMu0HdvNwFpbUAo35YA=="
+          "hash": "5ETDKaIkObTUGz6NHMGpUg=="
         }
       },
       "is_incremental": false,
@@ -571,7 +355,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "tvWNgpju8t6w2Ihuyazueg=="
+          "hash": "iu6SIVBiPae6TgD+d14GbA=="
         }
       },
       "is_incremental": false,
@@ -619,7 +403,7 @@
       "output": {
         ".html": {
           "relative_path": "library/docs/expressions.html",
-          "hash": "c4TWycs2HmrSye44LEajEQ=="
+          "hash": "wBNGDEBEx2SgJy15GykRWQ=="
         }
       },
       "is_incremental": false,
@@ -631,7 +415,142 @@
       "output": {
         ".html": {
           "relative_path": "library/docs/extensions.html",
-          "hash": "8dHjR0Gsh7RsM3liMrUryA=="
+          "hash": "AVSy0LBDSbTJUIiIwM6IkA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_comparable.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_comparable.html",
+          "hash": "zskzZEiJGd6cmfur8meGkg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_dictionary.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_dictionary.html",
+          "hash": "aC90sua42Rew1sCAgirfHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_double.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_double.html",
+          "hash": "8qK+ewZ7HOF7FFTf+UMSRg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_enumerable.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_enumerable.html",
+          "hash": "wTtZ5EGzWyY0sd5ZMkB4MQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_expressions.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_expressions.html",
+          "hash": "RNBcpballkAh2I23Sm8VKw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_object.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_object.html",
+          "hash": "5EO9fdhIz2GneYr+eMIbGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_propertyinfo.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_propertyinfo.html",
+          "hash": "6byi7tk3+yVO4Fm3JL+6qg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_string.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_string.html",
+          "hash": "LbHryaP0f7HI0uGodQL90g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_type.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_type.html",
+          "hash": "IUArBzT+JYJLk9kQcwCetw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/extensions/extensions_typeinfo.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/extensions/extensions_typeinfo.html",
+          "hash": "fVNuiisPEj8ZmYrBd+Lhpg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/helpers.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/helpers.html",
+          "hash": "1WctkCU2iDfPZW2aDz48vg=="
         }
       },
       "is_incremental": false,
@@ -655,7 +574,7 @@
       "output": {
         ".html": {
           "relative_path": "library/docs/reflection.html",
-          "hash": "rgQ7q5ijPqwJmkoY4qUYCw=="
+          "hash": "q/971+olYyTcRw02Jp9buA=="
         }
       },
       "is_incremental": false,
@@ -663,11 +582,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "library/docs/utilities.md",
+      "source_relative_path": "library/docs/tasks.md",
       "output": {
         ".html": {
-          "relative_path": "library/docs/utilities.html",
-          "hash": "f6TvoMTQrzeAUq4ftkX7cw=="
+          "relative_path": "library/docs/tasks.html",
+          "hash": "kTPIhMo+0dqeIkBEPcgrhg=="
         }
       },
       "is_incremental": false,
@@ -679,7 +598,7 @@
       "output": {
         ".html": {
           "relative_path": "library/toc.html",
-          "hash": "27Fe4qcTlUmDIgTujHrYOw=="
+          "hash": "PBRH4yHdk5/UuqHWe8QjKA=="
         }
       },
       "is_incremental": false,
@@ -724,14 +643,14 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 42,
-          "skipped_file_count": 42
+          "total_file_count": 24,
+          "skipped_file_count": 24
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 10,
-          "skipped_file_count": 9
+          "total_file_count": 21,
+          "skipped_file_count": 21
         }
       }
     },
