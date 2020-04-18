@@ -132,11 +132,23 @@ namespace AllOverIt.Tests.Extensions
 
         actual.Single(item => item.Name == "Prop4").Should().NotBeNull();
       }
+
+      [Fact]
+      public void Should_Include_All_Properties()
+      {
+        var binding = BindingOptions.All;
+
+        var actual = AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(typeof(DummySuperClass), binding, false);
+
+        actual.Select(item => item.Name)
+          .Should()
+          .BeEquivalentTo("Prop1", "Prop2", "Prop3", "Prop4");
+      }
     }
 
     public class GetMethods : TypeExtensionsFixture
     {
-      private readonly string[] _knownMethods = new[] { "Method1", "Method2", "Method3", "Method4" };
+      private readonly string[] _knownMethods = { "Method1", "Method2", "Method3", "Method4" };
 
       // GetMethod() returns methods of object as well as property get/set methods, so these tests filter down to expected (non-property) methods in the dummy classes
 
@@ -322,6 +334,7 @@ namespace AllOverIt.Tests.Extensions
       [Theory]
       [InlineData(typeof(DummyEnum), false)]
       [InlineData(typeof(int), true)]
+      [InlineData(typeof(double), false)]
       [InlineData(typeof(string), false)]
       [InlineData(typeof(bool), false)]
       [InlineData(typeof(char), false)]
@@ -329,6 +342,24 @@ namespace AllOverIt.Tests.Extensions
       public void Should_Determine_If_Is_Integral_Type(Type type, bool expected)
       {
         var actual = AllOverIt.Extensions.TypeExtensions.IsIntegralType(type);
+
+        actual.Should().Be(expected);
+      }
+    }
+
+    public class IsFloatingType : TypeExtensionsFixture
+    {
+      [Theory]
+      [InlineData(typeof(DummyEnum), false)]
+      [InlineData(typeof(int), false)]
+      [InlineData(typeof(double), true)]
+      [InlineData(typeof(string), false)]
+      [InlineData(typeof(bool), false)]
+      [InlineData(typeof(char), false)]
+      [InlineData(typeof(DummySuperClass), false)]
+      public void Should_Determine_If_Is_Integral_Type(Type type, bool expected)
+      {
+        var actual = AllOverIt.Extensions.TypeExtensions.IsFloatingType(type);
 
         actual.Should().Be(expected);
       }

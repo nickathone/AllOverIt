@@ -290,8 +290,8 @@ namespace AllOverIt.Tests.Extensions
 
         Invoking(() => ObjectExtensions.As<bool>(value))
           .Should()
-          .Throw<InvalidCastException>()
-          .WithMessage($"Cannot convert integral '{value}' to a Boolean.");
+          .Throw<ArgumentOutOfRangeException>()
+          .WithMessage($"Cannot convert integral '{value}' to a Boolean. (Parameter 'instance')");
       }
 
       [Fact]
@@ -301,8 +301,8 @@ namespace AllOverIt.Tests.Extensions
 
         Invoking(() => ObjectExtensions.As<bool>(value))
           .Should()
-          .Throw<InvalidCastException>()
-          .WithMessage($"Cannot convert integral '{value}' to a Boolean.");
+          .Throw<ArgumentOutOfRangeException>()
+          .WithMessage($"Cannot convert integral '{value}' to a Boolean. (Parameter 'instance')");
       }
 
       [Theory]
@@ -374,8 +374,8 @@ namespace AllOverIt.Tests.Extensions
 
         Invoking(() => ObjectExtensions.As<DummyEnum>(value))
           .Should()
-          .Throw<InvalidCastException>()
-          .WithMessage($"Cannot cast '{value}' to a '{typeof(DummyEnum)}' value.");
+          .Throw<ArgumentOutOfRangeException>()
+          .WithMessage($"Cannot cast '{value}' to a '{typeof(DummyEnum)}' value. (Parameter 'instance')");
       }
 
       [Theory]

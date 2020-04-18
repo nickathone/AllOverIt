@@ -23,9 +23,9 @@ namespace AllOverIt.Tests.Extensions
       }
     }
 
-    private CompareDummy Val1 { get; set; }
-    private CompareDummy Val2 { get; set; }
-    private CompareDummy Sum { get; set; }
+    private CompareDummy Val1 { get; }
+    private CompareDummy Val2 { get; }
+    private CompareDummy Sum { get; }
 
     protected ComparableExtensionsFixture()
     {

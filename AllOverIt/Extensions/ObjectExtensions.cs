@@ -68,7 +68,7 @@ namespace AllOverIt.Extensions
 
         if (intValue < 0 || intValue > 1)
         {
-          throw new InvalidCastException($"Cannot convert integral '{intValue}' to a Boolean.");
+          throw new ArgumentOutOfRangeException(nameof(instance), $"Cannot convert integral '{intValue}' to a Boolean.");
         }
 
         // convert the integral to a boolean
@@ -95,7 +95,7 @@ namespace AllOverIt.Extensions
 
         if (!Enum.IsDefined(typeof(TType), instance))
         {
-          throw new InvalidCastException($"Cannot cast '{instance}' to a '{typeof(TType)}' value.");
+          throw new ArgumentOutOfRangeException(nameof(instance), $"Cannot cast '{instance}' to a '{typeof(TType)}' value.");
         }
 
         return (TType)instance;
@@ -107,7 +107,7 @@ namespace AllOverIt.Extensions
       }
 
       // all other cases
-      return StringExtensions.As($"{instance}", defaultValue, true);
+      return StringExtensions.As($"{instance}", defaultValue);
     }
 
     /// <summary>Converts the provided source <paramref name="instance"/> to a specified nullable type.</summary>
@@ -123,9 +123,17 @@ namespace AllOverIt.Extensions
         : ObjectExtensions.As<TType>(instance);
     }
 
-    // properties are ordered by name before calculating the hash
-    // uses the static 'DefaultHashCodeBindings' to locate the properties
-    public static int CalculateHashCode<TType>(this TType instance, IEnumerable<string> includeProperties = null, IEnumerable<string> excludeProperties = null)
+    /// <summary>
+    /// Uses reflection to find all instance properties and use them to calculate a hash code.
+    /// </summary>
+    /// <typeparam name="TType">The object type.</typeparam>
+    /// <param name="instance">The instance having its hash code calculated.</param>
+    /// <param name="includeProperties">The property names to include. If null, then all non-static properties are used.</param>
+    /// <param name="excludeProperties">The property names to exclude. If null, then no properties are excluded.</param>
+    /// <returns>The calculated hash code.</returns>
+    /// <remarks>To ensure idempotency, the properties are ordered by their name before calculating the hash.</remarks>
+    public static int CalculateHashCode<TType>(this TType instance, IEnumerable<string> includeProperties = null,
+      IEnumerable<string> excludeProperties = null)
     {
       // includeProperties = null => include all
       // excludeProperties = null => exclude none
@@ -146,10 +154,16 @@ namespace AllOverIt.Extensions
       return AggregateHashCode(properties);
     }
 
-    // can be used against properties, fields, method calls, anything that returns on object; hence no ordering is applied
-    public static int CalculateHashCode<TType>(this TType instance, params Func<TType, object>[] propertyResolvers)
+    /// <summary>
+    /// Calculates the hash code based on explicitly specified properties, fields, or the return result from a method call.
+    /// </summary>
+    /// <typeparam name="TType">The object type.</typeparam>
+    /// <param name="instance">The instance having its hash code calculated.</param>
+    /// <param name="resolvers">One or more resolvers that provide the properties, fields, or method calls used to calculate the hash code.</param>
+    /// <returns>The calculated hash code.</returns>
+    public static int CalculateHashCode<TType>(this TType instance, params Func<TType, object>[] resolvers)
     {
-      var properties = propertyResolvers.Select(propertyResolver => propertyResolver.Invoke(instance));
+      var properties = resolvers.Select(propertyResolver => propertyResolver.Invoke(instance));
 
       return AggregateHashCode(properties);
     }

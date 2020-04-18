@@ -2,7 +2,7 @@
 
 namespace AllOverIt.Helpers
 {
-  /// <summary>A disposable object implementing the Resource Acquisition Is Initialization  idiom.</summary>
+  /// <summary>A disposable object implementing the Resource Acquisition Is Initialization idiom.</summary>
   public class Raii : IDisposable
   {
     private bool _disposed;
@@ -53,7 +53,7 @@ namespace AllOverIt.Helpers
     private bool _disposed;
     private readonly Action<TType> _cleanUp;
 
-    protected TType Context { get; private set; }
+    public TType Context { get; private set; }
 
     /// <summary>Constructor used to provide the initialization and cleanup actions to be invoked.</summary>
     /// <param name="initialize">The initialization action to invoke at the time of initialization.</param>

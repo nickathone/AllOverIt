@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Extensions;
 using FluentAssertions;
-using System.Linq;
 using System.Reflection;
 using Xunit;
 
@@ -41,7 +40,7 @@ namespace AllOverIt.Tests.Extensions
       {
         var actual = GetPropertyInfo<DummyClass>(name).IsAbstract();
 
-        actual.Should().BeTrue();
+        actual.Should().BeFalse();
       }
 
       [Theory]
@@ -218,8 +217,7 @@ namespace AllOverIt.Tests.Extensions
     private static PropertyInfo GetPropertyInfo<TType>(string name)
     {
       // TypeInfoExtensions has its own set of tests so happy to use this to keep these tests simple
-      return TypeInfoExtensions.GetPropertyInfo(typeof(TType).GetTypeInfo())
-        .Single(item => item.Name == name);
+      return TypeInfoExtensions.GetPropertyInfo(typeof(TType).GetTypeInfo(), name);
     }
   }
 }

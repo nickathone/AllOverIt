@@ -3,7 +3,7 @@ using FluentAssertions;
 using System.Linq;
 using Xunit;
 
-namespace AllOverIt.Tests.Extensions
+namespace AllOverIt.Tests.Helpers
 {
   public class ReflectionHelperFixture : AllOverItFixtureBase
   {

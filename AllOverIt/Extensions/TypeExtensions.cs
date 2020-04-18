@@ -11,7 +11,7 @@ namespace AllOverIt.Extensions
   public static class TypeExtensions
   {
     /// <summary>
-    /// Gets the <see cref="PropertyInfo"/> (property metadata) for a given property on a <see cref="Type"/>.
+    /// Gets the <see cref="PropertyInfo"/> (property metadata) for a given public or protected property on a <see cref="Type"/>.
     /// </summary>
     /// <param name="type">The <see cref="Type"/> to obtain the property metadata from.</param>
     /// <param name="propertyName">The name of the property to obtain metadata for.</param>
@@ -24,7 +24,7 @@ namespace AllOverIt.Extensions
     }
 
     /// <summary>
-    /// Gets <see cref="PropertyInfo"/> (property metadata) for a given <see cref="Type"/> and binding option.
+    /// Gets <see cref="PropertyInfo"/> (property metadata) for all properties on a given <see cref="Type"/> satisfying a given binding option.
     /// </summary>
     /// <param name="type">The type to obtain property metadata for.</param>
     /// <param name="binding">The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</param>
@@ -96,6 +96,11 @@ namespace AllOverIt.Extensions
     {
       return new[] {typeof (byte), typeof (sbyte), typeof (short), typeof (ushort),
                     typeof (int), typeof (uint), typeof (long), typeof (ulong)}.Contains(type);
+    }
+
+    public static bool IsFloatingType(this Type type)
+    {
+      return new[] {typeof (float), typeof (double), typeof (decimal)}.Contains(type);
     }
 
     public static bool IsEnumerableType(this Type type, bool includeString = false)

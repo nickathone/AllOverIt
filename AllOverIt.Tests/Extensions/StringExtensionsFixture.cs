@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System;
+using System.Globalization;
 using Xunit;
 
 namespace AllOverIt.Tests.Extensions
@@ -10,10 +11,6 @@ namespace AllOverIt.Tests.Extensions
     {
       Dummy1, Dummy2, Dummy3
     }
-
-    //public abstract class DummyClass
-    //{
-    //}
 
     public class As : StringExtensionsFixture
     {
@@ -48,51 +45,98 @@ namespace AllOverIt.Tests.Extensions
       }
 
       [Fact]
-      public void Should_Throw_When_No_Type_Converter()
+      public void Should_Throw_When_No_Suitable_Type_Converter()
       {
+        var value = Create<string>();
+
         Invoking(
-            () =>AllOverIt.Extensions.StringExtensions.As(Create<string>(), Create<int>()))
+            () =>AllOverIt.Extensions.StringExtensions.As(value, Create<int>()))
           .Should()
           .Throw<ArgumentException>()
-          .WithMessage("No converter exists for type 'Int32'.");
+          .WithMessage($"No converter exists for type 'Int32' when value = '{value}'.");
       }
 
       [Fact]
-      public void Should_Return_The_Converted_Value()
+      public void Should_Return_The_Converted_Int_Value()
       {
-        var defaultValue = Create<int>();
         var value = Create<int>();
         
-        var actual = AllOverIt.Extensions.StringExtensions.As($"{value}", defaultValue);
+        var actual = AllOverIt.Extensions.StringExtensions.As($"{value}", Create<int>());
+
+        actual.Should().Be(value);
+      }
+
+      [Fact]
+      public void Should_Return_The_Converted_Double_Value()
+      {
+        var value = Create<double>();
+
+        var actual = AllOverIt.Extensions.StringExtensions.As($"{value}", Create<double>());
 
         actual.Should().Be(value);
       }
 
       [Theory]
-      [InlineData(null, true, DummyEnum.Dummy2, DummyEnum.Dummy2)]
-      [InlineData(null, false, DummyEnum.Dummy2, DummyEnum.Dummy2)]
-      [InlineData("", true, DummyEnum.Dummy2, DummyEnum.Dummy2)]
-      [InlineData("", false, DummyEnum.Dummy2, DummyEnum.Dummy2)]
-      [InlineData(" ", true, DummyEnum.Dummy2, DummyEnum.Dummy2)]
-      [InlineData(" ", false, DummyEnum.Dummy2, DummyEnum.Dummy2)]
-      [InlineData("Dummy2", false, DummyEnum.Dummy1, DummyEnum.Dummy2)]
-      [InlineData("Dummy2", true, DummyEnum.Dummy1, DummyEnum.Dummy2)]
-      [InlineData("dummy2", true, DummyEnum.Dummy3, DummyEnum.Dummy2)]
-      public void Should_Convert_To_Enum(string value, bool ignoreCase, DummyEnum defaultValue, DummyEnum expected)
+      [InlineData("1", true)]
+      [InlineData("0", false)]
+      [InlineData("true", true)]
+      [InlineData("false", false)]
+      [InlineData("True", true)]
+      [InlineData("False", false)]
+      [InlineData("TRUE", true)]
+      [InlineData("FALSE", false)]
+      public void Should_Return_The_Converted_Boolean_Value(string value, bool expected)
       {
-        var actual = AllOverIt.Extensions.StringExtensions.As<DummyEnum>(value, defaultValue, ignoreCase);
+        var actual = AllOverIt.Extensions.StringExtensions.As(value, Create<bool>());
 
         actual.Should().Be(expected);
       }
 
-      [Fact]
-      public void Should_Fail_To_Convert_To_Enum()
+      [Theory]
+      [InlineData(null, DummyEnum.Dummy2, DummyEnum.Dummy2)]
+      [InlineData("", DummyEnum.Dummy2, DummyEnum.Dummy2)]
+      [InlineData(" ", DummyEnum.Dummy2, DummyEnum.Dummy2)]
+      [InlineData("Dummy2", DummyEnum.Dummy1, DummyEnum.Dummy2)]
+      [InlineData("dummy2", DummyEnum.Dummy3, DummyEnum.Dummy2)]
+      [InlineData("DUMMY2", DummyEnum.Dummy3, DummyEnum.Dummy2)]
+      public void Should_Convert_To_Enum(string value, DummyEnum defaultValue, DummyEnum expected)
       {
-        Invoking(
-            () => AllOverIt.Extensions.StringExtensions.As<DummyEnum>("dummy2", DummyEnum.Dummy3, false))
-          .Should()
-          .Throw<ArgumentException>()
-          .WithMessage("Requested value 'dummy2' was not found.");
+        var actual = AllOverIt.Extensions.StringExtensions.As<DummyEnum>(value, defaultValue);
+
+        actual.Should().Be(expected);
+      }
+
+      [Theory]
+      [InlineData("0", NumberStyles.None)]
+      [InlineData("none", NumberStyles.None)]
+      [InlineData("None", NumberStyles.None)]
+      [InlineData("NONE", NumberStyles.None)]
+
+      [InlineData("1", NumberStyles.AllowLeadingWhite)]
+      [InlineData("allowleadingwhite", NumberStyles.AllowLeadingWhite)]
+      [InlineData("AllowLeadingWhite", NumberStyles.AllowLeadingWhite)]
+      [InlineData("ALLOWLEADINGWHITE", NumberStyles.AllowLeadingWhite)]
+
+      [InlineData("7", NumberStyles.Integer)]
+      [InlineData("integer", NumberStyles.Integer)]
+      [InlineData("Integer", NumberStyles.Integer)]
+      [InlineData("INTEGER", NumberStyles.Integer)]
+      public void Should_Convert_Enum_With_Flags_Attribute(string value, NumberStyles expected)
+      {
+        var actual = AllOverIt.Extensions.StringExtensions.As<NumberStyles>(value);
+
+        actual.Should().Be(expected);
+      }
+
+      [Theory]
+      [InlineData("0", DummyEnum.Dummy1)]
+      [InlineData("1", DummyEnum.Dummy2)]
+      [InlineData("2", DummyEnum.Dummy3)]
+      public void Should_Convert_From_Number_String_To_Enum(string value, DummyEnum expected)
+      {
+        var actual = AllOverIt.Extensions.StringExtensions.As<DummyEnum>(value);
+
+        actual.Should().Be(expected);
       }
     }
 
@@ -141,33 +185,49 @@ namespace AllOverIt.Tests.Extensions
       }
 
       [Fact]
-      public void Should_Return_Converted_Enum_Value()
+      public void Should_Return_The_Converted_Double_Value()
       {
-        var value = Create<DummyEnum>();
+        var value = Create<double>();
 
+        var actual = AllOverIt.Extensions.StringExtensions.AsNullable<double>($"{value}");
+
+        actual.Should().Be(value);
+      }
+
+      [Theory]
+      [InlineData("true", true)]
+      [InlineData("false", false)]
+      [InlineData("True", true)]
+      [InlineData("False", false)]
+      [InlineData("TRUE", true)]
+      [InlineData("FALSE", false)]
+      public void Should_Return_The_Converted_Boolean_Value(string value, bool expected)
+      {
+        var actual = AllOverIt.Extensions.StringExtensions.AsNullable<bool>($"{value}");
+
+        actual.Should().Be(expected);
+      }
+
+      [Theory]
+      [InlineData("0", DummyEnum.Dummy1)]
+      [InlineData("1", DummyEnum.Dummy2)]
+      [InlineData("2", DummyEnum.Dummy3)]
+      public void Should_Convert_From_Number_String_To_Nullable_Enum(string value, DummyEnum? expected)
+      {
         var actual = AllOverIt.Extensions.StringExtensions.AsNullable<DummyEnum>($"{value}");
 
-        actual.Should().Be(value);
+        actual.Should().Be(expected);
       }
 
-      [Fact]
-      public void Should_Return_Converted_Enum_Value_IgnoreCase()
+      [Theory]
+      [InlineData("dummy1", DummyEnum.Dummy1)]
+      [InlineData("Dummy2", DummyEnum.Dummy2)]
+      [InlineData("DUMMY3", DummyEnum.Dummy3)]
+      public void Should_Return_Converted_Enum_Value(string value, DummyEnum? expected)
       {
-        var value = Create<DummyEnum>();
+        var actual = AllOverIt.Extensions.StringExtensions.AsNullable<DummyEnum>(value);
 
-        var actual = AllOverIt.Extensions.StringExtensions.AsNullable<DummyEnum>($"{value}".ToLower(), true);
-
-        actual.Should().Be(value);
-      }
-
-      [Fact]
-      public void Should_Fail_To_Convert_To_Enum()
-      {
-        Invoking(
-            () => AllOverIt.Extensions.StringExtensions.AsNullable<DummyEnum>("dummy2", false))
-          .Should()
-          .Throw<ArgumentException>()
-          .WithMessage("Requested value 'dummy2' was not found.");
+        actual.Should().Be(expected);
       }
     }
   }

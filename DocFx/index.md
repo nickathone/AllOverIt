@@ -8,17 +8,24 @@ The [Library](library/docs/intro.md) section of this site provides examples of u
 ### Reflection with flexible binding options
 Reflection is a powerful tool but it can often be difficult to remember the syntax required to discover properties and methods of a class type or instance. **AllOverIt** provides a variety of extension and utility methods to simplify the experience.
 
-See [Reflection](docs/reflection.md) for more details.
+See [Reflection](library/docs/reflection.md) for more details.
 
 ### Expressions
-**AllOverIt** includes an expression parser that caters for the majority of most programmer needs. This includes things such as obtaining field and property names or values from an expression, or building a predicate expression that can be compiled and re-used.
+**AllOverIt** includes an expression based predicate builder as well as a variety of extensions that simplify the process of obtaining property and method metadata..
 
-See [Expressions](docs/expressions.md) for more details.
+See [Expressions](library/docs/expressions.md) for more details.
 
 ### Extension methods
 **AllOverIt** includes a variety of extension methods to simplify working with strings, dictionaries, doubles, objects, types, tasks, amd more.
 
-See [Extension Methods](docs/extensions.md) for more details.
+See [Extension Methods](library/docs/extensions.md) for more details.
+
+### Tasks
+**AllOverIt** includes helper methods to await multiple tasks and have thei results returned as a Tuple, as well as an async version of `Lazy<T>`.
+
+See [Tasks](library/docs/tasks.md) for more details.
 
 ### Utilities and Helpers
-**AllOverIt** also contains a number of general-purpose utilities. See [Utilities](docs/utilities.md) for more details.
+**AllOverIt** also contains a number of general-purpose utilities.
+
+See [Helpers](library/docs/helpers.md) for more details.

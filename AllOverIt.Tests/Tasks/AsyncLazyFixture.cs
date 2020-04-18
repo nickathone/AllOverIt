@@ -77,6 +77,7 @@ namespace AllOverIt.Tests.Tasks
       {
         var expected = CreateMany<int>();
 
+        // async / await is required for it to use the Func<Task<TType>> constructor
         var lazy = new AsyncLazy<IReadOnlyList<int>>(async () => await Task.FromResult(expected));
 
         var actual = await lazy.Value;
@@ -89,6 +90,7 @@ namespace AllOverIt.Tests.Tasks
       {
         var expected = CreateMany<int>();
 
+        // async / await is required for it to use the Func<Task<TType>> constructor
         var lazy = new AsyncLazy<IReadOnlyList<int>>(async () => await Task.FromResult(expected));
 
         var actual = await lazy;

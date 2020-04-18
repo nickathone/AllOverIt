@@ -10,7 +10,8 @@ namespace AllOverIt.Extensions
     /// Gets all <see cref="PropertyInfo"/> (property metadata) for a given <see cref="TypeInfo"/>.
     /// </summary>
     /// <param name="typeInfo">The <see cref="TypeInfo"/> to obtain all property metadata.</param>
-    /// <param name="declaredOnly">If true, the metadata of properties in the declared class as well as base class(es) are returned.
+    /// <param name="declaredOnly">If true, the metadata of properties in the declared class as well as base class(es) are returned
+    /// (if a property is overriden then only the base class <see cref="PropertyInfo"/> is returned).
     /// If false, only property metadata of the declared type is returned.</param>
     /// <returns>The property metadata, as <see cref="PropertyInfo"/>, of a provided <see cref="TypeInfo"/>.</returns>
     /// <remarks>When class inheritance is involved, this method returns the first property found, starting at the type represented
@@ -25,13 +26,15 @@ namespace AllOverIt.Extensions
     }
 
     /// <summary>
-    /// Gets the <see cref="PropertyInfo"/> (property metadata) for a given property on a <see cref="TypeInfo"/>.
+    /// Gets the <see cref="PropertyInfo"/> (property metadata) for a given public or protected property on a <see cref="TypeInfo"/>.
     /// </summary>
     /// <param name="typeInfo">The <see cref="TypeInfo"/> to obtain the property metadata from.</param>
     /// <param name="propertyName">The name of the property to obtain metadata for.</param>
     /// <returns>The property metadata, as <see cref="PropertyInfo"/>, of a specified property on the provided <param name="typeInfo"></param>.</returns>
     /// <remarks>When class inheritance is involved, this method returns the first property found, starting at the type represented
-    /// by <param name="typeInfo"></param>.</remarks>
+    /// by <param name="typeInfo"></param>. If the property is overriden, this means the base class <see cref="PropertyInfo"/> will not be
+    /// returned. If you require the base class <see cref="PropertyInfo"/> then use the <see cref="GetPropertyInfo(System.Reflection.TypeInfo,bool)"/>
+    /// method.</remarks>
     public static PropertyInfo GetPropertyInfo(this TypeInfo typeInfo, string propertyName)
     {
       var propertyInfo = typeInfo.GetDeclaredProperty(propertyName);

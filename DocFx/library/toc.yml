@@ -10,11 +10,13 @@
   items:
     - name: Introduction
       href: docs/intro.md
-    - name: Reflection
-      href: docs/reflection.md
     - name: Expressions
       href: docs/expressions.md
     - name: Extension Methods
       href: docs/extensions.md
-    - name: Utilities
-      href: docs/utilities.md
+    - name: Helpers
+      href: docs/helpers.md
+    - name: Reflection
+      href: docs/reflection.md
+    - name: Tasks
+      href: docs/tasks.md
