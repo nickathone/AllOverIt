@@ -19,22 +19,42 @@ namespace AllOverIt.Tests.Extensions
       {
       }
 
-      private void Method2()
+      private void Method2(int arg1)
       {
       }
     }
 
     private class DummySuperClass : DummyBaseClass
     {
+      private readonly int _value;
       public override double Prop3 { get; set; }
       private long Prop4 { get; set; }
+
+      public DummySuperClass()
+      {
+      }
+
+      public DummySuperClass(int value)
+      {
+        _value = value;
+      }
 
       public void Method3()
       {
       }
 
-      private void Method4()
+      private int Method4()
       {
+        return _value;
+      }
+
+      private void Method4(bool arg1)
+      {
+      }
+
+      private int Method4(int arg1)
+      {
+        return arg1;
       }
     }
 
@@ -234,12 +254,23 @@ namespace AllOverIt.Tests.Extensions
           {
             item.Name,
             item.DeclaringType
-          });
+          }).ToList();
 
+        // there are 3 overloads of Method4
         actual.Should().BeEquivalentTo(
           new
           {
             Name = "Method3",
+            DeclaringType = typeof(DummySuperClass)
+          },
+          new
+          {
+            Name = "Method4",
+            DeclaringType = typeof(DummySuperClass)
+          },
+          new
+          {
+            Name = "Method4",
             DeclaringType = typeof(DummySuperClass)
           },
           new
@@ -262,6 +293,7 @@ namespace AllOverIt.Tests.Extensions
             item.DeclaringType
           });
 
+        // there are 3 overloads of Method4
         actual.Should().BeEquivalentTo(
           new
           {
@@ -272,8 +304,88 @@ namespace AllOverIt.Tests.Extensions
           {
             Name = "Method4",
             DeclaringType = typeof(DummySuperClass)
+          },
+          new
+          {
+            Name = "Method4",
+            DeclaringType = typeof(DummySuperClass)
+          },
+          new
+          {
+            Name = "Method4",
+            DeclaringType = typeof(DummySuperClass)
           }
         );
+      }
+    }
+
+    public class GetMethodInfo_Named : TypeExtensionsFixture
+    {
+      [Fact]
+      public void Should_Not_Find_Method()
+      {
+        var actual = AllOverIt.Extensions.TypeExtensions.GetMethodInfo(typeof(DummySuperClass), Create<string>());
+
+        actual.Should().BeNull();
+      }
+
+      [Fact]
+      public void Should_Find_Method_With_No_Arguments()
+      {
+        var actual = AllOverIt.Extensions.TypeExtensions.GetMethodInfo(typeof(DummySuperClass), "Method4");
+
+        actual.Should().NotBeNull();
+
+        // make sure the correct overload was chosen
+        var expected = Create<int>();
+        var dummy = new DummySuperClass(expected);
+
+        var value = actual.Invoke(dummy, null);
+
+        value.Should().Be(expected);
+      }
+    }
+
+    public class GetMethodInfo_Named_And_Args : TypeExtensionsFixture
+    {
+      [Fact]
+      public void Should_Not_Find_Method()
+      {
+        var actual = AllOverIt.Extensions.TypeExtensions.GetMethodInfo(typeof(DummySuperClass), Create<string>(), Type.EmptyTypes);
+
+        actual.Should().BeNull();
+      }
+
+      [Fact]
+      public void Should_Find_Method_With_No_Arguments()
+      {
+        var actual = AllOverIt.Extensions.TypeExtensions.GetMethodInfo(typeof(DummySuperClass), "Method4", Type.EmptyTypes);
+
+        actual.Should().NotBeNull();
+
+        // make sure the correct overload was chosen
+        var expected = Create<int>();
+        var dummy = new DummySuperClass(expected);
+
+        var value = actual.Invoke(dummy, null);
+
+        value.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Find_Method_With_Specific_Arguments()
+      {
+        var actual = AllOverIt.Extensions.TypeExtensions.GetMethodInfo(typeof(DummySuperClass), "Method4", new[] { typeof(int) });
+
+        actual.Should().NotBeNull();
+
+        // make sure the correct overload was chosen
+        var expected = Create<int>();
+        var dummy = new DummySuperClass();
+
+        var value = actual.Invoke(dummy, new object[] { expected });
+
+        value.Should().Be(expected);
       }
     }
 

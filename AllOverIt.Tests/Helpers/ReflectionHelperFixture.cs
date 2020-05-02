@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Reflection;
 using FluentAssertions;
+using System;
 using System.Linq;
 using Xunit;
 
@@ -24,15 +25,35 @@ namespace AllOverIt.Tests.Helpers
 
     private class DummySuperClass : DummyBaseClass
     {
+      private readonly int _value;
       public override double Prop3 { get; set; }
       private long Prop4 { get; set; }
+
+      public DummySuperClass()
+      {
+      }
+
+      public DummySuperClass(int value)
+      {
+        _value = value;
+      }
 
       public void Method3()
       {
       }
 
-      private void Method4()
+      private int Method4()
       {
+        return _value;
+      }
+
+      private static void Method4(bool arg1)
+      {
+      }
+
+      private int Method4(int arg1)
+      {
+        return arg1;
       }
     }
 
@@ -134,7 +155,7 @@ namespace AllOverIt.Tests.Helpers
 
     public class GetMethodInfo : ReflectionHelperFixture
     {
-      private readonly string[] _knownMethods = new[] { "Method1", "Method2", "Method3", "Method4" };
+      private readonly string[] _knownMethods = { "Method1", "Method2", "Method3", "Method4" };
 
       // GetMethod() returns methods of object as well as property get/set methods, so these tests filter down to expected (non-property) methods in the dummy classes
 
@@ -219,10 +240,21 @@ namespace AllOverIt.Tests.Helpers
             item.DeclaringType
           });
 
+        // there are 3 overloads of Method4
         actual.Should().BeEquivalentTo(
           new
           {
             Name = "Method3",
+            DeclaringType = typeof(DummySuperClass)
+          },
+          new
+          {
+            Name = "Method4",
+            DeclaringType = typeof(DummySuperClass)
+          },
+          new
+          {
+            Name = "Method4",
             DeclaringType = typeof(DummySuperClass)
           },
           new
@@ -244,6 +276,7 @@ namespace AllOverIt.Tests.Helpers
             item.DeclaringType
           });
 
+        // there are 3 overloads of Method4
         actual.Should().BeEquivalentTo(
           new
           {
@@ -254,8 +287,88 @@ namespace AllOverIt.Tests.Helpers
           {
             Name = "Method4",
             DeclaringType = typeof(DummySuperClass)
+          },
+          new
+          {
+            Name = "Method4",
+            DeclaringType = typeof(DummySuperClass)
+          },
+          new
+          {
+            Name = "Method4",
+            DeclaringType = typeof(DummySuperClass)
           }
         );
+      }
+    }
+
+    public class GetMethodInfo_Named : ReflectionHelperFixture
+    {
+      [Fact]
+      public void Should_Not_Find_Method()
+      {
+        var actual = ReflectionHelper.GetMethodInfo<DummySuperClass>(Create<string>());
+
+        actual.Should().BeNull();
+      }
+
+      [Fact]
+      public void Should_Find_Method_With_No_Arguments()
+      {
+        var actual = ReflectionHelper.GetMethodInfo<DummySuperClass>("Method4");
+
+        actual.Should().NotBeNull();
+
+        // make sure the correct overload was chosen
+        var expected = Create<int>();
+        var dummy = new DummySuperClass(expected);
+
+        var value = actual.Invoke(dummy, null);
+
+        value.Should().Be(expected);
+      }
+    }
+
+    public class GetMethodInfo_Named_And_Args : ReflectionHelperFixture
+    {
+      [Fact]
+      public void Should_Not_Find_Method()
+      {
+        var actual = ReflectionHelper.GetMethodInfo<DummySuperClass>(Create<string>(), Type.EmptyTypes);
+
+        actual.Should().BeNull();
+      }
+
+      [Fact]
+      public void Should_Find_Method_With_No_Arguments()
+      {
+        var actual = ReflectionHelper.GetMethodInfo<DummySuperClass>("Method4", Type.EmptyTypes);
+
+        actual.Should().NotBeNull();
+
+        // make sure the correct overload was chosen
+        var expected = Create<int>();
+        var dummy = new DummySuperClass(expected);
+
+        var value = actual.Invoke(dummy, null);
+
+        value.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Find_Method_With_Specific_Arguments()
+      {
+        var actual = ReflectionHelper.GetMethodInfo<DummySuperClass>("Method4", new[] { typeof(int) });
+
+        actual.Should().NotBeNull();
+
+        // make sure the correct overload was chosen
+        var expected = Create<int>();
+        var dummy = new DummySuperClass();
+
+        var value = actual.Invoke(dummy, new object[]{ expected });
+
+        value.Should().Be(expected);
       }
     }
   }

@@ -86,11 +86,11 @@ var ageInfo = person.GetType().GetPropertyInfo("Age");
 `MethodInfo` can be obtained from an object using any of the following:
 
 1. The static `ReflectionHelper.GetMethodInfo()` generic methods
-2. The `GetMethodInfo()` extension method of `Type`
+2. The `GetMethodInfo()` extension methods of `Type`
 
 The following example demonstrates how to obtain method metadata based on a class type.
 
-```
+```csharp
 public class Person
 {
   public string FirstName { get; set; }
@@ -103,6 +103,29 @@ public class Person
 var fullNameInfo = ReflectionHelper
   .GetMethodInfo<Person>()
   .Single(item => item.Name == "GetFullName");
+
+// when the method takes no arguments the same can be achieved using the following overload:
+var fullNameInfo = ReflectionHelper.GetMethodInfo<Person>("GetFullName");
+```
+
+For cases where several method overloads exist on a class then the following alternative can be used to find the required `MethodInfo` by specifying the list of argument types:
+
+```csharp
+public static MethodInfo GetMethodInfo<TType>(string name, Type[] types);
+```
+
+As an example, `StringBuilder` has several `AppendFormat()` methods. To obtain the `MethodInfo` for this overload:
+
+```csharp
+public StringBuilder AppendFormat(string format, params object[] args);
+```
+
+Use the following code:
+
+```csharp
+var methodInfo = typeof(StringBuilder).GetMethodInfo(
+  "AppendFormat",
+  new[] {typeof(string), typeof(object[])});
 ```
 
 ## Convert to a `Dictionary<string, object>`

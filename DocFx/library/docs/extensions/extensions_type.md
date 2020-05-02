@@ -50,3 +50,30 @@ var allInfo = typeof(Person).GetPropertyInfo(BindingOptions.All);
 // (will not return Id)
 var allInfo = typeof(Person).GetPropertyInfo(BindingOptions.All, true);
 ```
+
+### GetMethodInfo()
+
+```csharp
+public static MethodInfo GetMethodInfo(this Type type, string name);
+
+public static MethodInfo GetMethodInfo(this Type type, string name, Type[] types);
+
+public static IEnumerable<MethodInfo> GetMethodInfo(this Type type,
+  BindingOptions binding = BindingOptions.Default,
+  bool declaredOnly = false);
+```
+
+Getting `MethodInfo` for any static, instance, public, or non-public method can be obtained by name and, where required, by a list of argument types.
+
+```csharp
+// get MethodInfo for StringBuilder.Clear()
+var methodInfo = typeof(StringBuilder).GetMethodInfo("Clear");
+
+// get MethodInfo for the StringBuilder.AppendFormat() overload:
+// public StringBuilder AppendFormat(string format, params object[] args);
+var methodInfo = typeof(StringBuilder).GetMethodInfo(
+  "AppendFormat",
+  new[] {typeof(string), typeof(object[])});
+```
+
+The same functionality is also available in the `ReflectionHelper` namespace.  Refer to [Obtain Method Information](../reflection.md#obtain-method-information) for more information.
