@@ -213,10 +213,10 @@ var ageInfo = person.GetType().GetPropertyInfo(&quot;Age&quot;);
 <p><code>MethodInfo</code> can be obtained from an object using any of the following:</p>
 <ol>
 <li>The static <code>ReflectionHelper.GetMethodInfo()</code> generic methods</li>
-<li>The <code>GetMethodInfo()</code> extension method of <code>Type</code></li>
+<li>The <code>GetMethodInfo()</code> extension methods of <code>Type</code></li>
 </ol>
 <p>The following example demonstrates how to obtain method metadata based on a class type.</p>
-<pre><code>public class Person
+<pre><code class="lang-csharp">public class Person
 {
   public string FirstName { get; set; }
   public string LastName { get; set; }
@@ -228,6 +228,20 @@ var ageInfo = person.GetType().GetPropertyInfo(&quot;Age&quot;);
 var fullNameInfo = ReflectionHelper
   .GetMethodInfo&lt;Person&gt;()
   .Single(item =&gt; item.Name == &quot;GetFullName&quot;);
+
+// when the method takes no arguments the same can be achieved using the following overload:
+var fullNameInfo = ReflectionHelper.GetMethodInfo&lt;Person&gt;(&quot;GetFullName&quot;);
+</code></pre>
+<p>For cases where several method overloads exist on a class then the following alternative can be used to find the required <code>MethodInfo</code> by specifying the list of argument types:</p>
+<pre><code class="lang-csharp">public static MethodInfo GetMethodInfo&lt;TType&gt;(string name, Type[] types);
+</code></pre>
+<p>As an example, <code>StringBuilder</code> has several <code>AppendFormat()</code> methods. To obtain the <code>MethodInfo</code> for this overload:</p>
+<pre><code class="lang-csharp">public StringBuilder AppendFormat(string format, params object[] args);
+</code></pre>
+<p>Use the following code:</p>
+<pre><code class="lang-csharp">var methodInfo = typeof(StringBuilder).GetMethodInfo(
+  &quot;AppendFormat&quot;,
+  new[] {typeof(string), typeof(object[])});
 </code></pre>
 <h2 id="convert-to-a-dictionarystring-object">Convert to a <code>Dictionary&lt;string, object&gt;</code></h2>
 <p>Property names and their values can be converted to a dictionary as shown in the following example:</p>

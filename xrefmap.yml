@@ -743,6 +743,21 @@ references:
   commentId: M:AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)
   fullName: AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type, AllOverIt.Reflection.BindingOptions, System.Boolean)
   nameWithType: TypeExtensions.GetMethodInfo(Type, BindingOptions, Boolean)
+- uid: AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,System.String)
+  name: GetMethodInfo(Type, String)
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_System_String_
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,System.String)
+  fullName: AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type, System.String)
+  nameWithType: TypeExtensions.GetMethodInfo(Type, String)
+- uid: AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,System.String,System.Type[])
+  name: GetMethodInfo(Type, String, Type[])
+  href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_System_String_System_Type___
+  commentId: M:AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,System.String,System.Type[])
+  name.vb: GetMethodInfo(Type, String, Type())
+  fullName: AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type, System.String, System.Type[])
+  fullName.vb: AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type, System.String, System.Type())
+  nameWithType: TypeExtensions.GetMethodInfo(Type, String, Type[])
+  nameWithType.vb: TypeExtensions.GetMethodInfo(Type, String, Type())
 - uid: AllOverIt.Extensions.TypeExtensions.GetMethodInfo*
   name: GetMethodInfo
   href: api/AllOverIt.Extensions.TypeExtensions.html#AllOverIt_Extensions_TypeExtensions_GetMethodInfo_
@@ -1221,6 +1236,24 @@ references:
   fullName.vb: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo(Of TType)(AllOverIt.Reflection.BindingOptions, System.Boolean)
   nameWithType: ReflectionHelper.GetMethodInfo<TType>(BindingOptions, Boolean)
   nameWithType.vb: ReflectionHelper.GetMethodInfo(Of TType)(BindingOptions, Boolean)
+- uid: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(System.String)
+  name: GetMethodInfo<TType>(String)
+  href: api/AllOverIt.Reflection.ReflectionHelper.html#AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_System_String_
+  commentId: M:AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(System.String)
+  name.vb: GetMethodInfo(Of TType)(String)
+  fullName: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo<TType>(System.String)
+  fullName.vb: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo(Of TType)(System.String)
+  nameWithType: ReflectionHelper.GetMethodInfo<TType>(String)
+  nameWithType.vb: ReflectionHelper.GetMethodInfo(Of TType)(String)
+- uid: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(System.String,System.Type[])
+  name: GetMethodInfo<TType>(String, Type[])
+  href: api/AllOverIt.Reflection.ReflectionHelper.html#AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_System_String_System_Type___
+  commentId: M:AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(System.String,System.Type[])
+  name.vb: GetMethodInfo(Of TType)(String, Type())
+  fullName: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo<TType>(System.String, System.Type[])
+  fullName.vb: AllOverIt.Reflection.ReflectionHelper.GetMethodInfo(Of TType)(System.String, System.Type())
+  nameWithType: ReflectionHelper.GetMethodInfo<TType>(String, Type[])
+  nameWithType.vb: ReflectionHelper.GetMethodInfo(Of TType)(String, Type())
 - uid: AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo*
   name: GetPropertyInfo
   href: api/AllOverIt.Reflection.ReflectionHelper.html#AllOverIt_Reflection_ReflectionHelper_GetPropertyInfo_

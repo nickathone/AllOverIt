@@ -259,7 +259,7 @@ If false, only method metadata of the declared type is returned.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.MethodInfo</span>&gt;</td>
-        <td><p>The method metadata, as <span class="xref">System.Reflection.MethodInfo</span>, of a provided <typeparam name="TType"></typeparam>.</p>
+        <td><p>The method metadata, as <span class="xref">System.Reflection.MethodInfo</span>, of a specified <typeparam name="TType"></typeparam>.</p>
 </td>
       </tr>
     </tbody>
@@ -283,6 +283,136 @@ If false, only method metadata of the declared type is returned.</p>
   <h5 id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_AllOverIt_Reflection_BindingOptions_System_Boolean__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first method found, starting at the type represented
 by <typeparam name="TType"></typeparam>.</p>
+</div>
+  <a id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMethodInfo*"></a>
+  <h4 id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_System_String_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(System.String)">GetMethodInfo&lt;TType&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.MethodInfo</span> (method metadata) for a given <typeparam name="TType"></typeparam> method with a given name and no arguments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MethodInfo GetMethodInfo&lt;TType&gt;(string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the method.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The method metadata, as <span class="xref">System.Reflection.MethodInfo</span>, of a specified <typeparam name="TType"></typeparam> with a given name and no arguments.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TType</span></td>
+        <td><p>The type to obtain method metadata for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>All instance, static, public, and non-public methods are searched.</p>
+</div>
+  <a id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMethodInfo*"></a>
+  <h4 id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_System_String_System_Type___" data-uid="AllOverIt.Reflection.ReflectionHelper.GetMethodInfo``1(System.String,System.Type[])">GetMethodInfo&lt;TType&gt;(String, Type[])</h4>
+  <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.MethodInfo</span> (method metadata) for a given <typeparam name="TType"></typeparam> method with a given name and argument types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MethodInfo GetMethodInfo&lt;TType&gt;(string name, Type[] types)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the method.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span>[]</td>
+        <td><span class="parametername">types</span></td>
+        <td><p>The argument types expected on the method</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The method metadata, as <span class="xref">System.Reflection.MethodInfo</span>, of a specified <typeparam name="TType"></typeparam> with a given name and argument types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TType</span></td>
+        <td><p>The type to obtain method metadata for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AllOverIt_Reflection_ReflectionHelper_GetMethodInfo__1_System_String_System_Type____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>All instance, static, public, and non-public methods are searched.</p>
 </div>
   <a id="AllOverIt_Reflection_ReflectionHelper_GetPropertyInfo_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo*"></a>
   <h4 id="AllOverIt_Reflection_ReflectionHelper_GetPropertyInfo__1_AllOverIt_Reflection_BindingOptions_System_Boolean_" data-uid="AllOverIt.Reflection.ReflectionHelper.GetPropertyInfo``1(AllOverIt.Reflection.BindingOptions,System.Boolean)">GetPropertyInfo&lt;TType&gt;(BindingOptions, Boolean)</h4>
@@ -329,7 +459,7 @@ If false, only property metadata of the declared type is returned.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Reflection.PropertyInfo</span>&gt;</td>
-        <td><p>The property metadata, as <span class="xref">System.Reflection.PropertyInfo</span>, of a provided <typeparam name="TType"></typeparam>.</p>
+        <td><p>The property metadata, as <span class="xref">System.Reflection.PropertyInfo</span>, of a specified <typeparam name="TType"></typeparam>.</p>
 </td>
       </tr>
     </tbody>

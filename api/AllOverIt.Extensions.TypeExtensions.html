@@ -124,7 +124,8 @@
   </h3>
   <a id="AllOverIt_Extensions_TypeExtensions_GetFriendlyName_" data-uid="AllOverIt.Extensions.TypeExtensions.GetFriendlyName*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_GetFriendlyName_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.GetFriendlyName(System.Type)">GetFriendlyName(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>A utility method that returns a print-friendly name for a given type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -143,7 +144,8 @@
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to generate a print-friendly name for.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -158,13 +160,15 @@
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>A print-friendly name for a given type.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_GetGenericArguments_" data-uid="AllOverIt.Extensions.TypeExtensions.GetGenericArguments*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_GetGenericArguments_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.GetGenericArguments(System.Type)">GetGenericArguments(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets an array of the generic type arguments for this type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -183,7 +187,8 @@
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The <span class="xref">System.Type</span> containing the generic type arguments.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -198,7 +203,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Type</span>&gt;</td>
-        <td></td>
+        <td><p>An array of the generic type arguments for this type.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -261,6 +267,116 @@ If false, only method metadata of the declared type is returned.</p>
   <h5 id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>When class inheritance is involved, this method returns the first method found, starting at the type represented
 by <param name="type">.</p>
+</div>
+  <a id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethodInfo*"></a>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_System_String_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,System.String)">GetMethodInfo(Type, String)</h4>
+  <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.MethodInfo</span> (method metadata) for a given <span class="xref">System.Type</span> method with a given name and no arguments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MethodInfo GetMethodInfo(this Type type, string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type to obtain method metadata for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the method.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The method metadata, as <span class="xref">System.Reflection.MethodInfo</span>, of a provided <span class="xref">System.Type</span> with a given name and no arguments.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>All instance, static, public, and non-public methods are searched.</p>
+</div>
+  <a id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethodInfo*"></a>
+  <h4 id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_System_String_System_Type___" data-uid="AllOverIt.Extensions.TypeExtensions.GetMethodInfo(System.Type,System.String,System.Type[])">GetMethodInfo(Type, String, Type[])</h4>
+  <div class="markdown level1 summary"><p>Gets <span class="xref">System.Reflection.MethodInfo</span> (method metadata) for a given <span class="xref">System.Type</span> method with a given name and argument types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MethodInfo GetMethodInfo(this Type type, string name, Type[] types)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type to obtain method metadata for.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the method.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span>[]</td>
+        <td><span class="parametername">types</span></td>
+        <td><p>The argument types expected on the method</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Reflection.MethodInfo</span></td>
+        <td><p>The method metadata, as <span class="xref">System.Reflection.MethodInfo</span>, of a provided <span class="xref">System.Type</span> with a given name and argument types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AllOverIt_Extensions_TypeExtensions_GetMethodInfo_System_Type_System_String_System_Type____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>All instance, static, public, and non-public methods are searched.</p>
 </div>
   <a id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_GetPropertyInfo_System_Type_AllOverIt_Reflection_BindingOptions_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.GetPropertyInfo(System.Type,AllOverIt.Reflection.BindingOptions,System.Boolean)">GetPropertyInfo(Type, BindingOptions, Boolean)</h4>
@@ -377,7 +493,8 @@ by <param name="type">.</p>
 </div>
   <a id="AllOverIt_Extensions_TypeExtensions_IsAssignableFromType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsAssignableFromType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsAssignableFromType_System_Type_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsAssignableFromType(System.Type,System.Type)">IsAssignableFromType(Type, Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if another type can be assigned to the current type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -396,12 +513,14 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The current type.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">fromType</span></td>
-        <td></td>
+        <td><p>The type to check.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -416,13 +535,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <see cref="!:fromType"></see> can be assigned to the current type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsClassType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsClassType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsClassType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsClassType(System.Type)">IsClassType(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents a class type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -441,7 +562,8 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -456,13 +578,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents a class type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsEnumerableType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumerableType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsEnumerableType_System_Type_System_Boolean_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumerableType(System.Type,System.Boolean)">IsEnumerableType(Type, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents an enumerable type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -481,12 +605,14 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">includeString</span></td>
-        <td></td>
+        <td><p>Indicates if a string type should be considered as an enumerable (of char).</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -501,13 +627,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents an enumerable type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsEnumType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsEnumType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsEnumType(System.Type)">IsEnumType(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents an enumeration type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -526,7 +654,8 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -541,13 +670,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents an enumeration type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsFloatingType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsFloatingType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsFloatingType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsFloatingType(System.Type)">IsFloatingType(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents a floating type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -566,7 +697,8 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -581,13 +713,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents a floating type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsGenericEnumerableType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericEnumerableType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericEnumerableType(System.Type)">IsGenericEnumerableType(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents a generic enumerable type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -606,7 +740,8 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -621,13 +756,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents a generic enumerable type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsGenericNullableType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericNullableType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericNullableType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericNullableType(System.Type)">IsGenericNullableType(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents a generic nullable type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -646,7 +783,8 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -661,13 +799,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents a generic nullable type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsGenericType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsGenericType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsGenericType(System.Type)">IsGenericType(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents a generic type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -686,7 +826,8 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -701,13 +842,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents a generic type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsIntegralType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsIntegralType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsIntegralType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsIntegralType(System.Type)">IsIntegralType(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents an integral type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -726,7 +869,8 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -741,13 +885,15 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents an integral type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <a id="AllOverIt_Extensions_TypeExtensions_IsPrimitiveType_" data-uid="AllOverIt.Extensions.TypeExtensions.IsPrimitiveType*"></a>
   <h4 id="AllOverIt_Extensions_TypeExtensions_IsPrimitiveType_System_Type_" data-uid="AllOverIt.Extensions.TypeExtensions.IsPrimitiveType(System.Type)">IsPrimitiveType(Type)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates if the <span class="xref">System.Type</span> represents a primitive type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -766,7 +912,8 @@ by <param name="type">.</p>
       <tr>
         <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
-        <td></td>
+        <td><p>The type to compare.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -781,7 +928,8 @@ by <param name="type">.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td></td>
+        <td><p>True if the <span class="xref">System.Type</span> represents a primitive type, otherwise false.</p>
+</td>
       </tr>
     </tbody>
   </table>

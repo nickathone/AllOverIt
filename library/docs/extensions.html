@@ -376,13 +376,33 @@ var allInfo = typeof(Person).GetPropertyInfo(BindingOptions.All);
 // (will not return Id)
 var allInfo = typeof(Person).GetPropertyInfo(BindingOptions.All, true);
 </code></pre>
+<h3 id="getmethodinfo">GetMethodInfo()</h3>
+<pre><code class="lang-csharp">public static MethodInfo GetMethodInfo(this Type type, string name);
+
+public static MethodInfo GetMethodInfo(this Type type, string name, Type[] types);
+
+public static IEnumerable&lt;MethodInfo&gt; GetMethodInfo(this Type type,
+  BindingOptions binding = BindingOptions.Default,
+  bool declaredOnly = false);
+</code></pre>
+<p>Getting <code>MethodInfo</code> for any static, instance, public, or non-public method can be obtained by name and, where required, by a list of argument types.</p>
+<pre><code class="lang-csharp">// get MethodInfo for StringBuilder.Clear()
+var methodInfo = typeof(StringBuilder).GetMethodInfo(&quot;Clear&quot;);
+
+// get MethodInfo for the StringBuilder.AppendFormat() overload:
+// public StringBuilder AppendFormat(string format, params object[] args);
+var methodInfo = typeof(StringBuilder).GetMethodInfo(
+  &quot;AppendFormat&quot;,
+  new[] {typeof(string), typeof(object[])});
+</code></pre>
+<p>The same functionality is also available in the <code>ReflectionHelper</code> namespace.  Refer to <a href="reflection.html#obtain-method-information">Obtain Method Information</a> for more information.</p>
 <h2 id="typeinfoextensions">TypeInfoExtensions</h2>
 <pre><code class="lang-csharp">public static IEnumerable&lt;PropertyInfo&gt; GetPropertyInfo(this TypeInfo typeInfo,
   bool declaredOnly = false);
 
 public static PropertyInfo GetPropertyInfo(this TypeInfo typeInfo, string propertyName);
 </code></pre>
-<p>These methods are identical to those of the same name in the <code>TypeExtensions</code> namespace, except they extend <code>TypeInfo</code> instead of <code>Type</code>. Refer to <a href="extensions/extensions.md#typeextensions">TypeExtensions</a> for more information.</p>
+<p>These methods are identical to those of the same name in the <code>TypeExtensions</code> namespace, except they extend <code>TypeInfo</code> instead of <code>Type</code>. Refer to <a href="#typeextensions">TypeExtensions</a> for more information.</p>
 </article>
           </div>
           
