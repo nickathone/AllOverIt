@@ -90,6 +90,41 @@
 //         Default, AllScope, AllAccessor, AllVisibility, All
 var enumValues = EnumHelper.GetEnumValues&lt;BindingOptions&gt;();
 </code></pre>
+<h2 id="guard">Guard</h2>
+<p>Pre-condition guard checks are a common requirement so <code>AllOverIt</code> provides some useful helpers in this area.</p>
+<p>Extension methods exist to not only assert that an object is not null (or empty if an <code>IEnumerable&lt;T&gt;</code>) but they will also return the same value to simplify usage:</p>
+<pre><code class="lang-csharp">public static TType WhenNotNull&lt;TType&gt;(this TType argument, string name)
+  where TType : class;
+
+public static IEnumerable&lt;TType&gt; WhenNotNullOrEmpty&lt;TType&gt;(this IEnumerable&lt;TType&gt; argument,
+  string name);
+
+public static string WhenNotNullOrEmpty(this string argument, string name);
+</code></pre>
+<p>Returning the value allows arguments to be assigned to member variables or properties, like so:</p>
+<pre><code class="lang-csharp">public class Sample
+{
+  private readonly string _value;
+
+  public Sample(string value)
+  {
+    _value = value.WhenNotNullOrEmpty(nameof(value));
+  }
+}
+</code></pre>
+<p>You can also determine the variable name from an <code>Expression</code> by using the following alternatives:</p>
+<pre><code class="lang-csharp">public static TType WhenNotNull&lt;TType&gt;(Expression&lt;Func&lt;TType&gt;&gt; expression)
+  where TType : class;
+
+public static IEnumerable&lt;TType&gt; WhenNotNullOrEmpty&lt;TType&gt;(
+   Expression&lt;Func&lt;IEnumerable&lt;TType&gt;&gt;&gt; expression);
+
+public static string WhenNotNullOrEmpty(Expression&lt;Func&lt;string&gt;&gt; expression);
+</code></pre>
+<p>Usage then becomes:</p>
+<pre><code class="lang-csharp">  _value = Guard.WhenNotNullOrEmpty(() =&gt; value);
+</code></pre>
+<p>Use the <code>Expression</code> based versions with caution though as the expression must be compiled and invoked to get the value and variable name. This has a small performance cost associated with it.</p>
 <h2 id="raii">Raii</h2>
 <p>The <code>Raii</code> and <code>Raii&lt;TType&gt;</code> classes implement the Resource Acquisition Is Initialization idiom. During construction a resource is acquired or initialized and during disposal there is an opportunity to perform custom last-minute cleanup. These classes should ideally be used within a <code>using()</code> block to ensure the disposal is deterministic.</p>
 <p>While the <code>Raii</code> class is often used for things such as creating and disposing of database connections, it's also useful for automating actions that need to be performed when a unit of work has been completed. The following example represents a <em>logger</em> that sends a message to an <code>Action</code>. The action is a simplified representation of an injected dependency (this implementation is for illustration purposes only).</p>

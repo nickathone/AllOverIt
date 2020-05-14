@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Expressions.ParameterRebinder.html",
-          "hash": "7e3sjPF2EJQctRSBLks7sw=="
+          "hash": "ozRogIPeMrKv7+ctIVL9gw=="
         }
       },
       "is_incremental": false,
@@ -194,11 +194,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Helpers.Guard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Helpers.Guard.html",
+          "hash": "et5nv7VZXMZiAuxxkWMBtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AllOverIt.Helpers.Raii-1.yml",
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.Raii-1.html",
-          "hash": "FxghSDnZoy43t3cwmhmjWg=="
+          "hash": "V2PxaVapDDmm7wBoenhVLQ=="
         }
       },
       "is_incremental": false,
@@ -210,7 +222,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.Raii.html",
-          "hash": "aLgWH6mLRyAFSiVJPJ4KJA=="
+          "hash": "7q1gZJAT2TEIrlAhYVavgA=="
         }
       },
       "is_incremental": false,
@@ -222,7 +234,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.html",
-          "hash": "PmEY+bq3HHsnX5fGnX61og=="
+          "hash": "3qHpRIgVT7pAjgwMpT0TJQ=="
         }
       },
       "is_incremental": false,
@@ -270,7 +282,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Tasks.AsyncLazy-1.html",
-          "hash": "cGgz51AMAvSWyCD65/kMjg=="
+          "hash": "jMMDgyM4hNA3IJLuzTUnIA=="
         }
       },
       "is_incremental": false,
@@ -318,7 +330,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "5ETDKaIkObTUGz6NHMGpUg=="
+          "hash": "FwanWr1tGJPPvYilItOimg=="
         }
       },
       "is_incremental": false,
@@ -547,7 +559,7 @@
       "output": {
         ".html": {
           "relative_path": "library/docs/helpers.html",
-          "hash": "1WctkCU2iDfPZW2aDz48vg=="
+          "hash": "7ZVclFldnrMuo6+fji5XtQ=="
         }
       },
       "is_incremental": false,
@@ -623,13 +635,6 @@
         "skipped_file_count": 0
       },
       "processors": {
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
-          "skipped_file_count": 0
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
@@ -637,17 +642,24 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 21,
-          "skipped_file_count": 21
+          "total_file_count": 0,
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 24,
-          "skipped_file_count": 23
+          "total_file_count": 25,
+          "skipped_file_count": 25
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 21,
+          "skipped_file_count": 20
         }
       }
     },

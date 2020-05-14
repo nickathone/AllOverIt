@@ -967,6 +967,77 @@ references:
   fullName.vb: AllOverIt.Helpers.EnumHelper.GetEnumValues(Of TType)()
   nameWithType: EnumHelper.GetEnumValues<TType>()
   nameWithType.vb: EnumHelper.GetEnumValues(Of TType)()
+- uid: AllOverIt.Helpers.Guard
+  name: Guard
+  href: api/AllOverIt.Helpers.Guard.html
+  commentId: T:AllOverIt.Helpers.Guard
+  fullName: AllOverIt.Helpers.Guard
+  nameWithType: Guard
+- uid: AllOverIt.Helpers.Guard.WhenNotNull*
+  name: WhenNotNull
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNull_
+  commentId: Overload:AllOverIt.Helpers.Guard.WhenNotNull
+  isSpec: "True"
+  fullName: AllOverIt.Helpers.Guard.WhenNotNull
+  nameWithType: Guard.WhenNotNull
+- uid: AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String)
+  name: WhenNotNull<TType>(TType, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNull__1___0_System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String)
+  name.vb: WhenNotNull(Of TType)(TType, String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNull<TType>(TType, System.String)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNull(Of TType)(TType, System.String)
+  nameWithType: Guard.WhenNotNull<TType>(TType, String)
+  nameWithType.vb: Guard.WhenNotNull(Of TType)(TType, String)
+- uid: AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})
+  name: WhenNotNull<TType>(Expression<Func<TType>>)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNull__1_System_Linq_Expressions_Expression_System_Func___0___
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})
+  name.vb: WhenNotNull(Of TType)(Expression(Of Func(Of TType)))
+  fullName: AllOverIt.Helpers.Guard.WhenNotNull<TType>(System.Linq.Expressions.Expression<System.Func<TType>>)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNull(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of TType)))
+  nameWithType: Guard.WhenNotNull<TType>(Expression<Func<TType>>)
+  nameWithType.vb: Guard.WhenNotNull(Of TType)(Expression(Of Func(Of TType)))
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}})
+  name: WhenNotNullOrEmpty(Expression<Func<String>>)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_Linq_Expressions_Expression_System_Func_System_String___
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}})
+  name.vb: WhenNotNullOrEmpty(Expression(Of Func(Of String)))
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression<System.Func<System.String>>)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression(Of System.Func(Of System.String)))
+  nameWithType: Guard.WhenNotNullOrEmpty(Expression<Func<String>>)
+  nameWithType.vb: Guard.WhenNotNullOrEmpty(Expression(Of Func(Of String)))
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String)
+  name: WhenNotNullOrEmpty(String, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_String_System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String, System.String)
+  nameWithType: Guard.WhenNotNullOrEmpty(String, String)
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*
+  name: WhenNotNullOrEmpty
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_
+  commentId: Overload:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty
+  isSpec: "True"
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty
+  nameWithType: Guard.WhenNotNullOrEmpty
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)
+  name: WhenNotNullOrEmpty<TType>(IEnumerable<TType>, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Collections_Generic_IEnumerable___0__System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)
+  name.vb: WhenNotNullOrEmpty(Of TType)(IEnumerable(Of TType), String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty<TType>(System.Collections.Generic.IEnumerable<TType>, System.String)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(Of TType)(System.Collections.Generic.IEnumerable(Of TType), System.String)
+  nameWithType: Guard.WhenNotNullOrEmpty<TType>(IEnumerable<TType>, String)
+  nameWithType.vb: Guard.WhenNotNullOrEmpty(Of TType)(IEnumerable(Of TType), String)
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}})
+  name: WhenNotNullOrEmpty<TType>(Expression<Func<IEnumerable<TType>>>)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Linq_Expressions_Expression_System_Func_System_Collections_Generic_IEnumerable___0____
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}})
+  name.vb: WhenNotNullOrEmpty(Of TType)(Expression(Of Func(Of IEnumerable(Of TType))))
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty<TType>(System.Linq.Expressions.Expression<System.Func<System.Collections.Generic.IEnumerable<TType>>>)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of System.Collections.Generic.IEnumerable(Of TType))))
+  nameWithType: Guard.WhenNotNullOrEmpty<TType>(Expression<Func<IEnumerable<TType>>>)
+  nameWithType.vb: Guard.WhenNotNullOrEmpty(Of TType)(Expression(Of Func(Of IEnumerable(Of TType))))
 - uid: AllOverIt.Helpers.Raii
   name: Raii
   href: api/AllOverIt.Helpers.Raii.html
