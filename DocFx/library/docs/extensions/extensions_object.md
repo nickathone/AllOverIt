@@ -1,5 +1,57 @@
 ## ObjectExtensions
 
+### GetPropertyValue()
+
+```csharp
+public static TValue GetPropertyValue<TValue>(this object instance, string propertyName,
+  BindingFlags bindingFlags );
+
+public static TValue GetPropertyValue<TValue>(this object instance, string propertyName,
+  BindingOptions bindingOptions = BindingOptions.Default);
+```
+
+Both versions of `GetPropertyValue()` use reflection to get the value of an object's property by name. The first version uses .NET's `BindingFlags` and the second version uses `BindingOptions` found in `AllOverIt`.
+
+```csharp
+public class Request
+{
+  public string Token { get; set; }
+}
+
+// using BindingFlags
+var token = request.GetPropertyValue<string>(nameof(Request.Token),
+  BindingFlags.Instance | BindingFlags.Public);
+
+// using BindingOptions (the default is BindingOptions.Default)
+var token = request.GetPropertyValue<string>(nameof(Request.Token));
+```
+
+### SetPropertyValue()
+
+```csharp
+public static void SetPropertyValue<TValue>(this object instance, string propertyName,
+  TValue value, BindingFlags bindingFlags);
+
+public static void SetPropertyValue<TValue>(this object instance, string propertyName,
+  TValue value, BindingOptions bindingOptions = BindingOptions.Default);
+```
+
+Both versions of `SetPropertyValue()` use reflection to set the value of an object's property by name. The first version uses .NET's `BindingFlags` and the second version uses `BindingOptions` found in `AllOverIt`.
+
+```csharp
+public class Request
+{
+  public string Token { get; set; }
+}
+
+// using BindingFlags
+request.SetPropertyValue<string>(nameof(Request.Token), "token_value",
+  BindingFlags.Instance | BindingFlags.Public);
+
+// using BindingOptions (the default is BindingOptions.Default)
+request.GetPropertyValue<string>(nameof(Request.Token), "token_value");
+```
+
 ### ToPropertyDictionary()
 
 ```csharp

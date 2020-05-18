@@ -4,6 +4,7 @@ using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace AllOverIt.Tests.Extensions
@@ -185,6 +186,193 @@ namespace AllOverIt.Tests.Extensions
         actual.Should().BeEquivalentTo(expected);
       }
     }
+
+
+
+
+
+    public class GetPropertyValue_BindingFlags : ObjectExtensionsFixture
+    {
+      [Fact]
+      public void Should_Get_Property_Value_With_Public_BindingFlags()
+      {
+        var subject = Create<DummyClass>();
+        var expected = subject.Prop1;
+
+        var actual = subject.GetPropertyValue<int>(nameof(DummyClass.Prop1), BindingFlags.Instance | BindingFlags.Public);
+
+        actual.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Get_Property_Value_With_NonPublic_BindingFlags()
+      {
+        var subject = Create<DummyClass>();
+        var expected = subject.GetProp2();
+
+        var actual = subject.GetPropertyValue<int>("Prop2", BindingFlags.Instance | BindingFlags.NonPublic);
+
+        actual.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Not_Get_Property_Value()
+      {
+        var propertyName = Create<string>();
+
+        Invoking(() =>
+          {
+            var subject = Create<DummyClass>();
+
+            subject.GetPropertyValue<int>(propertyName, BindingFlags.Instance | BindingFlags.NonPublic);
+          })
+          .Should()
+          .Throw<MemberAccessException>()
+          .WithMessage($"The property '{propertyName}' was not found");
+      }
+    }
+
+
+
+
+    public class GetPropertyValue_BindingOptions : ObjectExtensionsFixture
+    {
+      [Fact]
+      public void Should_Get_Property_Value_With_Default_BindingOptions()
+      {
+        var subject = Create<DummyClass>();
+        var expected = subject.Prop1;
+
+        var actual = subject.GetPropertyValue<int>(nameof(DummyClass.Prop1));
+
+        actual.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Get_Property_Value_With_Private_BindingOptions()
+      {
+        var subject = Create<DummyClass>();
+        var expected = subject.GetProp2();
+
+        var actual = subject.GetPropertyValue<int>("Prop2", BindingOptions.Instance | BindingOptions.Private);
+
+        actual.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Not_Get_Property_Value()
+      {
+        var propertyName = Create<string>();
+
+        Invoking(() =>
+          {
+            var subject = Create<DummyClass>();
+
+            subject.GetPropertyValue<int>(propertyName, BindingOptions.Instance | BindingOptions.Private);
+          })
+          .Should()
+          .Throw<MemberAccessException>()
+          .WithMessage($"The property '{propertyName}' was not found");
+      }
+    }
+
+
+
+    public class SetPropertyValue_BindingFlags : ObjectExtensionsFixture
+    {
+      [Fact]
+      public void Should_Set_Property_Value_With_Public_BindingFlags()
+      {
+        var subject = new DummyClass();
+        var expected = Create<int>();
+
+        subject.SetPropertyValue(nameof(DummyClass.Prop1), expected, BindingFlags.Instance | BindingFlags.Public);
+
+        var actual = subject.Prop1;
+
+        actual.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Set_Property_Value_With_NonPublic_BindingFlags()
+      {
+        var subject = new DummyClass();
+        var expected = Create<int>();
+
+        subject.SetPropertyValue("Prop2", expected, BindingFlags.Instance | BindingFlags.NonPublic);
+
+        var actual = subject.GetProp2();
+
+        actual.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Not_Set_Property_Value()
+      {
+        var propertyName = Create<string>();
+
+        Invoking(() =>
+          {
+            var subject = new DummyClass();
+
+            subject.SetPropertyValue(propertyName, Create<int>(), BindingFlags.Instance | BindingFlags.NonPublic);
+          })
+          .Should()
+          .Throw<MemberAccessException>()
+          .WithMessage($"The property '{propertyName}' was not found");
+      }
+    }
+
+
+
+    public class SetPropertyValue_BindingOptions : ObjectExtensionsFixture
+    {
+      [Fact]
+      public void Should_Set_Property_Value_With_Default_BindingFlags()
+      {
+        var subject = new DummyClass();
+        var expected = Create<int>();
+
+        subject.SetPropertyValue(nameof(DummyClass.Prop1), expected);
+
+        var actual = subject.Prop1;
+
+        actual.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Set_Property_Value_With_Private_BindingFlags()
+      {
+        var subject = new DummyClass();
+        var expected = Create<int>();
+
+        subject.SetPropertyValue("Prop2", expected, BindingOptions.Instance | BindingOptions.Private);
+
+        var actual = subject.GetProp2();
+
+        actual.Should().Be(expected);
+      }
+
+      [Fact]
+      public void Should_Not_Set_Property_Value()
+      {
+        var propertyName = Create<string>();
+
+        Invoking(() =>
+          {
+            var subject = new DummyClass();
+
+            subject.SetPropertyValue(propertyName, Create<int>(), BindingOptions.Instance | BindingOptions.Private);
+          })
+          .Should()
+          .Throw<MemberAccessException>()
+          .WithMessage($"The property '{propertyName}' was not found");
+      }
+    }
+
+
+
+
 
     public class IsIntegral : ObjectExtensionsFixture
     {

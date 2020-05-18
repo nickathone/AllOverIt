@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace AllOverIt.Extensions
 {
@@ -16,8 +17,8 @@ namespace AllOverIt.Extensions
     /// <summary>Creates a dictionary containing property names and associated values.</summary>
     /// <param name="instance">The object instance to obtain property names and values from.</param>
     /// <param name="includeNulls">If <c>true</c> then <c>null</c> value properties will be returned, otherwise they will be omitted.</param>
-    /// <param name="bindingOptions">Binding options that determines how property names are resolved.</param>
-    /// <returns>Returns  a dictionary containing property names and associated values.</returns>
+    /// <param name="bindingOptions">Binding options that determine how property names are resolved.</param>
+    /// <returns>Returns a dictionary containing property names and associated values.</returns>
     public static IDictionary<string, object> ToPropertyDictionary(this object instance, bool includeNulls = false, BindingOptions bindingOptions = BindingOptions.Default)
     {
       var type = instance.GetType();
@@ -30,6 +31,82 @@ namespace AllOverIt.Extensions
                       select new KeyValuePair<string, object>(prop.Name, value);
 
       return propInfos.ToDictionary(item => item.Key, item => item.Value);
+    }
+
+    /// <summary>
+    /// Uses reflection to get the value of an object's property by name.
+    /// </summary>
+    /// <typeparam name="TValue">The property type.</typeparam>
+    /// <param name="instance">The object to get the property value.</param>
+    /// <param name="propertyName">The property name.</param>
+    /// <param name="bindingFlags">.NET binding options that determine how property names are resolved.</param>
+    /// <returns>The value of a property by name</returns>
+    /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
+    public static TValue GetPropertyValue<TValue>(this object instance, string propertyName, BindingFlags bindingFlags )
+    {
+      var propertyInfo = GetPropertyInfo(instance, propertyName, bindingFlags)
+                         ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+
+      return (TValue) propertyInfo.GetValue(instance);
+    }
+
+    /// <summary>
+    /// Uses reflection to get the value of an object's property by name.
+    /// </summary>
+    /// <typeparam name="TValue">The property type.</typeparam>
+    /// <param name="instance">The object to get the property value.</param>
+    /// <param name="propertyName">The property name.</param>
+    /// <param name="bindingOptions">Binding options that determine how property names are resolved.</param>
+    /// <returns>The value of a property by name</returns>
+    /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding options.</exception>
+    public static TValue GetPropertyValue<TValue>(this object instance, string propertyName, BindingOptions bindingOptions = BindingOptions.Default)
+    {
+      var propertyInfo = instance
+        .GetType()
+        .GetPropertyInfo(bindingOptions, false)
+        .SingleOrDefault(item => item.Name == propertyName);
+
+      _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+
+      return (TValue)propertyInfo?.GetValue(instance);
+    }
+
+
+    /// <summary>
+    /// Uses reflection to set the value of an object's property by name.
+    /// </summary>
+    /// <typeparam name="TValue">The property type.</typeparam>
+    /// <param name="instance">The object to get the property value.</param>
+    /// <param name="propertyName">The property name.</param>
+    /// <param name="bindingFlags">.NET binding options that determine how property names are resolved.</param>
+    /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
+    public static void SetPropertyValue<TValue>(this object instance, string propertyName, TValue value, BindingFlags bindingFlags)
+    {
+      var propertyInfo = GetPropertyInfo(instance, propertyName, bindingFlags)
+        ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+
+      propertyInfo.SetValue(instance, value);
+    }
+
+    /// <summary>
+    /// Uses reflection to set the value of an object's property by name.
+    /// </summary>
+    /// <typeparam name="TValue">The property type.</typeparam>
+    /// <param name="instance">The object to get the property value.</param>
+    /// <param name="propertyName">The property name.</param>
+    /// <param name="value">The value to set on the property.</param>
+    /// <param name="bindingOptions">Binding options that determine how property names are resolved.</param>
+    /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding options.</exception>
+    public static void SetPropertyValue<TValue>(this object instance, string propertyName, TValue value, BindingOptions bindingOptions = BindingOptions.Default)
+    {
+      var propertyInfo = instance
+        .GetType()
+        .GetPropertyInfo(bindingOptions, false)
+        .SingleOrDefault(item => item.Name == propertyName);
+
+      _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+
+      propertyInfo.SetValue(instance, value);
     }
 
     /// <summary>Determines if the specified object is an integral type (signed or unsigned).</summary>
@@ -166,6 +243,26 @@ namespace AllOverIt.Extensions
       var properties = resolvers.Select(propertyResolver => propertyResolver.Invoke(instance));
 
       return AggregateHashCode(properties);
+    }
+
+    private static PropertyInfo GetPropertyInfo(object instance, string propertyName, BindingFlags bindingFlags)
+    {
+      var type = instance.GetType();
+
+      while (type != null)
+      {
+        var propertyInfo = type.GetProperty(propertyName, bindingFlags);
+
+        if (propertyInfo != null)
+        {
+          return propertyInfo;
+        }
+
+        // move to the base class type
+        type = type.BaseType;
+      }
+
+      return null;
     }
 
     private static int AggregateHashCode(IEnumerable<object> properties)
