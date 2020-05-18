@@ -544,6 +544,31 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ObjectExtensions.DefaultHashCodeBindings
   nameWithType: ObjectExtensions.DefaultHashCodeBindings
+- uid: AllOverIt.Extensions.ObjectExtensions.GetPropertyValue*
+  name: GetPropertyValue
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_GetPropertyValue_
+  commentId: Overload:AllOverIt.Extensions.ObjectExtensions.GetPropertyValue
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.ObjectExtensions.GetPropertyValue
+  nameWithType: ObjectExtensions.GetPropertyValue
+- uid: AllOverIt.Extensions.ObjectExtensions.GetPropertyValue``1(System.Object,System.String,AllOverIt.Reflection.BindingOptions)
+  name: GetPropertyValue<TValue>(Object, String, BindingOptions)
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_GetPropertyValue__1_System_Object_System_String_AllOverIt_Reflection_BindingOptions_
+  commentId: M:AllOverIt.Extensions.ObjectExtensions.GetPropertyValue``1(System.Object,System.String,AllOverIt.Reflection.BindingOptions)
+  name.vb: GetPropertyValue(Of TValue)(Object, String, BindingOptions)
+  fullName: AllOverIt.Extensions.ObjectExtensions.GetPropertyValue<TValue>(System.Object, System.String, AllOverIt.Reflection.BindingOptions)
+  fullName.vb: AllOverIt.Extensions.ObjectExtensions.GetPropertyValue(Of TValue)(System.Object, System.String, AllOverIt.Reflection.BindingOptions)
+  nameWithType: ObjectExtensions.GetPropertyValue<TValue>(Object, String, BindingOptions)
+  nameWithType.vb: ObjectExtensions.GetPropertyValue(Of TValue)(Object, String, BindingOptions)
+- uid: AllOverIt.Extensions.ObjectExtensions.GetPropertyValue``1(System.Object,System.String,System.Reflection.BindingFlags)
+  name: GetPropertyValue<TValue>(Object, String, BindingFlags)
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_GetPropertyValue__1_System_Object_System_String_System_Reflection_BindingFlags_
+  commentId: M:AllOverIt.Extensions.ObjectExtensions.GetPropertyValue``1(System.Object,System.String,System.Reflection.BindingFlags)
+  name.vb: GetPropertyValue(Of TValue)(Object, String, BindingFlags)
+  fullName: AllOverIt.Extensions.ObjectExtensions.GetPropertyValue<TValue>(System.Object, System.String, System.Reflection.BindingFlags)
+  fullName.vb: AllOverIt.Extensions.ObjectExtensions.GetPropertyValue(Of TValue)(System.Object, System.String, System.Reflection.BindingFlags)
+  nameWithType: ObjectExtensions.GetPropertyValue<TValue>(Object, String, BindingFlags)
+  nameWithType.vb: ObjectExtensions.GetPropertyValue(Of TValue)(Object, String, BindingFlags)
 - uid: AllOverIt.Extensions.ObjectExtensions.IsIntegral(System.Object)
   name: IsIntegral(Object)
   href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_IsIntegral_System_Object_
@@ -557,6 +582,31 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ObjectExtensions.IsIntegral
   nameWithType: ObjectExtensions.IsIntegral
+- uid: AllOverIt.Extensions.ObjectExtensions.SetPropertyValue*
+  name: SetPropertyValue
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_SetPropertyValue_
+  commentId: Overload:AllOverIt.Extensions.ObjectExtensions.SetPropertyValue
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.ObjectExtensions.SetPropertyValue
+  nameWithType: ObjectExtensions.SetPropertyValue
+- uid: AllOverIt.Extensions.ObjectExtensions.SetPropertyValue``1(System.Object,System.String,``0,AllOverIt.Reflection.BindingOptions)
+  name: SetPropertyValue<TValue>(Object, String, TValue, BindingOptions)
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_SetPropertyValue__1_System_Object_System_String___0_AllOverIt_Reflection_BindingOptions_
+  commentId: M:AllOverIt.Extensions.ObjectExtensions.SetPropertyValue``1(System.Object,System.String,``0,AllOverIt.Reflection.BindingOptions)
+  name.vb: SetPropertyValue(Of TValue)(Object, String, TValue, BindingOptions)
+  fullName: AllOverIt.Extensions.ObjectExtensions.SetPropertyValue<TValue>(System.Object, System.String, TValue, AllOverIt.Reflection.BindingOptions)
+  fullName.vb: AllOverIt.Extensions.ObjectExtensions.SetPropertyValue(Of TValue)(System.Object, System.String, TValue, AllOverIt.Reflection.BindingOptions)
+  nameWithType: ObjectExtensions.SetPropertyValue<TValue>(Object, String, TValue, BindingOptions)
+  nameWithType.vb: ObjectExtensions.SetPropertyValue(Of TValue)(Object, String, TValue, BindingOptions)
+- uid: AllOverIt.Extensions.ObjectExtensions.SetPropertyValue``1(System.Object,System.String,``0,System.Reflection.BindingFlags)
+  name: SetPropertyValue<TValue>(Object, String, TValue, BindingFlags)
+  href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_SetPropertyValue__1_System_Object_System_String___0_System_Reflection_BindingFlags_
+  commentId: M:AllOverIt.Extensions.ObjectExtensions.SetPropertyValue``1(System.Object,System.String,``0,System.Reflection.BindingFlags)
+  name.vb: SetPropertyValue(Of TValue)(Object, String, TValue, BindingFlags)
+  fullName: AllOverIt.Extensions.ObjectExtensions.SetPropertyValue<TValue>(System.Object, System.String, TValue, System.Reflection.BindingFlags)
+  fullName.vb: AllOverIt.Extensions.ObjectExtensions.SetPropertyValue(Of TValue)(System.Object, System.String, TValue, System.Reflection.BindingFlags)
+  nameWithType: ObjectExtensions.SetPropertyValue<TValue>(Object, String, TValue, BindingFlags)
+  nameWithType.vb: ObjectExtensions.SetPropertyValue(Of TValue)(Object, String, TValue, BindingFlags)
 - uid: AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary(System.Object,System.Boolean,AllOverIt.Reflection.BindingOptions)
   name: ToPropertyDictionary(Object, Boolean, BindingOptions)
   href: api/AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_ToPropertyDictionary_System_Object_System_Boolean_AllOverIt_Reflection_BindingOptions_

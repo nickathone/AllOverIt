@@ -419,6 +419,180 @@
       </tr>
     </tbody>
   </table>
+  <a id="AllOverIt_Extensions_ObjectExtensions_GetPropertyValue_" data-uid="AllOverIt.Extensions.ObjectExtensions.GetPropertyValue*"></a>
+  <h4 id="AllOverIt_Extensions_ObjectExtensions_GetPropertyValue__1_System_Object_System_String_AllOverIt_Reflection_BindingOptions_" data-uid="AllOverIt.Extensions.ObjectExtensions.GetPropertyValue``1(System.Object,System.String,AllOverIt.Reflection.BindingOptions)">GetPropertyValue&lt;TValue&gt;(Object, String, BindingOptions)</h4>
+  <div class="markdown level1 summary"><p>Uses reflection to get the value of an object's property by name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TValue GetPropertyValue&lt;TValue&gt;(this object instance, string propertyName, BindingOptions bindingOptions = BindingOptions.Static | BindingOptions.Instance | BindingOptions.Abstract | BindingOptions.Virtual | BindingOptions.NonVirtual | BindingOptions.Protected | BindingOptions.Public | BindingOptions.DefaultScope | BindingOptions.DefaultAccessor | BindingOptions.DefaultVisibility | BindingOptions.Default | BindingOptions.AllScope | BindingOptions.AllAccessor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The object to get the property value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">propertyName</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AllOverIt.Reflection.BindingOptions.html">BindingOptions</a></td>
+        <td><span class="parametername">bindingOptions</span></td>
+        <td><p>Binding options that determine how property names are resolved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TValue</span></td>
+        <td><p>The value of a property by name</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TValue</span></td>
+        <td><p>The property type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.MemberAccessException</span></td>
+        <td><p>When the property name cannot be found using the provided binding options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="AllOverIt_Extensions_ObjectExtensions_GetPropertyValue_" data-uid="AllOverIt.Extensions.ObjectExtensions.GetPropertyValue*"></a>
+  <h4 id="AllOverIt_Extensions_ObjectExtensions_GetPropertyValue__1_System_Object_System_String_System_Reflection_BindingFlags_" data-uid="AllOverIt.Extensions.ObjectExtensions.GetPropertyValue``1(System.Object,System.String,System.Reflection.BindingFlags)">GetPropertyValue&lt;TValue&gt;(Object, String, BindingFlags)</h4>
+  <div class="markdown level1 summary"><p>Uses reflection to get the value of an object's property by name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TValue GetPropertyValue&lt;TValue&gt;(this object instance, string propertyName, BindingFlags bindingFlags)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The object to get the property value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">propertyName</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Reflection.BindingFlags</span></td>
+        <td><span class="parametername">bindingFlags</span></td>
+        <td><p>.NET binding options that determine how property names are resolved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TValue</span></td>
+        <td><p>The value of a property by name</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TValue</span></td>
+        <td><p>The property type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.MemberAccessException</span></td>
+        <td><p>When the property name cannot be found using the provided binding flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <a id="AllOverIt_Extensions_ObjectExtensions_IsIntegral_" data-uid="AllOverIt.Extensions.ObjectExtensions.IsIntegral*"></a>
   <h4 id="AllOverIt_Extensions_ObjectExtensions_IsIntegral_System_Object_" data-uid="AllOverIt.Extensions.ObjectExtensions.IsIntegral(System.Object)">IsIntegral(Object)</h4>
   <div class="markdown level1 summary"><p>Determines if the specified object is an integral type (signed or unsigned).</p>
@@ -462,6 +636,159 @@
       </tr>
     </tbody>
   </table>
+  <a id="AllOverIt_Extensions_ObjectExtensions_SetPropertyValue_" data-uid="AllOverIt.Extensions.ObjectExtensions.SetPropertyValue*"></a>
+  <h4 id="AllOverIt_Extensions_ObjectExtensions_SetPropertyValue__1_System_Object_System_String___0_AllOverIt_Reflection_BindingOptions_" data-uid="AllOverIt.Extensions.ObjectExtensions.SetPropertyValue``1(System.Object,System.String,``0,AllOverIt.Reflection.BindingOptions)">SetPropertyValue&lt;TValue&gt;(Object, String, TValue, BindingOptions)</h4>
+  <div class="markdown level1 summary"><p>Uses reflection to set the value of an object's property by name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetPropertyValue&lt;TValue&gt;(this object instance, string propertyName, TValue value, BindingOptions bindingOptions = BindingOptions.Static | BindingOptions.Instance | BindingOptions.Abstract | BindingOptions.Virtual | BindingOptions.NonVirtual | BindingOptions.Protected | BindingOptions.Public | BindingOptions.DefaultScope | BindingOptions.DefaultAccessor | BindingOptions.DefaultVisibility | BindingOptions.Default | BindingOptions.AllScope | BindingOptions.AllAccessor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The object to get the property value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">propertyName</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TValue</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to set on the property.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="AllOverIt.Reflection.BindingOptions.html">BindingOptions</a></td>
+        <td><span class="parametername">bindingOptions</span></td>
+        <td><p>Binding options that determine how property names are resolved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TValue</span></td>
+        <td><p>The property type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.MemberAccessException</span></td>
+        <td><p>When the property name cannot be found using the provided binding options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="AllOverIt_Extensions_ObjectExtensions_SetPropertyValue_" data-uid="AllOverIt.Extensions.ObjectExtensions.SetPropertyValue*"></a>
+  <h4 id="AllOverIt_Extensions_ObjectExtensions_SetPropertyValue__1_System_Object_System_String___0_System_Reflection_BindingFlags_" data-uid="AllOverIt.Extensions.ObjectExtensions.SetPropertyValue``1(System.Object,System.String,``0,System.Reflection.BindingFlags)">SetPropertyValue&lt;TValue&gt;(Object, String, TValue, BindingFlags)</h4>
+  <div class="markdown level1 summary"><p>Uses reflection to set the value of an object's property by name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetPropertyValue&lt;TValue&gt;(this object instance, string propertyName, TValue value, BindingFlags bindingFlags)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The object to get the property value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">propertyName</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TValue</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Reflection.BindingFlags</span></td>
+        <td><span class="parametername">bindingFlags</span></td>
+        <td><p>.NET binding options that determine how property names are resolved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TValue</span></td>
+        <td><p>The property type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.MemberAccessException</span></td>
+        <td><p>When the property name cannot be found using the provided binding flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <a id="AllOverIt_Extensions_ObjectExtensions_ToPropertyDictionary_" data-uid="AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary*"></a>
   <h4 id="AllOverIt_Extensions_ObjectExtensions_ToPropertyDictionary_System_Object_System_Boolean_AllOverIt_Reflection_BindingOptions_" data-uid="AllOverIt.Extensions.ObjectExtensions.ToPropertyDictionary(System.Object,System.Boolean,AllOverIt.Reflection.BindingOptions)">ToPropertyDictionary(Object, Boolean, BindingOptions)</h4>
   <div class="markdown level1 summary"><p>Creates a dictionary containing property names and associated values.</p>
@@ -496,7 +823,7 @@
       <tr>
         <td><a class="xref" href="AllOverIt.Reflection.BindingOptions.html">BindingOptions</a></td>
         <td><span class="parametername">bindingOptions</span></td>
-        <td><p>Binding options that determines how property names are resolved.</p>
+        <td><p>Binding options that determine how property names are resolved.</p>
 </td>
       </tr>
     </tbody>
@@ -512,7 +839,7 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Collections.Generic.IDictionary</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.Object</span>&gt;</td>
-        <td><p>Returns  a dictionary containing property names and associated values.</p>
+        <td><p>Returns a dictionary containing property names and associated values.</p>
 </td>
       </tr>
     </tbody>

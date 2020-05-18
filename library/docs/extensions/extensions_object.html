@@ -79,6 +79,46 @@
             <article class="content wrap" id="_content" data-uid="">
 <h2 id="objectextensions">ObjectExtensions</h2>
 
+<h3 id="getpropertyvalue">GetPropertyValue()</h3>
+<pre><code class="lang-csharp">public static TValue GetPropertyValue&lt;TValue&gt;(this object instance, string propertyName,
+  BindingFlags bindingFlags );
+
+public static TValue GetPropertyValue&lt;TValue&gt;(this object instance, string propertyName,
+  BindingOptions bindingOptions = BindingOptions.Default);
+</code></pre>
+<p>Both versions of <code>GetPropertyValue()</code> use reflection to get the value of an object's property by name. The first version uses .NET's <code>BindingFlags</code> and the second version uses <code>BindingOptions</code> found in <code>AllOverIt</code>.</p>
+<pre><code class="lang-csharp">public class Request
+{
+  public string Token { get; set; }
+}
+
+// using BindingFlags
+var token = request.GetPropertyValue&lt;string&gt;(nameof(Request.Token),
+  BindingFlags.Instance | BindingFlags.Public);
+
+// using BindingOptions (the default is BindingOptions.Default)
+var token = request.GetPropertyValue&lt;string&gt;(nameof(Request.Token));
+</code></pre>
+<h3 id="setpropertyvalue">SetPropertyValue()</h3>
+<pre><code class="lang-csharp">public static void SetPropertyValue&lt;TValue&gt;(this object instance, string propertyName,
+  TValue value, BindingFlags bindingFlags);
+
+public static void SetPropertyValue&lt;TValue&gt;(this object instance, string propertyName,
+  TValue value, BindingOptions bindingOptions = BindingOptions.Default);
+</code></pre>
+<p>Both versions of <code>SetPropertyValue()</code> use reflection to set the value of an object's property by name. The first version uses .NET's <code>BindingFlags</code> and the second version uses <code>BindingOptions</code> found in <code>AllOverIt</code>.</p>
+<pre><code class="lang-csharp">public class Request
+{
+  public string Token { get; set; }
+}
+
+// using BindingFlags
+request.SetPropertyValue&lt;string&gt;(nameof(Request.Token), &quot;token_value&quot;,
+  BindingFlags.Instance | BindingFlags.Public);
+
+// using BindingOptions (the default is BindingOptions.Default)
+request.GetPropertyValue&lt;string&gt;(nameof(Request.Token), &quot;token_value&quot;);
+</code></pre>
 <h3 id="topropertydictionary">ToPropertyDictionary()</h3>
 <pre><code class="lang-csharp">public static IDictionary&lt;string, object&gt; ToPropertyDictionary(this object instance,
   bool includeNulls = false, BindingOptions bindingOptions = BindingOptions.Default);
