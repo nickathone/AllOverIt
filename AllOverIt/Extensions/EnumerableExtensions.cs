@@ -44,5 +44,35 @@ namespace AllOverIt.Extensions
     {
       return items == null || !items.GetEnumerator().MoveNext();
     }
+
+    /// <summary>
+    /// Partitions a collection into multiple batches of a maximum size. 
+    /// </summary>
+    /// <typeparam name="TSource">The type stored in the source collection.</typeparam>
+    /// <param name="items">The source of items to be partitioned.</param>
+    /// <param name="batchSize">The maximum number of items in each batch.</param>
+    /// <returns>One or more batches containing the source items partitioned into a maximum batch size.</returns>
+    public static IEnumerable<IEnumerable<TSource>> Batch<TSource>(this IEnumerable<TSource> items, int batchSize)
+    {
+      _ = items ?? throw new ArgumentNullException(nameof(items));
+
+      var batch = new List<TSource>(batchSize);
+
+      foreach (var item in items)
+      {
+        batch.Add(item);
+
+        if (batch.Count == batchSize)
+        {
+          yield return batch;
+          batch = new List<TSource>(batchSize);
+        }
+      }
+
+      if (batch.Any())
+      {
+        yield return batch;
+      }
+    }
   }
 }

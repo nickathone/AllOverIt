@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Xunit;
 
 namespace AllOverIt.Tests.Extensions
@@ -221,6 +222,59 @@ namespace AllOverIt.Tests.Extensions
         var actual = EnumerableExtensions.IsNullOrEmpty(value);
 
         actual.Should().BeFalse();
+      }
+    }
+
+    public class Batch : EnumerableExtensionsFixture
+    {
+      [Fact]
+      public void Should_Throw_When_Null()
+      {
+        Invoking(
+            () =>
+            {
+              IEnumerable<object> items = null;
+
+              // ToList() is required to invoke the method
+              items.Batch(Create<int>()).ToList();
+            })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage("items"));
+      }
+
+      [Fact]
+      public void Should_Return_No_Batches()
+      {
+        var items = new List<int>();
+
+        var actual = items.Batch(Create<int>());
+
+        actual.Should().BeEmpty();
+      }
+
+      [Fact]
+      public void Should_Return_Batches_Of_Same_Size()
+      {
+        var items = CreateMany<int>(10);
+
+        var actual = items.Batch(5).ToList();
+
+        actual.Should().HaveCount(2);
+        actual.First().Should().HaveCount(5);
+        actual.Skip(1).First().Should().HaveCount(5);
+      }
+
+      [Fact]
+      public void Should_Return_Batches_Of_Expected_Size()
+      {
+        var items = CreateMany<int>(9);
+
+        var actual = items.Batch(5).ToList();
+
+        actual.Should().HaveCount(2);
+        actual.First().Should().HaveCount(5);
+        actual.Skip(1).First().Should().HaveCount(4);
       }
     }
   }

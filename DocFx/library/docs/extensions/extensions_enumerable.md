@@ -26,3 +26,22 @@ public static bool IsNullOrEmpty(this IEnumerable items);
 ```
 
 Applicable to collections and strings, this method returns _true_ if the instance is _null_ or empty, otherwise false.
+
+### Batch
+The `Batch()` method provides the ability to partition data into a group of smaller collections.
+
+```csharp
+// partitions items into batches of 100 and processes each batch in parallel
+foreach (var batch in items.Batch(100).AsParallel())
+{
+  ProcessBatch(batch);
+}
+
+private void ProcessBatch(IEnumerable<string> items)
+{
+  foreach (var item in items)
+  {
+    // process an individual item
+  }
+}
+```
