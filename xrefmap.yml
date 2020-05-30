@@ -397,6 +397,22 @@ references:
   fullName.vb: AllOverIt.Extensions.EnumerableExtensions.AsReadOnlyList(Of TType)(System.Collections.Generic.IEnumerable(Of TType))
   nameWithType: EnumerableExtensions.AsReadOnlyList<TType>(IEnumerable<TType>)
   nameWithType.vb: EnumerableExtensions.AsReadOnlyList(Of TType)(IEnumerable(Of TType))
+- uid: AllOverIt.Extensions.EnumerableExtensions.Batch*
+  name: Batch
+  href: api/AllOverIt.Extensions.EnumerableExtensions.html#AllOverIt_Extensions_EnumerableExtensions_Batch_
+  commentId: Overload:AllOverIt.Extensions.EnumerableExtensions.Batch
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.EnumerableExtensions.Batch
+  nameWithType: EnumerableExtensions.Batch
+- uid: AllOverIt.Extensions.EnumerableExtensions.Batch``1(System.Collections.Generic.IEnumerable{``0},System.Int32)
+  name: Batch<TSource>(IEnumerable<TSource>, Int32)
+  href: api/AllOverIt.Extensions.EnumerableExtensions.html#AllOverIt_Extensions_EnumerableExtensions_Batch__1_System_Collections_Generic_IEnumerable___0__System_Int32_
+  commentId: M:AllOverIt.Extensions.EnumerableExtensions.Batch``1(System.Collections.Generic.IEnumerable{``0},System.Int32)
+  name.vb: Batch(Of TSource)(IEnumerable(Of TSource), Int32)
+  fullName: AllOverIt.Extensions.EnumerableExtensions.Batch<TSource>(System.Collections.Generic.IEnumerable<TSource>, System.Int32)
+  fullName.vb: AllOverIt.Extensions.EnumerableExtensions.Batch(Of TSource)(System.Collections.Generic.IEnumerable(Of TSource), System.Int32)
+  nameWithType: EnumerableExtensions.Batch<TSource>(IEnumerable<TSource>, Int32)
+  nameWithType.vb: EnumerableExtensions.Batch(Of TSource)(IEnumerable(Of TSource), Int32)
 - uid: AllOverIt.Extensions.EnumerableExtensions.IsNullOrEmpty(System.Collections.IEnumerable)
   name: IsNullOrEmpty(IEnumerable)
   href: api/AllOverIt.Extensions.EnumerableExtensions.html#AllOverIt_Extensions_EnumerableExtensions_IsNullOrEmpty_System_Collections_IEnumerable_

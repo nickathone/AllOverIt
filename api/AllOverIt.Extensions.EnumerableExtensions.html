@@ -287,6 +287,71 @@
       </tr>
     </tbody>
   </table>
+  <a id="AllOverIt_Extensions_EnumerableExtensions_Batch_" data-uid="AllOverIt.Extensions.EnumerableExtensions.Batch*"></a>
+  <h4 id="AllOverIt_Extensions_EnumerableExtensions_Batch__1_System_Collections_Generic_IEnumerable___0__System_Int32_" data-uid="AllOverIt.Extensions.EnumerableExtensions.Batch``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">Batch&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Int32)</h4>
+  <div class="markdown level1 summary"><p>Partitions a collection into multiple batches of a maximum size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;IEnumerable&lt;TSource&gt;&gt; Batch&lt;TSource&gt;(this IEnumerable&lt;TSource&gt; items, int batchSize)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TSource&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The source of items to be partitioned.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">batchSize</span></td>
+        <td><p>The maximum number of items in each batch.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TSource&gt;&gt;</td>
+        <td><p>One or more batches containing the source items partitioned into a maximum batch size.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TSource</span></td>
+        <td><p>The type stored in the source collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <a id="AllOverIt_Extensions_EnumerableExtensions_IsNullOrEmpty_" data-uid="AllOverIt.Extensions.EnumerableExtensions.IsNullOrEmpty*"></a>
   <h4 id="AllOverIt_Extensions_EnumerableExtensions_IsNullOrEmpty_System_Collections_IEnumerable_" data-uid="AllOverIt.Extensions.EnumerableExtensions.IsNullOrEmpty(System.Collections.IEnumerable)">IsNullOrEmpty(IEnumerable)</h4>
   <div class="markdown level1 summary"><p>Applicable to strings and collections, this method determines if the instance is null or empty.</p>
