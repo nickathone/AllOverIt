@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Guard
+    <title>Class EventAggregator
    | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Guard
+    <meta name="title" content="Class EventAggregator
    | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
@@ -78,17 +78,21 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Helpers.Guard">
+            <article class="content wrap" id="_content" data-uid="AllOverIt.Events.EventAggregator">
   
   
-  <h1 id="AllOverIt_Helpers_Guard" data-uid="AllOverIt.Helpers.Guard" class="text-break">Class Guard
+  <h1 id="AllOverIt_Events_EventAggregator" data-uid="AllOverIt.Events.EventAggregator" class="text-break">Class EventAggregator
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">Guard</span></div>
+    <div class="level1"><span class="xref">EventAggregator</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="AllOverIt.Events.IEventAggregator.html">IEventAggregator</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -114,23 +118,21 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Helpers.html">AllOverIt.Helpers</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Events.html">AllOverIt.Events</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
-  <h5 id="AllOverIt_Helpers_Guard_syntax">Syntax</h5>
+  <h5 id="AllOverIt_Events_EventAggregator_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Guard</code></pre>
+    <pre><code class="lang-csharp hljs">public class EventAggregator : IEventAggregator</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
-  <a id="AllOverIt_Helpers_Guard_WhenNotNull_" data-uid="AllOverIt.Helpers.Guard.WhenNotNull*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNull__1___0_System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String)">WhenNotNull&lt;TType&gt;(TType, String)</h4>
+  <a id="AllOverIt_Events_EventAggregator_Publish_" data-uid="AllOverIt.Events.EventAggregator.Publish*"></a>
+  <h4 id="AllOverIt_Events_EventAggregator_Publish__1___0_" data-uid="AllOverIt.Events.EventAggregator.Publish``1(``0)">Publish&lt;TMessage&gt;(TMessage)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType WhenNotNull&lt;TType&gt;(this TType argument, string name)
-
-    where TType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public void Publish&lt;TMessage&gt;(TMessage message)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -143,28 +145,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TType</span></td>
-        <td><span class="parametername">argument</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TType</span></td>
+        <td><span class="xref">TMessage</span></td>
+        <td><span class="parametername">message</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -179,20 +161,18 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TType</span></td>
+        <td><span class="parametername">TMessage</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <a id="AllOverIt_Helpers_Guard_WhenNotNull_" data-uid="AllOverIt.Helpers.Guard.WhenNotNull*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNull__1_System_Linq_Expressions_Expression_System_Func___0___" data-uid="AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})">WhenNotNull&lt;TType&gt;(Expression&lt;Func&lt;TType&gt;&gt;)</h4>
+  <a id="AllOverIt_Events_EventAggregator_PublishAsync_" data-uid="AllOverIt.Events.EventAggregator.PublishAsync*"></a>
+  <h4 id="AllOverIt_Events_EventAggregator_PublishAsync__1___0_" data-uid="AllOverIt.Events.EventAggregator.PublishAsync``1(``0)">PublishAsync&lt;TMessage&gt;(TMessage)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType WhenNotNull&lt;TType&gt;(Expression&lt;Func&lt;TType&gt;&gt; expression)
-
-    where TType : class</code></pre>
+    <pre><code class="lang-csharp hljs">public Task PublishAsync&lt;TMessage&gt;(TMessage message)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -205,8 +185,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TType&gt;&gt;</td>
-        <td><span class="parametername">expression</span></td>
+        <td><span class="xref">TMessage</span></td>
+        <td><span class="parametername">message</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -221,7 +201,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TType</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -236,18 +216,18 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TType</span></td>
+        <td><span class="parametername">TMessage</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <a id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_Linq_Expressions_Expression_System_Func_System_String___" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}})">WhenNotNullOrEmpty(Expression&lt;Func&lt;String&gt;&gt;)</h4>
+  <a id="AllOverIt_Events_EventAggregator_Subscribe_" data-uid="AllOverIt.Events.EventAggregator.Subscribe*"></a>
+  <h4 id="AllOverIt_Events_EventAggregator_Subscribe__1_System_Action___0__System_Boolean_" data-uid="AllOverIt.Events.EventAggregator.Subscribe``1(System.Action{``0},System.Boolean)">Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;, Boolean)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string WhenNotNullOrEmpty(Expression&lt;Func&lt;string&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Subscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; handler, bool weakSubscription = true)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -260,113 +240,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
-        <td><span class="parametername">expression</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <a id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_String_System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String)">WhenNotNullOrEmpty(String, String)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string WhenNotNullOrEmpty(this string argument, string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">argument</span></td>
+        <td><span class="xref">System.Action</span>&lt;TMessage&gt;</td>
+        <td><span class="parametername">handler</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <a id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Collections_Generic_IEnumerable___0__System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)">WhenNotNullOrEmpty&lt;TType&gt;(IEnumerable&lt;TType&gt;, String)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TType&gt; WhenNotNullOrEmpty&lt;TType&gt;(this IEnumerable&lt;TType&gt; argument, string name)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TType&gt;</td>
-        <td><span class="parametername">argument</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TType&gt;</td>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">weakSubscription</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -381,18 +261,18 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TType</span></td>
+        <td><span class="parametername">TMessage</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <a id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Linq_Expressions_Expression_System_Func_System_Collections_Generic_IEnumerable___0____" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}})">WhenNotNullOrEmpty&lt;TType&gt;(Expression&lt;Func&lt;IEnumerable&lt;TType&gt;&gt;&gt;)</h4>
+  <a id="AllOverIt_Events_EventAggregator_Subscribe_" data-uid="AllOverIt.Events.EventAggregator.Subscribe*"></a>
+  <h4 id="AllOverIt_Events_EventAggregator_Subscribe__1_System_Func___0_System_Threading_Tasks_Task__System_Boolean_" data-uid="AllOverIt.Events.EventAggregator.Subscribe``1(System.Func{``0,System.Threading.Tasks.Task},System.Boolean)">Subscribe&lt;TMessage&gt;(Func&lt;TMessage, Task&gt;, Boolean)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TType&gt; WhenNotNullOrEmpty&lt;TType&gt;(Expression&lt;Func&lt;IEnumerable&lt;TType&gt;&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Subscribe&lt;TMessage&gt;(Func&lt;TMessage, Task&gt; handler, bool weakSubscription = true)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -405,23 +285,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TType&gt;&gt;&gt;</td>
-        <td><span class="parametername">expression</span></td>
+        <td><span class="xref">System.Func</span>&lt;TMessage, <span class="xref">System.Threading.Tasks.Task</span>&gt;</td>
+        <td><span class="parametername">handler</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TType&gt;</td>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">weakSubscription</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -436,11 +306,129 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TType</span></td>
+        <td><span class="parametername">TMessage</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
+  <a id="AllOverIt_Events_EventAggregator_Unsubscribe_" data-uid="AllOverIt.Events.EventAggregator.Unsubscribe*"></a>
+  <h4 id="AllOverIt_Events_EventAggregator_Unsubscribe__1_System_Action___0__" data-uid="AllOverIt.Events.EventAggregator.Unsubscribe``1(System.Action{``0})">Unsubscribe&lt;TMessage&gt;(Action&lt;TMessage&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Unsubscribe&lt;TMessage&gt;(Action&lt;TMessage&gt; handler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;TMessage&gt;</td>
+        <td><span class="parametername">handler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TMessage</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="AllOverIt_Events_EventAggregator_Unsubscribe_" data-uid="AllOverIt.Events.EventAggregator.Unsubscribe*"></a>
+  <h4 id="AllOverIt_Events_EventAggregator_Unsubscribe__1_System_Func___0_System_Threading_Tasks_Task__" data-uid="AllOverIt.Events.EventAggregator.Unsubscribe``1(System.Func{``0,System.Threading.Tasks.Task})">Unsubscribe&lt;TMessage&gt;(Func&lt;TMessage, Task&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Unsubscribe&lt;TMessage&gt;(Func&lt;TMessage, Task&gt; handler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;TMessage, <span class="xref">System.Threading.Tasks.Task</span>&gt;</td>
+        <td><span class="parametername">handler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TMessage</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="AllOverIt.Events.IEventAggregator.html">IEventAggregator</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_ToPropertyDictionary_System_Object_System_Boolean_AllOverIt_Reflection_BindingOptions_">ObjectExtensions.ToPropertyDictionary(Object, Boolean, BindingOptions)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_GetPropertyValue__1_System_Object_System_String_System_Reflection_BindingFlags_">ObjectExtensions.GetPropertyValue&lt;TValue&gt;(Object, String, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_GetPropertyValue__1_System_Object_System_String_AllOverIt_Reflection_BindingOptions_">ObjectExtensions.GetPropertyValue&lt;TValue&gt;(Object, String, BindingOptions)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_SetPropertyValue__1_System_Object_System_String___0_System_Reflection_BindingFlags_">ObjectExtensions.SetPropertyValue&lt;TValue&gt;(Object, String, TValue, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_SetPropertyValue__1_System_Object_System_String___0_AllOverIt_Reflection_BindingOptions_">ObjectExtensions.SetPropertyValue&lt;TValue&gt;(Object, String, TValue, BindingOptions)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_IsIntegral_System_Object_">ObjectExtensions.IsIntegral(Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_As__1_System_Object___0_">ObjectExtensions.As&lt;TType&gt;(Object, TType)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_AsNullable__1_System_Object_System_Nullable___0__">ObjectExtensions.AsNullable&lt;TType&gt;(Object, Nullable&lt;TType&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String__">ObjectExtensions.CalculateHashCode&lt;TType&gt;(TType, IEnumerable&lt;String&gt;, IEnumerable&lt;String&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Func___0_System_Object____">ObjectExtensions.CalculateHashCode&lt;TType&gt;(TType, Func&lt;TType, Object&gt;[])</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNull__1___0_System_String_">Guard.WhenNotNull&lt;TType&gt;(TType, String)</a>
+  </div>
 </article>
           </div>
           

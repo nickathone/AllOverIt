@@ -14,6 +14,114 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.AsyncSubscription.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.AsyncSubscription.html",
+          "hash": "SreMLkN3X4yPT1n4ZMyPiA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.AsyncWeakSubscription.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.AsyncWeakSubscription.html",
+          "hash": "gD6N1Fa+pBQu4hdLDDUnzw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.EventAggregator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.EventAggregator.html",
+          "hash": "V3b4lqh76bveRiBrKr+Nrw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.IAsyncSubscription.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.IAsyncSubscription.html",
+          "hash": "onEO9VPFWP8TuStLs0oCeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.IEventAggregator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.IEventAggregator.html",
+          "hash": "Z/g3yLRo4ooF3dPliLPrpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.ISubscription.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.ISubscription.html",
+          "hash": "zkCOhoOUbgVQw+WAnemvXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.Subscription.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.Subscription.html",
+          "hash": "C0i1ZiXEsPyE+t1rWGJPQg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.WeakSubscription.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.WeakSubscription.html",
+          "hash": "vknWSQ69C8GyrHOFkf0y0Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Events.html",
+          "hash": "bHRxfrwKMpi2K5/bBzHOqw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AllOverIt.Expressions.ParameterRebinder.yml",
       "output": {
         ".html": {
@@ -114,7 +222,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.ObjectExtensions.html",
-          "hash": "fiJmGzaYRKEuFy/ndkOFzA=="
+          "hash": "Fe8pyrvSq/znp03nqiOpLQ=="
         }
       },
       "is_incremental": false,
@@ -138,7 +246,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.StringExtensions.html",
-          "hash": "63StEjmiBGZsDMwI6r7p1g=="
+          "hash": "8GjtCmbvEUSeuWuscTYlUQ=="
         }
       },
       "is_incremental": false,
@@ -186,7 +294,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.EnumHelper.html",
-          "hash": "h1G62tzhZ71InEqFqZmd3Q=="
+          "hash": "Yl6IRoQOehs7CNVM8UJH3w=="
         }
       },
       "is_incremental": false,
@@ -198,7 +306,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.Guard.html",
-          "hash": "et5nv7VZXMZiAuxxkWMBtw=="
+          "hash": "nwHw9TglLWvAnRdBIezFNQ=="
         }
       },
       "is_incremental": false,
@@ -290,6 +398,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Tasks.RepeatingTask.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Tasks.RepeatingTask.html",
+          "hash": "ijty/Ydb2bp32Zm3wcqdtA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AllOverIt.Tasks.TaskHelper.yml",
       "output": {
         ".html": {
@@ -306,7 +426,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Tasks.html",
-          "hash": "C64RI4J/wD3IYDQygTttfA=="
+          "hash": "3GWy5BicICc5L7u67jCwOw=="
         }
       },
       "is_incremental": false,
@@ -330,7 +450,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "FwanWr1tGJPPvYilItOimg=="
+          "hash": "aBMHIkdPXEQQ/4g10xxYjA=="
         }
       },
       "is_incremental": false,
@@ -367,7 +487,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "iu6SIVBiPae6TgD+d14GbA=="
+          "hash": "+Sj0pvfReLpVifFEBUSvZQ=="
         }
       },
       "is_incremental": false,
@@ -404,6 +524,18 @@
         ".html": {
           "relative_path": "library/about/whoami.html",
           "hash": "1ZAwU0CME+4fMA2HH8NPVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "library/docs/eventaggregator.md",
+      "output": {
+        ".html": {
+          "relative_path": "library/docs/eventaggregator.html",
+          "hash": "PnvCRJ3gW0gciTjaWdhxlg=="
         }
       },
       "is_incremental": false,
@@ -607,7 +739,7 @@
       "output": {
         ".html": {
           "relative_path": "library/toc.html",
-          "hash": "PBRH4yHdk5/UuqHWe8QjKA=="
+          "hash": "HoDqdl//tNAowVp274tYGw=="
         }
       },
       "is_incremental": false,
@@ -635,28 +767,28 @@
         "skipped_file_count": 0
       },
       "processors": {
-        "ResourceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
-          "incrementalPhase": "build",
-          "total_file_count": 25,
-          "skipped_file_count": 24
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 21,
-          "skipped_file_count": 19
+          "total_file_count": 22,
+          "skipped_file_count": 21
         },
-        "TocDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 35,
+          "skipped_file_count": 35
+        },
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0

@@ -1,6 +1,468 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
+- uid: AllOverIt.Events
+  name: AllOverIt.Events
+  href: api/AllOverIt.Events.html
+  commentId: N:AllOverIt.Events
+  fullName: AllOverIt.Events
+  nameWithType: AllOverIt.Events
+- uid: AllOverIt.Events.AsyncSubscription
+  name: AsyncSubscription
+  href: api/AllOverIt.Events.AsyncSubscription.html
+  commentId: T:AllOverIt.Events.AsyncSubscription
+  fullName: AllOverIt.Events.AsyncSubscription
+  nameWithType: AsyncSubscription
+- uid: AllOverIt.Events.AsyncSubscription.#ctor(System.Delegate)
+  name: AsyncSubscription(Delegate)
+  href: api/AllOverIt.Events.AsyncSubscription.html#AllOverIt_Events_AsyncSubscription__ctor_System_Delegate_
+  commentId: M:AllOverIt.Events.AsyncSubscription.#ctor(System.Delegate)
+  fullName: AllOverIt.Events.AsyncSubscription.AsyncSubscription(System.Delegate)
+  nameWithType: AsyncSubscription.AsyncSubscription(Delegate)
+- uid: AllOverIt.Events.AsyncSubscription.#ctor*
+  name: AsyncSubscription
+  href: api/AllOverIt.Events.AsyncSubscription.html#AllOverIt_Events_AsyncSubscription__ctor_
+  commentId: Overload:AllOverIt.Events.AsyncSubscription.#ctor
+  isSpec: "True"
+  fullName: AllOverIt.Events.AsyncSubscription.AsyncSubscription
+  nameWithType: AsyncSubscription.AsyncSubscription
+- uid: AllOverIt.Events.AsyncSubscription.GetHandler*
+  name: GetHandler
+  href: api/AllOverIt.Events.AsyncSubscription.html#AllOverIt_Events_AsyncSubscription_GetHandler_
+  commentId: Overload:AllOverIt.Events.AsyncSubscription.GetHandler
+  isSpec: "True"
+  fullName: AllOverIt.Events.AsyncSubscription.GetHandler
+  nameWithType: AsyncSubscription.GetHandler
+- uid: AllOverIt.Events.AsyncSubscription.GetHandler``1
+  name: GetHandler<TMessage>()
+  href: api/AllOverIt.Events.AsyncSubscription.html#AllOverIt_Events_AsyncSubscription_GetHandler__1
+  commentId: M:AllOverIt.Events.AsyncSubscription.GetHandler``1
+  name.vb: GetHandler(Of TMessage)()
+  fullName: AllOverIt.Events.AsyncSubscription.GetHandler<TMessage>()
+  fullName.vb: AllOverIt.Events.AsyncSubscription.GetHandler(Of TMessage)()
+  nameWithType: AsyncSubscription.GetHandler<TMessage>()
+  nameWithType.vb: AsyncSubscription.GetHandler(Of TMessage)()
+- uid: AllOverIt.Events.AsyncSubscription.HandleAsync*
+  name: HandleAsync
+  href: api/AllOverIt.Events.AsyncSubscription.html#AllOverIt_Events_AsyncSubscription_HandleAsync_
+  commentId: Overload:AllOverIt.Events.AsyncSubscription.HandleAsync
+  isSpec: "True"
+  fullName: AllOverIt.Events.AsyncSubscription.HandleAsync
+  nameWithType: AsyncSubscription.HandleAsync
+- uid: AllOverIt.Events.AsyncSubscription.HandleAsync``1(``0)
+  name: HandleAsync<TMessage>(TMessage)
+  href: api/AllOverIt.Events.AsyncSubscription.html#AllOverIt_Events_AsyncSubscription_HandleAsync__1___0_
+  commentId: M:AllOverIt.Events.AsyncSubscription.HandleAsync``1(``0)
+  name.vb: HandleAsync(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.AsyncSubscription.HandleAsync<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.AsyncSubscription.HandleAsync(Of TMessage)(TMessage)
+  nameWithType: AsyncSubscription.HandleAsync<TMessage>(TMessage)
+  nameWithType.vb: AsyncSubscription.HandleAsync(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.AsyncWeakSubscription
+  name: AsyncWeakSubscription
+  href: api/AllOverIt.Events.AsyncWeakSubscription.html
+  commentId: T:AllOverIt.Events.AsyncWeakSubscription
+  fullName: AllOverIt.Events.AsyncWeakSubscription
+  nameWithType: AsyncWeakSubscription
+- uid: AllOverIt.Events.AsyncWeakSubscription.#ctor(System.Delegate)
+  name: AsyncWeakSubscription(Delegate)
+  href: api/AllOverIt.Events.AsyncWeakSubscription.html#AllOverIt_Events_AsyncWeakSubscription__ctor_System_Delegate_
+  commentId: M:AllOverIt.Events.AsyncWeakSubscription.#ctor(System.Delegate)
+  fullName: AllOverIt.Events.AsyncWeakSubscription.AsyncWeakSubscription(System.Delegate)
+  nameWithType: AsyncWeakSubscription.AsyncWeakSubscription(Delegate)
+- uid: AllOverIt.Events.AsyncWeakSubscription.#ctor*
+  name: AsyncWeakSubscription
+  href: api/AllOverIt.Events.AsyncWeakSubscription.html#AllOverIt_Events_AsyncWeakSubscription__ctor_
+  commentId: Overload:AllOverIt.Events.AsyncWeakSubscription.#ctor
+  isSpec: "True"
+  fullName: AllOverIt.Events.AsyncWeakSubscription.AsyncWeakSubscription
+  nameWithType: AsyncWeakSubscription.AsyncWeakSubscription
+- uid: AllOverIt.Events.AsyncWeakSubscription.GetHandler*
+  name: GetHandler
+  href: api/AllOverIt.Events.AsyncWeakSubscription.html#AllOverIt_Events_AsyncWeakSubscription_GetHandler_
+  commentId: Overload:AllOverIt.Events.AsyncWeakSubscription.GetHandler
+  isSpec: "True"
+  fullName: AllOverIt.Events.AsyncWeakSubscription.GetHandler
+  nameWithType: AsyncWeakSubscription.GetHandler
+- uid: AllOverIt.Events.AsyncWeakSubscription.GetHandler``1
+  name: GetHandler<TMessage>()
+  href: api/AllOverIt.Events.AsyncWeakSubscription.html#AllOverIt_Events_AsyncWeakSubscription_GetHandler__1
+  commentId: M:AllOverIt.Events.AsyncWeakSubscription.GetHandler``1
+  name.vb: GetHandler(Of TMessage)()
+  fullName: AllOverIt.Events.AsyncWeakSubscription.GetHandler<TMessage>()
+  fullName.vb: AllOverIt.Events.AsyncWeakSubscription.GetHandler(Of TMessage)()
+  nameWithType: AsyncWeakSubscription.GetHandler<TMessage>()
+  nameWithType.vb: AsyncWeakSubscription.GetHandler(Of TMessage)()
+- uid: AllOverIt.Events.AsyncWeakSubscription.HandleAsync*
+  name: HandleAsync
+  href: api/AllOverIt.Events.AsyncWeakSubscription.html#AllOverIt_Events_AsyncWeakSubscription_HandleAsync_
+  commentId: Overload:AllOverIt.Events.AsyncWeakSubscription.HandleAsync
+  isSpec: "True"
+  fullName: AllOverIt.Events.AsyncWeakSubscription.HandleAsync
+  nameWithType: AsyncWeakSubscription.HandleAsync
+- uid: AllOverIt.Events.AsyncWeakSubscription.HandleAsync``1(``0)
+  name: HandleAsync<TMessage>(TMessage)
+  href: api/AllOverIt.Events.AsyncWeakSubscription.html#AllOverIt_Events_AsyncWeakSubscription_HandleAsync__1___0_
+  commentId: M:AllOverIt.Events.AsyncWeakSubscription.HandleAsync``1(``0)
+  name.vb: HandleAsync(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.AsyncWeakSubscription.HandleAsync<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.AsyncWeakSubscription.HandleAsync(Of TMessage)(TMessage)
+  nameWithType: AsyncWeakSubscription.HandleAsync<TMessage>(TMessage)
+  nameWithType.vb: AsyncWeakSubscription.HandleAsync(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.EventAggregator
+  name: EventAggregator
+  href: api/AllOverIt.Events.EventAggregator.html
+  commentId: T:AllOverIt.Events.EventAggregator
+  fullName: AllOverIt.Events.EventAggregator
+  nameWithType: EventAggregator
+- uid: AllOverIt.Events.EventAggregator.Publish*
+  name: Publish
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_Publish_
+  commentId: Overload:AllOverIt.Events.EventAggregator.Publish
+  isSpec: "True"
+  fullName: AllOverIt.Events.EventAggregator.Publish
+  nameWithType: EventAggregator.Publish
+- uid: AllOverIt.Events.EventAggregator.Publish``1(``0)
+  name: Publish<TMessage>(TMessage)
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_Publish__1___0_
+  commentId: M:AllOverIt.Events.EventAggregator.Publish``1(``0)
+  name.vb: Publish(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.EventAggregator.Publish<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.EventAggregator.Publish(Of TMessage)(TMessage)
+  nameWithType: EventAggregator.Publish<TMessage>(TMessage)
+  nameWithType.vb: EventAggregator.Publish(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.EventAggregator.PublishAsync*
+  name: PublishAsync
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_PublishAsync_
+  commentId: Overload:AllOverIt.Events.EventAggregator.PublishAsync
+  isSpec: "True"
+  fullName: AllOverIt.Events.EventAggregator.PublishAsync
+  nameWithType: EventAggregator.PublishAsync
+- uid: AllOverIt.Events.EventAggregator.PublishAsync``1(``0)
+  name: PublishAsync<TMessage>(TMessage)
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_PublishAsync__1___0_
+  commentId: M:AllOverIt.Events.EventAggregator.PublishAsync``1(``0)
+  name.vb: PublishAsync(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.EventAggregator.PublishAsync<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.EventAggregator.PublishAsync(Of TMessage)(TMessage)
+  nameWithType: EventAggregator.PublishAsync<TMessage>(TMessage)
+  nameWithType.vb: EventAggregator.PublishAsync(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.EventAggregator.Subscribe*
+  name: Subscribe
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_Subscribe_
+  commentId: Overload:AllOverIt.Events.EventAggregator.Subscribe
+  isSpec: "True"
+  fullName: AllOverIt.Events.EventAggregator.Subscribe
+  nameWithType: EventAggregator.Subscribe
+- uid: AllOverIt.Events.EventAggregator.Subscribe``1(System.Action{``0},System.Boolean)
+  name: Subscribe<TMessage>(Action<TMessage>, Boolean)
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_Subscribe__1_System_Action___0__System_Boolean_
+  commentId: M:AllOverIt.Events.EventAggregator.Subscribe``1(System.Action{``0},System.Boolean)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
+  fullName: AllOverIt.Events.EventAggregator.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean)
+  fullName.vb: AllOverIt.Events.EventAggregator.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean)
+  nameWithType: EventAggregator.Subscribe<TMessage>(Action<TMessage>, Boolean)
+  nameWithType.vb: EventAggregator.Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
+- uid: AllOverIt.Events.EventAggregator.Subscribe``1(System.Func{``0,System.Threading.Tasks.Task},System.Boolean)
+  name: Subscribe<TMessage>(Func<TMessage, Task>, Boolean)
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_Subscribe__1_System_Func___0_System_Threading_Tasks_Task__System_Boolean_
+  commentId: M:AllOverIt.Events.EventAggregator.Subscribe``1(System.Func{``0,System.Threading.Tasks.Task},System.Boolean)
+  name.vb: Subscribe(Of TMessage)(Func(Of TMessage, Task), Boolean)
+  fullName: AllOverIt.Events.EventAggregator.Subscribe<TMessage>(System.Func<TMessage, System.Threading.Tasks.Task>, System.Boolean)
+  fullName.vb: AllOverIt.Events.EventAggregator.Subscribe(Of TMessage)(System.Func(Of TMessage, System.Threading.Tasks.Task), System.Boolean)
+  nameWithType: EventAggregator.Subscribe<TMessage>(Func<TMessage, Task>, Boolean)
+  nameWithType.vb: EventAggregator.Subscribe(Of TMessage)(Func(Of TMessage, Task), Boolean)
+- uid: AllOverIt.Events.EventAggregator.Unsubscribe*
+  name: Unsubscribe
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_Unsubscribe_
+  commentId: Overload:AllOverIt.Events.EventAggregator.Unsubscribe
+  isSpec: "True"
+  fullName: AllOverIt.Events.EventAggregator.Unsubscribe
+  nameWithType: EventAggregator.Unsubscribe
+- uid: AllOverIt.Events.EventAggregator.Unsubscribe``1(System.Action{``0})
+  name: Unsubscribe<TMessage>(Action<TMessage>)
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_Unsubscribe__1_System_Action___0__
+  commentId: M:AllOverIt.Events.EventAggregator.Unsubscribe``1(System.Action{``0})
+  name.vb: Unsubscribe(Of TMessage)(Action(Of TMessage))
+  fullName: AllOverIt.Events.EventAggregator.Unsubscribe<TMessage>(System.Action<TMessage>)
+  fullName.vb: AllOverIt.Events.EventAggregator.Unsubscribe(Of TMessage)(System.Action(Of TMessage))
+  nameWithType: EventAggregator.Unsubscribe<TMessage>(Action<TMessage>)
+  nameWithType.vb: EventAggregator.Unsubscribe(Of TMessage)(Action(Of TMessage))
+- uid: AllOverIt.Events.EventAggregator.Unsubscribe``1(System.Func{``0,System.Threading.Tasks.Task})
+  name: Unsubscribe<TMessage>(Func<TMessage, Task>)
+  href: api/AllOverIt.Events.EventAggregator.html#AllOverIt_Events_EventAggregator_Unsubscribe__1_System_Func___0_System_Threading_Tasks_Task__
+  commentId: M:AllOverIt.Events.EventAggregator.Unsubscribe``1(System.Func{``0,System.Threading.Tasks.Task})
+  name.vb: Unsubscribe(Of TMessage)(Func(Of TMessage, Task))
+  fullName: AllOverIt.Events.EventAggregator.Unsubscribe<TMessage>(System.Func<TMessage, System.Threading.Tasks.Task>)
+  fullName.vb: AllOverIt.Events.EventAggregator.Unsubscribe(Of TMessage)(System.Func(Of TMessage, System.Threading.Tasks.Task))
+  nameWithType: EventAggregator.Unsubscribe<TMessage>(Func<TMessage, Task>)
+  nameWithType.vb: EventAggregator.Unsubscribe(Of TMessage)(Func(Of TMessage, Task))
+- uid: AllOverIt.Events.IAsyncSubscription
+  name: IAsyncSubscription
+  href: api/AllOverIt.Events.IAsyncSubscription.html
+  commentId: T:AllOverIt.Events.IAsyncSubscription
+  fullName: AllOverIt.Events.IAsyncSubscription
+  nameWithType: IAsyncSubscription
+- uid: AllOverIt.Events.IAsyncSubscription.GetHandler*
+  name: GetHandler
+  href: api/AllOverIt.Events.IAsyncSubscription.html#AllOverIt_Events_IAsyncSubscription_GetHandler_
+  commentId: Overload:AllOverIt.Events.IAsyncSubscription.GetHandler
+  isSpec: "True"
+  fullName: AllOverIt.Events.IAsyncSubscription.GetHandler
+  nameWithType: IAsyncSubscription.GetHandler
+- uid: AllOverIt.Events.IAsyncSubscription.GetHandler``1
+  name: GetHandler<TMessage>()
+  href: api/AllOverIt.Events.IAsyncSubscription.html#AllOverIt_Events_IAsyncSubscription_GetHandler__1
+  commentId: M:AllOverIt.Events.IAsyncSubscription.GetHandler``1
+  name.vb: GetHandler(Of TMessage)()
+  fullName: AllOverIt.Events.IAsyncSubscription.GetHandler<TMessage>()
+  fullName.vb: AllOverIt.Events.IAsyncSubscription.GetHandler(Of TMessage)()
+  nameWithType: IAsyncSubscription.GetHandler<TMessage>()
+  nameWithType.vb: IAsyncSubscription.GetHandler(Of TMessage)()
+- uid: AllOverIt.Events.IAsyncSubscription.HandleAsync*
+  name: HandleAsync
+  href: api/AllOverIt.Events.IAsyncSubscription.html#AllOverIt_Events_IAsyncSubscription_HandleAsync_
+  commentId: Overload:AllOverIt.Events.IAsyncSubscription.HandleAsync
+  isSpec: "True"
+  fullName: AllOverIt.Events.IAsyncSubscription.HandleAsync
+  nameWithType: IAsyncSubscription.HandleAsync
+- uid: AllOverIt.Events.IAsyncSubscription.HandleAsync``1(``0)
+  name: HandleAsync<TMessage>(TMessage)
+  href: api/AllOverIt.Events.IAsyncSubscription.html#AllOverIt_Events_IAsyncSubscription_HandleAsync__1___0_
+  commentId: M:AllOverIt.Events.IAsyncSubscription.HandleAsync``1(``0)
+  name.vb: HandleAsync(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.IAsyncSubscription.HandleAsync<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.IAsyncSubscription.HandleAsync(Of TMessage)(TMessage)
+  nameWithType: IAsyncSubscription.HandleAsync<TMessage>(TMessage)
+  nameWithType.vb: IAsyncSubscription.HandleAsync(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.IEventAggregator
+  name: IEventAggregator
+  href: api/AllOverIt.Events.IEventAggregator.html
+  commentId: T:AllOverIt.Events.IEventAggregator
+  fullName: AllOverIt.Events.IEventAggregator
+  nameWithType: IEventAggregator
+- uid: AllOverIt.Events.IEventAggregator.Publish*
+  name: Publish
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_Publish_
+  commentId: Overload:AllOverIt.Events.IEventAggregator.Publish
+  isSpec: "True"
+  fullName: AllOverIt.Events.IEventAggregator.Publish
+  nameWithType: IEventAggregator.Publish
+- uid: AllOverIt.Events.IEventAggregator.Publish``1(``0)
+  name: Publish<TMessage>(TMessage)
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_Publish__1___0_
+  commentId: M:AllOverIt.Events.IEventAggregator.Publish``1(``0)
+  name.vb: Publish(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.IEventAggregator.Publish<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.IEventAggregator.Publish(Of TMessage)(TMessage)
+  nameWithType: IEventAggregator.Publish<TMessage>(TMessage)
+  nameWithType.vb: IEventAggregator.Publish(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.IEventAggregator.PublishAsync*
+  name: PublishAsync
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_PublishAsync_
+  commentId: Overload:AllOverIt.Events.IEventAggregator.PublishAsync
+  isSpec: "True"
+  fullName: AllOverIt.Events.IEventAggregator.PublishAsync
+  nameWithType: IEventAggregator.PublishAsync
+- uid: AllOverIt.Events.IEventAggregator.PublishAsync``1(``0)
+  name: PublishAsync<TMessage>(TMessage)
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_PublishAsync__1___0_
+  commentId: M:AllOverIt.Events.IEventAggregator.PublishAsync``1(``0)
+  name.vb: PublishAsync(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.IEventAggregator.PublishAsync<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.IEventAggregator.PublishAsync(Of TMessage)(TMessage)
+  nameWithType: IEventAggregator.PublishAsync<TMessage>(TMessage)
+  nameWithType.vb: IEventAggregator.PublishAsync(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.IEventAggregator.Subscribe*
+  name: Subscribe
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_Subscribe_
+  commentId: Overload:AllOverIt.Events.IEventAggregator.Subscribe
+  isSpec: "True"
+  fullName: AllOverIt.Events.IEventAggregator.Subscribe
+  nameWithType: IEventAggregator.Subscribe
+- uid: AllOverIt.Events.IEventAggregator.Subscribe``1(System.Action{``0},System.Boolean)
+  name: Subscribe<TMessage>(Action<TMessage>, Boolean)
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_Subscribe__1_System_Action___0__System_Boolean_
+  commentId: M:AllOverIt.Events.IEventAggregator.Subscribe``1(System.Action{``0},System.Boolean)
+  name.vb: Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
+  fullName: AllOverIt.Events.IEventAggregator.Subscribe<TMessage>(System.Action<TMessage>, System.Boolean)
+  fullName.vb: AllOverIt.Events.IEventAggregator.Subscribe(Of TMessage)(System.Action(Of TMessage), System.Boolean)
+  nameWithType: IEventAggregator.Subscribe<TMessage>(Action<TMessage>, Boolean)
+  nameWithType.vb: IEventAggregator.Subscribe(Of TMessage)(Action(Of TMessage), Boolean)
+- uid: AllOverIt.Events.IEventAggregator.Subscribe``1(System.Func{``0,System.Threading.Tasks.Task},System.Boolean)
+  name: Subscribe<TMessage>(Func<TMessage, Task>, Boolean)
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_Subscribe__1_System_Func___0_System_Threading_Tasks_Task__System_Boolean_
+  commentId: M:AllOverIt.Events.IEventAggregator.Subscribe``1(System.Func{``0,System.Threading.Tasks.Task},System.Boolean)
+  name.vb: Subscribe(Of TMessage)(Func(Of TMessage, Task), Boolean)
+  fullName: AllOverIt.Events.IEventAggregator.Subscribe<TMessage>(System.Func<TMessage, System.Threading.Tasks.Task>, System.Boolean)
+  fullName.vb: AllOverIt.Events.IEventAggregator.Subscribe(Of TMessage)(System.Func(Of TMessage, System.Threading.Tasks.Task), System.Boolean)
+  nameWithType: IEventAggregator.Subscribe<TMessage>(Func<TMessage, Task>, Boolean)
+  nameWithType.vb: IEventAggregator.Subscribe(Of TMessage)(Func(Of TMessage, Task), Boolean)
+- uid: AllOverIt.Events.IEventAggregator.Unsubscribe*
+  name: Unsubscribe
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_Unsubscribe_
+  commentId: Overload:AllOverIt.Events.IEventAggregator.Unsubscribe
+  isSpec: "True"
+  fullName: AllOverIt.Events.IEventAggregator.Unsubscribe
+  nameWithType: IEventAggregator.Unsubscribe
+- uid: AllOverIt.Events.IEventAggregator.Unsubscribe``1(System.Action{``0})
+  name: Unsubscribe<TMessage>(Action<TMessage>)
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_Unsubscribe__1_System_Action___0__
+  commentId: M:AllOverIt.Events.IEventAggregator.Unsubscribe``1(System.Action{``0})
+  name.vb: Unsubscribe(Of TMessage)(Action(Of TMessage))
+  fullName: AllOverIt.Events.IEventAggregator.Unsubscribe<TMessage>(System.Action<TMessage>)
+  fullName.vb: AllOverIt.Events.IEventAggregator.Unsubscribe(Of TMessage)(System.Action(Of TMessage))
+  nameWithType: IEventAggregator.Unsubscribe<TMessage>(Action<TMessage>)
+  nameWithType.vb: IEventAggregator.Unsubscribe(Of TMessage)(Action(Of TMessage))
+- uid: AllOverIt.Events.IEventAggregator.Unsubscribe``1(System.Func{``0,System.Threading.Tasks.Task})
+  name: Unsubscribe<TMessage>(Func<TMessage, Task>)
+  href: api/AllOverIt.Events.IEventAggregator.html#AllOverIt_Events_IEventAggregator_Unsubscribe__1_System_Func___0_System_Threading_Tasks_Task__
+  commentId: M:AllOverIt.Events.IEventAggregator.Unsubscribe``1(System.Func{``0,System.Threading.Tasks.Task})
+  name.vb: Unsubscribe(Of TMessage)(Func(Of TMessage, Task))
+  fullName: AllOverIt.Events.IEventAggregator.Unsubscribe<TMessage>(System.Func<TMessage, System.Threading.Tasks.Task>)
+  fullName.vb: AllOverIt.Events.IEventAggregator.Unsubscribe(Of TMessage)(System.Func(Of TMessage, System.Threading.Tasks.Task))
+  nameWithType: IEventAggregator.Unsubscribe<TMessage>(Func<TMessage, Task>)
+  nameWithType.vb: IEventAggregator.Unsubscribe(Of TMessage)(Func(Of TMessage, Task))
+- uid: AllOverIt.Events.ISubscription
+  name: ISubscription
+  href: api/AllOverIt.Events.ISubscription.html
+  commentId: T:AllOverIt.Events.ISubscription
+  fullName: AllOverIt.Events.ISubscription
+  nameWithType: ISubscription
+- uid: AllOverIt.Events.ISubscription.GetHandler*
+  name: GetHandler
+  href: api/AllOverIt.Events.ISubscription.html#AllOverIt_Events_ISubscription_GetHandler_
+  commentId: Overload:AllOverIt.Events.ISubscription.GetHandler
+  isSpec: "True"
+  fullName: AllOverIt.Events.ISubscription.GetHandler
+  nameWithType: ISubscription.GetHandler
+- uid: AllOverIt.Events.ISubscription.GetHandler``1
+  name: GetHandler<TMessage>()
+  href: api/AllOverIt.Events.ISubscription.html#AllOverIt_Events_ISubscription_GetHandler__1
+  commentId: M:AllOverIt.Events.ISubscription.GetHandler``1
+  name.vb: GetHandler(Of TMessage)()
+  fullName: AllOverIt.Events.ISubscription.GetHandler<TMessage>()
+  fullName.vb: AllOverIt.Events.ISubscription.GetHandler(Of TMessage)()
+  nameWithType: ISubscription.GetHandler<TMessage>()
+  nameWithType.vb: ISubscription.GetHandler(Of TMessage)()
+- uid: AllOverIt.Events.ISubscription.Handle*
+  name: Handle
+  href: api/AllOverIt.Events.ISubscription.html#AllOverIt_Events_ISubscription_Handle_
+  commentId: Overload:AllOverIt.Events.ISubscription.Handle
+  isSpec: "True"
+  fullName: AllOverIt.Events.ISubscription.Handle
+  nameWithType: ISubscription.Handle
+- uid: AllOverIt.Events.ISubscription.Handle``1(``0)
+  name: Handle<TMessage>(TMessage)
+  href: api/AllOverIt.Events.ISubscription.html#AllOverIt_Events_ISubscription_Handle__1___0_
+  commentId: M:AllOverIt.Events.ISubscription.Handle``1(``0)
+  name.vb: Handle(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.ISubscription.Handle<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.ISubscription.Handle(Of TMessage)(TMessage)
+  nameWithType: ISubscription.Handle<TMessage>(TMessage)
+  nameWithType.vb: ISubscription.Handle(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.Subscription
+  name: Subscription
+  href: api/AllOverIt.Events.Subscription.html
+  commentId: T:AllOverIt.Events.Subscription
+  fullName: AllOverIt.Events.Subscription
+  nameWithType: Subscription
+- uid: AllOverIt.Events.Subscription.#ctor(System.Delegate)
+  name: Subscription(Delegate)
+  href: api/AllOverIt.Events.Subscription.html#AllOverIt_Events_Subscription__ctor_System_Delegate_
+  commentId: M:AllOverIt.Events.Subscription.#ctor(System.Delegate)
+  fullName: AllOverIt.Events.Subscription.Subscription(System.Delegate)
+  nameWithType: Subscription.Subscription(Delegate)
+- uid: AllOverIt.Events.Subscription.#ctor*
+  name: Subscription
+  href: api/AllOverIt.Events.Subscription.html#AllOverIt_Events_Subscription__ctor_
+  commentId: Overload:AllOverIt.Events.Subscription.#ctor
+  isSpec: "True"
+  fullName: AllOverIt.Events.Subscription.Subscription
+  nameWithType: Subscription.Subscription
+- uid: AllOverIt.Events.Subscription.GetHandler*
+  name: GetHandler
+  href: api/AllOverIt.Events.Subscription.html#AllOverIt_Events_Subscription_GetHandler_
+  commentId: Overload:AllOverIt.Events.Subscription.GetHandler
+  isSpec: "True"
+  fullName: AllOverIt.Events.Subscription.GetHandler
+  nameWithType: Subscription.GetHandler
+- uid: AllOverIt.Events.Subscription.GetHandler``1
+  name: GetHandler<TMessage>()
+  href: api/AllOverIt.Events.Subscription.html#AllOverIt_Events_Subscription_GetHandler__1
+  commentId: M:AllOverIt.Events.Subscription.GetHandler``1
+  name.vb: GetHandler(Of TMessage)()
+  fullName: AllOverIt.Events.Subscription.GetHandler<TMessage>()
+  fullName.vb: AllOverIt.Events.Subscription.GetHandler(Of TMessage)()
+  nameWithType: Subscription.GetHandler<TMessage>()
+  nameWithType.vb: Subscription.GetHandler(Of TMessage)()
+- uid: AllOverIt.Events.Subscription.Handle*
+  name: Handle
+  href: api/AllOverIt.Events.Subscription.html#AllOverIt_Events_Subscription_Handle_
+  commentId: Overload:AllOverIt.Events.Subscription.Handle
+  isSpec: "True"
+  fullName: AllOverIt.Events.Subscription.Handle
+  nameWithType: Subscription.Handle
+- uid: AllOverIt.Events.Subscription.Handle``1(``0)
+  name: Handle<TMessage>(TMessage)
+  href: api/AllOverIt.Events.Subscription.html#AllOverIt_Events_Subscription_Handle__1___0_
+  commentId: M:AllOverIt.Events.Subscription.Handle``1(``0)
+  name.vb: Handle(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.Subscription.Handle<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.Subscription.Handle(Of TMessage)(TMessage)
+  nameWithType: Subscription.Handle<TMessage>(TMessage)
+  nameWithType.vb: Subscription.Handle(Of TMessage)(TMessage)
+- uid: AllOverIt.Events.WeakSubscription
+  name: WeakSubscription
+  href: api/AllOverIt.Events.WeakSubscription.html
+  commentId: T:AllOverIt.Events.WeakSubscription
+  fullName: AllOverIt.Events.WeakSubscription
+  nameWithType: WeakSubscription
+- uid: AllOverIt.Events.WeakSubscription.#ctor(System.Delegate)
+  name: WeakSubscription(Delegate)
+  href: api/AllOverIt.Events.WeakSubscription.html#AllOverIt_Events_WeakSubscription__ctor_System_Delegate_
+  commentId: M:AllOverIt.Events.WeakSubscription.#ctor(System.Delegate)
+  fullName: AllOverIt.Events.WeakSubscription.WeakSubscription(System.Delegate)
+  nameWithType: WeakSubscription.WeakSubscription(Delegate)
+- uid: AllOverIt.Events.WeakSubscription.#ctor*
+  name: WeakSubscription
+  href: api/AllOverIt.Events.WeakSubscription.html#AllOverIt_Events_WeakSubscription__ctor_
+  commentId: Overload:AllOverIt.Events.WeakSubscription.#ctor
+  isSpec: "True"
+  fullName: AllOverIt.Events.WeakSubscription.WeakSubscription
+  nameWithType: WeakSubscription.WeakSubscription
+- uid: AllOverIt.Events.WeakSubscription.GetHandler*
+  name: GetHandler
+  href: api/AllOverIt.Events.WeakSubscription.html#AllOverIt_Events_WeakSubscription_GetHandler_
+  commentId: Overload:AllOverIt.Events.WeakSubscription.GetHandler
+  isSpec: "True"
+  fullName: AllOverIt.Events.WeakSubscription.GetHandler
+  nameWithType: WeakSubscription.GetHandler
+- uid: AllOverIt.Events.WeakSubscription.GetHandler``1
+  name: GetHandler<TMessage>()
+  href: api/AllOverIt.Events.WeakSubscription.html#AllOverIt_Events_WeakSubscription_GetHandler__1
+  commentId: M:AllOverIt.Events.WeakSubscription.GetHandler``1
+  name.vb: GetHandler(Of TMessage)()
+  fullName: AllOverIt.Events.WeakSubscription.GetHandler<TMessage>()
+  fullName.vb: AllOverIt.Events.WeakSubscription.GetHandler(Of TMessage)()
+  nameWithType: WeakSubscription.GetHandler<TMessage>()
+  nameWithType.vb: WeakSubscription.GetHandler(Of TMessage)()
+- uid: AllOverIt.Events.WeakSubscription.Handle*
+  name: Handle
+  href: api/AllOverIt.Events.WeakSubscription.html#AllOverIt_Events_WeakSubscription_Handle_
+  commentId: Overload:AllOverIt.Events.WeakSubscription.Handle
+  isSpec: "True"
+  fullName: AllOverIt.Events.WeakSubscription.Handle
+  nameWithType: WeakSubscription.Handle
+- uid: AllOverIt.Events.WeakSubscription.Handle``1(``0)
+  name: Handle<TMessage>(TMessage)
+  href: api/AllOverIt.Events.WeakSubscription.html#AllOverIt_Events_WeakSubscription_Handle__1___0_
+  commentId: M:AllOverIt.Events.WeakSubscription.Handle``1(``0)
+  name.vb: Handle(Of TMessage)(TMessage)
+  fullName: AllOverIt.Events.WeakSubscription.Handle<TMessage>(TMessage)
+  fullName.vb: AllOverIt.Events.WeakSubscription.Handle(Of TMessage)(TMessage)
+  nameWithType: WeakSubscription.Handle<TMessage>(TMessage)
+  nameWithType.vb: WeakSubscription.Handle(Of TMessage)(TMessage)
 - uid: AllOverIt.Expressions
   name: AllOverIt.Expressions
   href: api/AllOverIt.Expressions.html
@@ -1488,6 +1950,34 @@ references:
   fullName.vb: AllOverIt.Tasks.AsyncLazy(Of TType).GetAwaiter
   nameWithType: AsyncLazy<TType>.GetAwaiter
   nameWithType.vb: AsyncLazy(Of TType).GetAwaiter
+- uid: AllOverIt.Tasks.RepeatingTask
+  name: RepeatingTask
+  href: api/AllOverIt.Tasks.RepeatingTask.html
+  commentId: T:AllOverIt.Tasks.RepeatingTask
+  fullName: AllOverIt.Tasks.RepeatingTask
+  nameWithType: RepeatingTask
+- uid: AllOverIt.Tasks.RepeatingTask.Start(System.Action,System.Threading.CancellationToken,System.Int32,System.Int32)
+  name: Start(Action, CancellationToken, Int32, Int32)
+  href: api/AllOverIt.Tasks.RepeatingTask.html#AllOverIt_Tasks_RepeatingTask_Start_System_Action_System_Threading_CancellationToken_System_Int32_System_Int32_
+  commentId: M:AllOverIt.Tasks.RepeatingTask.Start(System.Action,System.Threading.CancellationToken,System.Int32,System.Int32)
+  fullName: AllOverIt.Tasks.RepeatingTask.Start(System.Action, System.Threading.CancellationToken, System.Int32, System.Int32)
+  nameWithType: RepeatingTask.Start(Action, CancellationToken, Int32, Int32)
+- uid: AllOverIt.Tasks.RepeatingTask.Start(System.Func{System.Threading.Tasks.Task},System.Threading.CancellationToken,System.Int32,System.Int32)
+  name: Start(Func<Task>, CancellationToken, Int32, Int32)
+  href: api/AllOverIt.Tasks.RepeatingTask.html#AllOverIt_Tasks_RepeatingTask_Start_System_Func_System_Threading_Tasks_Task__System_Threading_CancellationToken_System_Int32_System_Int32_
+  commentId: M:AllOverIt.Tasks.RepeatingTask.Start(System.Func{System.Threading.Tasks.Task},System.Threading.CancellationToken,System.Int32,System.Int32)
+  name.vb: Start(Func(Of Task), CancellationToken, Int32, Int32)
+  fullName: AllOverIt.Tasks.RepeatingTask.Start(System.Func<System.Threading.Tasks.Task>, System.Threading.CancellationToken, System.Int32, System.Int32)
+  fullName.vb: AllOverIt.Tasks.RepeatingTask.Start(System.Func(Of System.Threading.Tasks.Task), System.Threading.CancellationToken, System.Int32, System.Int32)
+  nameWithType: RepeatingTask.Start(Func<Task>, CancellationToken, Int32, Int32)
+  nameWithType.vb: RepeatingTask.Start(Func(Of Task), CancellationToken, Int32, Int32)
+- uid: AllOverIt.Tasks.RepeatingTask.Start*
+  name: Start
+  href: api/AllOverIt.Tasks.RepeatingTask.html#AllOverIt_Tasks_RepeatingTask_Start_
+  commentId: Overload:AllOverIt.Tasks.RepeatingTask.Start
+  isSpec: "True"
+  fullName: AllOverIt.Tasks.RepeatingTask.Start
+  nameWithType: RepeatingTask.Start
 - uid: AllOverIt.Tasks.TaskHelper
   name: TaskHelper
   href: api/AllOverIt.Tasks.TaskHelper.html

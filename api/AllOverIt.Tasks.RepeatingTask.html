@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class StringExtensions
+    <title>Class RepeatingTask
    | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class StringExtensions
+    <meta name="title" content="Class RepeatingTask
    | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
@@ -78,17 +78,17 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Extensions.StringExtensions">
+            <article class="content wrap" id="_content" data-uid="AllOverIt.Tasks.RepeatingTask">
   
   
-  <h1 id="AllOverIt_Extensions_StringExtensions" data-uid="AllOverIt.Extensions.StringExtensions" class="text-break">Class StringExtensions
+  <h1 id="AllOverIt_Tasks_RepeatingTask" data-uid="AllOverIt.Tasks.RepeatingTask" class="text-break">Class RepeatingTask
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">StringExtensions</span></div>
+    <div class="level1"><span class="xref">RepeatingTask</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -114,22 +114,21 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Extensions.html">AllOverIt.Extensions</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Tasks.html">AllOverIt.Tasks</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
-  <h5 id="AllOverIt_Extensions_StringExtensions_syntax">Syntax</h5>
+  <h5 id="AllOverIt_Tasks_RepeatingTask_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class StringExtensions</code></pre>
+    <pre><code class="lang-csharp hljs">public static class RepeatingTask</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
-  <a id="AllOverIt_Extensions_StringExtensions_As_" data-uid="AllOverIt.Extensions.StringExtensions.As*"></a>
-  <h4 id="AllOverIt_Extensions_StringExtensions_As__1_System_String___0_" data-uid="AllOverIt.Extensions.StringExtensions.As``1(System.String,``0)">As&lt;TType&gt;(String, TType)</h4>
-  <div class="markdown level1 summary"><p>Converts a given string to another type.</p>
-</div>
+  <a id="AllOverIt_Tasks_RepeatingTask_Start_" data-uid="AllOverIt.Tasks.RepeatingTask.Start*"></a>
+  <h4 id="AllOverIt_Tasks_RepeatingTask_Start_System_Action_System_Threading_CancellationToken_System_Int32_System_Int32_" data-uid="AllOverIt.Tasks.RepeatingTask.Start(System.Action,System.Threading.CancellationToken,System.Int32,System.Int32)">Start(Action, CancellationToken, Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType As&lt;TType&gt;(this string value, TType defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task Start(Action action, CancellationToken cancellationToken, int repeatDelay, int initialDelay = 0)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -142,17 +141,24 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">value</span></td>
-        <td><p>The value to be converted.</p>
-</td>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td></td>
       </tr>
       <tr>
-        <td><span class="xref">TType</span></td>
-        <td><span class="parametername">defaultValue</span></td>
-        <td><p>The value to return if <see cref="!:value"></see> is null, empty or contains whitespace, or is considered
-invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">TType</code> converter.</p>
-</td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">repeatDelay</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">initialDelay</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -166,43 +172,18 @@ invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TType</span></td>
-        <td><p>The converted value, or the <see cref="!:defaultValue"></see> value if the conversion cannot be performed.</p>
-</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TType</span></td>
-        <td><p>The type to convert to.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="AllOverIt_Extensions_StringExtensions_As__1_System_String___0__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Supported conversions include byte, sbyte, decimal, double, float, int, uint, long, ulong, short, ushort, string, bool and enum.</p>
-<p>Char and Boolean type conversions must be performed using the <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_As__1_System_Object___0_">As&lt;TType&gt;(Object, TType)</a> method.</p>
-<p>No attempt is made to avoid overflow or argument exceptions.</p>
-</div>
-  <a id="AllOverIt_Extensions_StringExtensions_AsNullable_" data-uid="AllOverIt.Extensions.StringExtensions.AsNullable*"></a>
-  <h4 id="AllOverIt_Extensions_StringExtensions_AsNullable__1_System_String_" data-uid="AllOverIt.Extensions.StringExtensions.AsNullable``1(System.String)">AsNullable&lt;TType&gt;(String)</h4>
-  <div class="markdown level1 summary"><p>Converts a given string to another nullable type.</p>
-</div>
+  <a id="AllOverIt_Tasks_RepeatingTask_Start_" data-uid="AllOverIt.Tasks.RepeatingTask.Start*"></a>
+  <h4 id="AllOverIt_Tasks_RepeatingTask_Start_System_Func_System_Threading_Tasks_Task__System_Threading_CancellationToken_System_Int32_System_Int32_" data-uid="AllOverIt.Tasks.RepeatingTask.Start(System.Func{System.Threading.Tasks.Task},System.Threading.CancellationToken,System.Int32,System.Int32)">Start(Func&lt;Task&gt;, CancellationToken, Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType? AsNullable&lt;TType&gt;(this string value)
-
-    where TType : struct</code></pre>
+    <pre><code class="lang-csharp hljs">public static Task Start(Func&lt;Task&gt; action, CancellationToken cancellationToken, int repeatDelay, int initialDelay = 0)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -215,10 +196,24 @@ invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">value</span></td>
-        <td><p>The value to be converted.</p>
-</td>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Threading.Tasks.Task</span>&gt;</td>
+        <td><span class="parametername">action</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">repeatDelay</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">initialDelay</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -232,25 +227,8 @@ invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Nullable</span>&lt;TType&gt;</td>
-        <td><p>The converted value, or null if the conversion cannot be performed.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TType</span></td>
-        <td><p>The nullable type to convert to.</p>
-</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
