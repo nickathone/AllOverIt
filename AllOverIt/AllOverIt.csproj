@@ -14,4 +14,8 @@
     <RepositoryUrl>https://github.com/mjfreelancing/AllOverIt</RepositoryUrl>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,9 @@
-﻿using AllOverIt.Reflection;
-using FluentAssertions;
-using System;
+﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
+using AllOverIt.Extensions;
+using AllOverIt.Reflection;
+using FluentAssertions;
 using Xunit;
 
 namespace AllOverIt.Tests.Helpers
@@ -55,6 +57,11 @@ namespace AllOverIt.Tests.Helpers
       {
         return arg1;
       }
+    }
+
+    private class DummyParentClass
+    {
+      public DummySuperClass SuperClass { get; set; }
     }
 
     private class DummyComposite<T1, T2>
@@ -371,5 +378,59 @@ namespace AllOverIt.Tests.Helpers
         value.Should().Be(expected);
       }
     }
+
+
+
+    public class SetMemberValue : ReflectionHelperFixture
+    {
+
+    }
+
+
+
+    public class GetMemberValue : ReflectionHelperFixture
+    {
+      [Fact]
+      public void Get_Property_Value()
+      {
+        var superClass = Create<DummySuperClass>();
+
+        Expression<Func<double>> expression = () => superClass.Prop3;
+
+        var memberInfo = expression.GetFieldOrProperty();
+
+        var name = memberInfo.Name;
+        var value = ReflectionHelper.GetMemberValue(memberInfo, superClass);
+
+        name.Should().Be(nameof(DummySuperClass.Prop3));
+        value.Should().Be(superClass.Prop3);
+      }
+
+      [Fact]
+      public void Get_Child_Property_Value()
+      {
+        var parentClass = Create<DummyParentClass>();
+
+        Expression<Func<string>> expression = () => parentClass.SuperClass.Prop2;
+
+        var memberInfo = expression.GetFieldOrProperty();
+
+        var name = memberInfo.Name;
+        var value = ReflectionHelper.GetMemberValue(memberInfo, parentClass.SuperClass);
+
+        name.Should().Be(nameof(DummySuperClass.Prop2));
+        value.Should().Be(parentClass.SuperClass.Prop2);
+      }
+    }
+
+
+
+    public class GetMemberType : ReflectionHelperFixture
+    {
+
+    }
+
+
+
   }
 }

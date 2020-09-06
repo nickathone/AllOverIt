@@ -1,7 +1,7 @@
+﻿using System;
+using System.Linq.Expressions;
 using AllOverIt.Expressions;
 using FluentAssertions;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace AllOverIt.Tests.Expressions
@@ -242,8 +242,7 @@ namespace AllOverIt.Tests.Expressions
       [Fact]
       public void Should_Throw_When_Expression_Null()
       {
-        Invoking(
-            () => PredicateBuilder.Not<DummySubject>(null))
+        Invoking(() => PredicateBuilder.Not<DummySubject>(null))
           .Should()
           .Throw<ArgumentNullException>()
           .WithMessage(GetExpectedArgumentNullExceptionMessage("expression"));

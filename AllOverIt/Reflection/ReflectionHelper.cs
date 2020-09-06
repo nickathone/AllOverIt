@@ -1,7 +1,7 @@
-﻿using AllOverIt.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using AllOverIt.Extensions;
 
 namespace AllOverIt.Reflection
 {
