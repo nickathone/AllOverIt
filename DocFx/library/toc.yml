@@ -12,6 +12,8 @@
       href: docs/intro.md
     - name: Expressions
       href: docs/expressions.md
+    - name: Event Aggregation
+      href: docs/eventaggregator.md
     - name: Extension Methods
       href: docs/extensions.md
     - name: Helpers

@@ -15,6 +15,11 @@ See [Reflection](library/docs/reflection.md) for more details.
 
 See [Expressions](library/docs/expressions.md) for more details.
 
+### Event Aggregation
+**AllOverIt** provides the ability for disparate layers of an architecture to publish messages and subscribe to events using a strongly-typed event aggregator.
+
+See [EventAggregator](library/docs/eventaggregator.md) for more details.
+
 ### Extension methods
 **AllOverIt** includes a variety of extension methods to simplify working with strings, dictionaries, doubles, objects, types, tasks, amd more.
 
