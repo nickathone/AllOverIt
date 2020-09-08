@@ -136,12 +136,12 @@ namespace AllOverIt.Tests.Tasks
       [Fact]
       public async Task Should_Invoke_Action_With_Initial_Delay()
       {
-        const int initialDelay = 100;
-        const int repeatDelay = 50;
+        const int initialDelay = 200;
+        const int repeatDelay = 100;
         var cancellationToken = new CancellationTokenSource();
         var invokedCount = 0;
         var delays = new List<long>();
-        var stopwatch = new Stopwatch();
+        var stopwatch = Stopwatch.StartNew();
         var lastElapsed = 0L;
 
         Task DoAction()
@@ -160,8 +160,6 @@ namespace AllOverIt.Tests.Tasks
           return Task.CompletedTask;
         }
 
-        stopwatch.Start();
-
         var task = RepeatingTask.Start(DoAction, cancellationToken.Token, repeatDelay, initialDelay);
 
         await task.ConfigureAwait(false);
@@ -169,8 +167,8 @@ namespace AllOverIt.Tests.Tasks
         stopwatch.Stop();
 
         delays[0].Should().BeGreaterOrEqualTo(initialDelay);
-        delays[1].Should().BeGreaterOrEqualTo(repeatDelay).And.BeLessOrEqualTo(initialDelay);
-        delays[2].Should().BeGreaterOrEqualTo(repeatDelay).And.BeLessOrEqualTo(initialDelay);
+        delays[1].Should().BeGreaterOrEqualTo(repeatDelay);
+        delays[2].Should().BeGreaterOrEqualTo(repeatDelay);
       }
     }
 
@@ -299,7 +297,7 @@ namespace AllOverIt.Tests.Tasks
         var cancellationToken = new CancellationTokenSource();
         var invokedCount = 0;
         var delays = new List<long>();
-        var stopwatch = new Stopwatch();
+        var stopwatch = Stopwatch.StartNew();
         var lastElapsed = 0L;
 
         void DoAction()
@@ -316,8 +314,6 @@ namespace AllOverIt.Tests.Tasks
           }
         }
 
-        stopwatch.Start();
-
         var task = RepeatingTask.Start(DoAction, cancellationToken.Token, repeatDelay, initialDelay);
 
         await task.ConfigureAwait(false);
@@ -325,8 +321,8 @@ namespace AllOverIt.Tests.Tasks
         stopwatch.Stop();
 
         delays[0].Should().BeGreaterOrEqualTo(initialDelay);
-        delays[1].Should().BeGreaterOrEqualTo(repeatDelay).And.BeLessOrEqualTo(initialDelay);
-        delays[2].Should().BeGreaterOrEqualTo(repeatDelay).And.BeLessOrEqualTo(initialDelay);
+        delays[1].Should().BeGreaterOrEqualTo(repeatDelay);
+        delays[2].Should().BeGreaterOrEqualTo(repeatDelay);
       }
     }
   }

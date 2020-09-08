@@ -26,7 +26,7 @@ See [EventAggregator](library/docs/eventaggregator.md) for more details.
 See [Extension Methods](library/docs/extensions.md) for more details.
 
 ### Tasks
-**AllOverIt** includes helper methods to await multiple tasks and have thei results returned as a Tuple, as well as an async version of `Lazy<T>`.
+**AllOverIt** includes helper methods to await multiple tasks and have their results returned as a Tuple, as well as a repeating task wrapper, and an async version of `Lazy<T>`.
 
 See [Tasks](library/docs/tasks.md) for more details.
 

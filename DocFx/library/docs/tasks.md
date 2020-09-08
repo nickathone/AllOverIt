@@ -1,18 +1,16 @@
 # Tasks
 ---
 
-## TaskHelper
-
-### AsyncLazy\<TType>
+## AsyncLazy\<TType>
 
 ```csharp
 public class AsyncLazy<TType> : Lazy<Task<TType>>
-  {
-    public AsyncLazy(Func<TType> factory);
-    public AsyncLazy(Func<Task<TType>> factory);
+{
+  public AsyncLazy(Func<TType> factory);
+  public AsyncLazy(Func<Task<TType>> factory);
 
-    public TaskAwaiter<TType> GetAwaiter();
-  }
+  public TaskAwaiter<TType> GetAwaiter();
+}
 ```
 
 Provides support for lazy initialization using a factory that returns a `Task<TType>`.
@@ -27,6 +25,20 @@ var lazyPreferences = new AsyncLazy<Preferences>(() => GetPreferences());
 var preferences = await lazyPreferences;
 ```
 
+## RepeatingTask
+
+```csharp
+public static Task Start(Func<Task> action, CancellationToken cancellationToken,
+  int repeatDelay, int initialDelay = 0);
+
+public static Task Start(Action action, CancellationToken cancellationToken,
+  int repeatDelay, int initialDelay = 0);
+```
+The `RepeatingTask.Start()` methods provide the ability to execute a repeating, long running, action or awaitable task in the background.
+
+Each overload provides the ability to wait for an initial period before the first invocation, followed by a repeating delay between subsequent invocations.
+
+## TaskHelper
 
 ### WhenAll
 

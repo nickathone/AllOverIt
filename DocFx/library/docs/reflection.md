@@ -131,7 +131,7 @@ var methodInfo = typeof(StringBuilder).GetMethodInfo(
 ## Convert to a `Dictionary<string, object>`
 Property names and their values can be converted to a dictionary as shown in the following example:
 
-```
+```csharp
 public class Person
 {
   public string FirstName { get; set; }
