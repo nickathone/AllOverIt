@@ -77,5 +77,13 @@ namespace AllOverIt.Extensions
 
       return As<TType>(value, default);
     }
+
+    /// <summary>Determines if a string is null, empty, or contains whitespace.</summary>
+    /// <param name="value">The string value to compare.</param>
+    /// <returns>True if the string is null, empty, or contains whitespace, otherwise false.</returns>
+    public static bool IsNullOrEmpty(this string value)
+    {
+      return string.IsNullOrWhiteSpace(value);
+    }
   }
 }

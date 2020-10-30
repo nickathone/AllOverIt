@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.953" branch-rate="0.9405" version="1.9" timestamp="1599431552" lines-covered="852" lines-valid="894" branches-covered="348" branches-valid="370">
+<coverage line-rate="0.9531000000000001" branch-rate="0.9405" version="1.9" timestamp="1604030881" lines-covered="855" lines-valid="897" branches-covered="348" branches-valid="370">
   <sources>
     <source>C:\Data\GitHub\mjfreelancing\Projects\AllOverIt\AllOverIt\</source>
   </sources>
   <packages>
-    <package name="AllOverIt" line-rate="0.953" branch-rate="0.9405" complexity="443">
+    <package name="AllOverIt" line-rate="0.9531000000000001" branch-rate="0.9405" complexity="444">
       <classes>
         <class name="AllOverIt.Tasks.AsyncLazy`1" filename="Tasks\AsyncLazy.cs" line-rate="1" branch-rate="1" complexity="3">
           <methods>
@@ -2338,7 +2338,7 @@
             <line number="75" hits="7" branch="False" />
           </lines>
         </class>
-        <class name="AllOverIt.Extensions.StringExtensions" filename="Extensions\StringExtensions.cs" line-rate="1" branch-rate="1" complexity="18">
+        <class name="AllOverIt.Extensions.StringExtensions" filename="Extensions\StringExtensions.cs" line-rate="1" branch-rate="1" complexity="19">
           <methods>
             <method name="As" signature="(System.String,TType)" line-rate="1" branch-rate="1" complexity="12">
               <lines>
@@ -2412,6 +2412,13 @@
                 <line number="79" hits="18" branch="False" />
               </lines>
             </method>
+            <method name="IsNullOrEmpty" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="82" hits="4" branch="False" />
+                <line number="83" hits="4" branch="False" />
+                <line number="84" hits="4" branch="False" />
+              </lines>
+            </method>
           </methods>
           <lines>
             <line number="20" hits="48" branch="False" />
@@ -2478,6 +2485,9 @@
             <line number="75" hits="1" branch="False" />
             <line number="78" hits="8" branch="False" />
             <line number="79" hits="18" branch="False" />
+            <line number="82" hits="4" branch="False" />
+            <line number="83" hits="4" branch="False" />
+            <line number="84" hits="4" branch="False" />
           </lines>
         </class>
         <class name="AllOverIt.Extensions.TypeExtensions" filename="Extensions\TypeExtensions.cs" line-rate="1" branch-rate="1" complexity="24">

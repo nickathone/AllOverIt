@@ -1,6 +1,9 @@
-﻿using FluentAssertions;
-using System;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using AllOverIt.Extensions;
+using FluentAssertions;
 using Xunit;
 
 namespace AllOverIt.Tests.Extensions
@@ -228,6 +231,36 @@ namespace AllOverIt.Tests.Extensions
         var actual = AllOverIt.Extensions.StringExtensions.AsNullable<DummyEnum>(value);
 
         actual.Should().Be(expected);
+      }
+    }
+
+    public class IsNullOrEmpty : StringExtensionsFixture
+    {
+      private sealed class EmptyStrings : IEnumerable<object[]>
+      {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+          yield return new object[] { null };
+          yield return new object[] { string.Empty };
+          yield return new object[] { "   " };
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+      }
+
+      [Fact]
+      public void Should_Return_False()
+      {
+        var actual = Create<string>();
+
+        actual.IsNullOrEmpty().Should().BeFalse();
+      }
+
+      [Theory]
+      [ClassData(typeof(EmptyStrings))]
+      public void Should_Return_True(string actual)
+      {
+        actual.IsNullOrEmpty().Should().BeTrue();
       }
     }
   }
