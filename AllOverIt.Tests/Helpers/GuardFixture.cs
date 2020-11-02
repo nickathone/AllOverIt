@@ -1,8 +1,8 @@
-﻿using AllOverIt.Helpers;
-using FluentAssertions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using AllOverIt.Helpers;
+using FluentAssertions;
 using Xunit;
 
 namespace AllOverIt.Tests.Helpers
@@ -28,6 +28,20 @@ namespace AllOverIt.Tests.Helpers
       }
 
       [Fact]
+      public void Should_Throw_Message_When_Expression_Null()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            Guard.WhenNotNull((Expression<Func<DummyClass>>)null, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage("expression", errorMessage));
+      }
+
+      [Fact]
       public void Should_Throw_When_Null()
       {
         Invoking(() =>
@@ -39,6 +53,22 @@ namespace AllOverIt.Tests.Helpers
           .Should()
           .Throw<ArgumentNullException>()
           .WithMessage(GetExpectedArgumentNullExceptionMessage("subject"));
+      }
+
+      [Fact]
+      public void Should_Throw_Message_When_Null()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            DummyClass subject = null;
+
+            Guard.WhenNotNull(() => subject, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage("subject", errorMessage));
       }
 
       [Fact]
@@ -84,6 +114,20 @@ namespace AllOverIt.Tests.Helpers
       }
 
       [Fact]
+      public void Should_Throw_Message_When_Expression_Null()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            Guard.WhenNotNullOrEmpty((Expression<Func<IEnumerable<DummyClass>>>)null, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage("expression", errorMessage));
+      }
+
+      [Fact]
       public void Should_Throw_When_Null()
       {
         Invoking(() =>
@@ -95,6 +139,22 @@ namespace AllOverIt.Tests.Helpers
           .Should()
           .Throw<ArgumentNullException>()
           .WithMessage(GetExpectedArgumentNullExceptionMessage("subject"));
+      }
+
+      [Fact]
+      public void Should_Throw_Message_When_Null()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            IEnumerable<DummyClass> subject = null;
+
+            Guard.WhenNotNullOrEmpty(() => subject, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage("subject", errorMessage));
       }
 
       [Fact]
@@ -111,6 +171,25 @@ namespace AllOverIt.Tests.Helpers
           .Should()
           .Throw<ArgumentException>()
           .WithMessage($"The argument cannot be empty (Parameter '{nameof(expected)}')");
+      }
+
+      [Fact]
+      public void Should_Throw_Message_When_Empty()
+      {
+        var errorMessage = Create<string>();
+
+        var expected = new List<DummyClass>();
+
+        Invoking(() =>
+          {
+            var actual = Guard.WhenNotNullOrEmpty(() => expected, errorMessage);
+
+            actual.Should().BeSameAs(expected);
+          })
+          .Should()
+          .Throw<ArgumentException>()
+          .WithMessage(GetExpectedArgumentExceptionMessage(nameof(expected), errorMessage));
+
       }
 
       [Fact]
@@ -159,6 +238,20 @@ namespace AllOverIt.Tests.Helpers
       }
 
       [Fact]
+      public void Should_Throw_Message_When_Expression_Null()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            Guard.WhenNotNullOrEmpty((Expression<Func<string>>)null, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage("expression", errorMessage));
+      }
+
+      [Fact]
       public void Should_Throw_When_Null()
       {
         Invoking(() =>
@@ -170,6 +263,22 @@ namespace AllOverIt.Tests.Helpers
           .Should()
           .Throw<ArgumentNullException>()
           .WithMessage(GetExpectedArgumentNullExceptionMessage("subject"));
+      }
+
+      [Fact]
+      public void Should_Throw_Message_When_Null()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            string subject = null;
+
+            Guard.WhenNotNullOrEmpty(() => subject, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage("subject", errorMessage));
       }
 
       [Fact]
@@ -186,6 +295,24 @@ namespace AllOverIt.Tests.Helpers
           .Should()
           .Throw<ArgumentException>()
           .WithMessage($"The argument cannot be empty (Parameter '{nameof(expected)}')");
+      }
+
+      [Fact]
+      public void Should_Throw_Message_When_Empty()
+      {
+        var errorMessage = Create<string>();
+
+        var expected = string.Empty;
+
+        Invoking(() =>
+          {
+            var actual = Guard.WhenNotNullOrEmpty(() => expected, errorMessage);
+
+            actual.Should().BeSameAs(expected);
+          })
+          .Should()
+          .Throw<ArgumentException>()
+          .WithMessage(GetExpectedArgumentExceptionMessage(nameof(expected), errorMessage));
       }
 
       [Fact]
@@ -231,7 +358,25 @@ namespace AllOverIt.Tests.Helpers
           })
           .Should()
           .Throw<ArgumentNullException>()
-          .WithMessage(GetExpectedArgumentNullExceptionMessage($"{name}"));
+          .WithMessage(GetExpectedArgumentNullExceptionMessage(name));
+      }
+
+      [Fact]
+      public void Should_Throw_Message_When_Null()
+      {
+        var errorMessage = Create<string>();
+
+        var name = Create<string>();
+
+        Invoking(() =>
+          {
+            DummyClass dummy = null;
+
+            Guard.WhenNotNull(dummy, name, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage(name, errorMessage));
       }
 
       [Fact]
@@ -242,6 +387,21 @@ namespace AllOverIt.Tests.Helpers
             var dummy = new DummyClass();
 
             Guard.WhenNotNull(dummy, Create<string>());
+          })
+          .Should()
+          .NotThrow();
+      }
+
+      [Fact]
+      public void Should_Not_Throw_Message()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            var dummy = new DummyClass();
+
+            Guard.WhenNotNull(dummy, Create<string>(), errorMessage);
           })
           .Should()
           .NotThrow();
@@ -273,7 +433,25 @@ namespace AllOverIt.Tests.Helpers
           })
           .Should()
           .Throw<ArgumentNullException>()
-          .WithMessage(GetExpectedArgumentNullExceptionMessage($"{name}"));
+          .WithMessage(GetExpectedArgumentNullExceptionMessage(name));
+      }
+
+      [Fact]
+      public void Should_Throw_Message_When_Null()
+      {
+        var errorMessage = Create<string>();
+
+        var name = Create<string>();
+
+        Invoking(() =>
+          {
+            IEnumerable<DummyClass> dummy = null;
+
+            Guard.WhenNotNullOrEmpty(dummy, name, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage(name, errorMessage));
       }
 
       [Fact]
@@ -292,6 +470,23 @@ namespace AllOverIt.Tests.Helpers
       }
 
       [Fact]
+      public void Should_Throw_Message_When_Empty()
+      {
+        var errorMessage = Create<string>();
+
+        var name = Create<string>();
+        var expected = new List<DummyClass>();
+
+        Invoking(() =>
+          {
+            Guard.WhenNotNullOrEmpty(expected, name, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentException>()
+          .WithMessage(GetExpectedArgumentExceptionMessage(name, errorMessage));
+      }
+
+      [Fact]
       public void Should_Not_Throw()
       {
         Invoking(() =>
@@ -302,6 +497,24 @@ namespace AllOverIt.Tests.Helpers
             };
 
             Guard.WhenNotNullOrEmpty(dummy, Create<string>());
+          })
+          .Should()
+          .NotThrow();
+      }
+
+      [Fact]
+      public void Should_Not_Throw_Message()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            var dummy = new List<DummyClass>
+            {
+              new DummyClass()
+            };
+
+            Guard.WhenNotNullOrEmpty(dummy, Create<string>(), errorMessage);
           })
           .Should()
           .NotThrow();
@@ -336,7 +549,25 @@ namespace AllOverIt.Tests.Helpers
           })
           .Should()
           .Throw<ArgumentNullException>()
-          .WithMessage(GetExpectedArgumentNullExceptionMessage($"{name}"));
+          .WithMessage(GetExpectedArgumentNullExceptionMessage(name));
+      }
+
+      [Fact]
+      public void Should_Throw_Message_When_Null()
+      {
+        var errorMessage = Create<string>();
+
+        var name = Create<string>();
+
+        Invoking(() =>
+          {
+            string dummy = null;
+
+            Guard.WhenNotNullOrEmpty(dummy, name, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentNullException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage(name, errorMessage));
       }
 
       [Fact]
@@ -355,6 +586,23 @@ namespace AllOverIt.Tests.Helpers
       }
 
       [Fact]
+      public void Should_Throw_Message_When_Empty()
+      {
+        var errorMessage = Create<string>();
+
+        var name = Create<string>();
+        var expected = string.Empty;
+
+        Invoking(() =>
+          {
+            Guard.WhenNotNullOrEmpty(expected, name, errorMessage);
+          })
+          .Should()
+          .Throw<ArgumentException>()
+          .WithMessage(GetExpectedArgumentNullExceptionMessage(name, errorMessage));
+      }
+
+      [Fact]
       public void Should_Not_Throw()
       {
         Invoking(() =>
@@ -362,6 +610,21 @@ namespace AllOverIt.Tests.Helpers
             var dummy = Create<string>();
 
             Guard.WhenNotNullOrEmpty(dummy, Create<string>());
+          })
+          .Should()
+          .NotThrow();
+      }
+
+      [Fact]
+      public void Should_Not_Throw_Message()
+      {
+        var errorMessage = Create<string>();
+
+        Invoking(() =>
+          {
+            var dummy = Create<string>();
+
+            Guard.WhenNotNullOrEmpty(dummy, Create<string>(), errorMessage);
           })
           .Should()
           .NotThrow();

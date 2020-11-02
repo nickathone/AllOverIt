@@ -1,12 +1,17 @@
-using AllOverIt.Fixture;
+﻿using AllOverIt.Fixture;
 
 namespace AllOverIt.Tests
 {
   public class AllOverItFixtureBase : AoiFixtureBase
   {
-    internal static string GetExpectedArgumentNullExceptionMessage(string name)
+    internal static string GetExpectedArgumentNullExceptionMessage(string name, string errorMessage = default)
     {
-      return $"Value cannot be null. (Parameter '{name}')";
+      return $"{errorMessage ?? "Value cannot be null."} (Parameter '{name}')";
+    }
+
+    internal static string GetExpectedArgumentExceptionMessage(string name, string errorMessage = default)
+    {
+      return $"{errorMessage} (Parameter '{name}')";
     }
   }
 }
