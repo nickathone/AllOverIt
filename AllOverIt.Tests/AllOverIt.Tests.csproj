@@ -40,4 +40,8 @@
     <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Io\" />
+  </ItemGroup>
+
 </Project>

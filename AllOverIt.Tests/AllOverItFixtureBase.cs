@@ -13,5 +13,10 @@ namespace AllOverIt.Tests
     {
       return $"{errorMessage} (Parameter '{name}')";
     }
+
+    internal static string GetExpectedArgumentCannotBeEmptyExceptionMessage(string name)
+    {
+      return GetExpectedArgumentExceptionMessage(name, "The argument cannot be empty");
+    }
   }
 }
