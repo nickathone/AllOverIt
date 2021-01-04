@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Events.AsyncSubscription.html",
-          "hash": "SreMLkN3X4yPT1n4ZMyPiA=="
+          "hash": "bQSxYgppnlhTfwXf/KmWHg=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Events.AsyncWeakSubscription.html",
-          "hash": "gD6N1Fa+pBQu4hdLDDUnzw=="
+          "hash": "I2kaMSyJh4YD+0RiE1irFQ=="
         }
       },
       "is_incremental": false,
@@ -42,7 +42,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Events.EventAggregator.html",
-          "hash": "V3b4lqh76bveRiBrKr+Nrw=="
+          "hash": "FQ0GH4bt48lcoecFQK3Vyg=="
         }
       },
       "is_incremental": false,
@@ -54,7 +54,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Events.IAsyncSubscription.html",
-          "hash": "onEO9VPFWP8TuStLs0oCeA=="
+          "hash": "n7guypE8CkrDOq6K7CXRWQ=="
         }
       },
       "is_incremental": false,
@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Events.IEventAggregator.html",
-          "hash": "Z/g3yLRo4ooF3dPliLPrpw=="
+          "hash": "j5ULYzz3wqmo4U2v6f8Ajg=="
         }
       },
       "is_incremental": false,
@@ -78,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Events.ISubscription.html",
-          "hash": "zkCOhoOUbgVQw+WAnemvXg=="
+          "hash": "Ynitp5xBt+j8NDAlgm345g=="
         }
       },
       "is_incremental": false,
@@ -90,7 +90,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Events.Subscription.html",
-          "hash": "C0i1ZiXEsPyE+t1rWGJPQg=="
+          "hash": "jMUuELeUqYRPV972lICkgg=="
         }
       },
       "is_incremental": false,
@@ -102,7 +102,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Events.WeakSubscription.html",
-          "hash": "vknWSQ69C8GyrHOFkf0y0Q=="
+          "hash": "7NOvJphFMrX4leu+m+Ru+w=="
         }
       },
       "is_incremental": false,
@@ -126,7 +126,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Expressions.ParameterRebinder.html",
-          "hash": "tLLueFVB57MBZOzfeo5rNA=="
+          "hash": "hY8saPXfIEO/U+uDUY1Sow=="
         }
       },
       "is_incremental": false,
@@ -218,11 +218,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.FileInfoExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.FileInfoExtensions.html",
+          "hash": "4IkYKAV5bBS/cRdlQQ5R/A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AllOverIt.Extensions.ObjectExtensions.yml",
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.ObjectExtensions.html",
-          "hash": "Fe8pyrvSq/znp03nqiOpLQ=="
+          "hash": "fiJmGzaYRKEuFy/ndkOFzA=="
         }
       },
       "is_incremental": false,
@@ -242,11 +254,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Extensions.StreamExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Extensions.StreamExtensions.html",
+          "hash": "101WFC1T7uby8CCk2bZA7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AllOverIt.Extensions.StringExtensions.yml",
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.StringExtensions.html",
-          "hash": "8GjtCmbvEUSeuWuscTYlUQ=="
+          "hash": "QXAmVnkzDW9mn/vHqze5PA=="
         }
       },
       "is_incremental": false,
@@ -282,7 +306,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Extensions.html",
-          "hash": "NOYYNGhBKfi0AQRefHHo6Q=="
+          "hash": "35OG3jIqq943/TLJi5s6Aw=="
         }
       },
       "is_incremental": false,
@@ -294,7 +318,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.EnumHelper.html",
-          "hash": "Yl6IRoQOehs7CNVM8UJH3w=="
+          "hash": "h1G62tzhZ71InEqFqZmd3Q=="
         }
       },
       "is_incremental": false,
@@ -306,7 +330,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.Guard.html",
-          "hash": "nwHw9TglLWvAnRdBIezFNQ=="
+          "hash": "luYlHGjqes8zClRaLQTuAQ=="
         }
       },
       "is_incremental": false,
@@ -318,7 +342,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.Raii-1.html",
-          "hash": "aM72fR9IW3Gko8R+Mn/RGg=="
+          "hash": "igi/vWuyaP8nVOUNmUbfXA=="
         }
       },
       "is_incremental": false,
@@ -330,7 +354,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.Raii.html",
-          "hash": "fuHO1jpiQ+dUfcz0mEYddw=="
+          "hash": "23v83eOVk8WTmKB/UB0Xgw=="
         }
       },
       "is_incremental": false,
@@ -343,6 +367,66 @@
         ".html": {
           "relative_path": "api/AllOverIt.Helpers.html",
           "hash": "3qHpRIgVT7pAjgwMpT0TJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Io.DirectorySearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Io.DirectorySearch.html",
+          "hash": "FQpKrIDxHovmPBkoZD1uqQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Io.DiskSearchOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Io.DiskSearchOptions.html",
+          "hash": "qj0SjYr/iz7WZ2r4fd04+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Io.FileSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Io.FileSearch.html",
+          "hash": "5frA3ASowZvpdwP7TOmaBA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Io.FileUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Io.FileUtils.html",
+          "hash": "l+PO//sNk0v6anTTjDW6lA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AllOverIt.Io.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AllOverIt.Io.html",
+          "hash": "Zs+F1tANx9E2sBY9b8fzKQ=="
         }
       },
       "is_incremental": false,
@@ -390,7 +474,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AllOverIt.Tasks.AsyncLazy-1.html",
-          "hash": "Vny8wShcd6BlfSGe3O2qFQ=="
+          "hash": "d6H7Kin6s71zpCSQeNz7Lg=="
         }
       },
       "is_incremental": false,
@@ -450,7 +534,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "aBMHIkdPXEQQ/4g10xxYjA=="
+          "hash": "Nr+/gi+BWglZaXGSz7MsRg=="
         }
       },
       "is_incremental": false,
@@ -767,6 +851,13 @@
         "skipped_file_count": 0
       },
       "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
@@ -774,24 +865,17 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
-          "incrementalPhase": "build",
-          "total_file_count": 35,
-          "skipped_file_count": 35
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 22,
-          "skipped_file_count": 21
+          "skipped_file_count": 22
         },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 0,
-          "skipped_file_count": 0
+          "total_file_count": 42,
+          "skipped_file_count": 18
         }
       }
     },

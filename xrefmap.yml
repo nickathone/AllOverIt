@@ -946,6 +946,38 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.ExpressionExtensions.UnwrapMemberExpression
   nameWithType: ExpressionExtensions.UnwrapMemberExpression
+- uid: AllOverIt.Extensions.FileInfoExtensions
+  name: FileInfoExtensions
+  href: api/AllOverIt.Extensions.FileInfoExtensions.html
+  commentId: T:AllOverIt.Extensions.FileInfoExtensions
+  fullName: AllOverIt.Extensions.FileInfoExtensions
+  nameWithType: FileInfoExtensions
+- uid: AllOverIt.Extensions.FileInfoExtensions.GetFullName(System.IO.FileInfo)
+  name: GetFullName(FileInfo)
+  href: api/AllOverIt.Extensions.FileInfoExtensions.html#AllOverIt_Extensions_FileInfoExtensions_GetFullName_System_IO_FileInfo_
+  commentId: M:AllOverIt.Extensions.FileInfoExtensions.GetFullName(System.IO.FileInfo)
+  fullName: AllOverIt.Extensions.FileInfoExtensions.GetFullName(System.IO.FileInfo)
+  nameWithType: FileInfoExtensions.GetFullName(FileInfo)
+- uid: AllOverIt.Extensions.FileInfoExtensions.GetFullName*
+  name: GetFullName
+  href: api/AllOverIt.Extensions.FileInfoExtensions.html#AllOverIt_Extensions_FileInfoExtensions_GetFullName_
+  commentId: Overload:AllOverIt.Extensions.FileInfoExtensions.GetFullName
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.FileInfoExtensions.GetFullName
+  nameWithType: FileInfoExtensions.GetFullName
+- uid: AllOverIt.Extensions.FileInfoExtensions.IsDirectory(System.IO.FileInfo)
+  name: IsDirectory(FileInfo)
+  href: api/AllOverIt.Extensions.FileInfoExtensions.html#AllOverIt_Extensions_FileInfoExtensions_IsDirectory_System_IO_FileInfo_
+  commentId: M:AllOverIt.Extensions.FileInfoExtensions.IsDirectory(System.IO.FileInfo)
+  fullName: AllOverIt.Extensions.FileInfoExtensions.IsDirectory(System.IO.FileInfo)
+  nameWithType: FileInfoExtensions.IsDirectory(FileInfo)
+- uid: AllOverIt.Extensions.FileInfoExtensions.IsDirectory*
+  name: IsDirectory
+  href: api/AllOverIt.Extensions.FileInfoExtensions.html#AllOverIt_Extensions_FileInfoExtensions_IsDirectory_
+  commentId: Overload:AllOverIt.Extensions.FileInfoExtensions.IsDirectory
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.FileInfoExtensions.IsDirectory
+  nameWithType: FileInfoExtensions.IsDirectory
 - uid: AllOverIt.Extensions.ObjectExtensions
   name: ObjectExtensions
   href: api/AllOverIt.Extensions.ObjectExtensions.html
@@ -1195,6 +1227,38 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Extensions.PropertyInfoExtensions.IsVirtual
   nameWithType: PropertyInfoExtensions.IsVirtual
+- uid: AllOverIt.Extensions.StreamExtensions
+  name: StreamExtensions
+  href: api/AllOverIt.Extensions.StreamExtensions.html
+  commentId: T:AllOverIt.Extensions.StreamExtensions
+  fullName: AllOverIt.Extensions.StreamExtensions
+  nameWithType: StreamExtensions
+- uid: AllOverIt.Extensions.StreamExtensions.AsString(System.IO.Stream,System.Text.Encoding)
+  name: AsString(Stream, Encoding)
+  href: api/AllOverIt.Extensions.StreamExtensions.html#AllOverIt_Extensions_StreamExtensions_AsString_System_IO_Stream_System_Text_Encoding_
+  commentId: M:AllOverIt.Extensions.StreamExtensions.AsString(System.IO.Stream,System.Text.Encoding)
+  fullName: AllOverIt.Extensions.StreamExtensions.AsString(System.IO.Stream, System.Text.Encoding)
+  nameWithType: StreamExtensions.AsString(Stream, Encoding)
+- uid: AllOverIt.Extensions.StreamExtensions.AsString*
+  name: AsString
+  href: api/AllOverIt.Extensions.StreamExtensions.html#AllOverIt_Extensions_StreamExtensions_AsString_
+  commentId: Overload:AllOverIt.Extensions.StreamExtensions.AsString
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.StreamExtensions.AsString
+  nameWithType: StreamExtensions.AsString
+- uid: AllOverIt.Extensions.StreamExtensions.IsNullStream(System.IO.Stream)
+  name: IsNullStream(Stream)
+  href: api/AllOverIt.Extensions.StreamExtensions.html#AllOverIt_Extensions_StreamExtensions_IsNullStream_System_IO_Stream_
+  commentId: M:AllOverIt.Extensions.StreamExtensions.IsNullStream(System.IO.Stream)
+  fullName: AllOverIt.Extensions.StreamExtensions.IsNullStream(System.IO.Stream)
+  nameWithType: StreamExtensions.IsNullStream(Stream)
+- uid: AllOverIt.Extensions.StreamExtensions.IsNullStream*
+  name: IsNullStream
+  href: api/AllOverIt.Extensions.StreamExtensions.html#AllOverIt_Extensions_StreamExtensions_IsNullStream_
+  commentId: Overload:AllOverIt.Extensions.StreamExtensions.IsNullStream
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.StreamExtensions.IsNullStream
+  nameWithType: StreamExtensions.IsNullStream
 - uid: AllOverIt.Extensions.StringExtensions
   name: StringExtensions
   href: api/AllOverIt.Extensions.StringExtensions.html
@@ -1233,6 +1297,19 @@ references:
   fullName.vb: AllOverIt.Extensions.StringExtensions.AsNullable(Of TType)(System.String)
   nameWithType: StringExtensions.AsNullable<TType>(String)
   nameWithType.vb: StringExtensions.AsNullable(Of TType)(String)
+- uid: AllOverIt.Extensions.StringExtensions.IsNullOrEmpty(System.String)
+  name: IsNullOrEmpty(String)
+  href: api/AllOverIt.Extensions.StringExtensions.html#AllOverIt_Extensions_StringExtensions_IsNullOrEmpty_System_String_
+  commentId: M:AllOverIt.Extensions.StringExtensions.IsNullOrEmpty(System.String)
+  fullName: AllOverIt.Extensions.StringExtensions.IsNullOrEmpty(System.String)
+  nameWithType: StringExtensions.IsNullOrEmpty(String)
+- uid: AllOverIt.Extensions.StringExtensions.IsNullOrEmpty*
+  name: IsNullOrEmpty
+  href: api/AllOverIt.Extensions.StringExtensions.html#AllOverIt_Extensions_StringExtensions_IsNullOrEmpty_
+  commentId: Overload:AllOverIt.Extensions.StringExtensions.IsNullOrEmpty
+  isSpec: "True"
+  fullName: AllOverIt.Extensions.StringExtensions.IsNullOrEmpty
+  nameWithType: StringExtensions.IsNullOrEmpty
 - uid: AllOverIt.Extensions.TypeExtensions
   name: TypeExtensions
   href: api/AllOverIt.Extensions.TypeExtensions.html
@@ -1508,39 +1585,39 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Helpers.Guard.WhenNotNull
   nameWithType: Guard.WhenNotNull
-- uid: AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String)
-  name: WhenNotNull<TType>(TType, String)
-  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNull__1___0_System_String_
-  commentId: M:AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String)
-  name.vb: WhenNotNull(Of TType)(TType, String)
-  fullName: AllOverIt.Helpers.Guard.WhenNotNull<TType>(TType, System.String)
-  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNull(Of TType)(TType, System.String)
-  nameWithType: Guard.WhenNotNull<TType>(TType, String)
-  nameWithType.vb: Guard.WhenNotNull(Of TType)(TType, String)
-- uid: AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})
-  name: WhenNotNull<TType>(Expression<Func<TType>>)
-  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNull__1_System_Linq_Expressions_Expression_System_Func___0___
-  commentId: M:AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})
-  name.vb: WhenNotNull(Of TType)(Expression(Of Func(Of TType)))
-  fullName: AllOverIt.Helpers.Guard.WhenNotNull<TType>(System.Linq.Expressions.Expression<System.Func<TType>>)
-  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNull(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of TType)))
-  nameWithType: Guard.WhenNotNull<TType>(Expression<Func<TType>>)
-  nameWithType.vb: Guard.WhenNotNull(Of TType)(Expression(Of Func(Of TType)))
-- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}})
-  name: WhenNotNullOrEmpty(Expression<Func<String>>)
-  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_Linq_Expressions_Expression_System_Func_System_String___
-  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}})
-  name.vb: WhenNotNullOrEmpty(Expression(Of Func(Of String)))
-  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression<System.Func<System.String>>)
-  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression(Of System.Func(Of System.String)))
-  nameWithType: Guard.WhenNotNullOrEmpty(Expression<Func<String>>)
-  nameWithType.vb: Guard.WhenNotNullOrEmpty(Expression(Of Func(Of String)))
-- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String)
-  name: WhenNotNullOrEmpty(String, String)
-  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_String_System_String_
-  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String)
-  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String, System.String)
-  nameWithType: Guard.WhenNotNullOrEmpty(String, String)
+- uid: AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String,System.String)
+  name: WhenNotNull<TType>(TType, String, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNull__1___0_System_String_System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String,System.String)
+  name.vb: WhenNotNull(Of TType)(TType, String, String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNull<TType>(TType, System.String, System.String)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNull(Of TType)(TType, System.String, System.String)
+  nameWithType: Guard.WhenNotNull<TType>(TType, String, String)
+  nameWithType.vb: Guard.WhenNotNull(Of TType)(TType, String, String)
+- uid: AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}},System.String)
+  name: WhenNotNull<TType>(Expression<Func<TType>>, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNull__1_System_Linq_Expressions_Expression_System_Func___0___System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}},System.String)
+  name.vb: WhenNotNull(Of TType)(Expression(Of Func(Of TType)), String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNull<TType>(System.Linq.Expressions.Expression<System.Func<TType>>, System.String)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNull(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of TType)), System.String)
+  nameWithType: Guard.WhenNotNull<TType>(Expression<Func<TType>>, String)
+  nameWithType.vb: Guard.WhenNotNull(Of TType)(Expression(Of Func(Of TType)), String)
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}},System.String)
+  name: WhenNotNullOrEmpty(Expression<Func<String>>, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_Linq_Expressions_Expression_System_Func_System_String___System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}},System.String)
+  name.vb: WhenNotNullOrEmpty(Expression(Of Func(Of String)), String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression<System.Func<System.String>>, System.String)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression(Of System.Func(Of System.String)), System.String)
+  nameWithType: Guard.WhenNotNullOrEmpty(Expression<Func<String>>, String)
+  nameWithType.vb: Guard.WhenNotNullOrEmpty(Expression(Of Func(Of String)), String)
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String,System.String)
+  name: WhenNotNullOrEmpty(String, String, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_String_System_String_System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String,System.String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String, System.String, System.String)
+  nameWithType: Guard.WhenNotNullOrEmpty(String, String, String)
 - uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*
   name: WhenNotNullOrEmpty
   href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_
@@ -1548,24 +1625,24 @@ references:
   isSpec: "True"
   fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty
   nameWithType: Guard.WhenNotNullOrEmpty
-- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)
-  name: WhenNotNullOrEmpty<TType>(IEnumerable<TType>, String)
-  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Collections_Generic_IEnumerable___0__System_String_
-  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)
-  name.vb: WhenNotNullOrEmpty(Of TType)(IEnumerable(Of TType), String)
-  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty<TType>(System.Collections.Generic.IEnumerable<TType>, System.String)
-  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(Of TType)(System.Collections.Generic.IEnumerable(Of TType), System.String)
-  nameWithType: Guard.WhenNotNullOrEmpty<TType>(IEnumerable<TType>, String)
-  nameWithType.vb: Guard.WhenNotNullOrEmpty(Of TType)(IEnumerable(Of TType), String)
-- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}})
-  name: WhenNotNullOrEmpty<TType>(Expression<Func<IEnumerable<TType>>>)
-  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Linq_Expressions_Expression_System_Func_System_Collections_Generic_IEnumerable___0____
-  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}})
-  name.vb: WhenNotNullOrEmpty(Of TType)(Expression(Of Func(Of IEnumerable(Of TType))))
-  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty<TType>(System.Linq.Expressions.Expression<System.Func<System.Collections.Generic.IEnumerable<TType>>>)
-  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of System.Collections.Generic.IEnumerable(Of TType))))
-  nameWithType: Guard.WhenNotNullOrEmpty<TType>(Expression<Func<IEnumerable<TType>>>)
-  nameWithType.vb: Guard.WhenNotNullOrEmpty(Of TType)(Expression(Of Func(Of IEnumerable(Of TType))))
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)
+  name: WhenNotNullOrEmpty<TType>(IEnumerable<TType>, String, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Collections_Generic_IEnumerable___0__System_String_System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)
+  name.vb: WhenNotNullOrEmpty(Of TType)(IEnumerable(Of TType), String, String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty<TType>(System.Collections.Generic.IEnumerable<TType>, System.String, System.String)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(Of TType)(System.Collections.Generic.IEnumerable(Of TType), System.String, System.String)
+  nameWithType: Guard.WhenNotNullOrEmpty<TType>(IEnumerable<TType>, String, String)
+  nameWithType.vb: Guard.WhenNotNullOrEmpty(Of TType)(IEnumerable(Of TType), String, String)
+- uid: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}},System.String)
+  name: WhenNotNullOrEmpty<TType>(Expression<Func<IEnumerable<TType>>>, String)
+  href: api/AllOverIt.Helpers.Guard.html#AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Linq_Expressions_Expression_System_Func_System_Collections_Generic_IEnumerable___0____System_String_
+  commentId: M:AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}},System.String)
+  name.vb: WhenNotNullOrEmpty(Of TType)(Expression(Of Func(Of IEnumerable(Of TType))), String)
+  fullName: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty<TType>(System.Linq.Expressions.Expression<System.Func<System.Collections.Generic.IEnumerable<TType>>>, System.String)
+  fullName.vb: AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(Of TType)(System.Linq.Expressions.Expression(Of System.Func(Of System.Collections.Generic.IEnumerable(Of TType))), System.String)
+  nameWithType: Guard.WhenNotNullOrEmpty<TType>(Expression<Func<IEnumerable<TType>>>, String)
+  nameWithType.vb: Guard.WhenNotNullOrEmpty(Of TType)(Expression(Of Func(Of IEnumerable(Of TType))), String)
 - uid: AllOverIt.Helpers.Raii
   name: Raii
   href: api/AllOverIt.Helpers.Raii.html
@@ -1673,6 +1750,150 @@ references:
   fullName.vb: AllOverIt.Helpers.Raii(Of TType).Dispose
   nameWithType: Raii<TType>.Dispose
   nameWithType.vb: Raii(Of TType).Dispose
+- uid: AllOverIt.Io
+  name: AllOverIt.Io
+  href: api/AllOverIt.Io.html
+  commentId: N:AllOverIt.Io
+  fullName: AllOverIt.Io
+  nameWithType: AllOverIt.Io
+- uid: AllOverIt.Io.DirectorySearch
+  name: DirectorySearch
+  href: api/AllOverIt.Io.DirectorySearch.html
+  commentId: T:AllOverIt.Io.DirectorySearch
+  fullName: AllOverIt.Io.DirectorySearch
+  nameWithType: DirectorySearch
+- uid: AllOverIt.Io.DirectorySearch.GetDirectories(System.String,AllOverIt.Io.DiskSearchOptions)
+  name: GetDirectories(String, DiskSearchOptions)
+  href: api/AllOverIt.Io.DirectorySearch.html#AllOverIt_Io_DirectorySearch_GetDirectories_System_String_AllOverIt_Io_DiskSearchOptions_
+  commentId: M:AllOverIt.Io.DirectorySearch.GetDirectories(System.String,AllOverIt.Io.DiskSearchOptions)
+  fullName: AllOverIt.Io.DirectorySearch.GetDirectories(System.String, AllOverIt.Io.DiskSearchOptions)
+  nameWithType: DirectorySearch.GetDirectories(String, DiskSearchOptions)
+- uid: AllOverIt.Io.DirectorySearch.GetDirectories(System.String,AllOverIt.Io.DiskSearchOptions,System.Threading.CancellationToken)
+  name: GetDirectories(String, DiskSearchOptions, CancellationToken)
+  href: api/AllOverIt.Io.DirectorySearch.html#AllOverIt_Io_DirectorySearch_GetDirectories_System_String_AllOverIt_Io_DiskSearchOptions_System_Threading_CancellationToken_
+  commentId: M:AllOverIt.Io.DirectorySearch.GetDirectories(System.String,AllOverIt.Io.DiskSearchOptions,System.Threading.CancellationToken)
+  fullName: AllOverIt.Io.DirectorySearch.GetDirectories(System.String, AllOverIt.Io.DiskSearchOptions, System.Threading.CancellationToken)
+  nameWithType: DirectorySearch.GetDirectories(String, DiskSearchOptions, CancellationToken)
+- uid: AllOverIt.Io.DirectorySearch.GetDirectories*
+  name: GetDirectories
+  href: api/AllOverIt.Io.DirectorySearch.html#AllOverIt_Io_DirectorySearch_GetDirectories_
+  commentId: Overload:AllOverIt.Io.DirectorySearch.GetDirectories
+  isSpec: "True"
+  fullName: AllOverIt.Io.DirectorySearch.GetDirectories
+  nameWithType: DirectorySearch.GetDirectories
+- uid: AllOverIt.Io.DiskSearchOptions
+  name: DiskSearchOptions
+  href: api/AllOverIt.Io.DiskSearchOptions.html
+  commentId: T:AllOverIt.Io.DiskSearchOptions
+  fullName: AllOverIt.Io.DiskSearchOptions
+  nameWithType: DiskSearchOptions
+- uid: AllOverIt.Io.DiskSearchOptions.IgnoreIoException
+  name: IgnoreIoException
+  href: api/AllOverIt.Io.DiskSearchOptions.html#AllOverIt_Io_DiskSearchOptions_IgnoreIoException
+  commentId: F:AllOverIt.Io.DiskSearchOptions.IgnoreIoException
+  fullName: AllOverIt.Io.DiskSearchOptions.IgnoreIoException
+  nameWithType: DiskSearchOptions.IgnoreIoException
+- uid: AllOverIt.Io.DiskSearchOptions.IgnoreUnauthorizedException
+  name: IgnoreUnauthorizedException
+  href: api/AllOverIt.Io.DiskSearchOptions.html#AllOverIt_Io_DiskSearchOptions_IgnoreUnauthorizedException
+  commentId: F:AllOverIt.Io.DiskSearchOptions.IgnoreUnauthorizedException
+  fullName: AllOverIt.Io.DiskSearchOptions.IgnoreUnauthorizedException
+  nameWithType: DiskSearchOptions.IgnoreUnauthorizedException
+- uid: AllOverIt.Io.DiskSearchOptions.IncludeSubDirectories
+  name: IncludeSubDirectories
+  href: api/AllOverIt.Io.DiskSearchOptions.html#AllOverIt_Io_DiskSearchOptions_IncludeSubDirectories
+  commentId: F:AllOverIt.Io.DiskSearchOptions.IncludeSubDirectories
+  fullName: AllOverIt.Io.DiskSearchOptions.IncludeSubDirectories
+  nameWithType: DiskSearchOptions.IncludeSubDirectories
+- uid: AllOverIt.Io.DiskSearchOptions.None
+  name: None
+  href: api/AllOverIt.Io.DiskSearchOptions.html#AllOverIt_Io_DiskSearchOptions_None
+  commentId: F:AllOverIt.Io.DiskSearchOptions.None
+  fullName: AllOverIt.Io.DiskSearchOptions.None
+  nameWithType: DiskSearchOptions.None
+- uid: AllOverIt.Io.FileSearch
+  name: FileSearch
+  href: api/AllOverIt.Io.FileSearch.html
+  commentId: T:AllOverIt.Io.FileSearch
+  fullName: AllOverIt.Io.FileSearch
+  nameWithType: FileSearch
+- uid: AllOverIt.Io.FileSearch.GetFiles(System.String,System.String,AllOverIt.Io.DiskSearchOptions)
+  name: GetFiles(String, String, DiskSearchOptions)
+  href: api/AllOverIt.Io.FileSearch.html#AllOverIt_Io_FileSearch_GetFiles_System_String_System_String_AllOverIt_Io_DiskSearchOptions_
+  commentId: M:AllOverIt.Io.FileSearch.GetFiles(System.String,System.String,AllOverIt.Io.DiskSearchOptions)
+  fullName: AllOverIt.Io.FileSearch.GetFiles(System.String, System.String, AllOverIt.Io.DiskSearchOptions)
+  nameWithType: FileSearch.GetFiles(String, String, DiskSearchOptions)
+- uid: AllOverIt.Io.FileSearch.GetFiles(System.String,System.String,AllOverIt.Io.DiskSearchOptions,System.Threading.CancellationToken)
+  name: GetFiles(String, String, DiskSearchOptions, CancellationToken)
+  href: api/AllOverIt.Io.FileSearch.html#AllOverIt_Io_FileSearch_GetFiles_System_String_System_String_AllOverIt_Io_DiskSearchOptions_System_Threading_CancellationToken_
+  commentId: M:AllOverIt.Io.FileSearch.GetFiles(System.String,System.String,AllOverIt.Io.DiskSearchOptions,System.Threading.CancellationToken)
+  fullName: AllOverIt.Io.FileSearch.GetFiles(System.String, System.String, AllOverIt.Io.DiskSearchOptions, System.Threading.CancellationToken)
+  nameWithType: FileSearch.GetFiles(String, String, DiskSearchOptions, CancellationToken)
+- uid: AllOverIt.Io.FileSearch.GetFiles*
+  name: GetFiles
+  href: api/AllOverIt.Io.FileSearch.html#AllOverIt_Io_FileSearch_GetFiles_
+  commentId: Overload:AllOverIt.Io.FileSearch.GetFiles
+  isSpec: "True"
+  fullName: AllOverIt.Io.FileSearch.GetFiles
+  nameWithType: FileSearch.GetFiles
+- uid: AllOverIt.Io.FileUtils
+  name: FileUtils
+  href: api/AllOverIt.Io.FileUtils.html
+  commentId: T:AllOverIt.Io.FileUtils
+  fullName: AllOverIt.Io.FileUtils
+  nameWithType: FileUtils
+- uid: AllOverIt.Io.FileUtils.CreateUniqueFilename(System.String)
+  name: CreateUniqueFilename(String)
+  href: api/AllOverIt.Io.FileUtils.html#AllOverIt_Io_FileUtils_CreateUniqueFilename_System_String_
+  commentId: M:AllOverIt.Io.FileUtils.CreateUniqueFilename(System.String)
+  fullName: AllOverIt.Io.FileUtils.CreateUniqueFilename(System.String)
+  nameWithType: FileUtils.CreateUniqueFilename(String)
+- uid: AllOverIt.Io.FileUtils.CreateUniqueFilename*
+  name: CreateUniqueFilename
+  href: api/AllOverIt.Io.FileUtils.html#AllOverIt_Io_FileUtils_CreateUniqueFilename_
+  commentId: Overload:AllOverIt.Io.FileUtils.CreateUniqueFilename
+  isSpec: "True"
+  fullName: AllOverIt.Io.FileUtils.CreateUniqueFilename
+  nameWithType: FileUtils.CreateUniqueFilename
+- uid: AllOverIt.Io.FileUtils.GetAbsoluteFileName(System.String,System.String,System.String)
+  name: GetAbsoluteFileName(String, String, String)
+  href: api/AllOverIt.Io.FileUtils.html#AllOverIt_Io_FileUtils_GetAbsoluteFileName_System_String_System_String_System_String_
+  commentId: M:AllOverIt.Io.FileUtils.GetAbsoluteFileName(System.String,System.String,System.String)
+  fullName: AllOverIt.Io.FileUtils.GetAbsoluteFileName(System.String, System.String, System.String)
+  nameWithType: FileUtils.GetAbsoluteFileName(String, String, String)
+- uid: AllOverIt.Io.FileUtils.GetAbsoluteFileName*
+  name: GetAbsoluteFileName
+  href: api/AllOverIt.Io.FileUtils.html#AllOverIt_Io_FileUtils_GetAbsoluteFileName_
+  commentId: Overload:AllOverIt.Io.FileUtils.GetAbsoluteFileName
+  isSpec: "True"
+  fullName: AllOverIt.Io.FileUtils.GetAbsoluteFileName
+  nameWithType: FileUtils.GetAbsoluteFileName
+- uid: AllOverIt.Io.FileUtils.GetAbsolutePath(System.String,System.String)
+  name: GetAbsolutePath(String, String)
+  href: api/AllOverIt.Io.FileUtils.html#AllOverIt_Io_FileUtils_GetAbsolutePath_System_String_System_String_
+  commentId: M:AllOverIt.Io.FileUtils.GetAbsolutePath(System.String,System.String)
+  fullName: AllOverIt.Io.FileUtils.GetAbsolutePath(System.String, System.String)
+  nameWithType: FileUtils.GetAbsolutePath(String, String)
+- uid: AllOverIt.Io.FileUtils.GetAbsolutePath*
+  name: GetAbsolutePath
+  href: api/AllOverIt.Io.FileUtils.html#AllOverIt_Io_FileUtils_GetAbsolutePath_
+  commentId: Overload:AllOverIt.Io.FileUtils.GetAbsolutePath
+  isSpec: "True"
+  fullName: AllOverIt.Io.FileUtils.GetAbsolutePath
+  nameWithType: FileUtils.GetAbsolutePath
+- uid: AllOverIt.Io.FileUtils.PathIsSubFolder(System.String,System.String)
+  name: PathIsSubFolder(String, String)
+  href: api/AllOverIt.Io.FileUtils.html#AllOverIt_Io_FileUtils_PathIsSubFolder_System_String_System_String_
+  commentId: M:AllOverIt.Io.FileUtils.PathIsSubFolder(System.String,System.String)
+  fullName: AllOverIt.Io.FileUtils.PathIsSubFolder(System.String, System.String)
+  nameWithType: FileUtils.PathIsSubFolder(String, String)
+- uid: AllOverIt.Io.FileUtils.PathIsSubFolder*
+  name: PathIsSubFolder
+  href: api/AllOverIt.Io.FileUtils.html#AllOverIt_Io_FileUtils_PathIsSubFolder_
+  commentId: Overload:AllOverIt.Io.FileUtils.PathIsSubFolder
+  isSpec: "True"
+  fullName: AllOverIt.Io.FileUtils.PathIsSubFolder
+  nameWithType: FileUtils.PathIsSubFolder
 - uid: AllOverIt.Reflection
   name: AllOverIt.Reflection
   href: api/AllOverIt.Reflection.html

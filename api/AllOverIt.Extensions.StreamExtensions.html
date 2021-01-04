@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class StringExtensions
+    <title>Class StreamExtensions
    | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class StringExtensions
+    <meta name="title" content="Class StreamExtensions
    | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
@@ -78,17 +78,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Extensions.StringExtensions">
+            <article class="content wrap" id="_content" data-uid="AllOverIt.Extensions.StreamExtensions">
   
   
-  <h1 id="AllOverIt_Extensions_StringExtensions" data-uid="AllOverIt.Extensions.StringExtensions" class="text-break">Class StringExtensions
+  <h1 id="AllOverIt_Extensions_StreamExtensions" data-uid="AllOverIt.Extensions.StreamExtensions" class="text-break">Class StreamExtensions
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Contains extension methods for use with <span class="xref">System.IO.Stream</span> instances.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">StringExtensions</span></div>
+    <div class="level1"><span class="xref">StreamExtensions</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -116,20 +117,20 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Extensions.html">AllOverIt.Extensions</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
-  <h5 id="AllOverIt_Extensions_StringExtensions_syntax">Syntax</h5>
+  <h5 id="AllOverIt_Extensions_StreamExtensions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class StringExtensions</code></pre>
+    <pre><code class="lang-csharp hljs">public static class StreamExtensions</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
-  <a id="AllOverIt_Extensions_StringExtensions_As_" data-uid="AllOverIt.Extensions.StringExtensions.As*"></a>
-  <h4 id="AllOverIt_Extensions_StringExtensions_As__1_System_String___0_" data-uid="AllOverIt.Extensions.StringExtensions.As``1(System.String,``0)">As&lt;TType&gt;(String, TType)</h4>
-  <div class="markdown level1 summary"><p>Converts a given string to another type.</p>
+  <a id="AllOverIt_Extensions_StreamExtensions_AsString_" data-uid="AllOverIt.Extensions.StreamExtensions.AsString*"></a>
+  <h4 id="AllOverIt_Extensions_StreamExtensions_AsString_System_IO_Stream_System_Text_Encoding_" data-uid="AllOverIt.Extensions.StreamExtensions.AsString(System.IO.Stream,System.Text.Encoding)">AsString(Stream, Encoding)</h4>
+  <div class="markdown level1 summary"><p>Converts the stream to a string using a specified <code data-dev-comment-type="paramref" class="paramref">encoding</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType As&lt;TType&gt;(this string value, TType defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string AsString(this Stream stream, Encoding encoding)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -142,16 +143,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">value</span></td>
-        <td><p>The value to be converted.</p>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream instance to be read and have its contents returned as an encoded string.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">TType</span></td>
-        <td><span class="parametername">defaultValue</span></td>
-        <td><p>The value to return if <see cref="!:value"></see> is null, empty or contains whitespace, or is considered
-invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">TType</code> converter.</p>
+        <td><span class="xref">System.Text.Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>The character encoding to use when converting the stream contents.</p>
 </td>
       </tr>
     </tbody>
@@ -166,42 +166,20 @@ invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TType</span></td>
-        <td><p>The converted value, or the <see cref="!:defaultValue"></see> value if the conversion cannot be performed.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><p>Returns the content of the stream as an encoded string.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TType</span></td>
-        <td><p>The type to convert to.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="AllOverIt_Extensions_StringExtensions_As__1_System_String___0__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Supported conversions include byte, sbyte, decimal, double, float, int, uint, long, ulong, short, ushort, string, bool and enum.</p>
-<p>Char and Boolean type conversions must be performed using the <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_As__1_System_Object___0_">As&lt;TType&gt;(Object, TType)</a> method.</p>
-<p>No attempt is made to avoid overflow or argument exceptions.</p>
-</div>
-  <a id="AllOverIt_Extensions_StringExtensions_AsNullable_" data-uid="AllOverIt.Extensions.StringExtensions.AsNullable*"></a>
-  <h4 id="AllOverIt_Extensions_StringExtensions_AsNullable__1_System_String_" data-uid="AllOverIt.Extensions.StringExtensions.AsNullable``1(System.String)">AsNullable&lt;TType&gt;(String)</h4>
-  <div class="markdown level1 summary"><p>Converts a given string to another nullable type.</p>
+  <a id="AllOverIt_Extensions_StreamExtensions_IsNullStream_" data-uid="AllOverIt.Extensions.StreamExtensions.IsNullStream*"></a>
+  <h4 id="AllOverIt_Extensions_StreamExtensions_IsNullStream_System_IO_Stream_" data-uid="AllOverIt.Extensions.StreamExtensions.IsNullStream(System.IO.Stream)">IsNullStream(Stream)</h4>
+  <div class="markdown level1 summary"><p>Determines if the stream contains no backing store.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType? AsNullable&lt;TType&gt;(this string value)
-    where TType : struct</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool IsNullStream(this Stream stream)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -214,68 +192,9 @@ invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">value</span></td>
-        <td><p>The value to be converted.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Nullable</span>&lt;TType&gt;</td>
-        <td><p>The converted value, or null if the conversion cannot be performed.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TType</span></td>
-        <td><p>The nullable type to convert to.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <a id="AllOverIt_Extensions_StringExtensions_IsNullOrEmpty_" data-uid="AllOverIt.Extensions.StringExtensions.IsNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Extensions_StringExtensions_IsNullOrEmpty_System_String_" data-uid="AllOverIt.Extensions.StringExtensions.IsNullOrEmpty(System.String)">IsNullOrEmpty(String)</h4>
-  <div class="markdown level1 summary"><p>Determines if a string is null, empty, or contains whitespace.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsNullOrEmpty(this string value)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">value</span></td>
-        <td><p>The string value to compare.</p>
+        <td><span class="xref">System.IO.Stream</span></td>
+        <td><span class="parametername">stream</span></td>
+        <td><p>The stream instance to be tested.</p>
 </td>
       </tr>
     </tbody>
@@ -291,7 +210,7 @@ invalid for the <code data-dev-comment-type="typeparamref" class="typeparamref">
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p>True if the string is null, empty, or contains whitespace, otherwise false.</p>
+        <td><p>Returns <code>true</code> if the stream has no backing store.</p>
 </td>
       </tr>
     </tbody>

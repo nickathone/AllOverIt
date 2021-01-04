@@ -123,13 +123,12 @@
   <h3 id="methods">Methods
   </h3>
   <a id="AllOverIt_Helpers_Guard_WhenNotNull_" data-uid="AllOverIt.Helpers.Guard.WhenNotNull*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNull__1___0_System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String)">WhenNotNull&lt;TType&gt;(TType, String)</h4>
+  <h4 id="AllOverIt_Helpers_Guard_WhenNotNull__1___0_System_String_System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNull``1(``0,System.String,System.String)">WhenNotNull&lt;TType&gt;(TType, String, String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType WhenNotNull&lt;TType&gt;(this TType argument, string name)
-
+    <pre><code class="lang-csharp hljs">public static TType WhenNotNull&lt;TType&gt;(this TType argument, string name, string errorMessage = null)
     where TType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -150,6 +149,11 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">errorMessage</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -185,13 +189,12 @@
     </tbody>
   </table>
   <a id="AllOverIt_Helpers_Guard_WhenNotNull_" data-uid="AllOverIt.Helpers.Guard.WhenNotNull*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNull__1_System_Linq_Expressions_Expression_System_Func___0___" data-uid="AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}})">WhenNotNull&lt;TType&gt;(Expression&lt;Func&lt;TType&gt;&gt;)</h4>
+  <h4 id="AllOverIt_Helpers_Guard_WhenNotNull__1_System_Linq_Expressions_Expression_System_Func___0___System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNull``1(System.Linq.Expressions.Expression{System.Func{``0}},System.String)">WhenNotNull&lt;TType&gt;(Expression&lt;Func&lt;TType&gt;&gt;, String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static TType WhenNotNull&lt;TType&gt;(Expression&lt;Func&lt;TType&gt;&gt; expression)
-
+    <pre><code class="lang-csharp hljs">public static TType WhenNotNull&lt;TType&gt;(Expression&lt;Func&lt;TType&gt;&gt; expression, string errorMessage = null)
     where TType : class</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -207,6 +210,11 @@
       <tr>
         <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TType&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">errorMessage</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -242,12 +250,12 @@
     </tbody>
   </table>
   <a id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_Linq_Expressions_Expression_System_Func_System_String___" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}})">WhenNotNullOrEmpty(Expression&lt;Func&lt;String&gt;&gt;)</h4>
+  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_Linq_Expressions_Expression_System_Func_System_String___System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.Linq.Expressions.Expression{System.Func{System.String}},System.String)">WhenNotNullOrEmpty(Expression&lt;Func&lt;String&gt;&gt;, String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string WhenNotNullOrEmpty(Expression&lt;Func&lt;string&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string WhenNotNullOrEmpty(Expression&lt;Func&lt;string&gt;&gt; expression, string errorMessage = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -262,6 +270,11 @@
       <tr>
         <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">errorMessage</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -282,12 +295,12 @@
     </tbody>
   </table>
   <a id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_String_System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String)">WhenNotNullOrEmpty(String, String)</h4>
+  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_System_String_System_String_System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty(System.String,System.String,System.String)">WhenNotNullOrEmpty(String, String, String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string WhenNotNullOrEmpty(this string argument, string name)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string WhenNotNullOrEmpty(this string argument, string name, string errorMessage = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -309,6 +322,11 @@
         <td><span class="parametername">name</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">errorMessage</span></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -327,12 +345,12 @@
     </tbody>
   </table>
   <a id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Collections_Generic_IEnumerable___0__System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)">WhenNotNullOrEmpty&lt;TType&gt;(IEnumerable&lt;TType&gt;, String)</h4>
+  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Collections_Generic_IEnumerable___0__System_String_System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">WhenNotNullOrEmpty&lt;TType&gt;(IEnumerable&lt;TType&gt;, String, String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TType&gt; WhenNotNullOrEmpty&lt;TType&gt;(this IEnumerable&lt;TType&gt; argument, string name)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TType&gt; WhenNotNullOrEmpty&lt;TType&gt;(this IEnumerable&lt;TType&gt; argument, string name, string errorMessage = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -352,6 +370,11 @@
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">errorMessage</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -387,12 +410,12 @@
     </tbody>
   </table>
   <a id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty*"></a>
-  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Linq_Expressions_Expression_System_Func_System_Collections_Generic_IEnumerable___0____" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}})">WhenNotNullOrEmpty&lt;TType&gt;(Expression&lt;Func&lt;IEnumerable&lt;TType&gt;&gt;&gt;)</h4>
+  <h4 id="AllOverIt_Helpers_Guard_WhenNotNullOrEmpty__1_System_Linq_Expressions_Expression_System_Func_System_Collections_Generic_IEnumerable___0____System_String_" data-uid="AllOverIt.Helpers.Guard.WhenNotNullOrEmpty``1(System.Linq.Expressions.Expression{System.Func{System.Collections.Generic.IEnumerable{``0}}},System.String)">WhenNotNullOrEmpty&lt;TType&gt;(Expression&lt;Func&lt;IEnumerable&lt;TType&gt;&gt;&gt;, String)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TType&gt; WhenNotNullOrEmpty&lt;TType&gt;(Expression&lt;Func&lt;IEnumerable&lt;TType&gt;&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TType&gt; WhenNotNullOrEmpty&lt;TType&gt;(Expression&lt;Func&lt;IEnumerable&lt;TType&gt;&gt;&gt; expression, string errorMessage = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -407,6 +430,11 @@
       <tr>
         <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TType&gt;&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">errorMessage</span></td>
         <td></td>
       </tr>
     </tbody>

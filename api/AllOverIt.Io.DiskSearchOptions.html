@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class EnumHelper
+    <title>Enum DiskSearchOptions
    | AllOverIt </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class EnumHelper
+    <meta name="title" content="Enum DiskSearchOptions
    | AllOverIt ">
     <meta name="generator" content="docfx 2.48.0.0">
     
@@ -78,93 +78,84 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AllOverIt.Helpers.EnumHelper">
+            <article class="content wrap" id="_content" data-uid="AllOverIt.Io.DiskSearchOptions">
   
   
-  <h1 id="AllOverIt_Helpers_EnumHelper" data-uid="AllOverIt.Helpers.EnumHelper" class="text-break">Class EnumHelper
+  <h1 id="AllOverIt_Io_DiskSearchOptions" data-uid="AllOverIt.Io.DiskSearchOptions" class="text-break">Enum DiskSearchOptions
   </h1>
-  <div class="markdown level0 summary"><p>Provides static, general purpose, methods related to using Enums.</p>
+  <div class="markdown level0 summary"><p>Contains options that can be applied when performing a directory or file search.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">EnumHelper</span></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Helpers.html">AllOverIt.Helpers</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AllOverIt.Io.html">AllOverIt.Io</a></h6>
   <h6><strong>Assembly</strong>: AllOverIt.dll</h6>
-  <h5 id="AllOverIt_Helpers_EnumHelper_syntax">Syntax</h5>
+  <h5 id="AllOverIt_Io_DiskSearchOptions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class EnumHelper</code></pre>
+    <pre><code class="lang-csharp hljs">[Flags]
+public enum DiskSearchOptions</code></pre>
   </div>
-  <h3 id="methods">Methods
+  <h3 id="fields">Fields
   </h3>
-  <a id="AllOverIt_Helpers_EnumHelper_GetEnumValues_" data-uid="AllOverIt.Helpers.EnumHelper.GetEnumValues*"></a>
-  <h4 id="AllOverIt_Helpers_EnumHelper_GetEnumValues__1" data-uid="AllOverIt.Helpers.EnumHelper.GetEnumValues``1">GetEnumValues&lt;TType&gt;()</h4>
-  <div class="markdown level1 summary"><p>Returns all possible enum values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static IReadOnlyCollection&lt;TType&gt; GetEnumValues&lt;TType&gt;()
-    where TType : struct, Enum</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Collections.Generic.IReadOnlyCollection</span>&lt;TType&gt;</td>
-        <td><p>All possible enum values.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
         <th>Description</th>
       </tr>
-    </thead>
+    <thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TType</span></td>
-        <td><p>The Enum type.</p>
+        <td id="AllOverIt_Io_DiskSearchOptions_IgnoreIoException">IgnoreIoException</td>
+        <td><p>Indicates if general IO Exceptions (such as file in use) are to be suppressed.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Io_DiskSearchOptions_IgnoreUnauthorizedException">IgnoreUnauthorizedException</td>
+        <td><p>Indicates if unauthorized exceptions are to be suppressed.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Io_DiskSearchOptions_IncludeSubDirectories">IncludeSubDirectories</td>
+        <td><p>Indicates if the search will include sub-folders.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AllOverIt_Io_DiskSearchOptions_None">None</td>
+        <td><p>Indicates no special handling is to be applied.</p>
 </td>
       </tr>
     </tbody>
-  </table>
+  </thead></thead></table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_ToPropertyDictionary_System_Object_System_Boolean_AllOverIt_Reflection_BindingOptions_">ObjectExtensions.ToPropertyDictionary(Boolean, BindingOptions)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_GetPropertyValue__1_System_Object_System_String_System_Reflection_BindingFlags_">ObjectExtensions.GetPropertyValue&lt;TValue&gt;(String, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_GetPropertyValue__1_System_Object_System_String_AllOverIt_Reflection_BindingOptions_">ObjectExtensions.GetPropertyValue&lt;TValue&gt;(String, BindingOptions)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_SetPropertyValue__1_System_Object_System_String___0_System_Reflection_BindingFlags_">ObjectExtensions.SetPropertyValue&lt;TValue&gt;(String, TValue, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_SetPropertyValue__1_System_Object_System_String___0_AllOverIt_Reflection_BindingOptions_">ObjectExtensions.SetPropertyValue&lt;TValue&gt;(String, TValue, BindingOptions)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_IsIntegral_System_Object_">ObjectExtensions.IsIntegral()</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_As__1_System_Object___0_">ObjectExtensions.As&lt;TType&gt;(TType)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_AsNullable__1_System_Object_System_Nullable___0__">ObjectExtensions.AsNullable&lt;TType&gt;(Nullable&lt;TType&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IEnumerable_System_String__">ObjectExtensions.CalculateHashCode&lt;DiskSearchOptions&gt;(IEnumerable&lt;String&gt;, IEnumerable&lt;String&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="AllOverIt.Extensions.ObjectExtensions.html#AllOverIt_Extensions_ObjectExtensions_CalculateHashCode__1___0_System_Func___0_System_Object____">ObjectExtensions.CalculateHashCode&lt;DiskSearchOptions&gt;(Func&lt;DiskSearchOptions, Object&gt;[])</a>
+  </div>
 </article>
           </div>
           
