@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
+        <LangVersion>latest</LangVersion>
+        <Version>1.4.0</Version>
+        <Authors>Malcolm Smith</Authors>
+        <Company></Company>
+        <Copyright>Copyright ©  2015</Copyright>
+        <Description>A general purpose library containing a variety of classes, utilities, and helpers to fill in regularly occuring software development gaps.</Description>
+        <PackageTags>utilities</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/mjfreelancing/AllOverIt</RepositoryUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+</Project>
