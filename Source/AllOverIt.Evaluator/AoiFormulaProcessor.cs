@@ -20,16 +20,19 @@ namespace AllOverIt.Evaluator
             internal const string OpenScope = "(";
         }
 
-        private IAoiVariableRegistry VariableRegistry { get; set; }
-        private IAoiStack<string> OperatorStack { get; }
-        private IAoiStack<Expression> ExpressionStack { get; }
-        private IAoiFormulaExpressionFactory FormulaExpressionFactory { get; }
-        private IAoiArithmeticOperationFactory OperationFactory { get; }
-        private IAoiUserDefinedMethodFactory UserDefinedMethodFactory { get; }
-        private Func<IAoiFormulaProcessor, IAoiFormulaReader, IAoiFormulaExpressionFactory, IAoiArithmeticOperationFactory, IAoiFormulaTokenProcessor> TokenProcessorFactory { get; }
-        private IAoiFormulaReader FormulaReader { get; set; }
-        private IAoiFormulaTokenProcessor TokenProcessor { get; set; }
-        private IList<string> ReferencedVariableNames { get; set; }
+        private readonly IAoiStack<string> _operatorStack;
+        private readonly IAoiStack<Expression> _expressionStack;
+        private readonly IAoiFormulaExpressionFactory _formulaExpressionFactory;
+        private readonly IAoiArithmeticOperationFactory _operationFactory;
+        private readonly IAoiUserDefinedMethodFactory _userDefinedMethodFactory;
+
+        private readonly Func<IAoiFormulaProcessor, IAoiFormulaReader, IAoiFormulaExpressionFactory, IAoiArithmeticOperationFactory, IAoiFormulaTokenProcessor>
+            _tokenProcessorFactory;
+
+        private IAoiFormulaTokenProcessor _tokenProcessor;
+        private IList<string> _referencedVariableNames;
+        private IAoiVariableRegistry _variableRegistry;
+        private IAoiFormulaReader _formulaReader;
 
         // tracks whether the last processed token was an operator or an expression so unary plus and unary minus can be handled.
         internal bool LastPushIsOperator { get; set; }
@@ -44,44 +47,44 @@ namespace AllOverIt.Evaluator
           IAoiArithmeticOperationFactory operationFactory, IAoiUserDefinedMethodFactory userDefinedMethodFactory,
           Func<IAoiFormulaProcessor, IAoiFormulaReader, IAoiFormulaExpressionFactory, IAoiArithmeticOperationFactory, IAoiFormulaTokenProcessor> tokenProcessorFactory)
         {
-            OperatorStack = operatorStack.WhenNotNull(nameof(operatorStack));
-            ExpressionStack = expressionStack.WhenNotNull(nameof(expressionStack));
-            FormulaExpressionFactory = formulaExpressionFactory.WhenNotNull(nameof(formulaExpressionFactory));
-            OperationFactory = operationFactory.WhenNotNull(nameof(operationFactory));
-            UserDefinedMethodFactory = userDefinedMethodFactory.WhenNotNull(nameof(userDefinedMethodFactory));
-            TokenProcessorFactory = tokenProcessorFactory.WhenNotNull(nameof(tokenProcessorFactory));
+            _operatorStack = operatorStack.WhenNotNull(nameof(operatorStack));
+            _expressionStack = expressionStack.WhenNotNull(nameof(expressionStack));
+            _formulaExpressionFactory = formulaExpressionFactory.WhenNotNull(nameof(formulaExpressionFactory));
+            _operationFactory = operationFactory.WhenNotNull(nameof(operationFactory));
+            _userDefinedMethodFactory = userDefinedMethodFactory.WhenNotNull(nameof(userDefinedMethodFactory));
+            _tokenProcessorFactory = tokenProcessorFactory.WhenNotNull(nameof(tokenProcessorFactory));
 
             // custom operator registration
-            OperationFactory.RegisterOperation(CustomTokens.UnaryMinus, 4, 1, e => new AoiNegateOperator(e[0]));
+            _operationFactory.RegisterOperation(CustomTokens.UnaryMinus, 4, 1, e => new AoiNegateOperator(e[0]));
         }
 
         public AoiFormulaProcessorResult Process(IAoiFormulaReader formulaReader, IAoiVariableRegistry variableRegistry)
         {
-            FormulaReader = formulaReader.WhenNotNull(nameof(formulaReader));
-            VariableRegistry = variableRegistry.WhenNotNull(nameof(variableRegistry));
+            _formulaReader = formulaReader.WhenNotNull(nameof(formulaReader));
+            _variableRegistry = variableRegistry.WhenNotNull(nameof(variableRegistry));
 
-            OperatorStack.Clear();
-            ExpressionStack.Clear();
+            _operatorStack.Clear();
+            _expressionStack.Clear();
             LastPushIsOperator = true;
-            ReferencedVariableNames = new List<string>();
+            _referencedVariableNames = new List<string>();
 
-            TokenProcessor = TokenProcessorFactory.Invoke(this, FormulaReader, FormulaExpressionFactory, OperationFactory);
+            _tokenProcessor = _tokenProcessorFactory.Invoke(this, _formulaReader, _formulaExpressionFactory, _operationFactory);
 
             ParseContent(false);
 
-            TokenProcessor.ProcessOperators(OperatorStack, ExpressionStack, () => true);
+            _tokenProcessor.ProcessOperators(_operatorStack, _expressionStack, () => true);
 
-            var lastExpression = ExpressionStack.Pop();
+            var lastExpression = _expressionStack.Pop();
             var funcExpression = Expression.Lambda<Func<double>>(lastExpression);
 
-            return new AoiFormulaProcessorResult(funcExpression, ReferencedVariableNames);
+            return new AoiFormulaProcessorResult(funcExpression, _referencedVariableNames);
         }
 
         public void PushOperator(string operatorToken)
         {
             _ = operatorToken.WhenNotNullOrEmpty(nameof(operatorToken));
 
-            OperatorStack.Push(operatorToken);
+            _operatorStack.Push(operatorToken);
             LastPushIsOperator = true;
         }
 
@@ -89,7 +92,7 @@ namespace AllOverIt.Evaluator
         {
             expression.WhenNotNull(nameof(expression));
 
-            ExpressionStack.Push(expression);
+            _expressionStack.Push(expression);
             LastPushIsOperator = false;
         }
 
@@ -100,21 +103,21 @@ namespace AllOverIt.Evaluator
 
         public bool ProcessScopeEnd(bool isUserMethod)
         {
-            TokenProcessor.ProcessOperators(OperatorStack, ExpressionStack, () => OperatorStack.Peek() != CustomTokens.OpenScope);
+            _tokenProcessor.ProcessOperators(_operatorStack, _expressionStack, () => _operatorStack.Peek() != CustomTokens.OpenScope);
 
-            OperatorStack.Pop();   // pop the (
+            _operatorStack.Pop();   // pop the (
 
             if (isUserMethod)
             {
                 // we should at least have a 'UserMethod' in the stack to indicate a user method is being parsed
-                if (!OperatorStack.Any())
+                if (!_operatorStack.Any())
                 {
                     throw new AoiFormulaException("Invalid expression stack");
                 }
 
                 // methods pushed onto the operator stack have been prefixed with 'UserMethod' to identify them as methods since they 
                 // may take parameters, in which case it is time to pop the expressions so they can be used for the input.
-                if (OperatorStack.Peek() == CustomTokens.UserMethod)
+                if (_operatorStack.Peek() == CustomTokens.UserMethod)
                 {
                     // ParseMethodToExpression will now pop all parameters and build an expression for the current 'method'
                     return false;     // abort further processing
@@ -131,15 +134,15 @@ namespace AllOverIt.Evaluator
             // A parameter to a method may itself be an expression.
             // For example: 15.4 + ROUND(3.4355, 3) in
             //              ROUND(15.4 + ROUND(3.4355, 3), 2)
-            TokenProcessor.ProcessOperators(OperatorStack, ExpressionStack, () => OperatorStack.Peek() != CustomTokens.OpenScope);
+            _tokenProcessor.ProcessOperators(_operatorStack, _expressionStack, () => _operatorStack.Peek() != CustomTokens.OpenScope);
         }
 
         public void ProcessOperator()
         {
             // must be called indirectly via Process()
-            _ = FormulaReader.WhenNotNull(nameof(FormulaReader));
+            _formulaReader.CheckNotNull(nameof(_formulaReader));
 
-            var operatorToken = FormulaReader.ReadOperator(OperationFactory);
+            var operatorToken = _formulaReader.ReadOperator(_operationFactory);
 
             if (LastPushIsOperator)
             {
@@ -161,17 +164,17 @@ namespace AllOverIt.Evaluator
             else
             {
                 // validate the symbol is valid
-                if (!OperationFactory.IsRegistered(operatorToken))
+                if (!_operationFactory.IsRegistered(operatorToken))
                 {
                     throw new AoiFormulaException($"Unknown operator: {operatorToken}");
                 }
 
-                var currentOperation = OperationFactory.GetOperation(operatorToken);
+                var currentOperation = _operationFactory.GetOperation(operatorToken);
 
-                TokenProcessor.ProcessOperators(OperatorStack, ExpressionStack, () =>
+                _tokenProcessor.ProcessOperators(_operatorStack, _expressionStack, () =>
                 {
-                    var next = OperatorStack.Peek();
-                    return (next != CustomTokens.OpenScope) && (currentOperation.Precedence >= OperationFactory.GetOperation(next).Precedence);
+                    var next = _operatorStack.Peek();
+                    return (next != CustomTokens.OpenScope) && (currentOperation.Precedence >= _operationFactory.GetOperation(next).Precedence);
                 });
             }
 
@@ -181,10 +184,10 @@ namespace AllOverIt.Evaluator
         public void ProcessNumerical()
         {
             // must be called indirectly via Process()
-            _ = FormulaReader.WhenNotNull(nameof(FormulaReader));
+            _formulaReader.CheckNotNull(nameof(_formulaReader));
 
             // starting at the current reader position, read a numerical result and return it as an expression
-            var value = FormulaReader.ReadNumerical();
+            var value = _formulaReader.ReadNumerical();
             var numericalExpression = Expression.Constant(value);
 
             PushExpression(numericalExpression);
@@ -193,7 +196,7 @@ namespace AllOverIt.Evaluator
         public void ProcessNamedOperand()
         {
             // must be called indirectly via Process()
-            _ = FormulaReader.WhenNotNull(nameof(FormulaReader));
+            _formulaReader.CheckNotNull(nameof(_formulaReader));
 
             var operandExpression = GetNamedOperandExpression();
 
@@ -202,16 +205,16 @@ namespace AllOverIt.Evaluator
 
         private void ParseContent(bool isUserMethod)
         {
-            var next = FormulaReader.PeekNext();
+            var next = _formulaReader.PeekNext();
 
             while (next > -1)
             {
-                if (!TokenProcessor.ProcessToken((char)next, isUserMethod))
+                if (!_tokenProcessor.ProcessToken((char)next, isUserMethod))
                 {
                     return;
                 }
 
-                next = FormulaReader.PeekNext();
+                next = _formulaReader.PeekNext();
             }
         }
 
@@ -220,16 +223,16 @@ namespace AllOverIt.Evaluator
         private Expression GetNamedOperandExpression()
         {
             // continue to scan until we get a full word (which may include the full stop character)
-            var namedOperand = FormulaReader.ReadNamedOperand(OperationFactory);
+            var namedOperand = _formulaReader.ReadNamedOperand(_operationFactory);
 
             // we need to peek ahead to see if the next character is a '('
-            if (FormulaReader.PeekNext() == '(')
+            if (_formulaReader.PeekNext() == '(')
             {
                 // the current 'word' represents the name of a method
-                if (UserDefinedMethodFactory.IsRegistered(namedOperand))
+                if (_userDefinedMethodFactory.IsRegistered(namedOperand))
                 {
                     // consume the opening (
-                    FormulaReader.ReadNext();
+                    _formulaReader.ReadNext();
 
                     // the token processor consumes the trailing ')'
                     return ParseMethodToExpression(namedOperand);
@@ -240,9 +243,9 @@ namespace AllOverIt.Evaluator
 
             // For everything else, assume it must be a variable - not validating it exists since we are 
             // only compiling the expression.  It will be validated at runtime when the variables are available.
-            ReferencedVariableNames.Add(namedOperand);
+            _referencedVariableNames.Add(namedOperand);
 
-            return FormulaExpressionFactory.CreateExpression(namedOperand, VariableRegistry);
+            return _formulaExpressionFactory.CreateExpression(namedOperand, _variableRegistry);
         }
 
         private Expression ParseMethodToExpression(string methodName)
@@ -251,29 +254,29 @@ namespace AllOverIt.Evaluator
             PushOperator(CustomTokens.OpenScope);       // used to track nested argument expressions
 
             // capture the current count of expressions - it should increase by the number of parameters expected by the method
-            var currentExpressionCount = ExpressionStack.Count;
+            var currentExpressionCount = _expressionStack.Count;
 
             // passing true to indicate it is a method being parsed (so parameters can be parsed / read correctly)
             ParseContent(true);
 
             // check if the expression is missing the required )
-            if (OperatorStack.Peek() != CustomTokens.UserMethod)
+            if (_operatorStack.Peek() != CustomTokens.UserMethod)
             {
                 throw new AoiFormulaException($"Invalid expression near method: {methodName}");
             }
 
-            OperatorStack.Pop();                        // pop the 'UserMethod'
+            _operatorStack.Pop();                        // pop the 'UserMethod'
 
             // determine how many arguments we need to pop 
-            var operation = UserDefinedMethodFactory.GetMethod(methodName);    // will throw if not registered
+            var operation = _userDefinedMethodFactory.GetMethod(methodName);    // will throw if not registered
             var expressionsRequired = operation.ArgumentCount;
 
-            if (ExpressionStack.Count - currentExpressionCount != expressionsRequired)
+            if (_expressionStack.Count - currentExpressionCount != expressionsRequired)
             {
                 throw new AoiFormulaException($"Expected {operation.ArgumentCount} parameters");
             }
 
-            return FormulaExpressionFactory.CreateExpression(operation, ExpressionStack);
+            return _formulaExpressionFactory.CreateExpression(operation, _expressionStack);
         }
     }
 }

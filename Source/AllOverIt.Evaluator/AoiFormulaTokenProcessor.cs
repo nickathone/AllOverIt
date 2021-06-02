@@ -8,28 +8,28 @@ using System.Linq.Expressions;
 
 namespace AllOverIt.Evaluator
 {
-    internal sealed class AoiFormulaTokenProcessor
-    : IAoiFormulaTokenProcessor
+    internal sealed class AoiFormulaTokenProcessor : IAoiFormulaTokenProcessor
     {
-        private IAoiFormulaProcessor FormulaProcessor { get; }
-        private IList<AoiFormulaTokenProcessorContext> TokenProcessors { get; }
-        private IAoiFormulaReader FormulaReader { get; }
-        private IAoiFormulaExpressionFactory ExpressionFactory { get; }
-        private IAoiArithmeticOperationFactory OperationFactory { get; }
+        private readonly IAoiFormulaProcessor _formulaProcessor;
+        private readonly IList<AoiFormulaTokenProcessorContext> _tokenProcessors;
+        private readonly IAoiFormulaReader _formulaReader;
+        private readonly IAoiFormulaExpressionFactory _expressionFactory;
+        private readonly IAoiArithmeticOperationFactory _operationFactory;
 
         public AoiFormulaTokenProcessor(IAoiFormulaProcessor formulaProcessor, IAoiFormulaReader formulaReader,
-          IAoiFormulaExpressionFactory formulaExpressionFactory, IAoiArithmeticOperationFactory operationFactory)
-          : this(new List<AoiFormulaTokenProcessorContext>(), formulaProcessor, formulaReader, formulaExpressionFactory, operationFactory)
-        { }
+            IAoiFormulaExpressionFactory formulaExpressionFactory, IAoiArithmeticOperationFactory operationFactory)
+            : this(new List<AoiFormulaTokenProcessorContext>(), formulaProcessor, formulaReader, formulaExpressionFactory, operationFactory)
+        {
+        }
 
         internal AoiFormulaTokenProcessor(IList<AoiFormulaTokenProcessorContext> tokenProcessors, IAoiFormulaProcessor formulaProcessor,
-          IAoiFormulaReader formulaReader, IAoiFormulaExpressionFactory expressionFactory, IAoiArithmeticOperationFactory operationFactory)
+            IAoiFormulaReader formulaReader, IAoiFormulaExpressionFactory expressionFactory, IAoiArithmeticOperationFactory operationFactory)
         {
-            TokenProcessors = tokenProcessors.WhenNotNull(nameof(tokenProcessors));
-            FormulaProcessor = formulaProcessor.WhenNotNull(nameof(formulaProcessor));
-            FormulaReader = formulaReader.WhenNotNull(nameof(formulaReader));
-            ExpressionFactory = expressionFactory.WhenNotNull(nameof(expressionFactory));
-            OperationFactory = operationFactory.WhenNotNull(nameof(operationFactory));
+            _tokenProcessors = tokenProcessors.WhenNotNull(nameof(tokenProcessors));
+            _formulaProcessor = formulaProcessor.WhenNotNull(nameof(formulaProcessor));
+            _formulaReader = formulaReader.WhenNotNull(nameof(formulaReader));
+            _expressionFactory = expressionFactory.WhenNotNull(nameof(expressionFactory));
+            _operationFactory = operationFactory.WhenNotNull(nameof(operationFactory));
 
             RegisterTokenProcessors();
         }
@@ -43,8 +43,8 @@ namespace AllOverIt.Evaluator
             while (operators.Any() && condition.Invoke())
             {
                 var nextOperator = operators.Pop();
-                var operation = OperationFactory.GetOperation(nextOperator);
-                var expression = ExpressionFactory.CreateExpression(operation, expressions);
+                var operation = _operationFactory.GetOperation(nextOperator);
+                var expression = _expressionFactory.CreateExpression(operation, expressions);
 
                 expressions.Push(expression);
             }
@@ -52,7 +52,7 @@ namespace AllOverIt.Evaluator
 
         public bool ProcessToken(char token, bool isUserMethod)
         {
-            var processor = TokenProcessors
+            var processor = _tokenProcessors
               .SkipWhile(p => !p.Predicate.Invoke(token, isUserMethod))
               .First();     // process the first match found
 
@@ -67,8 +67,8 @@ namespace AllOverIt.Evaluator
               (token, isUserDefined) => token == '(',
               (token, isUserDefined) =>
               {
-                  FormulaReader.ReadNext();   // consume the '('
-                  FormulaProcessor.ProcessScopeStart();
+                  _formulaReader.ReadNext();   // consume the '('
+                  _formulaProcessor.ProcessScopeStart();
                   return true;
               });
 
@@ -77,8 +77,8 @@ namespace AllOverIt.Evaluator
               (token, isUserDefined) => token == ')',
               (token, isUserDefined) =>
               {
-                  FormulaReader.ReadNext();   // consume the ')'
-                  return FormulaProcessor.ProcessScopeEnd(isUserDefined);
+                  _formulaReader.ReadNext();   // consume the ')'
+                  return _formulaProcessor.ProcessScopeEnd(isUserDefined);
               });
 
             // arguments of a method
@@ -86,17 +86,17 @@ namespace AllOverIt.Evaluator
               (token, isUserDefined) => isUserDefined && token == ',',
               (token, isUserDefined) =>
               {
-                  FormulaReader.ReadNext();
-                  FormulaProcessor.ProcessMethodArgument();
+                  _formulaReader.ReadNext();
+                  _formulaProcessor.ProcessMethodArgument();
                   return true;
               });
 
             // an operator
             Register(
-              (token, isUserDefined) => OperationFactory.IsCandidate(token),
+              (token, isUserDefined) => _operationFactory.IsCandidate(token),
               (token, isUserDefined) =>
               {
-                  FormulaProcessor.ProcessOperator();
+                  _formulaProcessor.ProcessOperator();
                   return true;
               });
 
@@ -105,7 +105,7 @@ namespace AllOverIt.Evaluator
               (token, isUserDefined) => AoiFormulaReader.IsNumericalCandidate(token),
               (token, isUserDefined) =>
               {
-                  FormulaProcessor.ProcessNumerical();
+                  _formulaProcessor.ProcessNumerical();
                   return true;
               });
 
@@ -114,7 +114,7 @@ namespace AllOverIt.Evaluator
               (token, isUserDefined) => true,
               (token, isUserDefined) =>
               {
-                  FormulaProcessor.ProcessNamedOperand();
+                  _formulaProcessor.ProcessNamedOperand();
                   return true;
               });
         }
@@ -127,7 +127,7 @@ namespace AllOverIt.Evaluator
         // current scope is complete (such as reading arguments of a user defined method).
         private void Register(Func<char, bool, bool> predicate, Func<char, bool, bool> processor)
         {
-            TokenProcessors.Add(new AoiFormulaTokenProcessorContext(predicate, processor));
+            _tokenProcessors.Add(new AoiFormulaTokenProcessorContext(predicate, processor));
         }
     }
 }

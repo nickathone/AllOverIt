@@ -8,9 +8,9 @@ namespace AllOverIt.Evaluator
 {
     public sealed class AoiFormulaParser : IAoiFormulaParser
     {
-        private IAoiFormulaProcessor FormulaProcessor { get; }
-        private Func<string, IAoiFormulaReader> FormulaReaderCreator { get; }
-        private IAoiFormulaReader FormulaReader { get; set; }
+        private readonly IAoiFormulaProcessor _formulaProcessor;
+        private readonly Func<string, IAoiFormulaReader> _formulaReaderCreator;
+        private IAoiFormulaReader _formulaReader;
 
         internal static IAoiFormulaParser CreateDefault()
         {
@@ -41,8 +41,8 @@ namespace AllOverIt.Evaluator
 
         internal AoiFormulaParser(IAoiFormulaProcessor formulaProcessor, Func<string, IAoiFormulaReader> formulaReaderCreator)
         {
-            FormulaProcessor = formulaProcessor.WhenNotNull(nameof(formulaProcessor));
-            FormulaReaderCreator = formulaReaderCreator.WhenNotNull(nameof(formulaReaderCreator));
+            _formulaProcessor = formulaProcessor.WhenNotNull(nameof(formulaProcessor));
+            _formulaReaderCreator = formulaReaderCreator.WhenNotNull(nameof(formulaReaderCreator));
         }
 
         public AoiFormulaProcessorResult Parse(string formula, IAoiVariableRegistry variableRegistry)
@@ -53,9 +53,9 @@ namespace AllOverIt.Evaluator
             // remove any extraneous whitespace
             formula = Regex.Replace(formula, @"\s+", "");
 
-            using (FormulaReader = FormulaReaderCreator.Invoke(formula))
+            using (_formulaReader = _formulaReaderCreator.Invoke(formula))
             {
-                return FormulaProcessor.Process(FormulaReader, variableRegistry);
+                return _formulaProcessor.Process(_formulaReader, variableRegistry);
             }
         }
     }

@@ -11,7 +11,7 @@ namespace AllOverIt.Evaluator
     internal sealed class AoiFormulaReader : IAoiFormulaReader
     {
         internal static readonly char DecimalSeparator = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-        private TextReader Reader { get; set; }
+        private TextReader _reader;
 
         public AoiFormulaReader(string formula)
             : this(f => new StringReader(f), formula)
@@ -23,17 +23,17 @@ namespace AllOverIt.Evaluator
             _ = readerFactory.WhenNotNull(nameof(readerFactory));
             _ = formula.WhenNotNullOrEmpty(nameof(formula));
 
-            Reader = readerFactory.Invoke(formula);
+            _reader = readerFactory.Invoke(formula);
         }
 
         public int PeekNext()
         {
-            return Reader.Peek();
+            return _reader.Peek();
         }
 
         public int ReadNext()
         {
-            return Reader.Read();
+            return _reader.Read();
         }
 
         // Supports exponent values
@@ -185,8 +185,8 @@ namespace AllOverIt.Evaluator
 
         public void Dispose()
         {
-            Reader?.Dispose();
-            Reader = null;
+            _reader?.Dispose();
+            _reader = null;
         }
     }
 }
