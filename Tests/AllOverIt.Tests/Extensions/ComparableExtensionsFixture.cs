@@ -8,8 +8,7 @@ namespace AllOverIt.Tests.Extensions
 {
     public class ComparableExtensionsFixture : AoiFixtureBase
     {
-        private class CompareDummy
-          : IComparable<CompareDummy>
+        private class CompareDummy : IComparable<CompareDummy>
         {
             private readonly double _value;
 
@@ -92,8 +91,7 @@ namespace AllOverIt.Tests.Extensions
             }
         }
 
-        public class GreaterThan
-          : ComparableExtensionsFixture
+        public class GreaterThan : ComparableExtensionsFixture
         {
             [Fact]
             public void Should_Be_GreaterThan()
