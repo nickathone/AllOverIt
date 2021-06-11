@@ -30,11 +30,12 @@ namespace AllOverIt.Tests.Extensions
                 var cancellationTokenSource = new CancellationTokenSource();
                 cancellationTokenSource.Cancel();
 
-                var actual = await GetStrings(CreateMany<string>())
-                    .ToListAsync(cancellationTokenSource.Token)
-                    .ConfigureAwait(false);
-
-                actual.Should().BeEmpty();
+                await Awaiting(async () =>
+                    {
+                        await GetStrings(CreateMany<string>()).ToListAsync(cancellationTokenSource.Token);
+                    })
+                    .Should()
+                    .ThrowAsync<TaskCanceledException>();
             }
         }
 

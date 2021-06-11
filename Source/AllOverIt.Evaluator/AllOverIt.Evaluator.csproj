@@ -6,7 +6,7 @@
         <Version>1.2.0</Version>
         <Authors>Malcolm Smith</Authors>
         <Company></Company>
-        <Copyright>Copyright ©  2015</Copyright>
+        <Copyright>Copyright © 2015</Copyright>
         <Description>Provides an extendable expression compiler and evaluator</Description>
         <PackageTags>evaluator</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

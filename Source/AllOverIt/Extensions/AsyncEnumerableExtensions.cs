@@ -17,7 +17,7 @@ namespace AllOverIt.Extensions
             {
                 if (cancellationToken.IsCancellationRequested)
                 {
-                    break;
+                    throw new TaskCanceledException();
                 }
 
                 listItems.Add(item);

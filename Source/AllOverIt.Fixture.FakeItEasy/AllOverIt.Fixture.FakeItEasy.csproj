@@ -6,7 +6,7 @@
         <Version>1.1.0</Version>
         <Authors>Malcolm Smith</Authors>
         <Company></Company>
-        <Copyright>Copyright ©  2019</Copyright>
+        <Copyright>Copyright © 2019</Copyright>
         <Description>AllOverIt.Fixture.FakeItEasy extends AllOverIt.Fixture to allow FakeItEasy integration.</Description>
         <PackageTags>unittesting;fakes;faking;mocks;mocking;stubs;stubbing;TDD;BDD;fluent;NUnit;xUnit;netstandard;netcore</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
