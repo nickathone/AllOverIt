@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Extensions;
 using AllOverIt.Fixture;
+using AllOverIt.Fixture.Extensions;
 using FluentAssertions;
 using System;
 using System.Collections;
@@ -264,5 +265,85 @@ namespace AllOverIt.Tests.Extensions
                 actual.IsNullOrEmpty().Should().BeTrue();
             }
         }
+
+        public class ToBase64 : StringExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Null()
+            {
+                string value = null;
+
+                Invoking(() =>
+                    {
+                        value.ToBase64();
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("value");
+            }
+
+            [Fact]
+            public void Should_Be_Empty_When_Empty()
+            {
+                var value = string.Empty;
+
+                value.ToBase64()
+                    .Should()
+                    .Be(string.Empty);
+            }
+
+            [Theory]
+            [MemberData(nameof(Base64Data))]
+            public void Should_Convert_From_Known_Phrase(string phrase, string base64)
+            {
+                phrase.ToBase64()
+                    .Should()
+                    .Be(base64);
+            }
+        }
+
+        public class FromBase64 : StringExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Null()
+            {
+                string value = null;
+
+                Invoking(() =>
+                    {
+                        value.FromBase64();
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("value");
+            }
+
+            [Fact]
+            public void Should_Be_Empty_When_Empty()
+            {
+                var value = string.Empty;
+
+                value.FromBase64()
+                    .Should()
+                    .Be(string.Empty);
+            }
+
+            [Theory]
+            [MemberData(nameof(Base64Data))]
+            public void Should_Convert_To_Known_Phrase(string phrase, string base64)
+            {
+                base64.FromBase64()
+                    .Should()
+                    .Be(phrase);
+            }
+        }
+
+        public static IEnumerable<object[]> Base64Data =>
+            new List<object[]>
+            {
+                new object[] {"The quick brown fox jumped over the lazy dog.", "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wZWQgb3ZlciB0aGUgbGF6eSBkb2cu"},
+                new object[] {"THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG!", "VEhFIFFVSUNLIEJST1dOIEZPWCBKVU1QRUQgT1ZFUiBUSEUgTEFaWSBET0ch"},
+                new object[] { "AllOverIt!", "QWxsT3Zlckl0IQ==" }
+            };
     }
 }

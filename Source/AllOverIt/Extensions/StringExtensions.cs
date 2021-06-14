@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AllOverIt.Helpers;
+using System;
 using System.ComponentModel;
+using System.Text;
 
 namespace AllOverIt.Extensions
 {
@@ -93,6 +95,28 @@ namespace AllOverIt.Extensions
         public static bool IsNullOrEmpty(this string value)
         {
             return string.IsNullOrWhiteSpace(value);
+        }
+
+        /// <summary>Encodes a string value using base-64 digits.</summary>
+        /// <param name="value">The value to convert to its string representation using base-64 digits.</param>
+        /// <returns>A string encoded using base-64 digits that represents the source value.</returns>
+        public static string ToBase64(this string value)
+        {
+            _ = value.WhenNotNull(nameof(value));
+
+            var bytes = Encoding.ASCII.GetBytes(value);
+            return Convert.ToBase64String(bytes);
+        }
+
+        /// <summary>Decodes a string previously encoded with base-64 digits.</summary>
+        /// <param name="value">The base-64 representation of a string to convert.</param>
+        /// <returns>The string decoded from a source string previously encoded with base-64 digits.</returns>
+        public static string FromBase64(this string value)
+        {
+            _ = value.WhenNotNull(nameof(value));
+
+            var bytes = Convert.FromBase64String(value);
+            return Encoding.ASCII.GetString(bytes);
         }
     }
 }
