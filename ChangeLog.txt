@@ -8,7 +8,7 @@ AllOverIt - v1.11.0
    (also restored the code for this class that was somehow lost during a merge of v1.10.0)
  * Fixed issue where GetFriendlyName() failed when generic type did not have a backtick in the underlying type name
  * Rebuilt the following to ensure no issues with the breaking change
-   - AllOverIt.Aws.Cdk.AppSync - as v0.3
+   - AllOverIt.Aws.Cdk.AppSync - as v0.3.0
    - AllOverIt.Evaluator       - as v2.1.0
 
 
