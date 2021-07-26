@@ -2,14 +2,9 @@
 {
     public interface IMappingTemplates
     {
-        string DefaultRequestMapping { get; }
-        string DefaultResponseMapping { get; }
+        void RegisterMappings(string mappingKey, string requestMapping, string responseMapping);
 
-        void RegisterRequestMapping(string functionName, string mapping);
-        void RegisterResponseMapping(string functionName, string mapping);
-
-        // if the function mapping is not defined then the default mapping is returned
-        string GetRequestMapping(string functionName);
-        string GetResponseMapping(string functionName);
+        string GetRequestMapping(string mappingKey);
+        string GetResponseMapping(string mappingKey);
     }
 }
