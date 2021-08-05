@@ -8,7 +8,6 @@
         internal static class Function
         {
             internal const string GetLanguages = "GetLanguages";
-
             internal const string AddCountry = "AddCountry";
             internal const string UpdateCountry = "UpdateCountry";
         }

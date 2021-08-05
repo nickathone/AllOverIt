@@ -13,7 +13,16 @@ namespace GraphqlSchema
         {
             var app = new App();
 
-            var stack = new Stack(app, $"{Constants.AppName}V{Constants.ServiceVersion}", new StackProps
+            var stack1 = new Stack(app, $"{Constants.AppName}V{Constants.ServiceVersion}Stack1", new StackProps
+            {
+                Env = new CDKEnvironment
+                {
+                    Account = SystemEnvironment.GetEnvironmentVariable("CDK_DEFAULT_ACCOUNT"),
+                    Region = SystemEnvironment.GetEnvironmentVariable("CDK_DEFAULT_REGION")
+                }
+            });
+
+            var stack2 = new Stack(app, $"{Constants.AppName}V{Constants.ServiceVersion}Stack2", new StackProps
             {
                 Env = new CDKEnvironment
                 {
@@ -23,7 +32,7 @@ namespace GraphqlSchema
             });
 
             // required to test HttpDataSourceAttribute
-            stack.ExportValue(Token.AsString(Constants.HttpDataSource.GetLanguageUrlExplicit), new ExportValueOptions
+            stack1.ExportValue(Token.AsString(Constants.HttpDataSource.GetLanguageUrlExplicit), new ExportValueOptions
             {
                 Name = Constants.Import.GetCountriesUrlImportName
             });
@@ -46,7 +55,7 @@ namespace GraphqlSchema
 
             var mappingTemplates = new AppSyncDemoMappingTemplates();
 
-            _ = new AppSyncConstruct(stack, appProps, authMode, mappingTemplates);
+            _ = new AppSyncConstruct(stack2, appProps, authMode, mappingTemplates);
 
             _ = app.Synth();
         }

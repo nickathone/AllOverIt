@@ -13,7 +13,7 @@ namespace AllOverIt.Aws.Cdk.AppSync.Attributes
         protected static string SanitiseLookupKey(string lookupKey)
         {
             // exclude everything exception alphanumeric and dashes
-            return Regex.Replace(lookupKey, @"[^\w-]", "", RegexOptions.None);
+            return Regex.Replace(lookupKey, @"[^\w]", "", RegexOptions.None);
         }
 
         public DataSourceAttribute(string description)
