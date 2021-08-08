@@ -7,9 +7,9 @@ A general purpose library containing a variety of classes, utilities, and helper
 Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) for usage information.
 
 
-# AllOverIt.Validator
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Validator?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validator/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Validator?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validator/)
+# AllOverIt.Validation
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Validation?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validation/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Validation?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validation/)
 
 Provides additional validators and extensions for use with FluentValidation.
 
