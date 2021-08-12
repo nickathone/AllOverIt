@@ -75,7 +75,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllOverIt.Validation.Tests"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AllOverIt.Validation", "AllOverIt.Validation", "{736417D6-56B0-46F7-9717-5C8E7A2327EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicValidation", "Demos\AllOverIt.Validation\BasicValidation\BasicValidation.csproj", "{35D19783-B365-49C0-A556-97F3E8609B54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicValidation", "Demos\AllOverIt.Validation\BasicValidation\BasicValidation.csproj", "{35D19783-B365-49C0-A556-97F3E8609B54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvaluatorBenchmarking", "Demos\AllOverIt.Evaluator\Benchmarking\EvaluatorBenchmarking\EvaluatorBenchmarking.csproj", "{A24B905A-CA34-43F4-BB7E-8D5BDB378513}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Benchmarking", "Benchmarking", "{C0559391-35D0-4F52-8224-589CEDA72A54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -187,6 +191,10 @@ Global
 		{35D19783-B365-49C0-A556-97F3E8609B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35D19783-B365-49C0-A556-97F3E8609B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35D19783-B365-49C0-A556-97F3E8609B54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A24B905A-CA34-43F4-BB7E-8D5BDB378513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A24B905A-CA34-43F4-BB7E-8D5BDB378513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A24B905A-CA34-43F4-BB7E-8D5BDB378513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A24B905A-CA34-43F4-BB7E-8D5BDB378513}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -223,6 +231,8 @@ Global
 		{69E6B98B-81CF-4029-8F06-7A633672B105} = {0C08FAE6-4CD9-4C7B-A849-EB0DB9BD1451}
 		{736417D6-56B0-46F7-9717-5C8E7A2327EA} = {D9F6B8A1-4B01-4708-8851-741FC19F2440}
 		{35D19783-B365-49C0-A556-97F3E8609B54} = {736417D6-56B0-46F7-9717-5C8E7A2327EA}
+		{A24B905A-CA34-43F4-BB7E-8D5BDB378513} = {C0559391-35D0-4F52-8224-589CEDA72A54}
+		{C0559391-35D0-4F52-8224-589CEDA72A54} = {E511BE3F-9514-4F49-86D7-1F168A5606A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19DD11B3-596E-4862-B5C4-1FFFFB173106}
