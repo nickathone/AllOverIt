@@ -163,6 +163,9 @@ namespace EvaluatorBenchmarking
 
             registry.AddVariables(a, b, c);
 
+            // and use this to find the area of the bound triangle using Heron's formula
+            var herons = _compiler.Compile("0.25 * sqrt((4*a^2*b^2)-(a^2+b^2-c^2)^2)", registry).Resolver;
+
             for (var i = 0; i < iterations; i++)
             {
                 // set the co-ordinates of the 3 points
@@ -184,8 +187,6 @@ namespace EvaluatorBenchmarking
                 // distance x2,y2 to x3,y3
                 var d3 = c.Value;
 
-                // and use this to find the area of the bound triangle using Heron's formula
-                var herons = _compiler.Compile("0.25 * sqrt((4*a^2*b^2)-(a^2+b^2-c^2)^2)", registry).Resolver;
                 var _ = herons.Invoke();
             }
         }
