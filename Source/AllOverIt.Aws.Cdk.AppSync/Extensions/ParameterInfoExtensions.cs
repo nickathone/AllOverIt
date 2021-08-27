@@ -8,6 +8,11 @@ namespace AllOverIt.Aws.Cdk.AppSync.Extensions
 {
     internal static class ParameterInfoExtensions
     {
+        public static RequiredTypeInfo GetRequiredTypeInfo(this ParameterInfo parameterInfo)
+        {
+            return new RequiredTypeInfo(parameterInfo);
+        }
+
         public static bool IsGqlTypeRequired(this ParameterInfo propertyInfo)
         {
             return propertyInfo.GetCustomAttribute<SchemaTypeRequiredAttribute>(true) != null;
@@ -24,7 +29,7 @@ namespace AllOverIt.Aws.Cdk.AppSync.Extensions
 
             if (parameterInfo.ParameterType.IsGenericNullableType())
             {
-                var arguments = string.Join(", ", methodInfo.GetParameters().Select(parameter => $"{parameter.ParameterType.GetFriendlyName()} {parameter.Name}"));
+                var arguments = string.Join(", ", methodInfo!.GetParameters().Select(parameter => $"{parameter.ParameterType.GetFriendlyName()} {parameter.Name}"));
 
                 throw new SchemaException($"The argument '{parameterInfo.Name}' on method '{methodInfo.DeclaringType!.FullName}.{methodInfo.Name}({arguments})' " +
                                           $"cannot be nullable. The presence of {nameof(SchemaTypeRequiredAttribute)} is used to declare a parameter is required, " +
