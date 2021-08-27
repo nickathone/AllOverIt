@@ -1,12 +1,15 @@
 ﻿using AllOverIt.Aws.Cdk.AppSync.Attributes;
 using AllOverIt.Aws.Cdk.AppSync.Exceptions;
+using AllOverIt.Aws.Cdk.AppSync.Factories;
 using AllOverIt.Aws.Cdk.AppSync.Mapping;
 using AllOverIt.Extensions;
 using AllOverIt.Helpers;
 using Amazon.CDK.AWS.AppSync;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using SystemType = System.Type;
 
 namespace AllOverIt.Aws.Cdk.AppSync.Extensions
 {
@@ -50,6 +53,7 @@ namespace AllOverIt.Aws.Cdk.AppSync.Extensions
             foreach (var parameterInfo in parameters)
             {
                 parameterInfo.AssertParameterTypeIsNotNullable();
+                parameterInfo.AssertParameterSchemaType(methodInfo);
 
                 var requiredTypeInfo = parameterInfo.GetRequiredTypeInfo();
 
@@ -63,19 +67,53 @@ namespace AllOverIt.Aws.Cdk.AppSync.Extensions
             return args;
         }
 
-        public static void RegisterRequestResponseMappings(this MethodInfo methodInfo, string fieldMapping, MappingTemplates mappingTemplates)
+        public static void RegisterRequestResponseMappings(this MethodInfo methodInfo, string fieldMapping, MappingTemplates mappingTemplates, MappingTypeFactory mappingTypeFactory)
         {
             _ = fieldMapping.WhenNotNullOrEmpty(nameof(fieldMapping));
 
-            var mappingAttribute = methodInfo.GetRequestResponseMapping();
+            var requestResponseMapping = GetRequestResponseMapping(methodInfo, mappingTypeFactory);
 
-            if (mappingAttribute != null)
+            // will be null if the mapping has already been populated (via code), or the factory will provide the information
+            if (requestResponseMapping != null)
             {
-                var mapping = mappingAttribute.MappingType;
-
                 // fieldMapping includes the parent names too
-                mappingTemplates.RegisterMappings(fieldMapping, mapping.RequestMapping, mapping.ResponseMapping);
+                mappingTemplates.RegisterMappings(fieldMapping, requestResponseMapping.RequestMapping, requestResponseMapping.ResponseMapping);
             }
+        }
+
+        public static void AssertReturnSchemaType(this MethodInfo methodInfo, SystemType parentType)
+        {
+            // make sure TYPE schema types on have other TYPE types, and similarly for INPUT schema types.
+            var parentSchemaType = parentType.GetGraphqlTypeDescriptor().SchemaType;
+            var returnType = methodInfo.ReturnType;
+
+            if (parentSchemaType is GraphqlSchemaType.Input or GraphqlSchemaType.Type)
+            {
+                var methodSchemaType = returnType.GetGraphqlTypeDescriptor().SchemaType;
+
+                if (methodSchemaType is GraphqlSchemaType.Input or GraphqlSchemaType.Type)
+                {
+                    if (parentSchemaType != methodSchemaType)
+                    {
+                        throw new InvalidOperationException($"Expected '{returnType.FullName}.{methodInfo.Name}' to return a '{parentSchemaType}' type.");
+                    }
+                }
+            }
+        }
+
+        private static IRequestResponseMapping GetRequestResponseMapping(MemberInfo memberInfo, MappingTypeFactory mappingTypeFactory)
+        {
+            var attribute = memberInfo.GetCustomAttribute<DataSourceAttribute>(true);
+
+            if (attribute == null)
+            {
+                throw new InvalidOperationException($"Expected {memberInfo.DeclaringType!.Name}.{memberInfo.Name} to have a datasource attribute");
+            }
+
+            // will be null if no type has been provided (assumes the mapping was added in code via MappingTemplates)
+            return attribute.MappingType != null
+                ? ((IMappingTypeFactory) mappingTypeFactory).GetRequestResponseMapping(attribute.MappingType)
+                : null;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
         private readonly IList<SystemType> _typeUnderConstruction = new List<SystemType>();
         private readonly GraphqlApi _graphqlApi;
         private readonly MappingTemplates _mappingTemplates;
+        private readonly MappingTypeFactory _mappingTypeFactory;
         private readonly DataSourceFactory _dataSourceFactory;
 
         private readonly IDictionary<string, Func<RequiredTypeInfo, GraphqlType>> _fieldTypes = new Dictionary<string, Func<RequiredTypeInfo, GraphqlType>>
@@ -41,10 +42,11 @@ namespace AllOverIt.Aws.Cdk.AppSync
             {nameof(String), requiredTypeInfo => GraphqlType.String(CreateTypeOptions(requiredTypeInfo))}
         };
 
-        public GraphqlTypeStore(GraphqlApi graphqlApi, MappingTemplates mappingTemplates, DataSourceFactory dataSourceFactory)
+        public GraphqlTypeStore(GraphqlApi graphqlApi, MappingTemplates mappingTemplates, MappingTypeFactory mappingTypeFactory, DataSourceFactory dataSourceFactory)
         {
             _graphqlApi = graphqlApi.WhenNotNull(nameof(graphqlApi));
             _mappingTemplates = mappingTemplates.WhenNotNull(nameof(mappingTemplates));
+            _mappingTypeFactory = mappingTypeFactory.WhenNotNull(nameof(mappingTypeFactory));
             _dataSourceFactory = dataSourceFactory.WhenNotNull(nameof(dataSourceFactory));
         }
 
@@ -141,6 +143,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
             foreach (var methodInfo in methods)
             {
                 methodInfo.AssertReturnTypeIsNotNullable();
+                methodInfo.AssertReturnSchemaType(type);
 
                 var requiredTypeInfo = methodInfo.GetRequiredTypeInfo();
                 var fieldMapping = methodInfo.GetFieldName(parentName);
@@ -182,7 +185,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
                 }
                 else
                 {
-                    methodInfo.RegisterRequestResponseMappings(fieldMapping, _mappingTemplates);
+                    methodInfo.RegisterRequestResponseMappings(fieldMapping, _mappingTemplates, _mappingTypeFactory);
 
                     classDefinition.Add(
                         methodInfo.Name.GetGraphqlName(),

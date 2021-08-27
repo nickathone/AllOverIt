@@ -1,6 +1,11 @@
-﻿using Amazon.CDK;
+﻿using AllOverIt.Aws.Cdk.AppSync.Factories;
+using AllOverIt.Aws.Cdk.AppSync.Mapping;
+using Amazon.CDK;
 using Amazon.CDK.AWS.AppSync;
 using GraphqlSchema.Schema;
+using GraphqlSchema.Schema.Mappings;
+using GraphqlSchema.Schema.Mappings.Query;
+using System;
 
 namespace GraphqlSchema.Constructs
 {
@@ -37,7 +42,21 @@ namespace GraphqlSchema.Constructs
             //        nameof(IAppSyncDemoQueryDefinition.AllContinents), GetHttpRequestMapping("GET", "/continents"), GetHttpResponseMapping())
             //    );
 
-            var graphql = new AppSyncDemoGraphql(this, appProps, authMode);
+
+            // Providing the mapping for IAppSyncDemoQueryDefinition.CountryLanguage manually via code
+            var mappingTemplates = new MappingTemplates();
+
+            var noneMapping = new CountryLanguageMapping();     // using this just for convenience
+            mappingTemplates.RegisterMappings("Query.CountryLanguage", noneMapping.RequestMapping, noneMapping.ResponseMapping);
+
+            // Registering mapping types that don't have a default constructor (so runtime arguments can be provided)
+            var mappingTypeFactory = new MappingTypeFactory();
+            mappingTypeFactory.Register<ContinentLanguagesMapping>(() => new ContinentLanguagesMapping(true));
+
+            // Based on a base class type
+            mappingTypeFactory.Register<HttpGetResponseMappingBase>(type => (IRequestResponseMapping)Activator.CreateInstance(type, "super_secret_api_key" ));
+
+            var graphql = new AppSyncDemoGraphql(this, appProps, authMode, mappingTemplates, mappingTypeFactory);
 
             graphql
                 .AddSchemaQuery<IAppSyncDemoQueryDefinition>()
