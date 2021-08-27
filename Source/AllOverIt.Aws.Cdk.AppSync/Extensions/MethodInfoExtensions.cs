@@ -112,7 +112,7 @@ namespace AllOverIt.Aws.Cdk.AppSync.Extensions
 
             // will be null if no type has been provided (assumes the mapping was added in code via MappingTemplates)
             return attribute.MappingType != null
-                ? ((IMappingTypeFactory) mappingTypeFactory).GetRequestResponseMapping(attribute.MappingType)
+                ? ((MappingTypeFactory) mappingTypeFactory).GetRequestResponseMapping(attribute.MappingType)
                 : null;
         }
     }

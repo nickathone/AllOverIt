@@ -6,12 +6,7 @@ using SystemType = System.Type;
 
 namespace AllOverIt.Aws.Cdk.AppSync.Factories
 {
-    public interface IMappingTypeFactory
-    {
-        IRequestResponseMapping GetRequestResponseMapping(SystemType mappingType);
-    }
-
-    public sealed class MappingTypeFactory : IMappingTypeFactory
+    public sealed class MappingTypeFactory
     {
         private readonly IDictionary<SystemType, Func<IRequestResponseMapping>> _exactMappingRegistry = new Dictionary<SystemType, Func<IRequestResponseMapping>>();
         private readonly IDictionary<SystemType, Func<SystemType, IRequestResponseMapping>> _inheritedMappingRegistry = new Dictionary<SystemType, Func<SystemType, IRequestResponseMapping>>();
@@ -42,7 +37,7 @@ namespace AllOverIt.Aws.Cdk.AppSync.Factories
             return this;
         }
 
-        IRequestResponseMapping IMappingTypeFactory.GetRequestResponseMapping(SystemType mappingType)
+        internal IRequestResponseMapping GetRequestResponseMapping(SystemType mappingType)
         {
             // look for an exact match first
             if (_exactMappingRegistry.TryGetValue(mappingType, out var creator))
