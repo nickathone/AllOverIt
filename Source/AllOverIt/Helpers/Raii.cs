@@ -13,9 +13,9 @@ namespace AllOverIt.Helpers
         /// <param name="cleanUp">The cleanup action to perform when the object is disposed.</param>
         public Raii(Action initialize, Action cleanUp)
         {
-            _ = initialize ?? throw new ArgumentNullException(nameof(initialize));
+            _ = initialize.WhenNotNull(nameof(initialize));
+            _cleanUp = cleanUp.WhenNotNull(nameof(cleanUp));
 
-            _cleanUp = cleanUp ?? throw new ArgumentNullException(nameof(cleanUp));
             initialize.Invoke();
         }
 
@@ -23,6 +23,7 @@ namespace AllOverIt.Helpers
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);      // just in case an inherited class has a finalizer
         }
 
         /// <summary>
@@ -44,15 +45,14 @@ namespace AllOverIt.Helpers
         }
     }
 
-    /// <summary>
-    /// A strongly-type disposable object implementing the Resource Acquisition Is Initialization  idiom.
-    /// </summary>
+    /// <summary>A strongly-type disposable object implementing the Resource Acquisition Is Initialization idiom.</summary>
     /// <typeparam name="TType">The type being initialized.</typeparam>
     public class Raii<TType> : IDisposable
     {
         private bool _disposed;
         private readonly Action<TType> _cleanUp;
 
+        /// <summary>The context provided at the time of initialization.</summary>
         public TType Context { get; private set; }
 
         /// <summary>Constructor used to provide the initialization and cleanup actions to be invoked.</summary>
@@ -60,16 +60,18 @@ namespace AllOverIt.Helpers
         /// <param name="cleanUp">The cleanup action to perform when the object is disposed.</param>
         public Raii(Func<TType> initialize, Action<TType> cleanUp)
         {
-            _ = initialize ?? throw new ArgumentNullException(nameof(initialize));
+            _ = initialize.WhenNotNull(nameof(initialize));
+            _cleanUp = cleanUp.WhenNotNull(nameof(cleanUp));
 
             Context = initialize.Invoke();
-            _cleanUp = cleanUp ?? throw new ArgumentNullException(nameof(cleanUp));
         }
 
-        /// <summary>This is called when the instance is being disposed.</summary>
+        /// <summary>Called when the instance is being disposed, resulting in the cleanup action provided at the time of
+        /// construction being invoked.</summary>
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);      // just in case an inherited class has a finalizer
         }
 
         /// <summary>
