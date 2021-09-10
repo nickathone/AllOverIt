@@ -7,7 +7,7 @@
         <Authors>Malcolm Smith</Authors>
         <Company></Company>
         <Copyright>Copyright © 2021</Copyright>
-        <Description>A wrapper for Newtonsoft serialization.</Description>
+        <Description>A wrapper for Newtonsoft.Json serialization.</Description>
         <PackageTags>utilities</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>

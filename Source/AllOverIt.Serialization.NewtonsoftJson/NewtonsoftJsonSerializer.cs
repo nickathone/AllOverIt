@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AllOverIt.Serialization.Newtonsoft
+namespace AllOverIt.Serialization.NewtonsoftJson
 {
     /// <summary>An implementation of <see cref="IJsonSerializer"/> using Newtonsoft.Json.</summary>
     public sealed class NewtonsoftJsonSerializer : IJsonSerializer
