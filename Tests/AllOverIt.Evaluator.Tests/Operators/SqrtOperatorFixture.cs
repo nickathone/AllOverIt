@@ -47,7 +47,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : SqrtOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Sqrt_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"Sqrt({_value})";
                 var expression = _operator.GetExpression();

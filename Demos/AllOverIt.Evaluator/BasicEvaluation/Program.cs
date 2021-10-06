@@ -8,7 +8,7 @@ namespace BasicEvaluation
     {
         static void Main(string[] args)
         {
-            var formulae = new[]
+            var formulas = new[]
             {
                 "11 + 77",
                 "11 - 77", 
@@ -19,15 +19,15 @@ namespace BasicEvaluation
                 "-(5 ^ 3 / (12 - 5) + 34.6) / (-423.3 / -.1) * 10 ^ 3", 
                 "round(2.45678, 3)", 
                 "sqrt(15)",
-                "log(19)",
-                "ln(2.7)", 
+                "log10(19)",
+                "log(2.7)", 
                 "exp(3)",
                 "10/0"
             };
 
             var compiler = new FormulaCompiler();
 
-            foreach(var item in formulae)
+            foreach(var item in formulas)
             {
                 var result = compiler.GetResult(item);
 

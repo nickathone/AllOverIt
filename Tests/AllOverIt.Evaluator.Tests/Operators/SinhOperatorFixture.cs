@@ -47,7 +47,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : SinhOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Ln_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"Sinh({_value})";
                 var expression = _operator.GetExpression();

@@ -1,16 +1,15 @@
 using AllOverIt.Evaluator.Variables;
-using System.Collections.Generic;
 
 namespace AllOverIt.Evaluator.Tests.Variables.Dummies
 {
-    internal class VariableBaseDummy : VariableBase
+    internal record VariableBaseDummy : VariableBase
     {
         private double _value;
 
         public override double Value => _value;
 
-        public VariableBaseDummy(string name, double value = default, IEnumerable<string> referencedVariableNames = null)
-          : base(name, referencedVariableNames)
+        public VariableBaseDummy(string name, double value = default)
+          : base(name)
         {
             SetValue(value);
         }

@@ -63,7 +63,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : AddOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Add_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"({_leftValue} + {_rightValue})";
                 var expression = _operator.GetExpression();

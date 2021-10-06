@@ -62,7 +62,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : PowerOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Power_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"({_leftValue} ** {_rightValue})";
                 var expression = _operator.GetExpression();

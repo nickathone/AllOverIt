@@ -47,7 +47,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : TanhOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Ln_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"Tanh({_value})";
                 var expression = _operator.GetExpression();

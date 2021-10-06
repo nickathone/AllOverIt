@@ -62,7 +62,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : PercentOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Percent_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"(({_leftValue} * 100) / {_rightValue})";
                 var expression = _operator.GetExpression();

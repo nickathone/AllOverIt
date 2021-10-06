@@ -1,57 +1,44 @@
 ﻿using AllOverIt.Evaluator.Exceptions;
 using AllOverIt.Evaluator.Operators;
-using AllOverIt.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace AllOverIt.Evaluator.Operations
 {
-    // Implements a factory used for registering and creating instances of an ArithmeticOperation that implements an associated operator.
-    // Refer to RegisterDefaultOperations() for the registered built-in operations.
-    // 
-    // This factory assumes a lower precedence value indicates a higher priority (refer to http://en.wikipedia.org/wiki/Order_of_operations).
+    /// <summary>A factory used for registering and creating instances of an ArithmeticOperation that implements an associated mathematical operator.
+    /// The factory assumes a lower precedence value indicates a higher priority (refer to http://en.wikipedia.org/wiki/Order_of_operations). </summary>
     public sealed class ArithmeticOperationFactory : IArithmeticOperationFactory
     {
-        internal IDictionary<string, Lazy<ArithmeticOperation>> Operations { get; }
+        private readonly IDictionary<string, Lazy<ArithmeticOperation>> _operations = new Dictionary<string, Lazy<ArithmeticOperation>>();
 
-        /// <summary>Initializes a new <c>ArithmeticOperationFactory</c> instance.</summary>
+        /// <inheritdoc />
+        public IEnumerable<string> RegisteredOperations => _operations.Keys;
+
+        /// <summary>Constructor.</summary>
         public ArithmeticOperationFactory()
-          : this(new Dictionary<string, Lazy<ArithmeticOperation>>())
         {
             RegisterDefaultOperations();
         }
 
-        internal ArithmeticOperationFactory(IDictionary<string, Lazy<ArithmeticOperation>> operations)
+        /// <inheritdoc />
+        public bool TryRegisterOperation(string symbol, int precedence, int argumentCount, Func<Expression[], IOperator> operatorCreator)
         {
-            Operations = operations.WhenNotNull(nameof(operations));
+            return TryRegisterOperation(symbol, precedence, argumentCount, operatorCreator, false);
         }
 
-        public bool IsCandidate(char symbol)
-        {
-            return Operations.Keys.Any(k => k.Contains(symbol));
-        }
-
-        public bool IsRegistered(string symbol)
-        {
-            return Operations.ContainsKey(symbol);
-        }
-
+        /// <inheritdoc />
+        /// <remarks>If the symbol is already registered then an OperationFactoryException will be raised.</remarks>
         public void RegisterOperation(string symbol, int precedence, int argumentCount, Func<Expression[], IOperator> operatorCreator)
         {
-            if (Operations.ContainsKey(symbol))
-            {
-                throw new OperationFactoryException($"Operation already registered for the '{symbol}' operator");
-            }
-
-            Operations[symbol] = new Lazy<ArithmeticOperation>(() => new ArithmeticOperation(precedence, argumentCount, operatorCreator));
+            TryRegisterOperation(symbol, precedence, argumentCount, operatorCreator, true);
         }
 
-        // Creates the operation instances on demand. Only one instance per type is ever created.
+        /// <inheritdoc />
+        /// <returns>Only one instance per type is ever created.</returns>
         public ArithmeticOperation GetOperation(string symbol)
         {
-            if (Operations.TryGetValue(symbol, out var result))
+            if (_operations.TryGetValue(symbol, out var result))
             {
                 return result.Value;
             }
@@ -69,6 +56,22 @@ namespace AllOverIt.Evaluator.Operations
             RegisterOperation("/", 3, 2, MakeDivideOperator);
             RegisterOperation("%", 3, 2, MakeModuloOperator);
             RegisterOperation("^", 2, 2, MakePowerOperator);
+        }
+
+        private bool TryRegisterOperation(string symbol, int precedence, int argumentCount, Func<Expression[], IOperator> operatorCreator, bool throwIfRegistered)
+        {
+            if (_operations.ContainsKey(symbol))
+            {
+                if (throwIfRegistered)
+                {
+                    throw new OperationFactoryException($"Operation already registered for the '{symbol}' operator");
+                }
+
+                return false;
+            }
+
+            _operations[symbol] = new Lazy<ArithmeticOperation>(() => new ArithmeticOperation(precedence, argumentCount, operatorCreator));
+            return true;
         }
 
         private static IOperator MakeAddOperator(Expression[] expressions)

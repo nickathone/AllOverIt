@@ -47,7 +47,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : AtanOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Ln_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"Atan({_value})";
                 var expression = _operator.GetExpression();

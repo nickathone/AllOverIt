@@ -47,7 +47,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : NegateOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Negate_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"-{_value}";
                 var expression = _operator.GetExpression();

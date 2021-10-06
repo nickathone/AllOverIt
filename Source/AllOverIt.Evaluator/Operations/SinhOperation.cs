@@ -3,15 +3,16 @@ using System.Linq.Expressions;
 
 namespace AllOverIt.Evaluator.Operations
 {
-    // An operation used to calculate the hyperbolic sine of an angle (in radians).
+    /// <summary>An operation used to calculate the hyperbolic sine of an angle (in radians).</summary>
     public sealed class SinhOperation : ArithmeticOperationBase
     {
+        /// <summary>Constructor.</summary>
         public SinhOperation()
             : base(1, MakeOperator)
         {
         }
 
-        internal static IOperator MakeOperator(Expression[] expressions)
+        private static IOperator MakeOperator(Expression[] expressions)
         {
             return OperatorBase.Create(expressions, e => new SinhOperator(e[0]));
         }

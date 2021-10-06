@@ -3,7 +3,6 @@ using AllOverIt.Evaluator.Tests.Variables.Dummies;
 using AllOverIt.Evaluator.Variables;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
-using AllOverIt.Fixture.FakeItEasy;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -21,33 +20,6 @@ namespace AllOverIt.Evaluator.Tests.Variables
             _registry = new VariableRegistry();
         }
 
-        public class Constructor : VariableRegistryFixture
-        {
-            [Fact]
-            public void Should_Throw_When_Variables_Null()
-            {
-                Invoking(() => _registry = new VariableRegistry(null))
-                    .Should()
-                    .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("variableRegistry");
-            }
-
-            [Fact]
-            public void Should_Assign_Variables()
-            {
-                var name = Create<string>();
-                var variables = new Dictionary<string, IVariable>();
-
-                var variable = new Fake<IVariable>();
-                variable.CallsTo(fake => fake.Name).Returns(name);
-
-                _registry = new VariableRegistry(variables);
-                _registry.AddVariable(variable.FakedObject);
-
-                variables.Should().BeEquivalentTo(new Dictionary<string, IVariable> { [name] = variable.FakedObject });
-            }
-        }
-
         public class AddVariable : VariableRegistryFixture
         {
             [Fact]
@@ -60,29 +32,6 @@ namespace AllOverIt.Evaluator.Tests.Variables
             }
 
             [Fact]
-            public void Should_Check_If_Variable_Exists()
-            {
-                var name = Create<string>();
-
-                var variable = new Fake<IVariable>();
-                variable.CallsTo(fake => fake.Name).Returns(name);
-
-                var variablesFake = new Fake<IDictionary<string, IVariable>>();
-
-                variablesFake
-                  .CallsTo(fake => fake.ContainsKey(name))
-                  .Returns(false);
-
-                _registry = new VariableRegistry(variablesFake.FakedObject);
-
-                _registry.AddVariable(variable.FakedObject);
-
-                variablesFake
-                  .CallsTo(fake => fake.ContainsKey(name))
-                  .MustHaveHappened(1, Times.Exactly);
-            }
-
-            [Fact]
             public void Should_Throw_When_Variable_Registered()
             {
                 const string name = "xyz";
@@ -90,13 +39,8 @@ namespace AllOverIt.Evaluator.Tests.Variables
                 var variable = new Fake<IVariable>();
                 variable.CallsTo(fake => fake.Name).Returns(name);
 
-                var variablesFake = new Fake<IDictionary<string, IVariable>>();
-
-                variablesFake
-                  .CallsTo(fake => fake.ContainsKey(name))
-                  .Returns(true);
-
-                _registry = new VariableRegistry(variablesFake.FakedObject);
+                _registry = new VariableRegistry();
+                _registry.AddVariable(variable.FakedObject);
 
                 Invoking(() => _registry.AddVariable(variable.FakedObject))
                     .Should()
@@ -107,16 +51,15 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Add_Variable()
             {
-                var variables = new Dictionary<string, IVariable>();
                 var name = Create<string>();
 
                 var variable = new Fake<IVariable>();
                 variable.CallsTo(fake => fake.Name).Returns(name);
 
-                _registry = new VariableRegistry(variables);
+                _registry = new VariableRegistry();
                 _registry.AddVariable(variable.FakedObject);
 
-                variables.Should().BeEquivalentTo(new Dictionary<string, IVariable> { [name] = variable.FakedObject });
+                _registry.Variables.Should().BeEquivalentTo(new Dictionary<string, IVariable> { [name] = variable.FakedObject });
             }
 
             [Fact]
@@ -168,27 +111,6 @@ namespace AllOverIt.Evaluator.Tests.Variables
                     .Should()
                     .Throw<VariableException>()
                     .WithMessage($"The variable '{name}' is not registered");
-            }
-
-            [Fact]
-            public void Should_Look_Up_Variable_In_Registry()
-            {
-                var name = Create<string>();
-
-                var variable = this.CreateStub<IVariable>();
-
-                var variablesFake = new Fake<IDictionary<string, IVariable>>();
-
-                variablesFake.CallsTo(fake => fake.TryGetValue(name, out variable))
-                  .Returns(true);
-
-                _registry = new VariableRegistry(variablesFake.FakedObject);
-
-                _registry.GetValue(name);
-
-                variablesFake
-                  .CallsTo(fake => fake.TryGetValue(name, out variable))
-                  .MustHaveHappened(1, Times.Exactly);
             }
 
             [Fact]
@@ -250,39 +172,13 @@ namespace AllOverIt.Evaluator.Tests.Variables
             }
 
             [Fact]
-            public void Should_Look_Up_Variable_In_Registry()
-            {
-                var name = Create<string>();
-                IVariable variable = this.CreateStub<IMutableVariable>();
-
-                var variablesFake = new Fake<IDictionary<string, IVariable>>();
-
-                variablesFake
-                  .CallsTo(fake => fake.TryGetValue(name, out variable))
-                  .Returns(true);
-
-                _registry = new VariableRegistry(variablesFake.FakedObject);
-
-                _registry.SetValue(name, Create<double>());
-
-                variablesFake
-                  .CallsTo(fake => fake.TryGetValue(name, out variable))
-                  .MustHaveHappened(1, Times.Exactly);
-            }
-
-            [Fact]
             public void Should_Throw_When_Not_Mutable()
             {
                 var name = Create<string>();
-                IVariable variable;
+                var variable = new ConstantVariable(name);
 
-                var variablesFake = new Fake<IDictionary<string, IVariable>>();
-
-                variablesFake
-                  .CallsTo(fake => fake.TryGetValue(name, out variable))
-                  .Returns(true);
-
-                _registry = new VariableRegistry(variablesFake.FakedObject);
+                _registry = new VariableRegistry();
+                _registry.AddVariable(variable);
 
                 Invoking(() => _registry.SetValue(name, Create<double>()))
                     .Should()

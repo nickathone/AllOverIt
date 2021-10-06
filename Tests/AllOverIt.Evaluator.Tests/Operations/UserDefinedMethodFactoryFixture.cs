@@ -14,23 +14,13 @@ namespace AllOverIt.Evaluator.Tests.Operations
 
         public class Constructor : UserDefinedMethodFactoryFixture
         {
-            [Fact]
-            public void Should_Registry_Built_In_Methods()
-            {
-                var registry = new Dictionary<string, Lazy<ArithmeticOperationBase>>();
-                _factory = new UserDefinedMethodFactory(registry);
-
-                registry.Keys.Should().BeEquivalentTo(new[]
-                {
-                    "ROUND", "SQRT", "LOG", "LN", "EXP", "PERC", "SIN", "COS", "TAN", "SINH", "COSH", "TANH", "ASIN", "ACOS", "ATAN"
-                });
-            }
-
             [Theory]
             [InlineData("ROUND", typeof(RoundOperation))]
             [InlineData("SQRT", typeof(SqrtOperation))]
+            [InlineData("CBRT", typeof(CubeRootOperation))]
+            [InlineData("LOG10", typeof(Log10Operation))]
+            [InlineData("LOG2", typeof(Log2Operation))]
             [InlineData("LOG", typeof(LogOperation))]
-            [InlineData("LN", typeof(LnOperation))]
             [InlineData("EXP", typeof(ExpOperation))]
             [InlineData("PERC", typeof(PercentOperation))]
             [InlineData("SIN", typeof(SinOperation))]
@@ -42,13 +32,17 @@ namespace AllOverIt.Evaluator.Tests.Operations
             [InlineData("ASIN", typeof(AsinOperation))]
             [InlineData("ACOS", typeof(AcosOperation))]
             [InlineData("ATAN", typeof(AtanOperation))]
+            [InlineData("MIN", typeof(MinOperation))]
+            [InlineData("MAX", typeof(MaxOperation))]
+            [InlineData("ABS", typeof(AbsOperation))]
+            [InlineData("CEIL", typeof(CeilingOperation))]
+            [InlineData("FLOOR", typeof(FloorOperation))]
             public void Should_Registry_Built_In_Method_Operations(string name, Type operationType)
             {
-                var registry = new Dictionary<string, Lazy<ArithmeticOperationBase>>();
-                _factory = new UserDefinedMethodFactory(registry);
+                _factory = new UserDefinedMethodFactory();
 
                 // only here to make sure the test cases are updated if a new operation is added
-                registry.Keys.Should().HaveCount(15);
+                _factory.RegisteredMethods.Should().HaveCount(22);
 
                 var operation = _factory.GetMethod(name);
 
@@ -135,7 +129,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
                 Invoking(() => _factory.GetMethod(name))
                     .Should()
                     .Throw<KeyNotFoundException>()
-                    .WithMessage($"The given key '{name}' was not present in the dictionary.");
+                    .WithMessage($"The '{name}' method is not registered with the {nameof(UserDefinedMethodFactory)}.");
             }
         }
     }

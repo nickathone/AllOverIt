@@ -13,7 +13,6 @@ namespace AllOverIt.Evaluator.Tests.Variables
 
         private readonly string _name;
         private double _value;
-        private readonly IEnumerable<string> _referencedVariableNames;
         private readonly bool _threadSafe;
         private LazyVariable _variable;
 
@@ -21,9 +20,8 @@ namespace AllOverIt.Evaluator.Tests.Variables
         {
             _name = Create<string>();
             _value = Create<double>();
-            _referencedVariableNames = CreateMany<string>();
             _threadSafe = Create<bool>();
-            _variable = new LazyVariable(_name, () => _value, _referencedVariableNames, _threadSafe);
+            _variable = new LazyVariable(_name, () => _value, _threadSafe);
         }
 
         public class Constructor : LazyVariableFixture
@@ -31,7 +29,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Throw_When_Name_Null()
             {
-                Invoking(() => _variable = new LazyVariable(null, () => _value, null, Create<bool>()))
+                Invoking(() => _variable = new LazyVariable(null, () => _value, Create<bool>()))
                     .Should()
                     .Throw<ArgumentNullException>()
                     .WithNamedMessageWhenNull("name");
@@ -40,7 +38,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Throw_When_Name_Empty()
             {
-                Invoking(() => _variable = new LazyVariable(string.Empty, () => _value, null, Create<bool>()))
+                Invoking(() => _variable = new LazyVariable(string.Empty, () => _value, Create<bool>()))
                     .Should()
                     .Throw<ArgumentException>()
                     .WithNamedMessageWhenEmpty("name");
@@ -49,7 +47,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Throw_When_Name_Whitespace()
             {
-                Invoking(() => _variable = new LazyVariable(" ", () => _value, null, Create<bool>()))
+                Invoking(() => _variable = new LazyVariable(" ", () => _value, Create<bool>()))
                     .Should()
                     .Throw<ArgumentException>()
                     .WithNamedMessageWhenEmpty("name");
@@ -58,18 +56,10 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Throw_When_Func_Null()
             {
-                Invoking(() => _variable = new LazyVariable(Create<string>(), null))
+                Invoking(() => _variable = new LazyVariable(Create<string>(), (Func<double>)null))
                     .Should()
                     .Throw<ArgumentNullException>()
                     .WithNamedMessageWhenNull("valueResolver");
-            }
-
-            [Fact]
-            public void Should_Not_Throw_When_ReferencedVariableNames_Null()
-            {
-                Invoking(() => _variable = new LazyVariable(Create<string>(), () => _value, null))
-                    .Should()
-                    .NotThrow();
             }
 
             [Fact]
@@ -80,55 +70,9 @@ namespace AllOverIt.Evaluator.Tests.Variables
                     Name = _name,
                     Value = _value,
                     VariableRegistry = default(IVariableRegistry),
-                    ThreadSafe = _threadSafe,
+                    //ThreadSafe = _threadSafe,
                     ReferencedVariables = default(IEnumerable<string>)
                 }, option => option.Excluding(prop => prop.ReferencedVariables));
-            }
-
-            [Fact]
-            public void Should_Return_Empty_ReferencedVariables()
-            {
-                _variable = new LazyVariable(Create<string>(), () => _value, null, _threadSafe)
-                {
-                    VariableRegistry = new VariableRegistry()
-                };
-
-                _variable.ReferencedVariables.Should().BeEmpty();
-            }
-
-            [Fact]
-            public void Should_Throw_If_No_VariableRegistry_When_Get_ReferencedVariables()
-            {
-                _variable = new LazyVariable(Create<string>(), () => _value, null, _threadSafe);
-
-                Invoking(() => { _ = _variable.ReferencedVariables; })
-                    .Should()
-                    .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("variableRegistry");
-            }
-
-            [Fact]
-            public void Should_Resolve_Variables()
-            {
-                var variables = new List<IVariable>();
-                var variableRegistry = new VariableRegistry();
-
-                foreach (var name in _referencedVariableNames)
-                {
-                    var variable = new ConstantVariable(name);
-                    variables.Add(variable);
-
-                    variableRegistry.AddVariable(variable);
-                }
-
-                _variable = new LazyVariable(Create<string>(), () => _value, _referencedVariableNames, _threadSafe)
-                {
-                    VariableRegistry = variableRegistry
-                };
-
-                var referencedVariables = _variable.ReferencedVariables;
-
-                referencedVariables.Should().BeEquivalentTo(variables);
             }
 
             [Fact]

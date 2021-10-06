@@ -47,7 +47,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : ExpOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Exp_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"Exp({_value})";
                 var expression = _operator.GetExpression();

@@ -48,7 +48,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : AsinOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Ln_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"Asin({_value})";
                 var expression = _operator.GetExpression();

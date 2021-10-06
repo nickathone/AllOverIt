@@ -64,7 +64,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
           : DivideOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Divide_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"({_leftValue} / {_rightValue})";
                 var expression = _operator.GetExpression();

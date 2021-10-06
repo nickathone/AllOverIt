@@ -4,20 +4,26 @@ using System.Linq.Expressions;
 
 namespace AllOverIt.Evaluator.Operators
 {
-    // An expression operator that operates on two operands.
+    /// <summary>An expression operator that operates on two operands.</summary>
     public abstract class BinaryOperator : Operator<Func<Expression, Expression, Expression>>
     {
-        internal Expression LeftOperand { get; }
-        internal Expression RightOperand { get; }
+        internal readonly Expression LeftOperand;
+        internal readonly Expression RightOperand;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="operatorType"></param>
+        /// <param name="leftOperand">The left operand (argument) of the operator.</param>
+        /// <param name="rightOperand">The right operand (argument) of the operator.</param>
         protected BinaryOperator(Func<Expression, Expression, Expression> operatorType, Expression leftOperand, Expression rightOperand)
-          : base(operatorType)
+            : base(operatorType)
         {
             LeftOperand = leftOperand.WhenNotNull(nameof(leftOperand));
             RightOperand = rightOperand.WhenNotNull(nameof(rightOperand));
         }
 
-        // Gets an Expression that is the result of invoking the operator.
+        /// <inheritdoc />
         public override Expression GetExpression()
         {
             return OperatorType.Invoke(LeftOperand, RightOperand);

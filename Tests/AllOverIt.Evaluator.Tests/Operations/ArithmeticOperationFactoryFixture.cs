@@ -3,10 +3,8 @@ using AllOverIt.Evaluator.Operations;
 using AllOverIt.Evaluator.Operators;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.FakeItEasy;
-using FakeItEasy;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
@@ -15,9 +13,9 @@ namespace AllOverIt.Evaluator.Tests.Operations
 {
     public class ArithmeticOperationFactoryFixture : FixtureBase
     {
-        private ArithmeticOperationFactory _operationFactory;
+        private readonly ArithmeticOperationFactory _operationFactory;
 
-        public ArithmeticOperationFactoryFixture()
+        protected ArithmeticOperationFactoryFixture()
         {
             _operationFactory = new ArithmeticOperationFactory();
         }
@@ -25,20 +23,10 @@ namespace AllOverIt.Evaluator.Tests.Operations
         public class Constructor : ArithmeticOperationFactoryFixture
         {
             [Fact]
-            public void Should_Call_RegisterDefaultOperations()
+            public void Should_Register_Default_Operations()
             {
                 var expected = new[] { "+", "-", "*", "/", "%", "^" };
-                _operationFactory.Operations.Keys.Should().BeEquivalentTo(expected);
-            }
-
-            [Fact]
-            public void Should_Assign_Operations()
-            {
-                var operations = new Dictionary<string, Lazy<ArithmeticOperation>>();
-
-                _operationFactory = new ArithmeticOperationFactory(operations);
-
-                _operationFactory.Operations.Should().BeSameAs(operations);
+                _operationFactory.RegisteredOperations.Should().BeEquivalentTo(expected);
             }
         }
 
@@ -95,48 +83,18 @@ namespace AllOverIt.Evaluator.Tests.Operations
             }
         }
 
-        public class IsCandidate : ArithmeticOperationFactoryFixture
-        {
-            public IsCandidate()
-            {
-                var operations = new Dictionary<string, Lazy<ArithmeticOperation>>
-                {
-                    ["abcdef"] = new Lazy<ArithmeticOperation>()
-                };
-
-                _operationFactory = new ArithmeticOperationFactory(operations);
-            }
-
-            [Fact]
-            public void Should_Succeed_For_Registered_Operator()
-            {
-                var result = _operationFactory.IsCandidate('a');
-
-                result.Should().BeTrue();
-            }
-
-            [Fact]
-            public void Should_Fail_For_Registered_Operator()
-            {
-                var result = _operationFactory.IsCandidate('z');
-
-                result.Should().BeFalse();
-            }
-        }
-
-        public class IsRegistered : ArithmeticOperationFactoryFixture
+        public class TryRegisterOperation : ArithmeticOperationFactoryFixture
         {
             [Fact]
-            public void Should_Call_Operations_ContainsKey()
+            public void Should_Not_Register_Duplicate_Operation()
             {
-                var operationFake = this.CreateStub<IDictionary<string, Lazy<ArithmeticOperation>>>();
-                var operation = Create<string>();
+                IOperator Creator(Expression[] e) => this.CreateStub<IOperator>();
 
-                _operationFactory = new ArithmeticOperationFactory(operationFake);
+                _operationFactory.RegisterOperation("xyz", Create<int>(), Create<int>(), Creator);
 
-                _operationFactory.IsRegistered(operation);
+                var actual = _operationFactory.TryRegisterOperation("xyz", Create<int>(), Create<int>(), Creator);
 
-                A.CallTo(() => operationFake.ContainsKey(operation)).MustHaveHappened(1, Times.Exactly);
+                actual.Should().BeFalse();
             }
         }
 
@@ -173,7 +131,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
                 {
                     ArgumentCount = arguments,
                     Precedence = precedence,
-                    Creator = (Func<Expression[], IOperator>)Creator
+                    Creator = (Func<Expression[], IOperator>) Creator
                 });
             }
         }

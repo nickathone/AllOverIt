@@ -62,7 +62,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : RoundOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Round_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"Round({_value}, Convert({_decimals}, Int32), AwayFromZero)";
                 var expression = _operator.GetExpression();

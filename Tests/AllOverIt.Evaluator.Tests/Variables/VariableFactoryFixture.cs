@@ -16,14 +16,12 @@ namespace AllOverIt.Evaluator.Tests.Variables
     {
         private string _name;
         private readonly double _value;
-        private readonly IEnumerable<string> _referencedVariableNames;
         private readonly VariableFactory _variableFactory;
 
         public VariableFactoryFixture()
         {
             _name = Create<string>();
             _value = Create<double>();
-            _referencedVariableNames = CreateMany<string>();
             _variableFactory = new VariableFactory();
         }
 
@@ -70,7 +68,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Create_MutableVariable()
             {
-                var variable = _variableFactory.CreateMutableVariable(_name, _value, _referencedVariableNames);
+                var variable = _variableFactory.CreateMutableVariable(_name, _value);
 
                 variable.Should().BeOfType<MutableVariable>();
             }
@@ -78,7 +76,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Set_Variable_Members()
             {
-                var variable = _variableFactory.CreateMutableVariable(_name, _value, _referencedVariableNames);
+                var variable = _variableFactory.CreateMutableVariable(_name, _value);
 
                 variable.Should().BeEquivalentTo(new
                 {
@@ -121,7 +119,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Create_ConstantVariable()
             {
-                var variable = _variableFactory.CreateConstantVariable(_name, _value, _referencedVariableNames);
+                var variable = _variableFactory.CreateConstantVariable(_name, _value);
 
                 variable.Should().BeOfType<ConstantVariable>();
             }
@@ -172,7 +170,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Create_Func_Variable()
             {
-                var variable = _variableFactory.CreateDelegateVariable(_name, () => _value, _referencedVariableNames);
+                var variable = _variableFactory.CreateDelegateVariable(_name, () => _value);
 
                 variable.Should().BeEquivalentTo(new
                 {
@@ -188,7 +186,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Throw_When_Name_Null()
             {
-                Invoking(() => _variableFactory.CreateLazyVariable(null, () => _value, null, Create<bool>()))
+                Invoking(() => _variableFactory.CreateLazyVariable(null, () => _value, Create<bool>()))
                     .Should()
                     .Throw<ArgumentNullException>()
                     .WithNamedMessageWhenNull("name");
@@ -197,7 +195,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Throw_When_Name_Empty()
             {
-                Invoking(() => _variableFactory.CreateLazyVariable(string.Empty, () => _value, null, Create<bool>()))
+                Invoking(() => _variableFactory.CreateLazyVariable(string.Empty, () => _value, Create<bool>()))
                     .Should()
                     .Throw<ArgumentException>()
                     .WithNamedMessageWhenEmpty("name");
@@ -206,7 +204,7 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Throw_When_Name_Whitespace()
             {
-                Invoking(() => _variableFactory.CreateLazyVariable(" ", () => _value, null, Create<bool>()))
+                Invoking(() => _variableFactory.CreateLazyVariable(" ", () => _value, Create<bool>()))
                     .Should()
                     .Throw<ArgumentException>()
                     .WithNamedMessageWhenEmpty("name");
@@ -215,14 +213,12 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Create_Lazy_Variable()
             {
-                var threadSafe = Create<bool>();
-                var variable = _variableFactory.CreateLazyVariable(_name, () => _value, _referencedVariableNames, threadSafe);
+                var variable = _variableFactory.CreateLazyVariable(_name, () => _value, Create<bool>());
 
                 variable.Should().BeEquivalentTo(new
                 {
                     Name = _name,
                     Value = _value,
-                    ThreadSafe = threadSafe,
                     ReferencedVariables = default(IEnumerable<string>)
                 }, option => option.Excluding(prop => prop.ReferencedVariables));
             }

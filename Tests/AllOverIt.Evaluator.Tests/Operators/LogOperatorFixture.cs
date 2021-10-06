@@ -47,9 +47,9 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : LogOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Log_Expression()
+            public void Should_Generate_Expression()
             {
-                var expected = $"Log10({_value})";
+                var expected = $"Log({_value})";
                 var expression = _operator.GetExpression();
 
                 var actual = expression.ToString();

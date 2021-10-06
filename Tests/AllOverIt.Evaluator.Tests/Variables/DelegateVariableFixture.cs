@@ -12,14 +12,12 @@ namespace AllOverIt.Evaluator.Tests.Variables
     {
         private readonly string _name;
         private readonly double _value;
-        private readonly IEnumerable<string> _referencedVariableNames;
         private DelegateVariable _variable;
 
         public DelegateVariableFixture()
         {
             _name = Create<string>();
             _value = Create<double>();
-            _referencedVariableNames = CreateMany<string>();
             _variable = new DelegateVariable(_name, () => _value);
         }
 
@@ -55,18 +53,10 @@ namespace AllOverIt.Evaluator.Tests.Variables
             [Fact]
             public void Should_Throw_When_Func_Null()
             {
-                Invoking(() => _variable = new DelegateVariable(Create<string>(), null))
+                Invoking(() => _variable = new DelegateVariable(Create<string>(), (Func<double>)null))
                     .Should()
                     .Throw<ArgumentNullException>()
                     .WithNamedMessageWhenNull("valueResolver");
-            }
-
-            [Fact]
-            public void Should_Not_Throw_When_ReferencedVariableNames_Null()
-            {
-                Invoking(() => _variable = new DelegateVariable(Create<string>(), () => _value, null))
-                    .Should()
-                    .NotThrow();
             }
 
             [Fact]
@@ -79,52 +69,6 @@ namespace AllOverIt.Evaluator.Tests.Variables
                     VariableRegistry = default(IVariableRegistry),
                     ReferencedVariables = default(IEnumerable<string>)
                 }, option => option.Excluding(prop => prop.ReferencedVariables));
-            }
-
-            [Fact]
-            public void Should_Return_Empty_ReferencedVariables()
-            {
-                _variable = new DelegateVariable(Create<string>(), () => _value, null)
-                {
-                    VariableRegistry = new VariableRegistry()
-                };
-
-                _variable.ReferencedVariables.Should().BeEmpty();
-            }
-
-            [Fact]
-            public void Should_Throw_If_No_VariableRegistry_When_Get_ReferencedVariables()
-            {
-                _variable = new DelegateVariable(Create<string>(), () => _value, null);
-
-                Invoking(() => { _ = _variable.ReferencedVariables; })
-                    .Should()
-                    .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("variableRegistry");
-            }
-
-            [Fact]
-            public void Should_Resolve_Variables()
-            {
-                var variables = new List<IVariable>();
-                var variableRegistry = new VariableRegistry();
-
-                foreach (var name in _referencedVariableNames)
-                {
-                    var variable = new ConstantVariable(name);
-                    variables.Add(variable);
-
-                    variableRegistry.AddVariable(variable);
-                }
-
-                _variable = new DelegateVariable(Create<string>(), () => _value, _referencedVariableNames)
-                {
-                    VariableRegistry = variableRegistry
-                };
-
-                var referencedVariables = _variable.ReferencedVariables;
-
-                referencedVariables.Should().BeEquivalentTo(variables);
             }
 
             [Fact]

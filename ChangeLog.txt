@@ -1,10 +1,55 @@
+
+
+
+DATE HERE
 ======================================================================================================================
+AllOverIt.Evaluator - v3.0.0
+  * Dropped support for .NET Standard 2.0 (now using records).
+  * Major refactor to simplify the implementation (remove interfaces that would never be injected).
+  * Some memory optimization using ReadOnlySpan<char> in place of string where possible.
+  * Variables now auto-determine referenced and referencing variables when constructed from a FormulaCompilerResult.
+  * Added VariableRegistry extensions that allow variables to be added without the need for a VariableFactory.
+  * Added more built-in functions to the user-defined factory.
+  * BREAKING CHANGE: Renamed LN to LOG and the previous LOG is now LOG10.
+
+  Some benchmarking comparisons
+    v2.1.0
+    ===============================================================================================================================================
+    |                                                Method |          Mean |         Error |        StdDev |      Gen 0 |      Gen 1 | Allocated |
+    |------------------------------------------------------ |--------------:|--------------:|--------------:|-----------:|-----------:|----------:|
+    |                         AddTwoConstantsUsingGetResult |      87.53 us |      1.490 us |      2.137 us |     2.3193 |     1.0986 |     10 KB |
+    |               AddTwoConstantsUsingGetResult10000Times | 859,256.70 us | 16,929.193 us | 24,279.343 us | 23000.0000 | 11000.0000 | 96,069 KB |
+    |                          AddTwoVariablesUsingRegistry |     283.20 us |      2.996 us |      2.656 us |     1.9531 |     0.9766 |     10 KB |
+    |                AddTwoVariablesUsingRegistry10000Times |   1,015.74 us |     18.928 us |     30.022 us |     1.9531 |          - |     10 KB |
+    |                     EvalMultipleFormulaUsingGetResult |   1,476.29 us |     27.771 us |     25.977 us |    31.2500 |    15.6250 |    129 KB |
+    |         EvalMultipleFormulaUsingPreCompiled10000Times |   4,453.09 us |     67.878 us |     60.172 us |    31.2500 |    15.6250 |    130 KB |
+    |           CalculateDistancesAndAreaUsingHeronsFormula |   1,318.68 us |     17.600 us |     16.463 us |    23.4375 |    11.7188 |     98 KB |
+    | CalculateDistancesAndAreaUsingHeronsFormula10000Times |  22,584.05 us |    345.437 us |    323.122 us |          - |          - |     98 KB |
+
+    v3.0.0
+    ===============================================================================================================================================
+    |                                                Method |          Mean |         Error |       StdDev |      Gen 0 |     Gen 1 | Allocated |
+    |------------------------------------------------------ |--------------:|--------------:|-------------:|-----------:|----------:|----------:|
+    |                         AddTwoConstantsUsingGetResult |      80.57 us |      1.524 us |     1.565 us |     1.5259 |    0.7324 |      6 KB |
+    |               AddTwoConstantsUsingGetResult10000Times | 786,427.84 us | 10,934.927 us | 9,693.528 us | 15000.0000 | 7000.0000 | 62,627 KB |
+    |                          AddTwoVariablesUsingRegistry |     272.49 us |      5.437 us |     5.340 us |     1.9531 |    0.9766 |      8 KB |
+    |                AddTwoVariablesUsingRegistry10000Times |     989.56 us |     17.119 us |    16.013 us |     1.9531 |         - |      8 KB |
+    |                     EvalMultipleFormulaUsingGetResult |   1,348.59 us |     25.851 us |    25.389 us |    27.3438 |   13.6719 |    112 KB |
+    |         EvalMultipleFormulaUsingPreCompiled10000Times |   4,402.41 us |     54.111 us |    47.968 us |    23.4375 |    7.8125 |    112 KB |
+    |           CalculateDistancesAndAreaUsingHeronsFormula |   1,342.04 us |     18.159 us |    16.986 us |    21.4844 |    9.7656 |     90 KB |
+    | CalculateDistancesAndAreaUsingHeronsFormula10000Times |  23,097.20 us |    433.588 us |   384.364 us |          - |         - |     90 KB |
+
+
+
+
+======================================================================================================================
+
   Current AllOverIt Inter-Dependencies
 
   [1]  AllOverIt                               (v1.18.0) - None
   [2]  AllOverIt.Validation                    (v1.0.0)  - requires [1] v1.17.0
   [3]  AllOverIt.Aws.Cdk.AppSync               (v0.15.0) - requires [1] v1.17.3
-  [4]  AllOverIt.Evaluator                     (v2.1.0)  - requires [1] v1.11.0
+  [4]  AllOverIt.Evaluator                     (v3.0.0)  - requires [1] v1.17.3
   [5]  AllOverIt.GenericHost                   (v1.2.0)  - requires [1] v1.17.0
   [6]  AllOverIt.Fixture                       (v1.6.0)  - None
   [7]  AllOverIt.Fixture.FakeItEasy            (v1.4.0)  - requires [6] v1.6.0

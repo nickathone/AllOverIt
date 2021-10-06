@@ -32,7 +32,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
             public void Should_Assign_Members()
             {
                 var argumentCount = Create<int>();
-                
+
                 IOperator Creator(Expression[] e) => this.CreateStub<IOperator>();
 
                 _operation = new ArithmeticOperationDummy(argumentCount, Creator);
@@ -40,7 +40,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
                 _operation.Should().BeEquivalentTo(new
                 {
                     ArgumentCount = argumentCount,
-                    Creator = (Func<Expression[], IOperator>)Creator
+                    Creator = (Func<Expression[], IOperator>) Creator
                 });
             }
         }

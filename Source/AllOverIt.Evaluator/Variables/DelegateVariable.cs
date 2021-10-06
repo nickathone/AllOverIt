@@ -1,21 +1,37 @@
+using AllOverIt.Evaluator.Variables.Extensions;
 using AllOverIt.Helpers;
 using System;
-using System.Collections.Generic;
 
 namespace AllOverIt.Evaluator.Variables
 {
-    // Implements a read-only delegate based variable. Unlike ConstantVariable this variable type may change value between consecutive
-    // reads depending on the delegate's implementation.
-    public sealed class DelegateVariable : VariableBase
+    /// <summary>A delegate based variable that is re-evaluated each time the <see cref="Value"/> is read.</summary>
+    /// <remarks>For a delegate based variable that is only evaluated the first time the <see cref="Value"/> is read,
+    /// see <see cref="LazyVariable"/>.</remarks>
+    public sealed record DelegateVariable : VariableBase
     {
-        private Func<double> ValueResolver { get; }
-        public override double Value => ValueResolver.Invoke();
+        private readonly Func<double> _valueResolver;
 
-        // 'referencedVariableNames' is an optional list of variable names that this variable depends on to calculate its value.
-        public DelegateVariable(string name, Func<double> valueResolver, IEnumerable<string> referencedVariableNames = null)
-            : base(name, referencedVariableNames)
+        /// <summary>The current value of the variable. The value may change on each evaluation depending on how the
+        /// delegate is implemented.</summary>
+        public override double Value => _valueResolver.Invoke();
+
+        /// <summary>Constructor.</summary>
+        /// <param name="name">The variable's name.</param>
+        /// <param name="valueResolver">The delegate to invoke each time the <see cref="Value"/> is read.</param>
+        public DelegateVariable(string name, Func<double> valueResolver)
+            : base(name)
         {
-            ValueResolver = valueResolver.WhenNotNull(nameof(valueResolver));
+            _valueResolver = valueResolver.WhenNotNull(nameof(valueResolver));
+        }
+
+        /// <summary>Constructor.</summary>
+        /// <param name="name">The variable's name.</param>
+        /// <param name="compilerResult">The compiled result of a formula. The associated resolver will be re-evaluated
+        /// each time the <see cref="Value"/> is read.</param>
+        public DelegateVariable(string name, FormulaCompilerResult compilerResult)
+            : this(name, compilerResult.Resolver)
+        {
+            ReferencedVariables = compilerResult.GetReferencedVariables();
         }
     }
 }

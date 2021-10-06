@@ -62,7 +62,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
         public class GetExpression : SubtractOperatorFixture
         {
             [Fact]
-            public void Should_Generate_Subtract_Expression()
+            public void Should_Generate_Expression()
             {
                 var expected = $"({_leftValue} - {_rightValue})";
                 var expression = _operator.GetExpression();
