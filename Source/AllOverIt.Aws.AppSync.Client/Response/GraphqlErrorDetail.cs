@@ -12,7 +12,7 @@ namespace AllOverIt.Aws.AppSync.Client.Response
         public string ErrorType { get; init; }
 
         /// <summary>Additional error information.</summary>
-        public object[] ErrorInfo { get; init; }
+        public object ErrorInfo { get; init; }
 
         /// <summary>A description for the reported error.</summary>
         public string Message { get; init; }
