@@ -3,6 +3,7 @@ using System;
 
 namespace AllOverIt.Evaluator.Variables.Extensions
 {
+    /// <summary>Provides a variety of <see cref="IVariableRegistry"/> extensions.</summary>
     public static class VariableRegistryExtensions
     {
         /// <summary>Adds a variable to a variable registry.</summary>

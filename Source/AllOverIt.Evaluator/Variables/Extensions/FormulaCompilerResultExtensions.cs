@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace AllOverIt.Evaluator.Variables.Extensions
 {
+    /// <summary>Provides a variety of <see cref="FormulaCompilerResult"/> extensions.</summary>
     public static class FormulaCompilerResultExtensions
     {
         /// <summary>Gets all referenced variables for a compiled formula.</summary>

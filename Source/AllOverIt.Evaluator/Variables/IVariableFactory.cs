@@ -31,6 +31,7 @@ namespace AllOverIt.Evaluator.Variables
         /// <summary>Creates a new lazily-evaluated delegate variable.</summary>
         /// <param name="name">The name to be assigned to the variable.</param>
         /// <param name="valueResolver">The initial lazily-evaluated delegate to be assigned to the variable.</param>
+        /// <param name="threadSafe">Indicates if the underlying lazy-evaluator should evaluate in a thread safe manner.</param>
         /// <returns>The new variable instance.</returns>
         ILazyVariable CreateLazyVariable(string name, Func<double> valueResolver, bool threadSafe = false);
 

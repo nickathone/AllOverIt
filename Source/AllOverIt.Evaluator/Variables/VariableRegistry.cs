@@ -9,6 +9,8 @@ namespace AllOverIt.Evaluator.Variables
     public sealed class VariableRegistry : IVariableRegistry
     {
         private readonly IDictionary<string, IVariable> _variableRegistry = new Dictionary<string, IVariable>();
+
+        /// <summary>Contains a key-value collection of all registered variables, keyed by their name.</summary>
         public IEnumerable<KeyValuePair<string, IVariable>> Variables => _variableRegistry;
 
         /// <inheritdoc />

@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace AllOverIt.Evaluator.Variables.Extensions
 {
+    /// <summary>Provides a variety of <see cref="IVariable"/> extensions.</summary>
     public static class VariableExtensions
     {
         /// <summary>Associates a variable with the specified variable registry if it inherits from VariableBase.</summary>

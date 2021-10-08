@@ -20,7 +20,7 @@ namespace AllOverIt.Evaluator.Variables
         /// <summary>Constructor.</summary>
         /// <param name="name">The variable's name.</param>
         /// <param name="valueResolver">The delegate to invoke the first time <see cref="Value"/> is read.</param>
-        /// <param name="threadSafe">Indicates if the underlying lazy-evaluator should evaluate in a thread safe ammner.</param>
+        /// <param name="threadSafe">Indicates if the underlying lazy-evaluator should evaluate in a thread safe manner.</param>
         public LazyVariable(string name, Func<double> valueResolver, bool threadSafe = false)
             : base(name)
         {

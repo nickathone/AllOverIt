@@ -39,6 +39,7 @@ namespace AllOverIt.Evaluator.Operations
         // unique to each instance created (unless created as a Singleton of course) - created when the first method is registered
         private IDictionary<string, Lazy<ArithmeticOperationBase>> _userMethodsRegistry;
 
+        /// <summary>Provides a list of all built-in and custom registered methods.</summary>
         public IEnumerable<string> RegisteredMethods => BuiltInMethodsRegistry.Keys
             .Concat(_userMethodsRegistry?.Keys ?? Enumerable.Empty<string>())
             .AsReadOnlyCollection();
