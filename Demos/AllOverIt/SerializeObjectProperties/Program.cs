@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Extensions;
 using AllOverIt.Helpers;
-using AllOverIt.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +13,12 @@ namespace SerializeObjectProperties
         {
             try
             {
-                var serializer = new ObjectPropertySerializationHelper { IncludeEmptyCollections = true, IncludeNulls = true };
-                serializer.BindingOptions = BindingOptions.Default;
+                var serializer = new ObjectPropertySerializer();
 
                 SerializeObject(serializer);
+
+                Console.WriteLine();
+                SerializeFilteredObject(serializer);
 
                 Console.WriteLine();
                 SerializeDictionary1(serializer);
@@ -38,7 +39,7 @@ namespace SerializeObjectProperties
             Console.ReadKey();
         }
 
-        private static void SerializeObject(ObjectPropertySerializationHelper serializer)
+        private static void SerializeObject(ObjectPropertySerializer serializer)
         {
             var dummy1 = new Dummy();
             var dummy2 = new Dummy { Prop11 = dummy1 };
@@ -133,7 +134,66 @@ namespace SerializeObjectProperties
             }
         }
 
-        private static void SerializeDictionary1(ObjectPropertySerializationHelper serializer)
+        private static void SerializeFilteredObject(ObjectPropertySerializer serializer)
+        {
+            var complexObject = new ComplexObject
+            {
+                Items = new ComplexObject.Item[]
+                {
+                    new()
+                    {
+                        Name = "Name 1",
+                        Factor = 1.1,
+                        Data = new ComplexObject.Item.ItemData
+                        {
+                            Timestamp = DateTime.Now,
+                            Values = Enumerable.Range(1, 5).SelectAsReadOnlyCollection(value => value)
+                        }
+                    },
+                    new()
+                    {
+                        Name = "Name 2",
+                        Factor = 2.2,
+                        Data = new ComplexObject.Item.ItemData
+                        {
+                            Timestamp = DateTime.Now,
+                            Values = Enumerable.Range(11, 5).SelectAsReadOnlyCollection(value => value)
+                        }
+                    },
+                    new()
+                    {
+                        Name = "Name 3",
+                        Factor = 3.3,
+                        Data = new ComplexObject.Item.ItemData
+                        {
+                            Timestamp = DateTime.Now,
+                            Values = Enumerable.Range(21, 5).SelectAsReadOnlyCollection(value => value)
+                        }
+                    },
+                }
+            };
+
+            serializer.Options.Filter = new ComplexObjectFilter();
+
+            try
+            {
+                Console.WriteLine("Complex Object serialization values:");
+                Console.WriteLine("====================================");
+
+                var items = serializer.SerializeToDictionary(complexObject).Select(kvp => $"{kvp.Key} = {kvp.Value}");
+
+                foreach (var item in items)
+                {
+                    Console.WriteLine($"  {item}");
+                }
+            }
+            finally
+            {
+                serializer.Options.Filter = null;
+            }
+        }
+
+        private static void SerializeDictionary1(ObjectPropertySerializer serializer)
         {
             var dictionary = new Dictionary<string, int>
             {
@@ -146,14 +206,15 @@ namespace SerializeObjectProperties
             Console.WriteLine("Dictionary #1 serialization values:");
             Console.WriteLine("===================================");
 
-            var items2 = serializer.SerializeToDictionary(dictionary).Select(kvp => $"{kvp.Key} = {kvp.Value}");
-            foreach (var item in items2)
+            var items = serializer.SerializeToDictionary(dictionary).Select(kvp => $"{kvp.Key} = {kvp.Value}");
+
+            foreach (var item in items)
             {
                 Console.WriteLine($"  {item}");
             }
         }
 
-        private static void SerializeDictionary2(ObjectPropertySerializationHelper serializer)
+        private static void SerializeDictionary2(ObjectPropertySerializer serializer)
         {
             var dictionary = new Dictionary<TypedDummy<bool>, int>
             {
@@ -167,22 +228,24 @@ namespace SerializeObjectProperties
             Console.WriteLine("Dictionary #2 serialization values:");
             Console.WriteLine("===================================");
 
-            var items2 = serializer.SerializeToDictionary(dictionary).Select(kvp => $"{kvp.Key} = {kvp.Value}");
-            foreach (var item in items2)
+            var items = serializer.SerializeToDictionary(dictionary).Select(kvp => $"{kvp.Key} = {kvp.Value}");
+
+            foreach (var item in items)
             {
                 Console.WriteLine($"  {item}");
             }
         }
 
-        private static void SerializeList(ObjectPropertySerializationHelper serializer)
+        private static void SerializeList(ObjectPropertySerializer serializer)
         {
             var list = Enumerable.Range(1, 4).Select(value => $"Value {value}").ToList();
 
             Console.WriteLine("List serialization values:");
             Console.WriteLine("==========================");
 
-            var items3 = serializer.SerializeToDictionary(list).Select(kvp => $"{kvp.Key} = {kvp.Value}");
-            foreach (var item in items3)
+            var items = serializer.SerializeToDictionary(list).Select(kvp => $"{kvp.Key} = {kvp.Value}");
+
+            foreach (var item in items)
             {
                 Console.WriteLine($"  {item}");
             }
