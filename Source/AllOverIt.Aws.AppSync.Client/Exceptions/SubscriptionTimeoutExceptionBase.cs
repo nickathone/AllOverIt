@@ -18,17 +18,21 @@ namespace AllOverIt.Aws.AppSync.Client.Exceptions
             Id = id;
         }
 
+        /// <summary>Constructor required for serialization.</summary>
+        /// <param name="info">Stores the data required for serialization and deserialization.</param>
+        /// <param name="context">Describes the source and destination of a given serialized stream.</param>
+        protected SubscriptionTimeoutExceptionBase(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+            Id = info.GetString("Id");
+        }
+
+        /// <inheritdoc />
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
 
             base.GetObjectData(info, context);
-        }
-
-        protected SubscriptionTimeoutExceptionBase(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            Id = info.GetString("Id");
         }
     }
 }

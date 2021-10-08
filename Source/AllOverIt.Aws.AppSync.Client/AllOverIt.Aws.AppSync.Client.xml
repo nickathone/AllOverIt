@@ -184,6 +184,9 @@
             <param name="errors">When not null, this provides all graphql errors associated with the query or mutation request.</param>
             <param name="content">The raw HTT response content returned.</param>
         </member>
+        <member name="M:AllOverIt.Aws.AppSync.Client.Exceptions.GraphqlHttpRequestException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
+        </member>
         <member name="T:AllOverIt.Aws.AppSync.Client.Exceptions.SubscribeTimeoutException">
             <summary>This exception is raised when a subscription request does not complete within a period defined on the connection options.</summary>
         </member>
@@ -203,6 +206,14 @@
             <param name="id">The unique Id for the subscription that timed out.</param>
             <param name="timeout">The timeout period that expired.</param>
         </member>
+        <member name="M:AllOverIt.Aws.AppSync.Client.Exceptions.SubscriptionTimeoutExceptionBase.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Constructor required for serialization.</summary>
+            <param name="info">Stores the data required for serialization and deserialization.</param>
+            <param name="context">Describes the source and destination of a given serialized stream.</param>
+        </member>
+        <member name="M:AllOverIt.Aws.AppSync.Client.Exceptions.SubscriptionTimeoutExceptionBase.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
+        </member>
         <member name="T:AllOverIt.Aws.AppSync.Client.Exceptions.TimeoutExceptionBase">
             <summary>A base class for all graphql related timeout based exceptions.</summary>
         </member>
@@ -212,6 +223,14 @@
         <member name="M:AllOverIt.Aws.AppSync.Client.Exceptions.TimeoutExceptionBase.#ctor(System.TimeSpan)">
             <summary>Constructor.</summary>
             <param name="timeout">The timeout period that expired.</param>
+        </member>
+        <member name="M:AllOverIt.Aws.AppSync.Client.Exceptions.TimeoutExceptionBase.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Constructor required for serialization.</summary>
+            <param name="info">Stores the data required for serialization and deserialization.</param>
+            <param name="context">Describes the source and destination of a given serialized stream.</param>
+        </member>
+        <member name="M:AllOverIt.Aws.AppSync.Client.Exceptions.TimeoutExceptionBase.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
         </member>
         <member name="T:AllOverIt.Aws.AppSync.Client.Exceptions.UnsubscribeTimeoutException">
             <summary>This exception is raised when a request to unsubscribe a subscription does not complete within a period defined on the connection options.</summary>
@@ -233,6 +252,9 @@
         <member name="M:AllOverIt.Aws.AppSync.Client.Exceptions.WebSocketConnectionException.#ctor(AllOverIt.Aws.AppSync.Client.Response.WebSocketGraphqlResponse{AllOverIt.Aws.AppSync.Client.Response.GraphqlError})">
             <summary>Constructor.</summary>
             <param name="error">The error payload reported by AppSync.</param>
+        </member>
+        <member name="M:AllOverIt.Aws.AppSync.Client.Exceptions.WebSocketConnectionException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
         </member>
         <member name="T:AllOverIt.Aws.AppSync.Client.Exceptions.WebSocketConnectionLostException">
             <summary>This exception is raised when there was an expectation that a WebSocket is available but found to be

@@ -32,6 +32,7 @@ namespace AllOverIt.Aws.AppSync.Client.Exceptions
             Content = content;
         }
 
+        /// <inheritdoc />
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue(nameof(StatusCode), StatusCode);

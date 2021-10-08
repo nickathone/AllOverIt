@@ -25,6 +25,7 @@ namespace AllOverIt.Aws.AppSync.Client.Exceptions
             Errors = error.Payload.Errors.AsReadOnlyCollection();
         }
 
+        /// <inheritdoc />
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue(nameof(ErrorType), ErrorType);

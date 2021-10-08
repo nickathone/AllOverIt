@@ -480,6 +480,9 @@
             <para>FLOOR: Returns the largest integral value greater than or equal to a given number.</para>
             </remarks>
         </member>
+        <member name="P:AllOverIt.Evaluator.Operations.UserDefinedMethodFactory.RegisteredMethods">
+            <summary>Provides a list of all built-in and custom registered methods.</summary>
+        </member>
         <member name="M:AllOverIt.Evaluator.Operations.UserDefinedMethodFactory.RegisterMethod``1(System.String)">
             <summary>Registers an operation type that provides the implementation for a named method.</summary>
             <typeparam name="TOperationType">The type implementing the registered method.</typeparam>
@@ -799,10 +802,16 @@
             <param name="compilerResult">The compiled result of a formula. The associated resolver will be re-evaluated
             each time the <see cref="P:AllOverIt.Evaluator.Variables.DelegateVariable.Value"/> is read.</param>
         </member>
+        <member name="T:AllOverIt.Evaluator.Variables.Extensions.FormulaCompilerResultExtensions">
+            <summary>Provides a variety of <see cref="T:AllOverIt.Evaluator.FormulaCompilerResult"/> extensions.</summary>
+        </member>
         <member name="M:AllOverIt.Evaluator.Variables.Extensions.FormulaCompilerResultExtensions.GetReferencedVariables(AllOverIt.Evaluator.FormulaCompilerResult)">
             <summary>Gets all referenced variables for a compiled formula.</summary>
             <param name="compilerResult">The compiled formula result.</param>
             <returns>All referenced variables for a compiled formula.</returns>
+        </member>
+        <member name="T:AllOverIt.Evaluator.Variables.Extensions.VariableExtensions">
+            <summary>Provides a variety of <see cref="T:AllOverIt.Evaluator.Variables.IVariable"/> extensions.</summary>
         </member>
         <member name="M:AllOverIt.Evaluator.Variables.Extensions.VariableExtensions.SetVariableRegistry(AllOverIt.Evaluator.Variables.IVariable,AllOverIt.Evaluator.Variables.IVariableRegistry)">
             <summary>Associates a variable with the specified variable registry if it inherits from VariableBase.</summary>
@@ -812,6 +821,9 @@
         </member>
         <member name="M:AllOverIt.Evaluator.Variables.Extensions.VariableExtensions.GetAllReferencedVariables(AllOverIt.Evaluator.Variables.IVariable)">
             <summary>Gets all variables referenced by the variable (explicit and implicit).</summary>
+        </member>
+        <member name="T:AllOverIt.Evaluator.Variables.Extensions.VariableRegistryExtensions">
+            <summary>Provides a variety of <see cref="T:AllOverIt.Evaluator.Variables.IVariableRegistry"/> extensions.</summary>
         </member>
         <member name="M:AllOverIt.Evaluator.Variables.Extensions.VariableRegistryExtensions.Add(AllOverIt.Evaluator.Variables.IVariableRegistry,AllOverIt.Evaluator.Variables.IVariable)">
             <summary>Adds a variable to a variable registry.</summary>
@@ -870,10 +882,10 @@
             <returns>The new variable instance.</returns>
         </member>
         <member name="T:AllOverIt.Evaluator.Variables.ILazyVariable">
-            <summary>A delegate based variable that is evaluated the first time the <see cref="!:Value"/> is read.</summary>
+            <summary>A delegate based variable that is evaluated the first time the <see cref="P:AllOverIt.Evaluator.Variables.IVariable.Value"/> is read.</summary>
         </member>
         <member name="M:AllOverIt.Evaluator.Variables.ILazyVariable.Reset">
-            <summary>Resets the variable to force its value to be re-evaluated when <see cref="!:Value"/> is next read.</summary>
+            <summary>Resets the variable to force its value to be re-evaluated when <see cref="P:AllOverIt.Evaluator.Variables.IVariable.Value"/> is next read.</summary>
         </member>
         <member name="T:AllOverIt.Evaluator.Variables.IMutableVariable">
             <summary>A variable that can have its value changed.</summary>
@@ -934,6 +946,7 @@
             <summary>Creates a new lazily-evaluated delegate variable.</summary>
             <param name="name">The name to be assigned to the variable.</param>
             <param name="valueResolver">The initial lazily-evaluated delegate to be assigned to the variable.</param>
+            <param name="threadSafe">Indicates if the underlying lazy-evaluator should evaluate in a thread safe manner.</param>
             <returns>The new variable instance.</returns>
         </member>
         <member name="M:AllOverIt.Evaluator.Variables.IVariableFactory.CreateAggregateVariable(System.String,System.Func{System.Double}[])">
@@ -998,7 +1011,7 @@
             <summary>Constructor.</summary>
             <param name="name">The variable's name.</param>
             <param name="valueResolver">The delegate to invoke the first time <see cref="P:AllOverIt.Evaluator.Variables.LazyVariable.Value"/> is read.</param>
-            <param name="threadSafe">Indicates if the underlying lazy-evaluator should evaluate in a thread safe ammner.</param>
+            <param name="threadSafe">Indicates if the underlying lazy-evaluator should evaluate in a thread safe manner.</param>
         </member>
         <member name="M:AllOverIt.Evaluator.Variables.LazyVariable.#ctor(System.String,AllOverIt.Evaluator.FormulaCompilerResult,System.Boolean)">
             <summary>Constructor.</summary>
@@ -1088,6 +1101,9 @@
         </member>
         <member name="T:AllOverIt.Evaluator.Variables.VariableRegistry">
             <summary>A registry of variables referenced by one or more formula.</summary>
+        </member>
+        <member name="P:AllOverIt.Evaluator.Variables.VariableRegistry.Variables">
+            <summary>Contains a key-value collection of all registered variables, keyed by their name.</summary>
         </member>
         <member name="M:AllOverIt.Evaluator.Variables.VariableRegistry.AddVariable(AllOverIt.Evaluator.Variables.IVariable)">
             <inheritdoc />
