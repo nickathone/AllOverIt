@@ -2,7 +2,7 @@
 
   Current AllOverIt Inter-Dependencies
 
-  [1]  AllOverIt                               (v1.19.0) - None
+  [1]  AllOverIt                               (v1.19.1) - None
   [2]  AllOverIt.Validation                    (v1.0.0)  - requires [1] v1.17.0
   [3]  AllOverIt.Aws.Cdk.AppSync               (v0.16.0) - requires [1] v1.19.0
   [4]  AllOverIt.Evaluator                     (v3.0.0)  - requires [1] v1.18.0
@@ -15,6 +15,13 @@
   [11] AllOverIt.Aws.AppSync.Client            (v0.5.2)  - requires [1] v1.18.0, [8] v1.0.0
 
 ======================================================================================================================
+
+
+
+19 Oct 2021
+======================================================================================================================
+AllOverIt - v1.19.1
+  * Added SelectAsync() for .NET Standard 2.1 and above
 
 
 
