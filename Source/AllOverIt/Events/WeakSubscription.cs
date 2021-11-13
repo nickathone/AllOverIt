@@ -1,10 +1,10 @@
-﻿using AllOverIt.Helpers;
+﻿using AllOverIt.Assertion;
 using System;
 using System.Reflection;
 
 namespace AllOverIt.Events
 {
-    public class WeakSubscription : ISubscription
+    internal sealed class WeakSubscription : ISubscription
     {
         private readonly WeakReference _weakReference;
         private readonly MethodInfo _handlerMethod;

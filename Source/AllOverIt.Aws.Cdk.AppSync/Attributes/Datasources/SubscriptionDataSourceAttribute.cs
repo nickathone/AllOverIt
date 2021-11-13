@@ -1,9 +1,11 @@
-﻿using AllOverIt.Aws.Cdk.AppSync.Mapping;
-using AllOverIt.Helpers;
-using AllOverIt.Utils;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Aws.Cdk.AppSync.Mapping;
+using AllOverIt.Extensions;
 
-namespace AllOverIt.Aws.Cdk.AppSync.Attributes.Datasources
+namespace AllOverIt.Aws.Cdk.AppSync.Attributes.DataSources
 {
+    /// <summary>Provides information required to declare an AppSync subscription datasource that uses a request mapping with an
+    /// empty payload and a response mapping that returns an empty result.</summary>
     public class SubscriptionDataSourceAttribute : DataSourceAttribute
     {
         private class SubscriptionMapping : IRequestResponseMapping
@@ -20,7 +22,7 @@ namespace AllOverIt.Aws.Cdk.AppSync.Attributes.Datasources
             private static string GetRequestMapping()
             {
                 // Using FormatJsonString() to remove the extra padding
-                return Formatter.FormatJsonString(
+                return StringFormatExtensions.FormatJsonString(
                     @"
                     {
                       ""version"": ""2017-02-28"",
@@ -37,8 +39,12 @@ namespace AllOverIt.Aws.Cdk.AppSync.Attributes.Datasources
 
         private readonly string _identifier;
 
+        /// <inheritdoc />
         public override string DataSourceName => _identifier;
 
+        /// <summary>Constructor.</summary>
+        /// <param name="identifier">A unique identifier for this datasource.</param>
+        /// <param name="description">A description for the datasource.</param>
         public SubscriptionDataSourceAttribute(string identifier, string description = default)
             : base(typeof(SubscriptionMapping), description)
         {

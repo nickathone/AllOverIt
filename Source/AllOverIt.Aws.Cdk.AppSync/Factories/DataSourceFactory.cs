@@ -1,5 +1,5 @@
-﻿using AllOverIt.Aws.Cdk.AppSync.Attributes.Datasources;
-using AllOverIt.Helpers;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Aws.Cdk.AppSync.Attributes.DataSources;
 using Amazon.CDK;
 using Amazon.CDK.AWS.AppSync;
 using Amazon.CDK.AWS.Lambda;
@@ -10,7 +10,7 @@ using SystemEnvironment = System.Environment;
 
 namespace AllOverIt.Aws.Cdk.AppSync.Factories
 {
-    public sealed class DataSourceFactory
+    internal sealed class DataSourceFactory
     {
         private readonly IDictionary<string, BaseDataSource> _dataSourceCache = new Dictionary<string, BaseDataSource>();
 

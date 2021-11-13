@@ -1,4 +1,4 @@
-﻿using AllOverIt.Helpers;
+﻿using AllOverIt.Formatters.Objects;
 using AllOverIt.Reflection;
 using System;
 using System.Collections.Generic;
@@ -7,11 +7,12 @@ using System.Reflection;
 
 namespace AllOverIt.Extensions
 {
+    /// <summary>Provides a variety of extension methods for object types.</summary>
     public static class ObjectExtensions
     {
         /// <summary>
         /// Specifies the binding options to use when calculating the hash code of an object when using
-        /// <see cref="CalculateHashCode{TType}(TType,System.Collections.Generic.IEnumerable{string},System.Collections.Generic.IEnumerable{string})"/>.
+        /// <see cref="CalculateHashCode{TType}(TType,IEnumerable{string},IEnumerable{string})"/>.
         /// </summary>
         public static BindingOptions DefaultHashCodeBindings { get; set; } = BindingOptions.Instance | BindingOptions.AllAccessor | BindingOptions.AllVisibility;
 
@@ -89,12 +90,11 @@ namespace AllOverIt.Extensions
         }
 
 
-        /// <summary>
-        /// Uses reflection to set the value of an object's property by name.
-        /// </summary>
+        /// <summary>Uses reflection to set the value of an object's property by name.</summary>
         /// <typeparam name="TValue">The property type.</typeparam>
         /// <param name="instance">The object to get the property value.</param>
         /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The value to set.</param>
         /// <param name="bindingFlags">.NET binding options that determine how property names are resolved.</param>
         /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
         public static void SetPropertyValue<TValue>(this object instance, string propertyName, TValue value, BindingFlags bindingFlags)
@@ -139,7 +139,7 @@ namespace AllOverIt.Extensions
         /// <typeparam name="TType">The type that <paramref name="instance"/> is to be converted to.</typeparam>
         /// <param name="instance">The object instance to be converted.</param>
         /// <param name="defaultValue">The default value to be returned when <paramref name="instance"/> is null.</param>
-        /// <returns>Returns <paramref name="instance"/> converted to the specified <typeparam name="TType"></typeparam>.</returns>
+        /// <returns>Returns <paramref name="instance"/> converted to the specified <typeparamref name="TType"/>.</returns>
         public static TType As<TType>(this object instance, TType defaultValue = default)
         {
             if (instance == null)
@@ -208,7 +208,7 @@ namespace AllOverIt.Extensions
         /// <typeparam name="TType">The (nullable) type that <paramref name="instance"/> is to be converted to.</typeparam>
         /// <param name="instance">The object instance to be converted.</param>
         /// <param name="defaultValue">The default value to be returned when <paramref name="instance"/> is null.</param>
-        /// <returns>Returns <paramref name="instance"/> converted to the specified <typeparam name="TType"></typeparam>.</returns>
+        /// <returns>Returns <paramref name="instance"/> converted to the specified <typeparamref name="TType"/>.</returns>
         public static TType? AsNullable<TType>(this object instance, TType? defaultValue = null)
           where TType : struct
         {
@@ -248,16 +248,14 @@ namespace AllOverIt.Extensions
             return AggregateHashCode(properties);
         }
 
-        /// <summary>
-        /// Calculates the hash code based on explicitly specified properties, fields, or the return result from a method call.
-        /// </summary>
+        /// <summary>Calculates the hash code based on explicitly specified properties, fields, or the return result from a method call.</summary>
         /// <typeparam name="TType">The object type.</typeparam>
         /// <param name="instance">The instance having its hash code calculated.</param>
         /// <param name="resolvers">One or more resolvers that provide the properties, fields, or method calls used to calculate the hash code.</param>
         /// <returns>The calculated hash code.</returns>
         public static int CalculateHashCode<TType>(this TType instance, params Func<TType, object>[] resolvers)
         {
-            var properties = resolvers.Select(propertyResolver => propertyResolver.Invoke(instance));
+            var properties = resolvers.Select(resolver => resolver.Invoke(instance));
 
             return AggregateHashCode(properties);
         }

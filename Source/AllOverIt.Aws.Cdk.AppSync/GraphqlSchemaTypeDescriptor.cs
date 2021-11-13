@@ -1,9 +1,9 @@
-﻿using AllOverIt.Helpers;
+﻿using AllOverIt.Assertion;
 using SystemType = System.Type;
 
 namespace AllOverIt.Aws.Cdk.AppSync
 {
-    public sealed class GraphqlSchemaTypeDescriptor
+    internal sealed class GraphqlSchemaTypeDescriptor
     {
         public SystemType Type { get; }
         public GraphqlSchemaType SchemaType { get; }

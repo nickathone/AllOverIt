@@ -1,10 +1,10 @@
-﻿using AllOverIt.Helpers;
+﻿using AllOverIt.Assertion;
 using System;
 using System.Threading.Tasks;
 
 namespace AllOverIt.Events
 {
-    public class AsyncSubscription : IAsyncSubscription
+    internal sealed class AsyncSubscription : IAsyncSubscription
     {
         private readonly Delegate _handler;
 

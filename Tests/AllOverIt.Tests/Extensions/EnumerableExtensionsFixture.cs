@@ -13,7 +13,7 @@ using Xunit;
 
 namespace AllOverIt.Tests.Extensions
 {
-    public class EnumerableExtensionsFixture : FixtureBase
+    public partial class EnumerableExtensionsFixture : FixtureBase
     {
         public class AsList : EnumerableExtensionsFixture
         {

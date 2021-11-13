@@ -1,7 +1,6 @@
 using AllOverIt.Evaluator.Operations;
 using AllOverIt.Evaluator.Operators;
 using FluentAssertions;
-using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
 
@@ -13,8 +12,11 @@ namespace AllOverIt.Evaluator.Tests.Operations
         [Fact]
         public void Should_Create_Expected_Operator()
         {
-            var operands = (from index in Enumerable.Range(1, 2)
-                            select Expression.Constant(Create<double>())).ToArray();
+            var operands = new[]
+            {
+                Expression.Constant(Create<double>()),
+                Expression.Constant(Create<double>())
+            };
 
             var creator = Operation.Creator;
 

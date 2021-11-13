@@ -26,8 +26,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
             _operator = new DivideOperator(_leftOperand, _rightOperand);
         }
 
-        public class Constructor
-          : DivideOperatorFixture
+        public class Constructor : DivideOperatorFixture
         {
             [Fact]
             public void Should_Throw_When_Left_Operand_Null()
@@ -60,8 +59,7 @@ namespace AllOverIt.Evaluator.Tests.Operators
             }
         }
 
-        public class GetExpression
-          : DivideOperatorFixture
+        public class GetExpression : DivideOperatorFixture
         {
             [Fact]
             public void Should_Generate_Expression()

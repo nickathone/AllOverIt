@@ -1,4 +1,5 @@
-﻿using AllOverIt.Aws.AppSync.Client.Authorization;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Aws.AppSync.Client.Authorization;
 using AllOverIt.Aws.AppSync.Client.Configuration;
 using AllOverIt.Aws.AppSync.Client.Exceptions;
 using AllOverIt.Aws.AppSync.Client.Extensions;
@@ -8,6 +9,7 @@ using AllOverIt.Aws.AppSync.Client.Subscription;
 using AllOverIt.Aws.AppSync.Client.Utils;
 using AllOverIt.Extensions;
 using AllOverIt.Helpers;
+using AllOverIt.Patterns.ResourceInitialization;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -441,15 +443,12 @@ namespace AllOverIt.Aws.AppSync.Client
 
                 stream.Seek(0, SeekOrigin.Begin);
 
-                switch (webSocketReceiveResult.MessageType)
+                return webSocketReceiveResult.MessageType switch
                 {
-                    case WebSocketMessageType.Text:
-                    case WebSocketMessageType.Close:
-                        return await GetGraphqlResponse(stream);
-
-                    default:
-                        throw new InvalidOperationException($"Unexpected websocket message type '{webSocketReceiveResult.MessageType}'.");
-                }
+                    WebSocketMessageType.Text => await GetGraphqlResponse(stream),
+                    WebSocketMessageType.Close => await GetGraphqlResponse(stream),
+                    _ => throw new InvalidOperationException($"Unexpected websocket message type '{webSocketReceiveResult.MessageType}'.")
+                };
             }
         }
 

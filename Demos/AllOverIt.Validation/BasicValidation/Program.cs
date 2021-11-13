@@ -8,7 +8,7 @@ namespace BasicValidation
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var person = new Person();
 
@@ -32,6 +32,14 @@ namespace BasicValidation
             var isValidPersonContextResult = isValidContextPerson.Validate(person, personContext);
             
             PrintResult(nameof(IsValidPersonContextValidator), isValidPersonContextResult);
+
+
+            // Example 3
+            var personWithIdValidator = new PersonWithIdValidator();        // a validator that uses a tuple to allow a Guid to also be validated
+            person.Age = 28;
+            var personWithIdResult = personWithIdValidator.Validate((person, Guid.Empty));
+
+            PrintResult(nameof(PersonWithIdValidator), personWithIdResult);
 
 
             Console.WriteLine();
