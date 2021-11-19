@@ -67,7 +67,7 @@ Provides additional features for use in ASP .NET Core applications.
 | Target         | Supported |
 |----------------|-----------|
 | netstandard2.0 |    No     |
-| netstandard2.1 |    No     |
+| netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
