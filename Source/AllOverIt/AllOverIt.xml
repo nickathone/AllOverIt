@@ -443,6 +443,31 @@
             <param name="continueOnCapturedContext">Indicates if the callback should be invoked on the original context or scheduler.</param>
             <returns>The results of all tasks when they are all completed.</returns>
         </member>
+        <member name="T:AllOverIt.Collections.Collection">
+            <summary>Provides static methods related to collection types.</summary>
+        </member>
+        <member name="M:AllOverIt.Collections.Collection.EmptyReadOnly``1">
+            <summary>Gets a static instance of a <see cref="T:System.Collections.Generic.IReadOnlyCollection`1"/>.</summary>
+            <typeparam name="TType">The type associated with the collection.</typeparam>
+            <returns>A static empty collection as an <see cref="T:System.Collections.Generic.IReadOnlyCollection`1"/>.</returns>
+        </member>
+        <member name="T:AllOverIt.Collections.Dictionary">
+            <summary>Provides static methods related to dictionary types.</summary>
+        </member>
+        <member name="M:AllOverIt.Collections.Dictionary.EmptyReadOnly``2">
+            <summary>Gets a static instance of a <see cref="T:System.Collections.Generic.IReadOnlyDictionary`2"/>.</summary>
+            <typeparam name="TKey">The dictionary key type.</typeparam>
+            <typeparam name="TValue">The dictionary value type.</typeparam>
+            <returns>A static empty dictionary as an <see cref="T:System.Collections.Generic.IReadOnlyDictionary`2"/>.</returns>
+        </member>
+        <member name="T:AllOverIt.Collections.List">
+            <summary>Provides static methods related to list types.</summary>
+        </member>
+        <member name="M:AllOverIt.Collections.List.EmptyReadOnly``1">
+            <summary>Gets a static instance of a <see cref="T:System.Collections.Generic.IReadOnlyList`1"/>.</summary>
+            <typeparam name="TType">The type associated with the list.</typeparam>
+            <returns>A static empty list as an <see cref="T:System.Collections.Generic.IReadOnlyList`1"/>.</returns>
+        </member>
         <member name="T:AllOverIt.Events.EventAggregator">
             <summary>Provides support for produces to publish messages and consumers to subscribe for notification of those messages.</summary>
         </member>
@@ -565,11 +590,19 @@
         <member name="T:AllOverIt.Exceptions.ValueObjectValidationException">
             <summary>Represents a validation error that occurred while initializing a <see cref="T:AllOverIt.Patterns.ValueObject.ValueObject`2"/>.</summary>
         </member>
+        <member name="P:AllOverIt.Exceptions.ValueObjectValidationException.AttemptedValue">
+            <summary>The value that failed validation.</summary>
+        </member>
         <member name="M:AllOverIt.Exceptions.ValueObjectValidationException.#ctor">
             <summary>Default constructor.</summary>
         </member>
         <member name="M:AllOverIt.Exceptions.ValueObjectValidationException.#ctor(System.String)">
             <summary>Constructor.</summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:AllOverIt.Exceptions.ValueObjectValidationException.#ctor(System.Object,System.String)">
+            <summary>Constructor.</summary>
+            <param name="attemptedValue">The value that failed validation.</param>
             <param name="message">The exception message.</param>
         </member>
         <member name="M:AllOverIt.Exceptions.ValueObjectValidationException.#ctor(System.String,System.Exception)">
@@ -1936,8 +1969,9 @@
         <member name="M:AllOverIt.Patterns.Command.AsyncCommandPipeline`2.ExecuteAsync(`0)">
             <summary>Asynchronously processes a specified input by passing it to the first command in the pipeline and
             sequentially passing the output to the next command in the sequence.</summary>
-            <typeparam name="TInput">The input type to be provided to the command.</typeparam>
+            <param name="input">The input value provided to the command.</param>
             <returns>The output from the last command in the pipeline sequence.</returns>
+            <exception cref="T:AllOverIt.Exceptions.CommandException">Thrown when there are no commands to execute.</exception>
         </member>
         <member name="T:AllOverIt.Patterns.Command.CommandPipeline`1">
             <summary>Implements a pipeline that allows multiple commands to be executed in turn where the output of each command
@@ -1965,8 +1999,9 @@
         <member name="M:AllOverIt.Patterns.Command.CommandPipeline`2.Execute(`0)">
             <summary>Processes a specified input by passing it to the first command in the pipeline and sequentially passing the
             output to the next command in the sequence.</summary>
-            <typeparam name="TInput">The input type to be provided to the command.</typeparam>
+            <param name="input">The input value provided to the command.</param>
             <returns>The output from the last command in the pipeline sequence.</returns>
+            <exception cref="T:AllOverIt.Exceptions.CommandException">Thrown when there are no commands to execute.</exception>
         </member>
         <member name="T:AllOverIt.Patterns.Command.IAsyncCommand">
             <summary>Represents an asynchronous command with no input or output.</summary>
@@ -2459,7 +2494,18 @@
         <member name="M:AllOverIt.Patterns.Specification.UnarySpecification`1.IsSatisfiedBy(`0)">
             <inheritdoc />
         </member>
+        <member name="T:AllOverIt.Patterns.ValueObject.ValueObject`2">
+            <summary>Implements an immutable value object.</summary>
+            <typeparam name="TValue">The type inheriting this class.</typeparam>
+            <typeparam name="TType">The underlying storage type for the immutable value.</typeparam>
+        </member>
+        <member name="P:AllOverIt.Patterns.ValueObject.ValueObject`2.Value">
+            <summary>The underlying value.</summary>
+        </member>
         <member name="M:AllOverIt.Patterns.ValueObject.ValueObject`2.#ctor">
+            <summary>Constructor.</summary>
+        </member>
+        <member name="M:AllOverIt.Patterns.ValueObject.ValueObject`2.#ctor(`0)">
             <summary>Constructor.</summary>
         </member>
         <member name="M:AllOverIt.Patterns.ValueObject.ValueObject`2.Equals(System.Object)">

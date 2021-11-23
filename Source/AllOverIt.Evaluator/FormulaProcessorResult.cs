@@ -1,9 +1,9 @@
 using AllOverIt.Assertion;
+using AllOverIt.Collections;
 using AllOverIt.Evaluator.Variables;
 using AllOverIt.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 
 namespace AllOverIt.Evaluator
@@ -11,7 +11,6 @@ namespace AllOverIt.Evaluator
     /// <summary>Contains the result of parsing and processing a formula.</summary>
     public sealed record FormulaProcessorResult
     {
-        private static readonly ReadOnlyCollection<string> EmptyList = new(new List<string>());
         private readonly IReadOnlyCollection<string> _referencedVariableNames;
 
         /// <summary>Gets the expression built from a processed formula. When this expression is compiled and invoked
@@ -19,7 +18,7 @@ namespace AllOverIt.Evaluator
         public Expression<Func<double>> FormulaExpression { get; }
 
         /// <summary>Gets an enumerable of all variable names explicitly referenced by the formula.</summary>
-        public IReadOnlyCollection<string> ReferencedVariableNames => _referencedVariableNames ?? EmptyList;
+        public IReadOnlyCollection<string> ReferencedVariableNames => _referencedVariableNames ?? Collection.EmptyReadOnly<string>();
 
         /// <summary>The variable registry that will be referenced by the compiled expression during evaluation.
         /// This may be null if the formula does not contain any variables.</summary>

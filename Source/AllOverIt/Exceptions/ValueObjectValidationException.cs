@@ -7,6 +7,7 @@ namespace AllOverIt.Exceptions
     [Serializable]
     public sealed class ValueObjectValidationException : Exception
     {
+        /// <summary>The value that failed validation.</summary>
         public object AttemptedValue { get; }
 
         /// <summary>Default constructor.</summary>
@@ -21,6 +22,9 @@ namespace AllOverIt.Exceptions
         {
         }
 
+        /// <summary>Constructor.</summary>
+        /// <param name="attemptedValue">The value that failed validation.</param>
+        /// <param name="message">The exception message.</param>
         public ValueObjectValidationException(object attemptedValue, string message)
             : base(message)
         {

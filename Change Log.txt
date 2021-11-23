@@ -7,6 +7,12 @@ AllOverIt.Aws.Cdk.AppSync v1.2.0
   * Added support for providing an explicit name for enums
   * Updated to Amazon.CDK.AWS.AppSync v1.133.0
 
+AllOverIt - v2.2.0
+  * Added List.EmptyReadOnly(), Dictionary.EmptyReadOnly(), Collection.EmptyReadOnly()
+
+AllOverIt.Evaluator v4.2.0
+  * Updated to use Collection.EmptyReadOnly() from AllOverIt v2.2.0
+
 
 
 19 Nov 2021 

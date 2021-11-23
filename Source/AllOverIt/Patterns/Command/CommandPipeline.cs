@@ -45,8 +45,9 @@ namespace AllOverIt.Patterns.Command
 
         /// <summary>Processes a specified input by passing it to the first command in the pipeline and sequentially passing the
         /// output to the next command in the sequence.</summary>
-        /// <typeparam name="TInput">The input type to be provided to the command.</typeparam>
+        /// <param name="input">The input value provided to the command.</param>
         /// <returns>The output from the last command in the pipeline sequence.</returns>
+        /// <exception cref="CommandException">Thrown when there are no commands to execute.</exception>
         public TOutput Execute(TInput input)
         {
             if (!_commands.Any())

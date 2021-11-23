@@ -4,12 +4,16 @@ using System;
 
 namespace AllOverIt.Patterns.ValueObject
 {
+    /// <summary>Implements an immutable value object.</summary>
+    /// <typeparam name="TValue">The type inheriting this class.</typeparam>
+    /// <typeparam name="TType">The underlying storage type for the immutable value.</typeparam>
     public class ValueObject<TValue, TType> : IComparable<ValueObject<TValue, TType>>, IEquatable<ValueObject<TValue, TType>>
         where TType : ValueObject<TValue, TType>
         where TValue : IComparable<TValue>, IEquatable<TValue>
     {
         private TValue _value;
 
+        /// <summary>The underlying value.</summary>
         public TValue Value
         {
             get => _value;
@@ -27,6 +31,7 @@ namespace AllOverIt.Patterns.ValueObject
             // Required for some serialization scenarios
         }
 
+        /// <summary>Constructor.</summary>
         protected ValueObject(TValue value)
         {
             Value = value;
