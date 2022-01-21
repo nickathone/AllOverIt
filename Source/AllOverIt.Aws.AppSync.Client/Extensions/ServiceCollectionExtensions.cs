@@ -68,7 +68,13 @@ namespace AllOverIt.Aws.AppSync.Client.Extensions
         {
             // Although a singleton, the registered delegate will be called EACH time a named client is requested via NamedAppSyncClientDelegate.
             // The INamedAppSyncClientProvider ensures a client (and it's configuration) is only ever requested once per name.
-            services.AddSingleton<NamedAppSyncClientConfigurationDelegate>(provider => clientName => configResolver.Invoke(provider, clientName));
+            services.AddSingleton<NamedAppSyncClientConfigurationDelegate>(provider => clientName =>
+            {
+                var configuration = configResolver.Invoke(provider, clientName);
+                ConfigureJsonSerializer(configuration.Serializer);
+
+                return configuration;
+            });
 
             // Although a singleton, the registered delegate will be called EACH time a named client is requested.
             // The INamedAppSyncClientProvider ensures a client (and it's configuration) is only ever requested once per name.

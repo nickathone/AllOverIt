@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
+using AllOverIt.Serialization.SystemTextJson;
 
 namespace AppSyncSubscription
 {
@@ -25,9 +26,11 @@ namespace AppSyncSubscription
                 {
                     services.AddSingleton<IWorkerReady, WorkerReady>();
 
-                    // take your pick...
-                    services.AddSingleton<IJsonSerializer, NewtonsoftJsonSerializer>();
-                    //services.AddSingleton<IJsonSerializer, SystemTextJsonSerializer>();
+                    // Take your pick
+                    // This is only for use within SubscriptionWorker - the clients create their own instance.
+                    // Also mixing and matching. Using SystemTextJsonSerializer here whereas the clients are using NewtonsoftJsonSerializer
+                    services.AddSingleton<IJsonSerializer, SystemTextJsonSerializer>();
+                    //services.AddSingleton<IJsonSerializer, NewtonsoftJsonSerializer>();
 
                     // Only use one of the these:
                     //   If you use AddAppSyncClient() then SubscriptionWorker requires IAppSyncClient
@@ -67,12 +70,7 @@ namespace AppSyncSubscription
             services.AddAppSyncClient(provider => 
             {
                 var options = provider.GetRequiredService<IOptions<AppSyncOptions>>().Value;
-                var serializer = provider.GetRequiredService<IJsonSerializer>();
-
-                serializer.Configure(new JsonSerializerConfiguration
-                {
-                    SupportEnrichedEnums = true
-                });
+                var serializer = CreateJsonJsonSerializer();
 
                 return new AppSyncClientConfiguration
                 {
@@ -92,12 +90,7 @@ namespace AppSyncSubscription
                 if( name == "Public")
                 {
                     var options = provider.GetRequiredService<IOptions<AppSyncOptions>>().Value;
-                    var serializer = provider.GetRequiredService<IJsonSerializer>();
-
-                    serializer.Configure(new JsonSerializerConfiguration
-                    {
-                        SupportEnrichedEnums = true
-                    });
+                    var serializer = CreateJsonJsonSerializer();
 
                     return new AppSyncClientConfiguration
                     {
@@ -118,7 +111,7 @@ namespace AppSyncSubscription
             services.AddAppSyncSubscriptionClient(provider =>
             {
                 var options = provider.GetRequiredService<IOptions<AppSyncOptions>>().Value;
-                var serializer = provider.GetRequiredService<IJsonSerializer>();
+                var serializer = CreateJsonJsonSerializer();//provider.GetRequiredService<IJsonSerializer>();
 
                 return new SubscriptionClientConfiguration
                 {
@@ -138,6 +131,21 @@ namespace AppSyncSubscription
                     }
                 };
             });
+        }
+
+        // Created per-client in this demo. Could also create a single configured instance for all clients.
+        private static IJsonSerializer CreateJsonJsonSerializer()
+        {
+            // take your pick...
+            var serializer = new NewtonsoftJsonSerializer();
+            //var serializer = new SystemTextJsonSerializer();
+
+            serializer.Configure(new JsonSerializerConfiguration
+            {
+                SupportEnrichedEnums = true
+            });
+
+            return serializer;
         }
     }
 }
