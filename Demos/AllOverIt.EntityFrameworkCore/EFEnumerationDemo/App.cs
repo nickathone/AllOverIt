@@ -23,13 +23,13 @@ namespace EFEnumerationDemo
             _logger = logger.WhenNotNull(nameof(logger));
         }
 
-        public override async Task StartAsync(CancellationToken cancellationToken = default)
+        public override async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("StartAsync");
 
             await _dbContext.Database.MigrateAsync(cancellationToken);
 
-            await CreateDataIfRequired(_dbContext);
+            await CreateDataIfRequired();
 
             var query =
                 from blog in _dbContext.Blogs
@@ -60,9 +60,9 @@ namespace EFEnumerationDemo
             _logger.LogInformation("App is stopped");
         }
 
-        private static async Task CreateDataIfRequired(BloggingContext dbContext)
+        private async Task CreateDataIfRequired()
         {
-            var blogCount = await dbContext.Blogs.CountAsync();
+            var blogCount = await _dbContext.Blogs.CountAsync();
 
             if (blogCount == 0)
             {
@@ -106,8 +106,8 @@ namespace EFEnumerationDemo
                     blogs.Add(blog);
                 }
 
-                dbContext.Blogs.AddRange(blogs);
-                await dbContext.SaveChangesAsync();
+                _dbContext.Blogs.AddRange(blogs);
+                await _dbContext.SaveChangesAsync();
             }
         }
     }

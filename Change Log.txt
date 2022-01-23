@@ -1,5 +1,22 @@
 ======================================================================================================================
 
+23 Jan 2022
+======================================================================================================================
+AllOverIt.GenericHost v2.1.1
+  * Fixed .NET 6 targeting
+  * Updated to AllOverIt v2.4.0
+
+AllOverIt.EntityFrameworkCore v1.1.2
+  * Fixed .NET 6 targeting
+  * Updated to AllOverIt v2.4.0
+
+AllOverIt.Serialization.SystemTextJson v1.4.1
+  * Fixed .NET 6 targeting
+
+AllOverIt.Aws.AppSync.Client v1.5.3
+  * Fixed .NET 6 targeting
+
+
 21 Jan 2022
 ======================================================================================================================
 AllOverIt.Aws.AppSync.Client v1.5.2
@@ -19,12 +36,14 @@ AllOverIt.Serialization.Abstractions v1.2.0
 
 AllOverIt.Serialization.NewtonsoftJson v1.4.0
   * Updated to AllOverIt.Serialization.Abstractions v1.2.0
+  * Added AllOverIt v2.4.0
   * Added support for configuring basic options via IJsonSerializer extension method
   * Added JsonConverterFactory, EnrichedEnumJsonConverterFactory
   * Now using default settings provided by NewtonSoftJson
 
 AllOverIt.Serialization.SystemTextJson v1.4.0
   * Updated to AllOverIt.Serialization.Abstractions v1.2.0
+  * Added AllOverIt v2.4.0
   * Added support for configuring basic options via IJsonSerializer extension method
   * Added EnrichedEnumJsonConverterFactory
   * Now using default settings provided by SystemTextJson

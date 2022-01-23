@@ -17,7 +17,7 @@ namespace HostedConsoleApp
             _logger = logger.WhenNotNull(nameof(logger));
         }
 
-        public override async Task StartAsync(CancellationToken cancellationToken = default)
+        public override async Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("StartAsync");
 

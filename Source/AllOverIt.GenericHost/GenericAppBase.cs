@@ -5,7 +5,7 @@ namespace AllOverIt.GenericHost
 {
     public abstract class GenericAppBase : IGenericApp
     {
-        public abstract Task StartAsync(CancellationToken cancellationToken = default);
+        public abstract Task StartAsync(CancellationToken cancellationToken);
 
         public virtual void OnStopping()
         {
