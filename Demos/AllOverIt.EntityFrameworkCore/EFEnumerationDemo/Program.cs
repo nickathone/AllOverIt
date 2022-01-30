@@ -18,11 +18,10 @@ class Program
     public static IHostBuilder CreateHostBuilder(string[] args)
     {
         return GenericHost
-            .CreateConsoleHostBuilder(args)
+            .CreateConsoleHostBuilder<App>(args)
             .ConfigureServices((hostContext, services) =>
             {
-                services.AddDbContext<BloggingContext>();
-                services.AddScoped<IConsoleApp, App>();
+                services.AddDbContextFactory<BloggingContext>();
             });
     }
 }

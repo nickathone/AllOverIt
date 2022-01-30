@@ -1,30 +1,45 @@
 ﻿using AllOverIt.Csv;
-using AllOverIt.Csv.Extensions;
 using CsvExport.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using CsvExport.Extensions;
 
 namespace CsvExport
 {
+    /*
+        Will be exported as:
+
+        Name     | Count | Value 1 | Value 2 | Value 3 | Latitude 1 | Longitude 1 | Latitude 2 | Longitude 2 | Latitude 3 | Longitude 3 | Environment-Temperature | Quality-Colour | Quality-Clarity | Environment-pH
+        Sample 1 | 0     |         |         |         |            |             |            |             |            |             |                         |                |                 | 
+        Sample 2 | 1     | 1       |         |         | 100.1      | 120.2       |            |             |                          | 30                      | 8              | 3               | 7
+        Sample 3 | 3     | 1       | 2       | 3       | 100.4      | 119.8       | 100.7      | 120         | 100.3       119.2        | 28                      |                |                 | 6.9
+        Sample 4 | 2     | 1       | 2       |         | 100.1      | 121.3       | 100.8      | 120.5       |                          |                         | 9              | 2               | 7.1
+     */
+
     internal class Program
     {      
         static async Task Main(string[] args)
         {
-            var sampleData = CreateSampledata();
+            var sampleData = CreateSampleData();
 
-            var serializer = new DataSerializer<SampleData>();
+            var serializer = new CsvSerializer<SampleData>();
 
-            ConfigureSerializer(serializer, sampleData);
+            sampleData.ConfigureCsvExport(serializer);
 
-            // Replace StringWriter() with StreamWriter("filename.csv") to write to a file instead
+            // Write to the console
             using (var writer = new StringWriter())
             {
-                await serializer.Serialize(writer, sampleData);
+                await serializer.SerializeAsync(writer, sampleData);
 
                 Console.WriteLine(writer.ToString());
+            }
+
+            // And write to a file
+            using (var writer = new StreamWriter("data-export.csv"))
+            {
+                await serializer.SerializeAsync(writer, sampleData);
             }
 
             Console.WriteLine();
@@ -32,7 +47,7 @@ namespace CsvExport
             Console.ReadKey();
         }
 
-        private static IReadOnlyCollection<SampleData> CreateSampledata()
+        private static IReadOnlyCollection<SampleData> CreateSampleData()
         {
             return new List<SampleData>
             {
@@ -41,7 +56,8 @@ namespace CsvExport
                     Name = "Sample 1",
                     Count = 0,
                     Values = new Dictionary<string, int>(),
-                    Coordinates = new List<Coordinates>()
+                    Coordinates = new List<Coordinates>(),
+                    Metadata = new List<SampleMetadata>()
                 },
 
                 new SampleData
@@ -55,6 +71,33 @@ namespace CsvExport
                     Coordinates = new List<Coordinates>
                     {
                         new Coordinates(100.1, 120.2)
+                    },
+                    Metadata = new List<SampleMetadata>
+                    {
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Environment,
+                            Name = "Temperature",
+                            Value = "30"
+                        },
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Quality,
+                            Name = "Colour",
+                            Value = "8"
+                        },
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Quality,
+                            Name = "Clarity",
+                            Value = "3"
+                        },
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Environment,
+                            Name = "pH",
+                            Value = "7.0"
+                        }
                     }
                 },
 
@@ -73,6 +116,21 @@ namespace CsvExport
                         new Coordinates(100.4, 119.8),
                         new Coordinates(100.7, 120.0),
                         new Coordinates(100.3, 119.2),
+                    },
+                    Metadata = new List<SampleMetadata>
+                    {
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Environment,
+                            Name = "Temperature",
+                            Value = "28"
+                        },
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Environment,
+                            Name = "pH",
+                            Value = "6.9"
+                        }
                     }
                 },
 
@@ -89,68 +147,30 @@ namespace CsvExport
                     {
                         new Coordinates(100.1, 121.3),
                         new Coordinates(100.8, 120.5),
+                    },
+                    Metadata = new List<SampleMetadata>
+                    {
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Quality,
+                            Name = "Colour",
+                            Value = "9"
+                        },
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Quality,
+                            Name = "Clarity",
+                            Value = "2"
+                        },
+                        new SampleMetadata
+                        {
+                            Type = MetadataType.Environment,
+                            Name = "pH",
+                            Value = "7.1"
+                        }
                     }
                 }
             };
-        }
-
-        private static void ConfigureSerializer(IDataSerializer<SampleData> serializer, IReadOnlyCollection<SampleData> sampleData)
-        {
-            // Add fixed, known, columns
-            serializer.AddField(nameof(SampleData.Name), item => item.Name);
-            serializer.AddField(nameof(SampleData.Count), item => item.Count);
-
-            serializer.AddDynamicFields(
-                sampleData,                         // The source data to be processed
-                item => item.Values,                // The property to be export across one or more columns
-                item => item.Keys,                  // Anything that uniquely identifies each row - this will be the name in the next Func
-                (item, name) =>
-                {
-                    // Get the value to be exported for the column with the provided name
-                    return item.TryGetValue(name, out var value)
-                        ? value
-                        : (int?) null;
-                });
-
-            serializer.AddDynamicFields(
-                sampleData,
-                item => item.Coordinates,
-                item => Enumerable.Range(0, item.Count * 2)
-                            .Select(idx => 
-                            {
-                                var itemOrdinal = (int)Math.Floor(idx / 2.0d) + 1;
-
-                                if (idx % 2 == 0)
-                                {
-                                    return new HeaderIdentifier<int>
-                                    {
-                                        Id = idx,
-                                        Name = $"Latitude {itemOrdinal}"
-                                    };
-                                }
-                                else
-                                {
-                                    return new HeaderIdentifier<int>
-                                    {
-                                        Id = idx,
-                                        Name = $"Longitude {itemOrdinal}"
-                                    };
-                                }
-                            }),        // using the index to identify the header
-                (item, headerId) =>
-                {
-                    if (headerId.Id < item.Count * 2)
-                    {
-                        var itemOrdinal = (int) Math.Floor(headerId.Id / 2.0d);
-                        var coordinates = item.ElementAt(itemOrdinal);
-
-                        return headerId.Id % 2 == 0
-                            ? $"{coordinates.Latitude}"
-                            : $"{coordinates.Longitude}";
-                    }
-
-                    return null;
-                });
         }
     }
 }
