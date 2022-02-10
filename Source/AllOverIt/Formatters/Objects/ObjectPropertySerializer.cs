@@ -353,7 +353,7 @@ namespace AllOverIt.Formatters.Objects
             // Only allowing the collation of primitive types - collating complex types is not very helpful / readable
             var elementType = GetEnumerableElementType(enumerable);
 
-            if (!elementType.IsIntegralType() && elementType != typeof(string))
+            if (elementType.IsClassType() && elementType != typeof(string))
             {
                 return false;
             }
@@ -361,11 +361,18 @@ namespace AllOverIt.Formatters.Objects
             // Check if the filter indicates collation is required
             var collateValues = (Options.Filter?.EnumerableOptions ?? Options.EnumerableOptions).CollateValues;
 
-            if (!collateValues && !Options.EnumerableOptions.AutoCollatedPaths.IsNullOrEmpty())
+            if (!collateValues)
             {
-                // Check if the current path is registered for auto-collation
-                var flatPath = GetPropertyPath(references);
-                collateValues = Options.EnumerableOptions.AutoCollatedPaths.Contains(flatPath);
+                var globalCollatePaths = Options.EnumerableOptions.AutoCollatedPaths ?? Enumerable.Empty<string>();
+                var filterCollatePaths = Options.Filter?.EnumerableOptions.AutoCollatedPaths ?? Enumerable.Empty<string>();
+                var collationPaths = globalCollatePaths.Concat(filterCollatePaths).AsReadOnlyCollection();
+
+                if (collationPaths.Any())
+                {
+                    // Check if the current path is registered for auto-collation
+                    var flatPath = GetPropertyPath(references);
+                    collateValues = collationPaths.Contains(flatPath);
+                }
             }
 
             return collateValues;
