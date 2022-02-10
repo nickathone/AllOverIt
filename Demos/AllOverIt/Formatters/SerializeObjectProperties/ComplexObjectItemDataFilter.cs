@@ -13,10 +13,19 @@ namespace SerializeObjectProperties
             return @object is ComplexObject;
         }
 
+        public override bool OnIncludeProperty()
+        {
+            EnumerableOptions.CollateValues = Parents.Any() &&
+                                              Parents.Count >= 3 &&
+                                              Parents.ElementAt(2).Name == "Data";
+
+            return true;
+        }
+
         public override bool OnIncludeValue()
         {
-            // restrict the output to 3 values only
-            return AtValuesNode(out _) && Index < MaxItemCount;
+            // restrict the output of the 'Values' property to 3 values only
+            return !AtValuesNode(out _) || Index < MaxItemCount;
         }
 
         public string OnFormatValue(string value)

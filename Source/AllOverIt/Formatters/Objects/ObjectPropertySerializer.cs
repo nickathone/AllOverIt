@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AllOverIt.Patterns.ResourceInitialization;
 
 namespace AllOverIt.Formatters.Objects
 {
@@ -39,6 +40,8 @@ namespace AllOverIt.Formatters.Objects
 
         private void Populate(string prefix, object instance, IDictionary<string, string> values, IDictionary<object, ObjectPropertyParent> references)
         {
+            var collateValues = (Options.Filter?.EnumerableOptions ?? Options.EnumerableOptions).CollateValues;
+
             switch (instance)
             {
                 case IDictionary dictionary:
@@ -46,7 +49,16 @@ namespace AllOverIt.Formatters.Objects
                     break;
 
                 case IEnumerable enumerable:
-                    AppendEnumerableAsPropertyValues(prefix, enumerable, values, references);
+                    var arrayValues = collateValues
+                        ? new Dictionary<string, string>()
+                        : values;
+
+                    AppendEnumerableAsPropertyValues(prefix, enumerable, arrayValues, references);
+
+                    if (collateValues)
+                    {
+                        values.Add(prefix, string.Join(Options.EnumerableOptions.Separator, arrayValues.Values));
+                    }
                     break;
 
                 default:
