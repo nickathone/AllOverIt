@@ -27,34 +27,31 @@ namespace AllOverIt.Extensions
 
         /// <summary>Gets <see cref="PropertyInfo"/> (property metadata) for all properties on a given <see cref="Type"/> satisfying a given binding option.</summary>
         /// <param name="type">The type to obtain property metadata for.</param>
-        /// <param name="binding">The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</param>
-        /// <param name="declaredOnly">If true, the metadata of properties in the declared class as well as base class(es) are returned.
-        /// If false, only property metadata of the declared type is returned.</param>
+        /// <param name="bindingOptions">The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</param>
+        /// <param name="declaredOnly">If False, the metadata of properties in the declared class as well as base class(es) are returned.
+        /// If True, only property metadata of the declared type is returned.</param>
         /// <returns>The property metadata, as <see cref="PropertyInfo"/>, of a provided <see cref="Type"/>.</returns>
         /// <remarks>When class inheritance is involved, this method returns the first property found, starting at the type represented
         /// by <paramref name="type"/>.</remarks>
-        public static IEnumerable<PropertyInfo> GetPropertyInfo(this Type type, BindingOptions binding = BindingOptions.Default, bool declaredOnly = false)
+        public static IEnumerable<PropertyInfo> GetPropertyInfo(this Type type, BindingOptions bindingOptions = BindingOptions.Default, bool declaredOnly = false)
         {
-            var predicate = BindingOptionsHelper.BuildBindingPredicate(binding);
+            var predicate = BindingOptionsHelper.BuildBindingPredicate(bindingOptions);
             var typeInfo = type.GetTypeInfo();
 
-            return from propInfo in typeInfo.GetPropertyInfo(declaredOnly)
-                   let methodInfo = propInfo.GetMethod
-                   where predicate.Invoke(methodInfo)
-                   select propInfo;
+            return GetFilteredPropertyInfo(typeInfo, declaredOnly, predicate);
         }
 
         /// <summary>Gets <see cref="MethodInfo"/> (method metadata) for a given <see cref="Type"/> and binding option.</summary>
         /// <param name="type">The type to obtain method metadata for.</param>
-        /// <param name="binding">The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</param>
-        /// <param name="declaredOnly">If true, the metadata of properties in the declared class as well as base class(es) are returned.
-        /// If false, only method metadata of the declared type is returned.</param>
+        /// <param name="bindingOptions">The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</param>
+        /// <param name="declaredOnly">If False, the metadata of properties in the declared class as well as base class(es) are returned.
+        /// If True, only method metadata of the declared type is returned.</param>
         /// <returns>The method metadata, as <see cref="MethodInfo"/>, of a provided <see cref="Type"/>.</returns>
         /// <remarks>When class inheritance is involved, this method returns the first method found, starting at the type represented
         /// by <paramref name="type"/>.</remarks>
-        public static IEnumerable<MethodInfo> GetMethodInfo(this Type type, BindingOptions binding = BindingOptions.Default, bool declaredOnly = false)
+        public static IEnumerable<MethodInfo> GetMethodInfo(this Type type, BindingOptions bindingOptions = BindingOptions.Default, bool declaredOnly = false)
         {
-            var predicate = BindingOptionsHelper.BuildBindingPredicate(binding);
+            var predicate = BindingOptionsHelper.BuildBindingPredicate(bindingOptions);
             var currentType = type;
 
             while (currentType != null)
@@ -242,9 +239,7 @@ namespace AllOverIt.Extensions
                     typeName = typeName.Remove(backtickIndex);
                 }
 
-                var genericTypeNames = from genericArgument in type.GetGenericArguments()
-                                       select GetFriendlyName(genericArgument);
-
+                var genericTypeNames = type.GetGenericArguments().Select(GetFriendlyName);
                 var stringBuilder = new StringBuilder();
 
                 stringBuilder.Append(typeName);
@@ -266,6 +261,27 @@ namespace AllOverIt.Extensions
         public static bool IsEnrichedEnum(this Type type)
         {
             return type.IsDerivedFrom(EnrichedEnumType);
+        }
+
+        // ReSharper disable once ReturnTypeCanBeEnumerable.Local
+        private static IReadOnlyCollection<PropertyInfo> GetFilteredPropertyInfo(TypeInfo typeInfo, bool declaredOnly, Func<MethodBase, bool> predicate)
+        {
+            // This implementation is better performing than using method/query LINQ queries
+
+            var propInfos = new List<PropertyInfo>();
+
+            // ReSharper disable once LoopCanBeConvertedToQuery
+            foreach (var propInfo in typeInfo.GetPropertyInfo(declaredOnly))
+            {
+                var methodInfo = propInfo.GetMethod;
+
+                if (predicate.Invoke(methodInfo))
+                {
+                    propInfos.Add(propInfo);
+                }
+            }
+
+            return propInfos;
         }
     }
 }

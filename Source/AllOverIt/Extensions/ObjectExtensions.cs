@@ -26,15 +26,27 @@ namespace AllOverIt.Extensions
         public static IDictionary<string, object> ToPropertyDictionary(this object instance, bool includeNulls = false, BindingOptions bindingOptions = BindingOptions.Default)
         {
             var type = instance.GetType();
-            var propertyInfo = type.GetPropertyInfo(bindingOptions, false);
+            var propertyInfo = type.GetPropertyInfo(bindingOptions, false);     // Uses cached property info
 
-            var propInfos = from propInfo in propertyInfo
-                            where propInfo.CanRead && !propInfo.IsIndexer()
-                            let value = propInfo.GetValue(instance)
-                            where includeNulls || value != null
-                            select new KeyValuePair<string, object>(propInfo.Name, value);
+            var propInfos = new Dictionary<string, object>();
 
-            return propInfos.ToDictionary(item => item.Key, item => item.Value);
+            // More efficient than LINQ
+            foreach (var propInfo in propertyInfo)
+            {
+                if (!propInfo.CanRead || propInfo.IsIndexer())
+                {
+                    continue;
+                }
+
+                var value = propInfo.GetValue(instance);
+
+                if (includeNulls || value != null)
+                {
+                    propInfos.Add(propInfo.Name, value);
+                }
+            }
+
+            return propInfos;
         }
 
         /// <summary>Converts an object to an IDictionary{string, string} using a dot notation for nested members.</summary>
@@ -53,9 +65,7 @@ namespace AllOverIt.Extensions
             return serializer.SerializeToDictionary(instance);
         }
 
-        /// <summary>
-        /// Uses reflection to get the value of an object's property by name.
-        /// </summary>
+        /// <summary>Uses reflection to get the value of an object's property by name.</summary>
         /// <typeparam name="TValue">The property type.</typeparam>
         /// <param name="instance">The object to get the property value.</param>
         /// <param name="propertyName">The property name.</param>
@@ -64,15 +74,27 @@ namespace AllOverIt.Extensions
         /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
         public static TValue GetPropertyValue<TValue>(this object instance, string propertyName, BindingFlags bindingFlags)
         {
-            var propertyInfo = GetPropertyInfo(instance, propertyName, bindingFlags)
-                               ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+            var instanceType = instance.GetType();
 
-            return (TValue)propertyInfo.GetValue(instance);
+            return (TValue) GetPropertyValue(instance, instanceType, propertyName, bindingFlags);
         }
 
-        /// <summary>
-        /// Uses reflection to get the value of an object's property by name.
-        /// </summary>
+        /// <summary>Uses reflection to get the value of an object's property by name.</summary>
+        /// <param name="instance">The object to get the property value.</param>
+        /// <param name="instanceType">The instance type. This overload avoids a call to get the instance type when it is already known.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="bindingFlags">.NET binding options that determine how property names are resolved.</param>
+        /// <returns>The value of a property by name</returns>
+        /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
+        public static object GetPropertyValue(this object instance, Type instanceType, string propertyName, BindingFlags bindingFlags)
+        {
+            var propertyInfo = GetPropertyInfo(instanceType, propertyName, bindingFlags)
+                                ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+
+            return propertyInfo.GetValue(instance);
+        }
+
+        /// <summary>Uses reflection to get the value of an object's property by name.</summary>
         /// <typeparam name="TValue">The property type.</typeparam>
         /// <param name="instance">The object to get the property value.</param>
         /// <param name="propertyName">The property name.</param>
@@ -81,47 +103,84 @@ namespace AllOverIt.Extensions
         /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding options.</exception>
         public static TValue GetPropertyValue<TValue>(this object instance, string propertyName, BindingOptions bindingOptions = BindingOptions.Default)
         {
-            var propertyInfo = instance
-              .GetType()
-              .GetPropertyInfo(bindingOptions, false)
-              .SingleOrDefault(item => item.Name == propertyName);
+            var instanceType = instance.GetType();
+
+            return (TValue) GetPropertyValue(instance, instanceType, propertyName, bindingOptions);
+        }
+
+        /// <summary>Uses reflection to get the value of an object's property by name.</summary>
+        /// <param name="instance">The object to get the property value.</param>
+        /// <param name="instanceType">The instance type. This overload avoids a call to get the instance type when it is already known.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="bindingOptions">Binding options that determine how property names are resolved.</param>
+        /// <returns>The value of a property by name</returns>
+        /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding options.</exception>
+        public static object GetPropertyValue(this object instance, Type instanceType, string propertyName, BindingOptions bindingOptions = BindingOptions.Default)
+        {
+            var propertyInfo = instanceType
+                .GetPropertyInfo(bindingOptions, false)
+                .SingleOrDefault(item => item.Name == propertyName);
 
             _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
 
-            return (TValue)propertyInfo?.GetValue(instance);
+            return propertyInfo.GetValue(instance);
         }
-
 
         /// <summary>Uses reflection to set the value of an object's property by name.</summary>
         /// <typeparam name="TValue">The property type.</typeparam>
-        /// <param name="instance">The object to get the property value.</param>
+        /// <param name="instance">The object to set the property value.</param>
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The value to set.</param>
         /// <param name="bindingFlags">.NET binding options that determine how property names are resolved.</param>
         /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
         public static void SetPropertyValue<TValue>(this object instance, string propertyName, TValue value, BindingFlags bindingFlags)
         {
-            var propertyInfo = GetPropertyInfo(instance, propertyName, bindingFlags)
-              ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+            var instanceType = instance.GetType();
+
+            SetPropertyValue(instance, instanceType, propertyName, value, bindingFlags);
+        }
+
+        /// <summary>Uses reflection to set the value of an object's property by name.</summary>
+        /// <param name="instance">The object to set the property value.</param>
+        /// <param name="instanceType">The instance type. This overload avoids a call to get the instance type when it is already known.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The value to set.</param>
+        /// <param name="bindingFlags">.NET binding options that determine how property names are resolved.</param>
+        /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
+        public static void SetPropertyValue(this object instance, Type instanceType, string propertyName, object value, BindingFlags bindingFlags)
+        {
+            var propertyInfo = GetPropertyInfo(instanceType, propertyName, bindingFlags)
+                                ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
 
             propertyInfo.SetValue(instance, value);
         }
 
-        /// <summary>
-        /// Uses reflection to set the value of an object's property by name.
-        /// </summary>
+        /// <summary>Uses reflection to set the value of an object's property by name.</summary>
         /// <typeparam name="TValue">The property type.</typeparam>
-        /// <param name="instance">The object to get the property value.</param>
+        /// <param name="instance">The object to set the property value.</param>
         /// <param name="propertyName">The property name.</param>
         /// <param name="value">The value to set on the property.</param>
         /// <param name="bindingOptions">Binding options that determine how property names are resolved.</param>
         /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding options.</exception>
         public static void SetPropertyValue<TValue>(this object instance, string propertyName, TValue value, BindingOptions bindingOptions = BindingOptions.Default)
         {
-            var propertyInfo = instance
-              .GetType()
-              .GetPropertyInfo(bindingOptions, false)
-              .SingleOrDefault(item => item.Name == propertyName);
+            var instanceType = instance.GetType();
+
+            SetPropertyValue(instance, instanceType, propertyName, value, bindingOptions);
+        }
+
+        /// <summary>Uses reflection to set the value of an object's property by name.</summary>
+        /// <param name="instance">The object to set the property value.</param>
+        /// <param name="instanceType">The instance type. This overload avoids a call to get the instance type when it is already known.</param>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="value">The value to set on the property.</param>
+        /// <param name="bindingOptions">Binding options that determine how property names are resolved.</param>
+        /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding options.</exception>
+        public static void SetPropertyValue(this object instance, Type instanceType, string propertyName, object value, BindingOptions bindingOptions = BindingOptions.Default)
+        {
+            var propertyInfo = instanceType
+                .GetPropertyInfo(bindingOptions, false)
+                .SingleOrDefault(item => item.Name == propertyName);
 
             _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
 
@@ -289,13 +348,11 @@ namespace AllOverIt.Extensions
             return @object.GetType().IsEnrichedEnum();
         }
 
-        private static PropertyInfo GetPropertyInfo(object instance, string propertyName, BindingFlags bindingFlags)
+        private static PropertyInfo GetPropertyInfo(Type instanceType, string propertyName, BindingFlags bindingFlags)
         {
-            var type = instance.GetType();
-
-            while (type != null)
+            while (instanceType != null)
             {
-                var propertyInfo = type.GetProperty(propertyName, bindingFlags);
+                var propertyInfo = instanceType.GetProperty(propertyName, bindingFlags);
 
                 if (propertyInfo != null)
                 {
@@ -303,7 +360,7 @@ namespace AllOverIt.Extensions
                 }
 
                 // move to the base class type
-                type = type.BaseType;
+                instanceType = instanceType.BaseType;
             }
 
             return null;

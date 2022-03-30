@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using AllOverIt.Fixture;
@@ -129,8 +130,8 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
                 var actual = _serializer.SerializeObject(value);
 
                 var expected = $@"{{""prop1"":{value.Prop1},""prop2"":""{value.Prop2}"",""child1"":{{""prop1"":{value.Child1.Prop1},""prop2"":""{value.Child1.Prop2}""}},""child2"":null}}";
-                
-                actual.Should().BeEquivalentTo(expected);
+
+                expected.Should().BeEquivalentTo(actual);
             }
 
             [Fact]
@@ -142,7 +143,8 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
 
                 var settings = new JsonSerializerOptions
                 {
-                    IgnoreNullValues = true
+                    // IgnoreNullValues = true (now obsolete)
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
                 };
 
                 var serializer = new SystemTextJsonSerializer(settings);
@@ -151,7 +153,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
 
                 var expected = $@"{{""prop1"":{value.Prop1},""prop2"":""{value.Prop2}""}}";
 
-                actual.Should().BeEquivalentTo(expected);
+                expected.Should().BeEquivalentTo(actual);
             }
         }
 
@@ -166,7 +168,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
 
                 var expected = Encoding.UTF8.GetBytes(_serializer.SerializeObject(value));
 
-                actual.Should().BeEquivalentTo(expected);
+                expected.Should().BeEquivalentTo(actual);
             }
         }
 
@@ -182,7 +184,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
                 
                 var actual = _serializer.DeserializeObject<DummyType>(value);
 
-                actual.Should().BeEquivalentTo(expected);
+                expected.Should().BeEquivalentTo(actual);
             }
 
             [Fact]
@@ -223,7 +225,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
                 {
                     var actual = await _serializer.DeserializeObjectAsync<DummyType>(stream, CancellationToken.None);
 
-                    actual.Should().BeEquivalentTo(expected);
+                    expected.Should().BeEquivalentTo(actual);
                 }
             }
 

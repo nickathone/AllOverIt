@@ -2,6 +2,56 @@
 
 10 Feb 2022
 ======================================================================================================================
+MAJOR UPDATE - Due to the number of packages and time spent managing dependencies / versioning all packages will now
+               be assigned the same version number. This also helps to establish compatible packages are used together.
+
+Version 5.0.0
+
+AllOverIt
+  * BREAKING: Moved a number of extension methods to be closer to their associated classes (hence a namespace change)
+  * BREAKING: Moved ReflectionHelper methods SetMemberValue(), GetMemberValue(), and GetMemberType() to
+    MemberInfoExtensions as extension methods.
+  * Added PropertyNavigator to get expression details for all nodes in a property chain.
+  * Added extension on ObjectPropertyEnumerableOptions called SetAutoCollatedPaths() which takes property node
+    information via a PropertyNavigator to build full property paths and assert all leaf nodes are not a class type.
+  * Added FindMatches() to find elements in one collection that have keys matching elements in another collection.
+  * Added additional GetPropertyValue() and SetPropertyValue() overloads on EnumerableExtensions that accept a Type.
+  * Added TextStreamer to support writing character data to an internal memory stream.
+  * Added a GenericCache and ReflectionCache
+
+AllOverIt.Validation
+  * Updated to FluentValidation v10.4.0
+
+AllOverIt.Aws.Cdk.AppSync
+  * Now using reactive extensions in AllOverIt.Reactive
+  * Upated to Amazon.CDK.AWS.AppSync v1.150.0
+
+AllOverIt.Evaluator
+
+AllOverIt.GenericHost
+  * Added WaitForStartup() to BackgroundWorker
+
+AllOverIt.Serialization.NewtonsoftJson
+  * Unsealed NewtonsoftJsonSerializer
+
+AllOverIt.Serialization.SystemTextJson
+  * Unsealed SystemTextJsonSerializer
+
+AllOverIt.Aws.AppSync.Client
+  * Renamed RealTimeUrl to RealtimeUrl on SubscriptionClientConfiguration
+
+AllOverIt.Reactive
+  * New package, adding an event bus and observable extensions
+
+AllOverIt.Assertion
+  * New package, moved code out of AllOverIt
+
+AllOverIt.Fixture
+  * Updated to FluentAssertions v6.5.1
+
+
+10 Feb 2022
+======================================================================================================================
 AllOverIt v2.10.0
   * Added support to provide filter instances to ObjectPropertyFilterRegistry.
 

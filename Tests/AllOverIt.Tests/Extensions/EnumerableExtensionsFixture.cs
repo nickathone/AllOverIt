@@ -264,7 +264,7 @@ namespace AllOverIt.Tests.Extensions
 
                 var actual = source.SelectAsList(item => item * 2);
 
-                actual.Should().BeEquivalentTo(expected);
+                expected.Should().BeEquivalentTo(actual);
             }
         }
 
@@ -303,7 +303,7 @@ namespace AllOverIt.Tests.Extensions
 
                 var actual = source.SelectAsReadOnlyCollection(item => item * 2);
 
-                actual.Should().BeEquivalentTo(expected);
+                expected.Should().BeEquivalentTo(actual);
             }
         }
 
@@ -342,7 +342,7 @@ namespace AllOverIt.Tests.Extensions
 
                 var actual = source.SelectAsReadOnlyList(item => item * 2);
 
-                actual.Should().BeEquivalentTo(expected);
+                expected.Should().BeEquivalentTo(actual);
             }
         }
 
@@ -389,7 +389,7 @@ namespace AllOverIt.Tests.Extensions
 
                 var actual = await values.SelectAsync(item => Task.FromResult(!item)).AsListAsync();
 
-                actual.Should().BeEquivalentTo(expected);
+                expected.Should().BeEquivalentTo(actual);
             }
         }
 
@@ -435,7 +435,7 @@ namespace AllOverIt.Tests.Extensions
 
                 var actual = await AsAsyncEnumerable(values).SelectAsync(item => Task.FromResult(!item)).AsListAsync();
 
-                actual.Should().BeEquivalentTo(expected);
+                expected.Should().BeEquivalentTo(actual);
             }
 
             private static async IAsyncEnumerable<bool> AsAsyncEnumerable(IEnumerable<bool> items)
@@ -570,15 +570,17 @@ namespace AllOverIt.Tests.Extensions
             public void Should_Provide_Item_Index()
             {
                 var values = Create<string>();
-                var expected = values.Select((item, index) => (item, index)).AsReadOnlyCollection();
+                var expectedValues = values.Select((item, index) => (item, index)).AsReadOnlyCollection();
 
                 var index = 0;
                 
                 foreach (var (value, idx) in values.WithIndex())
                 {
-                    (value, idx)
+                    var expected = expectedValues.ElementAt(index++);
+
+                    expected
                         .Should()
-                        .BeEquivalentTo(expected.ElementAt(index++));
+                        .BeEquivalentTo((value, idx));
                 }
             }
         }
@@ -606,15 +608,17 @@ namespace AllOverIt.Tests.Extensions
             public async Task Should_Provide_Item_Index()
             {
                 var values = Create<string>();
-                var expected = values.Select((item, index) => (item, index)).AsReadOnlyCollection();
+                var expectedValues = values.Select((item, index) => (item, index)).AsReadOnlyCollection();
 
                 var index = 0;
 
                 await foreach (var (value, idx) in AsAsyncEnumerable(values).WithIndexAsync())
                 {
-                    (value, idx)
+                    var expected = expectedValues.ElementAt(index++);
+
+                    expected
                         .Should()
-                        .BeEquivalentTo(expected.ElementAt(index++));
+                        .BeEquivalentTo((value, idx));
                 }
             }
         }
@@ -724,6 +728,92 @@ namespace AllOverIt.Tests.Extensions
             }
         }
 #endif
+
+        public class FindMatches : EnumerableExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_First_Null()
+            {
+                Invoking(() =>
+                    {
+                        EnumerableExtensions.FindMatches<int, int, int>(null, Enumerable.Empty<int>(), item => item, item => item);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("first");
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_First_Empty()
+            {
+                Invoking(() =>
+                    {
+                        EnumerableExtensions.FindMatches(Enumerable.Empty<int>(), CreateMany<int>(), item => item, item => item);
+                    })
+                    .Should()
+                    .NotThrow();
+            }
+
+            [Fact]
+            public void Should_Throw_When_Second_Null()
+            {
+                Invoking(() =>
+                    {
+                        EnumerableExtensions.FindMatches<int, int, int>(Enumerable.Empty<int>(), null, item => item, item => item);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("second");
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_Second_Empty()
+            {
+                Invoking(() =>
+                    {
+                        EnumerableExtensions.FindMatches(CreateMany<int>(), Enumerable.Empty<int>(), item => item, item => item);
+                    })
+                    .Should()
+                    .NotThrow();
+            }
+
+            [Fact]
+            public void Should_Find_No_Matches()
+            {
+                var first = CreateManyDistinct<int>();
+                var firstMax = first.Max();
+
+                var second = first.Select(value => value + firstMax);
+
+                var matches = EnumerableExtensions.FindMatches(first, second, item => item, item => item);
+
+                matches.Should().BeEmpty();
+            }
+
+            [Fact]
+            public void Should_Find_All_Matches()
+            {
+                var first = CreateManyDistinct<int>();
+                var second = new List<int>(first);
+
+                var matches = EnumerableExtensions.FindMatches(first, second, item => item, item => item);
+
+                first.Should().BeEquivalentTo(matches);
+            }
+
+            [Fact]
+            public void Should_Find_Some_Matches()
+            {
+                var first = new[] {1, 2, 3, 4, 5};
+                var second = new[] { 7, 8, 3, 4, 5 };
+
+                var matches = EnumerableExtensions.FindMatches(first, second, item => item, item => item);
+
+                var expected = new[] {3, 4, 5};
+
+                expected.Should().BeEquivalentTo(matches);
+            }
+        }
 
 #if !NETSTANDARD2_0
         private static async IAsyncEnumerable<TType> AsAsyncEnumerable<TType>(IEnumerable<TType> items)

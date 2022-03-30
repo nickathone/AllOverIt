@@ -4,6 +4,7 @@ using AllOverIt.Patterns.Specification;
 using AllOverIt.Tests.Patterns.Specification.Dummies;
 using FluentAssertions;
 using System.Linq;
+using AllOverIt.Tests.Patterns.Specification.Extensions;
 using Xunit;
 
 namespace AllOverIt.Tests.Extensions
@@ -28,7 +29,7 @@ namespace AllOverIt.Tests.Extensions
 
                     var actual = Enumerable.Range(1, 10).Where(_isEven);
 
-                    actual.Should().BeEquivalentTo(expected);
+                    expected.Should().BeEquivalentTo(actual);
                 }
             }
 
@@ -133,7 +134,9 @@ namespace AllOverIt.Tests.Extensions
                     var specification = Specification<int>.Create(value => value < 5);
                     var actual = values.SkipWhile(specification).ToList();
 
-                    actual.Should().BeEquivalentTo(new[] { 5, 6, 7, 8, 9, 10 });
+                    var expected = new[] { 5, 6, 7, 8, 9, 10 };
+
+                    expected.Should().BeEquivalentTo(actual);
                 }
             }
 
@@ -147,7 +150,9 @@ namespace AllOverIt.Tests.Extensions
                     var specification = Specification<int>.Create(value => value < 5);
                     var actual = values.TakeWhile(specification).ToList();
 
-                    actual.Should().BeEquivalentTo(new[] { 1, 2, 3, 4 });
+                    var expected = new[] {1, 2, 3, 4};
+
+                    expected.Should().BeEquivalentTo(actual);
                 }
             }
         }

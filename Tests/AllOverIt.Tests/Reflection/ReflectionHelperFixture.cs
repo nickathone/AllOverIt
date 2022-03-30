@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Fixture;
-using AllOverIt.Fixture.Extensions;
 using AllOverIt.Reflection;
 using FluentAssertions;
 using System;
@@ -88,13 +87,13 @@ namespace AllOverIt.Tests.Reflection
             {
                 var actual = (object)ReflectionHelper.GetPropertyInfo<DummySuperClass>("Prop3");
 
-                actual.Should().BeEquivalentTo(
-                  new
-                  {
-                      Name = "Prop3",
-                      PropertyType = typeof(double)
-                  }
-                );
+                var expected = new
+                {
+                    Name = "Prop3",
+                    PropertyType = typeof(double)
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
 
             [Fact]
@@ -102,13 +101,13 @@ namespace AllOverIt.Tests.Reflection
             {
                 var actual = (object)ReflectionHelper.GetPropertyInfo<DummySuperClass>("Prop1");
 
-                actual.Should().BeEquivalentTo(
-                  new
-                  {
-                      Name = "Prop1",
-                      PropertyType = typeof(int)
-                  }
-                );
+                var expected = new
+                {
+                    Name = "Prop1",
+                    PropertyType = typeof(int)
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
 
             [Fact]
@@ -127,7 +126,7 @@ namespace AllOverIt.Tests.Reflection
             {
                 var actual = ReflectionHelper.GetPropertyInfo<DummySuperClass>();
 
-                actual.Should().BeEquivalentTo(new[]
+                var expected = new[]
                 {
                     new
                     {
@@ -144,7 +143,9 @@ namespace AllOverIt.Tests.Reflection
                         Name = "Prop3",
                         PropertyType = typeof(double)
                     }
-                });
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
 
             [Fact]
@@ -152,14 +153,16 @@ namespace AllOverIt.Tests.Reflection
             {
                 var actual = ReflectionHelper.GetPropertyInfo<DummySuperClass>(BindingOptions.Default, true);
 
-                actual.Should().BeEquivalentTo(new[]
+                var expected = new[]
                 {
                     new
                     {
                         Name = "Prop3",
                         PropertyType = typeof(double)
                     }
-                });
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
 
             [Fact]
@@ -190,7 +193,7 @@ namespace AllOverIt.Tests.Reflection
                       item.DeclaringType
                   });
 
-                actual.Should().BeEquivalentTo(new[]
+                var expected = new[]
                 {
                     new
                     {
@@ -202,7 +205,9 @@ namespace AllOverIt.Tests.Reflection
                         Name = "Method3",
                         DeclaringType = typeof(DummySuperClass)
                     }
-                });
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
 
             [Fact]
@@ -216,14 +221,16 @@ namespace AllOverIt.Tests.Reflection
                       item.DeclaringType
                   });
 
-                actual.Should().BeEquivalentTo(new[]
+                var expected = new[]
                 {
                     new
                     {
                         Name = "Method3",
                         DeclaringType = typeof(DummySuperClass)
                     }
-                });
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
 
             [Fact]
@@ -237,7 +244,7 @@ namespace AllOverIt.Tests.Reflection
                       item.DeclaringType
                   });
 
-                actual.Should().BeEquivalentTo(new[]
+                var expected = new[]
                 {
                     new
                     {
@@ -249,7 +256,9 @@ namespace AllOverIt.Tests.Reflection
                         Name = "Method2",
                         DeclaringType = typeof(DummyBaseClass)
                     }
-                });
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
 
             [Fact]
@@ -263,7 +272,7 @@ namespace AllOverIt.Tests.Reflection
                       item.DeclaringType
                   });
 
-                actual.Should().BeEquivalentTo(new[]
+                var expected = new[]
                 {
                     new
                     {
@@ -275,7 +284,9 @@ namespace AllOverIt.Tests.Reflection
                         Name = "Method4",
                         DeclaringType = typeof(DummySuperClass)
                     }
-                });
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
 
             [Fact]
@@ -289,7 +300,7 @@ namespace AllOverIt.Tests.Reflection
                       item.DeclaringType
                   });
 
-                actual.Should().BeEquivalentTo(new[]
+                var expected = new[]
                 {
                     new
                     {
@@ -301,218 +312,10 @@ namespace AllOverIt.Tests.Reflection
                         Name = "Method4",
                         DeclaringType = typeof(DummySuperClass)
                     }
-                });
+                };
+
+                actual.Should().BeEquivalentTo(expected);
             }
-        }
-
-        public class SetMemberValue : ReflectionHelperFixture
-        {
-            [Fact]
-            public void Should_Throw_When_MemberInfo_Null()
-            {
-                Invoking(() =>
-                  {
-                      ReflectionHelper.SetMemberValue(null, null, null);
-                  })
-                  .Should()
-                  .Throw<ArgumentNullException>()
-                  .WithNamedMessageWhenNull("memberInfo");
-            }
-
-            [Fact]
-            public void Should_Throw_When_Target_Null()
-            {
-                Invoking(() =>
-                  {
-                      var subject = new DummySuperClass();
-                      var memberInfo = subject.GetType().GetMember("Prop3").Single();
-
-                      ReflectionHelper.SetMemberValue(memberInfo, null, this);
-                  })
-                  .Should()
-                  .Throw<ArgumentNullException>()
-                  .WithNamedMessageWhenNull("target");
-            }
-
-            [Fact]
-            public void Should_Set_Property()
-            {
-                var expected = Create<int>();
-                var subject = new DummySuperClass();
-
-                var memberInfo = subject.GetType().GetMember("Prop3").Single();
-
-                ReflectionHelper.SetMemberValue(memberInfo, subject, expected);
-
-                subject.Prop3.Should().Be(expected);
-            }
-
-            [Fact]
-            public void Should_Set_Field()
-            {
-                var expected = Create<int>();
-                var subject = new DummySuperClass();
-
-                var memberInfo = subject.GetType().GetMember("Field1").Single();
-
-                ReflectionHelper.SetMemberValue(memberInfo, subject, expected);
-
-                subject.Field1.Should().Be(expected);
-            }
-
-            [Fact]
-            public void Should_Throw_When_Not_Field_Or_Property()
-            {
-                var memberInfo = ReflectionHelper
-                  .GetMethodInfo<ReflectionHelperFixture>(BindingOptions.Private)
-                  .Single(item => item.Name == nameof(DummyMethodCall));
-
-                Invoking(() => ReflectionHelper.SetMemberValue(memberInfo, this, new { }))
-                  .Should()
-                  .Throw<ArgumentOutOfRangeException>();
-            }
-        }
-
-        public class GetMemberValue : ReflectionHelperFixture
-        {
-            [Fact]
-            public void Should_Throw_When_MemberInfo_Null()
-            {
-                Invoking(() =>
-                  {
-                      ReflectionHelper.GetMemberValue(null, null);
-                  })
-                  .Should()
-                  .Throw<ArgumentNullException>()
-                  .WithNamedMessageWhenNull("memberInfo");
-            }
-
-            [Fact]
-            public void Should_Throw_When_Target_Null()
-            {
-                Invoking(() =>
-                  {
-                      var subject = new DummySuperClass();
-                      var memberInfo = subject.GetType().GetMember("Prop3").Single();
-
-                      ReflectionHelper.GetMemberValue(memberInfo, null);
-                  })
-                  .Should()
-                  .Throw<ArgumentNullException>()
-                  .WithNamedMessageWhenNull("target");
-            }
-
-            [Fact]
-            public void Should_Get_Property()
-            {
-                var subject = Create<DummySuperClass>();
-
-                var memberInfo = subject.GetType().GetMember("Prop3").Single();
-
-                var actual = ReflectionHelper.GetMemberValue(memberInfo, subject);
-
-                actual.Should().Be(subject.Prop3);
-            }
-
-            [Fact]
-            public void Should_Get_Field()
-            {
-                var subject = Create<DummySuperClass>();
-
-                var memberInfo = subject.GetType().GetMember("Field1").Single();
-
-                var actual = ReflectionHelper.GetMemberValue(memberInfo, subject);
-
-                actual.Should().Be(subject.Field1);
-            }
-
-            [Fact]
-            public void Should_Throw_When_Not_Field_Or_Property()
-            {
-                var memberInfo = ReflectionHelper
-                  .GetMethodInfo<ReflectionHelperFixture>(BindingOptions.Private)
-                  .Single(item => item.Name == nameof(DummyMethodCall));
-
-                Invoking(() => ReflectionHelper.GetMemberValue(memberInfo, this))
-                  .Should()
-                  .Throw<ArgumentOutOfRangeException>();
-            }
-        }
-
-        public class GetMemberType : ReflectionHelperFixture
-        {
-            [Fact]
-            public void Should_Throw_When_MemberInfo_Null()
-            {
-                Invoking(() =>
-                  {
-                      ReflectionHelper.GetMemberType(null);
-                  })
-                  .Should()
-                  .Throw<ArgumentNullException>()
-                  .WithNamedMessageWhenNull("memberInfo");
-            }
-
-            [Fact]
-            public void Should_Return_Property_Type()
-            {
-                var subject = Create<DummySuperClass>();
-
-                var memberInfo = subject.GetType().GetMember("Prop3").Single();
-
-                var actual = ReflectionHelper.GetMemberType(memberInfo);
-
-                var expected = subject.Prop3.GetType();
-
-                actual.Should().Be(expected);
-            }
-
-            [Fact]
-            public void Should_Return_Field_Type()
-            {
-                var subject = Create<DummySuperClass>();
-
-                var memberInfo = subject.GetType().GetMember("Field1").Single();
-
-                var actual = ReflectionHelper.GetMemberType(memberInfo);
-
-                var expected = subject.Field1.GetType();
-
-                actual.Should().Be(expected);
-            }
-
-            [Fact]
-            public void Should_Return_MethodCall_Type()
-            {
-                var memberInfo = ReflectionHelper
-                  .GetMethodInfo<ReflectionHelperFixture>(BindingOptions.Private)
-                  .Single(item => item.Name == nameof(DummyMethodCall));
-
-                var actual = ReflectionHelper.GetMemberType(memberInfo);
-
-                var expected = typeof(ReflectionHelperFixture)
-                  .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
-                  .Single(item => item.Name == "DummyMethodCall")
-                  .ReturnType;
-
-                actual.Should().Be(expected);
-            }
-
-            [Fact]
-            public void Should_Throw_For_Unexpected_Type()
-            {
-                // any Type will do, just chose to use EventHandler
-                var eventInfo = typeof(EventHandler);
-
-                Invoking(() => ReflectionHelper.GetMemberType(eventInfo))
-                  .Should()
-                  .Throw<ArgumentOutOfRangeException>();
-            }
-        }
-
-        private int DummyMethodCall()
-        {
-            return 0;
         }
     }
 }
