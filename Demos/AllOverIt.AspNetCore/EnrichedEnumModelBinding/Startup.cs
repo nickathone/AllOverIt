@@ -1,6 +1,5 @@
-using AllOverIt.AspNetCore.ModelBinders;
-using AllOverIt.Serialization.SystemTextJson.Converters;
-using EnrichedEnumModelBinding.Converters;
+using AllOverIt.AspNetCore.Extensions;
+using AllOverIt.Serialization.NewtonsoftJson.Converters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,15 +23,33 @@ namespace EnrichedEnumModelBinding
             services
                 .AddControllers(options =>
                 {
-                    options.ModelBinderProviders.Insert(0, new EnrichedEnumModelBinderProvider());
+                    // Equivalent to: options.ModelBinderProviders.Insert(0, new EnrichedEnumModelBinderProvider());
+                    options.AddEnrichedEnumModelBinder();
                 })
-                .AddJsonOptions(options =>
+
+                // When using NewtonsoftJson via Microsoft.AspNetCore.Mvc.NewtonsoftJson
+                .AddNewtonsoftJson(options =>
                 {
-                    options.JsonSerializerOptions.Converters.Add(new ForecastPeriodJsonConverter());
-                    
+                    // Can register converters explicitly:
+                    // options.SerializerSettings.Converters.Add(EnrichedEnumJsonConverter<ForecastPeriod>.Create());
+                    //
+                    // Or add a factory that will create suitable converters as they are needed
+                    options.SerializerSettings.Converters.Add(new EnrichedEnumJsonConverterFactory());
+
                     // The controller uses the local time but, for testing, this converter changes the kind so it is treated as UTC.
-                    options.JsonSerializerOptions.Converters.Add(new DateTimeAsUtcConverter());
+                    options.SerializerSettings.Converters.Add(new DateTimeAsUtcConverter());
                 });
+
+                // When using SystemTextJson
+                //
+                // .AddJsonOptions(options =>
+                // {
+                //     // alternative to creating a class inherited from EnrichedEnumJsonConverter<>
+                //     options.JsonSerializerOptions.Converters.Add(EnrichedEnumJsonConverter<ForecastPeriod>.Create());
+
+                //     // The controller uses the local time but, for testing, this converter changes the kind so it is treated as UTC.
+                //     options.JsonSerializerOptions.Converters.Add(new DateTimeAsUtcConverter());
+                // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

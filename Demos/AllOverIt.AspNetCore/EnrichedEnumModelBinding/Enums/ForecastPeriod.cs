@@ -1,15 +1,15 @@
-﻿using AllOverIt.Patterns.Enumeration;
-using EnrichedEnumModelBinding.Converters;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using AllOverIt.Converters;
+using AllOverIt.Patterns.Enumeration;
 
-namespace EnrichedEnumModelBinding.Models
+namespace EnrichedEnumModelBinding.Enums
 {
     // Can apply a JsonConverter like this, or as per this demo within Startup.cs
     //[JsonConverter(typeof(ForecastPeriodConverter))]
 
     // The type converter is for the /multi endpoint (query string with an array of periods)
-    [TypeConverter(typeof(ForecastPeriodTypeConverter))]
+    [TypeConverter(typeof(EnrichedEnumTypeConverter<ForecastPeriod>))]
     public sealed class ForecastPeriod : EnrichedEnum<ForecastPeriod>
     {
         public static readonly ForecastPeriod Today = new(0);

@@ -4,13 +4,13 @@ using AllOverIt.Aws.AppSync.Client.Extensions;
 using AllOverIt.GenericHost;
 using AllOverIt.Serialization.Abstractions;
 using AllOverIt.Serialization.NewtonsoftJson;
+using AllOverIt.Serialization.SystemTextJson;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
-using AllOverIt.Serialization.SystemTextJson;
 
 namespace AppSyncSubscription
 {
@@ -34,7 +34,7 @@ namespace AppSyncSubscription
 
                     // Only use one of the these:
                     //   If you use AddAppSyncClient() then SubscriptionWorker requires IAppSyncClient
-                    //   If you use AddNamedAppSyncClient() then SubscriptionWorker requires INamedAppSyncClientProvider
+                    //   If you use AddAppSyncNamedClient() then SubscriptionWorker requires IAppSyncNamedClientProvider
                     //AddAppSyncClient(services);
                     AddNamedAppSyncClient(services);
 
@@ -86,7 +86,7 @@ namespace AppSyncSubscription
 
         private static void AddNamedAppSyncClient(IServiceCollection services)
         {
-            services.AddNamedAppSyncClient((provider, name) =>
+            services.AddAppSyncNamedClient((provider, name) =>
             {
                 // demo code just to show that the configuration is named based (change the name used in SubscriptionWorker and this call will throw)
                 if( name == "Public")

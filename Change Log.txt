@@ -1,5 +1,42 @@
 ======================================================================================================================
 
+23 Apr 2022
+Version 5.1.0
+======================================================================================================================
+AllOverIt
+  * Added static Create() factory method to EnrichedEnumTypeConverter
+  * Added IsSubClassOfRawGeneric() and improved IsDerivedFrom() to consider open/unbound generics
+
+AllOverIt.EntityFramework
+  * Updated ModelBuilderExtensions() to return ModelBuilder to allow for a fluent syntax
+
+AllOverIt.Serialization
+  * New package
+
+AllOverIt.Serialization.NewtonsoftJson
+  * Moved caching from JsonConverterFactory to EnrichedEnumJsonConverterFactory. Now optional, on by default
+  * Added JsonHelper to support extracting property values from a JSON string (or object)
+  * Added a NestedDictionaryConverter to convert to and from Dictionary<string, object> recursively
+
+AllOverIt.Serialization.SystemTextJson
+  * Added caching to EnrichedEnumJsonConverterFactory. Optional, on by default.
+  * Added JsonHelper to support extracting property values from a JSON string (or object)
+  * Added a NestedDictionaryConverter to convert to and from Dictionary<string, object> recursively
+
+AllOverIt.AspNetCore
+  * Corrected EnrichedEnumModelBinder to consider all base classes to find EnrichedEnum<>
+  * Added extension method AddEnrichedEnumModelBinder()
+  
+AllOverIt.Aws.AppSync.Client
+  * Renamed INamedAppSyncClientProvider => IAppSyncNamedClientProvider
+  * Renamed extension method AddNamedAppSyncClient() => AddAppSyncNamedClient
+
+AllOverIt.DependencyInjection
+  * New package
+  * Includes a service decorator
+  * Added support for auto service registation
+
+
 10 Feb 2022
 ======================================================================================================================
 MAJOR UPDATE - Due to the number of packages and time spent managing dependencies / versioning all packages will now

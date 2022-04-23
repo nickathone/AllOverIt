@@ -9,8 +9,6 @@ namespace BasicValidation.Validators
     {
         public IsValidPersonValidator()
         {
-            // Only adding multiple rules to keep the number of validators to a minimum
-
             // methods starting with IsXXX are extension methods provided by AllOverIt.Validation
             RuleFor(person => person.Age).IsGreaterThan(21);
             RuleFor(person => person.Age).IsNotEmpty();       // same as checking for a default (zero) value
