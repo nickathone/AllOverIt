@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Extensions;
+using AllOverIt.Validation.Exceptions;
 using AllOverIt.Validation.Extensions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -11,12 +12,39 @@ namespace AllOverIt.Validation
     public sealed class ValidationInvoker : IValidationRegistry, IValidationInvoker
     {
         // can only re-use validators that don't store state (context)
-        private readonly IDictionary<Type, Lazy<object>> _validatorCache = new Dictionary<Type, Lazy<object>>();
+        private readonly IDictionary<Type, Lazy<IValidator>> _validatorCache = new Dictionary<Type, Lazy<IValidator>>();
 
         /// <inheritdoc />
-        public IValidationRegistry Register<TType, TValidator>() where TValidator : ValidatorBase<TType>, new()
+        public IValidationRegistry Register<TType, TValidator>()
+            where TValidator : ValidatorBase<TType>, new()
         {
-            _validatorCache.Add(typeof(TType), new Lazy<object>(() => new TValidator()));
+            _validatorCache.Add(typeof(TType), new Lazy<IValidator>(() => new TValidator()));
+
+            return this;
+        }
+
+        /// <inheritdoc />
+        /// <remarks>The validator must implement <see cref="ValidatorBase{TType}"/> where TType is the model type.</remarks>
+        public IValidationRegistry Register(Type modelType, Type validatorType)
+        {
+            if (!validatorType.IsDerivedFrom(typeof(ValidatorBase<>)))
+            {
+                throw new ValidationRegistryException($"The {validatorType.GetFriendlyName()} type is not a validator.");
+            }
+
+            if (validatorType.GetConstructor(Type.EmptyTypes) == null)
+            {
+                throw new ValidationRegistryException($"The {validatorType.GetFriendlyName()} type must have a default constructor.");
+            }
+
+            var validatorArgType = validatorType.BaseType!.GenericTypeArguments[0];
+
+            if (modelType != validatorArgType)
+            {
+                throw new ValidationRegistryException($"The {validatorType.GetFriendlyName()} type cannot validate a {modelType} type.");
+            }
+
+            _validatorCache.Add(modelType, new Lazy<IValidator>(() => (IValidator) Activator.CreateInstance(validatorType)));
 
             return this;
         }

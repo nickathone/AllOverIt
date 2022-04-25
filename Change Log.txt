@@ -1,5 +1,22 @@
 ======================================================================================================================
 
+24 Apr 2022
+Version 5.2.0
+======================================================================================================================
+AllOverIt.Serialization.NewtonsoftJson
+AllOverIt.Serialization.SystemTextJson
+  * Improvements to JsonHelper and NestedDictionaryConverter to allow for strict / lower-camel case property naming
+
+AllOverIt.Aws.Cdk.AppSync
+  * Support automatic naming of GQL schema types and inputs
+
+AllOverIt.DependencyInjection
+  * Implementation candidates in the registrar are now cached
+
+AllOverIt.Validation
+  * Added support to register validators based on their runtime type.
+
+
 23 Apr 2022
 Version 5.1.0
 ======================================================================================================================
