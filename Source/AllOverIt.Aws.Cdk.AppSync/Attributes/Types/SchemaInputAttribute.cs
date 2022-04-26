@@ -1,7 +1,7 @@
 ﻿namespace AllOverIt.Aws.Cdk.AppSync.Attributes.Types
 {
     /// <summary>Apply to an interface that describes a schema 'input' type.</summary>
-    public sealed class SchemaInputAttribute : SchemaTypeBaseAttribute
+    public class SchemaInputAttribute : SchemaTypeBaseAttribute
     {
         /// <summary>When not null or empty, identifies the portion of the input's namespace to exclude from the
         /// generated name.</summary>
