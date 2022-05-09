@@ -8,21 +8,9 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
 {
     /// <summary>Implements a JSON Converter that converts to and from a Dictionary&lt;string, object>. All object and array
     /// properties are also converted to and from a Dictionary&lt;string, object>.</summary>
-    public sealed class NestedDictionaryConverter : JsonConverter<Dictionary<string, object>>
+    internal sealed class NestedDictionaryConverter : JsonConverter<Dictionary<string, object>>
     {
         private static readonly Type DictionaryType = typeof(Dictionary<string, object>);
-
-        private readonly NestedDictionaryConverterOptions _options;
-
-        /// <summary>Constructor.</summary>
-        /// <param name="options">Options that control how the converter behaves.</param>
-        public NestedDictionaryConverter(NestedDictionaryConverterOptions options = default)
-        {
-            _options = options ?? new NestedDictionaryConverterOptions
-            {
-                StrictPropertyNames = false
-            };
-        }
 
         /// <inheritdoc />
         public override Dictionary<string, object> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -32,7 +20,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
                 throw CreateReadJsonSerializationException(reader.TokenType);
             }
 
-            var dictionary = new Dictionary<string, object>();
+            var dictionary = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
 
             while (reader.Read())
             {
@@ -42,8 +30,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
                         break;
 
                     case JsonTokenType.PropertyName:
-                        var name = reader.GetString();
-                        var propertyName = GetPropertyName(name);
+                        var propertyName = reader.GetString();
 
                         if (propertyName.IsNullOrEmpty() || !reader.Read())
                         {
@@ -103,12 +90,11 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
             return list;
         }
 
-        private void WriteValue(Utf8JsonWriter writer, string key, object objectValue)
+        private static void WriteValue(Utf8JsonWriter writer, string key, object objectValue)
         {
             if (key != null)
             {
-                var propertyName = GetPropertyName(key);
-                writer.WritePropertyName(propertyName);
+                writer.WritePropertyName(key);
             }
 
             switch (objectValue)
@@ -171,20 +157,6 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
                     writer.WriteNullValue();
                     break;
             }
-        }
-
-        private string GetPropertyName(string propertyName)
-        {
-            if (_options.StrictPropertyNames || propertyName.IsNullOrEmpty() || char.IsLower(propertyName[0]))
-            {
-                return propertyName;
-            }
-
-#if NETSTANDARD2_0
-            return $"{char.ToLower(propertyName[0])}{propertyName.Substring(1)}";
-#else
-            return string.Concat(propertyName[..1].ToLower(), propertyName[1..]);
-#endif
         }
 
         private static Exception CreateReadJsonSerializationException(JsonTokenType? tokenType = default)
