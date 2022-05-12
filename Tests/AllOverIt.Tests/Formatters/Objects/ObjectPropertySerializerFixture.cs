@@ -1,7 +1,9 @@
 ﻿using AllOverIt.Exceptions;
 using AllOverIt.Extensions;
 using AllOverIt.Fixture;
+using AllOverIt.Fixture.Extensions;
 using AllOverIt.Formatters.Objects;
+using AllOverIt.Formatters.Objects.Exceptions;
 using AllOverIt.Reflection;
 using FluentAssertions;
 using System;
@@ -193,6 +195,7 @@ namespace AllOverIt.Tests.Formatters.Objects
                     },
                     BindingOptions = BindingOptions.Default,
                     EnumerableOptions = new ObjectPropertyEnumerableOptions(),
+                    RootValueOptions = new ObjectPropertyRootValueOptions(),
                     Filter = (ObjectPropertyFilter)null,
                     IncludeNulls = false,
                     IncludeEmptyCollections = false,
@@ -233,6 +236,11 @@ namespace AllOverIt.Tests.Formatters.Objects
                         Separator = ", ",
                         AutoCollatedPaths = (IReadOnlyCollection<string>) null
                     },
+                    RootValueOptions = new
+                    {
+                        ScalarKeyName = "_",
+                        ArrayKeyName = "[]"
+                    },
                     Filter = (ObjectPropertyFilter) null,
                     IncludeNulls = false,
                     IncludeEmptyCollections = false,
@@ -248,6 +256,94 @@ namespace AllOverIt.Tests.Formatters.Objects
 
         public class SerializeToDictionary : ObjectPropertySerializerFixture
         {
+            [Fact]
+            public void Should_Throw_When_Instance_Null()
+            {
+                var serializer = GetSerializer();
+
+                Invoking(() =>
+                {
+                    _ = serializer.SerializeToDictionary(null);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("instance");
+            }
+
+            [Theory]
+            [InlineData("abc")]
+            [InlineData(123)]
+            public void Should_Serialize_Root_Level_Value(object instance)
+            {
+                var serializer = GetSerializer();
+
+                var actual = serializer.SerializeToDictionary(instance);
+
+                var expected = new Dictionary<string, string>
+                {
+                    {"_", $"{instance}"}
+                };
+
+                actual.Should().BeEquivalentTo(expected);
+            }
+
+            [Fact]
+            public void Should_Serialize_List()
+            {
+                var list = CreateMany<string>();
+
+                var serializer = GetSerializer();
+                var actual = serializer.SerializeToDictionary(list);
+
+                var expected = new Dictionary<string, string>
+                {
+                    {"[0]", list[0]},
+                    {"[1]", list[1]},
+                    {"[2]", list[2]},
+                    {"[3]", list[3]},
+                    {"[4]", list[4]}
+                };
+
+                expected
+                    .Should()
+                    .BeEquivalentTo(actual);
+            }
+
+            [Fact]
+            public void Should_Serialize_List_With_Collation()
+            {
+                var list = CreateMany<string>();
+
+                var options = new ObjectPropertySerializerOptions();
+                options.EnumerableOptions.Separator = "-";
+                options.EnumerableOptions.CollateValues = true;
+
+                var serializer = new ObjectPropertySerializer(options);
+
+                var actual = serializer.SerializeToDictionary(list);
+
+                var expected = new Dictionary<string, string>
+                {
+                    {"[]", string.Join("-", list)}
+                };
+
+                expected
+                    .Should()
+                    .BeEquivalentTo(actual);
+            }
+
+            [Fact]
+            public void Should_Return_Same_Dictionary_When_Dictionary()
+            {
+                var expected = Create<Dictionary<string, string>>();
+
+                var serializer = GetSerializer();
+
+                var actual = serializer.SerializeToDictionary(expected);
+
+                actual.Should().BeSameAs(expected);
+            }
+
             [Fact]
             public void Should_Serialize_Type_Using_Default_Settings()
             {
@@ -908,28 +1004,6 @@ namespace AllOverIt.Tests.Formatters.Objects
 
                     { $"{keys[2]}.{dictionary[keys[2]].Keys.ElementAt(0)}", $"{dictionary[keys[2]].Values.ElementAt(0)}" },
                     { $"{keys[2]}.{dictionary[keys[2]].Keys.ElementAt(1)}", $"{dictionary[keys[2]].Values.ElementAt(1)}" }
-                };
-
-                expected
-                    .Should()
-                    .BeEquivalentTo(actual);
-            }
-
-            [Fact]
-            public void Should_Serialize_List()
-            {
-                var list = CreateMany<string>();
-
-                var serializer = GetSerializer();
-                var actual = serializer.SerializeToDictionary(list);
-
-                var expected = new Dictionary<string, string>
-                {
-                    {"[0]", list[0]},
-                    {"[1]", list[1]},
-                    {"[2]", list[2]},
-                    {"[3]", list[3]},
-                    {"[4]", list[4]}
                 };
 
                 expected

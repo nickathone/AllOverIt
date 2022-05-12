@@ -1,7 +1,6 @@
 ﻿using System;
-using AllOverIt.Formatters.Objects;
 
-namespace AllOverIt.Exceptions
+namespace AllOverIt.Formatters.Objects.Exceptions
 {
     /// <summary>Represents an error raised by an <see cref="ObjectPropertyFilter"/>.</summary>
     public class ObjectPropertyFilterException : Exception

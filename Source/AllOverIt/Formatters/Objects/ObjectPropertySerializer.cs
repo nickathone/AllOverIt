@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Exceptions;
 using AllOverIt.Extensions;
+using AllOverIt.Formatters.Objects.Exceptions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +28,12 @@ namespace AllOverIt.Formatters.Objects
         {
             _ = instance.WhenNotNull(nameof(instance));
 
-            var dictionary = new Dictionary<string, string>();
+            if (instance is IDictionary<string, string> dictionary)
+            {
+                return dictionary;
+            }
+
+            dictionary = new Dictionary<string, string>();
 
             if (instance != null)
             {
@@ -45,7 +51,7 @@ namespace AllOverIt.Formatters.Objects
                     AppendDictionaryAsPropertyValues(prefix, dictionary, values, references);
                     break;
 
-                case IEnumerable enumerable:
+                case IEnumerable enumerable when instance.GetType() != typeof(string):
                     // ReSharper disable once PossibleMultipleEnumeration
                     var collateValues = CanCollateEnumerableValues(enumerable, references);
 
@@ -58,6 +64,12 @@ namespace AllOverIt.Formatters.Objects
 
                     if (collateValues)
                     {
+                        if (prefix == null)
+                        {
+                            // The array must have been a root object (not a property value) so use "[]" as the prefix
+                            prefix = Options.RootValueOptions.ArrayKeyName;
+                        }
+
                         values.Add(prefix, string.Join(Options.EnumerableOptions.Separator, arrayValues.Values));
                     }
                     break;
@@ -149,6 +161,15 @@ namespace AllOverIt.Formatters.Objects
         private void AppendObjectAsPropertyValues(string prefix, object instance, IDictionary<string, string> values,
             IDictionary<object, ObjectPropertyParent> references)
         {
+            var instanceType = instance.GetType();
+
+            if (!instanceType.IsClass || instanceType == typeof(string))
+            {
+                // The value doesn't have properties....only option is to ToString() it
+                values.Add(Options.RootValueOptions.ScalarKeyName, $"{instance}");
+                return;
+            }
+
             var properties = instance
                 .GetType()
                 .GetPropertyInfo(Options.BindingOptions)
