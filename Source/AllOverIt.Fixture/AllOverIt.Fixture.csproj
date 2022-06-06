@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;netstandard2.0;netstandard2.1;net5.0;net6.0</TargetFrameworks>
         <LangVersion>Latest</LangVersion>
-        <Version>5.8.0</Version>
+        <Version>5.9.0</Version>
         <Authors>Malcolm Smith</Authors>
         <Company></Company>
         <Copyright>Copyright © 2019</Copyright>
@@ -12,14 +12,16 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/mjfreelancing/AllOverIt.Fixture</RepositoryUrl>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="AutoFixture" Version="4.17.0" />
-        <PackageReference Include="FluentAssertions" Version="6.6.0" />
+        <PackageReference Include="FluentAssertions" Version="6.7.0" />
     </ItemGroup>
 
     <ItemGroup>
