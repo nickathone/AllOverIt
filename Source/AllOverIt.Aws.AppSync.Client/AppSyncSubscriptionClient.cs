@@ -48,6 +48,7 @@ namespace AllOverIt.Aws.AppSync.Client
         private IDisposable _healthDisposable;      // Subscription for resetting the connection and re-subscribing all subscriptions
         private IConnectableObservable<AppSyncSubscriptionMessage> _incomingMessages;
         private IDisposable _incomingMessagesConnection;
+        private IAppSyncAuthorization _connectionAuthorization;
 
         // The primary CancellationTokenSource used for message retrieval from the web socket
         private CancellationTokenSource _webSocketCancellationTokenSource;
@@ -79,9 +80,12 @@ namespace AllOverIt.Aws.AppSync.Client
         }
 
         /// <inheritdoc />
-        public async Task<bool> ConnectAsync()
+        public async Task<bool> ConnectAsync(IAppSyncAuthorization authorization = default)
         {
+            SetConnectionAuthorizationIfRequired(authorization ?? _configuration.DefaultAuthorization);
+
             await CheckWebSocketConnectionAsync();
+
             return IsAlive;
         }
 
@@ -126,6 +130,8 @@ namespace AllOverIt.Aws.AppSync.Client
         {
             // Only allow a single registration at a time to avoid complex overlapping connection states when there's a WebSocket issue.
             await _subscriptionLock.WaitAsync().ConfigureAwait(false);
+
+            SetConnectionAuthorizationIfRequired(authorization ?? _configuration.DefaultAuthorization);
 
             try
             {
@@ -318,11 +324,13 @@ namespace AllOverIt.Aws.AppSync.Client
                 {
                     _connectionStateSubject.OnNext(SubscriptionConnectionState.ConnectionReset);
 
+                    var previousConnectionAuthorization = _connectionAuthorization;
+
                     // No point trying to disconnect via DisconnectAsync() as we're responding to the lack of communication
                     ShutdownConnection();
 
                     // Re-connects and re-subscribes all subscriptions
-                    await ConnectAsync();
+                    await ConnectAsync(previousConnectionAuthorization);
 
                     if (CurrentConnectionState == SubscriptionConnectionState.Disconnected)
                     {
@@ -337,11 +345,21 @@ namespace AllOverIt.Aws.AppSync.Client
                 .Subscribe();
         }
 
+        private void SetConnectionAuthorizationIfRequired(IAppSyncAuthorization authorization)
+        {
+            _connectionAuthorization ??= authorization;
+
+            if (_connectionAuthorization == null)
+            {
+                throw new InvalidOperationException("Authorization has not been provided for the AppSync subscription client connection");
+            }
+        }
+
         private Task ConnectWebSocketAsync()
         {
             _webSocketCancellationTokenSource = new CancellationTokenSource();
 
-            var hostAuth = new AppSyncHostAuthorization(_configuration.Host, _configuration.DefaultAuthorization);
+            var hostAuth = new AppSyncHostAuthorization(_configuration.Host, _connectionAuthorization);
 
             var headerValues = string.Join(",", hostAuth.KeyValues.Select(kvp => $@"""{kvp.Key}"":""{kvp.Value}"""));
             var encodedHeader = $@"{{{headerValues}}}".ToBase64();
@@ -397,6 +415,8 @@ namespace AllOverIt.Aws.AppSync.Client
 
             _webSocketCancellationTokenSource?.Dispose();
             _webSocketCancellationTokenSource = null;
+
+            _connectionAuthorization = null;
         }
 
         private SubscriptionRegistrationRequest GetSubscription(string id)
