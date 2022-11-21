@@ -8,15 +8,13 @@ namespace ObjectMappingBenchmarking
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
 #if BENCHMARK
             BenchmarkRunner.Run<MappingTests>();
 #else
             var tests = new MappingTests();
-            tests.StaticMethod_SimpleSource_Create_SimpleTarget();
-            tests.ObjectMapper_SimpleSource_Create_SimpleTarget();
-            tests.ObjectMapper_SimpleSource_CopyTo_SimpleTarget();
+            tests.ObjectMapper_PreConfigured_CopyTo_Target();
 #endif
         }
     }

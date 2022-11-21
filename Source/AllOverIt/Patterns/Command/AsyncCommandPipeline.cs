@@ -1,7 +1,8 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Exceptions;
+using AllOverIt.Patterns.Command.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AllOverIt.Patterns.Command
@@ -38,7 +39,7 @@ namespace AllOverIt.Patterns.Command
         /// <returns>The pipeline instance, allowing for a fluent syntax.</returns>
         public AsyncCommandPipeline<TInput, TOutput> Append(params IAsyncCommand<TInput, TOutput>[] commands)
         {
-            _ = commands.WhenNotNullOrEmpty(nameof(commands));
+            _ = commands.WhenNotNull(nameof(commands));
 
             _commands.AddRange(commands);
             return this;
@@ -47,20 +48,25 @@ namespace AllOverIt.Patterns.Command
         /// <summary>Asynchronously processes a specified input by passing it to the first command in the pipeline and
         /// sequentially passing the output to the next command in the sequence.</summary>
         /// <param name="input">The input value provided to the command.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>The output from the last command in the pipeline sequence.</returns>
         /// <exception cref="CommandException">Thrown when there are no commands to execute.</exception>
-        public async Task<TOutput> ExecuteAsync(TInput input)
+        public async Task<TOutput> ExecuteAsync(TInput input, CancellationToken cancellationToken)
         {
             if (!_commands.Any())
             {
                 throw new CommandException("There are no commands to execute.");
             }
 
-            var output = await _commands.First().ExecuteAsync(input).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var output = await _commands.First().ExecuteAsync(input, cancellationToken).ConfigureAwait(false);
 
             foreach (var command in _commands.Skip(1))
             {
-                output = await command.ExecuteAsync(output).ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
+
+                output = await command.ExecuteAsync(output, cancellationToken).ConfigureAwait(false);
             }
 
             return output;

@@ -1,20 +1,17 @@
-﻿using AllOverIt.Reflection;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Reflection;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using AllOverIt.Assertion;
-using AllOverIt.Patterns.Enumeration;
 
 namespace AllOverIt.Extensions
 {
     /// <summary>Provides a variety of extension methods for <see cref="Type"/> types.</summary>
-    public static class TypeExtensions
+    public static partial class TypeExtensions
     {
-        private static readonly Type EnrichedEnumType = typeof(EnrichedEnum<>);
-
         /// <summary>Gets the <see cref="PropertyInfo"/> (property metadata) for a given public or protected property on a <see cref="Type"/>.</summary>
         /// <param name="type">The <see cref="Type"/> to obtain the property metadata from.</param>
         /// <param name="propertyName">The name of the property to obtain metadata for.</param>
@@ -33,13 +30,67 @@ namespace AllOverIt.Extensions
         /// If True, only property metadata of the declared type is returned.</param>
         /// <returns>The property metadata, as <see cref="PropertyInfo"/>, of a provided <see cref="Type"/>.</returns>
         /// <remarks>When class inheritance is involved, this method returns the first property found, starting at the type represented
-        /// by <paramref name="type"/>.</remarks>
+        /// by <paramref name="type"/>. Properties without a getter are excluded.</remarks>
         public static IEnumerable<PropertyInfo> GetPropertyInfo(this Type type, BindingOptions bindingOptions = BindingOptions.Default, bool declaredOnly = false)
         {
-            var predicate = BindingOptionsHelper.BuildBindingPredicate(bindingOptions);
+            var predicate = BindingOptionsHelper.BuildPropertyOrMethodBindingPredicate(bindingOptions);
             var typeInfo = type.GetTypeInfo();
 
-            return GetFilteredPropertyInfo(typeInfo, declaredOnly, predicate);
+            // This implementation is better performing than using method/query LINQ queries
+
+            var propInfos = new List<PropertyInfo>();
+
+            foreach (var propInfo in typeInfo.GetPropertyInfo(declaredOnly))
+            {
+                var methodInfo = propInfo.GetMethod;
+
+                // Ignore any properties without a getter
+                if (methodInfo != null && predicate.Invoke(methodInfo))
+                {
+                    propInfos.Add(propInfo);
+                }
+            }
+
+            return propInfos;
+        }
+
+        /// <summary>Gets the <see cref="FieldInfo"/> (field metadata) for a given public or protected field on a <see cref="Type"/>.</summary>
+        /// <param name="type">The <see cref="Type"/> to obtain the field metadata from.</param>
+        /// <param name="fieldName">The name of the field to obtain metadata for.</param>
+        /// <returns>The field metadata, as <see cref="FieldInfo"/>, of a specified field on the provided <paramref name="type"/>.</returns>
+        /// <remarks>When class inheritance is involved, this method returns the first field found, starting at the type represented
+        /// by <paramref name="type"/>.</remarks>
+        public static FieldInfo GetFieldInfo(this Type type, string fieldName)
+        {
+            return TypeInfoExtensions.GetFieldInfo(type.GetTypeInfo(), fieldName);
+        }
+
+        /// <summary>Gets <see cref="FieldInfo"/> (field metadata) for all properties on a given <see cref="Type"/> satisfying a given binding option.</summary>
+        /// <param name="type">The type to obtain field metadata for.</param>
+        /// <param name="bindingOptions">The binding option that determines the scope, access, and visibility rules to apply when searching for the metadata.</param>
+        /// <param name="declaredOnly">If False, the metadata of properties in the declared class as well as base class(es) are returned.
+        /// If True, only field metadata of the declared type is returned.</param>
+        /// <returns>The field metadata, as <see cref="FieldInfo"/>, of a provided <see cref="Type"/>.</returns>
+        /// <remarks>When class inheritance is involved, this method returns the first field found, starting at the type represented
+        /// by <paramref name="type"/>.</remarks>
+        public static IEnumerable<FieldInfo> GetFieldInfo(this Type type, BindingOptions bindingOptions = BindingOptions.Default, bool declaredOnly = false)
+        {
+            var predicate = BindingOptionsHelper.BuildFieldInfoBindingPredicate(bindingOptions);
+            var typeInfo = type.GetTypeInfo();
+
+            // This implementation is better performing than using method/query LINQ queries
+
+            var fieldInfos = new List<FieldInfo>();
+
+            foreach (var fieldInfo in typeInfo.GetFieldInfo(declaredOnly))
+            {
+                if (predicate.Invoke(fieldInfo))
+                {
+                    fieldInfos.Add(fieldInfo);
+                }
+            }
+
+            return fieldInfos;
         }
 
         /// <summary>Gets <see cref="MethodInfo"/> (method metadata) for a given <see cref="Type"/> and binding option.</summary>
@@ -52,7 +103,7 @@ namespace AllOverIt.Extensions
         /// by <paramref name="type"/>.</remarks>
         public static IEnumerable<MethodInfo> GetMethodInfo(this Type type, BindingOptions bindingOptions = BindingOptions.Default, bool declaredOnly = false)
         {
-            var predicate = BindingOptionsHelper.BuildBindingPredicate(bindingOptions);
+            var predicate = BindingOptionsHelper.BuildPropertyOrMethodBindingPredicate(bindingOptions);
             var currentType = type;
 
             while (currentType != null)
@@ -113,6 +164,14 @@ namespace AllOverIt.Extensions
             return type.GetTypeInfo().IsClass;
         }
 
+        /// <summary>Indicates if the <see cref="Type"/> represents a value type.</summary>
+        /// <param name="type">The type to compare.</param>
+        /// <returns>True if the <see cref="Type"/> represents a value type, otherwise false.</returns>
+        public static bool IsValueType(this Type type)
+        {
+            return type.GetTypeInfo().IsValueType;
+        }
+
         /// <summary>Indicates if the <see cref="Type"/> represents a primitive type.</summary>
         /// <param name="type">The type to compare.</param>
         /// <returns>True if the <see cref="Type"/> represents a primitive type, otherwise false.</returns>
@@ -126,8 +185,17 @@ namespace AllOverIt.Extensions
         /// <returns>True if the <see cref="Type"/> represents an integral type, otherwise false.</returns>
         public static bool IsIntegralType(this Type type)
         {
-            return new[] {typeof (byte), typeof (sbyte), typeof (short), typeof (ushort),
-                    typeof (int), typeof (uint), typeof (long), typeof (ulong)}.Contains(type);
+            return new[]
+            {
+                CommonTypes.ByteType,
+                CommonTypes.SByteType,
+                CommonTypes.ShortType,
+                CommonTypes.UShortType,
+                CommonTypes.IntType,
+                CommonTypes.UIntType,
+                CommonTypes.LongType,
+                CommonTypes.ULongType
+            }.Contains(type);
         }
 
         /// <summary>Indicates if the <see cref="Type"/> represents a floating type.</summary>
@@ -135,7 +203,12 @@ namespace AllOverIt.Extensions
         /// <returns>True if the <see cref="Type"/> represents a floating type, otherwise false.</returns>
         public static bool IsFloatingType(this Type type)
         {
-            return new[] { typeof(float), typeof(double), typeof(decimal) }.Contains(type);
+            return new[]
+            {
+                CommonTypes.FloatType,
+                CommonTypes.DoubleType,
+                CommonTypes.DecimalType
+            }.Contains(type);
         }
 
         /// <summary>Indicates if the <see cref="Type"/> represents an enumerable type.</summary>
@@ -144,9 +217,9 @@ namespace AllOverIt.Extensions
         /// <returns>True if the <see cref="Type"/> represents an enumerable type, otherwise false.</returns>
         public static bool IsEnumerableType(this Type type, bool includeString = false)
         {
-            return type == typeof(string)
+            return type == CommonTypes.StringType
               ? includeString
-              : typeof(IEnumerable).IsAssignableFrom(type);
+              : CommonTypes.IEnumerableType.IsAssignableFrom(type);
         }
 
         /// <summary>Indicates if the <see cref="Type"/> represents a generic enumerable type.</summary>
@@ -154,7 +227,7 @@ namespace AllOverIt.Extensions
         /// <returns>True if the <see cref="Type"/> represents a generic enumerable type, otherwise false.</returns>
         public static bool IsGenericEnumerableType(this Type type)
         {
-            return type.IsGenericType() && typeof(IEnumerable).IsAssignableFrom(type);
+            return type.IsGenericType() && CommonTypes.IEnumerableType.IsAssignableFrom(type);
         }
 
         /// <summary>Indicates if the <see cref="Type"/> represents a generic type.</summary>
@@ -163,14 +236,6 @@ namespace AllOverIt.Extensions
         public static bool IsGenericType(this Type type)
         {
             return type.GetTypeInfo().IsGenericType;
-        }
-
-        /// <summary>Gets an array of the generic type arguments for this type.</summary>
-        /// <param name="type">The <see cref="Type"/> containing the generic type arguments.</param>
-        /// <returns>An array of the generic type arguments for this type.</returns>
-        public static IEnumerable<Type> GetGenericArguments(this Type type)
-        {
-            return type.GetTypeInfo().GenericTypeArguments;
         }
 
         /// <summary>Determines if a type is derived from another base type, including unbound generic types such as List&lt;>. Similar to
@@ -184,7 +249,7 @@ namespace AllOverIt.Extensions
             _ = type.WhenNotNull(nameof(type));
             _ = fromType.WhenNotNull(nameof(fromType));
 
-            while (type != null && type != typeof(object))
+            while (type != null && type != CommonTypes.ObjectType)
             {
                 if (fromType.IsRawGenericType(type))
                 {
@@ -225,9 +290,9 @@ namespace AllOverIt.Extensions
         /// <summary>Indicates if the <see cref="Type"/> represents a generic nullable type.</summary>
         /// <param name="type">The type to compare.</param>
         /// <returns>True if the <see cref="Type"/> represents a generic nullable type, otherwise false.</returns>
-        public static bool IsGenericNullableType(this Type type)
+        public static bool IsNullableType(this Type type)
         {
-            return type.IsGenericType() && (type.GetGenericTypeDefinition() == typeof(Nullable<>));
+            return type.IsGenericType() && (type.GetGenericTypeDefinition() == CommonTypes.NullableGenericType);
         }
 
         /// <summary>A utility method that returns a print-friendly name for a given type.</summary>
@@ -235,7 +300,7 @@ namespace AllOverIt.Extensions
         /// <returns>A print-friendly name for a given type.</returns>
         public static string GetFriendlyName(this Type type)
         {
-            if (type.IsGenericType() && !type.IsGenericNullableType())
+            if (type.IsGenericType() && !type.IsNullableType())
             {
                 var typeName = type.Name;
 
@@ -258,7 +323,7 @@ namespace AllOverIt.Extensions
                 return stringBuilder.ToString();
             }
 
-            return type.IsGenericNullableType()
+            return type.IsNullableType()
               ? $"{type.GetGenericArguments().Single().Name}?"
               : type.Name;
         }
@@ -268,7 +333,25 @@ namespace AllOverIt.Extensions
         /// <returns>True if the type inherits from EnrichedEnum&lt;>, otherwise False.</returns>
         public static bool IsEnrichedEnum(this Type type)
         {
-            return type.IsDerivedFrom(EnrichedEnumType);
+            return type.IsDerivedFrom(CommonTypes.EnrichedEnumGenericType);
+        }
+
+        /// <summary>Gets the method info for a static method.</summary>
+        /// <param name="type">The type containing the static method.</param>
+        /// <param name="methodName">The name of the static method.</param>
+        /// <returns>The method info for a static method.</returns>
+        public static MethodInfo GetStaticMethod(this Type type, string methodName)
+        {
+            return type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+        }
+
+        /// <summary>Gets the method info for an instance method.</summary>
+        /// <param name="type">The type containing the instance method.</param>
+        /// <param name="methodName">The name of the instance method.</param>
+        /// <returns>The method info for an instance method.</returns>
+        public static MethodInfo GetInstanceMethod(this Type type, string methodName)
+        {
+            return type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         }
 
         private static bool IsRawGenericType(this Type type, Type generic)
@@ -278,27 +361,6 @@ namespace AllOverIt.Extensions
                 : generic;
 
             return type == toCompare;
-        }
-
-        // ReSharper disable once ReturnTypeCanBeEnumerable.Local
-        private static IReadOnlyCollection<PropertyInfo> GetFilteredPropertyInfo(TypeInfo typeInfo, bool declaredOnly, Func<MethodBase, bool> predicate)
-        {
-            // This implementation is better performing than using method/query LINQ queries
-
-            var propInfos = new List<PropertyInfo>();
-
-            // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (var propInfo in typeInfo.GetPropertyInfo(declaredOnly))
-            {
-                var methodInfo = propInfo.GetMethod;
-
-                if (predicate.Invoke(methodInfo))
-                {
-                    propInfos.Add(propInfo);
-                }
-            }
-
-            return propInfos;
         }
     }
 }

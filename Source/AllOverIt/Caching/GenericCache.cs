@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AllOverIt.Assertion;
+using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using AllOverIt.Assertion;
 
 namespace AllOverIt.Caching
 {
@@ -14,19 +14,19 @@ namespace AllOverIt.Caching
         {
             public static readonly GenericCacheKeyComparer Instance = new();
 
-            public bool Equals(GenericCacheKeyBase x, GenericCacheKeyBase y)
+            public bool Equals(GenericCacheKeyBase lhs, GenericCacheKeyBase rhs)
             {
-                if (x is null && y is null)
+                if (lhs is null && rhs is null)
                 {
                     return true;
                 }
 
-                if (x is null || y is null)
+                if (lhs is null || rhs is null)
                 {
                     return false;
                 }
 
-                return x.Key.GetType() == y.Key.GetType() && x.Key.Equals(y.Key);
+                return lhs.Key.GetType() == rhs.Key.GetType() && lhs.Key.Equals(rhs.Key);
             }
 
             public int GetHashCode(GenericCacheKeyBase obj)
@@ -144,7 +144,6 @@ namespace AllOverIt.Caching
         }
 
 #if NET5_0_OR_GREATER
-        // ReSharper disable once UseDeconstructionOnParameter (not available in all .NET versions)
         /// <inheritdoc />
         public bool TryRemove<TValue>(KeyValuePair<GenericCacheKeyBase, TValue> item)
         {
@@ -185,7 +184,6 @@ namespace AllOverIt.Caching
             return (TValue) _cache.GetOrAdd(key, value);
         }
 
-#if !NETSTANDARD2_0
         /// <inheritdoc />
         public TValue GetOrAdd<TArg, TValue>(
             GenericCacheKeyBase key,
@@ -195,14 +193,13 @@ namespace AllOverIt.Caching
             _ = key.WhenNotNull(nameof(key));
             _ = addResolver.WhenNotNull(nameof(addResolver));
 
-            Func<GenericCacheKeyBase, TArg, object> objectResolver = (valueKey, arg) => addResolver.Invoke(valueKey, arg);
+            object objectResolver(GenericCacheKeyBase valueKey, TArg arg) => addResolver.Invoke(valueKey, arg);
 
             return (TValue) _cache.GetOrAdd(
                 key,
                 objectResolver,
                 resolverArgument);
         }
-#endif
 
         /// <inheritdoc />
         public TValue AddOrUpdate<TValue>(
@@ -214,8 +211,9 @@ namespace AllOverIt.Caching
             _ = addResolver.WhenNotNull(nameof(addResolver));
             _ = updateResolver.WhenNotNull(nameof(updateResolver));
 
-            Func<GenericCacheKeyBase, object> objectAddResolver = valueKey => addResolver.Invoke(valueKey);
-            Func<GenericCacheKeyBase, object, object> objectUpdateResolver = (valueKey, value) => updateResolver.Invoke(valueKey, (TValue) value);
+            object objectAddResolver(GenericCacheKeyBase valueKey) => addResolver.Invoke(valueKey);
+
+            object objectUpdateResolver(GenericCacheKeyBase valueKey, object value) => updateResolver.Invoke(valueKey, (TValue) value);
 
             return (TValue) _cache.AddOrUpdate(
                 key,
@@ -232,7 +230,7 @@ namespace AllOverIt.Caching
             _ = key.WhenNotNull(nameof(key));
             _ = updateResolver.WhenNotNull(nameof(updateResolver));
 
-            Func<GenericCacheKeyBase, object, object> objectUpdateResolver = (valueKey, value) => updateResolver.Invoke(valueKey, (TValue) value);
+            object objectUpdateResolver(GenericCacheKeyBase valueKey, object value) => updateResolver.Invoke(valueKey, (TValue) value);
 
             return (TValue) _cache.AddOrUpdate(
                 key,
@@ -240,7 +238,6 @@ namespace AllOverIt.Caching
                 objectUpdateResolver);
         }
 
-#if !NETSTANDARD2_0
         /// <inheritdoc />
         public TValue AddOrUpdate<TArg, TValue>(
             GenericCacheKeyBase key,
@@ -252,8 +249,9 @@ namespace AllOverIt.Caching
             _ = addResolver.WhenNotNull(nameof(addResolver));
             _ = updateResolver.WhenNotNull(nameof(updateResolver));
 
-            Func<GenericCacheKeyBase, TArg, object> objectAddResolver = (valueKey, arg) => addResolver.Invoke(valueKey, arg);
-            Func<GenericCacheKeyBase, object, TArg, object> objectUpdateResolver = (valueKey, value, arg) => updateResolver.Invoke(valueKey, (TValue) value, arg);
+            object objectAddResolver(GenericCacheKeyBase valueKey, TArg arg) => addResolver.Invoke(valueKey, arg);
+
+            object objectUpdateResolver(GenericCacheKeyBase valueKey, object value, TArg arg) => updateResolver.Invoke(valueKey, (TValue) value, arg);
 
             return (TValue) _cache.AddOrUpdate(
                 key,
@@ -261,7 +259,6 @@ namespace AllOverIt.Caching
                 objectUpdateResolver,
                 resolverArgument);
         }
-#endif
 
         #region Explicit implementations
         bool ICollection<KeyValuePair<GenericCacheKeyBase, object>>.IsReadOnly => false;

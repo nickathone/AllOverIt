@@ -26,8 +26,10 @@ namespace AllOverIt.Tests.Events
 
         private class Handler
         {
-            // ReSharper disable once MemberCanBeMadeStatic.Local
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Prevent CA1822")]
+#pragma warning disable CA1822 // Mark members as static
             public void HandleEvent(EventDummy message)
+#pragma warning restore CA1822 // Mark members as static
             {
                 StaticHandleMessageEvent(message);
             }
@@ -35,8 +37,10 @@ namespace AllOverIt.Tests.Events
 
         private class HandlerAsync
         {
-            // ReSharper disable once MemberCanBeMadeStatic.Local
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Prevent CA1822")]
+#pragma warning disable CA1822 // Mark members as static
             public Task HandleEventAsync(EventDummy message)
+#pragma warning restore CA1822 // Mark members as static
             {
                 return StaticHandleMessageEventAsync(message);
             }
@@ -168,7 +172,7 @@ namespace AllOverIt.Tests.Events
 
         public class Subscribe_Action : EventAggregatorFixture
         {
-            // todo: weak references are not behaving in unit tests
+            // TODO: weak references are not behaving in unit tests
             //[Fact]
             //public void Should_Weak_Subscribe_To_Handler()
             //{
@@ -207,7 +211,7 @@ namespace AllOverIt.Tests.Events
 
         public class Subscribe_Func_Task : EventAggregatorFixture
         {
-            // todo: weak references are not behaving in unit tests
+            // TODO: weak references are not behaving in unit tests
             //[Fact]
             //public async Task Should_Weak_Subscribe_To_Handler()
             //{
@@ -294,14 +298,18 @@ namespace AllOverIt.Tests.Events
             }
         }
 
-        // ReSharper disable once MemberCanBeMadeStatic.Local
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Prevent CA1822")]
+#pragma warning disable CA1822 // Mark members as static
         private void HandleMessageEvent(EventDummy message)
+#pragma warning restore CA1822 // Mark members as static
         {
             StaticHandleMessageEvent(message);
         }
 
-        // ReSharper disable once MemberCanBeMadeStatic.Local
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Prevent CA1822")]
+#pragma warning disable CA1822 // Mark members as static
         private Task HandleMessageEventAsync(EventDummy message)
+#pragma warning restore CA1822 // Mark members as static
         {
             StaticHandleMessageEvent(message);
             return Task.CompletedTask;

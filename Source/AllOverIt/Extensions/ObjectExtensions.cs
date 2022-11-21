@@ -88,8 +88,9 @@ namespace AllOverIt.Extensions
         /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
         public static object GetPropertyValue(this object instance, Type instanceType, string propertyName, BindingFlags bindingFlags)
         {
-            var propertyInfo = GetPropertyInfo(instanceType, propertyName, bindingFlags)
-                                ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+            var propertyInfo = GetPropertyInfo(instanceType, propertyName, bindingFlags);
+
+            _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found.");
 
             return propertyInfo.GetValue(instance);
         }
@@ -121,7 +122,7 @@ namespace AllOverIt.Extensions
                 .GetPropertyInfo(bindingOptions, false)
                 .SingleOrDefault(item => item.Name == propertyName);
 
-            _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+            _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found.");
 
             return propertyInfo.GetValue(instance);
         }
@@ -149,8 +150,9 @@ namespace AllOverIt.Extensions
         /// <exception cref="MemberAccessException">When the property name cannot be found using the provided binding flags.</exception>
         public static void SetPropertyValue(this object instance, Type instanceType, string propertyName, object value, BindingFlags bindingFlags)
         {
-            var propertyInfo = GetPropertyInfo(instanceType, propertyName, bindingFlags)
-                                ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+            var propertyInfo = GetPropertyInfo(instanceType, propertyName, bindingFlags);
+
+            _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found.");
 
             propertyInfo.SetValue(instance, value);
         }
@@ -182,7 +184,7 @@ namespace AllOverIt.Extensions
                 .GetPropertyInfo(bindingOptions, false)
                 .SingleOrDefault(item => item.Name == propertyName);
 
-            _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found");
+            _ = propertyInfo ?? throw new MemberAccessException($"The property '{propertyName}' was not found.");
 
             propertyInfo.SetValue(instance, value);
         }
@@ -207,38 +209,37 @@ namespace AllOverIt.Extensions
                 return defaultValue;
             }
 
-            var genericType = typeof(TType);
             var instanceType = instance.GetType();
+            var convertToType = typeof(TType);
 
             // return the same value if no conversion is required
-            if (genericType == instanceType || genericType == typeof(object))
+            if (convertToType == instanceType || convertToType == CommonTypes.ObjectType)
             {
                 return (TType) instance;
             }
 
-            if (genericType.IsClassType() && genericType != typeof(string))
+            if (convertToType.IsClassType() && convertToType != CommonTypes.StringType)
             {
                 // return the same value if the instance is a class inheriting `TType`
-                if (instanceType.IsDerivedFrom(genericType))
+                if (instanceType.IsDerivedFrom(convertToType))
                 {
                     return (TType) instance;
                 }
 
-                // expect a converter - or fail
-                var typeConverter = TypeDescriptor.GetConverter(genericType);
+                var typeConverter = TypeDescriptor.GetConverter(convertToType);
 
                 if (!typeConverter.IsValid(instance))
                 {
-                    throw new InvalidCastException($"Unable to cast object of type '{instanceType.Name}' to type '{genericType.Name}'.");
+                    throw new InvalidCastException($"Unable to cast object of type '{instanceType.Name}' to type '{convertToType.Name}'.");
                 }
 
                 return (TType) typeConverter.ConvertFrom(instance);
             }
 
             // convert from integral to bool (conversion from a string is handled further below)
-            if (genericType == typeof(bool) && instance.IsIntegral())
+            if (convertToType == CommonTypes.BoolType && instance.IsIntegral())
             {
-                var intValue = (int)Convert.ChangeType(instance, typeof(int));
+                var intValue = (int)Convert.ChangeType(instance, CommonTypes.IntType);
 
                 if (intValue is < 0 or > 1)
                 {
@@ -246,42 +247,44 @@ namespace AllOverIt.Extensions
                 }
 
                 // convert the integral to a boolean
-                instance = (bool)Convert.ChangeType(intValue, typeof(bool));
+                instance = (bool)Convert.ChangeType(intValue, CommonTypes.BoolType);
 
                 return (TType)instance;
             }
 
             // converting from Enum to byte, sbyte, short, ushort, int, uint, long, or ulong
-            if (instance is Enum && genericType.IsIntegralType())
+            if (instance is Enum && convertToType.IsIntegralType())
             {
                 // cater for when Enum has an underlying type other than 'int'
-                instance = GetEnumAsUnderlyingValue(instance, instanceType);
+                var underlyingValue = GetEnumAsUnderlyingValue(instance, instanceType);
 
                 // now attempt to perform the converted value to the required type
-                return (TType)Convert.ChangeType(instance, genericType);
+                return (TType)Convert.ChangeType(underlyingValue, convertToType);
             }
 
             // converting from byte, sbyte, short, ushort, int, uint, long, or ulong to Enum
-            if (genericType.IsEnumType() && instance.IsIntegral())
+            if (convertToType.IsEnumType() && instance.IsIntegral())
             {
                 // cater for when Enum has an underlying type other than 'int'
-                instance = GetEnumAsUnderlyingValue(instance, genericType);
+                var underlyingValue = GetEnumAsUnderlyingValue(instance, convertToType);
 
-                if (!Enum.IsDefined(genericType, instance))
+                if (!Enum.IsDefined(convertToType, underlyingValue))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(instance), $"Cannot cast '{instance}' to a '{genericType}' value.");
+                    throw new ArgumentOutOfRangeException(nameof(instance), $"Cannot cast '{instance}' to a '{convertToType.GetFriendlyName()}' value.");
                 }
 
-                return (TType)instance;
+                return (TType) underlyingValue;
             }
 
-            if (genericType == typeof(bool) || instance is bool || genericType == typeof(char) || instance is char)
+            if (instanceType != CommonTypes.StringType &&
+                instanceType.IsDerivedFrom(CommonTypes.IConvertibleType) &&
+                convertToType.IsValueType)
             {
-                return (TType)Convert.ChangeType(instance, genericType);
+                return (TType)Convert.ChangeType(instance, convertToType);
             }
 
             // all other cases
-            return StringExtensions.As($"{instance}", defaultValue);
+            return StringExtensions.As(instance.ToString(), defaultValue);
         }
 
         /// <summary>Converts the provided source <paramref name="instance"/> to a specified nullable type.</summary>

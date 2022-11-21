@@ -1,6 +1,6 @@
-﻿using AllOverIt.Exceptions;
-using AllOverIt.Extensions;
+﻿using AllOverIt.Extensions;
 using AllOverIt.Fixture;
+using AllOverIt.Formatters.Exceptions;
 using AllOverIt.Formatters.Objects;
 using AllOverIt.Patterns.Enumeration;
 using AllOverIt.Reflection;
@@ -250,9 +250,9 @@ namespace AllOverIt.Tests.Extensions
                 public IDictionary<string, Task> Prop11 { get; set; }
                 public IDictionary<int, DummyType> Prop12 { get; set; }
 
-#pragma warning disable IDE0052 // Remove unread private members
+
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "Part of the test")]
                 private string Prop13 { get; set; }
-#pragma warning restore IDE0052 // Remove unread private members
 
                 public string Prop14 { get; set; }
 
@@ -397,7 +397,7 @@ namespace AllOverIt.Tests.Extensions
                     })
                     .Should()
                     .Throw<SelfReferenceException>()
-                    .WithMessage("Self referencing detected at 'Prop2.Prop2.Prop2' of type 'DummyType'");
+                    .WithMessage("Self referencing detected at 'Prop2.Prop2.Prop2' of type 'DummyType'.");
             }
 
             [Fact]
@@ -1213,7 +1213,7 @@ namespace AllOverIt.Tests.Extensions
                   })
                   .Should()
                   .Throw<MemberAccessException>()
-                  .WithMessage($"The property '{propertyName}' was not found");
+                  .WithMessage($"The property '{propertyName}' was not found.");
             }
         }
 
@@ -1254,7 +1254,7 @@ namespace AllOverIt.Tests.Extensions
                     })
                     .Should()
                     .Throw<MemberAccessException>()
-                    .WithMessage($"The property '{propertyName}' was not found");
+                    .WithMessage($"The property '{propertyName}' was not found.");
             }
         }
 
@@ -1295,7 +1295,7 @@ namespace AllOverIt.Tests.Extensions
                   })
                   .Should()
                   .Throw<MemberAccessException>()
-                  .WithMessage($"The property '{propertyName}' was not found");
+                  .WithMessage($"The property '{propertyName}' was not found.");
             }
         }
 
@@ -1336,7 +1336,7 @@ namespace AllOverIt.Tests.Extensions
                     })
                     .Should()
                     .Throw<MemberAccessException>()
-                    .WithMessage($"The property '{propertyName}' was not found");
+                    .WithMessage($"The property '{propertyName}' was not found.");
             }
         }
 
@@ -1381,7 +1381,7 @@ namespace AllOverIt.Tests.Extensions
                   })
                   .Should()
                   .Throw<MemberAccessException>()
-                  .WithMessage($"The property '{propertyName}' was not found");
+                  .WithMessage($"The property '{propertyName}' was not found.");
             }
         }
 
@@ -1426,7 +1426,7 @@ namespace AllOverIt.Tests.Extensions
                     })
                     .Should()
                     .Throw<MemberAccessException>()
-                    .WithMessage($"The property '{propertyName}' was not found");
+                    .WithMessage($"The property '{propertyName}' was not found.");
             }
         }
 
@@ -1471,7 +1471,7 @@ namespace AllOverIt.Tests.Extensions
                   })
                   .Should()
                   .Throw<MemberAccessException>()
-                  .WithMessage($"The property '{propertyName}' was not found");
+                  .WithMessage($"The property '{propertyName}' was not found.");
             }
         }
 
@@ -1516,7 +1516,7 @@ namespace AllOverIt.Tests.Extensions
                     })
                     .Should()
                     .Throw<MemberAccessException>()
-                    .WithMessage($"The property '{propertyName}' was not found");
+                    .WithMessage($"The property '{propertyName}' was not found.");
             }
         }
 
@@ -1649,9 +1649,64 @@ namespace AllOverIt.Tests.Extensions
                   .WithMessage($"Cannot convert integral '{value}' to a Boolean. (Parameter 'instance')");
             }
 
+            [Fact]
+            public void Should_Convert_Guid_To_String()
+            {
+                var value = Guid.NewGuid();
+                var expected = value.ToString();
+
+                var actual = ObjectExtensions.As<String>(value);
+
+                expected.Should().Be(actual);
+            }
+
+            [Fact]
+            public void Should_Convert_String_To_Guid()
+            {
+                var expected = Guid.NewGuid();
+                var value = expected.ToString();
+
+                var actual = ObjectExtensions.As<Guid>(value);
+
+                expected.Should().Be(actual);
+            }
+
             [Theory]
-            [InlineData((short)0, false)]
-            [InlineData((short)1, true)]
+            [InlineData((Int16) 10, (short) 10)]
+            [InlineData((Int32) 20, (short) 20)]
+            [InlineData((Int64) 30, (short) 30)]
+            public void Should_Convert_Integral_To_Int16(object value, short expected)
+            {
+                var actual = ObjectExtensions.As<short>(value);
+
+                actual.Should().Be(expected);
+            }
+
+            [Theory]
+            [InlineData((Int16) 10, (int) 10)]
+            [InlineData((Int32) 20, (int) 20)]
+            [InlineData((Int64) 30, (int) 30)]
+            public void Should_Convert_Integral_To_Int32(object value, int expected)
+            {
+                var actual = ObjectExtensions.As<int>(value);
+
+                actual.Should().Be(expected);
+            }
+
+            [Theory]
+            [InlineData((Int16) 10, (long) 10)]
+            [InlineData((Int32) 20, (long) 20)]
+            [InlineData((Int64) 30, (long) 30)]
+            public void Should_Convert_Integral_To_Int64(object value, long expected)
+            {
+                var actual = ObjectExtensions.As<long>(value);
+
+                actual.Should().Be(expected);
+            }
+
+            [Theory]
+            [InlineData((short) 0, false)]
+            [InlineData((short) 1, true)]
             [InlineData(0, false)]
             [InlineData(1, true)]
             [InlineData(0L, false)]
@@ -1659,6 +1714,16 @@ namespace AllOverIt.Tests.Extensions
             public void Should_Convert_Integral_To_Boolean(object value, bool expected)
             {
                 var actual = ObjectExtensions.As<bool>(value);
+
+                actual.Should().Be(expected);
+            }
+
+            [Theory]
+            [InlineData(false, 0)]
+            [InlineData(true, 1)]
+            public void Should_Convert_Boolean_To_Integral(bool value, int expected)
+            {
+                var actual = ObjectExtensions.As<int>(value);
 
                 actual.Should().Be(expected);
             }
@@ -1719,7 +1784,7 @@ namespace AllOverIt.Tests.Extensions
                 Invoking(() => ObjectExtensions.As<DummyEnum>(value))
                   .Should()
                   .Throw<ArgumentOutOfRangeException>()
-                  .WithMessage($"Cannot cast '{value}' to a '{typeof(DummyEnum)}' value. (Parameter 'instance')");
+                  .WithMessage($"Cannot cast '{value}' to a '{nameof(DummyEnum)}' value. (Parameter 'instance')");
             }
 
             [Theory]
@@ -1844,6 +1909,17 @@ namespace AllOverIt.Tests.Extensions
 
                 actual.Should().Be(expected);
             }
+
+            [Fact]
+            public void Should_Convert_String_To_Guid()
+            {
+                Guid? expected = Guid.NewGuid();
+                var value = expected.ToString();
+
+                var actual = ObjectExtensions.AsNullable<Guid>(value);
+
+                expected.Should().Be(actual);
+            }
         }
 
         public class CalculateHashCode : ObjectExtensionsFixture
@@ -1866,7 +1942,7 @@ namespace AllOverIt.Tests.Extensions
             {
                 var subject = Create<DummyClass>();
 
-                var expected = GetCumulativeHash(subject, ObjectExtensions.DefaultHashCodeBindings);
+                var expected = GetExpectedHash(subject, ObjectExtensions.DefaultHashCodeBindings);
 
                 var actual = ObjectExtensions.CalculateHashCode(subject);
 
@@ -2077,7 +2153,7 @@ namespace AllOverIt.Tests.Extensions
         }
 
         // get property values based on binding options (for cases when we want to include private variables
-        private static int GetCumulativeHash(object instance, BindingOptions bindingOptions)
+        private static int GetExpectedHash(object instance, BindingOptions bindingOptions)
         {
             var properties = instance
               .GetType()
@@ -2085,12 +2161,20 @@ namespace AllOverIt.Tests.Extensions
               .OrderBy(propertyInfo => propertyInfo.Name)
               .Select(propertyInfo => propertyInfo.GetValue(instance));
 
-            return GetCumulativeHash(properties);
+            return GetExpectedHash(properties);
         }
 
-        private static int GetCumulativeHash(IEnumerable<object> properties)
+        private static int GetExpectedHash(IEnumerable<object> items)
         {
-            return properties.Aggregate(17, (current, property) => current * 23 + (property?.GetHashCode() ?? 0));
+            // NOTE: These tests are not checking NET STANDARD 2.0
+            var hash = new HashCode();
+
+            foreach (var item in items)
+            {
+                hash.Add(item);
+            }
+
+            return hash.ToHashCode();
         }
     }
 }

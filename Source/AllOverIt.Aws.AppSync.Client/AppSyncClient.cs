@@ -14,13 +14,19 @@ namespace AllOverIt.Aws.AppSync.Client
     /// <summary>An AppSync query and mutation graphql client.</summary>
     public sealed class AppSyncClient : IAppSyncClient
     {
-        private static readonly HttpClient HttpClient = new();
+        /// <summary>The expected <see cref="HttpClient"/> name to be registered with <see cref="IHttpClientFactory"/>.</summary>
+        public static readonly string HttpClientName = typeof(AppSyncClient).FullName;
+
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IAppSyncClientConfiguration _configuration;
 
         /// <summary>Constructor.</summary>
+        /// <param name="httpClientFactory">The <see cref="HttpClient"/> factory used to get a named client for sending requests. The client
+        /// must be registered with the name provided by <see cref="HttpClientName"/>.</param>
         /// <param name="configuration">Contains configuration details for AppSync Graphql query and mutation operations.</param>
-        public AppSyncClient(IAppSyncClientConfiguration configuration)
+        public AppSyncClient(IHttpClientFactory httpClientFactory, IAppSyncClientConfiguration configuration)
         {
+            _httpClientFactory = httpClientFactory.WhenNotNull(nameof(httpClientFactory));
             _configuration = configuration.WhenNotNull(nameof(configuration));
         }
 
@@ -50,6 +56,7 @@ namespace AllOverIt.Aws.AppSync.Client
             return SendRequestAsync<TResponse>(query, authorization, cancellationToken);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Prevent CA2016")]
         private async Task<GraphqlHttpResponse<TResponse>> SendRequestAsync<TResponse>(GraphqlQuery query, IAppSyncAuthorization authorization,
             CancellationToken cancellationToken)
         {
@@ -57,9 +64,7 @@ namespace AllOverIt.Aws.AppSync.Client
             {
                 using (var responseMessage = await GetHttpResponseMessageAsync(requestMessage, cancellationToken).ConfigureAwait(false))
                 {
-                    var content = await responseMessage.Content
-                        .ReadAsStringAsync()
-                        .ConfigureAwait(false);
+                    var content = await GetHttpResponseAsString(responseMessage, cancellationToken).ConfigureAwait(false);
 
                     var result = _configuration.Serializer
                         .DeserializeObject<GraphqlHttpResponse<TResponse>>(content);
@@ -75,6 +80,15 @@ namespace AllOverIt.Aws.AppSync.Client
                     throw new GraphqlHttpRequestException(responseMessage.StatusCode, result.Errors, content);
                 }
             }
+        }
+
+        private static Task<string> GetHttpResponseAsString(HttpResponseMessage responseMessage, CancellationToken cancellationToken)
+        {
+#if NET5_0_OR_GREATER
+            return responseMessage.Content.ReadAsStringAsync(cancellationToken);
+#else
+            return responseMessage.Content.ReadAsStringAsync();
+#endif
         }
 
         private HttpRequestMessage CreateHttpRequestMessage(GraphqlQuery query, IAppSyncAuthorization authorization)
@@ -94,9 +108,11 @@ namespace AllOverIt.Aws.AppSync.Client
             return message;
         }
 
-        private static Task<HttpResponseMessage> GetHttpResponseMessageAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+        private Task<HttpResponseMessage> GetHttpResponseMessageAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
         {
-            return HttpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            var httpClient = _httpClientFactory.CreateClient(HttpClientName);
+
+            return httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         }
     }
 }

@@ -14,14 +14,16 @@ namespace AllOverIt.Tests.Extensions
         {
             public int Property { get; set; }
 
-#pragma warning disable 649
-            // Unassigned field
             public int Field;
-#pragma warning restore 649
 
             public int GetPropertyValue()
             {
                 return Property;
+            }
+
+            public void DummyFieldSetter()
+            {
+                Field = 1;          // Prevent CS0649 (Field is never assigned)
             }
         }
 
@@ -75,12 +77,9 @@ namespace AllOverIt.Tests.Extensions
             var parent = Create<ParentClass>();
 
             Expression<Func<int>> expression = () => parent.Child.Property;
-
-            // unwrap the LambdaExpression
-            var memberExpression = expression.UnwrapMemberExpression();
-
-            var members = memberExpression
-              .GetMemberExpressions()
+            
+            var members = expression
+              .GetMemberExpressions()               // unwraps the LambdaExpression
               .Select(exp => exp.GetValue())
               .AsReadOnlyList();
 
@@ -100,7 +99,7 @@ namespace AllOverIt.Tests.Extensions
 
             Expression<Func<int>> expression = () => parent.Child.Property;
 
-            var memberInfo = expression.GetFieldOrProperty();
+            var memberInfo = expression.GetPropertyOrFieldMemberInfo();
 
             var name = memberInfo.Name;
             var value = memberInfo.GetValue(parent.Child);
@@ -116,7 +115,7 @@ namespace AllOverIt.Tests.Extensions
 
             Expression<Func<int>> expression = () => parent.Child.Field;
 
-            var memberInfo = expression.GetFieldOrProperty();
+            var memberInfo = expression.GetPropertyOrFieldMemberInfo();
 
             var name = memberInfo.Name;
             var value = memberInfo.GetValue(parent.Child);

@@ -20,8 +20,11 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static TType WhenNotNull<TType>(Expression<Func<TType>> expression, string errorMessage = default)
             where TType : class
-        {
-            _ = expression ?? ThrowArgumentNullException<Expression<Func<TType>>>(nameof(expression), errorMessage);
+{
+            if (expression == null)
+            {
+                ThrowArgumentNullException<Expression<Func<TType>>>(nameof(expression), errorMessage);
+            }
 
             switch (expression)
             {
@@ -47,7 +50,10 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static IEnumerable<TType> WhenNotNullOrEmpty<TType>(Expression<Func<IEnumerable<TType>>> expression, string errorMessage = default)
         {
-            _ = expression ?? ThrowArgumentNullException<Expression<Func<IEnumerable<TType>>>>(nameof(expression), errorMessage);
+            if (expression == null)
+            {
+                ThrowArgumentNullException<Expression<Func<IEnumerable<TType>>>>(nameof(expression), errorMessage);
+            }
 
             switch (expression)
             {
@@ -73,7 +79,10 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static IEnumerable<TType> WhenNotEmpty<TType>(Expression<Func<IEnumerable<TType>>> expression, string errorMessage = default)
         {
-            _ = expression ?? ThrowArgumentNullException<Expression<Func<IEnumerable<TType>>>>(nameof(expression), errorMessage);
+            if (expression == null)
+            {
+                ThrowArgumentNullException<Expression<Func<IEnumerable<TType>>>>(nameof(expression), errorMessage);
+            }
 
             switch (expression)
             {
@@ -98,7 +107,10 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static string WhenNotNullOrEmpty(Expression<Func<string>> expression, string errorMessage = default)
         {
-            _ = expression ?? ThrowArgumentNullException<Expression<Func<string>>>(nameof(expression), errorMessage);
+            if (expression == null)
+            {
+                ThrowArgumentNullException<Expression<Func<string>>>(nameof(expression), errorMessage);
+            }
 
             switch (expression)
             {
@@ -123,7 +135,10 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static string WhenNotEmpty(Expression<Func<string>> expression, string errorMessage = default)
         {
-            _ = expression ?? ThrowArgumentNullException<Expression<Func<string>>>(nameof(expression), errorMessage);
+            if (expression == null)
+            {
+                ThrowArgumentNullException<Expression<Func<string>>>(nameof(expression), errorMessage);
+            }
 
             switch (expression)
             {
@@ -160,7 +175,12 @@ namespace AllOverIt.Assertion
             string errorMessage = default)
             where TType : class
         {
-            return @object ?? ThrowArgumentNullException<TType>(name, errorMessage);
+            if (@object == null)
+            {
+                ThrowArgumentNullException<TType>(name, errorMessage);
+            }
+
+            return @object;
         }
 
         /// <summary>Checks that the provided collection is not null and not empty.</summary>
@@ -170,7 +190,6 @@ namespace AllOverIt.Assertion
         /// <param name="errorMessage">The error message to report. If not provided, the default message is "Value cannot be null" for a null
         /// instance and "Value cannot be empty" for an empty collection.</param>
         /// <returns>The original object instance when not null and not empty.</returns>
-        /// <remarks>This method also validates that the enumerable is an array or ICollection&lt;TType&gt; to prevent multiple enumeration of the IEnumerable.</remarks>
         public static IEnumerable<TType> WhenNotNullOrEmpty<TType>(this IEnumerable<TType> @object,
 #if NETCOREAPP3_1_OR_GREATER
             [CallerArgumentExpression("object")] string name = "",
@@ -179,69 +198,21 @@ namespace AllOverIt.Assertion
 #endif
             string errorMessage = default)
         {
-#if NET5_0_OR_GREATER
-            // .NET 5 and above implement Any() so it avoids enumeration - passing false for 'ensureIsCollection' as the check is not required
-            return WhenNotNullOrEmpty(@object, false, name, errorMessage);
-#else
-            return WhenNotNullOrEmpty(@object, true, name, errorMessage);
-#endif
-        }
+            if (@object == null)
+            {
+                ThrowArgumentNullException<IEnumerable<TType>>(name, errorMessage);
+            }
 
-        /// <summary>Checks that the provided collection is not null and not empty.</summary>
-        /// <typeparam name="TType">The element type.</typeparam>
-        /// <param name="object">The collection instance.</param>
-        /// <param name="ensureIsCollection">Indicates if the method should also validate that the enumerable is an array or ICollection&lt;TType&gt;
-        /// to prevent multiple enumeration of the IEnumerable.</param>
-        /// <param name="name">The name identifying the collection instance.</param>
-        /// <param name="errorMessage">The error message to report. If not provided, the default message is "Value cannot be null" for a null
-        /// instance and "Value cannot be empty" for an empty collection.</param>
-        /// <returns>The original object instance when not null and not empty.</returns>
-        public static IEnumerable<TType> WhenNotNullOrEmpty<TType>(this IEnumerable<TType> @object, bool ensureIsCollection,
-#if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
-#else
-            string name,
-#endif
-            string errorMessage = default)
-        {
-            _ = @object ?? ThrowArgumentNullException<IEnumerable<TType>>(name, errorMessage);
-
-            return WhenNotEmpty(@object, ensureIsCollection, name, errorMessage);
+            return WhenNotEmpty(@object, name, errorMessage);
         }
 
         /// <summary>Checks that the provided collection is not empty.</summary>
         /// <typeparam name="TType">The element type.</typeparam>
         /// <param name="object">The collection instance.</param>
-        /// <param name="name">The name identifying the collection instance.</param>
-        /// <param name="errorMessage">The error message to report. If not provided, the default message is "Value cannot be null" for a null
-        /// instance and "Value cannot be empty" for an empty collection.</param>
-        /// <returns>The original collection instance when not empty. If the instance was null then null will be returned.</returns>
-        /// <remarks>This method also validates that the enumerable is an array or ICollection&lt;TType&gt; to prevent multiple enumeration of the IEnumerable.</remarks>
-        public static IEnumerable<TType> WhenNotEmpty<TType>(this IEnumerable<TType> @object,
-#if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
-#else
-            string name,
-#endif
-            string errorMessage = default)
-        {
-#if NET5_0_OR_GREATER
-            // .NET 5 and above implement Any() so it avoids enumeration - passing false for 'ensureIsCollection' as the check is not required
-            return WhenNotEmpty<TType>(@object, false, name, errorMessage);
-#else
-            return WhenNotEmpty<TType>(@object, true, name, errorMessage);
-#endif
-        }
-
-        /// <summary>Checks that the provided collection is not empty.</summary>
-        /// <typeparam name="TType">The element type.</typeparam>
-        /// <param name="object">The collection instance.</param>
-        /// <param name="ensureIsCollection">Indicates if the method should also validate that the enumerable is an array or ICollection&lt;TType&gt;
-        /// to prevent multiple enumeration of the IEnumerable.</param>
         /// <param name="name">The name identifying the collection instance.</param>
         /// <param name="errorMessage">The error message to report. If not provided, the default message is "Value cannot be empty".</param>
         /// <returns>The original collection instance when not empty. If the instance was null then null will be returned.</returns>
-        public static IEnumerable<TType> WhenNotEmpty<TType>(this IEnumerable<TType> @object, bool ensureIsCollection,
+        public static IEnumerable<TType> WhenNotEmpty<TType>(this IEnumerable<TType> @object,
 #if NETCOREAPP3_1_OR_GREATER
             [CallerArgumentExpression("object")] string name = "",
 #else
@@ -251,26 +222,27 @@ namespace AllOverIt.Assertion
         {
             if (@object != null)
             {
-                if (ensureIsCollection)
+#if NET5_0_OR_GREATER
+                var any = @object.Any();
+#else
+                // We don't have access to IListProvider<TType> so do the best we can to avoid multiple enumeration via Any()
+                var any = @object switch
                 {
-                    var isCollection = @object is ICollection<TType>;
-                    var isArray = @object.GetType().IsArray;
+                    IList<TType> iList => iList.Count != 0,
+                    IReadOnlyCollection<TType> iReadOnlyCollection => iReadOnlyCollection.Count != 0,
+                    ICollection<TType> items => items.Count != 0,
+                    ICollection iCollection => iCollection.Count != 0,
 
-                    if (!(isCollection || isArray))
-                    {
-                        throw new InvalidOperationException($"Expecting an array or ICollection<T> (Parameter '{name}')");
-                    }
-                }
+                    _ => @object.Any()
+                };
+#endif
 
-                // ReSharper disable once PossibleMultipleEnumeration
-                if (!@object.Any())
-                    // ReSharper disable once PossibleMultipleEnumeration
+                if (!any)
                 {
                     throw new ArgumentException(errorMessage ?? "The argument cannot be empty", name);
                 }
             }
 
-            // ReSharper disable once PossibleMultipleEnumeration
             return @object;
         }
 
@@ -288,7 +260,10 @@ namespace AllOverIt.Assertion
 #endif
             string errorMessage = default)
         {
-            _ = @object ?? ThrowArgumentNullException(name, errorMessage);
+            if (@object == null)
+            {
+                ThrowArgumentNullException(name, errorMessage);
+            }
 
             return WhenNotEmpty(@object, name, errorMessage);
         }

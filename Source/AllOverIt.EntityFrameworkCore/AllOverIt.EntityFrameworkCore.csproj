@@ -1,34 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.1;net5.0;net6.0</TargetFrameworks>
-      <LangVersion>Latest</LangVersion>
-      <Version>5.9.2</Version>
-      <Authors>Malcolm Smith</Authors>
-      <Company></Company>
-      <Copyright>Copyright © 2021</Copyright>
-      <Description>A library providing utilities for use with Entity Framework Core.</Description>
-      <PackageTags>utilities</PackageTags>
-      <PackageLicenseExpression>MIT</PackageLicenseExpression>
-      <RepositoryType>git</RepositoryType>
-      <RepositoryUrl>https://github.com/mjfreelancing/AllOverIt</RepositoryUrl>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+        <Copyright>Copyright © 2021</Copyright>
+        <Description>A library providing utilities for use with Entity Framework Core.</Description>
+        <PackageTags>utilities;query;entityframework</PackageTags>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-      <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'net5.0'">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net6.0' ">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' ">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' ">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.5" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net7.0' ">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
+    </ItemGroup>
 
 </Project>

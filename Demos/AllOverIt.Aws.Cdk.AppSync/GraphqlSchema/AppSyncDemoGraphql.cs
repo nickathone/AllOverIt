@@ -4,17 +4,18 @@ using AllOverIt.Aws.Cdk.AppSync.Mapping;
 using Amazon.CDK;
 using Amazon.CDK.AWS.AppSync;
 using Amazon.CDK.AWS.Cognito;
-using Amazon.CDK.AWS.EC2;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.S3;
+using System.Collections.Generic;
+using SystemType = System.Type;
 
 namespace GraphqlSchema
 {
     internal sealed class AppSyncDemoGraphql : AppGraphqlBase
     {
-        public AppSyncDemoGraphql(Construct scope, AppSyncDemoAppProps appProps, IAuthorizationMode authMode, MappingTemplates mappingTemplates,
-            MappingTypeFactory mappingTypeFactory)
-            : base(scope, "GraphQl", GetGraphqlApiProps(scope, appProps, authMode), mappingTemplates, mappingTypeFactory)
+        public AppSyncDemoGraphql(Construct scope, AppSyncDemoAppProps appProps, IAuthorizationMode authMode, IReadOnlyDictionary<SystemType, string> typeNameOverrides,
+            MappingTemplates mappingTemplates, MappingTypeFactory mappingTypeFactory)
+            : base(scope, "GraphQl", GetGraphqlApiProps(scope, appProps, authMode), typeNameOverrides, mappingTemplates, mappingTypeFactory)
         {
         }
 
@@ -28,6 +29,8 @@ namespace GraphqlSchema
                 {
                     DefaultAuthorization = authMode,
 
+#if DEBUG   // Using RELEASE mode to deploy without these (DEBUG mode is used to check Synth output)
+
                     // would normally pass in the additional auth modes - these have been added to show the auth directive attributes work
                     AdditionalAuthorizationModes = new IAuthorizationMode[]
                     {
@@ -39,6 +42,7 @@ namespace GraphqlSchema
                                 UserPool = new UserPool(scope, "SomeUserPool")
                             }
                         },
+
                         new AuthorizationMode
                         {
                             AuthorizationType = AuthorizationType.OIDC,
@@ -47,10 +51,12 @@ namespace GraphqlSchema
                                 OidcProvider = "https://domain.com"
                             }
                         },
+
                         new AuthorizationMode
                         {
                             AuthorizationType = AuthorizationType.IAM
                         },
+
                         new AuthorizationMode
                         {
                             AuthorizationType = AuthorizationType.LAMBDA,
@@ -71,6 +77,7 @@ namespace GraphqlSchema
                             }
                         }
                     }
+#endif
                 }
             };
         }

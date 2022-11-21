@@ -27,7 +27,6 @@ namespace AllOverIt.Tests.Events
             [Fact]
             public void Should_Get_Handler()
             {
-                // ReSharper disable once ConvertToLocalFunction
                 Func<int, Task> handler = SubscriptionHandler;
 
                 var subscription = new AsyncSubscription(handler);
@@ -40,7 +39,6 @@ namespace AllOverIt.Tests.Events
             [Fact]
             public void Should_Get_Static_Handler()
             {
-                // ReSharper disable once ConvertToLocalFunction
                 Func<int, Task> handler = StaticSubscriptionHandler;
 
                 var subscription = new AsyncSubscription(handler);
@@ -57,9 +55,8 @@ namespace AllOverIt.Tests.Events
             public async Task Should_Invoke_Handler()
             {
                 var expected = Create<int>();
-                int actual = -expected;
+                var actual = -expected;
 
-                // ReSharper disable once ConvertToLocalFunction
                 Func<int, Task> handler = value =>
                 {
                     actual = value;
@@ -74,13 +71,15 @@ namespace AllOverIt.Tests.Events
             }
         }
 
-        // ReSharper disable once MemberCanBeMadeStatic.Local
-        private Task SubscriptionHandler(int value)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "Prevent CA1822")]
+#pragma warning disable CA1822 // Mark members as static
+        private Task SubscriptionHandler(int _)
+#pragma warning restore CA1822 // Mark members as static
         {
             return Task.CompletedTask;
         }
 
-        private static Task StaticSubscriptionHandler(int value)
+        private static Task StaticSubscriptionHandler(int _)
         {
             return Task.CompletedTask;
         }

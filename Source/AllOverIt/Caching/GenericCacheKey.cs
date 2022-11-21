@@ -15,13 +15,7 @@
             Key1 = key1;
         }
 
-        /// <summary>Deconstruct operator.</summary>
-        /// <param name="key1">Will be set to the value of <see cref="Key1"/>.</param>
-        public void Deconstruct(out TKey1 key1)
-        {
-            // Null values are allowed
-            key1 = Key1;
-        }
+        // There is no deconstructor as it requires two or more values
     }
 
     /// <summary>A <see cref="GenericCache"/> key based on one strongly-typed key type.</summary>
@@ -49,7 +43,7 @@
         /// <summary>Deconstruct operator.</summary>
         /// <param name="key1">Will be set to the value of <see cref="Key1"/>.</param>
         /// <param name="key2">Will be set to the value of <see cref="Key2"/>.</param>
-        internal void Deconstruct(out TKey1 key1, out TKey2 key2)
+        public void Deconstruct(out TKey1 key1, out TKey2 key2)
         {
             key1 = Key1;
             key2 = Key2;
@@ -88,7 +82,7 @@
         /// <param name="key1">Will be set to the value of <see cref="Key1"/>.</param>
         /// <param name="key2">Will be set to the value of <see cref="Key2"/>.</param>
         /// <param name="key3">Will be set to the value of <see cref="Key3"/>.</param>
-        internal void Deconstruct(out TKey1 key1, out TKey2 key2, out TKey3 key3)
+        public void Deconstruct(out TKey1 key1, out TKey2 key2, out TKey3 key3)
         {
             key1 = Key1;
             key2 = Key2;
@@ -135,7 +129,7 @@
         /// <param name="key2">Will be set to the value of <see cref="Key2"/>.</param>
         /// <param name="key3">Will be set to the value of <see cref="Key3"/>.</param>
         /// <param name="key4">Will be set to the value of <see cref="Key4"/>.</param>
-        internal void Deconstruct(out TKey1 key1, out TKey2 key2, out TKey3 key3, out TKey4 key4)
+        public void Deconstruct(out TKey1 key1, out TKey2 key2, out TKey3 key3, out TKey4 key4)
         {
             key1 = Key1;
             key2 = Key2;

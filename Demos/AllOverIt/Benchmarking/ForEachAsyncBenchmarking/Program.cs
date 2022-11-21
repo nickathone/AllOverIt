@@ -1,13 +1,12 @@
 ﻿using BenchmarkDotNet.Running;
-using System;
 
 namespace ForEachAsyncBenchmarking
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            BenchmarkRunner.Run<AsyncCalculations>();
+            BenchmarkRunner.Run<BenchmarkTests>();
         }
     }
 }

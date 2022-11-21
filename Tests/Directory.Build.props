@@ -1,0 +1,17 @@
+<Project>
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+        <LangVersion>Latest</LangVersion>
+        <IsPackable>false</IsPackable>
+
+        <!--Stop warning related to end-of-life .NET versions-->
+        <CheckEolTargetFramework>false</CheckEolTargetFramework>
+
+        <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+        <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <NoWarn>1701;1702;0169;0649</NoWarn>
+    </PropertyGroup>
+</Project>

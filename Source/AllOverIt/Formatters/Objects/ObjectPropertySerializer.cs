@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Exceptions;
 using AllOverIt.Extensions;
-using AllOverIt.Formatters.Objects.Exceptions;
+using AllOverIt.Formatters.Exceptions;
+using AllOverIt.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,26 +51,27 @@ namespace AllOverIt.Formatters.Objects
                     AppendDictionaryAsPropertyValues(prefix, dictionary, values, references);
                     break;
 
-                case IEnumerable enumerable when instance.GetType() != typeof(string):
-                    // ReSharper disable once PossibleMultipleEnumeration
+                case IEnumerable enumerable when instance.GetType() != CommonTypes.StringType:
                     var collateValues = CanCollateEnumerableValues(enumerable, references);
 
                     var arrayValues = collateValues
                         ? new Dictionary<string, string>()
                         : values;
 
-                    // ReSharper disable once PossibleMultipleEnumeration
                     AppendEnumerableAsPropertyValues(prefix, enumerable, arrayValues, references);
 
                     if (collateValues)
                     {
+#pragma warning disable IDE0074 // Use compound assignment
+                        // More efficient than ??=
                         if (prefix == null)
                         {
                             // The array must have been a root object (not a property value) so use "[]" as the prefix
                             prefix = Options.RootValueOptions.ArrayKeyName;
                         }
+#pragma warning restore IDE0074 // Use compound assignment
 
-                        values.Add(prefix, string.Join(Options.EnumerableOptions.Separator, arrayValues.Values));
+                        values.Add(prefix, string.Join(GetEnumerableOptions().Separator, arrayValues.Values));
                     }
                     break;
 
@@ -91,7 +92,7 @@ namespace AllOverIt.Formatters.Objects
             var args = GetDictionaryGenericArguments(dictionary);
             var keyType = args[0];
 
-            var isClassType = keyType.IsClass && keyType != typeof(string);
+            var isClassType = keyType.IsClass && keyType != CommonTypes.StringType;
             var idx = 0;
 
             var keyEnumerator = dictionary.Keys.GetEnumerator();
@@ -133,7 +134,6 @@ namespace AllOverIt.Formatters.Objects
         private void AppendEnumerableAsPropertyValues(string prefix, IEnumerable enumerable, IDictionary<string, string> values,
             IDictionary<object, ObjectPropertyParent> references)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             if (ExcludeEnumerable(enumerable))
             {
                 return;
@@ -141,7 +141,6 @@ namespace AllOverIt.Formatters.Objects
 
             var idx = 0;
 
-            // ReSharper disable once PossibleMultipleEnumeration
             foreach (var value in enumerable)
             {
                 var parentReferences = new Dictionary<object, ObjectPropertyParent>(references);
@@ -163,10 +162,10 @@ namespace AllOverIt.Formatters.Objects
         {
             var instanceType = instance.GetType();
 
-            if (!instanceType.IsClass || instanceType == typeof(string))
+            if (!instanceType.IsClass || instanceType == CommonTypes.StringType)
             {
                 // The value doesn't have properties....only option is to ToString() it
-                values.Add(Options.RootValueOptions.ScalarKeyName, $"{instance}");
+                values.Add(Options.RootValueOptions.ScalarKeyName, instance.ToString());
                 return;
             }
 
@@ -208,7 +207,7 @@ namespace AllOverIt.Formatters.Objects
             {
                 var type = value.GetType();
 
-                var isString = type == typeof(string);
+                var isString = type == CommonTypes.StringType;
 
                 if (isString && ((string)value).IsNullOrEmpty())        // null was already checked, so this only applies to empty values
                 {
@@ -216,7 +215,7 @@ namespace AllOverIt.Formatters.Objects
                 }
                 else if (isString || type.IsValueType)
                 {
-                    var valueStr = $"{value}";
+                    var valueStr = value.ToString();
 
                     if (Options.Filter != null)
                     {
@@ -242,7 +241,7 @@ namespace AllOverIt.Formatters.Objects
 
                     if (references.ContainsKey(value))
                     {
-                        throw new SelfReferenceException($"Self referencing detected at '{path}' of type '{type.GetFriendlyName()}'");
+                        throw new SelfReferenceException($"Self referencing detected at '{path}' of type '{type.GetFriendlyName()}'.");
                     }
 
                     if (Options.Filter != null)
@@ -290,10 +289,10 @@ namespace AllOverIt.Formatters.Objects
         {
             var args = dictionary.GetType().GetGenericArguments();
 
-            if (!args.Any())
+            if (args.NotAny())
             {
                 // Assume IDictionary, such as from Environment.GetEnvironmentVariables(), contains values that can be converted to strings
-                dictionary = dictionary.Cast<DictionaryEntry>().ToDictionary(entry => $"{entry.Key}", entry => $"{entry.Value}");
+                dictionary = dictionary.Cast<DictionaryEntry>().ToDictionary(entry => entry.Key.ToString(), entry => entry.Value.ToString());
                 args = dictionary.GetType().GetGenericArguments();
             }
 
@@ -374,13 +373,13 @@ namespace AllOverIt.Formatters.Objects
             // Only allowing the collation of primitive types - collating complex types is not very helpful / readable
             var elementType = GetEnumerableElementType(enumerable);
 
-            if (elementType.IsClassType() && elementType != typeof(string))
+            if (elementType.IsClassType() && elementType != CommonTypes.StringType)
             {
                 return false;
             }
 
             // Check if the filter indicates collation is required
-            var collateValues = (Options.Filter?.EnumerableOptions ?? Options.EnumerableOptions).CollateValues;
+            var collateValues = GetEnumerableOptions().CollateValues;
 
             if (!collateValues)
             {
@@ -397,6 +396,12 @@ namespace AllOverIt.Formatters.Objects
             }
 
             return collateValues;
+        }
+
+        private ObjectPropertyEnumerableOptions GetEnumerableOptions()
+        {
+            // If there's a filter, its options override the serializer's global array handling options
+            return Options.Filter?.EnumerableOptions ?? Options.EnumerableOptions;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿#if !NETSTANDARD2_0
-
-using AllOverIt.Assertion;
+﻿using AllOverIt.Assertion;
 using System;
 using System.Threading.Tasks;
 
@@ -28,11 +26,7 @@ namespace AllOverIt.Patterns.ResourceInitialization
         {
             await DisposeAsyncCore();
 
-#pragma warning disable IDE0079 // Remove unnecessary suppression
-#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
             GC.SuppressFinalize(this);
-#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
-#pragma warning restore IDE0079 // Remove unnecessary suppression
         }
 
         /// <summary>Performs the asynchronous disposal of resources.</summary>
@@ -73,11 +67,7 @@ namespace AllOverIt.Patterns.ResourceInitialization
         {
             await DisposeAsyncCore();
 
-#pragma warning disable IDE0079 // Remove unnecessary suppression
-#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
             GC.SuppressFinalize(this);
-#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
-#pragma warning restore IDE0079 // Remove unnecessary suppression
         }
 
         /// <summary>Performs the asynchronous disposal of resources.</summary>
@@ -92,4 +82,3 @@ namespace AllOverIt.Patterns.ResourceInitialization
         }
     }
 }
-#endif

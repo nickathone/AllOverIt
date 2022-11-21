@@ -258,14 +258,13 @@ namespace AllOverIt.Tests.Async
                 const int repeatDelay = 100;
                 var cancellationToken = new CancellationTokenSource();
                 var invokedCount = 0;
-                var delays = new List<long>();
+                var delays = new List<int>();
                 var stopwatch = new Stopwatch();
                 var lastElapsed = 0L;
 
                 void DoAction()
                 {
-                    var elapsed = stopwatch.ElapsedMilliseconds - lastElapsed;
-                    lastElapsed = elapsed;
+                    var elapsed = (int)(stopwatch.ElapsedMilliseconds - lastElapsed);
 
                     delays.Add(elapsed);
 
@@ -275,6 +274,8 @@ namespace AllOverIt.Tests.Async
                     {
                         cancellationToken.Cancel();
                     }
+
+                    lastElapsed = stopwatch.ElapsedMilliseconds;
                 }
 
                 stopwatch.Start();
@@ -285,9 +286,10 @@ namespace AllOverIt.Tests.Async
 
                 stopwatch.Stop();
 
-                delays[0].Should().BeLessThan(repeatDelay);                 // should be invoked without delay
-                delays[1].Should().BeGreaterOrEqualTo(repeatDelay - 1);     // occasionally comes in at 99ms
-                delays[2].Should().BeGreaterOrEqualTo(repeatDelay - 1);
+                // delays[0] can be ignored since it is the first run with no initial delay.
+                // The other delays cannot be guaranteed to be close to 'repeatDelay', so check >=
+                delays[1].Should().BeGreaterThanOrEqualTo(repeatDelay);
+                delays[2].Should().BeGreaterThanOrEqualTo(repeatDelay);
             }
 
             [Fact]

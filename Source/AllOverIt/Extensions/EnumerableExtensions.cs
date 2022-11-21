@@ -19,7 +19,6 @@ namespace AllOverIt.Extensions
         /// <returns>True if the source items contains no elements, otherwise false.</returns>
         public static bool NotAny<TType>(this IEnumerable<TType> items)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
             return !items.Any();
@@ -32,10 +31,8 @@ namespace AllOverIt.Extensions
         /// otherwise a new list is created and populated before being returned.</returns>
         public static IList<TType> AsList<TType>(this IEnumerable<TType> items)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
             return items as IList<TType> ?? items.ToList();
         }
 
@@ -46,10 +43,8 @@ namespace AllOverIt.Extensions
         /// reference is returned, otherwise a new list is created and populated before being returned.</returns>
         public static IReadOnlyList<TType> AsReadOnlyList<TType>(this IEnumerable<TType> items)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
             return items as IReadOnlyList<TType> ?? items.ToList();
         }
 
@@ -60,11 +55,29 @@ namespace AllOverIt.Extensions
         /// reference is returned, otherwise a new list is created and populated before being returned.</returns>
         public static IReadOnlyCollection<TType> AsReadOnlyCollection<TType>(this IEnumerable<TType> items)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
             return items as IReadOnlyCollection<TType> ?? new ReadOnlyCollection<TType>(items.AsList());
+        }
+
+        /// <summary>Asynchronously projects each item within a sequence.</summary>
+        /// <typeparam name="TType">The type of each element to be projected.</typeparam>
+        /// <typeparam name="TResult">The projected result type.</typeparam>
+        /// <param name="items">The sequence of elements to be projected.</param>
+        /// <param name="selector">The transform function to be applied to each element.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
+        /// <returns>An enumerator that provides asynchronous iteration over a sequence of elements.</returns>
+        public static async IAsyncEnumerable<TResult> SelectAsync<TType, TResult>(this IEnumerable<TType> items, Func<TType, Task<TResult>> selector,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            _ = items.WhenNotNull(nameof(items));
+
+            foreach (var item in items)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                yield return await selector.Invoke(item).ConfigureAwait(false);
+            }
         }
 
         /// <summary>Projects each element into another form and returns the result as an IList{TResult}.</summary>
@@ -75,10 +88,8 @@ namespace AllOverIt.Extensions
         /// <returns>The projected results as an IList{TResult}.</returns>
         public static IList<TResult> SelectAsList<TSource, TResult>(this IEnumerable<TSource> items, Func<TSource, TResult> selector)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
             return items.Select(selector).ToList();
         }
 
@@ -90,10 +101,8 @@ namespace AllOverIt.Extensions
         /// <returns>The projected results as an IReadOnlyCollection{TResult}.</returns>
         public static IReadOnlyCollection<TResult> SelectAsReadOnlyCollection<TSource, TResult>(this IEnumerable<TSource> items, Func<TSource, TResult> selector)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
             return items.Select(selector).ToList();
         }
 
@@ -105,58 +114,48 @@ namespace AllOverIt.Extensions
         /// <returns>The projected results as an IReadOnlyList{TResult}.</returns>
         public static IReadOnlyList<TResult> SelectAsReadOnlyList<TSource, TResult>(this IEnumerable<TSource> items, Func<TSource, TResult> selector)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
             return items.Select(selector).ToList();
         }
 
-#if !NETSTANDARD2_0
-        /// <summary>Asynchronously projects each item within a sequence.</summary>
-        /// <typeparam name="TType">The type of each element to be projected.</typeparam>
+        /// <summary>Asynchronously projects each element into another form and returns the result as an IReadOnlyCollection{TResult}.</summary>
+        /// <typeparam name="TSource">The source elements.</typeparam>
         /// <typeparam name="TResult">The projected result type.</typeparam>
-        /// <param name="items">The sequence of elements to be projected.</param>
-        /// <param name="selector">The transform function to be applied to each element.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>An enumerator that provides asynchronous iteration over a sequence of elements.</returns>
-        public static async IAsyncEnumerable<TResult> SelectAsync<TType, TResult>(this IEnumerable<TType> items, Func<TType, Task<TResult>> selector,
-            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        /// <param name="items">The source items to be projected and returned as an IReadOnlyCollection{TResult}.</param>
+        /// <param name="selector">The transform function applied to each element.</param>
+        /// <param name="cancellationToken">A CancellationToken to cancel the operation.</param>
+        /// <returns>The projected results as an IReadOnlyCollection{TResult}.</returns>
+        public static async Task<IReadOnlyCollection<TResult>> SelectAsReadOnlyCollectionAsync<TSource, TResult>(this IEnumerable<TSource> items, Func<TSource, Task<TResult>> selector,
+            CancellationToken cancellationToken = default)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
-            foreach (var item in items)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
+            var results = await items
+                .SelectAsync(selector, cancellationToken)
+                .ToListAsync(cancellationToken);
 
-                yield return await selector.Invoke(item).ConfigureAwait(false);
-            }
+            return results.AsReadOnlyCollection();
         }
 
-        /// <summary>Asynchronously projects each item within a sequence.</summary>
-        /// <typeparam name="TType">The type of each element to be projected.</typeparam>
+        /// <summary>Asynchronously projects each element into another form and returns the result as an IReadOnlyList{TResult}.</summary>
+        /// <typeparam name="TSource">The source elements.</typeparam>
         /// <typeparam name="TResult">The projected result type.</typeparam>
-        /// <param name="items">The sequence of elements to be projected.</param>
-        /// <param name="selector">The transform function to be applied to each element.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>An enumerator that provides asynchronous iteration over a sequence of elements.</returns>
-        public static async IAsyncEnumerable<TResult> SelectAsync<TType, TResult>(this IAsyncEnumerable<TType> items, Func<TType, Task<TResult>> selector,
-            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        /// <param name="items">The source items to be projected and returned as an IReadOnlyList{TResult}.</param>
+        /// <param name="selector">The transform function applied to each element.</param>
+        /// <param name="cancellationToken">A CancellationToken to cancel the operation.</param>
+        /// <returns>The projected results as an IReadOnlyList{TResult}.</returns>
+        public static async Task<IReadOnlyList<TResult>> SelectAsReadOnlyListAsync<TSource, TResult>(this IEnumerable<TSource> items, Func<TSource, Task<TResult>> selector,
+            CancellationToken cancellationToken = default)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
-            await foreach (var item in items.WithCancellation(cancellationToken))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
+            var results = await items
+                .SelectAsync(selector, cancellationToken)
+                .ToListAsync(cancellationToken);
 
-                yield return await selector.Invoke(item).ConfigureAwait(false);
-            }
+            return results.AsReadOnlyList();
         }
-#endif
 
         /// <summary>
         /// Applicable to strings and collections, this method determines if the instance is null or empty.
@@ -177,12 +176,10 @@ namespace AllOverIt.Extensions
         /// <returns>One or more batches containing the source items partitioned into a maximum batch size.</returns>
         public static IEnumerable<IEnumerable<TType>> Batch<TType>(this IEnumerable<TType> items, int batchSize)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
             var batch = new List<TType>(batchSize);
 
-            // ReSharper disable once PossibleMultipleEnumeration
             foreach (var item in items)
             {
                 batch.Add(item);
@@ -206,32 +203,10 @@ namespace AllOverIt.Extensions
         /// <returns>The projected sequence including the element's index.</returns>
         public static IEnumerable<(TType Item, int Index)> WithIndex<TType>(this IEnumerable<TType> items)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
-            // ReSharper disable once PossibleMultipleEnumeration
             return items.Select((item, index) => (item, index));
         }
-
-#if !NETSTANDARD2_0
-        /// <summary>Asynchronously projects each element of a sequence into a new form that includes the element's zero-based index.</summary>
-        /// <typeparam name="TType">The element type.</typeparam>
-        /// <param name="items">The source sequence of elements.</param>
-        /// <returns>The projected sequence including the element's index.</returns>
-        public static async IAsyncEnumerable<(TType Item, int Index)> WithIndexAsync<TType>(this IAsyncEnumerable<TType> items)
-        {
-            // ReSharper disable once PossibleMultipleEnumeration
-            _ = items.WhenNotNull(nameof(items));
-
-            var index = 0;
-
-            // ReSharper disable once PossibleMultipleEnumeration
-            await foreach (var item in items)
-            {
-                yield return (item, index++);
-            }
-        }
-#endif
 
         /// <summary>Iterates a sequence of elements and provides the zero-based index of the current item.</summary>
         /// <typeparam name="TType">The element type.</typeparam>
@@ -239,12 +214,10 @@ namespace AllOverIt.Extensions
         /// <param name="action">The action to invoke against each element in the sequence.</param>
         public static void ForEach<TType>(this IEnumerable<TType> items, Action<TType, int> action)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
             var index = 0;
 
-            // ReSharper disable once PossibleMultipleEnumeration
             foreach (var item in items)
             {
                 action.Invoke(item, index++);
@@ -258,38 +231,15 @@ namespace AllOverIt.Extensions
         /// <returns>An awaitable task that completes when the iteration is complete.</returns>
         public static async Task ForEachAsync<TType>(this IEnumerable<TType> items, Func<TType, int, Task> action)
         {
-            // ReSharper disable once PossibleMultipleEnumeration
             _ = items.WhenNotNull(nameof(items));
 
             var index = 0;
 
-            // ReSharper disable once PossibleMultipleEnumeration
             foreach (var item in items)
             {
                 await action.Invoke(item, index++).ConfigureAwait(false);
             }
         }
-
-#if !NETSTANDARD2_0
-        /// <summary>Asynchronously iterates a sequence of elements and provides the zero-based index of the current item.</summary>
-        /// <typeparam name="TType">The element type.</typeparam>
-        /// <param name="items">The source sequence of elements.</param>
-        /// <param name="action">The asynchronous action to invoke against each element in the sequence.</param>
-        /// <returns>An awaitable task that completes when the iteration is complete.</returns>
-        public static async Task ForEachAsync<TType>(this IAsyncEnumerable<TType> items, Func<TType, int, Task> action)
-        {
-            // ReSharper disable once PossibleMultipleEnumeration
-            _ = items.WhenNotNull(nameof(items));
-
-            var index = 0;
-
-            // ReSharper disable once PossibleMultipleEnumeration
-            await foreach (var item in items)
-            {
-                await action.Invoke(item, index++).ConfigureAwait(false);
-            }
-        }
-#endif
 
         /// <summary>Finds elements in a collection that match elements in a second collection based on key selectors.</summary>
         /// <typeparam name="TFirst">The element type of the first collection.</typeparam>
@@ -318,6 +268,20 @@ namespace AllOverIt.Extensions
             var firstMap = firstItems.ToDictionary(firstSelector);
             var matchingKeys = firstMap.Keys.Intersect(secondItems.Select(secondSelector));
             return matchingKeys.Select(key => firstMap[key]);
+        }
+
+        /// <summary>Determines if a collection is unique when grouped by a specified key selector.</summary>
+        /// <typeparam name="TType">The element type in the source collection.</typeparam>
+        /// <typeparam name="TKey">The key type.</typeparam>
+        /// <param name="source">The source collection.</param>
+        /// <param name="selector">The key selector.</param>
+        /// <returns>True when the grouping results in one element per key, otherwise false.</returns>
+        public static bool HasDistinctGrouping<TType, TKey>(this IEnumerable<TType> source, Func<TType, TKey> selector)
+        {
+            return source
+                .WhenNotNull(nameof(source))
+                .GroupBy(selector)
+                .All(item => item.Count() == 1);
         }
     }
 }

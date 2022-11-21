@@ -76,7 +76,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
                 var expressions = from index in Enumerable.Range(1, argumentCount)
                                   select Expression.Constant(Create<double>());
 
-                var creator = operation.Creator.Invoke(expressions.Cast<Expression>().ToArray());
+                var creator = operation._creator.Invoke(expressions.Cast<Expression>().ToArray());
 
                 operation.Precedence.Should().Be(precedence);
                 creator.Should().BeOfType<TOperation>();
@@ -111,7 +111,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
                         () => _operationFactory.RegisterOperation("xyz", Create<int>(), Create<int>(), Creator))
                     .Should()
                     .Throw<OperationFactoryException>()
-                    .WithMessage("Operation already registered for the 'xyz' operator");
+                    .WithMessage("Operation already registered for the 'xyz' operator.");
             }
 
             [Fact]
@@ -148,7 +148,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
                 var expressions = from index in Enumerable.Range(1, 2)
                                   select Expression.Constant(Create<double>());
 
-                var creator = operation.Creator.Invoke(expressions.Cast<Expression>().ToArray());
+                var creator = operation._creator.Invoke(expressions.Cast<Expression>().ToArray());
 
                 creator.Should().BeOfType<AddOperator>();
             }

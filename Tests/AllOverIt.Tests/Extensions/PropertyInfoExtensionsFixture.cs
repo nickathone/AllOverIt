@@ -1,8 +1,11 @@
-﻿using AllOverIt.Extensions;
+﻿using System;
+using AllOverIt.Extensions;
 using AllOverIt.Fixture;
 using FluentAssertions;
-using System.Reflection;
+using AllOverIt.Fixture.Extensions;
 using Xunit;
+using System.Reflection;
+using PropertyInfoExtensions = AllOverIt.Extensions.PropertyInfoExtensions;
 
 namespace AllOverIt.Tests.Extensions
 {
@@ -17,7 +20,10 @@ namespace AllOverIt.Tests.Extensions
         {
             public override int Prop1 { get; set; }
             internal int Prop2 { get; set; }
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Part of the test")]
             private int Prop3 { get; set; }
+
             protected int Prop4 { get; set; }
             public string Prop5 { get; set; }
             public static double Prop6 { get; set; }
@@ -26,6 +32,18 @@ namespace AllOverIt.Tests.Extensions
 
         public class IsAbstract : PropertyInfoExtensionsFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.IsAbstract(null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
             [Theory]
             [InlineData("Prop1")]
             public void Should_Determine_Base_Is_Abstract(string name)
@@ -61,6 +79,18 @@ namespace AllOverIt.Tests.Extensions
 
         public class IsInternal : PropertyInfoExtensionsFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.IsInternal(null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
             [Theory]
             [InlineData("Prop2")]
             public void Should_Determine_Is_Internal(string name)
@@ -87,6 +117,18 @@ namespace AllOverIt.Tests.Extensions
 
         public class IsPrivate : PropertyInfoExtensionsFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.IsPrivate(null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
             [Theory]
             [InlineData("Prop3")]
             public void Should_Determine_Is_Private(string name)
@@ -113,6 +155,18 @@ namespace AllOverIt.Tests.Extensions
 
         public class IsProtected : PropertyInfoExtensionsFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.IsProtected(null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
             [Theory]
             [InlineData("Prop4")]
             public void Should_Determine_Is_Protected(string name)
@@ -139,6 +193,18 @@ namespace AllOverIt.Tests.Extensions
 
         public class IsPublic : PropertyInfoExtensionsFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.IsPublic(null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
             [Theory]
             [InlineData("Prop1")]
             [InlineData("Prop5")]
@@ -165,6 +231,18 @@ namespace AllOverIt.Tests.Extensions
 
         public class IsStatic : PropertyInfoExtensionsFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.IsStatic(null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
             [Theory]
             [InlineData("Prop6")]
             public void Should_Determine_Is_Static(string name)
@@ -191,6 +269,18 @@ namespace AllOverIt.Tests.Extensions
 
         public class IsVirtual : PropertyInfoExtensionsFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.IsVirtual(null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
             [Theory]
             [InlineData("Prop1")]     // it's abstract, so it's virtual
             [InlineData("Prop7")]
@@ -224,6 +314,18 @@ namespace AllOverIt.Tests.Extensions
             }
 
             [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.IsIndexer(null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
+            [Fact]
             public void Should_Determine_Is_Indexer()
             {
                 var actual = GetPropertyInfo<DummyWithIndexer>("Item").IsIndexer();
@@ -237,6 +339,91 @@ namespace AllOverIt.Tests.Extensions
                 var actual = GetPropertyInfo<DummyWithIndexer>(nameof(DummyWithIndexer.That)).IsIndexer();
 
                 actual.Should().BeFalse();
+            }
+        }
+
+        public class CreateMemberAccessLambda : PropertyInfoExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_PropertyInfo_Null()
+            {
+                Invoking(() =>
+                    {
+                        PropertyInfoExtensions.CreateMemberAccessLambda<DummyClass, string>(null, Create<string>());
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("propertyInfo");
+            }
+
+            [Fact]
+            public void Should_Throw_When_ParameterName_Null()
+            {
+                Invoking(() =>
+                    {
+                        var propInfo = GetPropertyInfo<DummyClass>(nameof(DummyClass.Prop5));
+
+                        PropertyInfoExtensions.CreateMemberAccessLambda<DummyClass, string>(propInfo, null);
+                    })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("parameterName");
+            }
+
+            [Fact]
+            public void Should_Throw_When_ParameterName_Empty()
+            {
+                Invoking(() =>
+                    {
+                        var propInfo = GetPropertyInfo<DummyClass>(nameof(DummyClass.Prop5));
+
+                        PropertyInfoExtensions.CreateMemberAccessLambda<DummyClass, string>(propInfo, string.Empty);
+                    })
+                    .Should()
+                    .Throw<ArgumentException>()
+                    .WithNamedMessageWhenEmpty("parameterName");
+            }
+
+            [Fact]
+            public void Should_Throw_When_ParameterName_Whitespace()
+            {
+                Invoking(() =>
+                    {
+                        var propInfo = GetPropertyInfo<DummyClass>(nameof(DummyClass.Prop5));
+
+                        PropertyInfoExtensions.CreateMemberAccessLambda<DummyClass, string>(propInfo, "  ");
+                    })
+                    .Should()
+                    .Throw<ArgumentException>()
+                    .WithNamedMessageWhenEmpty("parameterName");
+            }
+
+            [Fact]
+            public void Should_Create_Expression()
+            {
+                var propInfo = GetPropertyInfo<DummyClass>(nameof(DummyClass.Prop5));
+
+                var lambda = PropertyInfoExtensions.CreateMemberAccessLambda<DummyClass, string>(propInfo, "item");
+
+                var actual = lambda.ToString();
+
+                actual.Should().Be("item => item.Prop5");
+            }
+
+            [Fact]
+            public void Should_Evaluate_Expression()
+            {
+                var propInfo = GetPropertyInfo<DummyClass>(nameof(DummyClass.Prop5));
+
+                var lambda = PropertyInfoExtensions.CreateMemberAccessLambda<DummyClass, string>(propInfo, "item");
+
+                var dummy = Create<DummyClass>();
+                var expected = dummy.Prop5;
+
+                var compiled = lambda.Compile();
+                var actual = compiled.Invoke(dummy);
+
+                actual.Should().Be(expected);
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Reflection;
 using System;
 using System.ComponentModel;
 using System.Text;
@@ -8,19 +9,6 @@ namespace AllOverIt.Extensions
     /// <summary>Provides a variety of extension methods for <see cref="string"/> types.</summary>
     public static class StringExtensions
     {
-        /// <summary>Determines if a string contains a specified character.</summary>
-        /// <param name="str">The string to be tested.</param>
-        /// <param name="value">The character value to be searched for within the string.</param>
-        /// <returns>True if the string contains the specified character, otherwise false.</returns>
-        public static bool ContainsChar(this string str, char value)
-        {
-#if NETSTANDARD2_0
-            return str.Contains($"{value}");
-#else
-            return str.Contains(value);
-#endif
-        }
-
         /// <summary>Converts a given string to another type.</summary>
         /// <typeparam name="TType">The type to convert to.</typeparam>
         /// <param name="value">The value to be converted.</param>
@@ -39,29 +27,29 @@ namespace AllOverIt.Extensions
                 return defaultValue;
             }
 
-            var genericType = typeof(TType);
+            var valueType = typeof(TType);
 
-            if (genericType.IsEnum)
+            if (valueType.IsEnum)
             {
-                return (TType)Enum.Parse(genericType, value, true);
+                return (TType)Enum.Parse(valueType, value, true);
             }
 
-            if (genericType == typeof(bool))
+            if (valueType == CommonTypes.BoolType)
             {
                 switch (value)
                 {
-                    case "0": return (TType)Convert.ChangeType(false, genericType);
-                    case "1": return (TType)Convert.ChangeType(true, genericType);
+                    case "0": return (TType)Convert.ChangeType(false, valueType);
+                    case "1": return (TType)Convert.ChangeType(true, valueType);
                     // fall through - true / false values will be converted via the type converter
                 }
             }
 
             // perform this after the enum conversion attempt
-            var typeConverter = TypeDescriptor.GetConverter(genericType);
+            var typeConverter = TypeDescriptor.GetConverter(valueType);
 
             if (!typeConverter.IsValid(value))
             {
-                throw new ArgumentException($"No converter exists for type '{genericType.Name}' when value = '{value}'.");
+                throw new ArgumentException($"No converter exists for type '{valueType.Name}' when value = '{value}'.");
             }
 
             // will throw NotSupportedException if the conversion cannot be performed

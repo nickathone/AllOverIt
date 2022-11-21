@@ -1,20 +1,29 @@
-﻿using AllOverIt.Exceptions;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Patterns.Command;
+using AllOverIt.Patterns.Command.Exceptions;
 using FluentAssertions;
-using System;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace AllOverIt.Tests.Patterns.Enumeration
+namespace AllOverIt.Tests.Patterns.Command
 {
     public class AsyncCommandPipelineFixture : FixtureBase
     {
         private class DummyCommand : IAsyncCommand<int, int>
         {
-            public Task<int> ExecuteAsync(int input)
+            private readonly Action _action;
+
+            public DummyCommand(Action action = null)
             {
+                _action = action;
+            }
+
+            public Task<int> ExecuteAsync(int input, CancellationToken cancellationToken)
+            {
+                _action?.Invoke();
                 return Task.FromResult(input + 1);
             }
         }
@@ -45,15 +54,14 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             }
 
             [Fact]
-            public void Should_Throw_When_Commands_Empty()
+            public void Should_Not_Throw_When_Commands_Empty()
             {
                 Invoking(() =>
                 {
-                    _ = new AsyncCommandPipeline<int, int>(new IAsyncCommand<int, int>[] { });
+                    _ = new AsyncCommandPipeline<int, int>(Array.Empty<IAsyncCommand<int, int>>());
                 })
                 .Should()
-                .Throw<ArgumentException>()
-                .WithNamedMessageWhenEmpty("commands");
+                .NotThrow();
             }
 
             [Fact]
@@ -70,7 +78,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
 
                 var expected = Create<int>();
 
-                var actual = await pipeline.ExecuteAsync(expected - 3);
+                var actual = await pipeline.ExecuteAsync(expected - 3, CancellationToken.None);
 
                 actual.Should().Be(expected);
             }
@@ -92,16 +100,15 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             }
 
             [Fact]
-            public void Should_Throw_When_Commands_Empty()
+            public void Should_Not_Throw_When_Commands_Empty()
             {
                 Invoking(() =>
                 {
                     var pipeline = new AsyncCommandPipeline<int, int>();
-                    pipeline.Append(new IAsyncCommand<int, int>[] { });
+                    pipeline.Append(Array.Empty<IAsyncCommand<int, int>>());
                 })
                 .Should()
-                .Throw<ArgumentException>()
-                .WithNamedMessageWhenEmpty("commands");
+                .NotThrow();
             }
 
             [Fact]
@@ -120,7 +127,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
 
                 var actual = await pipeline
                     .Append(commands)
-                    .ExecuteAsync(expected - 3);
+                    .ExecuteAsync(expected - 3, CancellationToken.None);
 
                 actual.Should().Be(expected);
             }
@@ -140,7 +147,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
                     .Append(command1)
                     .Append(command2)
                     .Append(command3)
-                    .ExecuteAsync(expected - 3);
+                    .ExecuteAsync(expected - 3, CancellationToken.None);
 
                 actual.Should().Be(expected);
             }
@@ -156,13 +163,13 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             }
         }
 
-        public class Execute : AsyncCommandPipelineFixture
+        public class ExecuteAsync_Method : AsyncCommandPipelineFixture
         {
             private class SequenceCommand : IAsyncCommand<int, int>
             {
                 public int Sequence { get; private set; }
                 
-                public Task<int> ExecuteAsync(int input)
+                public Task<int> ExecuteAsync(int input, CancellationToken cancellationToken)
                 {
                     Sequence = input;
 
@@ -176,7 +183,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
                 Invoking(async () =>
                 {
                     var pipeline = new AsyncCommandPipeline<int, int>();
-                    await pipeline.ExecuteAsync(Create<int>());
+                    await pipeline.ExecuteAsync(Create<int>(), CancellationToken.None);
                 })
                .Should()
                .ThrowAsync<CommandException>()
@@ -195,7 +202,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
 
                 var pipeline = new AsyncCommandPipeline<int, int>(commands);
 
-                await pipeline.ExecuteAsync(1);
+                await pipeline.ExecuteAsync(1, CancellationToken.None);
 
                 commands[0].Sequence.Should().Be(1);
                 commands[1].Sequence.Should().Be(2);
@@ -205,7 +212,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public async Task Should_Return_Final_Result()
             {
-                var commands = new[]
+                var commands = new IAsyncCommand<int, int>[]
                 {
                     new DummyCommand(),
                     new DummyCommand(),
@@ -216,9 +223,54 @@ namespace AllOverIt.Tests.Patterns.Enumeration
 
                 var expected = Create<int>();
 
-                var actual = await pipeline.ExecuteAsync(expected - 3);
+                var actual = await pipeline.ExecuteAsync(expected - 3, CancellationToken.None);
 
                 actual.Should().Be(expected);
+            }
+
+            [Fact]
+            public async Task Should_Throw_When_Cancellation_Already_Cancelled()
+            {
+                var commands = new IAsyncCommand<int, int>[]
+                {
+                    new DummyCommand(),
+                    new DummyCommand(),
+                    new DummyCommand()
+                };
+
+                var pipeline = new AsyncCommandPipeline<int, int>(commands);
+
+                var cts = new CancellationTokenSource();
+                cts.Cancel();
+
+                await Invoking(async () =>
+                    {
+                        _ = await pipeline.ExecuteAsync(Create<int>(), cts.Token);
+                    })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
+            }
+
+            [Fact]
+            public async Task Should_Throw_When_Cancelled_Mid_Processing()
+            {
+                var cts = new CancellationTokenSource();
+
+                var commands = new IAsyncCommand<int, int>[]
+                {
+                    new DummyCommand(),
+                    new DummyCommand(() => cts.Cancel()),
+                    new DummyCommand()
+                };
+
+                var pipeline = new AsyncCommandPipeline<int, int>(commands);
+
+                await Invoking(async () =>
+                    {
+                        _ = await pipeline.ExecuteAsync(Create<int>(), cts.Token);
+                    })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
             }
         }
     }

@@ -1,5 +1,305 @@
 ======================================================================================================================
 
+21 Nov 2022
+Version 6.0.0-RC.15
+======================================================================================================================
+All except AllOverIt.Aws.Cdk.AppSync and AllOverIt.ReactiveUI
+  * Added support for NET 7.0
+
+AllOverIt
+  * ObjectPropertySerializer now correctly applies enumerable collation seperator when there is a filter (which
+    overrides the global enumerable options).
+  * ObjectMapper's Map<TTarget>(object source) now returns null if the source is null.
+    ObjectMapper's Map<TSource, TTarget>(TSource source, TTarget target) is now constrained to 'class' types.
+  * Added ExceptionExtensions.Walk() to traverse an exception and its' inner exceptions.
+
+AllOverIt.Pagination
+  * Updated PageResult<T> to allow the secondary set of results to come from an IEnumerable.
+
+AllOverIt.Csv
+  * Updated CsvHelper to v30.0.1
+
+AllOverIt.Aws.Cdk.AppSync
+  * Updated Amazon.CDK.AWS.AppSync to v1.181.0
+
+
+12 Oct 2022
+Version 6.0.0-RC.14
+======================================================================================================================
+AllOverIt
+  * Dispose a breadcrumbs enumerator
+  * Unsealed PageResult<TResult> so it can be augmented with additional information through inheritance.
+
+AllOverIt.Aws.Cdk.AppSync
+  * Updated Amazon.CDK.AWS.AppSync to v1.176.0
+
+AllOverIt.Csv
+  * Updated CsvHelper to v29.0.0
+
+AllOverIt.Aws.AppSync.Client
+  * Updated Microsoft.Extensions.DependencyInjection to v6.0.1
+
+
+16 Sep 2022
+Version 6.0.0-RC.13
+======================================================================================================================
+AllOverIt.Aws.Cdk.AppSync
+AllOverIt.EntityFrameworkCore
+AllOverIt.Serialization.SystemTextJson
+AllOverIt.Validation
+  * External dependency updates
+
+
+11 Sep 2022
+Version 6.0.0-RC.12
+======================================================================================================================
+ALL - Dropped support for NET STANDARD 2.0
+
+AllOverIt.EntityFramework.Pagination
+AllOverIt.Pagination
+  * Moved PageResult from AllOverIt.EntityFramework.Pagination to AllOverIt.Pagination
+  * Added the ability to encode a hash value within a serialized continuation token. This, along with the compression
+    option, have moved to a ContinuationTokenOptions class.
+  * Internal refactoring to make code more extendable and testable
+  * Renamed AddQueryPaginatorFactory() extension method to AddQueryPagination()
+  * Added IContinuationTokenValidator
+  * Updated service collection extension to register a number of paginated interfaces:
+    - IContinuationTokenValidator
+    - IContinuationTokenSerializerFactory
+    - IContinuationTokenEncoderFactory
+    - IQueryPaginatorFactory
+  * Added query paginator factory method for when not using DI
+
+
+09 Sep 2022
+Version 6.0.0-RC.11
+======================================================================================================================
+AllOverIt
+  * Added support for ExcludeWhen() to ObjectMapper
+  * Updated ObjectMapper to default to creating empty collections when the source is null (instead of assigning null).
+    This can be changed via the default options (PropertyMatcherOptions).
+  * Corrected ObjectMapper so it constructs target objects via ConstructUsing() in preference to property mapping
+
+AllOverIt.Pagination
+  * Renamed the exposed query provided to the paginator as BaseQuery so it isn't confused with the resultant paginated
+    query provided by GetPageQuery(). This base query can be used to get the total page count without having to carry
+    it around seperately.
+
+AllOverIt.EntityFrameworkCore.Pagination
+  * Added PageResult and IQueryPaginator extension to obtain a page of results and associated information.
+
+AllOverIt.Aws.Cdk.AppSync
+  * Renamed cursor related properties to token on AppSync IPageInfo
+
+
+04 Sep 2022
+Version 6.0.0-RC.10
+======================================================================================================================
+AllOverIt
+  * Added ExpressionUtils.GetConstructorWithParametersAsObjects() so 'object' argument types can be used to construct
+    other types with constructor arguments
+  * Updated TypeFactory to allow object creation based on Type arguments rather than generic types. In summary:
+    - TypeFactory<TCreate>.Create() will create a factory for the provided type. Generics or Type args can be used to
+      create the required type.
+    - TypeExtensions.GetFactory() will create a factory for the type being extended. Generics or Type args can be used
+      to create the required type.
+  * Object mapper refactored to allow configuration to be injected => allowing it to be defined up front and multiple
+    mapper instances being able to use it.
+  * Renamed DeepClone in ObjectMapperOptions to DeepCopy
+
+AllOver.Fixture
+  * Fixed getWithinRange() related methods to handle int.MaxValue correctly.
+
+
+04 Sep 2022
+Version 6.0.0-RC.9
+======================================================================================================================
+AllOverIt
+  * ObjectMapper significantly updated:
+    - Dropped support for object extensions to statically map objects. Lacks performance, does not promote testing,
+      limited in functionality.
+    - The WithConversion() call now provides the mapper instance so complex nested scenarios can be addressed
+    - Source / Target type mapping can be configured on demand (internally) when there are no special requirements.
+      If there's no custom alias, exclusion, or conversion required then the source / target types do not need to
+      be explicitly configured up front.
+    - Object properties are now default shallow copied if the source type is assignable to the target type
+    - Object properties can be individually configured for deep cloning. Only relevant when the source and target
+      types are the same OR they are a collection of the same type (collections are normally shallow copied).
+      Choosing to do this at the property level rather than the type level provides greater granularity and
+      simplifies the implementation when a property is an enumerable type. Shallow copying is the default behaviour
+      so deep copying requires intentional configuration.
+    - Abstract target property (hence polymorphic) types can be handled through a custom conversion (using the mapper)
+    - Where Source / Target value type properties are different an attempt will be made to convert the source to the
+      target type. Requires the source type to implement IConvertable.
+    - Added support to provide source to target type factory methods. This required removing the class constraints
+      from some Map() methods.
+    - Added Dictionary support. Different source and target types requires a call to Configure() + ConstructUsing()
+      on the options for the source to target KeyValuePair types (the element types, not the dictionaries).
+
+
+01 Sep 2022
+Version 6.0.0-RC.8
+======================================================================================================================
+AllOverIt
+  * Added MapMany() extension methods for IObjectMapper
+  * Added support for mapping child object properties to IObjectMapper
+  * Added CreateParameterExpressions() and GetConstructorWithParameters() to ExpressionUtils
+  * Added GetFactory() overloads to TypeExtensions
+  * Added new TypeFactory class
+  * Updated WithAlias() on TypedObjectMapperOptions so the two property types can be different
+
+AllOverIt.EntityFrameworkCore.Pagination
+AllOverIt.Filtering
+  * Namespace corrections
+
+
+29 Aug 2022
+Version 6.0.0-RC.7
+======================================================================================================================
+AllOverIt
+  * Added nullable types to AllOverIt.Reflection.CommonTypes
+
+AllOverIt.Serialization.NewtonsoftJson
+  * Updated DateTimeAsUtcConverter support DateTime? (implicitly supported in AllOverIt.Serialization.SystemTextJson)
+
+
+29 Aug 2022
+Version 6.0.0-RC.6
+======================================================================================================================
+AllOverIt.Pagination
+  * Exposed the query associated with the paginator
+
+AllOverIt.Filtering
+  * Added filter extensions
+  * Dropped SynchronizedCache in favour of using an IMemoryCache based implementation
+
+
+24 Aug 2022
+Version 6.0.0-RC.5
+======================================================================================================================
+AllOverIt
+  * Added AwaitableLock to complement ReadWriteLock for async scenarios (although it does not support re-entrant)
+  * Deleted GetGenericArguments() - same as type.GenericTypeArguments
+  * Added Type extension IsValueType()
+
+AllOverIt.Filtering
+  * Renamed IgnoreNullFilterValues to IgnoreDefaultFilterValues so default constructed In and NotIn objects are
+    considered (internal null value as opposed to an empty list).
+
+AllOverIt.Aws.Cdk.AppSync
+  * Fix bug with arrays of EnrichedEnum in GQL schema
+
+
+22 Aug 2022
+Version 6.0.0-RC.4
+======================================================================================================================
+All - Added source linking to all packages
+
+AllOverIt
+  * Updated binary serialization to include extension methods for read/write DateTime and TimeSpan
+  * Added CreateToLowerCallExpression() and CreateToUpperCallExpression() to StringExpressionUtils
+  * Improvements to LinqSpecificationVisitor output
+  * Removed unnecessary return type from IBreadcrumbs.Add()
+  * Updates to IReadWriteLock
+  * Added SynchronizedCache
+  * Added NullBreadcrumbs
+
+AllOverIt.Aws.AppSync.Client
+  * Updated to use IHttpClientFactory
+
+
+31 Jul 2022
+Version 6.0.0-RC.3
+======================================================================================================================
+AllOverIt
+  * Internal reflection caching improvements
+  * Added a deconstructor for nullable types
+  * Added common type declarations (typeof())
+  
+AllOverIt.Filtering
+  * Added more overloads to IFilterSpecificationBuilder to cater for combining IBasicFilterOperation (and IArrayFilterOperation)
+    with IStringFilterOperation.
+  * Renamed AsQueryString() to ToQueryString()
+
+AllOverIt.Pagination
+  * Renamed AddQueryPaginator() extension method to AddQueryPaginatorFactory()
+
+AllOverIt.FixtureBase
+  * Seed the Random in FixtureBase
+
+
+21 Jul 2022
+Version 6.0.0-RC.2
+======================================================================================================================
+AllOverIt
+  * Modified HashCodeHelper to only support IEnumerable<T> or params object[]. Removed the custom seed option. The
+    original algorithm is in place for NET STANDARD 2.0, but all other versions now use .NET's HashCode struct.
+  * Added FieldInfo related reflection helpers and caching
+  * Added Type and TypeInfo extensions to get FieldInfo
+
+AllOverIt.Filtering
+  * Refactoring / implementation improvements to support nullable types / values
+  * Added support for >, <, >=, and <= string comparisons
+
+
+18 Jul 2022
+Version 6.0.0-RC.1
+======================================================================================================================
+AllOverIt
+  * Improvements to IAsyncCommand and AsyncCommandPipeline - now includes a cancellation token
+  * Added MemberInfo extension method CreateMemberAccessLambda()
+  * Renamed IsGenericNullableType() to IsNullableType()
+  * Added TypeExtensions GetInstanceMethod() and GetStaticMethod()
+  * Added PropertyHelper static methods CreatePropertyGetter(), CreatePropertySetter() and supporting methods
+  * Moved CommandException to Patterns/Command/Exceptions
+  * Moved EnrichedEnumException to Patterns/Enumeration/Exceptions
+  * Moved ValueObjectValidationException to Patterns/ValueObject/Exceptions
+  * Moved ProcessException to Process/Exceptions
+  * Moved SelfReferenceException to Formatters/Exceptions
+  * ReflectionHelper replaced by ReflectionCache methods
+  * Added a convenience global Breadcrumbs instance (GlobalBreadcrumbs) - for troubleshooting use only
+  * Removed all GenericCacheExtensions - already handled by ReflectionCache. Renamed ReflectionCacheKey to IReflectionCacheKey.
+  * Added caching to BuildBindingPredicate()
+  * Updated GetMemberExpressions() extension method to support any Expression that can be unwrapped to a MemberExpression.
+  * Added CastOrConvertTo() expression extension method.
+  * General Guard method improvements plus additional ThrowWhenXXX() type methods
+  * Added EnrichedBinaryReader, EnrichedBinaryWriter and associated value reader / writer
+  * Renamed AsListAsync() back to ToListAsync() and added overloads of SelectAsReadOnlyCollectionAsync() and SelectAsReadOnlyListAsync()
+    for both IEnumerable and IAsyncEnumerable.
+    EF's ToListAsync() works on IQueryable
+  * Moved some extension methods from EnumerableExtensions to AsyncEnumerableExtensions
+  * Removed Guard.InvalidWhen - can equally use WhenNotNull() and related methods
+  * Moved ILinqSpecification extensions to the AllOverIt.Patterns.Specification.Extensions namespace
+  * Added IEnumerable extension HasDistinctGrouping()
+  * Added expression extension methods GetPropertyOrFieldExpressionUsingParameter() and GetParameterPropertyOrFieldExpression()
+  * Removed ContainsChar() extension for Net Standard 2.0
+
+AllOverIt.Assertion
+  * Removed methods that asserted an enumerable was a concrete collection type and instead updated .NET Core 3.1
+    versions to check for different collection types before falling back to the default Any() Linq method.
+
+AllOverIt.Aws.AppSync.Client
+  * Renamed AppSyncCognitoAuthorization to AppSyncAuthorization and deleted AppSyncLambdaAuthorization as it also contains
+    an 'authorization' header.
+
+AllOverIt.Aws.Cdk.AppSync
+  * Added support for GQL schema to be provided type name overrides (typically for enum types)
+  * Added support to enable EnrichedEnum to be treated as a GQL enum
+
+AllOverIt.Pagination
+  * New package to provide keyset based pagination for any IQueryable, including EF queries
+
+AllOverIt.EntityFrameworkCore.Pagination
+  * New package to provide keyset based pagination extensions for any EF query
+
+AllOverIt.ReactiveUI
+  * New package
+  * Includes ActivatableViewModel, CountdownTimer, IViewFactory
+
+AllOverIt.Filtering
+  * New package to provide IQueryable filter builders
+
+
 02 Jul 2022
 Version 5.9.2
 ======================================================================================================================
@@ -12,9 +312,9 @@ AllOverIt.Aws.AppSync.Client
 Version 5.9.1
 ======================================================================================================================
 AllOverIt.Aws.Cdk.AppSync
-  * Added missing AuthLambdaDirective support to queries and mutations
-
-
+  * Added missing AuthLambdaDirective support to queries and mutations06 Jun 2022
+  
+  
 06 Jun 2022
 Version 5.9.0
 ======================================================================================================================
@@ -27,6 +327,10 @@ AllOverIt
 
 AllOverIt.DependencyInjection
   * Updated to reference Microsoft.Extensions.DependencyInjection.Abstractions instead of Microsoft.Extensions.DependencyInjection
+
+AllOverIt.Fixture
+AllOverIt.Fixture.FakeItEasy
+  * Updated to FluentAssertions v6.7.0
 
 
 01 Jun 2022

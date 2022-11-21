@@ -91,12 +91,13 @@ namespace AllOverIt.Patterns.Specification
 
         private Func<TType, bool> GetCompiledExpression()
         {
+#pragma warning disable IDE0074 // Use compound assignment
             // More efficient than ??=
-            // ReSharper disable once ConvertIfStatementToNullCoalescingExpression
             if (_compiled == null)
             {
                 _compiled = Expression.Compile();
             }
+#pragma warning restore IDE0074 // Use compound assignment
 
             return _compiled;
         }

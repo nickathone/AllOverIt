@@ -1,5 +1,5 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Exceptions;
+using AllOverIt.Patterns.ValueObject.Exceptions;
 using System;
 
 namespace AllOverIt.Patterns.ValueObject
@@ -127,7 +127,7 @@ namespace AllOverIt.Patterns.ValueObject
         {
             if (!ValidateValue(value))
             {
-                throw new ValueObjectValidationException(value, $"Invalid value: {value}");
+                throw new ValueObjectValidationException(value, $"Invalid value '{value}'.");
             }
         }
     }

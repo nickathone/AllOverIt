@@ -1,7 +1,7 @@
-﻿using AllOverIt.Exceptions;
-using AllOverIt.Extensions;
+﻿using AllOverIt.Extensions;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Formatters.Exceptions;
 using AllOverIt.Formatters.Objects;
 using AllOverIt.Formatters.Objects.Exceptions;
 using AllOverIt.Reflection;
@@ -32,9 +32,9 @@ namespace AllOverIt.Tests.Formatters.Objects
             public IDictionary<string, Task> Prop11 { get; set; }
             public IDictionary<int, DummyType> Prop12 { get; set; }
 
-#pragma warning disable IDE0052 // Remove unread private members
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0052:Remove unread private members", Justification = "Part of the test")]
             private string Prop13 { get; set; }
-#pragma warning restore IDE0052 // Remove unread private members
 
             public string Prop14 { get; set; }
 
@@ -407,7 +407,7 @@ namespace AllOverIt.Tests.Formatters.Objects
                     })
                     .Should()
                     .Throw<SelfReferenceException>()
-                    .WithMessage("Self referencing detected at 'Prop2.Prop2.Prop2' of type 'DummyType'");
+                    .WithMessage("Self referencing detected at 'Prop2.Prop2.Prop2' of type 'DummyType'.");
             }
 
             [Fact]
@@ -1575,7 +1575,7 @@ namespace AllOverIt.Tests.Formatters.Objects
                 }
             }
 
-            private ObjectPropertySerializer GetSerializer()
+            private static ObjectPropertySerializer GetSerializer()
             {
                 return new();
             }

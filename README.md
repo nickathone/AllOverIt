@@ -6,11 +6,11 @@ A general purpose library containing a variety of classes, utilities, and helper
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) for usage information.
 
@@ -23,11 +23,11 @@ Provides additional features for use in ASP .NET Core applications.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    No     |
 | netstandard2.1 |    No     |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Assertion
@@ -38,11 +38,11 @@ A library of pre and post condition assertion helper methods.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Aws.AppSync.Client
@@ -53,11 +53,11 @@ Provides an AWS AppSync Graphql Subscription client.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    No     |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Aws.Cdk.AppSync
@@ -68,11 +68,13 @@ Includes a code-first graphql schema generator that also provides support for bi
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    No     |
-| netstandard2.1 |    No     |
+| netstandard2.1 |    No \*  |
 | netcoreapp3.1  |    Yes    |
-| net5.0         |    No     |
-| net6.0         |    No     |
+| net5.0         |    No \*  |
+| net6.0         |    No \*  |
+| net7.0         |    No \*  |
+
+\* Although not explicitly built for all platforms, the AWS CDK supports Net Core 3.1 and above.
 
 
 # AllOverIt.Csv
@@ -83,11 +85,11 @@ A library to assist with CSV export using CsvHelper.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.DependencyInjection
@@ -98,11 +100,11 @@ A library containing useful dependency injection related utilities.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.EntityFrameworkCore
@@ -113,11 +115,26 @@ Provides additional features for use in Entity Framework Core applications.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    No     |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
+# AllOverIt.EntityFrameworkCore.Pagination
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.EntityFrameworkCore.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Pagination/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.EntityFrameworkCore.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Pagination/)
+
+A library providing pagination utilities for use with Entity Framework Core.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Evaluator
@@ -128,11 +145,26 @@ A library designed to parse and evaluate mathemtical expressions. It provides su
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    No     |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
+# AllOverIt.Filtering
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Filtering?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Filtering/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Filtering?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Filtering/)
+
+A library providing queryable filtering utilities.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Fixture
@@ -143,11 +175,11 @@ Contains a base Fixture class that includes a number of helpful utility methods.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Fixture.FakeItEasy
@@ -158,11 +190,11 @@ Extends **AllOverIt.Fixture** to assist with the creation of single/multiple stu
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.GenericHost
@@ -173,11 +205,26 @@ Provides the ability to quickly create console applications that support depende
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
+# AllOverIt.Pagination
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Pagination/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Pagination/)
+
+A library providing queryable pagination utilities.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Reactive
@@ -188,11 +235,26 @@ Provides utility extensions for use with System.Reactive.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes     |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
+# AllOverIt.ReactiveUI
+[![NuGet](https://img.shields.io/nuget/v/AllOverItUI.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.ReactiveUI/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverItUI.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.ReactiveUI/)
+
+Provides utility extensions for use with ReactiveUI.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Serialization
@@ -203,11 +265,11 @@ Provides common serialization helpers.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Serialization.Abstractions
@@ -218,11 +280,11 @@ Provides abstractions for JSON serialization.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Serialization.NewtonSoftJson
@@ -233,11 +295,11 @@ A JSON serialization wrapper around NewtsonSoft.Json (an implementation for AllO
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Serialization.SystemTextJson
@@ -248,11 +310,11 @@ A JSON serialization wrapper around System.Text.Json (an implementation for AllO
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |
 
 
 # AllOverIt.Validation
@@ -263,8 +325,8 @@ Provides additional validators and extensions for use with FluentValidation.
 
 | Target         | Supported |
 |----------------|-----------|
-| netstandard2.0 |    Yes    |
 | netstandard2.1 |    Yes    |
 | netcoreapp3.1  |    Yes    |
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
+| net7.0         |    Yes    |

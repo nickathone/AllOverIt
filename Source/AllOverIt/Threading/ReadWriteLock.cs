@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
 using System.Threading;
 
 namespace AllOverIt.Threading
@@ -8,8 +8,7 @@ namespace AllOverIt.Threading
     // information on the semantics of this lock type.
 
     /// <summary>Represents a lock that is used to manage access to a resource, allowing multiple threads for reading or
-    /// exclusive access for writing.</summary>
-    [ExcludeFromCodeCoverage]
+    /// exclusive access for writing. This cannot be used with async methods.</summary>
     public sealed class ReadWriteLock : IReadWriteLock
     {
         // Many threads can enter the read lock simultaneously.
@@ -53,6 +52,26 @@ namespace AllOverIt.Threading
         }
 
         /// <inheritdoc />
+        public bool TryEnterReadLock(bool upgradeable, TimeSpan timeout)
+        {
+            return upgradeable
+                ? _slimLock.TryEnterUpgradeableReadLock(timeout)
+                : _slimLock.TryEnterReadLock(timeout);
+        }
+
+        /// <inheritdoc />
+        public bool TryEnterUpgradeableReadLock(int millisecondsTimeout)
+        {
+            return _slimLock.TryEnterUpgradeableReadLock(millisecondsTimeout);
+        }
+
+        /// <inheritdoc />
+        public bool TryEnterUpgradeableReadLock(TimeSpan timeout)
+        {
+            return _slimLock.TryEnterUpgradeableReadLock(timeout);
+        }
+
+        /// <inheritdoc />
         public void ExitReadLock()
         {
             if (_slimLock.IsUpgradeableReadLockHeld)
@@ -78,6 +97,12 @@ namespace AllOverIt.Threading
         }
 
         /// <inheritdoc />
+        public bool TryEnterWriteLock(TimeSpan timeout)
+        {
+            return _slimLock.TryEnterWriteLock(timeout);
+        }
+
+        /// <inheritdoc />
         public void ExitWriteLock()
         {
             _slimLock.ExitWriteLock();
@@ -86,7 +111,7 @@ namespace AllOverIt.Threading
         /// <summary>Disposes of the internal lock.</summary>
         public void Dispose()
         {
-            _slimLock.Dispose();
+            _slimLock?.Dispose();
             _slimLock = null;
         }
     }

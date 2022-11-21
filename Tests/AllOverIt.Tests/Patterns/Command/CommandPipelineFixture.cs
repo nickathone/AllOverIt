@@ -1,12 +1,12 @@
-﻿using AllOverIt.Exceptions;
+﻿using System;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Patterns.Command;
+using AllOverIt.Patterns.Command.Exceptions;
 using FluentAssertions;
-using System;
 using Xunit;
 
-namespace AllOverIt.Tests.Patterns.Enumeration
+namespace AllOverIt.Tests.Patterns.Command
 {
     public class CommandPipelineFixture : FixtureBase
     {
@@ -48,7 +48,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             {
                 Invoking(() =>
                 {
-                    _ = new CommandPipeline<int, int>(new ICommand<int, int>[] { });
+                    _ = new CommandPipeline<int, int>(Array.Empty<ICommand<int, int>>());
                 })
                 .Should()
                 .Throw<ArgumentException>()
@@ -96,7 +96,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
                 Invoking(() =>
                 {
                     var pipeline = new CommandPipeline<int, int>();
-                    pipeline.Append(new ICommand<int, int>[] { });
+                    pipeline.Append(Array.Empty<ICommand<int, int>>());
                 })
                 .Should()
                 .Throw<ArgumentException>()
@@ -155,7 +155,7 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             }
         }
 
-        public class Execute : CommandPipelineFixture
+        public class Execute_Method : CommandPipelineFixture
         {
             private class SequenceCommand : ICommand<int, int>
             {

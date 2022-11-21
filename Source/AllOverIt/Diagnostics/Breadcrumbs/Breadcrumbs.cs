@@ -89,12 +89,13 @@ namespace AllOverIt.Diagnostics.Breadcrumbs
             {
                 lock (_syncRoot)
                 {
-                    var iterator = _breadcrumbs.GetEnumerator();
-
-                    while (iterator.MoveNext())
+                    using (var iterator = _breadcrumbs.GetEnumerator())
                     {
-                        yield return iterator.Current.Value;
-                    }
+                        while (iterator.MoveNext())
+                        {
+                            yield return iterator.Current.Value;
+                        }
+                    }                   
                 }
             }
         }
@@ -172,7 +173,7 @@ namespace AllOverIt.Diagnostics.Breadcrumbs
         }
 
         /// <inheritdoc />
-        public IBreadcrumbs Add(BreadcrumbData breadcrumb)
+        public void Add(BreadcrumbData breadcrumb)
         {
             _ = breadcrumb.WhenNotNull(nameof(breadcrumb));
 
@@ -180,8 +181,6 @@ namespace AllOverIt.Diagnostics.Breadcrumbs
             {
                 _breadcrumbs.Add(breadcrumb);
             }
-
-            return this;
         }
 
         /// <inheritdoc />

@@ -1,7 +1,7 @@
-﻿using AllOverIt.Exceptions;
-using AllOverIt.Fixture;
+﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Patterns.ValueObject;
+using AllOverIt.Patterns.ValueObject.Exceptions;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -47,7 +47,7 @@ namespace AllOverIt.Tests.Patterns.ValueObject
                 })
                 .Should()
                 .Throw<ValueObjectValidationException>()
-                .WithMessage("Invalid value: aba");
+                .WithMessage("Invalid value 'aba'.");
             }
 
             [Fact]
@@ -169,7 +169,6 @@ namespace AllOverIt.Tests.Patterns.ValueObject
                 {
                     var value = new StringValueObject(Create<string>());
 
-                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                     value.CompareTo(null);
                 })
                 .Should()

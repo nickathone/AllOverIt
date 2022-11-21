@@ -1,26 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;netstandard2.1;net5.0;net6.0</TargetFrameworks>
-        <LangVersion>Latest</LangVersion>
-        <Version>5.9.2</Version>
-        <Authors>Malcolm Smith</Authors>
-        <Company></Company>
+        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
         <Copyright>Copyright © 2015</Copyright>
         <Description>Provides an extendable expression compiler and evaluator</Description>
-        <PackageTags>evaluator</PackageTags>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/mjfreelancing/AllOverIt.Evaluator</RepositoryUrl>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <PackageTags>utilities;evaluator</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+        <InternalsVisibleTo Include="AllOverIt.Evaluator.Tests" />
     </ItemGroup>
 
 </Project>
