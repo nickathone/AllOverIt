@@ -1,16 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AllOverIt.DependencyInjection" Version="6.2.1" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Source\AllOverIt\AllOverIt.csproj" />
+      <ProjectReference Include="..\..\..\..\Source\AllOverIt.DependencyInjection\AllOverIt.DependencyInjection.csproj" />
+      <ProjectReference Include="..\..\..\..\Source\AllOverIt\AllOverIt.csproj" />
     </ItemGroup>
 
 </Project>

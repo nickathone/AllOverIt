@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ProxyDecoratorDemo
+namespace ServiceProxyDemo
 {
     internal sealed class SecretService : ISecretService
     {

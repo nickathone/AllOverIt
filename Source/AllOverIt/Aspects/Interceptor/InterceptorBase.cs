@@ -2,18 +2,18 @@
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace AllOverIt.Patterns.Decorator.Proxy
+namespace AllOverIt.Aspects.Interceptor
 {
-    public abstract class ProxyState
+    public abstract class InterceptorState
     {
-        private class NoneProxyState : ProxyState
+        private class Unit : InterceptorState
         {
         }
 
-        public static ProxyState None => new NoneProxyState();
+        public static InterceptorState None => new Unit();
     }
 
-    public abstract class ProxyDecorator<TDecorated> : DispatchProxy
+    public abstract class InterceptorBase<TDecorated> : DispatchProxy
     {
         internal TDecorated _decorated;
 
@@ -22,7 +22,7 @@ namespace AllOverIt.Patterns.Decorator.Proxy
             var state = BeforeInvoke(targetMethod, args);
 
             object result = default;
-            
+
             try
             {
                 result = targetMethod.Invoke(_decorated, args);
@@ -58,16 +58,16 @@ namespace AllOverIt.Patterns.Decorator.Proxy
             return result;
         }
 
-        protected virtual ProxyState BeforeInvoke(MethodInfo targetMethod, object[] args)
+        protected virtual InterceptorState BeforeInvoke(MethodInfo targetMethod, object[] args)
         {
-            return ProxyState.None;
+            return InterceptorState.None;
         }
 
-        protected virtual void Faulted(MethodInfo targetMethod, object[] args, ProxyState state, Exception exception)
+        protected virtual void Faulted(MethodInfo targetMethod, object[] args, InterceptorState state, Exception exception)
         {
         }
 
-        protected virtual void AfterInvoke(MethodInfo targetMethod, object[] args, ProxyState state)
+        protected virtual void AfterInvoke(MethodInfo targetMethod, object[] args, InterceptorState state)
         {
         }
     }

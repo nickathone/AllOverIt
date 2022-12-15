@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace ProxyDecoratorDemo
+namespace ServiceProxyDemo
 {
     public interface ISecretService
     {
