@@ -20,7 +20,7 @@ namespace AutoRegistration
 
             var name = _repository.GetRandomName();
 
-            _logger.LogInformation($"Returning the name '{name}");
+            _logger.LogInformation($"Returning the name '{name}'");
 
             return name;
         }
