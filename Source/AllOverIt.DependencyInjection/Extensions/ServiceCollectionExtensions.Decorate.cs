@@ -19,17 +19,19 @@ namespace AllOverIt.DependencyInjection.Extensions
             where TDecoratorType : TServiceType
         {
             var serviceType = typeof(TServiceType);
-            var descriptors = services.Where(service => service.ServiceType == serviceType).AsReadOnlyList();
+            var descriptors = services.Where(service => service.ServiceType == serviceType).AsReadOnlyCollection();
 
             if (!descriptors.Any())
             {
                 throw new DependencyRegistrationException($"No registered services found for the type '{serviceType.GetFriendlyName()}'.");
             }
 
+            var decoratorType = typeof(TDecoratorType);
+
             foreach (var descriptor in descriptors)
             {
                 var index = services.IndexOf(descriptor);
-                services[index] = Decorate(descriptor, typeof(TDecoratorType));
+                services[index] = Decorate(descriptor, decoratorType);
             }
 
             return services;
