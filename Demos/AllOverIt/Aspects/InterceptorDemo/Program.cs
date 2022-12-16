@@ -38,7 +38,7 @@ namespace ServiceProxyDemo
 
                 Console.WriteLine();
 
-                secret = await proxy.GetSecretAsync(true);      // will throw
+                secret = await proxy.GetSecretAsync(true);          // will throw
             }
             catch (Exception exception)
             {

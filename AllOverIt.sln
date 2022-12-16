@@ -264,6 +264,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aspects", "Aspects", "{1592
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterceptorDemo", "Demos\AllOverIt\Aspects\InterceptorDemo\InterceptorDemo.csproj", "{ACEF7477-6AD1-491E-8F14-C4A2B0506327}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterceptorBenchmarking", "Demos\AllOverIt\Benchmarking\InterceptorBenchmarking\InterceptorBenchmarking.csproj", "{8F0912A5-F8DA-448A-9779-53701003547A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -618,6 +620,10 @@ Global
 		{ACEF7477-6AD1-491E-8F14-C4A2B0506327}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACEF7477-6AD1-491E-8F14-C4A2B0506327}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACEF7477-6AD1-491E-8F14-C4A2B0506327}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F0912A5-F8DA-448A-9779-53701003547A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F0912A5-F8DA-448A-9779-53701003547A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F0912A5-F8DA-448A-9779-53701003547A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F0912A5-F8DA-448A-9779-53701003547A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -742,6 +748,7 @@ Global
 		{0DFD74F8-432E-4630-A320-01EDCD28D896} = {595F3EB1-3F3D-4942-9A5A-95CD8621607B}
 		{159274B7-426D-4CFB-9B6B-51E563AD10BB} = {0DC79E13-DE7A-417D-8A7B-64ABA3F4E1C8}
 		{ACEF7477-6AD1-491E-8F14-C4A2B0506327} = {159274B7-426D-4CFB-9B6B-51E563AD10BB}
+		{8F0912A5-F8DA-448A-9779-53701003547A} = {17CD389D-25DF-4075-980B-96C1A77C779E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19DD11B3-596E-4862-B5C4-1FFFFB173106}
