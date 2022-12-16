@@ -6,10 +6,6 @@ namespace AllOverIt.Aspects.Interceptor
     public static class InterceptorFactory
     {
         // TODO: An overload to new() TDecorated when not provided
-        //
-        // TODO: Ability to provide options to the decorator
-        //
-        // TODO: Benchmark
         public static TDecorated CreateProxy<TDecorated, TInterceptor>(TDecorated decorated, Action<TInterceptor> configure = default)
             where TInterceptor : InterceptorBase<TDecorated>
         {
