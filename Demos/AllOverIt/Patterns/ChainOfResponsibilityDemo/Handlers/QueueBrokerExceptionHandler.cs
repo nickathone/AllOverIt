@@ -10,7 +10,7 @@ namespace ChainOfResponsibilityDemo.Handlers
         {
             new NullMessageExceptionHandler(),
             new EmptyMessageExceptionHandler(),
-            new UnhandledExceptionHandler() // end of the chain
+            new UnhandledExceptionHandler()         // end of the chain
         };
 
         public QueueBrokerExceptionHandler()

@@ -15,6 +15,8 @@ namespace ChainOfResponsibilityDemo
 
             try
             {
+                Console.WriteLine("Test 1: Null payload");
+
                 // test null payload exception handling
                 broker.Send(message);
             }
@@ -27,6 +29,8 @@ namespace ChainOfResponsibilityDemo
 
             try
             {
+                Console.WriteLine("Test 2: Empty String Payload");
+
                 // test empty payload exception handling
                 message.Payload = string.Empty;
                 broker.Send(message);
@@ -40,6 +44,8 @@ namespace ChainOfResponsibilityDemo
 
             try
             {
+                Console.WriteLine("Test 3: Unhandled exception");
+
                 // test unhandled exception handling
                 message.Payload = "A bad payload";
                 broker.Send(message);
