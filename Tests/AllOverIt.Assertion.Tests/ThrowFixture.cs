@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace AllOverIt.Tests.Assertion
+namespace AllOverIt.Assertion.Tests
 {
     public class ThrowFixture : FixtureBase
     {
@@ -312,7 +312,7 @@ namespace AllOverIt.Tests.Assertion
                 [Fact]
                 public void Should_Throw_When_Null()
                 {
-                    Invoking(() => Throw<Exception>.WhenNull((string)null))
+                    Invoking(() => Throw<Exception>.WhenNull((string) null))
                         .Should()
                         .Throw<Exception>();
                 }
@@ -544,7 +544,7 @@ namespace AllOverIt.Tests.Assertion
                 [Fact]
                 public void Should_Throw_When_Null()
                 {
-                    Invoking(() => Throw<Exception>.WhenNullOrEmpty((string) null))
+                    Invoking(() => Throw<Exception>.WhenNullOrEmpty( null))
                         .Should()
                         .Throw<Exception>();
                 }
@@ -581,7 +581,7 @@ namespace AllOverIt.Tests.Assertion
                 {
                     var arg1 = Create<string>();
 
-                    Invoking(() => Throw<Exception1>.WhenNullOrEmpty((string) null, arg1))
+                    Invoking(() => Throw<Exception1>.WhenNullOrEmpty( null, arg1))
                       .Should()
                       .Throw<Exception1>()
                       .WithMessage($"{arg1}");
@@ -626,7 +626,7 @@ namespace AllOverIt.Tests.Assertion
                     var arg1 = Create<string>();
                     var arg2 = Create<bool>();
 
-                    Invoking(() => Throw<Exception2>.WhenNullOrEmpty((string) null, arg1, arg2))
+                    Invoking(() => Throw<Exception2>.WhenNullOrEmpty( null, arg1, arg2))
                         .Should()
                         .Throw<Exception2>()
                         .WithMessage($"{arg1}{arg2}");
@@ -674,7 +674,7 @@ namespace AllOverIt.Tests.Assertion
                     var arg2 = Create<bool>();
                     var arg3 = Create<int>();
 
-                    Invoking(() => Throw<Exception3>.WhenNullOrEmpty((string) null, arg1, arg2, arg3))
+                    Invoking(() => Throw<Exception3>.WhenNullOrEmpty( null, arg1, arg2, arg3))
                         .Should()
                         .Throw<Exception3>()
                         .WithMessage($"{arg1}{arg2}{arg3}");
@@ -725,7 +725,7 @@ namespace AllOverIt.Tests.Assertion
                     var arg3 = Create<int>();
                     var arg4 = Create<string>();
 
-                    Invoking(() => Throw<Exception4>.WhenNullOrEmpty((string) null, arg1, arg2, arg3, arg4))
+                    Invoking(() => Throw<Exception4>.WhenNullOrEmpty( null, arg1, arg2, arg3, arg4))
                         .Should()
                         .Throw<Exception4>()
                         .WithMessage($"{arg1}{arg2}{arg3}{arg4}");

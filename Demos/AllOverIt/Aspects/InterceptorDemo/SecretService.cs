@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ServiceProxyDemo
+namespace InterceptorDemo
 {
     internal sealed class SecretService : ISecretService
     {

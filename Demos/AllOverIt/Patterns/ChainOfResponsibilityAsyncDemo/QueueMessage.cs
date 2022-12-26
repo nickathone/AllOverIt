@@ -1,4 +1,4 @@
-﻿namespace ChainOfResponsibilityDemo
+﻿namespace ChainOfResponsibilityAsyncDemo
 {
     public sealed class QueueMessage
     {

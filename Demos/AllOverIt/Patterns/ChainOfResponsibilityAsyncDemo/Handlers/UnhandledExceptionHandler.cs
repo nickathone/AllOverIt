@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ChainOfResponsibilityDemo.Handlers
+namespace ChainOfResponsibilityAsyncDemo.Handlers
 {
     public sealed class UnhandledExceptionHandler : QueueMessageHandlerBase
     {

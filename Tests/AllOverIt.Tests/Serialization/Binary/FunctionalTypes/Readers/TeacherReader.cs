@@ -1,7 +1,8 @@
 ﻿using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Extensions;
+using AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Models;
 
-namespace AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Models
+namespace AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Readers
 {
     internal sealed class TeacherReader : EnrichedBinaryValueReader<Teacher>
     {

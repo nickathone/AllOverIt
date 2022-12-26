@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Aspects.Interceptor;
 using AllOverIt.Extensions;
-using ServiceProxyDemo;
 using System;
 using System.Diagnostics;
 using System.Reflection;

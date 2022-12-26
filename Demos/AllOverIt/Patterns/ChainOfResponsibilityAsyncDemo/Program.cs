@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace ChainOfResponsibilityDemo
+namespace ChainOfResponsibilityAsyncDemo
 {
     class Program
     {

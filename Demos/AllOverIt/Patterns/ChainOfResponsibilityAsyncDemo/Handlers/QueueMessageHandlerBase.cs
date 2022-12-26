@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Patterns.ChainOfResponsibility;
 using System.Threading.Tasks;
 
-namespace ChainOfResponsibilityDemo.Handlers
+namespace ChainOfResponsibilityAsyncDemo.Handlers
 {
     public abstract class QueueMessageHandlerBase : ChainOfResponsibilityHandlerAsync<QueueMessageHandlerState, QueueMessageHandlerState>
     {

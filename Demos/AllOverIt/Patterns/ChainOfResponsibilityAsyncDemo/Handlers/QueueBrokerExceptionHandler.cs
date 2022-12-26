@@ -1,9 +1,10 @@
 ﻿using AllOverIt.Patterns.ChainOfResponsibility;
+using ChainOfResponsibilityDemo.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ChainOfResponsibilityDemo.Handlers
+namespace ChainOfResponsibilityAsyncDemo.Handlers
 {
     public sealed class QueueBrokerExceptionHandler : ChainOfResponsibilityAsyncComposer<QueueMessageHandlerState, QueueMessageHandlerState>
     {

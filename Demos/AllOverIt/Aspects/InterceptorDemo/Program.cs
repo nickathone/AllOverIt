@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 
-namespace ServiceProxyDemo
+namespace InterceptorDemo
 {
     internal class Program
     {

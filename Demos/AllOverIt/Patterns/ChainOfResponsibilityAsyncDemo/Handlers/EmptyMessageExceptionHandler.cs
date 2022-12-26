@@ -1,8 +1,9 @@
 ﻿using AllOverIt.Extensions;
+using ChainOfResponsibilityAsyncDemo;
 using System;
 using System.Threading.Tasks;
 
-namespace ChainOfResponsibilityDemo.Handlers
+namespace ChainOfResponsibilityAsyncDemo.Handlers
 {
     public sealed class EmptyMessageExceptionHandler : QueueMessageHandlerBase
     {
