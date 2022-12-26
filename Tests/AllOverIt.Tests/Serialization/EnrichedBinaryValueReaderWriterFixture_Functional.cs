@@ -2,6 +2,8 @@
 using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Extensions;
 using AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Models;
+using AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Readers;
+using AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Writers;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
