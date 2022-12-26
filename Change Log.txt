@@ -5,6 +5,7 @@ Version 6.3.0
 ======================================================================================================================
 AllOverIt
   * Added interceptor support to cater for Aspected Oriented Programming (AOP).
+  * Added string extension IsEmpty()
 
 
 07 Dec 2022

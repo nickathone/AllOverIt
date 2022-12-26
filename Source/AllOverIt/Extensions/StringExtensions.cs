@@ -101,6 +101,14 @@ namespace AllOverIt.Extensions
             return !string.IsNullOrWhiteSpace(value);
         }
 
+        /// <summary>Determines if a string is not null and empty or contains whitespace.</summary>
+        /// <param name="value">The string value to compare.</param>
+        /// <returns>True if the string is not null and empty or contains whitespace, otherwise false.</returns>
+        public static bool IsEmpty(this string value)
+        {
+            return value is not null && string.IsNullOrWhiteSpace(value);
+        }
+
         /// <summary>Encodes a string value using base-64 digits.</summary>
         /// <param name="value">The value to convert to its string representation using base-64 digits.</param>
         /// <returns>A string encoded using base-64 digits that represents the source value.</returns>
