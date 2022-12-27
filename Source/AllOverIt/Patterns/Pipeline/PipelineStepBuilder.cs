@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Patterns.Pipeline.Extensions;
 using System;
 
 namespace AllOverIt.Patterns.Pipeline
@@ -10,6 +11,12 @@ namespace AllOverIt.Patterns.Pipeline
         public PipelineStepBuilder(Func<TIn, TOut> step)
         {
             _step = step.WhenNotNull(nameof(step));
+        }
+
+        public PipelineStepBuilder(IPipelineStep<TIn, TOut> step)
+        {
+            // AsFunc() perform a null check
+            _step = step.AsFunc(); 
         }
 
         public Func<TIn, TOut> Build()
@@ -29,13 +36,17 @@ namespace AllOverIt.Patterns.Pipeline
             _step = step.WhenNotNull(nameof(step));
         }
 
+        public PipelineStepBuilder(IPipelineStepBuilder<TIn, TPrevOut> prevStep, IPipelineStep<TPrevOut, TNextOut> step)
+            : this(prevStep, step.AsFunc())
+        {
+        }
+
         public Func<TIn, TNextOut> Build()
         {
             TNextOut func(TIn input)
             {
                 var prevOutput = _prevStep.Build().Invoke(input);
                 return _step.Invoke(prevOutput);
-
             }
 
             return func;
