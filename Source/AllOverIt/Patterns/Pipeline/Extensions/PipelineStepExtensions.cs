@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Assertion;
 using System;
+using System.Threading.Tasks;
 
 namespace AllOverIt.Patterns.Pipeline.Extensions
 {
@@ -10,6 +11,13 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
             _ = step.WhenNotNull(nameof(step));
 
             return step.Execute;
+        }
+
+        public static Func<TIn, Task<TOut>> AsFunc<TIn, TOut>(this IPipelineStepAsync<TIn, TOut> step)
+        {
+            _ = step.WhenNotNull(nameof(step));
+
+            return step.ExecuteAsync;
         }
     }        
 }
