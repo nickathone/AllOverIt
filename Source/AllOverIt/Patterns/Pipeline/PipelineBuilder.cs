@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllOverIt.Patterns.Pipeline.Extensions;
+using System;
 
 namespace AllOverIt.Patterns.Pipeline
 {
@@ -11,13 +12,14 @@ namespace AllOverIt.Patterns.Pipeline
 
         public static IPipelineStepBuilder<TIn, TOut> Pipe<TIn, TOut>(IPipelineStep<TIn, TOut> step)
         {
-            return new PipelineStepBuilder<TIn, TOut>(step);
+            // AsFunc() perform a null check
+            return new PipelineStepBuilder<TIn, TOut>(step.AsFunc());
         }
 
         public static IPipelineStepBuilder<TIn, TOut> Pipe<TPipelineStep, TIn, TOut>() where TPipelineStep : IPipelineStep<TIn, TOut>, new()
         {
             var step = new TPipelineStep();
-            return new PipelineStepBuilder<TIn, TOut>(step);
+            return Pipe(step);
         }
     }
 }

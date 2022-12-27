@@ -4,7 +4,7 @@ using System;
 
 namespace AllOverIt.Patterns.Pipeline
 {
-    public class PipelineStepBuilder<TIn, TOut> : IPipelineStepBuilder<TIn, TOut>
+    internal sealed class PipelineStepBuilder<TIn, TOut> : IPipelineStepBuilder<TIn, TOut>
     {
         private readonly Func<TIn, TOut> _step;
 
@@ -13,19 +13,13 @@ namespace AllOverIt.Patterns.Pipeline
             _step = step.WhenNotNull(nameof(step));
         }
 
-        public PipelineStepBuilder(IPipelineStep<TIn, TOut> step)
-        {
-            // AsFunc() perform a null check
-            _step = step.AsFunc(); 
-        }
-
         public Func<TIn, TOut> Build()
         {
             return _step;
         }
     }
 
-    public class PipelineStepBuilder<TIn, TPrevOut, TNextOut> : IPipelineStepBuilder<TIn, TNextOut>
+    internal sealed class PipelineStepBuilder<TIn, TPrevOut, TNextOut> : IPipelineStepBuilder<TIn, TNextOut>
     {
         private readonly IPipelineStepBuilder<TIn, TPrevOut> _prevStep;
         private readonly Func<TPrevOut, TNextOut> _step;

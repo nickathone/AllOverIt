@@ -12,7 +12,7 @@ namespace PipelineDemo
             var pipeline = PipelineBuilder
 
                // Using a class type
-               // Only <TIn, TOut> because there is no previous input
+               // Only <TPipelineStep, TIn, TOut> because there is no previous input
                .Pipe<DoubleStep, int, int>()
 
                // Using a class instance
@@ -22,7 +22,7 @@ namespace PipelineDemo
                // TPrevOut is the result type from the previous call
                // TNextOut is the result type for this next step
                //
-               // TIn, TPrevOut, TNextOut
+               // TPipelineStep, TIn, TPrevOut, TNextOut
                .Pipe<DoubleStep, int, int, int>()
                
                // Using a Func
