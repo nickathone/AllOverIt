@@ -24,14 +24,14 @@ namespace PipelineAsyncDemo
 
                 var pipeline = PipelineBuilder
 
-                   // Using a class type - implemeted as async
+                   // Using a class type - implemented as async
                    // Only <TPipelineStep, TIn, TOut> because there is no previous input
                    .PipeAsync<DoubleStepAsync, int, int>()
 
-                   // Using a class instance - implemeted as async
+                   // Using a class instance - implemented as async
                    .PipeAsync(new DoubleStepAsync())
 
-                   // Using a class type (TPipelineStep) - implemeted as non-async
+                   // Using a class type (TPipelineStep) - implemented as non-async
                    // TPipelineStep, TIn, TPrevOut, TNextOut
                    //   TIn is the original input type
                    //   TPrevOut is the result type from the previous call
