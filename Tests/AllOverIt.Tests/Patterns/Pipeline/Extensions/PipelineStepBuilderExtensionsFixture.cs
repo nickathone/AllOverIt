@@ -144,7 +144,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             }
         }
 
-        public class PipeAsync_Func : PipelineStepBuilderExtensionsFixture
+        public class PipeAsync_FuncAsync : PipelineStepBuilderExtensionsFixture
         {
             [Fact]
             public void Should_Throw_When_Prev_Step_Null()
@@ -179,7 +179,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             }
         }
 
-        public class PipeAsync_Step_Instance : PipelineStepBuilderExtensionsFixture
+        public class PipeAsync_StepAsync_Instance : PipelineStepBuilderExtensionsFixture
         {
             [Fact]
             public void Should_Throw_When_Prev_Step_Null()
@@ -214,7 +214,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             }
         }
 
-        public class PipeAsync_Step_Type : PipelineStepBuilderExtensionsFixture
+        public class PipeAsync_StepAsync_Type : PipelineStepBuilderExtensionsFixture
         {
             [Fact]
             public void Should_Throw_When_Prev_Step_Null()
@@ -232,6 +232,99 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             public void Should_Create_Step_Builder()
             {
                 var actual = PipelineStepBuilderExtensions.PipeAsync<StepAsyncDummy, int, double, string>(_builderAsyncDummy);
+
+                actual.Should().BeOfType<PipelineStepBuilderAsync<int, double, string>>();
+            }
+        }
+
+        public class PipeAsync_Func : PipelineStepBuilderExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Prev_Step_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>((IPipelineStepBuilderAsync<int, double>) null, _funcStep);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("prevStep");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Step_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, (Func<double, string>) null);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("step");
+            }
+
+            [Fact]
+            public void Should_Create_Step_Builder()
+            {
+                var actual = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, _funcStep);
+
+                actual.Should().BeOfType<PipelineStepBuilderAsync<int, double, string>>();
+            }
+        }
+
+        public class PipeAsync_Step_Instance : PipelineStepBuilderExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Prev_Step_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>((IPipelineStepBuilderAsync<int, double>) null, _stepDummy);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("prevStep");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Step_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, (IPipelineStep<double, string>) null);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("step");
+            }
+
+            [Fact]
+            public void Should_Create_Step_Builder()
+            {
+                var actual = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, _stepDummy);
+
+                actual.Should().BeOfType<PipelineStepBuilderAsync<int, double, string>>();
+            }
+        }
+
+        public class PipeAsync_Step_Type : PipelineStepBuilderExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Prev_Step_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = PipelineStepBuilderExtensions.Pipe<StepDummy, int, double, string>((IPipelineStepBuilderAsync<int, double>) null);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("prevStep");
+            }
+
+            [Fact]
+            public void Should_Create_Step_Builder()
+            {
+                var actual = PipelineStepBuilderExtensions.Pipe<StepDummy, int, double, string>(_builderAsyncDummy);
 
                 actual.Should().BeOfType<PipelineStepBuilderAsync<int, double, string>>();
             }

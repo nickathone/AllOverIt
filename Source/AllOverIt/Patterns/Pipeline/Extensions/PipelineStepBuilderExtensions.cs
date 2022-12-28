@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllOverIt.Assertion;
+using System;
 using System.Threading.Tasks;
 
 namespace AllOverIt.Patterns.Pipeline.Extensions
@@ -28,7 +29,9 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
         public static IPipelineStepBuilder<TIn, TNextOut> Pipe<TIn, TPrevOut, TNextOut>(
             this IPipelineStepBuilder<TIn, TPrevOut> prevStep, IPipelineStep<TPrevOut, TNextOut> step)
         {
-            return Pipe(prevStep, step.AsFunc());
+            var stepFunc = step.AsFunc();
+
+            return Pipe(prevStep, stepFunc);
         }
 
         /// <summary>Adds a new pipeline step, implemented as a <see cref="IPipelineStep{TPrevOut, TNextOut}"/>, to an existing pipeline step builder.</summary>
@@ -69,7 +72,9 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
         public static IPipelineStepBuilderAsync<TIn, TNextOut> PipeAsync<TIn, TPrevOut, TNextOut>(
             this IPipelineStepBuilderAsync<TIn, TPrevOut> prevStep, IPipelineStepAsync<TPrevOut, TNextOut> step)
         {
-            return PipeAsync(prevStep, step.AsFunc());
+            var stepFunc = step.AsFunc();
+
+            return PipeAsync(prevStep, stepFunc);
         }
 
         /// <summary>Adds a new asynchronous pipeline step to an existing pipeline step builder.</summary>
@@ -92,6 +97,8 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
         public static IPipelineStepBuilderAsync<TIn, TNextOut> Pipe<TIn, TPrevOut, TNextOut>(
            this IPipelineStepBuilderAsync<TIn, TPrevOut> prevStep, Func<TPrevOut, TNextOut> step)
         {
+            _ = step.WhenNotNull(nameof(step));
+
             Task<TNextOut> stepAsync(TPrevOut result) => Task.FromResult(step.Invoke(result));
 
             return new PipelineStepBuilderAsync<TIn, TPrevOut, TNextOut>(prevStep, stepAsync);
@@ -100,7 +107,9 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
         public static IPipelineStepBuilderAsync<TIn, TNextOut> Pipe<TIn, TPrevOut, TNextOut>(
             this IPipelineStepBuilderAsync<TIn, TPrevOut> prevStep, IPipelineStep<TPrevOut, TNextOut> step)
         {
-            return Pipe(prevStep, step.AsFunc());
+            var stepFunc = step.AsFunc();
+
+            return Pipe(prevStep, stepFunc);
         }
 
         public static IPipelineStepBuilderAsync<TIn, TNextOut> Pipe<TPipelineStep, TIn, TPrevOut, TNextOut>(
