@@ -34,7 +34,7 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
             return Pipe(prevStep, stepFunc);
         }
 
-        /// <summary>Adds a new pipeline step, implemented as a <see cref="IPipelineStep{TPrevOut, TNextOut}"/>, to an existing pipeline step builder.</summary>
+        /// <summary>Adds a new pipeline step to an existing pipeline step builder.</summary>
         /// <typeparam name="TPipelineStep">The pipeline step type.</typeparam>
         /// <typeparam name="TIn">The input type for the first step in the pipeline.</typeparam>
         /// <typeparam name="TPrevOut">The output type from the previous step in the pipeline.</typeparam>
@@ -49,7 +49,7 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
             return Pipe(prevStep, step);
         }
 
-        /// <summary>Adds a new asynchronous pipeline step to an existing pipeline step builder.</summary>
+        /// <summary>Adds a new asynchronous pipeline step to an existing asynchronous pipeline step builder.</summary>
         /// <typeparam name="TIn">The input type for the first step in the pipeline.</typeparam>
         /// <typeparam name="TPrevOut">The output type from the previous step in the pipeline.</typeparam>
         /// <typeparam name="TNextOut">The output type for the step being added to the pipeline.</typeparam>
@@ -62,7 +62,7 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
             return new PipelineStepBuilderAsync<TIn, TPrevOut, TNextOut>(prevStep, step);
         }
 
-        /// <summary>Adds a new asynchronous pipeline step to an existing pipeline step builder.</summary>
+        /// <summary>Adds a new asynchronous pipeline step to an existing asynchronous pipeline step builder.</summary>
         /// <typeparam name="TIn">The input type for the first step in the pipeline.</typeparam>
         /// <typeparam name="TPrevOut">The output type from the previous step in the pipeline.</typeparam>
         /// <typeparam name="TNextOut">The output type for the step being added to the pipeline.</typeparam>
@@ -77,7 +77,7 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
             return PipeAsync(prevStep, stepFunc);
         }
 
-        /// <summary>Adds a new asynchronous pipeline step to an existing pipeline step builder.</summary>
+        /// <summary>Adds a new asynchronous pipeline step to an existing asynchronous pipeline step builder.</summary>
         /// <typeparam name="TPipelineStep">The asynchronous pipeline step type.</typeparam>
         /// <typeparam name="TIn">The input type for the first step in the pipeline.</typeparam>
         /// <typeparam name="TPrevOut">The output type from the previous step in the pipeline.</typeparam>
@@ -92,8 +92,13 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
             return PipeAsync(prevStep, step);
         }
 
-        // ====== allows pipe (non-async) back to async
-
+        /// <summary>Adds a new non-asynchronous pipeline step to an existing asynchronous pipeline step builder.</summary>
+        /// <typeparam name="TIn">The input type for the first step in the pipeline.</typeparam>
+        /// <typeparam name="TPrevOut">The output type from the previous step in the pipeline.</typeparam>
+        /// <typeparam name="TNextOut">The output type for the step being added to the pipeline.</typeparam>
+        /// <param name="prevStep">The builder instance representing the previous step in the pipeline.</param>
+        /// <param name="step">The step to be added to the pipeline builder.</param>
+        /// <returns>A new pipeline step builder representing the step just added to the pipeline.</returns>
         public static IPipelineStepBuilderAsync<TIn, TNextOut> Pipe<TIn, TPrevOut, TNextOut>(
            this IPipelineStepBuilderAsync<TIn, TPrevOut> prevStep, Func<TPrevOut, TNextOut> step)
         {
@@ -104,6 +109,13 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
             return new PipelineStepBuilderAsync<TIn, TPrevOut, TNextOut>(prevStep, stepAsync);
         }
 
+        /// <summary>Adds a new non-asynchronous pipeline step to an existing asynchronous pipeline step builder.</summary>
+        /// <typeparam name="TIn">The input type for the first step in the pipeline.</typeparam>
+        /// <typeparam name="TPrevOut">The output type from the previous step in the pipeline.</typeparam>
+        /// <typeparam name="TNextOut">The output type for the step being added to the pipeline.</typeparam>
+        /// <param name="prevStep">The builder instance representing the previous step in the pipeline.</param>
+        /// <param name="step">The step to be added to the pipeline builder.</param>
+        /// <returns>A new pipeline step builder representing the step just added to the pipeline.</returns>
         public static IPipelineStepBuilderAsync<TIn, TNextOut> Pipe<TIn, TPrevOut, TNextOut>(
             this IPipelineStepBuilderAsync<TIn, TPrevOut> prevStep, IPipelineStep<TPrevOut, TNextOut> step)
         {
@@ -112,6 +124,13 @@ namespace AllOverIt.Patterns.Pipeline.Extensions
             return Pipe(prevStep, stepFunc);
         }
 
+        /// <summary>Adds a new non-asynchronous pipeline step to an existing asynchronous pipeline step builder.</summary>
+        /// <typeparam name="TPipelineStep">The pipeline step type.</typeparam>
+        /// <typeparam name="TIn">The input type for the first step in the pipeline.</typeparam>
+        /// <typeparam name="TPrevOut">The output type from the previous step in the pipeline.</typeparam>
+        /// <typeparam name="TNextOut">The output type for the step being added to the pipeline.</typeparam>
+        /// <param name="prevStep">The builder instance representing the previous step in the pipeline.</param>
+        /// <returns>A new pipeline step builder representing the step just added to the pipeline.</returns>
         public static IPipelineStepBuilderAsync<TIn, TNextOut> Pipe<TPipelineStep, TIn, TPrevOut, TNextOut>(
             this IPipelineStepBuilderAsync<TIn, TPrevOut> prevStep) where TPipelineStep : IPipelineStep<TPrevOut, TNextOut>, new()
         {
