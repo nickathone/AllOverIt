@@ -58,7 +58,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>((IPipelineBuilder<int, double>) null, _funcStep);
+                    _ = PipelineBuilderExtensions.Pipe<int, double, string>((IPipelineBuilder<int, double>) null, _funcStep);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -70,7 +70,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderDummy, (Func<double, string>) null);
+                    _ = PipelineBuilderExtensions.Pipe<int, double, string>(_builderDummy, (Func<double, string>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -80,7 +80,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderDummy, _funcStep);
+                var actual = PipelineBuilderExtensions.Pipe<int, double, string>(_builderDummy, _funcStep);
 
                 actual.Should().BeOfType<PipelineBuilder<int, double, string>>();
             }
@@ -93,7 +93,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>((IPipelineBuilder<int, double>) null, _stepDummy);
+                    _ = PipelineBuilderExtensions.Pipe<int, double, string>((IPipelineBuilder<int, double>) null, _stepDummy);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -105,7 +105,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderDummy, (IPipelineStep<double, string>) null);
+                    _ = PipelineBuilderExtensions.Pipe<int, double, string>(_builderDummy, (IPipelineStep<double, string>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -115,7 +115,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderDummy, _stepDummy);
+                var actual = PipelineBuilderExtensions.Pipe<int, double, string>(_builderDummy, _stepDummy);
 
                 actual.Should().BeOfType<PipelineBuilder<int, double, string>>();
             }
@@ -128,7 +128,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<StepDummy, int, double, string>((IPipelineBuilder<int, double>) null);
+                    _ = PipelineBuilderExtensions.Pipe<StepDummy, int, double, string>((IPipelineBuilder<int, double>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -138,7 +138,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.Pipe<StepDummy, int, double, string>(_builderDummy);
+                var actual = PipelineBuilderExtensions.Pipe<StepDummy, int, double, string>(_builderDummy);
 
                 actual.Should().BeOfType<PipelineBuilder<int, double, string>>();
             }
@@ -151,7 +151,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.PipeAsync<int, double, string>((IPipelineBuilderAsync<int, double>) null, _funcStepAsync);
+                    _ = PipelineBuilderExtensions.PipeAsync<int, double, string>((IPipelineBuilderAsync<int, double>) null, _funcStepAsync);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -163,7 +163,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.PipeAsync<int, double, string>(_builderAsyncDummy, (Func<double, Task<string>>) null);
+                    _ = PipelineBuilderExtensions.PipeAsync<int, double, string>(_builderAsyncDummy, (Func<double, Task<string>>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -173,7 +173,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.PipeAsync<int, double, string>(_builderAsyncDummy, _funcStepAsync);
+                var actual = PipelineBuilderExtensions.PipeAsync<int, double, string>(_builderAsyncDummy, _funcStepAsync);
 
                 actual.Should().BeOfType<PipelineBuilderAsync<int, double, string>>();
             }
@@ -186,7 +186,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.PipeAsync<int, double, string>((IPipelineBuilderAsync<int, double>) null, _stepAsyncDummy);
+                    _ = PipelineBuilderExtensions.PipeAsync<int, double, string>((IPipelineBuilderAsync<int, double>) null, _stepAsyncDummy);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -198,7 +198,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.PipeAsync<int, double, string>(_builderAsyncDummy, (IPipelineStepAsync<double, string>) null);
+                    _ = PipelineBuilderExtensions.PipeAsync<int, double, string>(_builderAsyncDummy, (IPipelineStepAsync<double, string>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -208,7 +208,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.PipeAsync<int, double, string>(_builderAsyncDummy, _stepAsyncDummy);
+                var actual = PipelineBuilderExtensions.PipeAsync<int, double, string>(_builderAsyncDummy, _stepAsyncDummy);
 
                 actual.Should().BeOfType<PipelineBuilderAsync<int, double, string>>();
             }
@@ -221,7 +221,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.PipeAsync<StepAsyncDummy, int, double, string>((IPipelineBuilderAsync<int, double>) null);
+                    _ = PipelineBuilderExtensions.PipeAsync<StepAsyncDummy, int, double, string>((IPipelineBuilderAsync<int, double>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -231,7 +231,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.PipeAsync<StepAsyncDummy, int, double, string>(_builderAsyncDummy);
+                var actual = PipelineBuilderExtensions.PipeAsync<StepAsyncDummy, int, double, string>(_builderAsyncDummy);
 
                 actual.Should().BeOfType<PipelineBuilderAsync<int, double, string>>();
             }
@@ -244,7 +244,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>((IPipelineBuilderAsync<int, double>) null, _funcStep);
+                    _ = PipelineBuilderExtensions.Pipe<int, double, string>((IPipelineBuilderAsync<int, double>) null, _funcStep);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -256,7 +256,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, (Func<double, string>) null);
+                    _ = PipelineBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, (Func<double, string>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -266,7 +266,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, _funcStep);
+                var actual = PipelineBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, _funcStep);
 
                 actual.Should().BeOfType<PipelineBuilderAsync<int, double, string>>();
             }
@@ -279,7 +279,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>((IPipelineBuilderAsync<int, double>) null, _stepDummy);
+                    _ = PipelineBuilderExtensions.Pipe<int, double, string>((IPipelineBuilderAsync<int, double>) null, _stepDummy);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -291,7 +291,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, (IPipelineStep<double, string>) null);
+                    _ = PipelineBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, (IPipelineStep<double, string>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -301,7 +301,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, _stepDummy);
+                var actual = PipelineBuilderExtensions.Pipe<int, double, string>(_builderAsyncDummy, _stepDummy);
 
                 actual.Should().BeOfType<PipelineBuilderAsync<int, double, string>>();
             }
@@ -314,7 +314,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = PipelineStepBuilderExtensions.Pipe<StepDummy, int, double, string>((IPipelineBuilderAsync<int, double>) null);
+                    _ = PipelineBuilderExtensions.Pipe<StepDummy, int, double, string>((IPipelineBuilderAsync<int, double>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -324,7 +324,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Create_Step_Builder()
             {
-                var actual = PipelineStepBuilderExtensions.Pipe<StepDummy, int, double, string>(_builderAsyncDummy);
+                var actual = PipelineBuilderExtensions.Pipe<StepDummy, int, double, string>(_builderAsyncDummy);
 
                 actual.Should().BeOfType<PipelineBuilderAsync<int, double, string>>();
             }

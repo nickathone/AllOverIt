@@ -18,12 +18,21 @@ namespace AllOverIt.Patterns.Pipeline
             return new PipelineBuilder<TIn, TOut>(step);
         }
 
+        /// <summary>Creates a new pipeline with an initial step.</summary>
+        /// <typeparam name="TIn">The input type for the pipeline step.</typeparam>
+        /// <typeparam name="TOut">The output type for the pipeline step.</typeparam>
+        /// <param name="step">The pipeline step to be appended.</param>
+        /// <returns>A new pipeline builder instance that can have additional pipeline steps appended.</returns>
         public static IPipelineBuilder<TIn, TOut> Pipe<TIn, TOut>(IPipelineStep<TIn, TOut> step)
         {
             // AsFunc() performs a null check
             return new PipelineBuilder<TIn, TOut>(step.AsFunc());
         }
 
+        /// <summary>Creates a new pipeline with an initial step, of type <typeparamref name="TPipelineStep"/>.</summary>
+        /// <typeparam name="TIn">The input type for the pipeline step.</typeparam>
+        /// <typeparam name="TOut">The output type for the pipeline step.</typeparam>
+        /// <returns>A new pipeline builder instance that can have additional pipeline steps appended.</returns>
         public static IPipelineBuilder<TIn, TOut> Pipe<TPipelineStep, TIn, TOut>() where TPipelineStep : IPipelineStep<TIn, TOut>, new()
         {
             var step = new TPipelineStep();
@@ -40,12 +49,21 @@ namespace AllOverIt.Patterns.Pipeline
             return new PipelineBuilderAsync<TIn, TOut>(step);
         }
 
+        /// <summary>Creates a new asynchronous pipeline with an initial step.</summary>
+        /// <typeparam name="TIn">The input type for the pipeline step.</typeparam>
+        /// <typeparam name="TOut">The output type for the pipeline step.</typeparam>
+        /// <param name="step">The pipeline step to be appended.</param>
+        /// <returns>A new pipeline builder instance that can have additional pipeline steps appended.</returns>
         public static IPipelineBuilderAsync<TIn, TOut> PipeAsync<TIn, TOut>(IPipelineStepAsync<TIn, TOut> step)
         {
             // AsFunc() performs a null check
             return new PipelineBuilderAsync<TIn, TOut>(step.AsFunc());
         }
 
+        /// <summary>Creates a new asynchronous pipeline with an initial step, of type <typeparamref name="TPipelineStep"/>.</summary>
+        /// <typeparam name="TIn">The input type for the pipeline step.</typeparam>
+        /// <typeparam name="TOut">The output type for the pipeline step.</typeparam>
+        /// <returns>A new pipeline builder instance that can have additional pipeline steps appended.</returns>
         public static IPipelineBuilderAsync<TIn, TOut> PipeAsync<TPipelineStep, TIn, TOut>() where TPipelineStep : IPipelineStepAsync<TIn, TOut>, new()
         {
             var step = new TPipelineStep();

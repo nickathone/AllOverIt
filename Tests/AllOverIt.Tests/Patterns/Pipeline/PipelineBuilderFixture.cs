@@ -4,13 +4,103 @@ using AllOverIt.Patterns.Pipeline;
 using AllOverIt.Patterns.Pipeline.Extensions;
 using FluentAssertions;
 using System;
+using System.Numerics;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Sdk;
 
 namespace AllOverIt.Tests.Patterns.Pipeline
 {
     public class PipelineBuilderFixture : FixtureBase
     {
+        private sealed class PipelineStep1Dummy : IPipelineStep<int, double>
+        {
+            public const double DefaultFactor = 1.23;
+
+            private readonly double _factor;
+
+            public PipelineStep1Dummy()
+            {
+                _factor = DefaultFactor;
+            }
+
+            public PipelineStep1Dummy(double factor)
+            {
+                _factor = factor;
+            }
+
+            public double Execute(int input)
+            {
+                return input + _factor;
+            }
+        }
+
+        private sealed class PipelineStep2Dummy : IPipelineStep<double, string>
+        {
+            public const double DefaultFactor = 1.23;
+
+            private readonly double _factor;
+
+            public PipelineStep2Dummy()
+            {
+                _factor = DefaultFactor;
+            }
+
+            public PipelineStep2Dummy(double factor)
+            {
+                _factor = factor;
+            }
+
+            public string Execute(double input)
+            {
+                return (input * _factor).ToString();
+            }
+        }
+
+        private sealed class PipelineStep1AsyncDummy : IPipelineStepAsync<int, double>
+        {
+            public const double DefaultFactor = 1.23;
+
+            private readonly double _factor;
+
+            public PipelineStep1AsyncDummy()
+            {
+                _factor = DefaultFactor;
+            }
+
+            public PipelineStep1AsyncDummy(double factor)
+            {
+                _factor = factor;
+            }
+
+            public Task<double> ExecuteAsync(int input)
+            {
+                return Task.FromResult(input + _factor);
+            }
+        }
+
+        private sealed class PipelineStep2AsyncDummy : IPipelineStepAsync<double, string>
+        {
+            public const double DefaultFactor = 1.23;
+
+            private readonly double _factor;
+
+            public PipelineStep2AsyncDummy()
+            {
+                _factor = DefaultFactor;
+            }
+
+            public PipelineStep2AsyncDummy(double factor)
+            {
+                _factor = factor;
+            }
+
+            public Task<string> ExecuteAsync(double input)
+            {
+                return Task.FromResult((input * _factor).ToString());
+            }
+        }
+
         public class Pipe_Func : PipelineBuilderFixture
         {
             [Fact]
@@ -89,18 +179,106 @@ namespace AllOverIt.Tests.Patterns.Pipeline
         public class Pipe_PipelineStep_Instance : PipelineBuilderFixture
         {
             [Fact]
-            public void Should_()
+            public void Should_Throw_When_Func_Null()
             {
+                IPipelineStep<int, double> step = null;
 
+                Invoking(() =>
+                {
+                    _ = PipelineBuilder.Pipe(step);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("step");
+            }
+
+            [Fact]
+            public void Should_Return_Pipeline_Builder()
+            {
+                var step = new PipelineStep1Dummy(Create<double>());
+
+                var actual = PipelineBuilder.Pipe(step);
+
+                actual.Should().BeOfType<PipelineBuilder<int, double>>();
+            }
+
+            [Fact]
+            public void Should_Create_Pipeline_Step()
+            {
+                var factor = Create<double>();
+                var step = new PipelineStep1Dummy(factor);
+
+                var actual = PipelineBuilder.Pipe(step);
+
+                var input = Create<int>();
+                var result = actual.Build().Invoke(input);
+
+                var expected = input + factor;
+
+                expected.Should().Be(result);
+            }
+
+            [Fact]
+            public void Should_Create_Pipeline_Sequence()
+            {
+                var factor1 = Create<double>();
+                var step1 = new PipelineStep1Dummy(factor1);
+
+                var factor2 = Create<double>();
+                var step2 = new PipelineStep2Dummy(factor2);
+
+                var actual = PipelineBuilder.Pipe(step1).Pipe(step2);
+
+                var input = Create<int>();
+                var result = actual.Build().Invoke(input);
+
+                var expected = $"{(input + factor1) * factor2}";
+
+                expected.Should().Be(result);
             }
         }
 
         public class Pipe_PipelineStep_Type : PipelineBuilderFixture
         {
             [Fact]
-            public void Should_()
+            public void Should_Return_Pipeline_Builder()
             {
+                var actual = PipelineBuilder.Pipe<PipelineStep1Dummy, int, double>();
 
+                actual.Should().BeOfType<PipelineBuilder<int, double>>();
+            }
+
+            [Fact]
+            public void Should_Create_Pipeline_Step()
+            {
+                var factor = PipelineStep1Dummy.DefaultFactor;
+
+                var actual = PipelineBuilder.Pipe<PipelineStep1Dummy, int, double>();
+
+                var input = Create<int>();
+                var result = actual.Build().Invoke(input);
+
+                var expected = input + factor;
+
+                expected.Should().Be(result);
+            }
+
+            [Fact]
+            public void Should_Create_Pipeline_Sequence()
+            {
+                var factor1 = PipelineStep1Dummy.DefaultFactor;
+                var factor2 = PipelineStep2Dummy.DefaultFactor;
+
+                var actual = PipelineBuilder
+                    .Pipe<PipelineStep1Dummy, int, double>()
+                    .Pipe<PipelineStep2Dummy, int, double, string>();
+
+                var input = Create<int>();
+                var result = actual.Build().Invoke(input);
+
+                var expected = $"{(input + factor1) * factor2}";
+
+                expected.Should().Be(result);
             }
         }
 
@@ -181,18 +359,106 @@ namespace AllOverIt.Tests.Patterns.Pipeline
         public class PipeAsync_PipelineStep_Instance : PipelineBuilderFixture
         {
             [Fact]
-            public void Should_()
+            public void Should_Throw_When_Func_Null()
             {
+                IPipelineStepAsync<int, double> step = null;
 
+                Invoking(() =>
+                {
+                    _ = PipelineBuilder.PipeAsync(step);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("step");
+            }
+
+            [Fact]
+            public void Should_Return_Pipeline_Builder()
+            {
+                var step = new PipelineStep1AsyncDummy(Create<double>());
+
+                var actual = PipelineBuilder.PipeAsync(step);
+
+                actual.Should().BeOfType<PipelineBuilderAsync<int, double>>();
+            }
+
+            [Fact]
+            public async Task Should_Create_Pipeline_Step()
+            {
+                var factor = Create<double>();
+                var step = new PipelineStep1AsyncDummy(factor);
+
+                var actual = PipelineBuilder.PipeAsync(step);
+
+                var input = Create<int>();
+                var result = await actual.Build().Invoke(input);
+
+                var expected = input + factor;
+
+                expected.Should().Be(result);
+            }
+
+            [Fact]
+            public async Task Should_Create_Pipeline_Sequence()
+            {
+                var factor1 = Create<double>();
+                var step1 = new PipelineStep1AsyncDummy(factor1);
+
+                var factor2 = Create<double>();
+                var step2 = new PipelineStep2AsyncDummy(factor2);
+
+                var actual = PipelineBuilder.PipeAsync(step1).PipeAsync(step2);
+
+                var input = Create<int>();
+                var result = await actual.Build().Invoke(input);
+
+                var expected = $"{(input + factor1) * factor2}";
+
+                expected.Should().Be(result);
             }
         }
 
         public class PipeAsync_PipelineStep_Type : PipelineBuilderFixture
         {
             [Fact]
-            public void Should_()
+            public void Should_Return_Pipeline_Builder()
             {
+                var actual = PipelineBuilder.PipeAsync<PipelineStep1AsyncDummy, int, double>();
 
+                actual.Should().BeOfType<PipelineBuilderAsync<int, double>>();
+            }
+
+            [Fact]
+            public async Task Should_Create_Pipeline_Step()
+            {
+                var factor = PipelineStep1Dummy.DefaultFactor;
+
+                var actual = PipelineBuilder.PipeAsync<PipelineStep1AsyncDummy, int, double>();
+
+                var input = Create<int>();
+                var result = await actual.Build().Invoke(input);
+
+                var expected = input + factor;
+
+                expected.Should().Be(result);
+            }
+
+            [Fact]
+            public async Task Should_Create_Pipeline_Sequence()
+            {
+                var factor1 = PipelineStep1AsyncDummy.DefaultFactor;
+                var factor2 = PipelineStep2AsyncDummy.DefaultFactor;
+
+                var actual = PipelineBuilder
+                    .PipeAsync<PipelineStep1AsyncDummy, int, double>()
+                    .PipeAsync<PipelineStep2AsyncDummy, int, double, string>();
+
+                var input = Create<int>();
+                var result = await actual.Build().Invoke(input);
+
+                var expected = $"{(input + factor1) * factor2}";
+
+                expected.Should().Be(result);
             }
         }
     }
