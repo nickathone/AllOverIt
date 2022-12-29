@@ -55,7 +55,7 @@ namespace PipelineAsyncDemo
 
             var pipeline = serviceProvider.GetRequiredService<IntegerPipelineProcessorAsync>();
 
-            var result = await pipeline.Invoke(5);
+            var result = await pipeline.Invoke(5);      // Will return 5 * 2 * 2 * 2 * 2 + 0.2 = 80.2
 
             Console.WriteLine($"{result}");
 
