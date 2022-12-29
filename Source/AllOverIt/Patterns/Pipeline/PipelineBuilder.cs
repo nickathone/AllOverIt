@@ -5,8 +5,14 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Patterns.Pipeline
 {
+    /// <summary>Provides a number of <c>Pipe()</c> methods that can be chained to build synchronous or asynchronous pipelines.</summary>
     public static class PipelineBuilder
     {
+        /// <summary>Creates a new pipeline with an initial step.</summary>
+        /// <typeparam name="TIn">The input type for the pipeline step.</typeparam>
+        /// <typeparam name="TOut">The output type for the pipeline step.</typeparam>
+        /// <param name="step">The pipeline step to be appended.</param>
+        /// <returns>A new pipeline builder instance that can have additional pipeline steps appended.</returns>
         public static IPipelineBuilder<TIn, TOut> Pipe<TIn, TOut>(Func<TIn, TOut> step)
         {
             return new PipelineBuilder<TIn, TOut>(step);
@@ -24,6 +30,11 @@ namespace AllOverIt.Patterns.Pipeline
             return Pipe(step);
         }
 
+        /// <summary>Creates a new asynchronous pipeline with an initial step.</summary>
+        /// <typeparam name="TIn">The input type for the pipeline step.</typeparam>
+        /// <typeparam name="TOut">The output type for the pipeline step.</typeparam>
+        /// <param name="step">The pipeline step to be appended.</param>
+        /// <returns>A new pipeline builder instance that can have additional pipeline steps appended.</returns>
         public static IPipelineBuilderAsync<TIn, TOut> PipeAsync<TIn, TOut>(Func<TIn, Task<TOut>> step)
         {
             return new PipelineBuilderAsync<TIn, TOut>(step);
