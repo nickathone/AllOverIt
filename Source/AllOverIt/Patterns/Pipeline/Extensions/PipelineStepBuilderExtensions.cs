@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Patterns.Pipeline.Extensions
 {
+    /// <summary>Provides a variety of extension methods for <see cref="IPipelineStepBuilder{TIn, TPrevOut}"/> and
+    /// <see cref="IPipelineStepBuilderAsync{TIn, TPrevOut}"/> types.</summary>
     public static class PipelineStepBuilderExtensions
     {
         /// <summary>Adds a new pipeline step to an existing pipeline step builder.</summary>
