@@ -98,6 +98,7 @@ namespace AllOverIt.Patterns.Pipeline
             _step = step.WhenNotNull(nameof(step));
         }
 
+        // Create a func that invokes the previous func and uses its result as the input to the next func (step)
         public Func<TIn, TNextOut> Build()
         {
             TNextOut func(TIn input)
