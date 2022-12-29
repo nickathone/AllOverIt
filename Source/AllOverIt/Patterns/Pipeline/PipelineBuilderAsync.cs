@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Patterns.Pipeline
 {
-    internal sealed class PipelineStepBuilderAsync<TIn, TOut> : IPipelineStepBuilderAsync<TIn, TOut>
+    internal sealed class PipelineBuilderAsync<TIn, TOut> : IPipelineBuilderAsync<TIn, TOut>
     {
         private readonly Func<TIn, Task<TOut>> _step;
 
-        public PipelineStepBuilderAsync(Func<TIn, Task<TOut>> step)
+        public PipelineBuilderAsync(Func<TIn, Task<TOut>> step)
         {
             _step = step.WhenNotNull(nameof(step));
         }
@@ -19,12 +19,12 @@ namespace AllOverIt.Patterns.Pipeline
         }
     }
 
-    internal sealed class PipelineStepBuilderAsync<TIn, TPrevOut, TNextOut> : IPipelineStepBuilderAsync<TIn, TNextOut>
+    internal sealed class PipelineBuilderAsync<TIn, TPrevOut, TNextOut> : IPipelineBuilderAsync<TIn, TNextOut>
     {
-        private readonly IPipelineStepBuilderAsync<TIn, TPrevOut> _prevStep;
+        private readonly IPipelineBuilderAsync<TIn, TPrevOut> _prevStep;
         private readonly Func<TPrevOut, Task<TNextOut>> _step;
 
-        public PipelineStepBuilderAsync(IPipelineStepBuilderAsync<TIn, TPrevOut> prevStep, Func<TPrevOut, Task<TNextOut>> step)
+        public PipelineBuilderAsync(IPipelineBuilderAsync<TIn, TPrevOut> prevStep, Func<TPrevOut, Task<TNextOut>> step)
         {
             _prevStep = prevStep.WhenNotNull(nameof(prevStep));
             _step = step.WhenNotNull(nameof(step));

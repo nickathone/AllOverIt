@@ -2,7 +2,7 @@
 
 namespace AllOverIt.Patterns.Pipeline
 {
-    public interface IPipelineStepBuilder<TIn, TOut>
+    public interface IPipelineBuilder<TIn, TOut>
     {
         Func<TIn, TOut> Build();
     }
