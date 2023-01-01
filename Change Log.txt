@@ -9,6 +9,9 @@ AllOverIt
   * Added async version of ChainOfResponsibility handler / composer
   * Added a pipeline pattern implementation
 
+AllOverIt.DependencyInjection
+  * Added an extension method to validate registered services. To be used during development only.
+
 
 07 Dec 2022
 Version 6.2.1
