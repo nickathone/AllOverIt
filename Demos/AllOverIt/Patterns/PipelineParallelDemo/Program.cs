@@ -35,6 +35,7 @@ namespace PipelineParallelDemo
                 });
             */
 
+#pragma warning disable IDE0039 // Use local function
             Func<IEnumerable<double>, Task<Stats>> calculateStats = async data =>
             {
                 var numbers = data.AsReadOnlyCollection();
@@ -48,6 +49,7 @@ namespace PipelineParallelDemo
 
                 return new Stats(min, max, avg);
             };
+#pragma warning restore IDE0039 // Use local function
 
             var pipeline = PipelineBuilder
 
