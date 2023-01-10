@@ -9,9 +9,44 @@ using Xunit;
 
 namespace AllOverIt.Tests.Patterns.Pipeline
 {
-    public class PipelineBuilderAsync_TIn_TPrevOut_TNextOut_Fixture : FixtureBase
+    public class PipelineBuilderAsync_TIn_TOut : FixtureBase
     {
-        public class Constructor : PipelineBuilderAsync_TIn_TPrevOut_TNextOut_Fixture
+        public class Constructor : PipelineBuilderAsync_TIn_TOut
+        {
+            [Fact]
+            public void Should_Throw_When_Step_Null()
+            {
+                Invoking(() =>
+                {
+                    Func<int, Task<double>> step = null;
+
+                    _ = new PipelineBuilderAsync<int, double>(step);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("step");
+            }
+        }
+
+        public class Build : PipelineBuilderAsync_TIn_TOut
+        {
+            [Fact]
+            public void Should_Return_Func()
+            {
+                Func<int, Task<double>> step = value => Task.FromResult((double) value);
+
+                var builder = new PipelineBuilderAsync<int, double>(step);
+
+                var actual = builder.Build();
+
+                actual.Should().BeSameAs(step);
+            }
+        }
+    }
+
+    public class PipelineBuilderAsync_TIn_TPrevOut_TNextOut : FixtureBase
+    {
+        public class Constructor : PipelineBuilderAsync_TIn_TPrevOut_TNextOut
         {
             [Fact]
             public void Should_Throw_When_PrevStep_Null()
@@ -42,7 +77,7 @@ namespace AllOverIt.Tests.Patterns.Pipeline
             }
         }
 
-        public class Build : PipelineBuilderAsync_TIn_TPrevOut_TNextOut_Fixture
+        public class Build : PipelineBuilderAsync_TIn_TPrevOut_TNextOut
         {
             [Fact]
             public async Task Should_Return_Composed_Func()

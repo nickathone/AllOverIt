@@ -13,5 +13,6 @@
 
     <ItemGroup>
         <InternalsVisibleTo Include="AllOverIt.Tests" />
+        <InternalsVisibleTo Include="AllOverIt.ReactiveUI.Tests" />
     </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Patterns.Pipeline;
 using AllOverIt.Patterns.Pipeline.Extensions;
+using FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Numerics;
@@ -98,6 +99,81 @@ namespace AllOverIt.Tests.Patterns.Pipeline
             public Task<string> ExecuteAsync(double input)
             {
                 return Task.FromResult((input * _factor).ToString());
+            }
+        }
+
+        public class Pipe_NoInput_Func : PipelineBuilderFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Func_Null()
+            {
+                Func<double> step = null;
+
+                Invoking(() =>
+                {
+                    _ = PipelineBuilder.Pipe(step);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("step");
+            }
+
+            [Fact]
+            public void Should_Return_Pipeline_Builder()
+            {
+                Func<double> step = () => Create<double>();
+
+                var actual = PipelineBuilder.Pipe(step);
+
+                actual.Should().BeOfType<PipelineNoInputBuilder<double>>();
+            }
+
+            [Fact]
+            public void Should_Create_Pipeline_Step()
+            {
+                var invoked = false;
+
+                Func<double> step = () =>
+                {
+                    invoked = true;
+                    return Create<double>();
+                };
+
+                var actual = PipelineBuilder.Pipe(step);
+
+                actual.Build().Invoke();
+
+                invoked.Should().BeTrue();
+            }
+
+            [Fact]
+            public void Should_Create_Pipeline_Sequence()
+            {
+                var counter = 0;
+                var invoked1 = 0;
+                var invoked2 = 0;
+
+                Func<double> step1 = () =>
+                {
+                    counter++;
+                    invoked1 = counter;
+                    return Create<double>();
+                };
+
+                Func<double, string> step2 = value =>
+                {
+                    counter++;
+                    invoked2 = counter;
+
+                    return value.ToString();
+                };
+
+                var actual = PipelineBuilder.Pipe(step1).Pipe(step2);
+
+                actual.Build().Invoke();
+
+                invoked1.Should().Be(1);
+                invoked2.Should().Be(2);
             }
         }
 
@@ -282,6 +358,80 @@ namespace AllOverIt.Tests.Patterns.Pipeline
             }
         }
 
+        public class PipeAsync_NoInput__Func : PipelineBuilderFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Func_Null()
+            {
+                Func<Task<double>> step = null;
+
+                Invoking(() =>
+                {
+                    _ = PipelineBuilder.PipeAsync(step);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("step");
+            }
+
+            [Fact]
+            public void Should_Return_Pipeline_Builder()
+            {
+                Func<Task<double>> step = () => Task.FromResult(Create<double>());
+
+                var actual = PipelineBuilder.PipeAsync(step);
+
+                actual.Should().BeOfType<PipelineNoInputBuilderAsync<double>>();
+            }
+
+            [Fact]
+            public async Task Should_Create_Pipeline_Step()
+            {
+                var invoked = false;
+
+                Func<Task<double>> step = () =>
+                {
+                    invoked = true;
+                    return Task.FromResult(Create<double>());
+                };
+
+                var actual = PipelineBuilder.PipeAsync(step);
+
+                await actual.Build().Invoke();
+
+                invoked.Should().BeTrue();
+            }
+
+            [Fact]
+            public void Should_Create_Pipeline_Sequence()
+            {
+                var counter = 0;
+                var invoked1 = 0;
+                var invoked2 = 0;
+
+                Func<Task<double>> step1 = () =>
+                {
+                    counter++;
+                    invoked1 = counter;
+                    return Task.FromResult(Create<double>());
+                };
+
+                Func<double, Task<string>> step2 = value =>
+                {
+                    counter++;
+                    invoked2 = counter;
+                    return Task.FromResult(value.ToString());
+                };
+
+                var actual = PipelineBuilder.PipeAsync(step1).PipeAsync(step2);
+
+                actual.Build().Invoke();
+
+                invoked1.Should().Be(1);
+                invoked2.Should().Be(2);
+            }
+        }
+
         public class PipeAsync_Func : PipelineBuilderFixture
         {
             [Fact]
@@ -459,6 +609,98 @@ namespace AllOverIt.Tests.Patterns.Pipeline
                 var expected = $"{(input + factor1) * factor2}";
 
                 expected.Should().Be(result);
+            }
+        }
+
+        public class PipelineBuilder_TIn_TOut : PipelineBuilderFixture
+        {
+            public class Constructor : PipelineBuilder_TIn_TOut
+            {
+                [Fact]
+                public void Should_Throw_When_Step_Null()
+                {
+                    Invoking(() =>
+                    {
+                        Func<int, double> step = null;
+
+                        _ = new PipelineBuilder<int, double>(step);
+                    })
+                        .Should()
+                        .Throw<ArgumentNullException>()
+                        .WithNamedMessageWhenNull("step");
+                }
+            }
+
+            public class Build : PipelineBuilder_TIn_TOut
+            {
+                [Fact]
+                public void Should_Return_Func()
+                {
+                    Func<int, double> step = value => (double) value;
+
+                    var builder = new PipelineBuilder<int, double>(step);
+
+                    var actual = builder.Build();
+
+                    actual.Should().BeSameAs(step);
+                }
+            }
+        }
+
+        public class PipelineBuilder_TIn_TPrevOut_TNextOut : PipelineBuilderFixture
+        {
+            public class Constructor : PipelineBuilder_TIn_TPrevOut_TNextOut
+            {
+                [Fact]
+                public void Should_Throw_When_PrevStep_Null()
+                {
+                    Invoking(() =>
+                    {
+                        Func<double, string> step = value => value.ToString();
+
+                        _ = new PipelineBuilder<int, double, string>(null, step);
+                    })
+                        .Should()
+                        .Throw<ArgumentNullException>()
+                        .WithNamedMessageWhenNull("prevStep");
+                }
+
+                [Fact]
+                public void Should_Throw_When_Step_Null()
+                {
+                    Invoking(() =>
+                    {
+                        var prevStep = A.Fake<IPipelineBuilder<int, double>>();
+
+                        _ = new PipelineBuilder<int, double, string>(prevStep, null);
+                    })
+                        .Should()
+                        .Throw<ArgumentNullException>()
+                        .WithNamedMessageWhenNull("step");
+                }
+            }
+
+            public class Build : PipelineBuilder_TIn_TPrevOut_TNextOut
+            {
+                [Fact]
+                public void Should_Return_Composed_Func()
+                {
+                    var factor = Create<double>();
+
+                    // IPipelineBuilder<int, double>
+                    var builder1 = PipelineBuilder.Pipe<int, double>(value => value * factor);
+
+                    var builder2 = new PipelineBuilder<int, double, string>(builder1, value => $"{value}");
+
+                    var func = builder2.Build();
+
+                    var input = Create<int>();
+                    var expected = $"{input * factor}";
+
+                    var actual = func.Invoke(input);
+
+                    expected.Should().Be(actual);
+                }
             }
         }
     }

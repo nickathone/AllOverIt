@@ -13,6 +13,37 @@ namespace PipelineAsyncDemo
     {
         static async Task Main()
         {
+
+
+
+            var p1 = PipelineBuilder
+                .Pipe(() => 1)
+                .Pipe(v => v * 2.0d)
+                .Pipe(v => (int) (v * 3))
+                .Pipe(v => v * 3)
+                .Pipe(new DoubleStep())
+                .Pipe(v => v * 3)
+                .Pipe(v => v * 2.0d)
+                .Pipe(v => v.ToString())
+                .Build();
+
+            var r1 = p1.Invoke();
+
+            var p2 = PipelineBuilder
+                .PipeAsync(() => Task.FromResult(1))
+                .PipeAsync(v => Task.FromResult(v * 2.0d))
+                .Pipe(v => (int)(v * 3))
+                .Pipe(v => v * 3)
+                .PipeAsync(new DoubleStepAsync())
+                .Pipe(v => v * 3)
+                .PipeAsync(v => Task.FromResult(v * 2.0d))
+                .PipeAsync(v => Task.FromResult(v.ToString()))
+                .Build();
+
+            var r2 = await p2.Invoke();
+
+
+
             var services = new ServiceCollection();
 
             services.AddSingleton<AddFractionStep>();
