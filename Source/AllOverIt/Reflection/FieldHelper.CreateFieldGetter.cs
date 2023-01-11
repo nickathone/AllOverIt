@@ -60,10 +60,7 @@ namespace AllOverIt.Reflection
             var type = typeof(TType);
             var fieldInfo = ReflectionCache.GetFieldInfo(type.GetTypeInfo(), fieldName);
 
-            if (fieldInfo == null)
-            {
-                throw new ReflectionException($"The field {fieldName} on type {type.GetFriendlyName()} does not exist.");
-            }
+            Throw<ReflectionException>.WhenNull(fieldInfo, $"The field {fieldName} on type {type.GetFriendlyName()} does not exist.");
 
             return CreateFieldGetter<TType>(fieldInfo);
         }

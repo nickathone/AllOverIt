@@ -63,10 +63,7 @@ namespace AllOverIt.Reflection
             var type = typeof(TType);
             var propertyInfo = ReflectionCache.GetPropertyInfo(type.GetTypeInfo(), propertyName);
 
-            if (propertyInfo == null)
-            {
-                throw new ReflectionException($"The property {propertyName} on type {type.GetFriendlyName()} does not exist.");
-            }
+            Throw<ReflectionException>.WhenNull(propertyInfo, $"The property {propertyName} on type {type.GetFriendlyName()} does not exist.");
 
             return CreatePropertySetterExpressionLambda<TType>(propertyInfo).Compile();
         }

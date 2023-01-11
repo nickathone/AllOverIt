@@ -119,14 +119,11 @@ namespace AllOverIt.Aws.Cdk.AppSync.Extensions
         {
             var attribute = memberInfo.GetCustomAttribute<DataSourceAttribute>(true);
 
-            if (attribute == null)
-            {
-                throw new InvalidOperationException($"Expected {memberInfo.DeclaringType!.Name}.{memberInfo.Name} to have a datasource attribute.");
-            }
+            Throw<InvalidOperationException>.WhenNull(attribute, $"Expected {memberInfo.DeclaringType!.Name}.{memberInfo.Name} to have a datasource attribute.");
 
             // will be null if no type has been provided (assumes the mapping was added in code via MappingTemplates)
             return attribute.MappingType != null
-                ? ( mappingTypeFactory).GetRequestResponseMapping(attribute.MappingType)
+                ? (mappingTypeFactory).GetRequestResponseMapping(attribute.MappingType)
                 : null;
         }
     }

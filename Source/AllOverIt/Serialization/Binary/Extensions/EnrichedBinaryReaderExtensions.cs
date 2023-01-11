@@ -227,10 +227,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
             var enumTypeName = reader.ReadString();
             var enumType = Type.GetType(enumTypeName);
 
-            if (enumType is null)
-            {
-                throw new BinaryReaderException($"Unknown enum type '{enumTypeName}'.");
-            }
+            Throw<BinaryReaderException>.WhenNull(enumType, $"Unknown enum type '{enumTypeName}'.");
 
             return enumType;
         }

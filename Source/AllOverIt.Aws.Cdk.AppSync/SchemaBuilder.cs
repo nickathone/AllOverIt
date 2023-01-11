@@ -60,10 +60,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
 
                 var dataSource = methodInfo.GetDataSource(_dataSourceFactory);
 
-                if (dataSource == null)
-                {
-                    throw new SchemaException($"{schemaType.Name} is missing a required datasource for '{methodInfo.Name}'.");
-                }
+                Throw<SchemaException>.WhenNull(dataSource, $"{schemaType.Name} is missing a required datasource for '{methodInfo.Name}'.");
 
                 var fieldMapping = methodInfo.GetFieldName(SubscriptionPrefix);
 
@@ -110,10 +107,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
 
                 var dataSource = methodInfo.GetDataSource(_dataSourceFactory);
 
-                if (dataSource == null)
-                {
-                    throw new SchemaException($"{schemaType.Name} is missing a required datasource for '{methodInfo.Name}'.");
-                }
+                Throw<SchemaException>.WhenNull(dataSource, $"{schemaType.Name} is missing a required datasource for '{methodInfo.Name}'.");
 
                 string rootName;
 
