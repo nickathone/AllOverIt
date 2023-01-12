@@ -2,7 +2,7 @@
 
 namespace AllOverIt.Formatters.Exceptions
 {
-    /// <summary>Represents on object self-reference error.</summary>
+    /// <summary>Represents an object self-reference error.</summary>
     public class SelfReferenceException : Exception
     {
         /// <summary>Default constructor.</summary>
