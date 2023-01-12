@@ -12,6 +12,9 @@ AllOverIt
 AllOverIt.DependencyInjection
   * Added an extension method to validate registered services. To be used during development only.
 
+AllOverIt.Plugin
+  * New package
+
 AllOverIt.ReactiveUI
   * Added support for a ReactiveCommand based pipeline (with support for chaining other sync / async pipeline steps)
 

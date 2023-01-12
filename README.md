@@ -227,6 +227,21 @@ A library providing queryable pagination utilities.
 | net7.0         |    Yes    |
 
 
+# AllOverIt.Plugin
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Plugin?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Plugin/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Plugin?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Plugin/)
+
+A library providing a dynamic plugin framework.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    No     |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
 # AllOverIt.Reactive
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Reactive/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Reactive/)
