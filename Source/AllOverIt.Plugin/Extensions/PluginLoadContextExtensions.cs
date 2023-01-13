@@ -1,11 +1,13 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Plugin.Exceptions;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
 namespace AllOverIt.Plugin.Extensions
 {
+    [ExcludeFromCodeCoverage]
     public static class PluginLoadContextExtensions
     {
         public static void CreateType(this PluginLoadContext loadContext, string assemblyName, string typeName)

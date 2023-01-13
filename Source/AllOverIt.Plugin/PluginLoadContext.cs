@@ -1,10 +1,12 @@
 ﻿using AllOverIt.Assertion;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Loader;
 
 namespace AllOverIt.Plugin
 {
+    [ExcludeFromCodeCoverage]
     public class PluginLoadContext : AssemblyLoadContext
     {
         // The AssemblyDependencyResolver object is constructed with the path to a .NET class library (plugin).
