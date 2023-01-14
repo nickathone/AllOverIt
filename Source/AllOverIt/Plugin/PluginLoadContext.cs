@@ -1,4 +1,6 @@
-﻿using AllOverIt.Assertion;
+﻿#if NETCOREAPP3_1_OR_GREATER
+
+using AllOverIt.Assertion;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -40,3 +42,5 @@ namespace AllOverIt.Plugin
         }
     }
 }
+
+#endif

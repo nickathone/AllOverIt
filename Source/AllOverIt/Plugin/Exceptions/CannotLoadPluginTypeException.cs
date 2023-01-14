@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NETCOREAPP3_1_OR_GREATER
+
+using System;
 
 namespace AllOverIt.Plugin.Exceptions
 {
@@ -26,3 +28,5 @@ namespace AllOverIt.Plugin.Exceptions
         }
     }
 }
+
+#endif

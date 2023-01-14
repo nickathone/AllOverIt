@@ -8,12 +8,10 @@ AllOverIt
   * Added string extension IsEmpty()
   * Added async version of ChainOfResponsibility handler / composer
   * Added a pipeline pattern implementation
+  * Added AllOverIt.Plugin.PluginLoadContext to dynamically load assemblies (for .NET Core 3.1 and above).
 
 AllOverIt.DependencyInjection
   * Added an extension method to validate registered services. To be used during development only.
-
-AllOverIt.Plugin
-  * New package
 
 AllOverIt.ReactiveUI
   * Added support for a ReactiveCommand based pipeline (with support for chaining other sync / async pipeline steps)
