@@ -13,22 +13,42 @@ namespace AllOverIt.Plugin.Extensions
     [ExcludeFromCodeCoverage]
     public static class PluginLoadContextExtensions
     {
-        public static void CreateType(this PluginLoadContext loadContext, string assemblyName, string typeName)
+        public static object CreateType(this PluginLoadContext loadContext, string assemblyName, string typeName)
         {
-            _ = loadContext.CreateType<object>(assemblyName, typeName);
+            return loadContext.CreateType<object>(assemblyName, typeName);
+        }
+
+        public static object CreateType(this PluginLoadContext loadContext, string assemblyName, string typeName, params object[] args)
+        {
+            return loadContext.CreateType<object>(assemblyName, typeName, args);
         }
 
         public static TType CreateType<TType>(this PluginLoadContext loadContext, string assemblyName, string typeName) where TType : class
         {
+            var requiredType = LoadTypeFromAssembly(loadContext, assemblyName, typeName);
+
+            return Activator.CreateInstance(requiredType) as TType;
+        }
+
+        public static TType CreateType<TType>(this PluginLoadContext loadContext, string assemblyName, string typeName, params object[] args) where TType : class
+        {
+            var requiredType = LoadTypeFromAssembly(loadContext, assemblyName, typeName);
+
+            return Activator.CreateInstance(requiredType, args) as TType;
+        }
+
+        // assemblyName must be the DLL name without the extension
+        // typeFullName must be namespace.typename
+        private static Type LoadTypeFromAssembly(PluginLoadContext loadContext, string assemblyName, string fullTypeName)
+        {
             var assemblyNameInfo = new AssemblyName(assemblyName);
             var assembly = loadContext.LoadFromAssemblyName(assemblyNameInfo);
 
-            // Assembly.CreateInstance() is not supported with Trimming so
-            var requiredType = assembly.ExportedTypes.FirstOrDefault(type => type.FullName == typeName);
+            var requiredType = assembly.ExportedTypes.SingleOrDefault(type => type.FullName == fullTypeName);
 
-            Throw<CannotLoadPluginTypeException>.WhenNull(requiredType, $"The {typeName} type was not found in the {assemblyName} assembly.");
+            Throw<CannotLoadPluginTypeException>.WhenNull(requiredType, $"The {fullTypeName} type was not found in the {assemblyName} assembly.");
 
-            return Activator.CreateInstance(requiredType) as TType;
+            return requiredType;
         }
     }
 }
