@@ -34,10 +34,6 @@ namespace AllOverIt.Async
                 {
                     // break out
                 }
-                catch (TimeoutException)
-                {
-                    // break out
-                }
             }, cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default).Unwrap();
         }
 
@@ -69,10 +65,6 @@ namespace AllOverIt.Async
                     }
                 }
                 catch (OperationCanceledException)
-                {
-                    // break out
-                }
-                catch (TimeoutException)
                 {
                     // break out
                 }
