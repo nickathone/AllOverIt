@@ -40,6 +40,17 @@ namespace AllOverIt.Tests.Caching
             PopulateCache(_cache);
         }
 
+        public class Default : GenericCacheFixture
+        {          
+            [Fact]
+            public void Should_Be_A_Default_Constructed_Cache()
+            {
+                var cache = GenericCache.Default;
+
+                cache.Should().BeOfType<GenericCache>();
+                cache.Count.Should().Be(0);
+            }
+        }
         public class Count : GenericCacheFixture
         {
             [Fact]

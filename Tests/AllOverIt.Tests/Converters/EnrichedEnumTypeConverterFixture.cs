@@ -155,6 +155,17 @@ namespace AllOverIt.Tests.Converters
             }
         }
 
+        public class Create : EnrichedEnumTypeConverterFixture
+        {
+            [Fact]
+            public void Should_Create_Type_Converter()
+            {
+                var actual = EnrichedEnumTypeConverter<EnrichedEnumDummy>.Create();
+
+                actual.Should().BeOfType<EnrichedEnumTypeConverter<EnrichedEnumDummy>>();
+            }
+        }
+
         private class DummyIntegralTestData : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
