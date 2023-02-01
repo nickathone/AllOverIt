@@ -7,6 +7,29 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Extensions
 {
+    // Iterating 'IAsyncEnumerable<TType> items' can be equally performed as shown below - the compiler will convert the
+    // await foreach() to the use of an async enumerator.
+    //
+    //
+    // await foreach (var item in items.WithCancellation(cancellationToken).ConfigureAwait(false))
+    // {
+    //     cancellationToken.ThrowIfCancellationRequested();
+    //
+    //     ...do something with each item
+    // }
+    //
+    //
+    // await using (var enumerator = items.GetAsyncEnumerator(cancellationToken))
+    // {
+    //     while (await enumerator.MoveNextAsync())
+    //     {
+    //         cancellationToken.ThrowIfCancellationRequested();
+    //
+    //         ...do something with each item
+    //     }
+    // }
+    //}
+
     /// <summary>Provides a variety of extension methods for <see cref="IAsyncEnumerable{T}"/>.</summary>
     public static class AsyncEnumerableExtensions
     {
@@ -22,7 +45,7 @@ namespace AllOverIt.Extensions
         {
             _ = items.WhenNotNull(nameof(items));
 
-            await foreach (var item in items.WithCancellation(cancellationToken))
+            await foreach (var item in items.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
@@ -44,6 +67,7 @@ namespace AllOverIt.Extensions
             await foreach (var item in items.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
                 cancellationToken.ThrowIfCancellationRequested();
+
                 listItems.Add(item);
             }
 
@@ -69,6 +93,7 @@ namespace AllOverIt.Extensions
                 cancellationToken.ThrowIfCancellationRequested();
 
                 var result = await selector.Invoke(item).ConfigureAwait(false);
+
                 listItems.Add(result);
             }
 
@@ -86,6 +111,7 @@ namespace AllOverIt.Extensions
             Func<TSource, Task<TResult>> selector, CancellationToken cancellationToken = default)
         {
             var results = await SelectAsListAsync(items, selector, cancellationToken).ConfigureAwait(false);
+
             return results.AsReadOnlyCollection();
         }
 
@@ -100,23 +126,48 @@ namespace AllOverIt.Extensions
             Func<TSource, Task<TResult>> selector, CancellationToken cancellationToken = default)
         {
             var results = await SelectAsListAsync(items, selector, cancellationToken).ConfigureAwait(false);
+
             return results.AsReadOnlyList();
         }
-
 
         /// <summary>Asynchronously iterates a sequence of elements and provides the zero-based index of the current item.</summary>
         /// <typeparam name="TType">The element type.</typeparam>
         /// <param name="items">The source sequence of elements.</param>
-        /// <param name="action">The asynchronous action to invoke against each element in the sequence.</param>
+        /// <param name="action">The action to invoke against each element in the sequence.</param>
+        /// <param name="cancellationToken">A cancellation token to cancel the processing.</param>
         /// <returns>An awaitable task that completes when the iteration is complete.</returns>
-        public static async Task ForEachAsync<TType>(this IAsyncEnumerable<TType> items, Func<TType, int, Task> action)
+        public static async Task ForEachAsync<TType>(this IAsyncEnumerable<TType> items, Action<TType, int> action,
+            CancellationToken cancellationToken = default)
         {
             _ = items.WhenNotNull(nameof(items));
 
             var index = 0;
 
-            await foreach (var item in items)
+            await foreach (var item in items.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                action.Invoke(item, index++);
+            }
+        }
+
+        /// <summary>Asynchronously iterates a sequence of elements and provides the zero-based index of the current item.</summary>
+        /// <typeparam name="TType">The element type.</typeparam>
+        /// <param name="items">The source sequence of elements.</param>
+        /// <param name="action">The asynchronous action to invoke against each element in the sequence.</param>
+        /// <param name="cancellationToken">A cancellation token to cancel the processing.</param>
+        /// <returns>An awaitable task that completes when the iteration is complete.</returns>
+        public static async Task ForEachAsync<TType>(this IAsyncEnumerable<TType> items, Func<TType, int, Task> action,
+            CancellationToken cancellationToken = default)
+        {
+            _ = items.WhenNotNull(nameof(items));
+
+            var index = 0;
+
+            await foreach (var item in items.WithCancellation(cancellationToken).ConfigureAwait(false))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 await action.Invoke(item, index++).ConfigureAwait(false);
             }
         }
@@ -125,14 +176,17 @@ namespace AllOverIt.Extensions
         /// <typeparam name="TType">The element type.</typeparam>
         /// <param name="items">The source sequence of elements.</param>
         /// <returns>The projected sequence including the element's index.</returns>
-        public static async IAsyncEnumerable<(TType Item, int Index)> WithIndexAsync<TType>(this IAsyncEnumerable<TType> items)
+        public static async IAsyncEnumerable<(TType Item, int Index)> WithIndexAsync<TType>(this IAsyncEnumerable<TType> items,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             _ = items.WhenNotNull(nameof(items));
 
             var index = 0;
 
-            await foreach (var item in items)
+            await foreach (var item in items.WithCancellation(cancellationToken).ConfigureAwait(false))
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 yield return (item, index++);
             }
         }

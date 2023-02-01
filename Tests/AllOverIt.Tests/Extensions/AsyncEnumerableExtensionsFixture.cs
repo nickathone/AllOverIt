@@ -262,21 +262,46 @@ namespace AllOverIt.Tests.Extensions
             }
         }
 
-        public class ForEachAsync : EnumerableExtensionsFixture
+        public class ForEachAsync_Action : EnumerableExtensionsFixture
         {
             [Fact]
             public async Task Should_Throw_When_Null()
             {
-                await Invoking(
-                        async () =>
-                        {
-                            IAsyncEnumerable<object> items = null;
+                await Invoking(async () =>
+                {
+                    IAsyncEnumerable<object> items = null;
 
-                            await items.ForEachAsync((_, _) => Task.CompletedTask);
-                        })
+                    await items.ForEachAsync((_, _) => { });
+                })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
                     .WithNamedMessageWhenNull("items");
+            }
+
+            [Fact]
+            public async Task Should_Throw_When_Cancelled()
+            {
+                var cancelledAtIndex = 0;
+
+                await Invoking(async () =>
+                {
+                    var cts = new CancellationTokenSource();
+
+                    var values = Create<string>();
+
+                    await AsAsyncEnumerable(values).ForEachAsync((item, index) =>
+                    {
+                        if (index > 1)
+                        {
+                            cancelledAtIndex = index;
+                            cts.Cancel();
+                        }
+                    }, cts.Token);
+                })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
+
+                cancelledAtIndex.Should().Be(2);
             }
 
             [Fact]
@@ -285,12 +310,72 @@ namespace AllOverIt.Tests.Extensions
                 var values = Create<string>();
                 var count = 0;
 
-                await AsAsyncEnumerable(values).ForEachAsync(async (item, index) =>
+                await AsAsyncEnumerable(values).ForEachAsync((item, index) =>
                 {
-                    await Task.CompletedTask;
-
                     item.Should().Be(values.ElementAt(index));
                     count++;
+                });
+
+                count.Should().Be(values.Length);
+            }
+        }
+
+        public class ForEachAsync_Func : EnumerableExtensionsFixture
+        {
+            [Fact]
+            public async Task Should_Throw_When_Null()
+            {
+                await Invoking(async () =>
+                {
+                    IAsyncEnumerable<object> items = null;
+
+                    await items.ForEachAsync((_, _) => Task.CompletedTask);
+                })
+                    .Should()
+                    .ThrowAsync<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("items");
+            }
+
+            [Fact]
+            public async Task Should_Throw_When_Cancelled()
+            {
+                var cancelledAtIndex = 0;
+
+                await Invoking(async () =>
+                {
+                    var cts = new CancellationTokenSource();
+
+                    var values = Create<string>();
+
+                    await AsAsyncEnumerable(values).ForEachAsync((item, index) =>
+                    {
+                        if (index > 1)
+                        {
+                            cancelledAtIndex = index;
+                            cts.Cancel();
+                        }
+
+                        return Task.CompletedTask;
+                    }, cts.Token);
+                })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
+
+                cancelledAtIndex.Should().Be(2);
+            }
+
+            [Fact]
+            public async Task Should_Iterate_Items_With_Index()
+            {
+                var values = Create<string>();
+                var count = 0;
+
+                await AsAsyncEnumerable(values).ForEachAsync((item, index) =>
+                {
+                    item.Should().Be(values.ElementAt(index));
+                    count++;
+
+                    return Task.CompletedTask;
                 });
 
                 count.Should().Be(values.Length);
@@ -313,6 +398,34 @@ namespace AllOverIt.Tests.Extensions
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
                     .WithNamedMessageWhenNull("items");
+            }
+
+            [Fact]
+            public async Task Should_Throw_When_Cancelled()
+            {
+                var index = 0;
+
+                await Invoking(async () =>
+                {
+                    var cts = new CancellationTokenSource();
+
+                    var values = Create<string>();
+                    var expectedValues = values.Select((item, index) => (item, index)).AsReadOnlyCollection();
+
+                    await foreach (var (value, idx) in AsAsyncEnumerable(values).WithIndexAsync(cts.Token))
+                    {
+                        index++;
+
+                        if (index > 1)
+                        {
+                            cts.Cancel();
+                        }
+                    }
+                })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
+
+                index.Should().Be(2);
             }
 
             [Fact]
