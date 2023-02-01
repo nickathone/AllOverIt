@@ -16,15 +16,18 @@ namespace AllOverIt.Caching
 
             public bool Equals(GenericCacheKeyBase lhs, GenericCacheKeyBase rhs)
             {
-                if (lhs is null && rhs is null)
-                {
-                    return true;
-                }
+                /* Null keys cannot be added to the cache, so these 'typical' checks are not required:
+                 
+                    if (lhs is null && rhs is null)
+                    {
+                        return true;
+                    }
 
-                if (lhs is null || rhs is null)
-                {
-                    return false;
-                }
+                    if (lhs is null || rhs is null)
+                    {
+                        return false;
+                    }
+                */
 
                 return lhs.Key.GetType() == rhs.Key.GetType() && lhs.Key.Equals(rhs.Key);
             }
