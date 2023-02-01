@@ -12,6 +12,7 @@
 
         <!--Stop warning related to end-of-life .NET versions-->
         <CheckEolTargetFramework>false</CheckEolTargetFramework>
+        <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
 
         <!-- devblogs.microsoft.com/dotnet/producing-packages-with-source-link/ -->
         <PublishRepositoryUrl>true</PublishRepositoryUrl>

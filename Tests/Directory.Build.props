@@ -6,6 +6,7 @@
 
         <!--Stop warning related to end-of-life .NET versions-->
         <CheckEolTargetFramework>false</CheckEolTargetFramework>
+        <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
 
         <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
         <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
