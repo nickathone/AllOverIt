@@ -4,11 +4,12 @@ XX XXX XXXX
 Version 6.3.0
 ======================================================================================================================
 AllOverIt
-  * Added interceptor support to cater for Aspected Oriented Programming (AOP).
+  * Added interceptor support to cater for Aspected Oriented Programming (AOP)
   * Added string extension IsEmpty()
+  * IAsyncEnumerable extension updates
   * Added async version of ChainOfResponsibility handler / composer
   * Added a pipeline pattern implementation
-  * Added AllOverIt.Plugin.PluginLoadContext to dynamically load assemblies (for .NET Core 3.1 and above).
+  * Added AllOverIt.Plugin.PluginLoadContext to dynamically load assemblies (for .NET Core 3.1 and above)
 
 AllOverIt.DependencyInjection
   * Added an extension method to validate registered services. To be used during development only.
