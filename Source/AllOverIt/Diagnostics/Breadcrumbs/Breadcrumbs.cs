@@ -27,11 +27,6 @@ namespace AllOverIt.Diagnostics.Breadcrumbs
                 _maxCapactiy = options.MaxCapacity;
             }
 
-            public void Clear()
-            {
-                _breadcrumbs.Clear();
-            }
-
             public void Add(BreadcrumbData breadcrumb)
             {
                 _breadcrumbs.Add(breadcrumb);
@@ -40,6 +35,11 @@ namespace AllOverIt.Diagnostics.Breadcrumbs
                 {
                     _breadcrumbs.RemoveRange(0, _breadcrumbs.Count - _maxCapactiy);
                 }
+            }
+
+            public void Clear()
+            {
+                _breadcrumbs.Clear();
             }
 
             public IEnumerator<BreadcrumbData> GetEnumerator()

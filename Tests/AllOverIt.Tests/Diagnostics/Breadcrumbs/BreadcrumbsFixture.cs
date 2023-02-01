@@ -15,14 +15,12 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
 {
     public class BreadcrumbsFixture : FixtureBase
     {
-        private readonly AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs _breadcrumbs = new();
-
         public class Constructor : BreadcrumbsFixture
         {
             [Fact]
             public void Should_Create_Default_Options()
             {
-                var actual = _breadcrumbs.Options;
+                var actual = CreateBreadcrumbs().Options;
 
                 var expected = new BreadcrumbsOptions();
 
@@ -30,47 +28,98 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
             }
         }
 
-        public class Constructor_Options_ThreadSafe : BreadcrumbsFixture
+        public class Enabled : BreadcrumbsFixture
         {
-            [Fact]
-            public async Task Should_Be_Thread_Safe()
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public void Should_Add_Breadcrumb(bool threadSafe)
             {
-                var options = new BreadcrumbsOptions
-                {
-                    ThreadSafe = true
-                };
+                var breadcrumbs = CreateBreadcrumbs(threadSafe);
+                var breadcrumb = Create<BreadcrumbData>();
 
-                AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs breadcrumbs = new(options);
+                breadcrumbs.Add(breadcrumb);
 
-                var tasks = Enumerable.Range(1, 100).Select(_ =>
-                {
-                    return Task.Factory.StartNew(() =>
-                    {
-                        var breadcrumb = Create<BreadcrumbData>();
+                var actual = breadcrumbs.ToList();
 
-                        breadcrumbs.Add(breadcrumb);
-                    });
-                });
-
-                await Task.WhenAll(tasks).ConfigureAwait(false);
-
-                breadcrumbs.Count().Should().Be(100);
+                actual.Single().Should().BeSameAs(breadcrumb);
             }
 
             [Theory]
             [InlineData(true)]
             [InlineData(false)]
-            public async Task Should_Have_Max_Capacity(bool threadSafe)
+            public void Should_Not_Add_Breadcrumb(bool threadSafe)
             {
-                var options = new BreadcrumbsOptions
+                var breadcrumbs = CreateBreadcrumbs(threadSafe, startEnabled: false);
+
+                var breadcrumb = Create<BreadcrumbData>();
+
+                breadcrumbs.Add(breadcrumb);
+
+                var actual = breadcrumbs.ToList();
+
+                actual.Should().BeEmpty();
+            }
+        }
+
+        public class Add : BreadcrumbsFixture
+        {
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public void Should_Throw_Null_When_Breadcrumb_Null(bool threadSafe)
+            {
+                var breadcrumbs = CreateBreadcrumbs(threadSafe);
+
+                Invoking(() =>
                 {
-                    ThreadSafe = threadSafe,
-                    MaxCapacity = 10
-                };
+                    breadcrumbs.Add(null);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("breadcrumb");
+            }
+
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public async Task Should_Add_Breadcrumbs(bool threadSafe)
+            {
+                var breadcrumbs = CreateBreadcrumbs(threadSafe);
 
                 var breadcrumbData = CreateMany<BreadcrumbData>(100);
 
-                AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs breadcrumbs = new(options);
+                if (threadSafe)
+                {
+                    var tasks = Enumerable.Range(0, 100).Select(index =>
+                    {
+                        return Task.Factory.StartNew(() =>
+                        {
+                            breadcrumbs.Add(breadcrumbData[index]);
+                        });
+                    });
+
+                    await Task.WhenAll(tasks).ConfigureAwait(false);
+                }
+                else
+                {
+                    Enumerable.Range(0, 100).ForEach((_, index) =>
+                    {
+                        breadcrumbs.Add(breadcrumbData[index]);
+                    });
+                }
+
+                breadcrumbData.Should().BeEquivalentTo(breadcrumbs);
+            }
+
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public async Task Should_Limit_Number_Of_Breadcrumbs(bool threadSafe)
+            {
+                var breadcrumbs = CreateBreadcrumbs(threadSafe, 10);
+
+                var breadcrumbData = CreateMany<BreadcrumbData>(100);
 
                 if (threadSafe)
                 {
@@ -100,111 +149,32 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
             }
         }
 
-        public class Enabled : BreadcrumbsFixture
+        public class Clear : BreadcrumbsFixture
         {
-            [Fact]
-            public void Should_Add_Breadcrumb()
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public void Should_Clear_Breadcrumbs(bool threadSafe)
             {
-                var breadcrumb = Create<BreadcrumbData>();
-
-                _breadcrumbs.Add(breadcrumb);
-
-                var actual = _breadcrumbs.ToList();
-
-                actual.Single().Should().BeSameAs(breadcrumb);
-            }
-
-            [Fact]
-            public void Should_Not_Add_Breadcrumb()
-            {
-                var breadcrumbs = new AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs
-                {
-                    Enabled = false
-                };
+                var breadcrumbs = CreateBreadcrumbs(threadSafe);
 
                 var breadcrumb = Create<BreadcrumbData>();
 
                 breadcrumbs.Add(breadcrumb);
 
-                var actual = breadcrumbs.ToList();
+                breadcrumbs.Should().HaveCount(1);
 
-                actual.Should().BeEmpty();
-            }
-        }
+                breadcrumbs.Clear();
 
-        public class Add : BreadcrumbsFixture
-        {
-            [Fact]
-            public void Should_Throw_Null_When_Breadcrumb_Null()
-            {
-                Invoking(() =>
-                {
-                    _breadcrumbs.Add(null);
-                })
-                    .Should()
-                    .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("breadcrumb");
+                breadcrumbs.Should().BeEmpty();
             }
 
-            [Fact]
-            public void Should_Add_Breadcrumb()
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public async Task Should_Not_Reset_StartTimestamp(bool threadSafe)
             {
-                var breadcrumb = Create<BreadcrumbData>();
-
-                _breadcrumbs.Add(breadcrumb);
-
-                var actual = _breadcrumbs.ToList();
-
-                actual.Single().Should().BeSameAs(breadcrumb);
-            }
-
-            [Fact]
-            public void Should_Limit_Number_Of_Breadcrumbs()
-            {
-                var options = new BreadcrumbsOptions
-                {
-                    MaxCapacity = 5
-                };
-
-                var breadcrumbs = new AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs(options);
-
-                var items = CreateMany<BreadcrumbData>(10);
-
-                foreach (var item in items)
-                {
-                    breadcrumbs.Add(item);
-                }
-
-                var actual = breadcrumbs.ToList();
-
-                actual.Should().HaveCount(5);
-
-                var expected = items.Skip(5).Take(5);
-
-                actual.Should().Contain(expected);
-            }
-        }
-
-        public class Clear : BreadcrumbsFixture
-        {
-            [Fact]
-            public void Should_Clear_Breadcrumbs()
-            {
-                var breadcrumb = Create<BreadcrumbData>();
-
-                _breadcrumbs.Add(breadcrumb);
-
-                _breadcrumbs.Should().HaveCount(1);
-
-                _breadcrumbs.Clear();
-
-                _breadcrumbs.Should().BeEmpty();
-            }
-
-            [Fact]
-            public async Task Should_Not_Reset_StartTimestamp()
-            {
-                var breadcrumbs = new AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs();
+                var breadcrumbs = CreateBreadcrumbs(threadSafe);
                 var originalTimestamp = breadcrumbs.StartTimestamp;
 
                 await Task.Delay(100);
@@ -216,24 +186,29 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
 
         public class Reset : BreadcrumbsFixture
         {
-            [Fact]
-            public void Should_Clear_Breadcrumbs()
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public void Should_Clear_Breadcrumbs(bool threadSafe)
             {
+                var breadcrumbs = CreateBreadcrumbs(threadSafe);
                 var breadcrumb = Create<BreadcrumbData>();
 
-                _breadcrumbs.Add(breadcrumb);
+                breadcrumbs.Add(breadcrumb);
 
-                _breadcrumbs.Should().HaveCount(1);
+                breadcrumbs.Should().HaveCount(1);
 
-                _breadcrumbs.Reset();
+                breadcrumbs.Reset();
 
-                _breadcrumbs.Should().BeEmpty();
+                breadcrumbs.Should().BeEmpty();
             }
 
-            [Fact]
-            public async Task Should_Reset_StartTimestamp()
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public async Task Should_Reset_StartTimestamp(bool threadSafe)
             {
-                var breadcrumbs = new AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs();
+                var breadcrumbs = CreateBreadcrumbs(threadSafe);
                 var originalTimestamp = breadcrumbs.StartTimestamp;
 
                 await Task.Delay(100);
@@ -248,7 +223,7 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
             [Fact]
             public void Should_Return_Empty_When_No_Breadcrumbs()
             {
-                var enumerator = _breadcrumbs.GetEnumerator();
+                var enumerator = CreateBreadcrumbs().GetEnumerator();
 
                 var count = 0;
 
@@ -263,6 +238,8 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
             [Fact]
             public void Should_Get_Breadcrumbs()
             {
+                var breadcrumbs = CreateBreadcrumbs();
+
                 var breadcrumb1 = new BreadcrumbData
                 {
                     CallerName = string.Empty,
@@ -289,13 +266,13 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
                     Metadata = Create<int>()
                 };
 
-                _breadcrumbs.Add(breadcrumb1);
-                _breadcrumbs.Add(breadcrumb2);
-                _breadcrumbs.Add(breadcrumb3);
+                breadcrumbs.Add(breadcrumb1);
+                breadcrumbs.Add(breadcrumb2);
+                breadcrumbs.Add(breadcrumb3);
 
                 var actual = new List<BreadcrumbData>();
 
-                var enumerator = _breadcrumbs.GetEnumerator();
+                var enumerator = breadcrumbs.GetEnumerator();
 
                 while (enumerator.MoveNext())
                 {
@@ -345,7 +322,9 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
             [Fact]
             public void Should_Return_Empty_When_No_Breadcrumbs()
             {
-                var enumerator = ((IEnumerable)_breadcrumbs).GetEnumerator();
+                var breadcrumbs = CreateBreadcrumbs();
+
+                var enumerator = ((IEnumerable)breadcrumbs).GetEnumerator();
 
                 var count = 0;
 
@@ -360,6 +339,8 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
             [Fact]
             public void Should_Get_Breadcrumbs()
             {
+                var breadcrumbs = CreateBreadcrumbs();
+
                 var breadcrumb1 = new BreadcrumbData
                 {
                     CallerName = string.Empty,
@@ -386,13 +367,13 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
                     Metadata = Create<int>()
                 };
 
-                _breadcrumbs.Add(breadcrumb1);
-                _breadcrumbs.Add(breadcrumb2);
-                _breadcrumbs.Add(breadcrumb3);
+                breadcrumbs.Add(breadcrumb1);
+                breadcrumbs.Add(breadcrumb2);
+                breadcrumbs.Add(breadcrumb3);
 
                 var actual = new List<BreadcrumbData>();
 
-                var enumerator = ((IEnumerable) _breadcrumbs).GetEnumerator();
+                var enumerator = ((IEnumerable) breadcrumbs).GetEnumerator();
 
                 while (enumerator.MoveNext())
                 {
@@ -437,6 +418,18 @@ namespace AllOverIt.Tests.Diagnostics.Breadcrumbs
                             .Excluding(model => model.Timestamp)
                             .Excluding(model => model.TimestampUtc));
             }
+        }
+
+        private AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs CreateBreadcrumbs(bool threadSafe = false, int maxCapacity = -1, bool startEnabled = true)
+        {
+            var options = new BreadcrumbsOptions
+            {
+                ThreadSafe = threadSafe,
+                MaxCapacity = maxCapacity,
+                StartEnabled = startEnabled
+            };
+
+            return new AllOverIt.Diagnostics.Breadcrumbs.Breadcrumbs(options);
         }
     }
 }
