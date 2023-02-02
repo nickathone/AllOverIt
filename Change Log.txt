@@ -1,7 +1,7 @@
 ======================================================================================================================
 
 XX XXX XXXX
-Version 6.3.0
+Version 6.4.0
 ======================================================================================================================
 AllOverIt
   * Added interceptor support to cater for Aspected Oriented Programming (AOP)
@@ -16,6 +16,14 @@ AllOverIt.DependencyInjection
 
 AllOverIt.ReactiveUI
   * Added support for a ReactiveCommand based pipeline (with support for chaining other sync / async pipeline steps)
+
+
+02 Feb 2023
+Version 6.3.0
+======================================================================================================================
+AllOverIt.Csv
+  * Updated SerializeAsync() to allow the text writer to remain open so multiple, appending, calls can be made
+  * Added an overload accepting IAsyncEnumerable data
 
 
 07 Dec 2022
