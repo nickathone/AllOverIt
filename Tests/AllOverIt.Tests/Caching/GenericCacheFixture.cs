@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using AllOverIt.Caching;
+﻿using AllOverIt.Caching;
 using AllOverIt.Extensions;
 using AllOverIt.Fixture;
-using FluentAssertions;
-using System.Linq;
 using AllOverIt.Fixture.Extensions;
+using FluentAssertions;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace AllOverIt.Tests.Caching
@@ -90,6 +90,16 @@ namespace AllOverIt.Tests.Caching
                     actual2Key.Key2.Should().Be(isEven ? i : -i);
                     actual2Key.Key3.Should().Be(isEven ? $"{i}" : default);
                 }
+            }
+
+            [Fact]
+            public void Should_Find_Key()
+            {
+                var keyType1 = GetAllKeyType1(_cache).First();
+                var keyType2 = GetAllKeyType2(_cache).First();
+
+                _cache.ContainsKey(keyType1).Should().BeTrue();
+                _cache.ContainsKey(keyType2).Should().BeTrue();
             }
         }
 
@@ -313,13 +323,13 @@ namespace AllOverIt.Tests.Caching
             public void Should_Add_Key_Value()
             {
                 var key = new KeyType1(Create<int>(), Create<string>());
-                var value = CreateMany<string>();
+                var expected = CreateMany<string>();
 
-                _cache.Add(key, value);
+                _cache.Add(key, expected);
 
                 _ = _cache.TryGetValue<IReadOnlyCollection<string>>(key, out var actual);
 
-                value.Should().BeEquivalentTo(actual);
+                expected.Should().BeEquivalentTo(actual);
             }
 
             [Fact]
@@ -342,19 +352,19 @@ namespace AllOverIt.Tests.Caching
             public void Should_Not_Throw_When_Key_Element_Null()
             {
                 var key = new KeyType1(Create<int>(), null);
-                var value = CreateMany<string>();
+                var expected = CreateMany<string>();
 
                 key.Key2.Should().BeNull();
                 _cache.ContainsKey(key).Should().BeFalse();
 
                 Invoking(() =>
                     {
-                        _cache.Add(key, value);
+                        _cache.Add(key, expected);
                     })
                     .Should()
                     .NotThrow();
 
-                value.Should().BeEquivalentTo((IReadOnlyCollection<string>)_cache[key]);
+                expected.Should().BeEquivalentTo((IReadOnlyCollection<string>)_cache[key]);
             }
         }
 
