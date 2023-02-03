@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllOverIt.Assertion;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,11 @@ namespace AllOverIt.Extensions
         public static Task ForEachAsTaskAsync<TType>(this IEnumerable<TType> items, Func<TType, Task> func, int degreeOfParallelism,
             CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -49,6 +55,11 @@ namespace AllOverIt.Extensions
         public static Task ForEachAsTaskAsync<TType, TInput>(this IEnumerable<TType> items, Func<TType, TInput, Task> func, TInput input,
             int degreeOfParallelism, CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -76,6 +87,11 @@ namespace AllOverIt.Extensions
         public static Task ForEachAsTaskAsync<TType, TInput1, TInput2>(this IEnumerable<TType> items, Func<TType, TInput1, TInput2, Task> func, 
             TInput1 input1, TInput2 input2, int degreeOfParallelism, CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -105,6 +121,11 @@ namespace AllOverIt.Extensions
         public static Task ForEachAsTaskAsync<TType, TInput1, TInput2, TInput3>(this IEnumerable<TType> items, Func<TType, TInput1, TInput2, TInput3, Task> func,
             TInput1 input1, TInput2 input2, TInput3 input3, int degreeOfParallelism, CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -137,6 +158,11 @@ namespace AllOverIt.Extensions
             Func<TType, TInput1, TInput2, TInput3, TInput4, Task> func, TInput1 input1, TInput2 input2, TInput3 input3, TInput4 input4,
             int degreeOfParallelism, CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -164,6 +190,11 @@ namespace AllOverIt.Extensions
         public static Task ForEachAsParallelAsync<TType>(this IEnumerable<TType> items, Func<TType, Task> func, int degreeOfParallelism,
             CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -184,6 +215,11 @@ namespace AllOverIt.Extensions
         public static Task ForEachAsParallelAsync<TType, TInput>(this IEnumerable<TType> items, Func<TType, TInput, Task> func, TInput input, int degreeOfParallelism,
             CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -206,6 +242,11 @@ namespace AllOverIt.Extensions
         public static Task ForEachAsParallelAsync<TType, TInput1, TInput2>(this IEnumerable<TType> items, Func<TType, TInput1, TInput2, Task> func,
             TInput1 input1, TInput2 input2, int degreeOfParallelism, CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -230,6 +271,11 @@ namespace AllOverIt.Extensions
         public static Task ForEachAsParallelAsync<TType, TInput1, TInput2, TInput3>(this IEnumerable<TType> items, Func<TType, TInput1, TInput2, TInput3, Task> func,
             TInput1 input1, TInput2 input2, TInput3 input3, int degreeOfParallelism, CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)
@@ -257,6 +303,11 @@ namespace AllOverIt.Extensions
             Func<TType, TInput1, TInput2, TInput3, TInput4, Task> func, TInput1 input1, TInput2 input2, TInput3 input3, TInput4 input4,
             int degreeOfParallelism, CancellationToken cancellationToken = default)
         {
+            _ = items.WhenNotNull(nameof(items));
+            _ = func.WhenNotNull(nameof(func));
+
+            Throw<ArgumentOutOfRangeException>.When(degreeOfParallelism < 1, nameof(degreeOfParallelism), "At least one task must be specified.");
+
             return Task.WhenAll(
                 items
                     .GetPartitions(degreeOfParallelism)

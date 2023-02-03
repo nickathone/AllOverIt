@@ -271,6 +271,21 @@ namespace AllOverIt.Tests.Events
 
                 message.Output.Should().Be(-message.Input);
             }
+
+            [Fact]
+            public void Should_Not_Throw_When_Unsubscribe_Unknown_Handler()
+            {
+                Invoking(() =>
+                {
+                    var aggregator = new EventAggregator();
+
+                    var handler = new Handler();
+
+                    aggregator.Unsubscribe<EventDummy>(handler.HandleEvent);
+                })
+                .Should()
+                .NotThrow();
+            }
         }
 
         public class Unsubscribe_Func_Task : EventAggregatorFixture
@@ -295,6 +310,21 @@ namespace AllOverIt.Tests.Events
                 await aggregator.PublishAsync(message);
 
                 message.Output.Should().Be(-message.Input);
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_Unsubscribe_Unknown_Handler()
+            {
+                Invoking(() =>
+                {
+                    var aggregator = new EventAggregator();
+
+                    var handler = new HandlerAsync();
+
+                    aggregator.Unsubscribe<EventDummy>(handler.HandleEventAsync);
+                })
+                .Should()
+                .NotThrow();
             }
         }
 
