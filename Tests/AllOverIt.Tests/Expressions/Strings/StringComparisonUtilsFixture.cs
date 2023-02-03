@@ -49,9 +49,13 @@ namespace AllOverIt.Tests.Expressions.Strings
             }
 
             [Theory]
+            [InlineData(null, "b", default, -1)]
+            [InlineData("a", null, default, 1)]
             [InlineData("a", "b", default, -1)]
             [InlineData("a", "a", default, 0)]
             [InlineData("b", "a", default, 1)]
+            [InlineData(null, "b", StringComparison.OrdinalIgnoreCase, -1)]
+            [InlineData("a", null, StringComparison.OrdinalIgnoreCase, 1)]
             [InlineData("A", "b", StringComparison.OrdinalIgnoreCase, -1)]
             [InlineData("A", "a", StringComparison.OrdinalIgnoreCase, 0)]
             [InlineData("B", "a", StringComparison.OrdinalIgnoreCase, 1)]
@@ -108,9 +112,13 @@ namespace AllOverIt.Tests.Expressions.Strings
             }
 
             [Theory]
+            [InlineData(null, "b", false, -1)]
+            [InlineData("a", null, false, 1)]
             [InlineData("a", "b", false, -1)]
             [InlineData("a", "a", false, 0)]
             [InlineData("b", "a", false, 1)]
+            [InlineData(null, "b", true, -1)]
+            [InlineData("a", null, true, 1)]
             [InlineData("A", "b", true, -1)]
             [InlineData("A", "a", true, 0)]
             [InlineData("B", "a", true, 1)]
@@ -182,12 +190,29 @@ namespace AllOverIt.Tests.Expressions.Strings
 
                 actual.Should().Be(expected);
             }
+
+            [Theory]
+            [InlineData(null, "b", "instance")]
+            [InlineData("a", null, "value")]
+            public void Should_Throw_When_Null_Constant_Value(string value1, string value2, string parameterName)
+            {
+                Invoking(() =>
+                {
+                    var exp1 = Expression.Constant(value1);
+                    var exp2 = Expression.Constant(value2);
+
+                    _ = StringComparisonUtils.CreateContainsCallExpression(exp1, exp2, StringComparison.OrdinalIgnoreCase);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage($"Expected a non-null expression value. (Parameter '{parameterName}')");
+            }
         }
 
         public class CreateContainsCallExpression_StringComparisonMode : StringComparisonUtilsFixture
         {
             [Fact]
-            public void Should_Throw_When_Value1_Null()
+            public void Should_Throw_When_Instance_Null()
             {
                 Invoking(() =>
                 {
@@ -196,11 +221,11 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value1");
+                    .WithNamedMessageWhenNull("instance");
             }
 
             [Fact]
-            public void Should_Throw_When_Value2_Null()
+            public void Should_Throw_When_Value_Null()
             {
                 Invoking(() =>
                 {
@@ -208,7 +233,7 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value2");
+                    .WithNamedMessageWhenNull("value");
             }
 
             [Fact]
@@ -240,12 +265,29 @@ namespace AllOverIt.Tests.Expressions.Strings
 
                 actual.Should().Be(expected);
             }
+
+            [Theory]
+            [InlineData(null, "b", "instance")]
+            [InlineData("a", null, "value")]
+            public void Should_Throw_When_Null_Constant_Value(string value1, string value2, string parameterName)
+            {
+                Invoking(() =>
+                {
+                    var exp1 = Expression.Constant(value1);
+                    var exp2 = Expression.Constant(value2);
+
+                    _ = StringComparisonUtils.CreateContainsCallExpression(exp1, exp2, StringComparisonMode.InvariantCultureIgnoreCase);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage($"Expected a non-null expression value. (Parameter '{parameterName}')");
+            }
         }
 
         public class CreateStartsWithCallExpression_StringComparison : StringComparisonUtilsFixture
         {
             [Fact]
-            public void Should_Throw_When_Value1_Null()
+            public void Should_Throw_When_Instance_Null()
             {
                 Invoking(() =>
                 {
@@ -254,11 +296,11 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value1");
+                    .WithNamedMessageWhenNull("instance");
             }
 
             [Fact]
-            public void Should_Throw_When_Value2_Null()
+            public void Should_Throw_When_Value_Null()
             {
                 Invoking(() =>
                 {
@@ -266,7 +308,7 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value2");
+                    .WithNamedMessageWhenNull("value");
             }
 
             [Fact]
@@ -296,12 +338,29 @@ namespace AllOverIt.Tests.Expressions.Strings
 
                 actual.Should().Be(expected);
             }
+
+            [Theory]
+            [InlineData(null, "b", "instance")]
+            [InlineData("a", null, "value")]
+            public void Should_Throw_When_Null_Constant_Value(string value1, string value2, string parameterName)
+            {
+                Invoking(() =>
+                {
+                    var exp1 = Expression.Constant(value1);
+                    var exp2 = Expression.Constant(value2);
+
+                    _ = StringComparisonUtils.CreateStartsWithCallExpression(exp1, exp2, StringComparison.OrdinalIgnoreCase);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage($"Expected a non-null expression value. (Parameter '{parameterName}')");
+            }
         }
 
         public class CreateStartsWithCallExpression_StringComparisonMode : StringComparisonUtilsFixture
         {
             [Fact]
-            public void Should_Throw_When_Value1_Null()
+            public void Should_Throw_When_Instance_Null()
             {
                 Invoking(() =>
                 {
@@ -310,11 +369,11 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value1");
+                    .WithNamedMessageWhenNull("instance");
             }
 
             [Fact]
-            public void Should_Throw_When_Value2_Null()
+            public void Should_Throw_When_Value_Null()
             {
                 Invoking(() =>
                 {
@@ -322,7 +381,7 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value2");
+                    .WithNamedMessageWhenNull("value");
             }
 
             [Fact]
@@ -354,12 +413,29 @@ namespace AllOverIt.Tests.Expressions.Strings
 
                 actual.Should().Be(expected);
             }
+
+            [Theory]
+            [InlineData(null, "b", "instance")]
+            [InlineData("a", null, "value")]
+            public void Should_Throw_When_Null_Constant_Value(string value1, string value2, string parameterName)
+            {
+                Invoking(() =>
+                {
+                    var exp1 = Expression.Constant(value1);
+                    var exp2 = Expression.Constant(value2);
+
+                    _ = StringComparisonUtils.CreateStartsWithCallExpression(exp1, exp2, StringComparisonMode.InvariantCultureIgnoreCase);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage($"Expected a non-null expression value. (Parameter '{parameterName}')");
+            }
         }
 
         public class CreateEndsWithCallExpression_StringComparison : StringComparisonUtilsFixture
         {
             [Fact]
-            public void Should_Throw_When_Value1_Null()
+            public void Should_Throw_When_Instance_Null()
             {
                 Invoking(() =>
                 {
@@ -368,11 +444,11 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value1");
+                    .WithNamedMessageWhenNull("instance");
             }
 
             [Fact]
-            public void Should_Throw_When_Value2_Null()
+            public void Should_Throw_When_Value_Null()
             {
                 Invoking(() =>
                 {
@@ -380,7 +456,7 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value2");
+                    .WithNamedMessageWhenNull("value");
             }
 
             [Fact]
@@ -410,12 +486,29 @@ namespace AllOverIt.Tests.Expressions.Strings
 
                 actual.Should().Be(expected);
             }
+
+            [Theory]
+            [InlineData(null, "b", "instance")]
+            [InlineData("a", null, "value")]
+            public void Should_Throw_When_Null_Constant_Value(string value1, string value2, string parameterName)
+            {
+                Invoking(() =>
+                {
+                    var exp1 = Expression.Constant(value1);
+                    var exp2 = Expression.Constant(value2);
+
+                    _ = StringComparisonUtils.CreateEndsWithCallExpression(exp1, exp2, StringComparison.OrdinalIgnoreCase);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage($"Expected a non-null expression value. (Parameter '{parameterName}')");
+            }
         }
 
         public class CreateEndsWithCallExpression_StringComparisonMode : StringComparisonUtilsFixture
         {
             [Fact]
-            public void Should_Throw_When_Value1_Null()
+            public void Should_Throw_When_Instance_Null()
             {
                 Invoking(() =>
                 {
@@ -424,11 +517,11 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value1");
+                    .WithNamedMessageWhenNull("instance");
             }
 
             [Fact]
-            public void Should_Throw_When_Value2_Null()
+            public void Should_Throw_When_Value_Null()
             {
                 Invoking(() =>
                 {
@@ -436,7 +529,7 @@ namespace AllOverIt.Tests.Expressions.Strings
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("value2");
+                    .WithNamedMessageWhenNull("value");
             }
 
             [Fact]
@@ -468,6 +561,23 @@ namespace AllOverIt.Tests.Expressions.Strings
 
                 actual.Should().Be(expected);
             }
+
+            [Theory]
+            [InlineData(null, "b", "instance")]
+            [InlineData("a", null, "value")]
+            public void Should_Throw_When_Null_Constant_Value(string value1, string value2, string parameterName)
+            {
+                Invoking(() =>
+                {
+                    var exp1 = Expression.Constant(value1);
+                    var exp2 = Expression.Constant(value2);
+
+                    _ = StringComparisonUtils.CreateEndsWithCallExpression(exp1, exp2, StringComparisonMode.InvariantCultureIgnoreCase);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage($"Expected a non-null expression value. (Parameter '{parameterName}')");
+            }
         }
 
         public class CreateToLowerCallExpression : StringComparisonUtilsFixture
@@ -491,11 +601,25 @@ namespace AllOverIt.Tests.Expressions.Strings
                 var value = Create<string>();
                 var expected = value.ToLower();
 
-                var expression = StringComparisonUtils.CreateToLowerCallExpression(Expression.Constant(value));
+                var methodCallExpression = StringComparisonUtils.CreateToLowerCallExpression(Expression.Constant(value));
 
-                var actual = Expression.Lambda<Func<string>>(expression).Compile().Invoke();
+                var actual = Expression.Lambda<Func<string>>(methodCallExpression).Compile().Invoke();
 
                 actual.Should().Be(expected);
+            }
+
+            [Fact]
+            public void Should_Throw_When_Null_Constant_Value()
+            {
+                Invoking(() =>
+                {
+                    var expression = Expression.Constant((string) null);
+
+                    _ = StringComparisonUtils.CreateToLowerCallExpression(expression);
+                })
+               .Should()
+               .Throw<ArgumentNullException>()
+               .WithMessage($"Expected a non-null expression value. (Parameter 'value')");
             }
         }
 
@@ -525,6 +649,20 @@ namespace AllOverIt.Tests.Expressions.Strings
                 var actual = Expression.Lambda<Func<string>>(expression).Compile().Invoke();
 
                 actual.Should().Be(expected);
+            }
+
+            [Fact]
+            public void Should_Throw_When_Null_Constant_Value()
+            {
+                Invoking(() =>
+                {
+                    var expression = Expression.Constant((string) null);
+
+                    _ = StringComparisonUtils.CreateToUpperCallExpression(expression);
+                })
+               .Should()
+               .Throw<ArgumentNullException>()
+               .WithMessage($"Expected a non-null expression value. (Parameter 'value')");
             }
         }
     }
