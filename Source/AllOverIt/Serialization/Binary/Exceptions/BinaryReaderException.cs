@@ -4,7 +4,7 @@ using System.IO;
 namespace AllOverIt.Serialization.Binary.Exceptions
 {
     /// <summary>Represents an error while reading from a <see cref="BinaryReader"/> or <see cref="EnrichedBinaryReader"/> stream.</summary>
-    public class BinaryReaderException : Exception
+    public sealed class BinaryReaderException : Exception
     {
         /// <summary>Default constructor.</summary>
         public BinaryReaderException()

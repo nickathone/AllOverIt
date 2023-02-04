@@ -5,7 +5,7 @@ using System;
 namespace AllOverIt.Plugin.Exceptions
 {
     /// <summary>Represents an error raised when attempting to create a type from a loaded plugin assembly.</summary>
-    public class CannotLoadPluginTypeException : Exception
+    public sealed class CannotLoadPluginTypeException : Exception
     {
         /// <summary>Default constructor.</summary>
         public CannotLoadPluginTypeException()

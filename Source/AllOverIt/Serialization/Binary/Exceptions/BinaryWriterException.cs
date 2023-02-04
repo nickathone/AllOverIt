@@ -4,7 +4,7 @@ using System.IO;
 namespace AllOverIt.Serialization.Binary.Exceptions
 {
     /// <summary>Represents an error while writing to a <see cref="BinaryWriter"/> or <see cref="EnrichedBinaryWriter"/> stream.</summary>
-    public class BinaryWriterException : Exception
+    public sealed class BinaryWriterException : Exception
     {
         /// <summary>Default constructor.</summary>
         public BinaryWriterException()

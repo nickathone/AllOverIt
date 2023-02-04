@@ -3,7 +3,7 @@
 namespace AllOverIt.Mapping.Exceptions
 {
     /// <summary>Represents an error that occurred while object mapping.</summary>
-    public class ObjectMapperException : Exception
+    public sealed class ObjectMapperException : Exception
     {
         /// <summary>Default constructor.</summary>
         public ObjectMapperException()

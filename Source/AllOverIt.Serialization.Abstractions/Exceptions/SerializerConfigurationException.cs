@@ -3,7 +3,7 @@
 namespace AllOverIt.Serialization.Abstractions.Exceptions
 {
     /// <summary>Thrown when unable to set a configuration option on an <see cref="IJsonSerializer"/>.</summary>
-    public class SerializerConfigurationException : Exception
+    public sealed class SerializerConfigurationException : Exception
     {
         /// <summary>Default constructor.</summary>
         public SerializerConfigurationException()
