@@ -12,6 +12,7 @@ AllOverIt
   * Added AllOverIt.Plugin.PluginLoadContext to dynamically load assemblies (for .NET Core 3.1 and above)
   * Fixed some Breadcrumbs overloads that were not recording the caller details
   * Updates to string comparison utils (expressions) to detect null constant values and convert / throw as required
+  * General tidy up of all exception classes
 
 
 AllOverIt.DependencyInjection
