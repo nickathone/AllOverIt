@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Expressions.Strings.Extensions;
+using AllOverIt.Extensions;
 using AllOverIt.Reflection;
 using System;
 using System.Linq.Expressions;
@@ -77,8 +78,17 @@ namespace AllOverIt.Expressions.Strings
             _ = value2.WhenNotNull(nameof(value2));
             _ = stringComparisonMode.WhenNotNull(nameof(stringComparisonMode));
 
-            value1 = ConvertIfNullConstant(value1);
-            value2 = ConvertIfNullConstant(value2);
+            if (stringComparisonMode.IsStringModifier())
+            {
+                // Cannot perform upper or lower on a null value
+                ThrowIfNullConstant(value1, nameof(value1));
+                ThrowIfNullConstant(value2, nameof(value2));
+            }
+            else
+            {
+                value1 = ConvertIfNullConstant(value1);
+                value2 = ConvertIfNullConstant(value2);
+            }
 
             return CreateStringComparisonCallExpression(value1, value2, stringComparisonMode,
                 (val1, val2) => CreateCompareCallExpression(val1, val2),
@@ -265,11 +275,6 @@ namespace AllOverIt.Expressions.Strings
 
         private static Expression ApplyStringModifier(this Expression expression, StringComparisonMode stringComparisonMode)
         {
-            if (expression is ConstantExpression constant && constant.Value == null)
-            {
-                return expression;
-            }
-
             if (stringComparisonMode == StringComparisonMode.ToLower)
             {
                 return CreateToLowerCallExpression(expression);
@@ -317,9 +322,16 @@ namespace AllOverIt.Expressions.Strings
 
         private static void ThrowIfNullConstant(Expression value, string parameterName)
         {
-            var valueIsNull = value is ConstantExpression constant && constant.Value == null;
+            // Check for Constant(null)
+            var valueIsNull = value is ConstantExpression constant && constant.Value is null;
 
             Throw<ArgumentNullException>.When(valueIsNull, parameterName, "Expected a non-null expression value.");
+
+            //// Check for Convert(Constant(null))
+            //if (value is UnaryExpression unaryExpression && unaryExpression.NodeType == ExpressionType.Convert)
+            //{
+            //    ThrowIfNullConstant(unaryExpression.Operand, parameterName);
+            //}
         }
     }
 }

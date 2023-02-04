@@ -122,10 +122,12 @@ namespace AllOverIt.Tests.Expressions.Strings
             [InlineData("A", "b", true, -1)]
             [InlineData("A", "a", true, 0)]
             [InlineData("B", "a", true, 1)]
-            public void Should_Compare(string value1, string value2, bool useStringComparison, int expected)
+            public void Should_Compare_When_Not_String_Modifier(string value1, string value2, bool useStringComparison, int expected)
             {
                 var exp1 = Expression.Constant(value1);
                 var exp2 = Expression.Constant(value2);
+
+                // Not a string modifier such as ToLower or ToUpper
                 var comparisonMode = useStringComparison ? StringComparisonMode.InvariantCultureIgnoreCase : StringComparisonMode.None;
 
                 var expression = StringComparisonUtils.CreateCompareCallExpression(exp1, exp2, comparisonMode);
@@ -133,6 +135,23 @@ namespace AllOverIt.Tests.Expressions.Strings
                 var actual = Expression.Lambda<Func<int>>(expression).Compile().Invoke();
 
                 actual.Should().Be(expected);
+            }
+
+            [Theory]
+            [InlineData(null, "b", "value1")]
+            [InlineData("a", null, "value2")]
+            public void Should_Throw_When_Null_Constant_Value_And_String_Modifier(string value1, string value2, string parameterName)
+            {
+                Invoking(() =>
+                {
+                    var exp1 = Expression.Constant(value1);
+                    var exp2 = Expression.Constant(value2);
+
+                    _ = StringComparisonUtils.CreateCompareCallExpression(exp1, exp2, StringComparisonMode.ToLower);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithMessage($"Expected a non-null expression value. (Parameter '{parameterName}')");
             }
         }
 
