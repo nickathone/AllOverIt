@@ -287,6 +287,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GCCollectorStartupHookProxy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartupHookDemo", "Demos\AllOverIt\Plugin\StartupHook\StartupHookDemo\StartupHookDemo.csproj", "{48B90FD6-B2AF-45E8-BB0F-1BB287A832C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllOverIt.Tests.Helpers", "Tests\AllOverIt.Tests.Helpers\AllOverIt.Tests.Helpers.csproj", "{54C4D529-B2FF-4780-9847-A3E36F7BAC7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllOverIt.Serialization.Abstractions.Tests", "Tests\AllOverIt.Serialization.Abstractions.Tests\AllOverIt.Serialization.Abstractions.Tests.csproj", "{2512C648-7D41-4346-B828-A96DBA9C721D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -681,6 +685,14 @@ Global
 		{48B90FD6-B2AF-45E8-BB0F-1BB287A832C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48B90FD6-B2AF-45E8-BB0F-1BB287A832C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48B90FD6-B2AF-45E8-BB0F-1BB287A832C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54C4D529-B2FF-4780-9847-A3E36F7BAC7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C4D529-B2FF-4780-9847-A3E36F7BAC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C4D529-B2FF-4780-9847-A3E36F7BAC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C4D529-B2FF-4780-9847-A3E36F7BAC7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2512C648-7D41-4346-B828-A96DBA9C721D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2512C648-7D41-4346-B828-A96DBA9C721D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2512C648-7D41-4346-B828-A96DBA9C721D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2512C648-7D41-4346-B828-A96DBA9C721D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -816,6 +828,8 @@ Global
 		{34EBF28A-C98C-4BB3-929B-F3B12C18A3FB} = {9E8F785B-3896-40C0-8B66-4F29BA33906B}
 		{9B33AF0F-D64B-47CE-B8B4-921A308A2509} = {9E8F785B-3896-40C0-8B66-4F29BA33906B}
 		{48B90FD6-B2AF-45E8-BB0F-1BB287A832C8} = {9E8F785B-3896-40C0-8B66-4F29BA33906B}
+		{54C4D529-B2FF-4780-9847-A3E36F7BAC7F} = {0C08FAE6-4CD9-4C7B-A849-EB0DB9BD1451}
+		{2512C648-7D41-4346-B828-A96DBA9C721D} = {0C08FAE6-4CD9-4C7B-A849-EB0DB9BD1451}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19DD11B3-596E-4862-B5C4-1FFFFB173106}

@@ -22,5 +22,6 @@
         <ProjectReference Include="..\..\Source\AllOverIt.DependencyInjection\AllOverIt.DependencyInjection.csproj" />
         <ProjectReference Include="..\..\Source\AllOverIt.Fixture\AllOverIt.Fixture.csproj" />
         <ProjectReference Include="..\AllOverIt.DependencyInjection.Tests.Types\AllOverIt.DependencyInjection.Tests.Types.csproj" />
+        <ProjectReference Include="..\AllOverIt.Tests.Helpers\AllOverIt.Tests.Helpers.csproj" />
     </ItemGroup>
 </Project>

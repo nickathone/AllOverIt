@@ -11,6 +11,7 @@
                    <ModulePath>AllOverIt.Aws.AppSync.Client.dll</ModulePath>
                    <ModulePath>AllOverIt.Aws.Cdk.AppSync.dll</ModulePath>
                    <ModulePath>AllOverIt.DependencyInjection.Tests.Types.dll</ModulePath>
+                  <ModulePath>AllOverIt.Tests.Helpers.dll</ModulePath>				  
               </Exclude>
             </ModulePaths>
 
