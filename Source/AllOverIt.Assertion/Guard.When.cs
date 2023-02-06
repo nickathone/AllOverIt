@@ -168,7 +168,7 @@ namespace AllOverIt.Assertion
         /// <returns>The original object instance when not null.</returns>
         public static TType WhenNotNull<TType>(this TType @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -192,7 +192,7 @@ namespace AllOverIt.Assertion
         /// <returns>The original object instance when not null and not empty.</returns>
         public static IEnumerable<TType> WhenNotNullOrEmpty<TType>(this IEnumerable<TType> @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -214,7 +214,7 @@ namespace AllOverIt.Assertion
         /// <returns>The original collection instance when not empty. If the instance was null then null will be returned.</returns>
         public static IEnumerable<TType> WhenNotEmpty<TType>(this IEnumerable<TType> @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -254,7 +254,7 @@ namespace AllOverIt.Assertion
         /// <returns>The original string instance when not null and not empty.</returns>
         public static string WhenNotNullOrEmpty(this string @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -275,7 +275,7 @@ namespace AllOverIt.Assertion
         /// <returns>The original string instance when not empty.</returns>
         public static string WhenNotEmpty(this string @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif

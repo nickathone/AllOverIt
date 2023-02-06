@@ -15,7 +15,7 @@ namespace AllOverIt.Assertion
         /// <exception cref="InvalidOperationException"/>
         public static void CheckNotNull<TType>(this TType @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -36,7 +36,7 @@ namespace AllOverIt.Assertion
         /// <exception cref="InvalidOperationException"/>
         public static void CheckIsNull<TType>(this TType @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -60,7 +60,7 @@ namespace AllOverIt.Assertion
         /// <exception cref="InvalidOperationException"/>
         public static void CheckNotNullOrEmpty<TType>(this IEnumerable<TType> @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -81,7 +81,7 @@ namespace AllOverIt.Assertion
         /// <exception cref="InvalidOperationException"/>
         public static void CheckNotEmpty<TType>(this IEnumerable<TType> @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -101,7 +101,7 @@ namespace AllOverIt.Assertion
         /// <exception cref="InvalidOperationException"/>
         public static void CheckNotNullOrEmpty(this string @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
@@ -118,7 +118,7 @@ namespace AllOverIt.Assertion
         /// <exception cref="InvalidOperationException"/>
         public static void CheckNotEmpty(this string @object,
 #if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression("object")] string name = "",
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #else
             string name,
 #endif
