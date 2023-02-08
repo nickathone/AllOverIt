@@ -60,13 +60,11 @@ namespace AllOverIt.Events
             if (_subscriptions.TryGetValue(typeof(TMessage), out var subscriptions))
             {
                 // We're not checking for duplicate handler subscriptions so make sure any duplicates are unsubscribed
-                var handlerSubscriptions =
-                    from subscription in subscriptions
-                    let action = subscription.GetHandler<TMessage>()
-                    where action == handler
-                    select subscription;
-                
-                foreach (var subscription in handlerSubscriptions)
+                var subscriptionsToRemove = subscriptions
+                    .Where(subscription => subscription.GetHandler<TMessage>() == handler)
+                    .SelectAsReadOnlyCollection(subscription => subscription);
+
+                foreach (var subscription in subscriptionsToRemove)
                 {
                     subscriptions.Remove(subscription);
                 }
@@ -79,13 +77,11 @@ namespace AllOverIt.Events
             if (_asyncSubscriptions.TryGetValue(typeof(TMessage), out var subscriptions))
             {
                 // We're not checking for duplicate handler subscriptions so make sure any duplicates are unsubscribed
-                var handlerSubscriptions =
-                    from subscription in subscriptions
-                    let action = subscription.GetHandler<TMessage>()
-                    where action == handler
-                    select subscription;
+                var subscriptionsToRemove = subscriptions
+                    .Where(subscription => subscription.GetHandler<TMessage>() == handler)
+                    .SelectAsReadOnlyCollection(subscription => subscription);
 
-                foreach (var subscription in handlerSubscriptions)
+                foreach (var subscription in subscriptionsToRemove)
                 {
                     subscriptions.Remove(subscription);
                 }
