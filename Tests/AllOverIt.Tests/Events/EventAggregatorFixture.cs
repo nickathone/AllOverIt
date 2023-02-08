@@ -119,7 +119,7 @@ namespace AllOverIt.Tests.Events
 
                 aggregator.Publish(message);
 
-                message.Output.Should().Be(message.Input);
+                message.Output.Should().Be(message.Input * 2);
                 message.Counter.Should().Be(2);
             }
         }
@@ -165,7 +165,7 @@ namespace AllOverIt.Tests.Events
 
                 await aggregator.PublishAsync(message);
 
-                message.Output.Should().Be(message.Input);
+                message.Output.Should().Be(message.Input * 4);
                 message.Counter.Should().Be(4);
             }
         }
@@ -291,7 +291,7 @@ namespace AllOverIt.Tests.Events
         public class Unsubscribe_Func_Task : EventAggregatorFixture
         {
             [Fact]
-            public async Task Should_Unsubscribe_From_Handler()
+            public async Task Should_Unsubscribe_From_Handler_1()
             {
                 var aggregator = new EventAggregator();
 
@@ -307,9 +307,37 @@ namespace AllOverIt.Tests.Events
                 aggregator.Unsubscribe<EventDummy>(handler.HandleEventAsync);
                 message.Output = -message.Input;
 
+                // There's no handler so the value should remain unchanged
                 await aggregator.PublishAsync(message);
 
                 message.Output.Should().Be(-message.Input);
+            }
+
+            [Fact]
+            public async Task Should_Unsubscribe_From_Handler_2()
+            {
+                var aggregator = new EventAggregator();
+
+                var handler1 = new HandlerAsync();
+                aggregator.Subscribe<EventDummy>(handler1.HandleEventAsync);
+
+                var handler2 = new HandlerAsync();
+                aggregator.Subscribe<EventDummy>(handler2.HandleEventAsync);
+
+                var message = new EventDummy { Input = Create<int>() };
+
+                await aggregator.PublishAsync(message);
+
+                message.Output.Should().Be(message.Input * 2);
+
+                // Unsubscribing the second handler so the internal loop iterates at least once
+                aggregator.Unsubscribe<EventDummy>(handler2.HandleEventAsync);
+                message.Output = 0;
+
+                // There's still one handler so make sure the value is updated again
+                await aggregator.PublishAsync(message);
+
+                message.Output.Should().Be(message.Input);
             }
 
             [Fact]
@@ -347,7 +375,7 @@ namespace AllOverIt.Tests.Events
 
         private static void StaticHandleMessageEvent(EventDummy message)
         {
-            message.Output = message.Input;
+            message.Output = message.Output + message.Input;
             message.IncrementCounter();
         }
 

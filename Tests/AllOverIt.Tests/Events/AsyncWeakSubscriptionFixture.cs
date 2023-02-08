@@ -61,26 +61,26 @@ namespace AllOverIt.Tests.Events
             //[Fact]
             //public async Task Should_Not_Handle_Disposed_Handler()
             //{
-            //  var expected = Create<int>();
-            //  var actual = -expected;
+            //    var expected = Create<int>();
+            //    var actual = -expected;
 
-            //  Func<int, Task> handler = value =>
-            //  {
-            //    actual = value;
-            //    return Task.CompletedTask;
-            //  };
+            //    Func<int, Task> handler = value =>
+            //    {
+            //        actual = value;
+            //        return Task.CompletedTask;
+            //    };
 
-            //  var subscription = new AsyncWeakSubscription(handler);
+            //    var subscription = new AsyncWeakSubscription(handler);
 
-            //  handler = null;
-            //  GC.Collect();
-            //  GC.Collect();
+            //    handler = null;
+            //    GC.Collect();
+            //    GC.Collect();
 
-            //  var registeredHandler = subscription.GetHandler<int>();
+            //    var registeredHandler = subscription.GetHandler<int>();
 
-            //  await registeredHandler.Invoke(expected);
+            //    await registeredHandler.Invoke(expected);
 
-            //  actual.Should().Be(-expected);
+            //    actual.Should().Be(-expected);
             //}
 
             [Fact]

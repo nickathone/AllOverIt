@@ -38,7 +38,7 @@ namespace AllOverIt.Events
         public void Subscribe<TMessage>(Action<TMessage> handler, bool weakSubscription = true)
         {
             var subscription = weakSubscription
-              ? (ISubscription)new WeakSubscription(handler)
+              ? (ISubscription) new WeakSubscription(handler)
               : new Subscription(handler);
 
             Subscribe<TMessage>(subscription);
@@ -48,7 +48,7 @@ namespace AllOverIt.Events
         public void Subscribe<TMessage>(Func<TMessage, Task> handler, bool weakSubscription = true)
         {
             var subscription = weakSubscription
-              ? (IAsyncSubscription)new AsyncWeakSubscription(handler)
+              ? (IAsyncSubscription) new AsyncWeakSubscription(handler)
               : new AsyncSubscription(handler);
 
             Subscribe<TMessage>(subscription);
@@ -59,15 +59,16 @@ namespace AllOverIt.Events
         {
             if (_subscriptions.TryGetValue(typeof(TMessage), out var subscriptions))
             {
-                foreach (var subscription in subscriptions)
+                // We're not checking for duplicate handler subscriptions so make sure any duplicates are unsubscribed
+                var handlerSubscriptions =
+                    from subscription in subscriptions
+                    let action = subscription.GetHandler<TMessage>()
+                    where action == handler
+                    select subscription;
+                
+                foreach (var subscription in handlerSubscriptions)
                 {
-                    var action = subscription.GetHandler<TMessage>();
-
-                    if (action == handler)
-                    {
-                        subscriptions.Remove(subscription);
-                        return;
-                    }
+                    subscriptions.Remove(subscription);
                 }
             }
         }
@@ -77,15 +78,16 @@ namespace AllOverIt.Events
         {
             if (_asyncSubscriptions.TryGetValue(typeof(TMessage), out var subscriptions))
             {
-                foreach (var subscription in subscriptions)
-                {
-                    var action = subscription.GetHandler<TMessage>();
+                // We're not checking for duplicate handler subscriptions so make sure any duplicates are unsubscribed
+                var handlerSubscriptions =
+                    from subscription in subscriptions
+                    let action = subscription.GetHandler<TMessage>()
+                    where action == handler
+                    select subscription;
 
-                    if (action == handler)
-                    {
-                        subscriptions.Remove(subscription);
-                        return;
-                    }
+                foreach (var subscription in handlerSubscriptions)
+                {
+                    subscriptions.Remove(subscription);
                 }
             }
         }
