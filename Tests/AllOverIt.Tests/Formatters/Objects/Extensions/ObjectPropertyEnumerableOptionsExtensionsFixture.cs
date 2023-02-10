@@ -24,6 +24,7 @@ namespace AllOverIt.Tests.Formatters.Objects.Extensions
             public bool Prop1 { get; }
             public IEnumerable<ChildObject> Prop3 { get; }
             public ChildObject Prop5 { get; }
+            public string[] Prop6 { get; }
         }
 
         public class SetAutoCollatedPaths : ObjectPropertyEnumerableOptionsExtensionsFixture
@@ -118,9 +119,13 @@ namespace AllOverIt.Tests.Formatters.Objects.Extensions
                     .For<DummyObject>()
                     .Navigate(model => model.Prop1);
 
-                ObjectPropertyEnumerableOptionsExtensions.SetAutoCollatedPaths(_options, nodes1, nodes2, nodes3);
+                var nodes4 = PropertyNavigator
+                    .For<DummyObject>()
+                    .Navigate(model => model.Prop6);
 
-                var expected = new[] {"Prop3.Prop4", "Prop5.Prop4", "Prop1"};
+                ObjectPropertyEnumerableOptionsExtensions.SetAutoCollatedPaths(_options, nodes1, nodes2, nodes3, nodes4);
+
+                var expected = new[] {"Prop3.Prop4", "Prop5.Prop4", "Prop1", "Prop6" };
 
                 expected.Should().BeEquivalentTo(_options.AutoCollatedPaths);
             }
