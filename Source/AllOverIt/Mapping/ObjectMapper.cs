@@ -79,11 +79,6 @@ namespace AllOverIt.Mapping
 
         private object MapSourceToTarget(object source, object target, bool isDeepCopy)
         {
-            if (source is null)
-            {
-                return null;
-            }
-
             var sourceType = source.GetType();
             var targetType = target.GetType();
 
