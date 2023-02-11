@@ -2,6 +2,7 @@
 using AllOverIt.Patterns.Enumeration.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -23,6 +24,7 @@ namespace AllOverIt.Patterns.Enumeration
         public string Name { get; }
 
         /// <summary>Constructor.</summary>
+        [ExcludeFromCodeCoverage]
         protected EnrichedEnum()
         {
             // Required for some serialization scenarios

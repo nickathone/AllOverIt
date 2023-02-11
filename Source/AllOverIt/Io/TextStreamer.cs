@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Text;
 
 namespace AllOverIt.Io
@@ -60,6 +61,7 @@ namespace AllOverIt.Io
         }
 
         /// <inheritdoc />
+        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (!disposing)

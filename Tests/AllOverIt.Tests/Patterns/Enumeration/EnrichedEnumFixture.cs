@@ -169,8 +169,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Be_Equal()
             {
-                object enum1 = EnrichedEnumDummy.Value1;
-                var actual = EnrichedEnumDummy.Value1.Equals(enum1);
+                object value1 = EnrichedEnumDummy.Value1;
+                var actual = EnrichedEnumDummy.Value1.Equals(value1);
 
                 actual.Should().BeTrue();
             }
@@ -178,8 +178,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Not_Be_Equal_When_Null()
             {
-                object enumNull = null;
-                var actual = EnrichedEnumDummy.Value1.Equals(enumNull);
+                object nullValue = null;
+                var actual = EnrichedEnumDummy.Value1.Equals(nullValue);
 
                 actual.Should().BeFalse();
             }
@@ -187,8 +187,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Not_Be_Equal_Same_Type()
             {
-                object enum2 = EnrichedEnumDummy.Value2;
-                var actual = EnrichedEnumDummy.Value1.Equals(enum2);
+                object value2 = EnrichedEnumDummy.Value2;
+                var actual = EnrichedEnumDummy.Value1.Equals(value2);
 
                 actual.Should().BeFalse();
             }
@@ -196,8 +196,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Not_Be_Equal_Different_Type_Same_Value()
             {
-                object enum1 = EnrichedEnumDummy2.Value1;
-                var actual = EnrichedEnumDummy.Value1.Equals(enum1);
+                object value1 = EnrichedEnumDummy2.Value1;
+                var actual = EnrichedEnumDummy.Value1.Equals(value1);
 
                 actual.Should().BeFalse();
             }
@@ -208,8 +208,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Be_Equal()
             {
-                var enum1 = EnrichedEnumDummy.Value1;
-                var actual = EnrichedEnumDummy.Value1.Equals(enum1);
+                var value1 = EnrichedEnumDummy.Value1;
+                var actual = EnrichedEnumDummy.Value1.Equals(value1);
 
                 actual.Should().BeTrue();
             }
@@ -217,8 +217,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Not_Be_Equal_When_Null()
             {
-                EnrichedEnumDummy enumNull = null;
-                var actual = EnrichedEnumDummy.Value1.Equals(enumNull);
+                EnrichedEnumDummy nullValue = null;
+                var actual = EnrichedEnumDummy.Value1.Equals(nullValue);
 
                 actual.Should().BeFalse();
             }
@@ -226,8 +226,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Not_Be_Equal_Same_Type()
             {
-                var enum2 = EnrichedEnumDummy.Value2;
-                var actual = EnrichedEnumDummy.Value1.Equals(enum2);
+                var value2 = EnrichedEnumDummy.Value2;
+                var actual = EnrichedEnumDummy.Value1.Equals(value2);
 
                 actual.Should().BeFalse();
             }
@@ -674,8 +674,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Be_Equal()
             {
-                var enum1 = EnrichedEnumDummy.Value1;
-                var actual = EnrichedEnumDummy.Value1 == enum1;
+                var value1 = EnrichedEnumDummy.Value1;
+                var actual = EnrichedEnumDummy.Value1 == value1;
 
                 actual.Should().BeTrue();
             }
@@ -683,8 +683,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Not_Be_Equal_When_Null()
             {
-                EnrichedEnumDummy enumNull = null;
-                var actual = EnrichedEnumDummy.Value1 == enumNull;
+                EnrichedEnumDummy nullValue = null;
+                var actual = EnrichedEnumDummy.Value1 == nullValue;
 
                 actual.Should().BeFalse();
             }
@@ -703,8 +703,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Be_Equal()
             {
-                var enum1 = EnrichedEnumDummy.Value1;
-                var actual = EnrichedEnumDummy.Value1 != enum1;
+                var value1 = EnrichedEnumDummy.Value1;
+                var actual = EnrichedEnumDummy.Value1 != value1;
 
                 actual.Should().BeFalse();
             }
@@ -712,9 +712,9 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Not_Be_Equal_When_Null()
             {
-                EnrichedEnumDummy enumNull = null;
+                EnrichedEnumDummy nullValue = null;
 
-                var actual = EnrichedEnumDummy.Value1 != enumNull;
+                var actual = EnrichedEnumDummy.Value1 != nullValue;
 
                 actual.Should().BeTrue();
             }
@@ -782,8 +782,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Be_Equal()
             {
-                var enum2 = EnrichedEnumDummy.Value2;
-                var actual = EnrichedEnumDummy.Value2 >= enum2;
+                var value2 = EnrichedEnumDummy.Value2;
+                var actual = EnrichedEnumDummy.Value2 >= value2;
 
                 actual.Should().BeTrue();
             }
@@ -863,8 +863,8 @@ namespace AllOverIt.Tests.Patterns.Enumeration
             [Fact]
             public void Should_Be_Equal()
             {
-                var enum2 = EnrichedEnumDummy.Value2;
-                var actual = EnrichedEnumDummy.Value2 <= enum2;
+                var value2 = EnrichedEnumDummy.Value2;
+                var actual = EnrichedEnumDummy.Value2 <= value2;
 
                 actual.Should().BeTrue();
             }

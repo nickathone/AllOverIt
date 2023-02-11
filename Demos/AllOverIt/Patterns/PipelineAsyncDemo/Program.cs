@@ -13,9 +13,6 @@ namespace PipelineAsyncDemo
     {
         static async Task Main()
         {
-
-
-
             var p1 = PipelineBuilder
                 .Pipe(() => 1)
                 .Pipe(v => v * 2.0d)
