@@ -298,6 +298,23 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
 
                 actual.Should().BeOfType<PipelineBuilderAsync<int, double, string>>();
             }
+
+            [Fact]
+            public async Task Should_Invoke_Pipeline()
+            {
+                var value = Create<int>();
+
+                var pipe = PipelineBuilder
+                   .PipeAsync<int, int>(value => Task.FromResult(value + 1))
+                   .Pipe(v => v * 3)
+                   .Build();
+
+                var expected = (value + 1) * 3;
+
+                var actual = await pipe.Invoke(value);
+
+                expected.Should().Be(actual);
+            }
         }
 
         public class Pipe_Step_Instance_BuilderAsync : PipelineBuilderExtensionsFixture
@@ -588,6 +605,23 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 var actual = PipelineBuilderExtensions.Pipe<double, string>(_builderNoInputAsyncDummy, _funcStep);
 
                 actual.Should().BeOfType<PipelineNoInputBuilderAsync<double, string>>();
+            }
+
+            [Fact]
+            public async Task Should_Invoke_Pipeline()
+            {
+                var value = Create<int>();
+
+                var pipe = PipelineBuilder
+                   .PipeAsync<int>(() => Task.FromResult(value + 1))
+                   .Pipe(v => v * 3)
+                   .Build();
+
+                var expected = (value + 1) * 3;
+
+                var actual = await pipe.Invoke();
+
+                expected.Should().Be(actual);
             }
         }
 
