@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using AllOverIt.Fixture;
 using AllOverIt.Io;
 using FluentAssertions;
@@ -7,12 +8,22 @@ using Xunit;
 
 namespace AllOverIt.Tests.Io
 {
-    public class TextStreamerFixture : FixtureBase
+    public class TextStreamerFixture : FixtureBase, IAsyncLifetime
     {
+        private readonly TextStreamer _streamer = new();
+
+        public async Task DisposeAsync()
+        {
+            await _streamer.DisposeAsync();
+        }
+
+        public Task InitializeAsync()
+        {
+            return Task.CompletedTask;
+        }
+
         public class Constructor : TextStreamerFixture
         {
-            private readonly TextStreamer _streamer = new();
-
             [Fact]
             public void Should_Set_Default_Encoding()
             {
@@ -41,11 +52,12 @@ namespace AllOverIt.Tests.Io
             {
                 var expected = Create<string>();
 
-                var stream = new TextStreamer(expected);
+                using (var stream = new TextStreamer(expected))
+                {
+                    var actual = stream.ToString();
 
-                var actual = stream.ToString();
-
-                expected.Should().Be(actual);
+                    expected.Should().Be(actual);
+                }                  
             }
         }
 
@@ -54,8 +66,7 @@ namespace AllOverIt.Tests.Io
             [Fact]
             public void Should_Return_Writer()
             {
-                var stream = new TextStreamer();
-                var writer = stream.GetWriter();
+                var writer = _streamer.GetWriter();
 
                 writer.Should().BeOfType<StreamWriter>();
             }
@@ -63,10 +74,9 @@ namespace AllOverIt.Tests.Io
             [Fact]
             public void Should_Have_Expected_BaseStream()
             {
-                var stream = new TextStreamer();
-                var writer = stream.GetWriter();
+                var writer = _streamer.GetWriter();
 
-                writer.BaseStream.Should().BeSameAs(stream);
+                writer.BaseStream.Should().BeSameAs(_streamer);
             }
 
             [Fact]
@@ -83,14 +93,13 @@ namespace AllOverIt.Tests.Io
 
                 var expected = sb.ToString();
 
-                var stream = new TextStreamer();
-                var writer = stream.GetWriter();
+                var writer = _streamer.GetWriter();
 
                 writer.Write(value1);
                 writer.WriteLine();
                 writer.Write(value2);
 
-                var actual = stream.ToString();
+                var actual = _streamer.ToString();
 
                 expected.Should().Be(actual);
             }
@@ -112,14 +121,13 @@ namespace AllOverIt.Tests.Io
 
                 var expected = sb.ToString();
 
-                var stream = new TextStreamer();
-                var writer = stream.GetWriter();
+                var writer = _streamer.GetWriter();
 
                 writer.Write(value1);
                 writer.WriteLine();
                 writer.Write(value2);
 
-                var actual = stream.ToString();
+                var actual = _streamer.ToString();
 
                 expected.Should().Be(actual);
             }
