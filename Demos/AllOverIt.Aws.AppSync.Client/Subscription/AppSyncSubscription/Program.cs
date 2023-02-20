@@ -62,6 +62,12 @@ namespace AppSyncSubscription
                         .AddOptions()
                         .Configure<AppSyncOptions>(hostContext.Configuration.GetSection(nameof(AppSyncOptions)));
 
+                    // Alternative - allows for validation at startup
+                    //  .AddOptions<AppSyncOptions>()
+                    //  .Bind(hostContext.Configuration.GetSection(nameof(AppSyncOptions)))
+                    //  .ValidateUsingFluentValidation() or Validate() etc
+                    //  .ValidateOnStart();
+
                     // If not using the generic version of CreateConsoleHostBuilder(), then this must be manually called
                     // .AddSingleton<IConsoleApp, SubscriptionConsole>();
                 });

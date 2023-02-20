@@ -4,7 +4,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using AllOverIt.DependencyInjection;
 using AllOverIt.DependencyInjection.Extensions;
 using FluentValidation;
 
@@ -43,9 +42,5 @@ namespace ValidationViaDependencyInjection
                     Console.WriteLine();
                 });
         }
-    }
-
-    internal sealed class ValidationServiceRegistrar : ServiceRegistrarBase
-    {
     }
 }
