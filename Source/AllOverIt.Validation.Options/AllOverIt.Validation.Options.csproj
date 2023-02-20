@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+        <Copyright>Copyright © 2023</Copyright>
+        <Description>Provides Options validation using FluentValidation.</Description>
+        <PackageTags>utilities;validation</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="11.4.0" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AllOverIt.Validation\AllOverIt.Validation.csproj" />
+    </ItemGroup>
+
+</Project>

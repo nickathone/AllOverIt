@@ -14,12 +14,14 @@ AllOverIt
   * Updates to string comparison utils (expressions) to detect null constant values and convert / throw as required
   * General tidy up of all exception classes
 
-
 AllOverIt.DependencyInjection
   * Added an extension method to validate registered services. To be used during development only.
 
 AllOverIt.ReactiveUI
   * Added support for a ReactiveCommand based pipeline (with support for chaining other sync / async pipeline steps)
+
+AllOverIt.Validation.Options - New Package
+  * Add config options validation using FluentValidation and AllOverIt.Validation
 
 
 02 Feb 2023

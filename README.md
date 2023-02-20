@@ -345,3 +345,19 @@ Provides additional validators and extensions for use with FluentValidation.
 | net5.0         |    Yes    |
 | net6.0         |    Yes    |
 | net7.0         |    Yes    |
+
+
+# AllOverIt.Validation.Options
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Validation.Options?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validation.Options/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Validation.Options?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validation.Options/)
+
+Provides Options validation using FluentValidation.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
