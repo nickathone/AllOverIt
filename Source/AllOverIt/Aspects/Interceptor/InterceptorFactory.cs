@@ -5,14 +5,20 @@ namespace AllOverIt.Aspects.Interceptor
 {
     public static class InterceptorFactory
     {
-        // TODO: An overload to new() TDecorated when not provided
-        public static TDecorated CreateProxy<TDecorated, TInterceptor>(TDecorated decorated, Action<TInterceptor> configure = default)
-            where TInterceptor : InterceptorBase<TDecorated>
+        /// <summary>Creates an interceptor (proxy) that derives from <typeparamref name="TInterceptor"/>, which must be a <see cref="InterceptorBase{TServiceType}"/>,
+        /// and implements <typeparamref name="TServiceType"/>.</summary>
+        /// <typeparam name="TServiceType">The interface type that the interceptor implements.</typeparam>
+        /// <typeparam name="TInterceptor">The base class for the interceptor, which must be a <see cref="InterceptorBase{TServiceType}"/>.</typeparam>
+        /// <param name="serviceInstance">The object instance to be intercepted.</param>
+        /// <param name="configure">An optional configuration option that allows for customization of the created interceptor.</param>
+        /// <returns>An interceptor that implements <typeparamref name="TServiceType"/>.</returns>
+        public static TServiceType CreateInterceptor<TServiceType, TInterceptor>(TServiceType serviceInstance, Action<TInterceptor> configure = default)
+            where TInterceptor : InterceptorBase<TServiceType>
         {
-            object proxyInstance = DispatchProxy.Create<TDecorated, TInterceptor>();
+            object proxyInstance = DispatchProxy.Create<TServiceType, TInterceptor>();
 
-            var proxyDecorator = (InterceptorBase<TDecorated>) proxyInstance;
-            proxyDecorator._decorated = decorated;
+            var proxyDecorator = (InterceptorBase<TServiceType>) proxyInstance;
+            proxyDecorator._serviceInstance = serviceInstance;
 
             if (configure is not null)
             {
@@ -20,7 +26,7 @@ namespace AllOverIt.Aspects.Interceptor
                 configure.Invoke(interceptor);
             }
 
-            return (TDecorated) proxyInstance;
+            return (TServiceType) proxyInstance;
         }
     }
 }

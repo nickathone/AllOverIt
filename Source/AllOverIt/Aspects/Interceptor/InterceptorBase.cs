@@ -4,18 +4,10 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Aspects.Interceptor
 {
-    public abstract class InterceptorState
+    // Note: Derived Interceptors cannot be sealed as they are the base class for the generated proxy.
+    public abstract class InterceptorBase<TServiceType> : DispatchProxy
     {
-        private class Unit : InterceptorState
-        {
-        }
-
-        public static InterceptorState None => new Unit();
-    }
-
-    public abstract class InterceptorBase<TDecorated> : DispatchProxy
-    {
-        internal TDecorated _decorated;
+        internal TServiceType _serviceInstance;
 
         protected override object Invoke(MethodInfo targetMethod, object[] args)
         {
@@ -25,7 +17,7 @@ namespace AllOverIt.Aspects.Interceptor
 
             try
             {
-                result = targetMethod.Invoke(_decorated, args);
+                result = targetMethod.Invoke(_serviceInstance, args);
 
                 if (result is Task taskResult)
                 {

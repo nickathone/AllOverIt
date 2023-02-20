@@ -6,6 +6,7 @@ using System.Reflection;
 
 namespace InterceptorDemo.Interceptors
 {
+    // Note: Interceptors cannot be sealed as they are the base class for the generated proxy.
     internal class TimedInterceptor : InterceptorBase<ISecretService>
     {
         public long? MinimimReportableMilliseconds { get; set; }

@@ -17,7 +17,7 @@ namespace InterceptorBenchmarking
     public class BenchmarkTests
     {
         private readonly IService _service = new Service();
-        private readonly IService _serviceInterceptor = InterceptorFactory.CreateProxy<IService, ServiceInterceptor>(new Service(), interceptor => { });
+        private readonly IService _serviceInterceptor = InterceptorFactory.CreateInterceptor<IService, ServiceInterceptor>(new Service(), interceptor => { });
 
         [Benchmark]
         public void Call_Service_GetSecret()
