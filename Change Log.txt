@@ -14,11 +14,31 @@ AllOverIt
   * Updates to string comparison utils (expressions) to detect null constant values and convert / throw as required
   * General tidy up of all exception classes
 
+AllOverIt.AutoFixture
+  * Updated AutoFixture v4.18.0
+
+AllOverIt.AutoFixture.FakeItEasy
+  * Updated AutoFixture.FakeItEasy v4.18.0
+
 AllOverIt.DependencyInjection
   * Added an extension method to validate registered services. To be used during development only.
 
+AllOverIt.EntityFrameworkCore
+  * Updated Microsoft.EntityFrameworkCore.Relational v7.0.3 (NET7)
+
+AllOverIt.Fixture
+AllOverIt.Fixture.FakeItEasy
+  * Updated FluentAssertions v6.10.0
+
+AllOverIt.GenericHost
+  * Updated Microsoft.Extensions.Hosting v7.0.1
+
 AllOverIt.ReactiveUI
   * Added support for a ReactiveCommand based pipeline (with support for chaining other sync / async pipeline steps)
+  * Updated ReactiveUI v18.4.22
+
+AllOverIt.Validation
+  * Updated FluentValidation v11.5.1
 
 AllOverIt.Validation.Options - New Package
   * Add config options validation using FluentValidation and AllOverIt.Validation

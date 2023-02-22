@@ -23,7 +23,7 @@ namespace EnrichedEnumModelBinding
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services)
         {
             // IETF RFC 7807
             // https://datatracker.ietf.org/doc/html/rfc7807
@@ -80,7 +80,7 @@ namespace EnrichedEnumModelBinding
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment _)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment _)
         {
             //if (env.IsDevelopment())
             //{

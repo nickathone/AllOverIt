@@ -14,6 +14,8 @@ namespace EnrichedEnumModelBinding.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly Random _random = new();
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -58,10 +60,8 @@ namespace EnrichedEnumModelBinding.Controllers
             return Ok(result);
         }
 
-        private static WeatherReport GetWeatherReport(ForecastPeriod period)
+        private WeatherReport GetWeatherReport(ForecastPeriod period)
         {
-            var rng = new Random();
-
             // default if null or 'ForecastPeriod.ThisWeek'
             var dayOffset = 0;
             var dayCount = 7;
@@ -90,8 +90,8 @@ namespace EnrichedEnumModelBinding.Controllers
                     .SelectAsReadOnlyCollection(index => new WeatherForecast
                     {
                         Date = DateTime.Now.AddDays(index),
-                        TemperatureC = rng.Next(-20, 55),
-                        Summary = Summaries[rng.Next(Summaries.Length)]
+                        TemperatureC = _random.Next(-20, 55),
+                        Summary = Summaries[_random.Next(Summaries.Length)]
                     })
             };
         }
