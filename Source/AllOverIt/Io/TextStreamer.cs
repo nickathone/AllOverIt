@@ -30,7 +30,8 @@ namespace AllOverIt.Io
         public TextStreamer(string value, Encoding encoding = null, int capacity = 0, int bufferSize = -1)
             : base(capacity)
         {
-            _writer = new StreamWriter(this, encoding, bufferSize, false);
+            // Passing 'true' for 'leaveOpen' as this class explicitly disposes of the writer
+            _writer = new StreamWriter(this, encoding, bufferSize, true);
 
             if (value != null)
             {
