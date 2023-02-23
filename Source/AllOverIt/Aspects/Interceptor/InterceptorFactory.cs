@@ -3,8 +3,11 @@ using System.Reflection;
 
 namespace AllOverIt.Aspects.Interceptor
 {
+    /// <summary>Provides a factory that creates an interceptor (proxy) for a provided service instance.</summary>
     public static class InterceptorFactory
     {
+        // Note: Indirectly tested via InterceptorBaseFixture
+
         /// <summary>Creates an interceptor (proxy) that derives from <typeparamref name="TInterceptor"/>, which must be a <see cref="InterceptorBase{TServiceType}"/>,
         /// and implements <typeparamref name="TServiceType"/>.</summary>
         /// <typeparam name="TServiceType">The interface type that the interceptor implements.</typeparam>

@@ -22,7 +22,7 @@ namespace InterceptorDemo.Interceptors
 
             Console.WriteLine($"Before {targetMethod.Name}");
 
-            // Would return ProxyState.None if no state is required
+            // Would return InterceptorState.Unit if no state is required
             return new TimedState();
         }
 
