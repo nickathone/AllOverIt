@@ -1,8 +1,7 @@
-﻿using AllOverIt.Extensions;
-using AllOverIt.Patterns.Specification;
+﻿using AllOverIt.Patterns.Specification;
+using AllOverIt.Patterns.Specification.Extensions;
 using System;
 using System.Linq;
-using AllOverIt.Patterns.Specification.Extensions;
 
 namespace SpecificationDemo
 {
