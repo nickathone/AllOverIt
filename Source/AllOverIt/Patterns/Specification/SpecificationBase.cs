@@ -1,5 +1,7 @@
 ﻿namespace AllOverIt.Patterns.Specification
 {
+    // Note: tested indirectly via SpecificationFixture
+
     /// <summary>An abstract base class for all concrete specifications.</summary>
     /// <typeparam name="TType">The candidate type the specification applies to.</typeparam>
     public abstract class SpecificationBase<TType>
