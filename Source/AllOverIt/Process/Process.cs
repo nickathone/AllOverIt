@@ -1,11 +1,13 @@
 ﻿using AllOverIt.Async;
 using AllOverIt.Process.Exceptions;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace AllOverIt.Process
 {
     /// <summary>Provides support for general process activities.</summary>
+    [ExcludeFromCodeCoverage]
     public static class Process
     {
         /// <summary>Executes a process and captures the standard output and standard error streams.</summary>
