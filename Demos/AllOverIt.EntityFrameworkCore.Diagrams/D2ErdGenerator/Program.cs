@@ -33,11 +33,28 @@ namespace D2ErdGenerator
                     options.Entity.ShowMaxLength = true;
 
                     // Selectively style an entity - based on the table name (which may not be the same as the class name)
-                    options.Entity[nameof(AuthorBlog)].SetShapeStyle(style =>
+                    var shapeStyle = new ShapeStyle
                     {
-                        style.Fill = "black";
-                        style.Stroke = "#E8F4FF";   // very pale blue
+                        Fill = "black",
+                        Stroke = "#99ccff"  // pale blue
+                    };
+
+                    // Can update individual properties
+                    options.Entity[nameof(Author)].SetShapeStyle(style =>
+                    {
+                        style.Fill = shapeStyle.Fill;
+                        style.Stroke = shapeStyle.Stroke;
                     });
+
+                    // .. or completely replace the style
+                    options.Entity[nameof(Blog)].SetShapeStyle(shapeStyle);
+
+
+
+
+
+
+
 
                     // Individual properties
                     options.Cardinality.LabelStyle.FontSize = 18;
@@ -46,14 +63,25 @@ namespace D2ErdGenerator
                     options.Cardinality.SetLabelStyle(style =>
                     {
                         style.FontSize = 18;
-                        style.FontColor = "blue";   // "yellow";
+                        style.FontColor = "blue";
                         style.Bold = true;
                         // style.Underline = false;
                         // style.Italic = false;
                     });
 
-                    // config.Cardinality.OneToOneLabel = ...;
-                    // config.Cardinality.OneToManyLabel = ...;
+                    // .. or replace the entire style
+                    //var labelStyle = new LabelStyle
+                    //{
+                    //    FontSize = 18,
+                    //    FontColor = "blue",
+                    //    Bold = true
+                    //};
+
+                    //options.Cardinality.SetLabelStyle(labelStyle);
+
+                    // Can optionally change the cardinality labels
+                    //config.Cardinality.OneToOneLabel = ...;
+                    //config.Cardinality.OneToManyLabel = ...;
                 });
 
             var dbContext = new AppDbContext();
@@ -67,7 +95,7 @@ namespace D2ErdGenerator
             {
                 DiagramFileName = "sample_erd.d2",
                 LayoutEngine = "elk",
-                //Theme = Theme.DarkMauve,
+                Theme = Theme.Neutral,
                 Formats = new[] { ExportFormat.Svg, ExportFormat.Png, ExportFormat.Pdf },
                 StandardOutputHandler = LogOutput,
                 ErrorOutputHandler = LogOutput          // Note: d2.exe seems to log everything to the error output

@@ -11,5 +11,12 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.Extensions
 
             configure.Invoke(options.ShapeStyle);
         }
+
+        public static void SetShapeStyle(this ErdOptions.EntityByNameOptions options, ShapeStyle shapeStyle)
+        {
+            _ = shapeStyle.WhenNotNull(nameof(shapeStyle));
+
+            options.ShapeStyle = shapeStyle;
+        }
     }
 }

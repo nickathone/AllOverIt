@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace D2ErdGenerator.Data.Entities
 {
+    [Table(nameof(Settings))]       // Enforce the name rather than take on the DbSet<> property name
     public class Settings
     {
         public int Id { get; set; }

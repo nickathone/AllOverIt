@@ -11,5 +11,12 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.Extensions
 
             configure.Invoke(cardinality.LabelStyle);
         }
+
+        public static void SetLabelStyle(this ErdOptions.CardinalityOptions cardinality, LabelStyle labelStyle)
+        {
+            _ = labelStyle.WhenNotNull(nameof(labelStyle));
+
+            cardinality.LabelStyle = labelStyle;
+        }
     }
 }

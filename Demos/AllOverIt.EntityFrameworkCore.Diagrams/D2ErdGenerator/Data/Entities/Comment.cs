@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace D2ErdGenerator.Data.Entities
 {
+    [Table(nameof(Comment))]       // Enforce the name rather than take on the DbSet<> property name
     public class Comment
     {
         public int Id { get; set; }

@@ -21,7 +21,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
 
         public sealed class EntityByNameOptions
         {
-            public ShapeStyle ShapeStyle { get; } = new();
+            public ShapeStyle ShapeStyle { get; internal set; } = new();
         }
 
         public sealed class EntityGlobalOptions
@@ -51,7 +51,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
 
         public sealed class CardinalityOptions
         {
-            public LabelStyle LabelStyle { get; } = new();
+            public LabelStyle LabelStyle { get; internal set; } = new();
             public string OneToOneLabel { get; set; } = DefaultOneToOneLabel;
             public string OneToManyLabel { get; set; } = DefaultOneToManyLabel;
         }

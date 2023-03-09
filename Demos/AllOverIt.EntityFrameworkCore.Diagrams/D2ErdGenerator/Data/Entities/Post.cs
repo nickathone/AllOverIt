@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace D2ErdGenerator.Data.Entities
 {
+    [Table(nameof(Post))]       // Enforce the name rather than take on the DbSet<> property name
     public class Post
     {
         public int Id { get; set; }
