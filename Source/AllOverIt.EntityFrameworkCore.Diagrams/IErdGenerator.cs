@@ -2,7 +2,7 @@
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams
 {
-    public interface IErdFormatter
+    public interface IErdGenerator
     {
         string Generate(DbContext dbContext);
     }

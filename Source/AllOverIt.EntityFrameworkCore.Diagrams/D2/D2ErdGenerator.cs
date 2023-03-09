@@ -1,28 +1,21 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions;
 using AllOverIt.Extensions;
-using AllOverIt.Io;
-using AllOverIt.Process;
-using AllOverIt.Process.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
 {
-    public sealed class D2ErdFormatter : ErdFormatterBase
+    public sealed class D2ErdGenerator : ErdGeneratorBase
     {
         private const string PrimaryKey = "primary_key";
         private const string ForeignKey = "foreign_key";
 
         private readonly ErdOptions _options;
 
-        public D2ErdFormatter(ErdOptions options)
+        public D2ErdGenerator(ErdOptions options)
         {
             _options = options.WhenNotNull(nameof(options));
         }
@@ -39,6 +32,15 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
                 sb.AppendLine($"{entityName}: {{");
                 sb.AppendLine("  shape: sql_table");
                 sb.AppendLine();
+
+                if (_options.Entity.TryGetEntityByNameOptions(entityName, out var entityByNameOptions))
+                {
+                    if (!entityByNameOptions.ShapeStyle.IsDefault())
+                    {
+                        sb.AppendLine(entityByNameOptions.ShapeStyle.AsText(2));
+                        sb.AppendLine();
+                    }
+                }
 
                 foreach (var column in columns)
                 {
@@ -83,8 +85,8 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
             if (_options.Cardinality.LabelStyle.IsVisible)
             {
                 cardinality = foreignKey.IsOneToMany
-                    ? _options.Cardinality.OneToManyLabel
-                    : _options.Cardinality.OneToOneLabel;
+                    ? _options.Cardinality.OneToManyLabel.D2EscapeString()
+                    : _options.Cardinality.OneToOneLabel.D2EscapeString();
             }
 
             if (cardinality.IsNullOrEmpty() || _options.Cardinality.LabelStyle.IsDefault())
@@ -92,7 +94,11 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
                 return cardinality;
             }
 
-            return $"{cardinality} {_options.Cardinality.LabelStyle.AsText()}";
+            return $$"""
+                   {{cardinality}} {
+                   {{_options.Cardinality.LabelStyle.AsText(2)}}
+                   }
+                   """;
         }
 
         private static string GetColumnDetail(ColumnDescriptor column, ErdOptions configuration)
@@ -105,12 +111,12 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
             {
                 if (column.IsNullable && configuration.Entity.Nullable.Mode == NullableColumnMode.IsNull)
                 {
-                    columnType = $@"{columnType} {configuration.Entity.Nullable.IsNullLabel}";
+                    columnType = $@"{columnType} {configuration.Entity.Nullable.IsNullLabel.D2EscapeString()}";
                 }
 
                 if (!column.IsNullable && configuration.Entity.Nullable.Mode == NullableColumnMode.NotNull)
                 {
-                    columnType = $@"{columnType} {configuration.Entity.Nullable.NotNullLabel}";
+                    columnType = $@"{columnType} {configuration.Entity.Nullable.NotNullLabel.D2EscapeString()}";
                 }
             }
 

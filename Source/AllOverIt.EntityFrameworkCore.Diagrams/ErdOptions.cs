@@ -1,11 +1,15 @@
-﻿namespace AllOverIt.EntityFrameworkCore.Diagrams
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace AllOverIt.EntityFrameworkCore.Diagrams
 {
     public sealed record ErdOptions
     {
         private const string DefaultOneToOneLabel = "ONE-TO-ONE";
         private const string DefaultOneToManyLabel = "ONE-TO-MANY";
-        private const string DefaultIsNullLabel = @"\[NULL\]";
-        private const string DefaultNotNullLabel = @"\[NOT NULL\]";
+        private const string DefaultIsNullLabel = "[NULL]";
+        private const string DefaultNotNullLabel = "[NOT NULL]";
 
         public sealed class NullableColumn
         {
@@ -15,10 +19,34 @@
             public string NotNullLabel { get; set; } = DefaultNotNullLabel;
         }
 
-        public sealed class EntityOptions
+        public sealed class EntityByNameOptions
         {
+            public ShapeStyle ShapeStyle { get; } = new();
+        }
+
+        public sealed class EntityGlobalOptions
+        {
+            private readonly IDictionary<string, EntityByNameOptions> _byNameOptions = new Dictionary<string, EntityByNameOptions>();
+
             public NullableColumn Nullable { get; } = new();
             public bool ShowMaxLength { get; set; } = true;
+            public EntityByNameOptions this[string name] => GetEntityByNameOptions(name);
+
+            internal bool TryGetEntityByNameOptions(string displayName, out EntityByNameOptions options)
+            {
+                return _byNameOptions.TryGetValue(displayName, out options);
+            }
+
+            private EntityByNameOptions GetEntityByNameOptions(string displayName)
+            {
+                if (!_byNameOptions.TryGetValue(displayName, out var entityByNameOptions))
+                {
+                    entityByNameOptions = new EntityByNameOptions();
+                    _byNameOptions[displayName] = entityByNameOptions;
+                }
+
+                return entityByNameOptions;
+            }
         }
 
         public sealed class CardinalityOptions
@@ -28,7 +56,7 @@
             public string OneToManyLabel { get; set; } = DefaultOneToManyLabel;
         }
 
-        public EntityOptions Entity { get; } = new();
+        public EntityGlobalOptions Entity { get; } = new();
         public CardinalityOptions Cardinality { get; } = new();
     }
 }

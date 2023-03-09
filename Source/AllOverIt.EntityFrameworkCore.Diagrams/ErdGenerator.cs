@@ -2,9 +2,9 @@
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams
 {
-    public static class ErdFormatter
+    public static class ErdGenerator
     {
-        public static TFormatter Create<TFormatter>(Action<ErdOptions> configure = default) where TFormatter : ErdFormatterBase
+        public static TFormatter Create<TFormatter>(Action<ErdOptions> configure = default) where TFormatter : ErdGeneratorBase
         {
             var options = new ErdOptions();
 

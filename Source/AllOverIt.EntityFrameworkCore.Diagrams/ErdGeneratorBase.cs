@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams
 {
-    public abstract class ErdFormatterBase : IErdFormatter
+    public abstract class ErdGeneratorBase : IErdGenerator
     {
         public abstract string Generate(DbContext dbContext);
 

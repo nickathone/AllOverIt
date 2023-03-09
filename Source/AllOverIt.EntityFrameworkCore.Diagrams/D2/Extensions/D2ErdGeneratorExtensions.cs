@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions
 {
-    public static class D2ErdFormatterExtensions
+    public static class D2ErdGeneratorExtensions
     {
         // Exports the diagram to a text file (options.DiagramFileName) as a minimum, and optionally additional
         // formats (options.Formats).
-        public static async Task ExportAsync(this D2ErdFormatter formatter, DbContext dbContext, D2ErdExportOptions options,
+        public static async Task ExportAsync(this D2ErdGenerator formatter, DbContext dbContext, D2ErdExportOptions options,
             CancellationToken cancellationToken = default)
         {
             _ = dbContext.WhenNotNull(nameof(dbContext));

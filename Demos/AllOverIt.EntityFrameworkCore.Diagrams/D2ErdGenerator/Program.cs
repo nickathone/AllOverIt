@@ -3,6 +3,7 @@ using AllOverIt.EntityFrameworkCore.Diagrams.D2;
 using AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions;
 using AllOverIt.EntityFrameworkCore.Diagrams.Extensions;
 using D2ErdGenerator.Data;
+using D2ErdGenerator.Data.Entities;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -19,8 +20,8 @@ namespace D2ErdGenerator
             // * Show 1:1 cardinality as "ONE-TO-ONE"
             // * Show 1:N cardinality as "ONE-TO-MANY"
             // * Cardinality label style is as per D2 defaults
-            var erdFormatter = ErdFormatter
-                .Create<D2ErdFormatter>(options =>
+            var erdFormatter = ErdGenerator
+                .Create<AllOverIt.EntityFrameworkCore.Diagrams.D2.D2ErdGenerator>(options =>
                 {
                     options.Entity.Nullable.IsVisible = true;
                     options.Entity.Nullable.Mode = NullableColumnMode.NotNull;
@@ -31,17 +32,24 @@ namespace D2ErdGenerator
                     // This is the default
                     options.Entity.ShowMaxLength = true;
 
+                    // Selectively style an entity - based on the DisplayName (which may not be the same as the class name)
+                    options.Entity[nameof(AuthorBlog)].SetShapeStyle(style =>
+                    {
+                        style.Fill = "black";
+                        style.Stroke = "#E8F4FF";   // very pale blue
+                    });
+
                     // Individual properties
                     options.Cardinality.LabelStyle.FontSize = 18;
 
                     // .. or via this extension method
                     options.Cardinality.SetLabelStyle(style =>
                     {
-                        // style.FontSize = 18;
-                        style.FontColor = "yellow";
-                        // style.Bold = true;
+                        style.FontSize = 18;
+                        style.FontColor = "blue";   // "yellow";
+                        style.Bold = true;
                         // style.Underline = false;
-                        style.Italic = false;
+                        // style.Italic = false;
                     });
 
                     // config.Cardinality.OneToOneLabel = ...;
@@ -59,7 +67,7 @@ namespace D2ErdGenerator
             {
                 DiagramFileName = "sample_erd.d2",
                 LayoutEngine = "elk",
-                Theme = Theme.DarkMauve,
+                //Theme = Theme.DarkMauve,
                 Formats = new[] { ExportFormat.Svg, ExportFormat.Png, ExportFormat.Pdf },
                 StandardOutputHandler = LogOutput,
                 ErrorOutputHandler = LogOutput          // Note: d2.exe seems to log everything to the error output
