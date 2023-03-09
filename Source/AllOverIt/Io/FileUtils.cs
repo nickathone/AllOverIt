@@ -1,6 +1,9 @@
 ﻿using AllOverIt.Assertion;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AllOverIt.Io
 {
@@ -80,6 +83,43 @@ namespace AllOverIt.Io
             var outputPath = GetAbsolutePath(sourceDirectory, relativePath);
 
             return Path.Combine(outputPath, newFileName ?? Path.GetFileName(sourceFileName));
+        }
+
+        /// <summary>Creates a new file and writes the string content to it.</summary>
+        /// <param name="content">The content to be written to the file.</param>
+        /// <param name="fileName">The name of the file to create.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
+        /// <returns>A task that completes when the file has been completely written.</returns>
+        public static Task CreateFileWithContentAsync(string content, string fileName, CancellationToken cancellationToken = default)
+        {
+            _ = content.WhenNotNullOrEmpty(nameof(content));
+            _ = fileName.WhenNotNullOrEmpty(nameof(fileName));
+
+            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+
+            return CreateFileWithContentAsync(memoryStream, fileName, false, cancellationToken);
+        }
+
+        /// <summary>Creates a new file and writes the stream content to it.</summary>
+        /// <param name="stream">The stream containing the content to be written to the file.</param>
+        /// <param name="fileName">The name of the file to create.</param>
+        /// <param name="leaveOpen">True to leave the <paramref name="stream"/> open when the file has been written, otherwise false.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
+        /// <returns>A task that completes when the file has been completely written.</returns>
+        public static async Task CreateFileWithContentAsync(Stream stream, string fileName, bool leaveOpen = false, CancellationToken cancellationToken = default)
+        {
+            _ = stream.WhenNotNull(nameof(stream));
+            _ = fileName.WhenNotNullOrEmpty(nameof(fileName));
+
+            using (var fileStream = File.Create(fileName))
+            {
+                await stream.CopyToAsync(fileStream, cancellationToken).ConfigureAwait(false);
+
+                if (!leaveOpen)
+                {
+                    stream.Dispose();
+                }
+            }
         }
     }
 }

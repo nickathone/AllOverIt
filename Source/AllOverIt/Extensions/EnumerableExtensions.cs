@@ -157,14 +157,20 @@ namespace AllOverIt.Extensions
             return results.AsReadOnlyList();
         }
 
-        /// <summary>
-        /// Applicable to strings and collections, this method determines if the instance is null or empty.
-        /// </summary>
+        /// <summary>Applicable to strings and collections, this method determines if the instance is null or empty.</summary>
         /// <param name="items">The object of interest.</param>
         /// <returns>True if the object is null or empty.</returns>
         public static bool IsNullOrEmpty(this IEnumerable items)
         {
             return items == null || !items.GetEnumerator().MoveNext();
+        }
+
+        /// <summary>Applicable to strings and collections, this method determines if the instance is not null or empty.</summary>
+        /// <param name="items">The object of interest.</param>
+        /// <returns>True if the object is not null or not empty.</returns>
+        public static bool IsNotNullOrEmpty(this IEnumerable items)                 // TODO: Add tests
+        {
+            return !IsNullOrEmpty(items);
         }
 
         /// <summary>

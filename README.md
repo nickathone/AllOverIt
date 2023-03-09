@@ -122,6 +122,21 @@ Provides additional features for use in Entity Framework Core applications.
 | net7.0         |    Yes    |
 
 
+# AllOverIt.EntityFrameworkCore.Diagrams
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.EntityFrameworkCore.Diagrams?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Diagrams/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.EntityFrameworkCore.Diagrams?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Diagrams/)
+
+A library providing formatters to generate ERD diagrams using Entity Framework Core.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
 # AllOverIt.EntityFrameworkCore.Pagination
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.EntityFrameworkCore.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Pagination/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.EntityFrameworkCore.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Pagination/)

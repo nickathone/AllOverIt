@@ -1,7 +1,7 @@
 ======================================================================================================================
 
 XX XXX XXXX
-Version 6.4.0
+Version 7.0.0
 ======================================================================================================================
 AllOverIt
   * Added interceptor support to cater for Aspected Oriented Programming (AOP)
@@ -13,6 +13,11 @@ AllOverIt
   * Fixed some Breadcrumbs overloads that were not recording the caller details
   * Updates to string comparison utils (expressions) to detect null constant values and convert / throw as required
   * General tidy up of all exception classes
+  * Deprecated AllOverIt.Process, replacing it with ProcessExecutor
+  * Added Task extensions FireAndForget()
+  * Removed unnecessary 'continueOnCapturedContext' argument from TaskHelper.WhenAll()
+  * Added FileUtils CreateFileWithContentAsync()
+  * Added commandline argument helper to escape strings
 
 AllOverIt.AutoFixture
   * Updated AutoFixture v4.18.0
@@ -25,6 +30,9 @@ AllOverIt.DependencyInjection
 
 AllOverIt.EntityFrameworkCore
   * Updated Microsoft.EntityFrameworkCore.Relational v7.0.3 (NET7)
+
+AllOverIt.EntityFrameworkCore.Diagrams
+  * New package. Adds support for generating D2 entity relationship diagrams and exporting to text, svg, png, pdf.
 
 AllOverIt.Fixture
 AllOverIt.Fixture.FakeItEasy

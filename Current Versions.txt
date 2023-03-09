@@ -115,4 +115,8 @@
         - Targets                                - netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0
         - AllOverIt dependencies:                - [1], [2]
 
+  [24] AllOverIt.EntityFrameworkCore.Diagrams
+        - Targets                                - netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0
+        - AllOverIt dependencies:                - [1], [13], [16]
+
 =====================================================================================================================================================================

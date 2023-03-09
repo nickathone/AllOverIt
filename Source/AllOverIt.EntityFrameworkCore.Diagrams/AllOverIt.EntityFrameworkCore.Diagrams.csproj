@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+        <Copyright>Copyright © 2023</Copyright>
+        <Description>A library providing formatters to generate ERD diagrams using Entity Framework Core.</Description>
+        <PackageTags>utilities;query;entityframework</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'net5.0'">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0'">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
+    </ItemGroup>
+
+</Project>
