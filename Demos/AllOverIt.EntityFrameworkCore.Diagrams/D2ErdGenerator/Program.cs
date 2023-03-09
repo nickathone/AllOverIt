@@ -32,7 +32,7 @@ namespace D2ErdGenerator
                     // This is the default
                     options.Entity.ShowMaxLength = true;
 
-                    // Selectively style an entity - based on the DisplayName (which may not be the same as the class name)
+                    // Selectively style an entity - based on the table name (which may not be the same as the class name)
                     options.Entity[nameof(AuthorBlog)].SetShapeStyle(style =>
                     {
                         style.Fill = "black";

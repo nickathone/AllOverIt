@@ -32,17 +32,17 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
             public bool ShowMaxLength { get; set; } = true;
             public EntityByNameOptions this[string name] => GetEntityByNameOptions(name);
 
-            internal bool TryGetEntityByNameOptions(string displayName, out EntityByNameOptions options)
+            internal bool TryGetEntityByNameOptions(string tableName, out EntityByNameOptions options)
             {
-                return _byNameOptions.TryGetValue(displayName, out options);
+                return _byNameOptions.TryGetValue(tableName, out options);
             }
 
-            private EntityByNameOptions GetEntityByNameOptions(string displayName)
+            private EntityByNameOptions GetEntityByNameOptions(string tableName)
             {
-                if (!_byNameOptions.TryGetValue(displayName, out var entityByNameOptions))
+                if (!_byNameOptions.TryGetValue(tableName, out var entityByNameOptions))
                 {
                     entityByNameOptions = new EntityByNameOptions();
-                    _byNameOptions[displayName] = entityByNameOptions;
+                    _byNameOptions[tableName] = entityByNameOptions;
                 }
 
                 return entityByNameOptions;

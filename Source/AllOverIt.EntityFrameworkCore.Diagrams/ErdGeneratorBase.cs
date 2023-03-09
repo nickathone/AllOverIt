@@ -16,7 +16,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
 
             foreach (var entityType in entityTypes)
             {
-                var entityName = entityType.DisplayName();
+                var entityName = entityType.GetTableName();
                 var descriptors = entityType.GetProperties().SelectAsReadOnlyCollection(ColumnDescriptor.Create);
 
                 entityDescriptors.Add(entityName, descriptors);

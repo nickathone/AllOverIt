@@ -52,20 +52,20 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
 
             foreach (var foreignKey in column.GetContainingForeignKeys())
             {
-                var principalEntityName = foreignKey.PrincipalEntityType.DisplayName();
+                var principalEntity = foreignKey.PrincipalEntityType;
 
                 var parentToChildNavigation = foreignKey.DependentToPrincipal?.Inverse;
 
                 Throw<InvalidOperationException>.WhenNull(
                     parentToChildNavigation,
-                    $"A parent to child navigation property exists between {principalEntityName} and {column.DeclaringEntityType.DisplayName()}, but not the reverse.");
+                    $"A parent to child navigation property exists between {principalEntity.DisplayName()} and {column.DeclaringEntityType.DisplayName()}, but not the reverse.");
 
                 var isOneToMany = parentToChildNavigation.IsCollection;
 
                 // TODO: Configure / handle composite keys
                 var entityColumn = new PrincipalForeignKey
                 {
-                    EntityName = principalEntityName,
+                    EntityName = principalEntity.GetTableName(),
                     ColumnName = string.Join(", ", foreignKey.PrincipalKey.Properties.Select(property => property.Name)),
                     IsOneToMany = isOneToMany
                 };
