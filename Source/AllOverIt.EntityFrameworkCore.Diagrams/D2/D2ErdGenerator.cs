@@ -29,6 +29,10 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
             var dbContextEntityTypes = dbContext.Model.GetEntityTypes();
             var entries = GetEntityColumnDescriptors(dbContext);
 
+            var defaultShapeStyle = !_options.Entities.ShapeStyle.IsDefault()
+                ? _options.Entities.ShapeStyle.AsText(2)
+                : default;
+
             foreach (var (entityIdentifier, columns) in entries)
             {
                 var entityName = entityIdentifier.TableName;
@@ -41,11 +45,19 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
                     .Single(entity => entity.ClrType == entityIdentifier.Type)
                     .ClrType;
 
-                if (_options.TryGetEntityOptions(entityType, out var entityByNameOptions))
+                if (_options.TryGetEntityOptions(entityType, out var entityOptions))
                 {
-                    if (!entityByNameOptions.ShapeStyle.IsDefault())
+                    if (!entityOptions.ShapeStyle.IsDefault())
                     {
-                        sb.AppendLine(entityByNameOptions.ShapeStyle.AsText(2));
+                        sb.AppendLine(entityOptions.ShapeStyle.AsText(2));
+                        sb.AppendLine();
+                    }
+                }
+                else
+                {
+                    if (defaultShapeStyle is not null)
+                    {
+                        sb.AppendLine(defaultShapeStyle);
                         sb.AppendLine();
                     }
                 }

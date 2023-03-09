@@ -20,6 +20,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
             public string NotNullLabel { get; set; } = DefaultNotNullLabel;
         }
 
+        // Options for an individual entity
         public sealed class EntityOptions
         {
             public ShapeStyle ShapeStyle { get; internal set; } = new();
@@ -29,6 +30,9 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
         {
             public NullableColumn Nullable { get; } = new();
             public bool ShowMaxLength { get; set; } = true;
+
+            // A default style if there's no entity specific override
+            public ShapeStyle ShapeStyle { get; internal set; } = new();
         }
 
         public sealed class CardinalityOptions

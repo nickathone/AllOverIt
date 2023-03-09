@@ -4,6 +4,8 @@ Author: {
   style: {
     fill: black
     stroke: \#99ccff
+    stroke-width: 4
+    stroke-dash: 2
   }
 
   Id: INTEGER \[NOT NULL\] {constraint: primary_key}
@@ -14,6 +16,10 @@ Author: {
 
 AuthorBlog: {
   shape: sql_table
+
+  style: {
+    stroke: yellow
+  }
 
   Id: INTEGER \[NOT NULL\] {constraint: primary_key}
   AuthorId: INTEGER \[NOT NULL\] {constraint: foreign_key}
@@ -26,6 +32,8 @@ Blog: {
   style: {
     fill: black
     stroke: \#99ccff
+    stroke-width: 4
+    stroke-dash: 2
   }
 
   Id: INTEGER \[NOT NULL\] {constraint: primary_key}
@@ -36,6 +44,10 @@ Blog: {
 Comment: {
   shape: sql_table
 
+  style: {
+    stroke: yellow
+  }
+
   Id: INTEGER \[NOT NULL\] {constraint: primary_key}
   AuthorId: INTEGER \[NOT NULL\] {constraint: foreign_key}
   Content: TEXT \[NOT NULL\]
@@ -44,6 +56,10 @@ Comment: {
 
 Post: {
   shape: sql_table
+
+  style: {
+    stroke: yellow
+  }
 
   Id: INTEGER \[NOT NULL\] {constraint: primary_key}
   BlogId: INTEGER \[NOT NULL\] {constraint: foreign_key}
@@ -54,6 +70,10 @@ Post: {
 Settings: {
   shape: sql_table
 
+  style: {
+    stroke: yellow
+  }
+
   Id: INTEGER \[NOT NULL\] {constraint: primary_key}
   JsonConfig: TEXT \[NOT NULL\]
   WebSiteId: INTEGER \[NOT NULL\] {constraint: foreign_key}
@@ -61,6 +81,10 @@ Settings: {
 
 WebSite: {
   shape: sql_table
+
+  style: {
+    stroke: yellow
+  }
 
   Id: INTEGER \[NOT NULL\] {constraint: primary_key}
   Description: TEXT(500) \[NOT NULL\]

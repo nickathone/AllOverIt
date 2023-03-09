@@ -32,6 +32,25 @@ namespace D2ErdGenerator
                     // This is the default
                     options.Entities.ShowMaxLength = true;
 
+
+                    var globalShapeStyle = new ShapeStyle
+                    {
+                        Stroke = "yellow"
+                    };
+
+                    // Set individual properties
+                    options.Entities.ShapeStyle.Stroke = globalShapeStyle.Stroke;
+
+                    //// .. or like this
+                    //options.Entities.SetShapeStyle(style =>
+                    //{
+                    //    style.Stroke = "yellow";
+                    //});
+
+                    //// .. or like this
+                    //options.Entities.SetShapeStyle(globalShapeStyle);
+
+
                     // Selectively style an entity
                     var shapeStyle = new ShapeStyle
                     {
