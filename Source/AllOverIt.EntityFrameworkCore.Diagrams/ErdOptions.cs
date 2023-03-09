@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams
@@ -11,6 +10,8 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
         private const string DefaultIsNullLabel = "[NULL]";
         private const string DefaultNotNullLabel = "[NOT NULL]";
 
+        private readonly IDictionary<Type, EntityOptions> _entityOptions = new Dictionary<Type, EntityOptions>();
+
         public sealed class NullableColumn
         {
             public bool IsVisible { get; set; }
@@ -19,34 +20,15 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
             public string NotNullLabel { get; set; } = DefaultNotNullLabel;
         }
 
-        public sealed class EntityByNameOptions
+        public sealed class EntityOptions
         {
             public ShapeStyle ShapeStyle { get; internal set; } = new();
         }
 
         public sealed class EntityGlobalOptions
         {
-            private readonly IDictionary<string, EntityByNameOptions> _byNameOptions = new Dictionary<string, EntityByNameOptions>();
-
             public NullableColumn Nullable { get; } = new();
             public bool ShowMaxLength { get; set; } = true;
-            public EntityByNameOptions this[string name] => GetEntityByNameOptions(name);
-
-            internal bool TryGetEntityByNameOptions(string tableName, out EntityByNameOptions options)
-            {
-                return _byNameOptions.TryGetValue(tableName, out options);
-            }
-
-            private EntityByNameOptions GetEntityByNameOptions(string tableName)
-            {
-                if (!_byNameOptions.TryGetValue(tableName, out var entityByNameOptions))
-                {
-                    entityByNameOptions = new EntityByNameOptions();
-                    _byNameOptions[tableName] = entityByNameOptions;
-                }
-
-                return entityByNameOptions;
-            }
         }
 
         public sealed class CardinalityOptions
@@ -56,7 +38,28 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
             public string OneToManyLabel { get; set; } = DefaultOneToManyLabel;
         }
 
-        public EntityGlobalOptions Entity { get; } = new();
+        public EntityGlobalOptions Entities { get; } = new();
         public CardinalityOptions Cardinality { get; } = new();
+
+        public EntityOptions Entity<TEntity>() where TEntity : class
+        {
+            return GetEntityOptions(typeof(TEntity));
+        }
+
+        internal bool TryGetEntityOptions(Type entity, out EntityOptions options)
+        {
+            return _entityOptions.TryGetValue(entity, out options);
+        }
+
+        private EntityOptions GetEntityOptions(Type entity)
+        {
+            if (!_entityOptions.TryGetValue(entity, out var entityByNameOptions))
+            {
+                entityByNameOptions = new EntityOptions();
+                _entityOptions[entity] = entityByNameOptions;
+            }
+
+            return entityByNameOptions;
+        }
     }
 }

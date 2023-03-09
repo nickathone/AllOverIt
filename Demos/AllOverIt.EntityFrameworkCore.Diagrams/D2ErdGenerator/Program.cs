@@ -23,14 +23,14 @@ namespace D2ErdGenerator
             var erdFormatter = ErdGenerator
                 .Create<AllOverIt.EntityFrameworkCore.Diagrams.D2.D2ErdGenerator>(options =>
                 {
-                    options.Entity.Nullable.IsVisible = true;
-                    options.Entity.Nullable.Mode = NullableColumnMode.NotNull;
+                    options.Entities.Nullable.IsVisible = true;
+                    options.Entities.Nullable.Mode = NullableColumnMode.NotNull;
 
                     // config.Entity.IsNullLabel = ...
                     // config.Entity.NotNullLabel = ...;
 
                     // This is the default
-                    options.Entity.ShowMaxLength = true;
+                    options.Entities.ShowMaxLength = true;
 
                     // Selectively style an entity - based on the table name (which may not be the same as the class name)
                     var shapeStyle = new ShapeStyle
@@ -39,21 +39,16 @@ namespace D2ErdGenerator
                         Stroke = "#99ccff"  // pale blue
                     };
 
+
                     // Can update individual properties
-                    options.Entity[nameof(Author)].SetShapeStyle(style =>
+                    options.Entity<Author>().SetShapeStyle(style =>
                     {
                         style.Fill = shapeStyle.Fill;
                         style.Stroke = shapeStyle.Stroke;
                     });
 
                     // .. or completely replace the style
-                    options.Entity[nameof(Blog)].SetShapeStyle(shapeStyle);
-
-
-
-
-
-
+                    options.Entity<Blog>().SetShapeStyle(shapeStyle);
 
 
                     // Individual properties
@@ -77,7 +72,9 @@ namespace D2ErdGenerator
                     //    Bold = true
                     //};
 
+
                     //options.Cardinality.SetLabelStyle(labelStyle);
+
 
                     // Can optionally change the cardinality labels
                     //config.Cardinality.OneToOneLabel = ...;

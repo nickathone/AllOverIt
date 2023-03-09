@@ -4,6 +4,7 @@ using AllOverIt.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
@@ -25,15 +26,22 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
             var sb = new StringBuilder();
             var relationships = new List<string>();
 
+            var dbContextEntityTypes = dbContext.Model.GetEntityTypes();
             var entries = GetEntityColumnDescriptors(dbContext);
 
-            foreach (var (entityName, columns) in entries)
+            foreach (var (entityIdentifier, columns) in entries)
             {
+                var entityName = entityIdentifier.TableName;
+
                 sb.AppendLine($"{entityName}: {{");
                 sb.AppendLine("  shape: sql_table");
                 sb.AppendLine();
 
-                if (_options.Entity.TryGetEntityByNameOptions(entityName, out var entityByNameOptions))
+                var entityType = dbContextEntityTypes
+                    .Single(entity => entity.ClrType == entityIdentifier.Type)
+                    .ClrType;
+
+                if (_options.TryGetEntityOptions(entityType, out var entityByNameOptions))
                 {
                     if (!entityByNameOptions.ShapeStyle.IsDefault())
                     {
@@ -103,20 +111,20 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
 
         private static string GetColumnDetail(ColumnDescriptor column, ErdOptions configuration)
         {
-            var columnType = column.MaxLength.HasValue && configuration.Entity.ShowMaxLength
+            var columnType = column.MaxLength.HasValue && configuration.Entities.ShowMaxLength
                 ? $"{column.ColumnType}({column.MaxLength})"
                 : column.ColumnType;
 
-            if (configuration.Entity.Nullable.IsVisible)
+            if (configuration.Entities.Nullable.IsVisible)
             {
-                if (column.IsNullable && configuration.Entity.Nullable.Mode == NullableColumnMode.IsNull)
+                if (column.IsNullable && configuration.Entities.Nullable.Mode == NullableColumnMode.IsNull)
                 {
-                    columnType = $@"{columnType} {configuration.Entity.Nullable.IsNullLabel.D2EscapeString()}";
+                    columnType = $@"{columnType} {configuration.Entities.Nullable.IsNullLabel.D2EscapeString()}";
                 }
 
-                if (!column.IsNullable && configuration.Entity.Nullable.Mode == NullableColumnMode.NotNull)
+                if (!column.IsNullable && configuration.Entities.Nullable.Mode == NullableColumnMode.NotNull)
                 {
-                    columnType = $@"{columnType} {configuration.Entity.Nullable.NotNullLabel.D2EscapeString()}";
+                    columnType = $@"{columnType} {configuration.Entities.Nullable.NotNullLabel.D2EscapeString()}";
                 }
             }
 

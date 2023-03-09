@@ -1,16 +1,19 @@
 ﻿using AllOverIt.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams
 {
+    public sealed record EntityIdentifier(Type Type, string TableName);
+
     public abstract class ErdGeneratorBase : IErdGenerator
     {
         public abstract string Generate(DbContext dbContext);
 
-        protected static IReadOnlyDictionary<string, IEnumerable<ColumnDescriptor>> GetEntityColumnDescriptors(DbContext dbContext)
+        protected static IReadOnlyDictionary<EntityIdentifier, IEnumerable<ColumnDescriptor>> GetEntityColumnDescriptors(DbContext dbContext)
         {
-            var entityDescriptors = new Dictionary<string, IEnumerable<ColumnDescriptor>>();
+            var entityDescriptors = new Dictionary<EntityIdentifier, IEnumerable<ColumnDescriptor>>();
 
             var entityTypes = dbContext.Model.GetEntityTypes();
 
@@ -19,7 +22,8 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
                 var entityName = entityType.GetTableName();
                 var descriptors = entityType.GetProperties().SelectAsReadOnlyCollection(ColumnDescriptor.Create);
 
-                entityDescriptors.Add(entityName, descriptors);
+                var identifier = new EntityIdentifier(entityType.ClrType, entityName);
+                entityDescriptors.Add(identifier, descriptors);
             }
 
             return entityDescriptors;
