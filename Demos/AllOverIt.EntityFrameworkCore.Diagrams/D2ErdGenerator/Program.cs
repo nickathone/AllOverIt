@@ -32,19 +32,22 @@ namespace D2ErdGenerator
                     // This is the default
                     options.Entities.ShowMaxLength = true;
 
-                    // Selectively style an entity - based on the table name (which may not be the same as the class name)
+                    // Selectively style an entity
                     var shapeStyle = new ShapeStyle
                     {
                         Fill = "black",
-                        Stroke = "#99ccff"  // pale blue
+                        Stroke = "#99ccff", // pale blue
+                        StrokeWidth = 4,
+                        StrokeDash = 2
                     };
-
 
                     // Can update individual properties
                     options.Entity<Author>().SetShapeStyle(style =>
                     {
                         style.Fill = shapeStyle.Fill;
                         style.Stroke = shapeStyle.Stroke;
+                        style.StrokeWidth = shapeStyle.StrokeWidth;
+                        style.StrokeDash = shapeStyle.StrokeDash;
                     });
 
                     // .. or completely replace the style

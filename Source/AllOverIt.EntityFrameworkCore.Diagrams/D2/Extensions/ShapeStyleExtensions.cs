@@ -4,16 +4,31 @@
     {
         public static string AsText(this ShapeStyle shapeStyle, int indent)
         {
-            return StyleStringBuilder.Create(indent, appender =>
+            return StyleStringBuilder.Create(indent, styler =>
             {
                 if (shapeStyle.Fill != default)
                 {
-                    appender.Invoke("fill", shapeStyle.Fill);
+                    styler.Invoke("fill", shapeStyle.Fill);
                 }
 
                 if (shapeStyle.Stroke != default)
                 {
-                    appender.Invoke("stroke", shapeStyle.Stroke);
+                    styler.Invoke("stroke", shapeStyle.Stroke);
+                }
+
+                if (shapeStyle.StrokeWidth != default)
+                {
+                    styler.Invoke("stroke-width", $"{shapeStyle.StrokeWidth}");
+                }
+
+                if (shapeStyle.StrokeDash != default)
+                {
+                    styler.Invoke("stroke-dash", $"{shapeStyle.StrokeDash}");
+                }
+
+                if (shapeStyle.Opacity != default)
+                {
+                    styler.Invoke("opacity", $"{shapeStyle.Opacity}");
                 }
             });
         }

@@ -6,17 +6,17 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
 {
     public static class StyleStringBuilder
     {
-        public static string Create(int indent, Action<Action<string, string>> action)
+        public static string Create(int indent, Action<Action<string, string>> styler)
         {
             var indenting = new string(' ', indent);
             var builder = new StringBuilder();
 
-            void appender(string key, string value)
+            void AddStyleOption(string key, string value)
             {
                 builder.AppendLine($"{indenting}{indenting}{key}: {value}");
             }
 
-            action.Invoke(appender);
+            styler.Invoke(AddStyleOption);
 
             var styleText = builder.ToString().TrimEnd();
 

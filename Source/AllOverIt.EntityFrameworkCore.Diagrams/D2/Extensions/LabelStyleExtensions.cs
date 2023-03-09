@@ -4,31 +4,31 @@
     {
         public static string AsText(this LabelStyle labelStyle, int indent)
         {
-            return StyleStringBuilder.Create(indent, appender =>
+            return StyleStringBuilder.Create(indent, styler =>
             {
                 if (labelStyle.FontSize != default)
                 {
-                    appender.Invoke("font-size", $"{labelStyle.FontSize}");
+                    styler.Invoke("font-size", $"{labelStyle.FontSize}");
                 }
 
                 if (labelStyle.FontColor != default)
                 {
-                    appender.Invoke("font-color", labelStyle.FontColor);
+                    styler.Invoke("font-color", labelStyle.FontColor);
                 }
 
                 if (labelStyle.Bold.HasValue)
                 {
-                    appender.Invoke("bold", $"{GetBoolString(labelStyle.Bold.Value)}");
+                    styler.Invoke("bold", $"{GetBoolString(labelStyle.Bold.Value)}");
                 }
 
                 if (labelStyle.Underline.HasValue != default)
                 {
-                    appender.Invoke("underline", $"{GetBoolString(labelStyle.Underline.Value)}");
+                    styler.Invoke("underline", $"{GetBoolString(labelStyle.Underline.Value)}");
                 }
 
                 if (labelStyle.Italic.HasValue != default)
                 {
-                    appender.Invoke("italic", $"{GetBoolString(labelStyle.Italic.Value)}");
+                    styler.Invoke("italic", $"{GetBoolString(labelStyle.Italic.Value)}");
                 }
             });
         }
