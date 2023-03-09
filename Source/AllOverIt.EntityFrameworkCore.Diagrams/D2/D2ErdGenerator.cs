@@ -76,9 +76,13 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
                         {
                             var cardinality = GetColumnCardinality(foreignKey);
 
+                            var connection = foreignKey.IsOneToMany
+                                ? "->"
+                                : "--";
+
                             var relationship = cardinality.IsNullOrEmpty()
-                                ? $"{foreignKey.EntityName}.{foreignKey.ColumnName} -> {entityName}.{columnName}"
-                                : $"{foreignKey.EntityName}.{foreignKey.ColumnName} -> {entityName}.{columnName}: {cardinality}";
+                                ? $"{foreignKey.EntityName}.{foreignKey.ColumnName} {connection} {entityName}.{columnName}"
+                                : $"{foreignKey.EntityName}.{foreignKey.ColumnName} {connection} {entityName}.{columnName}: {cardinality}";
 
                             relationships.Add(relationship);
                         }
