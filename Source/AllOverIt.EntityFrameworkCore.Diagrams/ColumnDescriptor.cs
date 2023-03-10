@@ -40,7 +40,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
             }
         }
 
-        // Alternative factory method that can be used as a group method
+        // Alternative factory method that can be used as a method group
         public static ColumnDescriptor Create(IProperty column)
         {
             return new ColumnDescriptor(column);

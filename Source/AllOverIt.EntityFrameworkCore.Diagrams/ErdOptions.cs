@@ -37,6 +37,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
 
         public sealed class CardinalityOptions
         {
+            public bool ShowCrowsFoot { get; set; } = true;
             public LabelStyle LabelStyle { get; internal set; } = new();
             public string OneToOneLabel { get; set; } = DefaultOneToOneLabel;
             public string OneToManyLabel { get; set; } = DefaultOneToManyLabel;

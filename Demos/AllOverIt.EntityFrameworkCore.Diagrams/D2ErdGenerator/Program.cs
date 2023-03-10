@@ -79,6 +79,8 @@ namespace D2ErdGenerator
                     // .. or via this extension method
                     options.Cardinality.SetLabelStyle(style =>
                     {
+                        style.IsVisible = false;
+
                         style.FontSize = 18;
                         style.FontColor = "blue";
                         style.Bold = true;

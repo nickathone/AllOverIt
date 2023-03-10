@@ -11,9 +11,9 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
     {
         public abstract string Generate(DbContext dbContext);
 
-        protected static IReadOnlyDictionary<EntityIdentifier, IEnumerable<ColumnDescriptor>> GetEntityColumnDescriptors(DbContext dbContext)
+        protected static IReadOnlyDictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>> GetEntityColumnDescriptors(DbContext dbContext)
         {
-            var entityDescriptors = new Dictionary<EntityIdentifier, IEnumerable<ColumnDescriptor>>();
+            var entityDescriptors = new Dictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>>();
 
             var entityTypes = dbContext.Model.GetEntityTypes();
 
