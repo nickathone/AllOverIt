@@ -101,10 +101,9 @@ namespace AllOverIt.Tests.Async
                 var cancellationToken = new CancellationTokenSource();
                 var invokedCount = 0;
                 var delays = new List<long>();
-                var stopwatch = new Stopwatch();
                 var lastElapsed = 0L;
 
-                Task DoAction()
+                Task DoAction(Stopwatch stopwatch)
                 {
                     var elapsed = stopwatch.ElapsedMilliseconds - lastElapsed;
                     lastElapsed = elapsed;
@@ -121,11 +120,9 @@ namespace AllOverIt.Tests.Async
                     return Task.CompletedTask;
                 }
 
-                stopwatch.Start();
+                var stopwatch = Stopwatch.StartNew();
 
-                var task = RepeatingTask.Start(DoAction, repeatDelay, cancellationToken.Token);
-
-                await task.ConfigureAwait(false);
+                await RepeatingTask.Start(() => DoAction(stopwatch), repeatDelay, cancellationToken.Token);
 
                 stopwatch.Stop();
 
