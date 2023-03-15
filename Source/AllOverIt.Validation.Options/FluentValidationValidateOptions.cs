@@ -4,7 +4,7 @@ using FluentValidation;
 using Microsoft.Extensions.Options;
 using System.Linq;
 
-namespace AllOverIt.Validation.Extensions
+namespace AllOverIt.Validation.Options
 {
     internal sealed class FluentValidationValidateOptions<TOptions> : IValidateOptions<TOptions> where TOptions : class
     {

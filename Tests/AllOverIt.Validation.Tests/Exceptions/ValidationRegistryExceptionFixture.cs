@@ -3,7 +3,7 @@ using AllOverIt.Tests.Helpers;
 using AllOverIt.Validation.Exceptions;
 using Xunit;
 
-namespace AllOverIt.Serialization.Tests.Exceptions
+namespace AllOverIt.Validation.Tests.Exceptions
 {
     public class ValidationRegistryExceptionFixture : FixtureBase
     {

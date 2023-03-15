@@ -3,7 +3,7 @@ using AllOverIt.Serialization.JsonHelper.Exceptions;
 using AllOverIt.Tests.Helpers;
 using Xunit;
 
-namespace AllOverIt.Serialization.Tests.Exceptions
+namespace AllOverIt.Serialization.Tests.JsonHelper.Exceptions
 {
     public class JsonHelperExceptionFixture : FixtureBase
     {

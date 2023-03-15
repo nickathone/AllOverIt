@@ -8,7 +8,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
+namespace AllOverIt.Tests.Patterns.Pipeline.Extensions
 {
     public class PipelineStepExtensionsFixture : FixtureBase
     {
@@ -36,7 +36,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 {
                     IPipelineStep<int, double> step = null;
 
-                    _ = PipelineStepExtensions.AsFunc(step);
+                    _ = step.AsFunc();
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -50,7 +50,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 var factor = Create<double>();
                 var step = new PipelineStepDummy(factor);
 
-                var func = PipelineStepExtensions.AsFunc(step);
+                var func = step.AsFunc();
 
                 var input = Create<int>();
                 var expected = input + factor;
@@ -84,7 +84,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 {
                     IPipelineStepAsync<int, double> step = null;
 
-                    _ = PipelineStepExtensions.AsFunc(step);
+                    _ = step.AsFunc();
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -98,7 +98,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 var factor = Create<double>();
                 var step = new PipelineStepAsyncDummy(factor);
 
-                var func = PipelineStepExtensions.AsFunc(step);
+                var func = step.AsFunc();
 
                 var input = Create<int>();
                 var expected = input + factor;
