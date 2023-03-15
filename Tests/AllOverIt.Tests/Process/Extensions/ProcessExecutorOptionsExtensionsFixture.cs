@@ -229,7 +229,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     _sut.Arguments,
-                    Timeout = value,
+                    Timeout = TimeSpan.FromMilliseconds(value.TotalMilliseconds),   // avoid rounding
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,
                     _sut.ErrorOutputHandler

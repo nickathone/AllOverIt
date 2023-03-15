@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace AllOverIt.Extensions
 {
+    [ExcludeFromCodeCoverage]
     public static class TaskExtensions
     {
         public static void FireAndForget(this Task task, Action<Exception> exceptionHandler = null)

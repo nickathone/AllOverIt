@@ -90,6 +90,7 @@ namespace AllOverIt.Io
         /// <param name="fileName">The name of the file to create.</param>
         /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>A task that completes when the file has been completely written.</returns>
+        [ExcludeFromCodeCoverage]
         public static Task CreateFileWithContentAsync(string content, string fileName, CancellationToken cancellationToken = default)
         {
             _ = content.WhenNotNullOrEmpty(nameof(content));
@@ -106,6 +107,7 @@ namespace AllOverIt.Io
         /// <param name="leaveOpen">True to leave the <paramref name="stream"/> open when the file has been written, otherwise false.</param>
         /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>A task that completes when the file has been completely written.</returns>
+        [ExcludeFromCodeCoverage]
         public static async Task CreateFileWithContentAsync(Stream stream, string fileName, bool leaveOpen = false, CancellationToken cancellationToken = default)
         {
             _ = stream.WhenNotNull(nameof(stream));
