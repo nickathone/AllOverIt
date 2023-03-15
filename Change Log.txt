@@ -26,7 +26,7 @@ AllOverIt.AutoFixture.FakeItEasy
   * Updated AutoFixture.FakeItEasy v4.18.0
 
 AllOverIt.DependencyInjection
-  * Added an extension method to validate registered services. To be used during development only.
+  * Added support for registering named services
 
 AllOverIt.EntityFrameworkCore
   * Updated Microsoft.EntityFrameworkCore.Relational v7.0.3 (NET7)
