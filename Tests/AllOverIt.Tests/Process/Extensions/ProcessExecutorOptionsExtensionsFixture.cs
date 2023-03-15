@@ -3,6 +3,7 @@ using AllOverIt.Fixture.Extensions;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -98,7 +99,7 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithWorkingDirectory(_sut, value);
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
         }
 
@@ -145,7 +146,7 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithArguments(_sut, values[0], values[1], values[2]);
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
         }
 
@@ -192,7 +193,7 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithArguments(_sut, values, Create<bool>());
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
 
             [Fact]
@@ -213,7 +214,7 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithArguments(_sut, values, true);
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
         }
 
@@ -229,7 +230,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     _sut.Arguments,
-                    Timeout = TimeSpan.FromMilliseconds(value.TotalMilliseconds),   // avoid rounding
+                    Timeout = value,
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,
                     _sut.ErrorOutputHandler
@@ -237,7 +238,13 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithTimeout(_sut, value.TotalMilliseconds);
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, option =>
+                {
+                    option.IncludingInternalProperties();
+                    option.Using<TimeSpan>(ctx => ctx.Subject.Should().BeCloseTo(ctx.Expectation, 1.Milliseconds()));
+
+                    return option;
+                });
             }
         }
 
@@ -261,7 +268,7 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithTimeout(_sut, value);
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
         }
 
@@ -308,7 +315,7 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithEnvironmentVariables(_sut, value);
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
         }
 
@@ -364,7 +371,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     }
                 });
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
 
             [Fact]
@@ -391,7 +398,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     }
                 });
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
         }
 
@@ -424,7 +431,7 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithStandardOutputHandler(_sut, LogStandardOutput2);
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
         }
 
@@ -457,7 +464,7 @@ namespace AllOverIt.Tests.Process.Extensions
 
                 var actual = ProcessExecutorOptionsExtensions.WithErrorOutputHandler(_sut, LogErrorOutput2);
 
-                expected.Should().BeEquivalentTo(actual, option => option.IncludingInternalProperties());
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
         }
 

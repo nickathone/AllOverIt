@@ -11,9 +11,9 @@
 					<CodeCoverage>
 
 						<ModulePaths>
-							<Include>
+							<!--<Include>
 								<ModulePath>AllOverIt.Tests.dll</ModulePath>
-							</Include>
+							</Include>-->
 
 							<Exclude>
 								<ModulePath>AllOverIt.Aws.AppSync.Client.dll</ModulePath>
