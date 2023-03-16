@@ -3,6 +3,7 @@ using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using FluentAssertions;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -24,14 +25,27 @@ namespace AllOverIt.Tests.Events
 
         public class GetHandler : AsyncWeakSubscriptionFixture
         {
-            private class DummyHandler
+            private sealed class HandlerDummy
             {
                 public static int ActualValue { get; set; }
+
+                public Task Handler(int value)
+                {
+                    var cts = new TaskCompletionSource<int>();
+                    cts.SetException(new Exception($"{value}"));
+
+                    return cts.Task;
+                }
 
                 public static Task StaticHandler(int value)
                 {
                     ActualValue = value;
                     return Task.CompletedTask;
+                }
+
+                public static HandlerDummy Create()
+                {
+                    return new HandlerDummy();
                 }
             }
 
@@ -57,48 +71,43 @@ namespace AllOverIt.Tests.Events
                 actual.Should().Be(expected);
             }
 
-            // Weak reference related tests are not working
-            //[Fact]
-            //public async Task Should_Not_Handle_Disposed_Handler()
-            //{
-            //    var expected = Create<int>();
-            //    var actual = -expected;
+            [Fact]
+            public async Task Should_Not_Handle_Disposed_Handler()
+            {
+                var handler = HandlerDummy.Create();
 
-            //    Func<int, Task> handler = value =>
-            //    {
-            //        actual = value;
-            //        return Task.CompletedTask;
-            //    };
+                var subscription = new AsyncWeakSubscription(handler.Handler);
 
-            //    var subscription = new AsyncWeakSubscription(handler);
+                handler = null;
 
-            //    handler = null;
-            //    GC.Collect();
-            //    GC.Collect();
+                await Task.Delay(100);
 
-            //    var registeredHandler = subscription.GetHandler<int>();
+                GC.Collect();
 
-            //    await registeredHandler.Invoke(expected);
+                var registeredHandler = subscription.GetHandler<int>();
 
-            //    actual.Should().Be(-expected);
-            //}
+                // Would throw a faulted task if the handler was invoked
+                var actual = registeredHandler.Invoke(0);
+
+                actual.Should().Be(Task.CompletedTask);
+            }
 
             [Fact]
             public async Task Should_Get_Static_Handler()
             {
                 var expected = Create<int>();
 
-                Func<int, Task> handler = DummyHandler.StaticHandler;
+                Func<int, Task> handler = HandlerDummy.StaticHandler;
 
                 var subscription = new AsyncWeakSubscription(handler);
 
                 // unlike AsyncSubscription, AsyncWeakSubscription creates a delegate so we can't compare references
                 var registeredHandler = subscription.GetHandler<int>();
 
-                DummyHandler.ActualValue = -expected;
+                HandlerDummy.ActualValue = -expected;
                 await registeredHandler.Invoke(expected);
 
-                DummyHandler.ActualValue.Should().Be(expected);
+                HandlerDummy.ActualValue.Should().Be(expected);
             }
         }
 
