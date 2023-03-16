@@ -12,7 +12,6 @@ namespace AllOverIt.DependencyInjection
     {
         private readonly IDictionary<string, Type> _namedImplementations = new Dictionary<string, Type>();
         internal IServiceProvider _provider;
-        private IEnumerable<TService> _services;
 
         void INamedServiceRegistration<TService>.Register<TImplementation>(string name)
         {
@@ -28,9 +27,9 @@ namespace AllOverIt.DependencyInjection
         {
             if (_namedImplementations.TryGetValue(name, out var implementationType))
             {
-                _services ??= _provider.GetRequiredService<IEnumerable<TService>>();
-
-                return _services.Single(service => service.GetType() == implementationType);
+                return _provider
+                    .GetRequiredService<IEnumerable<TService>>()
+                    .Single(service => service.GetType() == implementationType);
             }
 
             throw new InvalidOperationException($"No service of type {typeof(TService).GetFriendlyName()} was found for the name {name}.");
