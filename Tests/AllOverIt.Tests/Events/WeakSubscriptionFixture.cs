@@ -24,13 +24,22 @@ namespace AllOverIt.Tests.Events
 
         public class GetHandler : WeakSubscriptionFixture
         {
-            private class DummyHandler
+            private class HandlerDummy
             {
                 public static int ActualValue { get; set; }
+
+                public void Handler(int value)
+                {
+                }
 
                 public static void StaticHandler(int value)
                 {
                     ActualValue = value;
+                }
+
+                public static HandlerDummy Create()
+                {
+                    return new HandlerDummy();
                 }
             }
 
@@ -55,47 +64,40 @@ namespace AllOverIt.Tests.Events
                 actual.Should().Be(expected);
             }
 
-            // Weak reference related tests are not working
-            //[Fact]
-            //public void Should_Not_Handle_Disposed_Handler()
-            //{
-            //    var expected = Create<int>();
-            //    var actual = -expected;
+            [Fact]
+            public async Task Should_Not_Handle_Disposed_Handler()
+            {
+                var handler = HandlerDummy.Create().Handler;
 
-            //    Action<int> handler = value =>
-            //    {
-            //        actual = value;
-            //    };
+                var subscription = new WeakSubscription(handler);
 
-            //    var subscription = new WeakSubscription(handler);
+                handler = null;
 
-            //    handler = null;
-            //    GC.Collect();
-            //    GC.Collect();
+                await Task.Delay(100);
 
-            //    var registeredHandler = subscription.GetHandler<int>();
+                GC.Collect();
 
-            //    registeredHandler.Invoke(expected);
+                var registeredHandler = subscription.GetHandler<int>();
 
-            //    actual.Should().Be(-expected);
-            //}
+                registeredHandler.Should().BeNull();
+            }
 
             [Fact]
             public void Should_Get_Static_Handler()
             {
                 var expected = Create<int>();
 
-                Action<int> handler = DummyHandler.StaticHandler;
+                Action<int> handler = HandlerDummy.StaticHandler;
 
                 var subscription = new WeakSubscription(handler);
 
                 // unlike AsyncSubscription, WeakSubscription creates a delegate so we can't compare references
                 var registeredHandler = subscription.GetHandler<int>();
 
-                DummyHandler.ActualValue = -expected;
+                HandlerDummy.ActualValue = -expected;
                 registeredHandler.Invoke(expected);
 
-                DummyHandler.ActualValue.Should().Be(expected);
+                HandlerDummy.ActualValue.Should().Be(expected);
             }
         }
 
