@@ -36,7 +36,6 @@ namespace AllOverIt.Expressions.Strings.Extensions
         {
             return stringComparisonMode == StringComparisonMode.ToLower ||
                    stringComparisonMode == StringComparisonMode.ToUpper;
-
         }
     }
 }

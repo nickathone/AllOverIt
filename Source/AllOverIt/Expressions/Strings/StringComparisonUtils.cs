@@ -1,8 +1,8 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Expressions.Strings.Extensions;
-using AllOverIt.Extensions;
 using AllOverIt.Reflection;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -40,6 +40,12 @@ namespace AllOverIt.Expressions.Strings
 
         private static readonly MethodInfo ToUpperMethodInfo = CommonTypes.StringType.GetMethod(
             "ToUpper", Type.EmptyTypes);
+
+        private static readonly IDictionary<StringComparisonMode, Func<Expression, Expression>> StringModifiers = new Dictionary<StringComparisonMode, Func<Expression, Expression>>
+        {
+            { StringComparisonMode.ToLower, CreateToLowerCallExpression },
+            { StringComparisonMode.ToUpper, CreateToUpperCallExpression }
+        };
 
         /// <summary>Creates a <see cref="MethodCallExpression"/> that will execute the static method <see cref="string.Compare(string, string)" /> or
         /// <see cref="string.Compare(string, string, StringComparison)"/> method based on the provided arguments.</summary>
@@ -273,22 +279,6 @@ namespace AllOverIt.Expressions.Strings
             return Expression.Call(instance, methodInfo, value, comparison);
         }
 
-        private static Expression ApplyStringModifier(this Expression expression, StringComparisonMode stringComparisonMode)
-        {
-            if (stringComparisonMode == StringComparisonMode.ToLower)
-            {
-                return CreateToLowerCallExpression(expression);
-            }
-
-            if (stringComparisonMode == StringComparisonMode.ToUpper)
-            {
-                return CreateToUpperCallExpression(expression);
-            }
-
-            // Includes StringComparisonMode.None
-            throw new InvalidOperationException($"'{stringComparisonMode}' is not a string modifier.");
-        }
-
         private static MethodCallExpression CreateStringComparisonCallExpression(Expression value1, Expression value2,
             StringComparisonMode stringComparisonMode,
             Func<Expression, Expression, MethodCallExpression> nonStringComparisonMethod,
@@ -303,8 +293,10 @@ namespace AllOverIt.Expressions.Strings
 
             if (stringComparisonMode.IsStringModifier())
             {
-                value1 = value1.ApplyStringModifier(stringComparisonMode);
-                value2 = value2.ApplyStringModifier(stringComparisonMode);
+                var modifier = StringModifiers[stringComparisonMode];
+
+                value1 = modifier.Invoke(value1);
+                value2 = modifier.Invoke(value2);
             }
 
             return nonStringComparisonMethod.Invoke(value1, value2);
