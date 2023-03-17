@@ -27,6 +27,26 @@ namespace AllOverIt.Extensions
                 AsUsingInstanceTypeConverter
             };
 
+            public static TType ConvertTo<TType>(object instance, TType defaultValue)
+            {
+                if (instance == null)
+                {
+                    return defaultValue;
+                }
+
+                var instanceType = instance.GetType();
+                var convertToType = typeof(TType);
+
+                var convertedValue = AsConverters
+                    .Select(func => func.Invoke(instance, instanceType, convertToType))
+                    .Where(result => result != null)
+                    .FirstOrDefault();
+
+                return convertedValue != null
+                    ? (TType) convertedValue
+                    : StringExtensions.As(instance.ToString(), defaultValue);
+            }
+
             private static object AsSameTypeOrObject(object instance, Type instanceType, Type convertToType)
             {
                 // return the same value if no conversion is required
@@ -139,26 +159,6 @@ namespace AllOverIt.Extensions
                 }
 
                 return default;
-            }
-
-            public static TType ConvertTo<TType>(object instance, TType defaultValue)
-            {
-                if (instance == null)
-                {
-                    return defaultValue;
-                }
-
-                var instanceType = instance.GetType();
-                var convertToType = typeof(TType);
-
-                var convertedValue = AsConverters
-                    .Select(func => func.Invoke(instance, instanceType, convertToType))
-                    .Where(result => result != null)
-                    .FirstOrDefault();
-
-                return convertedValue != null
-                    ? (TType) convertedValue
-                    : StringExtensions.As(instance.ToString(), defaultValue);
             }
         }
 

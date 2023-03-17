@@ -1578,7 +1578,7 @@ namespace AllOverIt.Tests.Extensions
 
         public class As : ObjectExtensionsFixture
         {
-            private class DummyUnrelatedClass
+            private class UnrelatedClassDummy
             {
             }
 
@@ -1643,12 +1643,20 @@ namespace AllOverIt.Tests.Extensions
             }
 
             [Fact]
+            public void Should_Convert_Class_To_String_As_Name()
+            {
+                var actual = ObjectExtensions.As<string>(Create<DummyClass>());
+
+                actual.Should().Be(typeof(DummyClass).FullName);
+            }
+
+            [Fact]
             public void Should_Throw_When_Invalid_Cast()
             {
-                Invoking(() => ObjectExtensions.As<DummyUnrelatedClass>(Create<DummyClass>()))
+                Invoking(() => ObjectExtensions.As<UnrelatedClassDummy>(Create<DummyClass>()))
                   .Should()
                   .Throw<InvalidCastException>()
-                  .WithMessage("Unable to cast object of type 'DummyClass' to type 'DummyUnrelatedClass'.");
+                  .WithMessage("Unable to cast object of type 'DummyClass' to type 'UnrelatedClassDummy'.");
             }
 
             [Fact]
