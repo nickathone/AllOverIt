@@ -14,60 +14,97 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
     {
         private sealed class DummyState
         {
+            public int Sequence { get; set; }
             public int Value { get; set; }
             public int? ProcessedValue { get; set; }
         }
 
+        private class ChainOfResponsibilityDummy1 : ChainOfResponsibilityHandler<DummyState, DummyState>
+        {
+            public override DummyState Handle(DummyState state)
+            {
+                state.Sequence++;
+
+                if (state.Sequence != 1)
+                {
+                    throw new InvalidOperationException("Handler sequence is not in the expected order");
+                }
+
+                if (state.Value % 3 == 0)
+                {
+                    state.ProcessedValue = state.Value * 3;
+                    return state;
+                }
+
+                return base.Handle(state);
+            }
+        }
+
+        private class ChainOfResponsibilityDummy2 : ChainOfResponsibilityHandler<DummyState, DummyState>
+        {
+            public override DummyState Handle(DummyState state)
+            {
+                state.Sequence++;
+
+                if (state.Sequence != 2)
+                {
+                    throw new InvalidOperationException("Handler sequence is not in the expected order");
+                }
+
+                if (state.Value % 2 == 0)
+                {
+                    state.ProcessedValue = state.Value * 2;
+                    return state;
+                }
+
+                return base.Handle(state);
+            }
+        }
+
+        private class ChainOfResponsibilityAsyncDummy1 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        {
+            public override Task<DummyState> HandleAsync(DummyState state)
+            {
+                state.Sequence++;
+
+                if (state.Sequence != 1)
+                {
+                    throw new InvalidOperationException("Handler sequence is not in the expected order");
+                }
+
+                if (state.Value % 3 == 0)
+                {
+                    state.ProcessedValue = state.Value * 3;
+                    return Task.FromResult(state);
+                }
+
+                return base.HandleAsync(state);
+            }
+        }
+
+        private class ChainOfResponsibilityAsyncDummy2 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        {
+            public override Task<DummyState> HandleAsync(DummyState state)
+            {
+                state.Sequence++;
+
+                if (state.Sequence != 2)
+                {
+                    throw new InvalidOperationException("Handler sequence is not in the expected order");
+                }
+
+                if (state.Value % 2 == 0)
+                {
+                    state.ProcessedValue = state.Value * 2;
+                    return Task.FromResult(state);
+                }
+
+                return base.HandleAsync(state);
+            }
+        }
+
         public class Compose : ChainOfResponsibilityExtensionsFixture
         {
-            private class ChainOfResponsibilityHandlerBase : ChainOfResponsibilityHandler<DummyState, DummyState>
-            {
-                // NOTE: Don't put state in the handlers - this is just for the unit tests
-                public static int Sequence;
-            }
-
-            private class ChainOfResponsibilityDummy1 : ChainOfResponsibilityHandlerBase
-            {
-                public override DummyState Handle(DummyState state)
-                {
-                    Sequence++;
-
-                    if (Sequence != 1)
-                    {
-                        throw new InvalidOperationException("Handler sequence is not in the expected order");
-                    }
-
-                    if (state.Value % 3 == 0)
-                    {
-                        state.ProcessedValue = state.Value * 3;
-                        return state;
-                    }
-
-                    return base.Handle(state);
-                }
-            }
-
-            private class ChainOfResponsibilityDummy2 : ChainOfResponsibilityHandlerBase
-            {
-                public override DummyState Handle(DummyState state)
-                {
-                    Sequence++;
-
-                    if (Sequence != 2)
-                    {
-                        throw new InvalidOperationException("Handler sequence is not in the expected order");
-                    }
-
-                    if (state.Value % 2 == 0)
-                    {
-                        state.ProcessedValue = state.Value * 2;
-                        return state;
-                    }
-
-                    return base.Handle(state);
-                }
-            }
-
             [Fact]
             public void Should_Throw_When_Handlers_Null()
             {
@@ -75,7 +112,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 {
                     IEnumerable<IChainOfResponsibilityHandler<DummyState, DummyState>> handlers = null;
 
-                    ChainOfResponsibilityExtensions.Compose(handlers);
+                    ChainOfResponsibilityHandlerExtensions.Compose(handlers);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -89,7 +126,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 {
                     var handlers = new List<IChainOfResponsibilityHandler<DummyState, DummyState>>();
 
-                    ChainOfResponsibilityExtensions.Compose(handlers);
+                    ChainOfResponsibilityHandlerExtensions.Compose(handlers);
                 })
                     .Should()
                     .Throw<ArgumentException>()
@@ -104,7 +141,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
 
                 var handlers = new IChainOfResponsibilityHandler<DummyState, DummyState>[] { handler1, handler2 };
 
-                var actual = ChainOfResponsibilityExtensions.Compose(handlers);
+                var actual = ChainOfResponsibilityHandlerExtensions.Compose(handlers);
 
                 actual.Should().BeSameAs(handler1);
             }
@@ -117,139 +154,216 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
 
                 var handlers = new IChainOfResponsibilityHandler<DummyState, DummyState>[] { handler1, handler2 };
 
+                var state = new DummyState
+                {
+                    Value = 1
+                };
+
                 Invoking(() =>
                 {
-                    var state = new DummyState
-                    {
-                        Value = 1
-                    };
-
-                    _ = ChainOfResponsibilityExtensions
+                    _ = ChainOfResponsibilityHandlerExtensions
                         .Compose(handlers)
                         .Handle(state);
                 })
                     .Should()
                     .NotThrow();
 
-                ChainOfResponsibilityHandlerBase.Sequence.Should().Be(2);
+                state.Sequence.Should().Be(2);
             }
         }
 
         public class ComposeAsync : ChainOfResponsibilityExtensionsFixture
         {
-            private class ChainOfResponsibilityHandlerAsyncBase : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+            [Fact]
+            public void Should_Throw_When_Handlers_Null()
             {
-                // NOTE: Don't put state in the handlers - this is just for the unit tests
-                public static int Sequence;
+                Invoking(() =>
+                {
+                    IEnumerable<IChainOfResponsibilityHandlerAsync<DummyState, DummyState>> handlers = null;
+
+                    _ = ChainOfResponsibilityHandlerExtensions.Compose(handlers);
+                })
+                    .Should()
+                    .Throw<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("handlers");
             }
 
-            private class ChainOfResponsibilityAsyncDummy1 : ChainOfResponsibilityHandlerAsyncBase
+            [Fact]
+            public void Should_Throw_When_Handlers_Empty()
             {
-                public override Task<DummyState> HandleAsync(DummyState state)
+                Invoking(() =>
                 {
-                    Sequence++;
+                    var handlers = new List<IChainOfResponsibilityHandlerAsync<DummyState, DummyState>>();
 
-                    if (Sequence != 1)
-                    {
-                        throw new InvalidOperationException("Handler sequence is not in the expected order");
-                    }
-
-                    if (state.Value % 3 == 0)
-                    {
-                        state.ProcessedValue = state.Value * 3;
-                        return Task.FromResult(state);
-                    }
-
-                    return base.HandleAsync(state);
-                }
+                    _ = ChainOfResponsibilityHandlerExtensions.Compose(handlers);
+                })
+                    .Should()
+                    .Throw<ArgumentException>()
+                    .WithNamedMessageWhenEmpty("handlers");
             }
 
-            private class ChainOfResponsibilityAsyncDummy2 : ChainOfResponsibilityHandlerAsyncBase
+            [Fact]
+            public void Should_Return_First_Handler()
             {
-                public override Task<DummyState> HandleAsync(DummyState state)
+                var handler1 = new ChainOfResponsibilityAsyncDummy1();
+                var handler2 = new ChainOfResponsibilityAsyncDummy2();
+
+                var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[] { handler1, handler2 };
+
+                var actual = ChainOfResponsibilityHandlerExtensions.Compose(handlers);
+
+                actual.Should().BeSameAs(handler1);
+            }
+
+            [Fact]
+            public async Task Should_Compose_Handlers_In_Sequence()
+            {
+                var handler1 = new ChainOfResponsibilityAsyncDummy1();
+                var handler2 = new ChainOfResponsibilityAsyncDummy2();
+
+                var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[] { handler1, handler2 };
+
+                var state = new DummyState
                 {
-                    Sequence++;
+                    Value = 1
+                };
 
-                    if (Sequence != 2)
-                    {
-                        throw new InvalidOperationException("Handler sequence is not in the expected order");
-                    }
-
-                    if (state.Value % 2 == 0)
-                    {
-                        state.ProcessedValue = state.Value * 2;
-                        return Task.FromResult(state);
-                    }
-
-                    return base.HandleAsync(state);
-                }
-
-
-                [Fact]
-                public void Should_Throw_When_Handlers_Null()
+                await Invoking(async () =>
                 {
-                    Invoking(() =>
-                    {
-                        IEnumerable<IChainOfResponsibilityHandlerAsync<DummyState, DummyState>> handlers = null;
+                    _ = await ChainOfResponsibilityHandlerExtensions
+                        .Compose(handlers)
+                        .HandleAsync(state);
+                })
+                    .Should()
+                    .NotThrowAsync();
 
-                        _ = ChainOfResponsibilityExtensions.Compose(handlers);
-                    })
-                        .Should()
-                        .Throw<ArgumentNullException>()
-                        .WithNamedMessageWhenNull("handlers");
-                }
+                state.Sequence.Should().Be(2);
+            }
+        }
 
-                [Fact]
-                public void Should_Throw_When_Handlers_Empty()
+        public class Then : ChainOfResponsibilityExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_First_Null()
+            {
+                Invoking(() =>
                 {
-                    Invoking(() =>
-                    {
-                        var handlers = new List<IChainOfResponsibilityHandlerAsync<DummyState, DummyState>>();
+                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(null, new ChainOfResponsibilityDummy1());
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("first");
+            }
 
-                        _ = ChainOfResponsibilityExtensions.Compose(handlers);
-                    })
-                        .Should()
-                        .Throw<ArgumentException>()
-                        .WithNamedMessageWhenEmpty("handlers");
-                }
-
-                [Fact]
-                public void Should_Return_First_Handler()
+            [Fact]
+            public void Should_Throw_When_Next_Null()
+            {
+                Invoking(() =>
                 {
-                    var handler1 = new ChainOfResponsibilityAsyncDummy1();
-                    var handler2 = new ChainOfResponsibilityAsyncDummy2();
+                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(new ChainOfResponsibilityDummy1(), null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("next");
+            }
 
-                    var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[] { handler1, handler2 };
+            [Fact]
+            public void Should_Compose_Handlers_Return_First()
+            {
+                var handler1 = new ChainOfResponsibilityDummy1();
+                var handler2 = new ChainOfResponsibilityDummy2();
 
-                    var actual = ChainOfResponsibilityExtensions.Compose(handlers);
+                var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2);
 
-                    actual.Should().BeSameAs(handler1);
-                }
-
-                [Fact]
-                public async Task Should_Compose_Handlers_In_Sequence()
+                var state = new DummyState
                 {
-                    var handler1 = new ChainOfResponsibilityAsyncDummy1();
-                    var handler2 = new ChainOfResponsibilityAsyncDummy2();
+                    Value = 3
+                };
 
-                    var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[] { handler1, handler2 };
+                var actual = composed.Handle(state);
 
-                    await Invoking(async () =>
-                    {
-                        var state = new DummyState
-                        {
-                            Value = 1
-                        };
+                actual.ProcessedValue.Should().Be(9);
+            }
 
-                        _ = await ChainOfResponsibilityExtensions
-                            .Compose(handlers)
-                            .HandleAsync(state);
-                    })
-                        .Should()
-                        .NotThrowAsync();
+            [Fact]
+            public void Should_Compose_Handlers_Return_Second()
+            {
+                var handler1 = new ChainOfResponsibilityDummy1();
+                var handler2 = new ChainOfResponsibilityDummy2();
 
-                    ChainOfResponsibilityHandlerAsyncBase.Sequence.Should().Be(2);
-                }
+                var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2);
+
+                var state = new DummyState
+                {
+                    Value = 2
+                };
+
+                var actual = composed.Handle(state);
+
+                actual.ProcessedValue.Should().Be(4);
+            }
+        }
+
+        public class ThenAsync : ChainOfResponsibilityExtensionsFixture
+        {
+            [Fact]
+            public void Should_Throw_When_First_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(null, new ChainOfResponsibilityAsyncDummy1());
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("first");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Next_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(new ChainOfResponsibilityAsyncDummy1(), null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("next");
+            }
+
+            [Fact]
+            public async Task Should_Compose_Handlers_Return_First()
+            {
+                var handler1 = new ChainOfResponsibilityAsyncDummy1();
+                var handler2 = new ChainOfResponsibilityAsyncDummy2();
+
+                var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2);
+
+                var state = new DummyState
+                {
+                    Value = 3
+                };
+
+                var actual = await composed.HandleAsync(state);
+
+                actual.ProcessedValue.Should().Be(9);
+            }
+
+            [Fact]
+            public async Task Should_Compose_Handlers_Return_Second()
+            {
+                var handler1 = new ChainOfResponsibilityAsyncDummy1();
+                var handler2 = new ChainOfResponsibilityAsyncDummy2();
+
+                var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2);
+
+                var state = new DummyState
+                {
+                    Value = 2
+                };
+
+                var actual = await composed.HandleAsync(state);
+
+                actual.ProcessedValue.Should().Be(4);
             }
         }
     }

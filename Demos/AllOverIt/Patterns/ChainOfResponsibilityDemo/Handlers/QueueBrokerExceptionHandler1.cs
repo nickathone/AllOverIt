@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ChainOfResponsibilityDemo.Handlers
 {
-    public sealed class QueueBrokerExceptionHandler : ChainOfResponsibilityComposer<QueueMessageHandlerState, QueueMessageHandlerState>
+    internal sealed class QueueBrokerExceptionHandler1 : ChainOfResponsibilityComposer<QueueMessageHandlerState, QueueMessageHandlerState>
     {
         private static readonly IEnumerable<QueueMessageHandlerBase> Handlers = new List<QueueMessageHandlerBase>
         {
@@ -13,7 +13,7 @@ namespace ChainOfResponsibilityDemo.Handlers
             new UnhandledExceptionHandler()         // end of the chain
         };
 
-        public QueueBrokerExceptionHandler()
+        public QueueBrokerExceptionHandler1()
             : base(Handlers)
         {
         }
