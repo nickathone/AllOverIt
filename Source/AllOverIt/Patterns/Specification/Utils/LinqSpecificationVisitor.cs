@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Patterns.Specification.Exceptions;
 using AllOverIt.Reflection;
 using System;
 using System.Collections;
@@ -49,10 +48,6 @@ namespace AllOverIt.Patterns.Specification.Utils
                 Visit(specification.Expression);
 
                 return _queryStringBuilder.ToString();
-            }
-            catch(Exception exception)
-            {
-                throw new LinqSpecificationVisitorException("An error occurred while trying to convert a specification to a query string.", exception, _queryStringBuilder.ToString());
             }
             finally
             {
