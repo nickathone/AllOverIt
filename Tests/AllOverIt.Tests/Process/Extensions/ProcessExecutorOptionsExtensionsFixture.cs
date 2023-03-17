@@ -223,7 +223,7 @@ namespace AllOverIt.Tests.Process.Extensions
             [Fact]
             public void Should_Set_Timeout()
             {
-                var value = Create<TimeSpan>();
+                var value = TimeSpan.FromSeconds(Create<int>());
 
                 var expected = new
                 {
