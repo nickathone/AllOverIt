@@ -18,6 +18,7 @@ AllOverIt
   * Removed unnecessary 'continueOnCapturedContext' argument from TaskHelper.WhenAll()
   * Added FileUtils CreateFileWithContentAsync()
   * Added commandline argument helper to escape strings
+  * Added IComparer extension methods Reverse() and Then(); the latter allowing them to be composed like Chain of Responsibility
 
 AllOverIt.AutoFixture
   * Updated AutoFixture v4.18.0
