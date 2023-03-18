@@ -80,7 +80,7 @@ namespace AllOverIt.Process.Extensions
             return options with { ErrorOutputHandler = errorOutputHandler };
         }
 
-        public static ProcessExecutor BuildProcessExecutor(this ProcessExecutorOptions options)
+        public static IProcessExecutor BuildProcessExecutor(this ProcessExecutorOptions options)
         {
             return new ProcessExecutor(options);
         }

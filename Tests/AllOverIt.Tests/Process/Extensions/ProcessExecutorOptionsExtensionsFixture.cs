@@ -493,7 +493,7 @@ namespace AllOverIt.Tests.Process.Extensions
             [Fact]
             public void Should_Have_Options_On_Executor()
             {
-                var actual = ProcessExecutorOptionsExtensions.BuildProcessExecutor(_sut);
+                var actual = ProcessExecutorOptionsExtensions.BuildProcessExecutor(_sut) as ProcessExecutor;
 
                 actual._options.Should().BeSameAs(_sut);
             }

@@ -3,14 +3,17 @@ using AllOverIt.Extensions;
 using AllOverIt.Process.Exceptions;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SystemProcess = System.Diagnostics.Process;
 
 namespace AllOverIt.Process
 {
-    public sealed class ProcessExecutor : IDisposable
+    public sealed class ProcessExecutor : IProcessExecutor
     {
+        [ExcludeFromCodeCoverage]
         private sealed class DataOutputBuffer
         {
             private readonly StringBuilder _dataOutput = new();
@@ -29,8 +32,7 @@ namespace AllOverIt.Process
             }
         }
 
-        private System.Diagnostics.Process _process = new();
-
+        internal SystemProcess _process = new();
         internal readonly ProcessExecutorOptions _options;
 
         public ProcessExecutor(ProcessExecutorOptions options)
@@ -54,6 +56,7 @@ namespace AllOverIt.Process
             }
         }
 
+        [ExcludeFromCodeCoverage]
         public async Task<ProcessExecutorResult> ExecuteAsync(CancellationToken cancellationToken = default)
         {
             await DoExecuteAsync(_options.StandardOutputHandler, _options.ErrorOutputHandler, cancellationToken);
@@ -61,6 +64,7 @@ namespace AllOverIt.Process
             return new ProcessExecutorResult(_process);
         }
 
+        [ExcludeFromCodeCoverage]
         public async Task<ProcessExecutorBufferedResult> ExecuteBufferedAsync(CancellationToken cancellationToken = default)
         {
             var standardOutput = new DataOutputBuffer();
@@ -71,6 +75,7 @@ namespace AllOverIt.Process
             return new ProcessExecutorBufferedResult(_process, standardOutput.ToString(), errorOutput.ToString());
         }
 
+        [ExcludeFromCodeCoverage]
         public void Dispose()
         {
             if (_process is not null)
@@ -91,6 +96,7 @@ namespace AllOverIt.Process
             _process = null;
         }
 
+        [ExcludeFromCodeCoverage]
         private async Task DoExecuteAsync(DataReceivedEventHandler standardOutputHandler, DataReceivedEventHandler errorOutputHandler,
             CancellationToken cancellationToken = default)
         {
@@ -120,7 +126,6 @@ namespace AllOverIt.Process
 
             try
             {
-
                 // Cater for an explicit timeout for these scenarios
                 // - Less than NET 5 is used (there's no WaitForExitAsync() method)
                 // - The provided cancellationToken does not have an associated timeout (via a CancellationTokenSource)
@@ -207,11 +212,13 @@ namespace AllOverIt.Process
         }
 
 #if NET5_0_OR_GREATER
+        [ExcludeFromCodeCoverage]
         private Task WaitForProcessAsync(CancellationToken cancellationToken)
         {
             return _process.WaitForExitAsync(cancellationToken);
         }
 #else
+        [ExcludeFromCodeCoverage]
         private Task WaitForProcessAsync(int milliseconds)
         {
             _process.WaitForExit(milliseconds);
@@ -220,6 +227,7 @@ namespace AllOverIt.Process
         }
 #endif
 
+        [ExcludeFromCodeCoverage]
         private void KillProcess()
         {
 #if NETSTANDARD2_1
