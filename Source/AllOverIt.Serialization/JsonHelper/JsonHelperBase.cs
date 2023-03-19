@@ -44,7 +44,7 @@ namespace AllOverIt.Serialization.JsonHelper
         /// <summary>Tries to get the value of a property on the root element.</summary>
         /// <param name="propertyName">The property name to get the value of.</param>
         /// <param name="value">The value of the property, if the property exists.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         public bool TryGetValue(string propertyName, out object value)
         {
             _ = propertyName.WhenNotNullOrEmpty(nameof(propertyName));
@@ -66,7 +66,7 @@ namespace AllOverIt.Serialization.JsonHelper
         /// <typeparam name="TValue">The value type.</typeparam>
         /// <param name="propertyName">The property name to get the value of.</param>
         /// <param name="value">The value of the property, if the property exists.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         public bool TryGetValue<TValue>(string propertyName, out TValue value)
         {
             _ = propertyName.WhenNotNullOrEmpty(nameof(propertyName));
@@ -89,7 +89,7 @@ namespace AllOverIt.Serialization.JsonHelper
         /// <typeparam name="TValue">The value type.</typeparam>
         /// <param name="propertyName">The property name to get the value of.</param>
         /// <param name="values">The values of the property, if the property exists.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         public bool TryGetValues<TValue>(string propertyName, out IReadOnlyCollection<TValue> values)
         {
             _ = propertyName.WhenNotNullOrEmpty(nameof(propertyName));
@@ -111,7 +111,7 @@ namespace AllOverIt.Serialization.JsonHelper
         /// <summary>Tries to get an array of elements for a specified property.</summary>
         /// <param name="arrayPropertyName">The property name of the array element.</param>
         /// <param name="array">The array of elements for the specified property.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         public bool TryGetObjectArray(string arrayPropertyName, out IEnumerable<IElementDictionary> array)
         {
             _ = arrayPropertyName.WhenNotNullOrEmpty(nameof(arrayPropertyName));
@@ -134,7 +134,7 @@ namespace AllOverIt.Serialization.JsonHelper
         /// <param name="arrayPropertyName">The property name of the array element.</param>
         /// <param name="propertyName">The property name to get the value of.</param>
         /// <param name="arrayValues">The value of each element in the specified array property.</param>
-        /// <returns>True if the array and property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the array and property exists, otherwise <see langword="false" />.</returns>
         public bool TryGetObjectArrayValues<TValue>(string arrayPropertyName, string propertyName, out IEnumerable<TValue> arrayValues)
         {
             _ = arrayPropertyName.WhenNotNullOrEmpty(nameof(arrayPropertyName));
@@ -182,7 +182,7 @@ namespace AllOverIt.Serialization.JsonHelper
         /// <param name="arrayPropertyNames">One or more nested child array property names.</param>
         /// <param name="childPropertyName">The property name of the child element to get the value of.</param>
         /// <param name="childArrayValues">The value of each element in the specified child array property.</param>
-        /// <returns>True if the arrays and property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the arrays and property exists, otherwise <see langword="false" />.</returns>
         public bool TryGetDescendantObjectArrayValues<TValue>(IEnumerable<string> arrayPropertyNames, string childPropertyName, out IEnumerable<TValue> childArrayValues)
         {
             var allPropertyNames = arrayPropertyNames.WhenNotNullOrEmpty(nameof(arrayPropertyNames)).AsReadOnlyCollection();

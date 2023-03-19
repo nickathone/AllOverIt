@@ -90,7 +90,7 @@ namespace AllOverIt.Evaluator.Operations
 
         /// <summary>Indicates if the requested method name has been registered.</summary>
         /// <param name="methodName">The case-insensitive method name being queried.</param>
-        /// <returns>True if the requested method name has been registered, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the requested method name has been registered, otherwise <see langword="false" />.</returns>
         public bool IsRegistered(string methodName)
         {
             var upperMethodName = methodName.ToUpperInvariant();

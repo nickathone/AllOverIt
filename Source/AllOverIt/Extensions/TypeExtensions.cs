@@ -150,7 +150,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents an enumeration type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents an enumeration type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents an enumeration type, otherwise <see langword="false" />.</returns>
         public static bool IsEnumType(this Type type)
         {
             return type.GetTypeInfo().IsEnum;
@@ -158,7 +158,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents a class type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents a class type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents a class type, otherwise <see langword="false" />.</returns>
         public static bool IsClassType(this Type type)
         {
             return type.GetTypeInfo().IsClass;
@@ -166,7 +166,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents a value type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents a value type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents a value type, otherwise <see langword="false" />.</returns>
         public static bool IsValueType(this Type type)
         {
             return type.GetTypeInfo().IsValueType;
@@ -174,7 +174,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents a primitive type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents a primitive type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents a primitive type, otherwise <see langword="false" />.</returns>
         public static bool IsPrimitiveType(this Type type)
         {
             return type.GetTypeInfo().IsPrimitive;
@@ -182,7 +182,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents an integral type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents an integral type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents an integral type, otherwise <see langword="false" />.</returns>
         public static bool IsIntegralType(this Type type)
         {
             return new[]
@@ -200,7 +200,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents a floating type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents a floating type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents a floating type, otherwise <see langword="false" />.</returns>
         public static bool IsFloatingType(this Type type)
         {
             return new[]
@@ -214,7 +214,7 @@ namespace AllOverIt.Extensions
         /// <summary>Indicates if the <see cref="Type"/> represents an enumerable type.</summary>
         /// <param name="type">The type to compare.</param>
         /// <param name="includeString">Indicates if a string type should be considered as an enumerable (of char).</param>
-        /// <returns>True if the <see cref="Type"/> represents an enumerable type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents an enumerable type, otherwise <see langword="false" />.</returns>
         public static bool IsEnumerableType(this Type type, bool includeString = false)
         {
             return type == CommonTypes.StringType
@@ -224,7 +224,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents a generic enumerable type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents a generic enumerable type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents a generic enumerable type, otherwise <see langword="false" />.</returns>
         public static bool IsGenericEnumerableType(this Type type)
         {
             return type.IsGenericType() && CommonTypes.IEnumerableType.IsAssignableFrom(type);
@@ -232,7 +232,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents a generic type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents a generic type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents a generic type, otherwise <see langword="false" />.</returns>
         public static bool IsGenericType(this Type type)
         {
             return type.GetTypeInfo().IsGenericType;
@@ -242,7 +242,7 @@ namespace AllOverIt.Extensions
         /// IsSubClassOf(), this method does not support looking for inherited interfaces.</summary>
         /// <param name="type">The type to be tested.</param>
         /// <param name="fromType">The base type to compare against, including unbound generics, such as typeof(List&lt;>).</param>
-        /// <returns>True if <paramref name="type"/> inherits from <paramref name="fromType"/>, otherwise false.</returns>
+        /// <returns><see langword="true" /> if <paramref name="type"/> inherits from <paramref name="fromType"/>, otherwise <see langword="false" />.</returns>
         /// <remarks>Use the <seealso cref="IsDerivedFrom"/> method when class and interface support is required.</remarks>
         public static bool IsSubClassOfRawGeneric(this Type type, Type fromType)
         {
@@ -266,7 +266,7 @@ namespace AllOverIt.Extensions
         /// <summary>Determines if a type (or interface) inherits from another type (or interface), including open/unbound generics.</summary>
         /// <param name="type">The type to be tested.</param>
         /// <param name="fromType">The base type to compare against, including open/unbound generics, such as typeof(IList&lt;>).</param>
-        /// <returns>True if <paramref name="type"/> inherits from <paramref name="fromType"/>, otherwise false.</returns>
+        /// <returns><see langword="true" /> if <paramref name="type"/> inherits from <paramref name="fromType"/>, otherwise <see langword="false" />.</returns>
         public static bool IsDerivedFrom(this Type type, Type fromType)
         {
             _ = type.WhenNotNull(nameof(type));
@@ -289,7 +289,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Indicates if the <see cref="Type"/> represents a generic nullable type.</summary>
         /// <param name="type">The type to compare.</param>
-        /// <returns>True if the <see cref="Type"/> represents a generic nullable type, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <see cref="Type"/> represents a generic nullable type, otherwise <see langword="false" />.</returns>
         public static bool IsNullableType(this Type type)
         {
             return type.IsGenericType() && (type.GetGenericTypeDefinition() == CommonTypes.NullableGenericType);
@@ -330,7 +330,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines if the provided type inherits from EnrichedEnum&lt;TEnum&gt;.</summary>
         /// <param name="type">The type to be checked.</param>
-        /// <returns>True if the type inherits from EnrichedEnum&lt;>, otherwise False.</returns>
+        /// <returns><see langword="true" /> if the type inherits from EnrichedEnum&lt;>, otherwise <see langword="false" />.</returns>
         public static bool IsEnrichedEnum(this Type type)
         {
             return type.IsDerivedFrom(CommonTypes.EnrichedEnumGenericType);

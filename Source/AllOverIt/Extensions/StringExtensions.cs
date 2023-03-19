@@ -87,7 +87,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines if a string is null, empty, or contains whitespace.</summary>
         /// <param name="value">The string value to compare.</param>
-        /// <returns>True if the string is null, empty, or contains whitespace, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the string is null, empty, or contains whitespace, otherwise <see langword="false" />.</returns>
         public static bool IsNullOrEmpty(this string value)
         {
             return string.IsNullOrWhiteSpace(value);
@@ -95,7 +95,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines if a string is not null, empty, or containing whitespace.</summary>
         /// <param name="value">The string value to compare.</param>
-        /// <returns>True if the string is not null, not empty, nor contains whitespace, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the string is not null, not empty, nor contains whitespace, otherwise <see langword="false" />.</returns>
         public static bool IsNotNullOrEmpty(this string value)
         {
             return !string.IsNullOrWhiteSpace(value);
@@ -103,7 +103,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines if a string is not null and empty or contains whitespace.</summary>
         /// <param name="value">The string value to compare.</param>
-        /// <returns>True if the string is not null and empty or contains whitespace, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the string is not null and empty or contains whitespace, otherwise <see langword="false" />.</returns>
         public static bool IsEmpty(this string value)
         {
             return value is not null && string.IsNullOrWhiteSpace(value);

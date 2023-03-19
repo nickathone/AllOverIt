@@ -8,7 +8,7 @@ namespace AllOverIt.Serialization.JsonHelper
         /// <summary>Try to get the value of a specified property.</summary>
         /// <param name="propertyName">The property to get the value from.</param>
         /// <param name="value">The property value, as an <see cref="Object"/>.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         bool TryGetValue(string propertyName, out object value);
 
         /// <summary>Get the value of a specified property.</summary>

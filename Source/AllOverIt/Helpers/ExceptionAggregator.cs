@@ -24,8 +24,8 @@ namespace AllOverIt.Helpers
         }
 
         /// <summary>Throws an AggregateException if any exceptions were added to the aggregator.</summary>
-        /// <param name="flatten">When true, if any of the exceptions are an AggregateException they will be flattened
-        /// into the resulting AggregateException thrown. Default is true.</param>
+        /// <param name="flatten">When <see langword="true" />, if any of the exceptions are an AggregateException they will be flattened
+        /// into the resulting AggregateException thrown. Default is <see langword="true" />.</param>
         public void ThrowIfAnyExceptions(bool flatten = true)
         {
             if (_exceptions.Any())

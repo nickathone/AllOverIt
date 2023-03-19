@@ -31,7 +31,7 @@ namespace AllOverIt.Patterns.ResourceInitialization
         /// A virtual method that is called at the time of disposal. For this class, the cleanup action provided at the time
         /// of construction is invoked.
         /// </summary>
-        /// <param name="disposing">Is true when the object is being disposed, otherwise false.</param>
+        /// <param name="disposing">Is <see langword="true" /> when the object is being disposed, otherwise <see langword="false" />.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
@@ -79,7 +79,7 @@ namespace AllOverIt.Patterns.ResourceInitialization
         /// A virtual method that is called at the time of disposal. For this class, the cleanup action provided at the time
         /// of construction is invoked.
         /// </summary>
-        /// <param name="disposing">Is true when the object is being disposed, otherwise false.</param>
+        /// <param name="disposing">Is <see langword="true" /> when the object is being disposed, otherwise <see langword="false" />.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)

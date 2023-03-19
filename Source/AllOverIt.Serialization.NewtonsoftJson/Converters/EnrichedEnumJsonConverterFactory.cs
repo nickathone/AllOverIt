@@ -23,7 +23,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
 
         /// <summary>Returns true if the object to be converted is a <see cref="EnrichedEnum{TEnum}"/>.</summary>
         /// <param name="objectType">The object type.</param>
-        /// <returns>True if the object to be converted is a <see cref="EnrichedEnum{TEnum}"/>.</returns>
+        /// <returns><see langword="true" /> if the object to be converted is a <see cref="EnrichedEnum{TEnum}"/>.</returns>
         public override bool CanConvert(Type objectType)
         {
             // The objectType is derived from EnrichedEnum<TEnum>, so need to get the generic from the base class.

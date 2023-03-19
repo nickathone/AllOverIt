@@ -324,13 +324,13 @@
             <summary>Constructor.</summary>
         </member>
         <member name="T:AllOverIt.Evaluator.Operations.GreaterThanOperation">
-            <summary>An operation that returns true if one operand is greater than a second, otherwise false.</summary>
+            <summary>An operation that returns true if one operand is greater than a second, otherwise <see langword="false" />.</summary>
         </member>
         <member name="M:AllOverIt.Evaluator.Operations.GreaterThanOperation.#ctor">
             <summary>Constructor.</summary>
         </member>
         <member name="T:AllOverIt.Evaluator.Operations.GreaterThanOrEqualOperation">
-            <summary>An operation that returns true if one operand is greater than or equal to a second, otherwise false.</summary>
+            <summary>An operation that returns true if one operand is greater than or equal to a second, otherwise <see langword="false" />.</summary>
         </member>
         <member name="M:AllOverIt.Evaluator.Operations.GreaterThanOrEqualOperation.#ctor">
             <summary>Constructor.</summary>
@@ -361,7 +361,7 @@
             <param name="precedence">The precedence level that determines the order of operations. A lower value indicates a higher precedence.</param>
             <param name="argumentCount">The number of required arguments.</param>
             <param name="operatorCreator">The factory used to create the operation using the provided arguments (as expressions).</param>
-            <returns>True if the symbol was registered, otherwise false.</returns>
+            <returns><see langword="true" /> if the symbol was registered, otherwise <see langword="false" />.</returns>
         </member>
         <member name="M:AllOverIt.Evaluator.Operations.IArithmeticOperationFactory.RegisterOperation(System.String,System.Int32,System.Int32,System.Func{System.Linq.Expressions.Expression[],AllOverIt.Evaluator.Operators.IOperator})">
             <summary>Registers a new operation in terms of its operator symbol, precedence level and a factory used for creating the
@@ -398,7 +398,7 @@
         <member name="M:AllOverIt.Evaluator.Operations.IUserDefinedMethodFactory.IsRegistered(System.String)">
             <summary>Indicates if the provided user-defined method name is registered with the factory.</summary>
             <param name="methodName">The name of the user-defined method to check.</param>
-            <returns>True if the user-defined method name is registered.</returns>
+            <returns><see langword="true" /> if the user-defined method name is registered.</returns>
         </member>
         <member name="M:AllOverIt.Evaluator.Operations.IUserDefinedMethodFactory.GetMethod(System.String)">
             <summary>Gets an instance of the class implementing the user-defined method identified by the provided method name.</summary>
@@ -406,13 +406,13 @@
             <returns>The concrete type implementing the user-defined method.</returns>
         </member>
         <member name="T:AllOverIt.Evaluator.Operations.LessThanOperation">
-            <summary>An operation that returns true if one operand is less than a second, otherwise false.</summary>
+            <summary>An operation that returns true if one operand is less than a second, otherwise <see langword="false" />.</summary>
         </member>
         <member name="M:AllOverIt.Evaluator.Operations.LessThanOperation.#ctor">
             <summary>Constructor.</summary>
         </member>
         <member name="T:AllOverIt.Evaluator.Operations.LessThanOrEqualOperation">
-            <summary>An operation that returns true if one operand is less than or equal to a second, otherwise false.</summary>
+            <summary>An operation that returns true if one operand is less than or equal to a second, otherwise <see langword="false" />.</summary>
         </member>
         <member name="M:AllOverIt.Evaluator.Operations.LessThanOrEqualOperation.#ctor">
             <summary>Constructor.</summary>
@@ -536,7 +536,7 @@
         <member name="M:AllOverIt.Evaluator.Operations.UserDefinedMethodFactory.IsRegistered(System.String)">
             <summary>Indicates if the requested method name has been registered.</summary>
             <param name="methodName">The case-insensitive method name being queried.</param>
-            <returns>True if the requested method name has been registered, otherwise false.</returns>
+            <returns><see langword="true" /> if the requested method name has been registered, otherwise <see langword="false" />.</returns>
         </member>
         <member name="M:AllOverIt.Evaluator.Operations.UserDefinedMethodFactory.GetMethod(System.String)">
             <summary>Gets an instance of the operation type that was registered using the provided method name.</summary>

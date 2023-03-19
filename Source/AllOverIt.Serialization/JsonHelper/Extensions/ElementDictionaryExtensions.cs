@@ -18,7 +18,7 @@ namespace AllOverIt.Serialization.JsonHelper.Extensions
         /// <param name="element">The element to get the value from.</param>
         /// <param name="propertyName">The property name to get the value of.</param>
         /// <param name="value">The value of the property, if the property exists.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         public static bool TryGetValue<TValue>(this IElementDictionary element, string propertyName, out TValue value)
         {
             _ = element.WhenNotNull(nameof(element));
@@ -65,7 +65,7 @@ namespace AllOverIt.Serialization.JsonHelper.Extensions
         /// <param name="element">The element to get the value from.</param>
         /// <param name="propertyName">The property name to get the values of.</param>
         /// <param name="values">The array values of the property, if the property exists.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         public static bool TryGetValues<TValue>(this IElementDictionary element, string propertyName, out IReadOnlyCollection<TValue> values)
         {
             _ = element.WhenNotNull(nameof(element));
@@ -117,7 +117,7 @@ namespace AllOverIt.Serialization.JsonHelper.Extensions
         /// <param name="element">The element to get the value from.</param>
         /// <param name="arrayPropertyName">The property name of the array element.</param>
         /// <param name="array">The array of elements for the specified property.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         /// <remarks>A <seealso cref="JsonHelperException"/> exception will be thrown if the property is present but it is not a list of JSON objects.</remarks>
         public static bool TryGetObjectArray(this IElementDictionary element, string arrayPropertyName, out IEnumerable<IElementDictionary> array)
         {
@@ -172,7 +172,7 @@ namespace AllOverIt.Serialization.JsonHelper.Extensions
         /// <param name="arrayPropertyName">The property name of the array element.</param>
         /// <param name="propertyName">The property name to get the value of.</param>
         /// <param name="arrayValues">The value of each element in the specified array property.</param>
-        /// <returns>True if the array and property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the array and property exists, otherwise <see langword="false" />.</returns>
         public static bool TryGetObjectArrayValues<TValue>(this IElementDictionary element, string arrayPropertyName, string propertyName,
             out IEnumerable<TValue> arrayValues)
         {
@@ -214,7 +214,7 @@ namespace AllOverIt.Serialization.JsonHelper.Extensions
         /// <param name="elements">The elements to get the value from.</param>
         /// <param name="arrayPropertyName">The property name of the array element.</param>
         /// <param name="arrayValues">The value of each element in the specified array property.</param>
-        /// <returns>True if the property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the property exists, otherwise <see langword="false" />.</returns>
         public static bool TryGetManyObjectArrayValues<TValue>(this IEnumerable<IElementDictionary> elements, string arrayPropertyName,
             out IEnumerable<TValue> arrayValues)
         {
@@ -339,7 +339,7 @@ namespace AllOverIt.Serialization.JsonHelper.Extensions
         /// <param name="arrayPropertyNames">One or more nested child array property names.</param>
         /// <param name="childPropertyName">The property name of the child element to get the value of.</param>
         /// <param name="childArrayValues">The value of each element in the specified child array property.</param>
-        /// <returns>True if the arrays and property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the arrays and property exists, otherwise <see langword="false" />.</returns>
         public static bool TryGetDescendantObjectArrayValues<TValue>(this IEnumerable<IElementDictionary> elements, IEnumerable<string> arrayPropertyNames,
             string childPropertyName, out IEnumerable<TValue> childArrayValues)
         {
@@ -383,7 +383,7 @@ namespace AllOverIt.Serialization.JsonHelper.Extensions
         /// <param name="arrayPropertyNames">One or more nested child array property names.</param>
         /// <param name="childPropertyName">The property name of the child element to get the value of.</param>
         /// <param name="childArrayValues">The value of each element in the specified child array property.</param>
-        /// <returns>True if the arrays and property exists, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the arrays and property exists, otherwise <see langword="false" />.</returns>
         public static bool TryGetDescendantObjectArrayValues<TValue>(this IElementDictionary element, IEnumerable<string> arrayPropertyNames, string childPropertyName,
             out IEnumerable<TValue> childArrayValues)
         {

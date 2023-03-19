@@ -272,7 +272,7 @@
             <summary>Determines if the exception contains any errors with an error type of 'ExecutionTimeout",
             as reported by AppSync.</summary>
             <param name="exception">The exception containing errors.</param>
-            <returns>True if the exception contains any errors with an error type of 'ExecutionTimeout", otherwise false.</returns>
+            <returns><see langword="true" /> if the exception contains any errors with an error type of 'ExecutionTimeout", otherwise <see langword="false" />.</returns>
         </member>
         <member name="T:AllOverIt.Aws.AppSync.Client.Extensions.ServiceCollectionExtensions">
             <summary>Provides a variety of extension methods for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</summary>
@@ -360,7 +360,7 @@
         <member name="M:AllOverIt.Aws.AppSync.Client.IAppSyncSubscriptionClient.ConnectAsync">
             <summary>Opens a WebSocket connection and registers the client with AppSync. Any existing subscriptions from a
             previous connection will be re-subscribed.</summary>
-            <returns>True if the connection was established, otherwise false.</returns>
+            <returns><see langword="true" /> if the connection was established, otherwise <see langword="false" />.</returns>
             <remarks>Refer to <see cref="M:AllOverIt.Aws.AppSync.Client.IAppSyncSubscriptionClient.DisconnectAsync"/> for more information on how existing subscriptions are retained
             if the client is disconnected while there are active subscriptions.</remarks>
         </member>

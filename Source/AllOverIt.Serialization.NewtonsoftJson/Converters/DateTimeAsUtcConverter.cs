@@ -10,7 +10,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
     {
         /// <summary>Returns true if the object to be converted is a <see cref="DateTime"/>.</summary>
         /// <param name="objectType">The object type.</param>
-        /// <returns>True if the object to be converted is a <see cref="DateTime"/>.</returns>
+        /// <returns><see langword="true" /> if the object to be converted is a <see cref="DateTime"/>.</returns>
         public override bool CanConvert(Type objectType)
         {
             return CommonTypes.DateTimeType == objectType || CommonTypes.NullableDateTimeType == objectType;

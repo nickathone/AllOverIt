@@ -11,7 +11,7 @@ namespace AllOverIt.Extensions
     {
         /// <summary>Determines if the provided <paramref name="propertyInfo"/> is for an abstract property.</summary>
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> for a property.</param>
-        /// <returns>True if the <paramref name="propertyInfo"/> is for an abstract property, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <paramref name="propertyInfo"/> is for an abstract property, otherwise <see langword="false" />.</returns>
         public static bool IsAbstract(this PropertyInfo propertyInfo)
         {
             _ = propertyInfo.WhenNotNull(nameof(propertyInfo));
@@ -21,7 +21,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines of the <paramref name="propertyInfo"/> is for an internal property.</summary>
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> for a property.</param>
-        /// <returns>True if the <paramref name="propertyInfo"/> is for an internal property, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <paramref name="propertyInfo"/> is for an internal property, otherwise <see langword="false" />.</returns>
         public static bool IsInternal(this PropertyInfo propertyInfo)
         {
             _ = propertyInfo.WhenNotNull(nameof(propertyInfo));
@@ -31,7 +31,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines of the <paramref name="propertyInfo"/> is for a private property.</summary>
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> for a property.</param>
-        /// <returns>True if the <paramref name="propertyInfo"/> is for a virtual property, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <paramref name="propertyInfo"/> is for a virtual property, otherwise <see langword="false" />.</returns>
         public static bool IsPrivate(this PropertyInfo propertyInfo)
         {
             _ = propertyInfo.WhenNotNull(nameof(propertyInfo));
@@ -41,7 +41,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines of the <paramref name="propertyInfo"/> is for a protected property.</summary>
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> for a property.</param>
-        /// <returns>True if the <paramref name="propertyInfo"/> is for a protected property, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <paramref name="propertyInfo"/> is for a protected property, otherwise <see langword="false" />.</returns>
         public static bool IsProtected(this PropertyInfo propertyInfo)
         {
             _ = propertyInfo.WhenNotNull(nameof(propertyInfo));
@@ -51,7 +51,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines of the <paramref name="propertyInfo"/> is for a public property.</summary>
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> for a property.</param>
-        /// <returns>True if the <paramref name="propertyInfo"/> is for a public property, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <paramref name="propertyInfo"/> is for a public property, otherwise <see langword="false" />.</returns>
         public static bool IsPublic(this PropertyInfo propertyInfo)
         {
             _ = propertyInfo.WhenNotNull(nameof(propertyInfo));
@@ -61,7 +61,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines of the <paramref name="propertyInfo"/> is for a static property.</summary>
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> for a property.</param>
-        /// <returns>True if the <paramref name="propertyInfo"/> is for a static property, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <paramref name="propertyInfo"/> is for a static property, otherwise <see langword="false" />.</returns>
         public static bool IsStatic(this PropertyInfo propertyInfo)
         {
             _ = propertyInfo.WhenNotNull(nameof(propertyInfo));
@@ -71,7 +71,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines of the <paramref name="propertyInfo"/> is for a virtual property.</summary>
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> for a property.</param>
-        /// <returns>True if the <paramref name="propertyInfo"/> is for a virtual property, otherwise false.</returns>
+        /// <returns><see langword="true" /> if the <paramref name="propertyInfo"/> is for a virtual property, otherwise <see langword="false" />.</returns>
         public static bool IsVirtual(this PropertyInfo propertyInfo)
         {
             _ = propertyInfo.WhenNotNull(nameof(propertyInfo));
@@ -81,7 +81,7 @@ namespace AllOverIt.Extensions
 
         /// <summary>Determines if a property is an indexer.</summary>
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> for a property.</param>
-        /// <returns>True if the property is an indexer.</returns>
+        /// <returns><see langword="true" /> if the property is an indexer.</returns>
         public static bool IsIndexer(this PropertyInfo propertyInfo)
         {
             _ = propertyInfo.WhenNotNull(nameof(propertyInfo));

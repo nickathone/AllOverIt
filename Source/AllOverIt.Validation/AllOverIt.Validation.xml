@@ -375,7 +375,7 @@
             <summary>Override in a concrete validator to indicate if the property value is valid compared to the specified comparison value.</summary>
             <param name="value">The property value.</param>
             <param name="comparisonValue">The value to compare to the property value.</param>
-            <returns>True if the property value is valid, otherwise false.</returns>
+            <returns><see langword="true" /> if the property value is valid, otherwise <see langword="false" />.</returns>
         </member>
         <member name="T:AllOverIt.Validation.Validators.ContextRangeValidator`3">
             <summary>A base validation class that is used to validate a property value against two values available on the validation context.</summary>
@@ -396,7 +396,7 @@
             <param name="value">The property value.</param>
             <param name="fromValue">The lower limit value to compare to the property value.</param>
             <param name="toValue">The upper limit value to compare to the property value.</param>
-            <returns>True if the property value is valid, otherwise false.</returns>
+            <returns><see langword="true" /> if the property value is valid, otherwise <see langword="false" />.</returns>
         </member>
         <member name="T:AllOverIt.Validation.Validators.ExclusiveBetweenContextValidator`3">
             <summary>A range validator that compares a property value against an exclusive upper and lower limit stored on the validation context.</summary>

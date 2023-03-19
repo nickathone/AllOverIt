@@ -11,7 +11,7 @@ namespace AllOverIt.Aws.AppSync.Client.Extensions
         /// <summary>Determines if the exception contains any errors with an error type of 'ExecutionTimeout",
         /// as reported by AppSync.</summary>
         /// <param name="exception">The exception containing errors.</param>
-        /// <returns>True if the exception contains any errors with an error type of 'ExecutionTimeout", otherwise false.</returns>
+        /// <returns><see langword="true" /> if the exception contains any errors with an error type of 'ExecutionTimeout", otherwise <see langword="false" />.</returns>
         public static bool HasExecutionTimeoutError(this GraphqlHttpRequestException exception)
         {
             return exception.Errors != null && exception.Errors.Any(error => error.ErrorType == ExecutionTimeoutErrorType);
