@@ -11,11 +11,5 @@ namespace AllOverIt.Serialization.Binary
 
         /// <inheritdoc />
         public abstract object ReadValue(IEnrichedBinaryReader reader);
-
-        /// <inheritdoc />
-        public TValue ReadValue<TValue>(IEnrichedBinaryReader reader)
-        {
-            return (TValue)ReadValue(reader);
-        }
     }
 }

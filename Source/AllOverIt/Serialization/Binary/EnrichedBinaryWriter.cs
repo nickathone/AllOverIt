@@ -130,9 +130,9 @@ namespace AllOverIt.Serialization.Binary
         public void WriteObject(object value, Type type)
         {
             // Including null checking in case the values come from something like Enumerable.Range()
-            if (type is null || type == CommonTypes.ObjectType)
+            if ((type is null || type == CommonTypes.ObjectType) && value is not null)
             {
-                type = value?.GetType();
+                type = value.GetType();
             }
 
             if (value is null && (type is null || type == CommonTypes.ObjectType))
@@ -182,6 +182,7 @@ namespace AllOverIt.Serialization.Binary
                 }
             }
 
+            // Should never get here
             throw new BinaryWriterException($"No binary writer registered for the type '{type.GetFriendlyName()}'.");
         }
 

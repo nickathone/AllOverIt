@@ -10,7 +10,7 @@ namespace AllOverIt.Serialization.Binary
         Type Type { get; }
 
         /// <summary>Writes the provided value to the underlying stream. It is expected the <paramref name="value"/> is of the required
-        /// <see cref="IEnrichedBinaryValueWriter.Type"/>.</summary>
+        /// <see cref="Type"/>.</summary>
         /// <param name="writer">The binary writer that will write the value to the underlying stream.</param>
         /// <param name="value">The object value to be written.</param>
         void WriteValue(IEnrichedBinaryWriter writer, object value);

@@ -16,7 +16,7 @@ namespace AllOverIt.Tests.Serialization
     public class EnrichedBinaryValueReaderWriterFixture : FixtureBase
     {
         [Fact]
-        public void Should_Read_Write_Using_Custom_Reader_Writer()
+        public void Should_Read_Write_Enumerable_Using_Custom_Reader_Writer()
         {
             var expected = CreateMany<Classroom>();
             IEnumerable<Classroom> actual = default;
@@ -49,6 +49,44 @@ namespace AllOverIt.Tests.Serialization
                     reader.Readers.Add(new ClassroomReader());
 
                     actual = reader.ReadEnumerable<Classroom>();
+                }
+            }
+
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Should_Read_Write_Object_Using_Custom_Reader_Writer()
+        {
+            var expected = Create<Classroom>();
+
+            object actual = null;
+
+            byte[] bytes;
+
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new EnrichedBinaryWriter(stream, Encoding.UTF8, true))
+                {
+                    writer.Writers.Add(new StudentWriter());
+                    writer.Writers.Add(new TeacherWriter());
+                    writer.Writers.Add(new ClassroomWriter());
+
+                    writer.WriteObject(expected);
+                }
+
+                bytes = stream.ToArray();
+            }
+
+            using (var stream = new MemoryStream(bytes))
+            {
+                using (var reader = new EnrichedBinaryReader(stream, Encoding.UTF8, true))
+                {
+                    reader.Readers.Add(new StudentReader());
+                    reader.Readers.Add(new TeacherReader());
+                    reader.Readers.Add(new ClassroomReader());
+
+                    actual = reader.ReadObject<Classroom>();
                 }
             }
 

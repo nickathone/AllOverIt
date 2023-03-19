@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization.Binary
+namespace AllOverIt.Tests.Serialization.Binary.Extensions
 {
     // ALL TESTS ARE BEHAVIOURAL AND MAY NOT REFLECT HOW THE ACTUAL IMPLEMENTATION WORKS.
     // FUNCTIONAL TESTS COVER THE REAL IMPLEMENTATION.
@@ -59,7 +59,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadBoolean())
                     .Returns(false);
 
-                EnrichedBinaryReaderExtensions.ReadSafeString(_readerFake.FakedObject);
+                _readerFake.FakedObject.ReadSafeString();
 
                 _readerFake.CallsTo(fake => fake.ReadBoolean()).MustHaveHappened();
                 _readerFake.CallsTo(fake => fake.ReadString()).MustNotHaveHappened();
@@ -72,7 +72,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadBoolean())
                     .Returns(true);
 
-                EnrichedBinaryReaderExtensions.ReadSafeString(_readerFake.FakedObject);
+                _readerFake.FakedObject.ReadSafeString();
 
                 _readerFake
                     .CallsTo(fake => fake.ReadBoolean()).MustHaveHappened()
@@ -86,7 +86,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadBoolean())
                     .Returns(false);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadSafeString(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadSafeString();
 
                 actual.Should().Be(default);
             }
@@ -104,7 +104,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadString())
                     .Returns(value);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadSafeString(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadSafeString();
 
                 actual.Should().Be(value);
             }
@@ -133,7 +133,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadBytes(16))
                     .Returns(value.ToByteArray());
 
-                var actual = EnrichedBinaryReaderExtensions.ReadGuid(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadGuid();
 
                 actual.Should().Be(value);
             }
@@ -164,11 +164,11 @@ namespace AllOverIt.Tests.Serialization.Binary
 
                 Invoking(() =>
                 {
-                    _ = EnrichedBinaryReaderExtensions.ReadEnum(_readerFake.FakedObject);
+                    _ = _readerFake.FakedObject.ReadEnum();
                 })
                    .Should()
                    .Throw<BinaryReaderException>()
-                   .WithMessage($"Unknown enum type '{enumTypeName}'.");                
+                   .WithMessage($"Unknown enum type '{enumTypeName}'.");
             }
 
             [Fact]
@@ -181,7 +181,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadString())
                     .ReturnsNextFromSequence(new[] { enumTypeName, $"{value}" });
 
-                var actual = EnrichedBinaryReaderExtensions.ReadEnum(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadEnum();
 
                 actual.Should().Be(value);
             }
@@ -212,7 +212,7 @@ namespace AllOverIt.Tests.Serialization.Binary
 
                 Invoking(() =>
                 {
-                    _ = EnrichedBinaryReaderExtensions.ReadEnum<DummyEnum>(_readerFake.FakedObject);
+                    _ = _readerFake.FakedObject.ReadEnum<DummyEnum>();
                 })
                    .Should()
                    .Throw<BinaryReaderException>()
@@ -229,7 +229,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadString())
                     .ReturnsNextFromSequence(new[] { enumTypeName, $"{value}" });
 
-                var actual = EnrichedBinaryReaderExtensions.ReadEnum<DummyEnum>(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadEnum<DummyEnum>();
 
                 actual.Should().Be(value);
             }
@@ -252,13 +252,13 @@ namespace AllOverIt.Tests.Serialization.Binary
             [Fact]
             public void Should_Read_DateTime()
             {
-                var value = Create<DateTime>();               
+                var value = Create<DateTime>();
 
                 _readerFake
                     .CallsTo(fake => fake.ReadInt64())
                     .Returns(value.ToBinary());
 
-                var actual = EnrichedBinaryReaderExtensions.ReadDateTime(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadDateTime();
 
                 actual.Should().Be(value);
             }
@@ -287,7 +287,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadInt64())
                     .Returns(value.Ticks);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadTimeSpan(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadTimeSpan();
 
                 actual.Should().Be(value);
             }
@@ -316,7 +316,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadObject())
                     .Returns(value);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadObject<DummyType>(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadObject<DummyType>();
 
                 actual.Should().Be(value);
             }
@@ -339,13 +339,13 @@ namespace AllOverIt.Tests.Serialization.Binary
             [Fact]
             public void Should_Read_Object()
             {
-                var value = CreateMany<DummyType>().Select(item => (object)item).ToList();
+                var value = CreateMany<DummyType>().Select(item => (object) item).ToList();
 
                 _readerFake
                     .CallsTo(fake => fake.ReadObject())
                     .Returns(value);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadObjectAsEnumerable<DummyType>(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadObjectAsEnumerable<DummyType>();
 
                 actual.Should().BeEquivalentTo(value);
             }
@@ -376,7 +376,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadObject())
                     .Returns(value);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadObjectAsDictionary<int, DummyType>(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadObjectAsDictionary<int, DummyType>();
 
                 actual.Keys.Should().BeEquivalentTo(value.Keys);
                 actual.Values.Should().BeEquivalentTo(value.Values);
@@ -406,7 +406,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadObject())
                     .Returns(value);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadNullable<int>(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadNullable<int>();
 
                 actual.Should().Be(value);
             }
@@ -439,8 +439,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadObject())
                     .ReturnsNextFromSequence(1, 0, 1, -1, 2);
 
-                var actual = EnrichedBinaryReaderExtensions
-                    .ReadEnumerable(_readerFake.FakedObject)
+                var actual = _readerFake.FakedObject                    .ReadEnumerable()
                     .Select(item => (int) item);
 
                 actual.SequenceEqual(values).Should().BeTrue();
@@ -474,7 +473,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadObject())
                     .ReturnsNextFromSequence(1, 0, 1, -1, 2);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadEnumerable<int>(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadEnumerable<int>();
 
                 actual.SequenceEqual(values).Should().BeTrue();
             }
@@ -515,7 +514,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadObject())
                     .ReturnsNextFromSequence(keys[0], values[0], keys[1], values[1], keys[2], values[2]);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadDictionary(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadDictionary();
 
                 actual.Should().BeEquivalentTo(dictionary);
             }
@@ -556,7 +555,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadObject())
                     .ReturnsNextFromSequence(keys[0], values[0], keys[1], values[1], keys[2], values[2]);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadDictionary<object, object>(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadDictionary<object, object>();
 
                 actual.Should().BeEquivalentTo(dictionary);
             }
@@ -582,7 +581,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                     .CallsTo(fake => fake.ReadObject())
                     .ReturnsNextFromSequence(keys[0], values[0], keys[1], values[1], keys[2], values[2]);
 
-                var actual = EnrichedBinaryReaderExtensions.ReadDictionary<int, string>(_readerFake.FakedObject);
+                var actual = _readerFake.FakedObject.ReadDictionary<int, string>();
 
                 actual.Should().BeEquivalentTo(dictionary);
             }

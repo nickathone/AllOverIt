@@ -1,9 +1,9 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Serialization.Binary;
+using AllOverIt.Serialization.Binary.Exceptions;
 using AllOverIt.Serialization.Binary.Extensions;
 using FluentAssertions;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -240,7 +240,44 @@ namespace AllOverIt.Tests.Serialization
         }
 
         [Fact]
-        public void Should_Write_Using_Write_Method1()
+        public void Should_Throw_When_Value_Null_Type_Null()
+        {
+            Invoking(() =>
+            {
+                using (var stream = new MemoryStream())
+                {
+                    var writer = new EnrichedBinaryWriter(stream);
+
+                    writer.WriteObject(null, null);
+                }
+            })
+            .Should()
+            .Throw<BinaryWriterException>()
+            .WithMessage("All binary serialized values must be typed or have a non-null value.");
+        }
+
+        [Fact]
+        public void Should_Throw_When_Value_Null_Type_Object()
+        {
+            Invoking(() =>
+            {
+                using (var stream = new MemoryStream())
+                {
+                    var writer = new EnrichedBinaryWriter(stream);
+
+                    writer.WriteObject(null, typeof(object));
+                }
+            })
+            .Should()
+            .Throw<BinaryWriterException>()
+            .WithMessage("All binary serialized values must be typed or have a non-null value.");
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void Should_Write_Using_Write_Method1_Using_All_Constructors(int constructor)
         {
             var expected = Create<KnownTypes>();
             expected.NullString = default;
@@ -251,7 +288,14 @@ namespace AllOverIt.Tests.Serialization
 
             using (var stream = new MemoryStream())
             {
-                using (var writer = new EnrichedBinaryWriter(stream, Encoding.UTF8, true))
+                var writer = constructor switch
+                {
+                    1 => new EnrichedBinaryWriter(stream),
+                    2 => new EnrichedBinaryWriter(stream, Encoding.UTF8),
+                    _ => new EnrichedBinaryWriter(stream, Encoding.UTF8, true),
+                };
+
+                using (writer)
                 {
                     expected.WriteUsingWrite_Method1(writer);
                 }
@@ -261,7 +305,14 @@ namespace AllOverIt.Tests.Serialization
 
             using (var stream = new MemoryStream(bytes))
             {
-                using (var reader = new EnrichedBinaryReader(stream, Encoding.UTF8, true))
+                var reader = constructor switch
+                {
+                    1 => new EnrichedBinaryReader(stream),
+                    2 => new EnrichedBinaryReader(stream, Encoding.UTF8),
+                    _ => new EnrichedBinaryReader(stream, Encoding.UTF8, true),
+                };
+
+                using (reader)
                 {
                     actual.Read_Method1(reader);
                 }
@@ -270,8 +321,11 @@ namespace AllOverIt.Tests.Serialization
             actual.Should().BeEquivalentTo(expected);
         }
 
-        [Fact]
-        public void Should_Write_Using_Write_Extensions_Method2()
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void Should_Write_Using_Write_Extensions_Method2_Using_All_Constructors(int constructor)
         {
             var expected = Create<KnownTypes>();
             expected.NullString = default;
@@ -282,7 +336,14 @@ namespace AllOverIt.Tests.Serialization
 
             using (var stream = new MemoryStream())
             {
-                using (var writer = new EnrichedBinaryWriter(stream, Encoding.UTF8, true))
+                var writer = constructor switch
+                {
+                    1 => new EnrichedBinaryWriter(stream),
+                    2 => new EnrichedBinaryWriter(stream, Encoding.UTF8),
+                    _ => new EnrichedBinaryWriter(stream, Encoding.UTF8, true),
+                };
+
+                using (writer)
                 {
                     expected.WriteUsingExtensions_Method2(writer);
                 }
@@ -292,7 +353,14 @@ namespace AllOverIt.Tests.Serialization
 
             using (var stream = new MemoryStream(bytes))
             {
-                using (var reader = new EnrichedBinaryReader(stream, Encoding.UTF8, true))
+                var reader = constructor switch
+                {
+                    1 => new EnrichedBinaryReader(stream),
+                    2 => new EnrichedBinaryReader(stream, Encoding.UTF8),
+                    _ => new EnrichedBinaryReader(stream, Encoding.UTF8, true),
+                };
+
+                using (reader)
                 {
                     actual.Read_Method2(reader);
                 }
@@ -452,6 +520,36 @@ namespace AllOverIt.Tests.Serialization
             }
 
             actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Should_Write_Value_When_Object_Type()
+        {
+            var expected = Create<int>();
+
+            int actual = default;
+
+            byte[] bytes;
+
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new EnrichedBinaryWriter(stream, Encoding.UTF8, true))
+                {
+                    writer.WriteObject(expected, typeof(object));
+                }
+
+                bytes = stream.ToArray();
+            }
+
+            using (var stream = new MemoryStream(bytes))
+            {
+                using (var reader = new EnrichedBinaryReader(stream, Encoding.UTF8, true))
+                {
+                    actual = reader.ReadObject<int>();
+                }
+            }
+
+            actual.Should().Be(expected);
         }
 
         [Fact]

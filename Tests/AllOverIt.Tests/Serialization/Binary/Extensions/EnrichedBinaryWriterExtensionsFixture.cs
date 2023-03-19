@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization.Binary
+namespace AllOverIt.Tests.Serialization.Binary.Extensions
 {
     // ALL TESTS ARE BEHAVIOURAL AND MAY NOT REFLECT HOW THE ACTUAL IMPLEMENTATION WORKS.
     // FUNCTIONAL TESTS COVER THE REAL IMPLEMENTATION.
@@ -54,7 +54,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<ulong>();
 
-                EnrichedBinaryWriterExtensions.WriteUInt64(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteUInt64(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -81,7 +81,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<uint>();
 
-                EnrichedBinaryWriterExtensions.WriteUInt32(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteUInt32(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -108,7 +108,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<ushort>();
 
-                EnrichedBinaryWriterExtensions.WriteUInt16(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteUInt16(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -135,7 +135,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 string value = default;
 
-                EnrichedBinaryWriterExtensions.WriteSafeString(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteSafeString(value);
 
                 _writerFake.CallsTo(fake => fake.Write(false)).MustHaveHappened();
                 _writerFake.CallsTo(fake => fake.Write(value)).MustNotHaveHappened();
@@ -146,7 +146,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<string>();
 
-                EnrichedBinaryWriterExtensions.WriteSafeString(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteSafeString(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(true)).MustHaveHappened()
@@ -173,7 +173,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<float>();
 
-                EnrichedBinaryWriterExtensions.WriteSingle(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteSingle(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -200,7 +200,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<sbyte>();
 
-                EnrichedBinaryWriterExtensions.WriteSByte(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteSByte(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -245,7 +245,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 Invoking(() =>
                 {
-                    EnrichedBinaryWriterExtensions.WriteBytes(null, (Span<byte>)Array.Empty<byte>());
+                    EnrichedBinaryWriterExtensions.WriteBytes(null, (Span<byte>) Array.Empty<byte>());
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -274,7 +274,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<long>();
 
-                EnrichedBinaryWriterExtensions.WriteInt64(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteInt64(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -301,7 +301,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<int>();
 
-                EnrichedBinaryWriterExtensions.WriteInt32(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteInt32(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -328,7 +328,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<double>();
 
-                EnrichedBinaryWriterExtensions.WriteDouble(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteDouble(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -355,7 +355,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<decimal>();
 
-                EnrichedBinaryWriterExtensions.WriteDecimal(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteDecimal(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -384,7 +384,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                 var index = Create<int>();
                 var count = Create<int>();
 
-                EnrichedBinaryWriterExtensions.WriteChars(_writerFake.FakedObject, value, index, count);
+                _writerFake.FakedObject.WriteChars(value, index, count);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value, index, count))
@@ -411,7 +411,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = CreateMany<char>().ToArray();
 
-                EnrichedBinaryWriterExtensions.WriteChars(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteChars(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -440,7 +440,7 @@ namespace AllOverIt.Tests.Serialization.Binary
                 var index = Create<int>();
                 var count = Create<int>();
 
-                EnrichedBinaryWriterExtensions.WriteBytes(_writerFake.FakedObject, value, index, count);
+                _writerFake.FakedObject.WriteBytes(value, index, count);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value, index, count))
@@ -467,7 +467,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = CreateMany<byte>().ToArray();
 
-                EnrichedBinaryWriterExtensions.WriteBytes(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteBytes(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -494,7 +494,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<byte>();
 
-                EnrichedBinaryWriterExtensions.WriteByte(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteByte(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -521,7 +521,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<bool>();
 
-                EnrichedBinaryWriterExtensions.WriteBoolean(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteBoolean(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -548,7 +548,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<short>();
 
-                EnrichedBinaryWriterExtensions.WriteInt16(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteInt16(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -575,7 +575,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<char>();
 
-                EnrichedBinaryWriterExtensions.WriteChar(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteChar(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value))
@@ -602,7 +602,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<Guid>();
 
-                EnrichedBinaryWriterExtensions.WriteGuid(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteGuid(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(A<byte[]>.That.Matches(array => array.SequenceEqual(value.ToByteArray()))))
@@ -629,7 +629,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<DummyEnum>();
 
-                EnrichedBinaryWriterExtensions.WriteEnum(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteEnum(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value.GetType().AssemblyQualifiedName)).MustHaveHappened()
@@ -656,7 +656,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 int? value = Create<int>();
 
-                EnrichedBinaryWriterExtensions.WriteNullable(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteNullable(value);
 
                 _writerFake
                    .CallsTo(fake => fake.WriteObject(value, typeof(int?)))
@@ -683,7 +683,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<DateTime>();
 
-                EnrichedBinaryWriterExtensions.WriteDateTime(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteDateTime(value);
 
                 _writerFake
                     .CallsTo(fake => fake.Write(value.ToBinary()))
@@ -710,7 +710,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<TimeSpan>();
 
-                EnrichedBinaryWriterExtensions.WriteTimeSpan(_writerFake.FakedObject, value);
+                _writerFake.FakedObject.WriteTimeSpan(value);
 
                 _writerFake
                      .CallsTo(fake => fake.Write(value.Ticks))
@@ -725,7 +725,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 Invoking(() =>
                 {
-                    EnrichedBinaryWriterExtensions.WriteObject<DummyType>(null, Create<DummyType>());
+                    EnrichedBinaryWriterExtensions.WriteObject(null, Create<DummyType>());
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -737,7 +737,7 @@ namespace AllOverIt.Tests.Serialization.Binary
             {
                 var value = Create<DummyType>();
 
-                EnrichedBinaryWriterExtensions.WriteObject<DummyType>(_writerFake.FakedObject, value);
+                EnrichedBinaryWriterExtensions.WriteObject(_writerFake.FakedObject, value);
 
                 _writerFake
                    .CallsTo(fake => fake.WriteObject(value, typeof(DummyType)))
