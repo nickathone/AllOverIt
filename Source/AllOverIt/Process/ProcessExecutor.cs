@@ -35,6 +35,8 @@ namespace AllOverIt.Process
         internal SystemProcess _process = new();
         internal readonly ProcessExecutorOptions _options;
 
+        /// <summary>Constructor.</summary>
+        /// <param name="options">The options used to configure the executor.</param>
         public ProcessExecutor(ProcessExecutorOptions options)
         {
             _options = options.WhenNotNull(nameof(options));
@@ -56,23 +58,20 @@ namespace AllOverIt.Process
             }
         }
 
+        /// <inheritdoc />
         [ExcludeFromCodeCoverage]
         public async Task<ProcessExecutorResult> ExecuteAsync(CancellationToken cancellationToken = default)
         {
-            await DoExecuteAsync(_options.StandardOutputHandler, _options.ErrorOutputHandler, cancellationToken);
+            await DoExecuteAsync(_options.StandardOutputHandler, _options.ErrorOutputHandler, cancellationToken).ConfigureAwait(false);
 
             return new ProcessExecutorResult(_process);
         }
 
+        /// <inheritdoc />
         [ExcludeFromCodeCoverage]
-        public async Task<ProcessExecutorBufferedResult> ExecuteBufferedAsync(CancellationToken cancellationToken = default)
+        public Task<ProcessExecutorBufferedResult> ExecuteBufferedAsync(CancellationToken cancellationToken = default)
         {
-            var standardOutput = new DataOutputBuffer();
-            var errorOutput = new DataOutputBuffer();
-
-            await DoExecuteAsync(standardOutput.OnDataReceived, errorOutput.OnDataReceived, cancellationToken);
-
-            return new ProcessExecutorBufferedResult(_process, standardOutput.ToString(), errorOutput.ToString());
+            return DoExecuteBufferedAsync(cancellationToken);
         }
 
         [ExcludeFromCodeCoverage]
@@ -98,7 +97,7 @@ namespace AllOverIt.Process
 
         [ExcludeFromCodeCoverage]
         private async Task DoExecuteAsync(DataReceivedEventHandler standardOutputHandler, DataReceivedEventHandler errorOutputHandler,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken)
         {
             if (standardOutputHandler is not null)
             {
@@ -126,36 +125,6 @@ namespace AllOverIt.Process
 
             try
             {
-                // Cater for an explicit timeout for these scenarios
-                // - Less than NET 5 is used (there's no WaitForExitAsync() method)
-                // - The provided cancellationToken does not have an associated timeout (via a CancellationTokenSource)
-                //                var milliseconds = (int)_options.Timeout.TotalMilliseconds;
-
-                //                if (milliseconds != 0)        // -1 means indefinite
-                //                {
-                //#if NET5_0_OR_GREATER
-                //                    using (var cts = new CancellationTokenSource(milliseconds))
-                //                    {
-                //                        using (var linked = CancellationTokenSource.CreateLinkedTokenSource(cts.Token, cancellationToken))
-                //                        {
-                //                            await WaitForProcessAsync(linked.Token).ConfigureAwait(false);
-                //                        }
-                //                    }
-                //#else
-                //                    Throw<ProcessException>.When(milliseconds == 0, "A timeout must be specified when using the NET STANDARD target.");
-
-                //                    await WaitForProcessAsync(milliseconds).ConfigureAwait(false);
-                //#endif
-                //                }
-                //                else
-                //                {
-                //#if NET5_0_OR_GREATER
-                //                    await WaitForProcessAsync(cancellationToken).ConfigureAwait(false);
-                //#else
-                //                    await WaitForProcessAsync(-1).ConfigureAwait(false);
-                //#endif
-                //                }
-
                 var milliseconds = (int) _options.Timeout.TotalMilliseconds;
 
 #if NET5_0_OR_GREATER
@@ -175,7 +144,8 @@ namespace AllOverIt.Process
                     await WaitForProcessAsync(cancellationToken).ConfigureAwait(false);
                 }
 #else
-                Throw<ProcessException>.When(milliseconds == 0, "A timeout must be specified when using the NETSTANDARD2_1 target.");
+                // A value of -1 will wait indefinitely
+                Throw<ProcessException>.When(milliseconds == 0, "A non-zero timeout must be specified when using the NETSTANDARD2_1 target.");
 
                 await WaitForProcessAsync(milliseconds).ConfigureAwait(false);
 #endif
@@ -211,6 +181,17 @@ namespace AllOverIt.Process
             }
         }
 
+        [ExcludeFromCodeCoverage]
+        private async Task<ProcessExecutorBufferedResult> DoExecuteBufferedAsync(CancellationToken cancellationToken)
+        {
+            var standardOutput = new DataOutputBuffer();
+            var errorOutput = new DataOutputBuffer();
+
+            await DoExecuteAsync(standardOutput.OnDataReceived, errorOutput.OnDataReceived, cancellationToken);
+
+            return new ProcessExecutorBufferedResult(_process, standardOutput.ToString(), errorOutput.ToString());
+        }
+
 #if NET5_0_OR_GREATER
         [ExcludeFromCodeCoverage]
         private Task WaitForProcessAsync(CancellationToken cancellationToken)
@@ -230,10 +211,10 @@ namespace AllOverIt.Process
         [ExcludeFromCodeCoverage]
         private void KillProcess()
         {
-#if NETSTANDARD2_1
-            _process.Kill();
-#else
+#if NETCOREAPP3_1_OR_GREATER
             _process.Kill(true);
+#else
+            _process.Kill();
 #endif
         }
     }
