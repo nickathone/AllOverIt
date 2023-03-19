@@ -330,7 +330,7 @@ namespace AllOverIt.Tests.Process.Extensions
                 })
                .Should()
                 .Throw<ArgumentNullException>()
-                .WithNamedMessageWhenNull("variables");
+                .WithNamedMessageWhenNull("configure");
             }
 
             [Fact]
