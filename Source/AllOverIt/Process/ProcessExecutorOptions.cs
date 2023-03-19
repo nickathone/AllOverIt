@@ -2,18 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AllOverIt.Process
 {
+    [ExcludeFromCodeCoverage]
     public sealed record ProcessExecutorOptions
     {
         public string ProcessFileName { get; }
-        public string WorkingDirectory { get; internal set; }
-        public string Arguments { get; internal set; }
-        public TimeSpan Timeout { get; internal set; }
-        public IDictionary<string, string> EnvironmentVariables { get; internal set; }
-        public DataReceivedEventHandler StandardOutputHandler {get; internal set;}
-        public DataReceivedEventHandler ErrorOutputHandler { get; internal set; }
+        public string WorkingDirectory { get; init; }
+        public string Arguments { get; init; }
+        public TimeSpan Timeout { get; init; }
+        public IDictionary<string, string> EnvironmentVariables { get; init; }
+        public DataReceivedEventHandler StandardOutputHandler {get; init; }
+        public DataReceivedEventHandler ErrorOutputHandler { get; init; }
 
         public ProcessExecutorOptions(string processFileName)
         {
