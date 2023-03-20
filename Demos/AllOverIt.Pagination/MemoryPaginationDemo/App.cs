@@ -86,25 +86,20 @@ namespace MemoryPaginationDemo
 
                 var lastCheckpoint = stopwatch.ElapsedMilliseconds;
 
-                var pageQuery = queryPaginator.GetPageQuery(continuationToken);
-
-                var pageResults = pageQuery.ToList();
-
-                var hasPrevious = pageResults.Any() && queryPaginator.HasPreviousPage(pageResults.First());
-                var hasNext = pageResults.Any() && queryPaginator.HasNextPage(pageResults.Last());
+                var pageResults = queryPaginator.GetPageResults(continuationToken);
 
                 var elapsed = stopwatch.ElapsedMilliseconds;
 
-                pageResults.ForEach(person =>
+                foreach (var person in pageResults.Results)
                 {
                     Console.WriteLine($"{person.LastName}, {person.FirstName} ({person.Gender}, {person.Id})");
-                });
+                };
 
                 Console.WriteLine();
                 Console.WriteLine($"Execution time: {elapsed - lastCheckpoint}ms");
                 Console.WriteLine();
 
-                key = GetUserInput(hasPrevious, hasNext);
+                key = GetUserInput(pageResults.PreviousToken.IsNotNullOrEmpty(), pageResults.NextToken.IsNotNullOrEmpty());
 
                 lastCheckpoint = stopwatch.ElapsedMilliseconds;
 
@@ -115,11 +110,11 @@ namespace MemoryPaginationDemo
                         break;
 
                     case 'p':
-                        continuationToken = queryPaginator.TokenEncoder.EncodePreviousPage(pageResults);
+                        continuationToken = pageResults.PreviousToken;
                         break;
 
                     case 'n':
-                        continuationToken = queryPaginator.TokenEncoder.EncodeNextPage(pageResults);
+                        continuationToken = pageResults.NextToken;
                         break;
 
                     case 'l':

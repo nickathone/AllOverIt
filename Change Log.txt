@@ -42,6 +42,10 @@ AllOverIt.Fixture.FakeItEasy
 AllOverIt.GenericHost
   * Updated Microsoft.Extensions.Hosting v7.0.1
 
+AllOverIt.Pagination
+  * Added GetPageResults() extension method for IQueryPaginator<TResult> - intended ONLY for memory based queries. Performs the
+    same job as GetPageResultsAsync() found in AllOverIt.EntityFrameworkCore.Pagination.
+
 AllOverIt.ReactiveUI
   * Added support for a ReactiveCommand based pipeline (with support for chaining other sync / async pipeline steps)
   * Updated ReactiveUI v18.4.22
