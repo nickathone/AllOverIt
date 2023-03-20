@@ -1,4 +1,6 @@
-﻿namespace AllOverIt.Serialization.Binary.Extensions
+﻿using AllOverIt.Assertion;
+
+namespace AllOverIt.Serialization.Binary.Extensions
 {
     /// <summary>Provides extension methods for <see cref="IEnrichedBinaryValueWriter"/>.</summary>
     public static class EnrichedBinaryValueWriterExtensions
@@ -10,6 +12,9 @@
         /// <param name="value">The value to be written.</param>
         public static void WriteValue<TValue>(this IEnrichedBinaryValueWriter valueWriter, IEnrichedBinaryWriter writer, TValue value)
         {
+            _ = valueWriter.WhenNotNull(nameof(valueWriter));
+            _ = writer.WhenNotNull(nameof(writer));
+
             valueWriter.WriteValue(writer, value);
         }
     }

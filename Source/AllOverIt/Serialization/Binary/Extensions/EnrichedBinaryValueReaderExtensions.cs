@@ -1,4 +1,6 @@
-﻿namespace AllOverIt.Serialization.Binary.Extensions
+﻿using AllOverIt.Assertion;
+
+namespace AllOverIt.Serialization.Binary.Extensions
 {
     /// <summary>Provides extension methods for <see cref="IEnrichedBinaryValueReader"/>.</summary>
     public static class EnrichedBinaryValueReaderExtensions
@@ -10,6 +12,9 @@
         /// <returns>The value read from the stream cast to a <typeparamref name="TValue"/>.</returns>
         public static TValue ReadValue<TValue>(this IEnrichedBinaryValueReader valueReader, IEnrichedBinaryReader reader)
         {
+            _ = valueReader.WhenNotNull(nameof(valueReader));
+            _ = reader.WhenNotNull(nameof(reader));
+
             return (TValue) valueReader.ReadValue(reader);
         }
     }
