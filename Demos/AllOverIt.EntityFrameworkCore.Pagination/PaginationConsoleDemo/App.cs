@@ -10,7 +10,6 @@ using AllOverIt.Pagination.TokenEncoding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Npgsql;
-using PaginationConsole;
 using PaginationConsoleDemo.Entities;
 using System;
 using System.Collections.Generic;
