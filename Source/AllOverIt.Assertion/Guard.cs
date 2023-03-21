@@ -7,12 +7,7 @@ namespace AllOverIt.Assertion
     {
         private static void ThrowArgumentNullException(string name, string errorMessage)
         {
-            ThrowArgumentNullException<string>(name, errorMessage);
-        }
-
-        private static void ThrowArgumentNullException<TType>(string name, string errorMessage)
-        {
-            if (errorMessage == default)
+            if (errorMessage is null)
             {
                 throw new ArgumentNullException(name);
             }
@@ -21,11 +16,6 @@ namespace AllOverIt.Assertion
         }
 
         private static void ThrowInvalidOperationException(string name, string errorMessage)
-        {
-            ThrowInvalidOperationException<string>(name, errorMessage);
-        }
-
-        private static void ThrowInvalidOperationException<TType>(string name, string errorMessage)
         {
             throw new InvalidOperationException($"{errorMessage} ({name})");
         }

@@ -21,9 +21,9 @@ namespace AllOverIt.Assertion
         public static TType WhenNotNull<TType>(Expression<Func<TType>> expression, string errorMessage = default)
             where TType : class
 {
-            if (expression == null)
+            if (expression is null)
             {
-                ThrowArgumentNullException<Expression<Func<TType>>>(nameof(expression), errorMessage);
+                ThrowArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -50,9 +50,9 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static IEnumerable<TType> WhenNotNullOrEmpty<TType>(Expression<Func<IEnumerable<TType>>> expression, string errorMessage = default)
         {
-            if (expression == null)
+            if (expression is null)
             {
-                ThrowArgumentNullException<Expression<Func<IEnumerable<TType>>>>(nameof(expression), errorMessage);
+                ThrowArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -79,9 +79,9 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static IEnumerable<TType> WhenNotEmpty<TType>(Expression<Func<IEnumerable<TType>>> expression, string errorMessage = default)
         {
-            if (expression == null)
+            if (expression is null)
             {
-                ThrowArgumentNullException<Expression<Func<IEnumerable<TType>>>>(nameof(expression), errorMessage);
+                ThrowArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -107,9 +107,9 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static string WhenNotNullOrEmpty(Expression<Func<string>> expression, string errorMessage = default)
         {
-            if (expression == null)
+            if (expression is null)
             {
-                ThrowArgumentNullException<Expression<Func<string>>>(nameof(expression), errorMessage);
+                ThrowArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -135,9 +135,9 @@ namespace AllOverIt.Assertion
         /// <remarks>Evaluating the expression is an expensive operation as it must be compiled before it can be invoked.</remarks>
         public static string WhenNotEmpty(Expression<Func<string>> expression, string errorMessage = default)
         {
-            if (expression == null)
+            if (expression is null)
             {
-                ThrowArgumentNullException<Expression<Func<string>>>(nameof(expression), errorMessage);
+                ThrowArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -175,9 +175,9 @@ namespace AllOverIt.Assertion
             string errorMessage = default)
             where TType : class
         {
-            if (@object == null)
+            if (@object is null)
             {
-                ThrowArgumentNullException<TType>(name, errorMessage);
+                ThrowArgumentNullException(name, errorMessage);
             }
 
             return @object;
@@ -198,9 +198,9 @@ namespace AllOverIt.Assertion
 #endif
             string errorMessage = default)
         {
-            if (@object == null)
+            if (@object is null)
             {
-                ThrowArgumentNullException<IEnumerable<TType>>(name, errorMessage);
+                ThrowArgumentNullException(name, errorMessage);
             }
 
             return WhenNotEmpty(@object, name, errorMessage);
@@ -220,7 +220,7 @@ namespace AllOverIt.Assertion
 #endif
             string errorMessage = default)
         {
-            if (@object != null)
+            if (@object is not null)
             {
 #if NET5_0_OR_GREATER
                 var any = @object.Any();
@@ -260,7 +260,7 @@ namespace AllOverIt.Assertion
 #endif
             string errorMessage = default)
         {
-            if (@object == null)
+            if (@object is null)
             {
                 ThrowArgumentNullException(name, errorMessage);
             }
@@ -281,7 +281,7 @@ namespace AllOverIt.Assertion
 #endif
             string errorMessage = default)
         {
-            if (@object == null || !string.IsNullOrWhiteSpace(@object))
+            if (@object is null || !string.IsNullOrWhiteSpace(@object))
             {
                 return @object;
             }

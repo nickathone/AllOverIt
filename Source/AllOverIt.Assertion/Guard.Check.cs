@@ -22,9 +22,9 @@ namespace AllOverIt.Assertion
             string errorMessage = default)
             where TType : class
         {
-            if (@object == null)
+            if (@object is null)
             {
-                ThrowInvalidOperationException<TType>(name, errorMessage ?? "Value cannot be null");
+                ThrowInvalidOperationException(name, errorMessage ?? "Value cannot be null");
             }
         }
 
@@ -43,9 +43,9 @@ namespace AllOverIt.Assertion
             string errorMessage = default)
             where TType : class
         {
-            if (@object != null)
+            if (@object is not null)
             {
-                ThrowInvalidOperationException<TType>(name, errorMessage ?? "Value must be null");
+                ThrowInvalidOperationException(name, errorMessage ?? "Value must be null");
             }
         }
 
@@ -87,9 +87,9 @@ namespace AllOverIt.Assertion
 #endif
             string errorMessage = default)
         {
-            if (@object != null && !@object.Any())
+            if (@object is not null && !@object.Any())
             {
-                ThrowInvalidOperationException<IEnumerable<TType>>(name, errorMessage ?? "Value cannot be empty");
+                ThrowInvalidOperationException(name, errorMessage ?? "Value cannot be empty");
             }
         }
 
@@ -124,7 +124,7 @@ namespace AllOverIt.Assertion
 #endif
             string errorMessage = default)
         {
-            if (@object != null && string.IsNullOrWhiteSpace(@object))
+            if (@object is not null && string.IsNullOrWhiteSpace(@object))
             {
                 ThrowInvalidOperationException(name, errorMessage ?? "Value cannot be empty");
             }

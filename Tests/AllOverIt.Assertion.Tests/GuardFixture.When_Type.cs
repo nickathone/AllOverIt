@@ -66,7 +66,7 @@ namespace AllOverIt.Tests.Assertion
                     {
                         var dummy = new DummyClass();
 
-                        Guard.WhenNotNull(dummy, Create<string>());
+                        _ = Guard.WhenNotNull(dummy, Create<string>());
                     })
                     .Should()
                     .NotThrow();
@@ -81,7 +81,7 @@ namespace AllOverIt.Tests.Assertion
                     {
                         var dummy = new DummyClass();
 
-                        Guard.WhenNotNull(dummy, Create<string>(), errorMessage);
+                        _ = Guard.WhenNotNull(dummy, Create<string>(), errorMessage);
                     })
                     .Should()
                     .NotThrow();
@@ -187,7 +187,7 @@ namespace AllOverIt.Tests.Assertion
                     {
                         var dummy = new List<DummyClass> { new DummyClass() };
 
-                        Guard.WhenNotNullOrEmpty(dummy, Create<string>());
+                        _ = Guard.WhenNotNullOrEmpty(dummy, Create<string>());
                     })
                     .Should()
                     .NotThrow();
@@ -202,7 +202,7 @@ namespace AllOverIt.Tests.Assertion
                     {
                         var dummy = new List<DummyClass> { new DummyClass() };
 
-                        Guard.WhenNotNullOrEmpty(dummy, Create<string>(), errorMessage);
+                        _ = Guard.WhenNotNullOrEmpty(dummy, Create<string>(), errorMessage);
                     })
                     .Should()
                     .NotThrow();
@@ -230,7 +230,7 @@ namespace AllOverIt.Tests.Assertion
                     {
                         IEnumerable<DummyClass> dummy = null;
 
-                        Guard.WhenNotEmpty(dummy, name);
+                        _ = Guard.WhenNotEmpty(dummy, name);
                     })
                     .Should()
                     .NotThrow();
@@ -289,7 +289,7 @@ namespace AllOverIt.Tests.Assertion
                     {
                         var dummy = new List<DummyClass> { new DummyClass() };
 
-                        Guard.WhenNotEmpty(dummy, Create<string>());
+                        _ = Guard.WhenNotEmpty(dummy, Create<string>());
                     })
                     .Should()
                     .NotThrow();
@@ -304,7 +304,7 @@ namespace AllOverIt.Tests.Assertion
                     {
                         var dummy = new List<DummyClass> { new DummyClass() };
 
-                        Guard.WhenNotEmpty(dummy, Create<string>(), errorMessage);
+                        _ = Guard.WhenNotEmpty(dummy, Create<string>(), errorMessage);
                     })
                     .Should()
                     .NotThrow();
