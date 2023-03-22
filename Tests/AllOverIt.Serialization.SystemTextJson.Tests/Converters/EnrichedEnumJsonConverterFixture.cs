@@ -11,17 +11,17 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests.Converters
 {
     public class EnrichedEnumJsonConverterFixture : FixtureBase
     {
-        private class EnrichedEnumDummy : EnrichedEnum<EnrichedEnumDummy>
+        private class DummyEnrichedEnum : EnrichedEnum<DummyEnrichedEnum>
         {
-            public static readonly EnrichedEnumDummy Value1 = new(1);
+            public static readonly DummyEnrichedEnum Value1 = new(1);
 
-            public static readonly EnrichedEnumDummy Value2 = new(2, "Value 2");
+            public static readonly DummyEnrichedEnum Value2 = new(2, "Value 2");
 
-            public EnrichedEnumDummy()     // required for serialization
+            public DummyEnrichedEnum()     // required for serialization
             {
             }
 
-            private EnrichedEnumDummy(int value, [CallerMemberName] string name = null)
+            private DummyEnrichedEnum(int value, [CallerMemberName] string name = null)
                 : base(value, name)
             {
             }
@@ -29,7 +29,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests.Converters
 
         private class DummyValue
         {
-            public EnrichedEnumDummy Prop1 { get; set; }
+            public DummyEnrichedEnum Prop1 { get; set; }
         }
 
         private readonly SystemTextJsonSerializer _serializer;
@@ -37,7 +37,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests.Converters
 
         protected EnrichedEnumJsonConverterFixture()
         {
-            var converter = new EnrichedEnumJsonConverter<EnrichedEnumDummy>();
+            var converter = new EnrichedEnumJsonConverter<DummyEnrichedEnum>();
 
             var options = new JsonSerializerOptions();
             options.Converters.Add(converter);
@@ -49,8 +49,8 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests.Converters
             _dummyValue = new DummyValue
             {
                 Prop1 = rnd.Next() % 2 == 0
-                    ? EnrichedEnumDummy.Value1
-                    : EnrichedEnumDummy.Value2
+                    ? DummyEnrichedEnum.Value1
+                    : DummyEnrichedEnum.Value2
             };
         }
 
@@ -63,9 +63,9 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests.Converters
 
                 var actual = _serializer.DeserializeObject<DummyValue>(value);
 
-                var expected = _dummyValue.Prop1 == EnrichedEnumDummy.Value1
-                    ? EnrichedEnumDummy.Value1
-                    : EnrichedEnumDummy.Value2;
+                var expected = _dummyValue.Prop1 == DummyEnrichedEnum.Value1
+                    ? DummyEnrichedEnum.Value1
+                    : DummyEnrichedEnum.Value2;
 
                 actual.Prop1.Should().Be(expected);
             }
@@ -89,9 +89,9 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests.Converters
             [Fact]
             public void Should_Create_Converter()
             {
-                var actual = EnrichedEnumJsonConverter<EnrichedEnumDummy>.Create();
+                var actual = EnrichedEnumJsonConverter<DummyEnrichedEnum>.Create();
 
-                actual.Should().BeOfType<EnrichedEnumJsonConverter<EnrichedEnumDummy>>();
+                actual.Should().BeOfType<EnrichedEnumJsonConverter<DummyEnrichedEnum>>();
             }
         }
     }

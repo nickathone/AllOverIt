@@ -11,31 +11,31 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
 {
     public class EnrichedEnumJsonConverterFactoryFixture : FixtureBase
     {
-        private class EnrichedEnumDummy1 : EnrichedEnum<EnrichedEnumDummy1>
+        private class DummyEnrichedEnum1 : EnrichedEnum<DummyEnrichedEnum1>
         {
-            public static readonly EnrichedEnumDummy1 Value1 = new(1);
-            public static readonly EnrichedEnumDummy1 Value2 = new(2);
+            public static readonly DummyEnrichedEnum1 Value1 = new(1);
+            public static readonly DummyEnrichedEnum1 Value2 = new(2);
 
-            public EnrichedEnumDummy1()     // required for serialization
+            public DummyEnrichedEnum1()     // required for serialization
             {
             }
 
-            private EnrichedEnumDummy1(int value, [CallerMemberName] string name = null)
+            private DummyEnrichedEnum1(int value, [CallerMemberName] string name = null)
                 : base(value, name)
             {
             }
         }
 
-        private class EnrichedEnumDummy2 : EnrichedEnum<EnrichedEnumDummy2>
+        private class DummyEnrichedEnum2 : EnrichedEnum<DummyEnrichedEnum2>
         {
-            public static readonly EnrichedEnumDummy2 Value3 = new(3);
-            public static readonly EnrichedEnumDummy2 Value4 = new(4);
+            public static readonly DummyEnrichedEnum2 Value3 = new(3);
+            public static readonly DummyEnrichedEnum2 Value4 = new(4);
 
-            public EnrichedEnumDummy2()     // required for serialization
+            public DummyEnrichedEnum2()     // required for serialization
             {
             }
 
-            private EnrichedEnumDummy2(int value, [CallerMemberName] string name = null)
+            private DummyEnrichedEnum2(int value, [CallerMemberName] string name = null)
                 : base(value, name)
             {
             }
@@ -43,8 +43,8 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
 
         private class DummyValue
         {
-            public EnrichedEnumDummy1 Prop1 { get; set; }
-            public EnrichedEnumDummy2 Prop2 { get; set; }
+            public DummyEnrichedEnum1 Prop1 { get; set; }
+            public DummyEnrichedEnum2 Prop2 { get; set; }
         }
 
         private readonly EnrichedEnumJsonConverterFactory _converterFactory;
@@ -73,8 +73,8 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
         public class CanConvert : EnrichedEnumJsonConverterFactoryFixture
         {
             [Theory]
-            [InlineData(typeof(EnrichedEnumDummy1), true)]
-            [InlineData(typeof(EnrichedEnumDummy2), true)]
+            [InlineData(typeof(DummyEnrichedEnum1), true)]
+            [InlineData(typeof(DummyEnrichedEnum2), true)]
             [InlineData(typeof(string), false)]
             public void Should_Only_Convert_EnrichedEnum_Types(Type objectType, bool expected)
             {
@@ -89,9 +89,9 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
             [Fact]
             public void Should_Create_Converter()
             {
-                var converter = _converterFactory.CreateConverter(typeof(EnrichedEnumDummy1));
+                var converter = _converterFactory.CreateConverter(typeof(DummyEnrichedEnum1));
 
-                converter.Should().BeOfType<EnrichedEnumJsonConverter<EnrichedEnumDummy1>>();
+                converter.Should().BeOfType<EnrichedEnumJsonConverter<DummyEnrichedEnum1>>();
             }
         }
 
@@ -106,12 +106,12 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
                 _dummyValue = new DummyValue
                 {
                     Prop1 = rnd.Next() % 2 == 0
-                        ? EnrichedEnumDummy1.Value1
-                        : EnrichedEnumDummy1.Value2,
+                        ? DummyEnrichedEnum1.Value1
+                        : DummyEnrichedEnum1.Value2,
 
                     Prop2 = rnd.Next() % 2 == 0
-                        ? EnrichedEnumDummy2.Value3
-                        : EnrichedEnumDummy2.Value4
+                        ? DummyEnrichedEnum2.Value3
+                        : DummyEnrichedEnum2.Value4
                 };
             }
 

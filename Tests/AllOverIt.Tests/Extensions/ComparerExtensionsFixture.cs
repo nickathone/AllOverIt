@@ -12,27 +12,27 @@ namespace AllOverIt.Tests.Extensions
 {
     public class ComparerExtensionsFixture : FixtureBase
     {
-        private sealed class StringDummy
+        private sealed class DummyString
         {
             public string First { get; init; }
             public string Second { get; init; }
         }
 
-        private sealed class FirstDummyComparer : IComparer<StringDummy>
+        private sealed class DummyFirstComparer : IComparer<DummyString>
         {
-            public static readonly IComparer<StringDummy> Instance = new FirstDummyComparer();
+            public static readonly IComparer<DummyString> Instance = new DummyFirstComparer();
 
-            public int Compare(StringDummy lhs, StringDummy rhs)
+            public int Compare(DummyString lhs, DummyString rhs)
             {
                 return string.Compare(lhs.First, rhs.First);
             }
         }
 
-        private sealed class SecondDummyComparer : IComparer<StringDummy>
+        private sealed class DummySecondComparer : IComparer<DummyString>
         {
-            public static readonly IComparer<StringDummy> Instance = new SecondDummyComparer();
+            public static readonly IComparer<DummyString> Instance = new DummySecondComparer();
 
-            public int Compare(StringDummy lhs, StringDummy rhs)
+            public int Compare(DummyString lhs, DummyString rhs)
             {
                 return string.Compare(lhs.Second, rhs.Second);
             }
@@ -55,9 +55,9 @@ namespace AllOverIt.Tests.Extensions
             [Fact]
             public void Should_Reverse_Items()
             {
-                var values = CreateMany<StringDummy>().ToList();
+                var values = CreateMany<DummyString>().ToList();
 
-                values.Sort(FirstDummyComparer.Instance.Reverse());
+                values.Sort(DummyFirstComparer.Instance.Reverse());
 
                 values.Select(item => item.First).Should().BeInDescendingOrder();
             }
@@ -70,7 +70,7 @@ namespace AllOverIt.Tests.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ComparerExtensions.Then<StringDummy>(null, SecondDummyComparer.Instance);
+                    _ = ComparerExtensions.Then<DummyString>(null, DummySecondComparer.Instance);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -82,7 +82,7 @@ namespace AllOverIt.Tests.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ComparerExtensions.Then<StringDummy>(FirstDummyComparer.Instance, null);
+                    _ = ComparerExtensions.Then<DummyString>(DummyFirstComparer.Instance, null);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -92,20 +92,20 @@ namespace AllOverIt.Tests.Extensions
             [Fact]
             public void Should_Compose_Comparers()
             {
-                var values = new List<StringDummy>
+                var values = new List<DummyString>
                 {
-                   new StringDummy{ First = "a", Second = Create<string>() },
-                   new StringDummy{ First = "b", Second = Create<string>() },
-                   new StringDummy{ First = "a", Second = Create<string>() },
-                   new StringDummy{ First = "b", Second = Create<string>() },
-                   new StringDummy{ First = "a", Second = Create<string>() },
-                   new StringDummy{ First = "b", Second = Create<string>() },
-                   new StringDummy{ First = "a", Second = Create<string>() },
+                   new DummyString{ First = "a", Second = Create<string>() },
+                   new DummyString{ First = "b", Second = Create<string>() },
+                   new DummyString{ First = "a", Second = Create<string>() },
+                   new DummyString{ First = "b", Second = Create<string>() },
+                   new DummyString{ First = "a", Second = Create<string>() },
+                   new DummyString{ First = "b", Second = Create<string>() },
+                   new DummyString{ First = "a", Second = Create<string>() },
                 };
 
                 var expected = values.OrderBy(item => item.First).ThenBy(item => item.Second).ToList();
 
-                var sorter = FirstDummyComparer.Instance.Then(SecondDummyComparer.Instance);
+                var sorter = DummyFirstComparer.Instance.Then(DummySecondComparer.Instance);
 
                 values.Sort(sorter);
 

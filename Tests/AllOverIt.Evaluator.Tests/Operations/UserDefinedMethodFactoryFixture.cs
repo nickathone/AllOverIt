@@ -77,7 +77,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
             {
                 var name = Create<string>();
 
-                _factory.RegisterMethod<ArithmeticOperationDummy>(name);
+                _factory.RegisterMethod<DummyArithmeticOperation>(name);
 
                 var result = _factory.IsRegistered(name);
 
@@ -89,11 +89,11 @@ namespace AllOverIt.Evaluator.Tests.Operations
             {
                 var name = Create<string>().ToLower();
 
-                _factory.RegisterMethod<ArithmeticOperationDummy>(name.ToUpper());
+                _factory.RegisterMethod<DummyArithmeticOperation>(name.ToUpper());
 
                 var operation = _factory.GetMethod(name);
 
-                operation.Should().BeOfType<ArithmeticOperationDummy>();
+                operation.Should().BeOfType<DummyArithmeticOperation>();
             }
         }
 
@@ -109,11 +109,11 @@ namespace AllOverIt.Evaluator.Tests.Operations
             {
                 var name = Create<string>();
 
-                _factory.RegisterMethod<ArithmeticOperationDummy>(name);
+                _factory.RegisterMethod<DummyArithmeticOperation>(name);
 
                 var operation = _factory.GetMethod(name);
 
-                operation.Should().BeOfType<ArithmeticOperationDummy>();
+                operation.Should().BeOfType<DummyArithmeticOperation>();
             }
 
             [Fact]
@@ -121,11 +121,11 @@ namespace AllOverIt.Evaluator.Tests.Operations
             {
                 var name = Create<string>().ToLower();
 
-                _factory.RegisterMethod<ArithmeticOperationDummy>(name);
+                _factory.RegisterMethod<DummyArithmeticOperation>(name);
 
                 var operation = _factory.GetMethod(name.ToUpper());
 
-                operation.Should().BeOfType<ArithmeticOperationDummy>();
+                operation.Should().BeOfType<DummyArithmeticOperation>();
             }
 
             [Fact]

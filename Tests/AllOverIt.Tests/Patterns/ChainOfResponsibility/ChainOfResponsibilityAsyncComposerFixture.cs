@@ -17,7 +17,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             public int? ProcessedValue { get; set; }
         }
 
-        private class ChainOfResponsibilityDummy1 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        private class DummyChainOfResponsibility1 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
         {
             public override Task<DummyState> HandleAsync(DummyState state)
             {
@@ -31,7 +31,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             }
         }
 
-        private class ChainOfResponsibilityDummy2 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        private class DummyChainOfResponsibility2 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
         {
             public override Task<DummyState> HandleAsync(DummyState state)
             {
@@ -80,8 +80,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             {
                 var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[]
                 {
-                    new ChainOfResponsibilityDummy1(),
-                    new ChainOfResponsibilityDummy2()
+                    new DummyChainOfResponsibility1(),
+                    new DummyChainOfResponsibility2()
                 };
 
                 var composer = new ChainOfResponsibilityAsyncComposer<DummyState, DummyState>(handlers);
@@ -101,8 +101,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             {
                 var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[]
                 {
-                    new ChainOfResponsibilityDummy1(),
-                    new ChainOfResponsibilityDummy2()
+                    new DummyChainOfResponsibility1(),
+                    new DummyChainOfResponsibility2()
                 };
 
                 var composer = new ChainOfResponsibilityAsyncComposer<DummyState, DummyState>(handlers);
@@ -122,8 +122,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             {
                 var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[]
                 {
-                    new ChainOfResponsibilityDummy1(),
-                    new ChainOfResponsibilityDummy2()
+                    new DummyChainOfResponsibility1(),
+                    new DummyChainOfResponsibility2()
                 };
 
                 var composer = new ChainOfResponsibilityAsyncComposer<DummyState, DummyState>(handlers);

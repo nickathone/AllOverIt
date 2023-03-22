@@ -19,7 +19,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             public int? ProcessedValue { get; set; }
         }
 
-        private class ChainOfResponsibilityDummy1 : ChainOfResponsibilityHandler<DummyState, DummyState>
+        private class DummyChainOfResponsibility1 : ChainOfResponsibilityHandler<DummyState, DummyState>
         {
             public override DummyState Handle(DummyState state)
             {
@@ -40,7 +40,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             }
         }
 
-        private class ChainOfResponsibilityDummy2 : ChainOfResponsibilityHandler<DummyState, DummyState>
+        private class DummyChainOfResponsibility2 : ChainOfResponsibilityHandler<DummyState, DummyState>
         {
             public override DummyState Handle(DummyState state)
             {
@@ -61,7 +61,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             }
         }
 
-        private class ChainOfResponsibilityAsyncDummy1 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        private class DummyChainOfResponsibilityAsync1 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
         {
             public override Task<DummyState> HandleAsync(DummyState state)
             {
@@ -82,7 +82,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             }
         }
 
-        private class ChainOfResponsibilityAsyncDummy2 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        private class DummyChainOfResponsibilityAsync2 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
         {
             public override Task<DummyState> HandleAsync(DummyState state)
             {
@@ -136,8 +136,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Return_First_Handler()
             {
-                var handler1 = new ChainOfResponsibilityDummy1();
-                var handler2 = new ChainOfResponsibilityDummy2();
+                var handler1 = new DummyChainOfResponsibility1();
+                var handler2 = new DummyChainOfResponsibility2();
 
                 var handlers = new IChainOfResponsibilityHandler<DummyState, DummyState>[] { handler1, handler2 };
 
@@ -149,8 +149,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Compose_Handlers_In_Sequence()
             {
-                var handler1 = new ChainOfResponsibilityDummy1();
-                var handler2 = new ChainOfResponsibilityDummy2();
+                var handler1 = new DummyChainOfResponsibility1();
+                var handler2 = new DummyChainOfResponsibility2();
 
                 var handlers = new IChainOfResponsibilityHandler<DummyState, DummyState>[] { handler1, handler2 };
 
@@ -205,8 +205,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Return_First_Handler()
             {
-                var handler1 = new ChainOfResponsibilityAsyncDummy1();
-                var handler2 = new ChainOfResponsibilityAsyncDummy2();
+                var handler1 = new DummyChainOfResponsibilityAsync1();
+                var handler2 = new DummyChainOfResponsibilityAsync2();
 
                 var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[] { handler1, handler2 };
 
@@ -218,8 +218,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public async Task Should_Compose_Handlers_In_Sequence()
             {
-                var handler1 = new ChainOfResponsibilityAsyncDummy1();
-                var handler2 = new ChainOfResponsibilityAsyncDummy2();
+                var handler1 = new DummyChainOfResponsibilityAsync1();
+                var handler2 = new DummyChainOfResponsibilityAsync2();
 
                 var handlers = new IChainOfResponsibilityHandlerAsync<DummyState, DummyState>[] { handler1, handler2 };
 
@@ -248,7 +248,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(null, new ChainOfResponsibilityDummy1());
+                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(null, new DummyChainOfResponsibility1());
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -260,7 +260,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(new ChainOfResponsibilityDummy1(), null);
+                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(new DummyChainOfResponsibility1(), null);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -270,8 +270,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Compose_Handlers_Return_First()
             {
-                var handler1 = new ChainOfResponsibilityDummy1();
-                var handler2 = new ChainOfResponsibilityDummy2();
+                var handler1 = new DummyChainOfResponsibility1();
+                var handler2 = new DummyChainOfResponsibility2();
 
                 var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2);
 
@@ -288,8 +288,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public void Should_Compose_Handlers_Return_Second()
             {
-                var handler1 = new ChainOfResponsibilityDummy1();
-                var handler2 = new ChainOfResponsibilityDummy2();
+                var handler1 = new DummyChainOfResponsibility1();
+                var handler2 = new DummyChainOfResponsibility2();
 
                 var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2);
 
@@ -311,7 +311,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(null, new ChainOfResponsibilityAsyncDummy1());
+                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(null, new DummyChainOfResponsibilityAsync1());
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -323,7 +323,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(new ChainOfResponsibilityAsyncDummy1(), null);
+                    _ = ChainOfResponsibilityHandlerExtensions.Then<DummyState, DummyState>(new DummyChainOfResponsibilityAsync1(), null);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -333,8 +333,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public async Task Should_Compose_Handlers_Return_First()
             {
-                var handler1 = new ChainOfResponsibilityAsyncDummy1();
-                var handler2 = new ChainOfResponsibilityAsyncDummy2();
+                var handler1 = new DummyChainOfResponsibilityAsync1();
+                var handler2 = new DummyChainOfResponsibilityAsync2();
 
                 var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2);
 
@@ -351,8 +351,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             [Fact]
             public async Task Should_Compose_Handlers_Return_Second()
             {
-                var handler1 = new ChainOfResponsibilityAsyncDummy1();
-                var handler2 = new ChainOfResponsibilityAsyncDummy2();
+                var handler1 = new DummyChainOfResponsibilityAsync1();
+                var handler2 = new DummyChainOfResponsibilityAsync2();
 
                 var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2);
 

@@ -72,17 +72,17 @@ namespace AllOverIt.Tests.Extensions
             public IDictionary<int, IEnumerable<RootItem>> Maps { get; } = new Dictionary<int, IEnumerable<RootItem>>();
         }
 
-        private class EnrichedEnumDummy : EnrichedEnum<EnrichedEnumDummy>
+        private class DummyEnrichedEnum : EnrichedEnum<DummyEnrichedEnum>
         {
-            public static readonly EnrichedEnumDummy Value1 = new(1);
+            public static readonly DummyEnrichedEnum Value1 = new(1);
 
-            protected EnrichedEnumDummy(int value, [CallerMemberName] string name = null)
+            protected DummyEnrichedEnum(int value, [CallerMemberName] string name = null)
                 : base(value, name)
             {
             }
         }
 
-        private class SuperEnrichedEnumDummy : EnrichedEnumDummy
+        private class SuperEnrichedEnumDummy : DummyEnrichedEnum
         {
             public static readonly SuperEnrichedEnumDummy Value2 = new(2);
 
@@ -1578,7 +1578,7 @@ namespace AllOverIt.Tests.Extensions
 
         public class As : ObjectExtensionsFixture
         {
-            private class UnrelatedClassDummy
+            private class DummyUnrelatedClass
             {
             }
 
@@ -1653,10 +1653,10 @@ namespace AllOverIt.Tests.Extensions
             [Fact]
             public void Should_Throw_When_Invalid_Cast()
             {
-                Invoking(() => ObjectExtensions.As<UnrelatedClassDummy>(Create<DummyClass>()))
+                Invoking(() => ObjectExtensions.As<DummyUnrelatedClass>(Create<DummyClass>()))
                   .Should()
                   .Throw<InvalidCastException>()
-                  .WithMessage("Unable to cast object of type 'DummyClass' to type 'UnrelatedClassDummy'.");
+                  .WithMessage("Unable to cast object of type 'DummyClass' to type 'DummyUnrelatedClass'.");
             }
 
             [Fact]
@@ -2193,7 +2193,7 @@ namespace AllOverIt.Tests.Extensions
             [Fact]
             public void Should_Return_True()
             {
-                var dummy = EnrichedEnumDummy.Value1;
+                var dummy = DummyEnrichedEnum.Value1;
 
                 var actual = dummy.IsEnrichedEnum();
 

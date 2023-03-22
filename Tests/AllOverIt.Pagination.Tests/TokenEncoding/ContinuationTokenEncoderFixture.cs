@@ -16,7 +16,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
 {
     public class ContinuationTokenEncoderFixture : FixtureBase
     {
-        private sealed class EntityDummy
+        private sealed class DummyEntity
         {
             public int Id { get; init; }
             public string Name { get; init; }
@@ -28,8 +28,8 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
         {
             _columns = new IColumnDefinition[]
             {
-                new ColumnDefinition<EntityDummy, string>(typeof(EntityDummy).GetProperty(nameof(EntityDummy.Name)), Create<bool>()),
-                new ColumnDefinition<EntityDummy, int>(typeof(EntityDummy).GetProperty(nameof(EntityDummy.Id)), Create<bool>())
+                new ColumnDefinition<DummyEntity, string>(typeof(DummyEntity).GetProperty(nameof(DummyEntity.Name)), Create<bool>()),
+                new ColumnDefinition<DummyEntity, int>(typeof(DummyEntity).GetProperty(nameof(DummyEntity.Id)), Create<bool>())
             };
         }
 
@@ -69,7 +69,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
 
                 Invoking(() =>
                 {
-                    _ = encoder.EncodePreviousPage((IReadOnlyCollection<EntityDummy>) null);
+                    _ = encoder.EncodePreviousPage((IReadOnlyCollection<DummyEntity>) null);
                 })
                 .Should()
                 .Throw<PaginationException>()
@@ -83,7 +83,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
 
                 Invoking(() =>
                 {
-                    _ = encoder.EncodePreviousPage(Collection.EmptyReadOnly<EntityDummy>());
+                    _ = encoder.EncodePreviousPage(Collection.EmptyReadOnly<DummyEntity>());
                 })
                 .Should()
                 .Throw<PaginationException>()
@@ -96,7 +96,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [InlineData(PaginationDirection.Backward)]
             public void Should_Encode_Token(PaginationDirection paginationDirection)
             {
-                var entities = CreateMany<EntityDummy>();
+                var entities = CreateMany<DummyEntity>();
 
                 var expectedReference = paginationDirection switch
                 {
@@ -130,7 +130,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [InlineData(PaginationDirection.Backward)]
             public void Should_Encode_Decode_Token(PaginationDirection paginationDirection)
             {
-                var entities = CreateMany<EntityDummy>();
+                var entities = CreateMany<DummyEntity>();
 
                 var expectedReference = paginationDirection switch
                 {
@@ -160,7 +160,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [Fact]
             public void Encoding_With_Compression_Should_Not_Match_Without_Compression()
             {
-                var entities = CreateMany<EntityDummy>();
+                var entities = CreateMany<DummyEntity>();
                 var paginationDirection = Create<PaginationDirection>();
 
                 var serializer = new ContinuationTokenSerializer(new ContinuationTokenOptions { UseCompression = true });
@@ -184,7 +184,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
 
                 Invoking(() =>
                 {
-                    _ = encoder.EncodeNextPage((IReadOnlyCollection<EntityDummy>) null);
+                    _ = encoder.EncodeNextPage((IReadOnlyCollection<DummyEntity>) null);
                 })
                 .Should()
                 .Throw<PaginationException>()
@@ -198,7 +198,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
 
                 Invoking(() =>
                 {
-                    _ = encoder.EncodeNextPage(Collection.EmptyReadOnly<EntityDummy>());
+                    _ = encoder.EncodeNextPage(Collection.EmptyReadOnly<DummyEntity>());
                 })
                 .Should()
                 .Throw<PaginationException>()
@@ -210,7 +210,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [InlineData(PaginationDirection.Backward)]
             public void Should_Encode_Token(PaginationDirection paginationDirection)
             {
-                var entities = CreateMany<EntityDummy>();
+                var entities = CreateMany<DummyEntity>();
 
                 var expectedReference = paginationDirection switch
                 {
@@ -244,7 +244,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [InlineData(PaginationDirection.Backward)]
             public void Should_Encode_Decode_Token(PaginationDirection paginationDirection)
             {
-                var entities = CreateMany<EntityDummy>();
+                var entities = CreateMany<DummyEntity>();
 
                 var expectedReference = paginationDirection switch
                 {
@@ -293,7 +293,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [InlineData(PaginationDirection.Backward)]
             public void Should_Encode_Token(PaginationDirection paginationDirection)
             {
-                var entity = Create<EntityDummy>();
+                var entity = Create<DummyEntity>();
 
                 var expected = new
                 {
@@ -320,7 +320,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [InlineData(PaginationDirection.Backward)]
             public void Should_Encode_Decode_Token(PaginationDirection paginationDirection)
             {
-                var entity = Create<EntityDummy>();
+                var entity = Create<DummyEntity>();
 
                 var expected = new
                 {
@@ -362,7 +362,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [InlineData(PaginationDirection.Backward)]
             public void Should_Encode_Token(PaginationDirection paginationDirection)
             {
-                var entity = Create<EntityDummy>();
+                var entity = Create<DummyEntity>();
 
                 var expected = new
                 {
@@ -389,7 +389,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [InlineData(PaginationDirection.Backward)]
             public void Should_Encode_Decode_Token(PaginationDirection paginationDirection)
             {
-                var entity = Create<EntityDummy>();
+                var entity = Create<DummyEntity>();
 
                 var expected = new
                 {

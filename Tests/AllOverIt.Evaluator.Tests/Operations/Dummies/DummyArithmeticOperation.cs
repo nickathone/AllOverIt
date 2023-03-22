@@ -5,19 +5,19 @@ using System.Linq.Expressions;
 
 namespace AllOverIt.Evaluator.Tests.Operations.Dummies
 {
-    internal class ArithmeticOperationDummy : ArithmeticOperationBase
+    internal class DummyArithmeticOperation : ArithmeticOperationBase
     {
-        public ArithmeticOperationDummy()
+        public DummyArithmeticOperation()
             : this(1, e => null)
         {
         }
 
-        public ArithmeticOperationDummy(int argumentCount)
+        public DummyArithmeticOperation(int argumentCount)
             : this(argumentCount, e => null)
         {
         }
 
-        public ArithmeticOperationDummy(int argumentCount, Func<Expression[], IOperator> creator)
+        public DummyArithmeticOperation(int argumentCount, Func<Expression[], IOperator> creator)
             : base(argumentCount, creator)
         {
         }

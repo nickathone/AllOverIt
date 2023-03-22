@@ -13,37 +13,37 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
 {
     public class JsonConverterFactoryFixture : FixtureBase
     {
-        private class EnrichedEnumDummy1 : EnrichedEnum<EnrichedEnumDummy1>
+        private class DummyEnrichedEnum1 : EnrichedEnum<DummyEnrichedEnum1>
         {
-            public static readonly EnrichedEnumDummy1 Value1 = new(0);
-            public static readonly EnrichedEnumDummy1 Value2 = new(1);
+            public static readonly DummyEnrichedEnum1 Value1 = new(0);
+            public static readonly DummyEnrichedEnum1 Value2 = new(1);
 
-            public EnrichedEnumDummy1()     // required for serialization
+            public DummyEnrichedEnum1()     // required for serialization
             {
             }
 
-            private EnrichedEnumDummy1(int value, [CallerMemberName] string name = null)
+            private DummyEnrichedEnum1(int value, [CallerMemberName] string name = null)
                 : base(value, name)
             {
             }
         }
 
-        private class EnrichedEnumDummy2 : EnrichedEnum<EnrichedEnumDummy2>
+        private class DummyEnrichedEnum2 : EnrichedEnum<DummyEnrichedEnum2>
         {
-            public static readonly EnrichedEnumDummy2 Value3 = new(3);
-            public static readonly EnrichedEnumDummy2 Value4 = new(4);
+            public static readonly DummyEnrichedEnum2 Value3 = new(3);
+            public static readonly DummyEnrichedEnum2 Value4 = new(4);
 
-            public EnrichedEnumDummy2()     // required for serialization
+            public DummyEnrichedEnum2()     // required for serialization
             {
             }
 
-            private EnrichedEnumDummy2(int value, [CallerMemberName] string name = null)
+            private DummyEnrichedEnum2(int value, [CallerMemberName] string name = null)
                 : base(value, name)
             {
             }
         }
 
-        private class EnrichedEnumDummyJsonConverterFactory : JsonConverterFactory
+        private class DummyEnrichedEnumJsonConverterFactory : JsonConverterFactory
         {
             public override bool CanConvert(Type objectType)
             {
@@ -63,8 +63,8 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
 
         private class DummyValue
         {
-            public EnrichedEnumDummy1 Prop1 { get; set; }
-            public EnrichedEnumDummy2 Prop2 { get; set; }
+            public DummyEnrichedEnum1 Prop1 { get; set; }
+            public DummyEnrichedEnum2 Prop2 { get; set; }
         }
 
         private readonly NewtonsoftJsonSerializer _serializer;
@@ -74,7 +74,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
         protected JsonConverterFactoryFixture()
         {
             _serializer = new NewtonsoftJsonSerializer();
-            _factory = new EnrichedEnumDummyJsonConverterFactory();
+            _factory = new DummyEnrichedEnumJsonConverterFactory();
             _serializer.AddConverters(_factory);
 
             var rnd = new Random((int) DateTime.Now.Ticks);
@@ -82,24 +82,24 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
             _dummyValue = new DummyValue
             {
                 Prop1 = rnd.Next() % 2 == 0
-                    ? EnrichedEnumDummy1.Value1
-                    : EnrichedEnumDummy1.Value2,
+                    ? DummyEnrichedEnum1.Value1
+                    : DummyEnrichedEnum1.Value2,
 
                 Prop2 = rnd.Next() % 2 == 0
-                    ? EnrichedEnumDummy2.Value3
-                    : EnrichedEnumDummy2.Value4
+                    ? DummyEnrichedEnum2.Value3
+                    : DummyEnrichedEnum2.Value4
             };
         }
 
-        // Given a name so it doesn't conflict with the method on EnrichedEnumDummyJsonConverterFactory
+        // Given a name so it doesn't conflict with the method on DummyEnrichedEnumJsonConverterFactory
         public class CreateConverter_Factory : JsonConverterFactoryFixture
         {
             [Fact]
             public void Should_Create_Converter()
             {
-                var actual = _factory.CreateConverter(typeof(EnrichedEnumDummy2));
+                var actual = _factory.CreateConverter(typeof(DummyEnrichedEnum2));
 
-                actual.Should().BeOfType<EnrichedEnumJsonConverter<EnrichedEnumDummy2>>();
+                actual.Should().BeOfType<EnrichedEnumJsonConverter<DummyEnrichedEnum2>>();
             }
         }
 
@@ -114,8 +114,8 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
 
                 var expected = new
                 {
-                    Prop1 = _dummyValue.Prop1 == EnrichedEnumDummy1.Value1 ? EnrichedEnumDummy1.Value1 : EnrichedEnumDummy1.Value2,
-                    Prop2 = _dummyValue.Prop2 == EnrichedEnumDummy2.Value3 ? EnrichedEnumDummy2.Value3 : EnrichedEnumDummy2.Value4,
+                    Prop1 = _dummyValue.Prop1 == DummyEnrichedEnum1.Value1 ? DummyEnrichedEnum1.Value1 : DummyEnrichedEnum1.Value2,
+                    Prop2 = _dummyValue.Prop2 == DummyEnrichedEnum2.Value3 ? DummyEnrichedEnum2.Value3 : DummyEnrichedEnum2.Value4,
                 };
 
                 expected.Should().BeEquivalentTo(actual);

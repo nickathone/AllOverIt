@@ -17,7 +17,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             public int? ProcessedValue { get; set; }
         }
 
-        private class ChainOfResponsibilityDummy1 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        private class DummyChainOfResponsibility1 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
         {
             public override Task<DummyState> HandleAsync(DummyState state)
             {
@@ -31,7 +31,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             }
         }
 
-        private class ChainOfResponsibilityDummy2 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        private class DummyChainOfResponsibility2 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
         {
             public override Task<DummyState> HandleAsync(DummyState state)
             {
@@ -52,7 +52,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             {
                 Invoking(() =>
                     {
-                        var sut = new ChainOfResponsibilityDummy1();
+                        var sut = new DummyChainOfResponsibility1();
 
                         sut.SetNext(null);
                     })
@@ -64,8 +64,8 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             [Fact]
             public void Should_Return_Same_Handler()
             {
-                var sut1 = new ChainOfResponsibilityDummy1();
-                var sut2 = new ChainOfResponsibilityDummy2();
+                var sut1 = new DummyChainOfResponsibility1();
+                var sut2 = new DummyChainOfResponsibility2();
 
                 var actual = sut1.SetNext(sut2);
 
@@ -78,7 +78,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             [Fact]
             public async Task Should_Return_Default_When_End_Of_Chain()
             {
-                var sut = new ChainOfResponsibilityDummy1();
+                var sut = new DummyChainOfResponsibility1();
 
                 var state = new DummyState
                 {
@@ -95,7 +95,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             {
                 var handler = new ChainOfResponsibilityHandlerAsync<DummyState, DummyState>[]
                 {
-                    new ChainOfResponsibilityDummy1(), new ChainOfResponsibilityDummy2()
+                    new DummyChainOfResponsibility1(), new DummyChainOfResponsibility2()
                 }.Compose();
 
                 var state = new DummyState
@@ -113,7 +113,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             {
                 var handler = new ChainOfResponsibilityHandlerAsync<DummyState, DummyState>[]
                 {
-                    new ChainOfResponsibilityDummy1(), new ChainOfResponsibilityDummy2()
+                    new DummyChainOfResponsibility1(), new DummyChainOfResponsibility2()
                 }.Compose();
 
                 var state = new DummyState
@@ -131,7 +131,7 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility
             {
                 var handler = new ChainOfResponsibilityHandlerAsync<DummyState, DummyState>[]
                 {
-                    new ChainOfResponsibilityDummy1(), new ChainOfResponsibilityDummy2()
+                    new DummyChainOfResponsibility1(), new DummyChainOfResponsibility2()
                 }.Compose();
 
                 var state = new DummyState

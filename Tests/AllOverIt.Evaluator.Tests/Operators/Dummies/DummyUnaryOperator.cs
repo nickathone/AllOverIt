@@ -4,9 +4,9 @@ using System.Linq.Expressions;
 
 namespace AllOverIt.Evaluator.Tests.Operators.Dummies
 {
-    internal class UnaryOperatorDummy : UnaryOperator
+    internal class DummyUnaryOperator : UnaryOperator
     {
-        public UnaryOperatorDummy(Func<Expression, Expression> operatorType, Expression operand)
+        public DummyUnaryOperator(Func<Expression, Expression> operatorType, Expression operand)
             : base(operatorType, operand)
         {
         }

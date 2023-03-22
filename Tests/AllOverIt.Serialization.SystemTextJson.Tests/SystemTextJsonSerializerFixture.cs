@@ -281,13 +281,13 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
 
         public class Serialize_Deserialize : SystemTextJsonSerializerFixture
         {
-            private class EnrichedEnumDummy : EnrichedEnum<EnrichedEnumDummy>
+            private class DummyEnrichedEnum : EnrichedEnum<DummyEnrichedEnum>
             {
-                public static readonly EnrichedEnumDummy Value1 = new(1);
-                public static readonly EnrichedEnumDummy Value2 = new(2, "Value 2");
-                public static readonly EnrichedEnumDummy Value3 = new(3);
+                public static readonly DummyEnrichedEnum Value1 = new(1);
+                public static readonly DummyEnrichedEnum Value2 = new(2, "Value 2");
+                public static readonly DummyEnrichedEnum Value3 = new(3);
 
-                private EnrichedEnumDummy(int value, [CallerMemberName] string name = null)
+                private DummyEnrichedEnum(int value, [CallerMemberName] string name = null)
                     : base(value, name)
                 {
                 }
@@ -295,9 +295,9 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
 
             private class DummyWithEnum
             {
-                public EnrichedEnumDummy Prop1 { get; init; }
-                public EnrichedEnumDummy Prop2 { get; init; }
-                public EnrichedEnumDummy Prop3 { get; init; }
+                public DummyEnrichedEnum Prop1 { get; init; }
+                public DummyEnrichedEnum Prop2 { get; init; }
+                public DummyEnrichedEnum Prop3 { get; init; }
             }
 
 
@@ -306,9 +306,9 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
             {
                 var value = new DummyWithEnum
                 {
-                    Prop1 = EnrichedEnumDummy.Value1,
-                    Prop2 = EnrichedEnumDummy.Value2,
-                    Prop3 = EnrichedEnumDummy.Value3
+                    Prop1 = DummyEnrichedEnum.Value1,
+                    Prop2 = DummyEnrichedEnum.Value2,
+                    Prop3 = DummyEnrichedEnum.Value3
                 };
 
                 var expected = "{\"Prop1\":\"Value1\",\"Prop2\":\"Value 2\",\"Prop3\":\"Value3\"}";
@@ -330,9 +330,9 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
 
                 deserialized = serializer.DeserializeObject<DummyWithEnum>(actual);
 
-                deserialized.Prop1.Should().BeSameAs(EnrichedEnumDummy.Value1);
-                deserialized.Prop2.Should().BeSameAs(EnrichedEnumDummy.Value2);
-                deserialized.Prop3.Should().BeSameAs(EnrichedEnumDummy.Value3);
+                deserialized.Prop1.Should().BeSameAs(DummyEnrichedEnum.Value1);
+                deserialized.Prop2.Should().BeSameAs(DummyEnrichedEnum.Value2);
+                deserialized.Prop3.Should().BeSameAs(DummyEnrichedEnum.Value3);
             }
         }
     }

@@ -21,7 +21,7 @@ namespace AllOverIt.Pagination.Tests.Extensions
             Widowed
         }
 
-        private sealed class EntityDummy
+        private sealed class DummyEntity
         {
             public int Id { get; set; }
             public string FirstName { get; set; }
@@ -32,19 +32,19 @@ namespace AllOverIt.Pagination.Tests.Extensions
             public bool Active { get; set; }
         }
 
-        private readonly IReadOnlyCollection<EntityDummy> _entities;
-        private readonly Func<QueryPaginatorConfiguration, IQueryPaginator<EntityDummy>> _paginatorFactory;
+        private readonly IReadOnlyCollection<DummyEntity> _entities;
+        private readonly Func<QueryPaginatorConfiguration, IQueryPaginator<DummyEntity>> _paginatorFactory;
 
-        private IReadOnlyCollection<EntityDummy> CreateEntities(int count)
+        private IReadOnlyCollection<DummyEntity> CreateEntities(int count)
         {
-            return CreateMany<EntityDummy>(count);
+            return CreateMany<DummyEntity>(count);
         }
 
 
         public QueryPaginatorExtensionsFixture()
         {
             // reference item used to duplicate column values
-            var reference = Create<EntityDummy>();
+            var reference = Create<DummyEntity>();
 
             var values1 = CreateEntities(4);
             var values2 = CreateEntities(4);
@@ -78,7 +78,7 @@ namespace AllOverIt.Pagination.Tests.Extensions
             var serializerFactory = new ContinuationTokenSerializerFactory();
             var continuationTokenEncoderFactory = new ContinuationTokenEncoderFactory(serializerFactory);
 
-            _paginatorFactory = configuration => new QueryPaginator<EntityDummy>(query.AsQueryable(), configuration, continuationTokenEncoderFactory);
+            _paginatorFactory = configuration => new QueryPaginator<DummyEntity>(query.AsQueryable(), configuration, continuationTokenEncoderFactory);
         }
 
         public class ColumnAscending_2 : QueryPaginatorExtensionsFixture
@@ -676,7 +676,7 @@ namespace AllOverIt.Pagination.Tests.Extensions
             }
         }
 
-        private IQueryPaginator<EntityDummy> CreatePaginator(int pageSize, PaginationDirection paginationDirection)
+        private IQueryPaginator<DummyEntity> CreatePaginator(int pageSize, PaginationDirection paginationDirection)
         {
             var configuration = new QueryPaginatorConfiguration
             {
@@ -688,8 +688,8 @@ namespace AllOverIt.Pagination.Tests.Extensions
             return _paginatorFactory.Invoke(configuration);
         }
 
-        private static IReadOnlyCollection<EntityDummy> AssertPagedData(IQueryPaginator<EntityDummy> paginator, int page,
-            (int Skip, int Take)[] skipSteps, IOrderedEnumerable<EntityDummy> expectedQuery, string continuationToken)
+        private static IReadOnlyCollection<DummyEntity> AssertPagedData(IQueryPaginator<DummyEntity> paginator, int page,
+            (int Skip, int Take)[] skipSteps, IOrderedEnumerable<DummyEntity> expectedQuery, string continuationToken)
         {
             var query = paginator.GetPageQuery(continuationToken);
 
