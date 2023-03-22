@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AllOverIt.Aspects.Interceptor;
+using AllOverIt.Assertion;
 using AllOverIt.DependencyInjection.Exceptions;
 using AllOverIt.Extensions;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,32 +16,44 @@ namespace AllOverIt.DependencyInjection.Extensions
         /// <typeparam name="TServiceType">The service type to be decorated.</typeparam>
         /// <typeparam name="TDecoratorType">The type decorating the service type. This type's constructor is expected to accept an argument of type <typeparamref name="TServiceType"/>
         /// in addition to any other dependencies it requires.</typeparam>
-        /// <param name="services">The service collection.</param>
+        /// <param name="serviceCollection">The service collection.</param>
         /// <returns>The original service collection to allow for a fluent syntax.</returns>
-        public static IServiceCollection Decorate<TServiceType, TDecoratorType>(this IServiceCollection services)
+        public static IServiceCollection Decorate<TServiceType, TDecoratorType>(this IServiceCollection serviceCollection)
             where TDecoratorType : TServiceType
         {
-            ReplaceServiceDescriptor<TServiceType>(services, descriptor => Decorate(descriptor, typeof(TDecoratorType)));
+            _ = serviceCollection.WhenNotNull(nameof(serviceCollection));
 
-            return services;
+            ReplaceServiceDescriptor<TServiceType>(serviceCollection, descriptor => Decorate(descriptor, typeof(TDecoratorType)));
+
+            return serviceCollection;
         }
 
-        public static IServiceCollection DecorateWithInterceptor<TServiceType, TInterceptor>(this IServiceCollection services, Action<TInterceptor> configure = default)
+        /// <summary>Decorates all registered <typeparamref name="TServiceType"/> types with <typeparamref name="TInterceptor"/> types. Decoration is only applied
+        /// to services already registered at the time of making the call.</summary>
+        /// <typeparam name="TServiceType">The service type to be decorated.</typeparam>
+        /// <typeparam name="TInterceptor">The interceptpr type decorating the service type. The interceptor must have a default constructor and 
+        /// it cannot be a sealed class.</typeparam>
+        /// <param name="serviceCollection">The service collection.</param>
+        /// <param name="configure">An optional action that can be used to configure the interceptor instance decorating the <typeparamref name="TServiceType"/>.</param>
+        /// <returns>The original service collection to allow for a fluent syntax.</returns>
+        public static IServiceCollection DecorateWithInterceptor<TServiceType, TInterceptor>(this IServiceCollection serviceCollection, Action<TInterceptor> configure = default)
             where TInterceptor : InterceptorBase<TServiceType>
         {
-            ReplaceServiceDescriptor<TServiceType>(services, descriptor => DecorateWithInterceptor<TServiceType, TInterceptor>(descriptor, configure));
+            _ = serviceCollection.WhenNotNull(nameof(serviceCollection));
 
-            return services;
+            ReplaceServiceDescriptor<TServiceType>(serviceCollection, descriptor => DecorateWithInterceptor<TServiceType, TInterceptor>(descriptor, configure));
+
+            return serviceCollection;
         }
 
-        private static void ReplaceServiceDescriptor<TServiceType>(IServiceCollection services, Func<ServiceDescriptor, ServiceDescriptor> descriptorResolver)
+        private static void ReplaceServiceDescriptor<TServiceType>(IServiceCollection serviceCollection, Func<ServiceDescriptor, ServiceDescriptor> descriptorResolver)
         {
-            var descriptors = GetServiceDescriptors<TServiceType>(services);
+            var descriptors = GetServiceDescriptors<TServiceType>(serviceCollection);
 
             foreach (var descriptor in descriptors)
             {
-                var index = services.IndexOf(descriptor);
-                services[index] = descriptorResolver.Invoke(descriptor);
+                var index = serviceCollection.IndexOf(descriptor);
+                serviceCollection[index] = descriptorResolver.Invoke(descriptor);
             }
         }
 

@@ -1,8 +1,12 @@
 ﻿using AllOverIt.Aspects.Interceptor;
+using AllOverIt.DependencyInjection.Exceptions;
 using AllOverIt.DependencyInjection.Extensions;
 using AllOverIt.DependencyInjection.Tests.Helpers;
 using AllOverIt.Extensions;
+using AllOverIt.Fixture;
+using AllOverIt.Fixture.Extensions;
 using FluentAssertions;
+using FluentAssertions.Common;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -42,6 +46,18 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
 
         public class Decorator : ServiceCollectionExtensionsFixture
         {
+            [Fact]
+            public void Should_Throw_When_ServiceCollection_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = ServiceCollectionExtensions.Decorate<IDummyInterface, DummyDecorator>(null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("serviceCollection");
+            }
+
             [Fact]
             public void Should_Decorate_Registered_Services()
             {
@@ -124,6 +140,40 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                     DependencyHelper.AssertInstanceEquality(instances1b, instances2, differentScopeExpected);
                 }
             }
+
+            [Fact]
+            public void Should_Throw_When_No_Interface_Registered()
+            {
+                Invoking(() =>
+                {
+                    var services = new ServiceCollection();
+
+                    ServiceCollectionExtensions.Decorate<IDummyInterface, DummyDecorator>(services);
+                })
+                .Should()
+                .Throw<DependencyRegistrationException>()
+                .WithMessage($"No registered services found for the type '{typeof(IDummyInterface).GetFriendlyName()}'.");
+            }
+
+            [Fact]
+            public void Should_Resolve_Implementation_Instance()
+            {
+                var services = new ServiceCollection();
+
+                var expected = new Dummy1();
+
+                // only applicable to case ServiceLifetime.Singleton:
+                services.AddSingleton<IDummyInterface>(expected);
+
+                ServiceCollectionExtensions.Decorate<IDummyInterface, DummyDecorator>(services);
+
+                var provider = services.BuildServiceProvider();
+
+                var actual = provider.GetRequiredService<IDummyInterface>();
+
+                actual.Should().BeSameAs(expected);
+            }
+
         }
 
         public class DecorateWithInterceptor : ServiceCollectionExtensionsFixture
@@ -138,6 +188,18 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
 
                     return base.BeforeInvoke(targetMethod, args);
                 }
+            }
+
+            [Fact]
+            public void Should_Throw_When_ServiceCollection_Null()
+            {
+                Invoking(() =>
+                {
+                    _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("serviceCollection");
             }
 
             [Fact]
