@@ -6,6 +6,7 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Xunit;
 
 namespace AllOverIt.DependencyInjection.Tests.Extensions
@@ -14,14 +15,17 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
     {
         private interface IDummyInterface
         {
+            void SetValue(int value);
         }
 
         private sealed class Dummy1 : IDummyInterface
         {
+            public void SetValue(int value) { }
         }
 
         private sealed class Dummy2 : IDummyInterface
         {
+            public void SetValue(int value) { }
         }
 
         private sealed class DummyDecorator : IDummyInterface
@@ -32,6 +36,8 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 Decorated = dummy;
             }
+
+            public void SetValue(int value) { }
         }
 
         public class Decorator : ServiceCollectionExtensionsFixture
@@ -122,13 +128,15 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
 
         public class DecorateWithInterceptor : ServiceCollectionExtensionsFixture
         {
-            private sealed class DummyInterceptor : InterceptorBase<IDummyInterface>
+            private class DummyInterceptor : InterceptorBase<IDummyInterface>
             {
-                public IDummyInterface Decorated { get; }
+                public Action<int> Callback { get; set; }
 
-                public DummyInterceptor(IDummyInterface dummy)
+                protected override InterceptorState BeforeInvoke(MethodInfo targetMethod, object[] args)
                 {
-                    Decorated = dummy;
+                    Callback.Invoke((int)args[0]);
+
+                    return base.BeforeInvoke(targetMethod, args);
                 }
             }
 
@@ -157,6 +165,54 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                 var actual = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, null);
 
                 actual.Should().BeSameAs(services);
+            }
+
+            [Fact]
+            public void Should_Configure_Interceptor()
+            {
+                var services = new ServiceCollection();
+
+                services.AddSingleton<IDummyInterface, Dummy1>();
+
+                DummyInterceptor actual = default;
+
+                _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, interceptor =>
+                {
+                    actual = interceptor;
+                });
+
+                var provider = services.BuildServiceProvider();
+
+                _ = provider.GetRequiredService<IDummyInterface>();
+
+                actual.Should().BeAssignableTo(typeof(IDummyInterface));
+            }
+
+            [Fact]
+            public void Should_Resolve_As_Interceptor()
+            {
+                var services = new ServiceCollection();
+
+                services.AddSingleton<IDummyInterface, Dummy1>();
+
+                int actual = 0;
+
+                Action<int> updater = value => actual = value;
+
+                _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, interceptor =>
+                {
+                    interceptor.Callback = updater;
+                });
+
+                var provider = services.BuildServiceProvider();
+
+                var service = provider.GetRequiredService<IDummyInterface>();
+
+                var expected = Create<int>();
+
+                service.SetValue(expected);
+
+                actual.Should().Be(expected);
             }
         }
     }
