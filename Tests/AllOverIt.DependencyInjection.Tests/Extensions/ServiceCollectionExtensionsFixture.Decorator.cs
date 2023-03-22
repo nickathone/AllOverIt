@@ -169,9 +169,9 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
 
                 var provider = services.BuildServiceProvider();
 
-                var actual = provider.GetRequiredService<IDummyInterface>();
+                var actual = provider.GetRequiredService<IDummyInterface>() as DummyDecorator;
 
-                actual.Should().BeSameAs(expected);
+                actual.Decorated.Should().BeSameAs(expected);
             }
 
         }
