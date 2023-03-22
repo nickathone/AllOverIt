@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using AllOverIt.Aspects.Interceptor;
 using AllOverIt.DependencyInjection.Extensions;
+using AllOverIt.DependencyInjection.Tests.Helpers;
 using AllOverIt.Extensions;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 using Xunit;
-using AllOverIt.DependencyInjection.Tests.Helpers;
 
 namespace AllOverIt.DependencyInjection.Tests.Extensions
 {
@@ -117,6 +117,46 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                     DependencyHelper.AssertInstanceEquality(instances1a, instances2, differentScopeExpected);
                     DependencyHelper.AssertInstanceEquality(instances1b, instances2, differentScopeExpected);
                 }
+            }
+        }
+
+        public class DecorateWithInterceptor : ServiceCollectionExtensionsFixture
+        {
+            private sealed class DummyInterceptor : InterceptorBase<IDummyInterface>
+            {
+                public IDummyInterface Decorated { get; }
+
+                public DummyInterceptor(IDummyInterface dummy)
+                {
+                    Decorated = dummy;
+                }
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_Configure_Null()
+            {
+                var services = new ServiceCollection();
+
+                services.AddSingleton<IDummyInterface, Dummy1>();
+
+                Invoking(() =>
+                {
+                    _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, null);
+                })
+                .Should()
+                .NotThrow();
+            }
+
+            [Fact]
+            public void Should_Return_Same_Services()
+            {
+                var services = new ServiceCollection();
+
+                services.AddSingleton<IDummyInterface, Dummy1>();
+
+                var actual = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, null);
+
+                actual.Should().BeSameAs(services);
             }
         }
     }
