@@ -19,6 +19,7 @@ namespace BasicEvaluationDemo
                 "-(5 ^ 3 / (12 - 5) + 34.6) / (-423.3 / -.1) * 10 ^ 3",
                 "round(2.45678, 3)",
                 "sqrt(15)",
+                "sqrt(3) / (2 * sqrt(2))",
                 "log10(19)",
                 "log(2.7)",
                 "exp(3)",
