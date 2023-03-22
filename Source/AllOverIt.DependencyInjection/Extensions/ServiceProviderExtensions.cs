@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AllOverIt.Assertion;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace AllOverIt.DependencyInjection.Extensions
@@ -13,6 +14,9 @@ namespace AllOverIt.DependencyInjection.Extensions
         /// <returns>The required service implementation instance.</returns>
         public static TService GetRequiredNamedService<TService>(this IServiceProvider provider, string name) where TService : class
         {
+            _ = provider.WhenNotNull(nameof(provider));
+            _ = name.WhenNotNullOrEmpty(nameof(name));
+
             return provider
                 .GetRequiredService<INamedServiceResolver<TService>>()
                 .GetRequiredNamedService(name);
