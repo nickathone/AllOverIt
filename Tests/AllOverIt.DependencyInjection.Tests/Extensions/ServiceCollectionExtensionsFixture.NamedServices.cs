@@ -1,4 +1,5 @@
 ﻿using AllOverIt.DependencyInjection.Extensions;
+using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,7 +59,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             [InlineData(ServiceLifetime.Singleton)]
             [InlineData(ServiceLifetime.Scoped)]
             [InlineData(ServiceLifetime.Transient)]
-            public void Should_Set_Provider_On_INamedServiceResolver_TService(ServiceLifetime lifetime)
+            public void Should_Set_Provider_On_INamedServiceResolver_TService_Generic(ServiceLifetime lifetime)
             {
                 var services = new ServiceCollection();
 
@@ -78,6 +79,40 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
 
                     case ServiceLifetime.Transient:
                         builder.AsTransient<DummyType>(name);
+                        break;
+                }
+
+                var provider = services.BuildServiceProvider();
+
+                var resolver = provider.GetRequiredService<INamedServiceResolver<IDummyInterface>>() as NamedServiceResolver<IDummyInterface>;
+
+                resolver._provider.Should().BeAssignableTo<IServiceProvider>();
+            }
+
+            [Theory]
+            [InlineData(ServiceLifetime.Singleton)]
+            [InlineData(ServiceLifetime.Scoped)]
+            [InlineData(ServiceLifetime.Transient)]
+            public void Should_Set_Provider_On_INamedServiceResolver_TService_Type(ServiceLifetime lifetime)
+            {
+                var services = new ServiceCollection();
+
+                var builder = ServiceCollectionExtensions.AddNamedServices<IDummyInterface>(services);
+
+                var name = Create<string>();
+
+                switch (lifetime)
+                {
+                    case ServiceLifetime.Singleton:
+                        builder.AsSingleton(name, typeof(DummyType));
+                        break;
+
+                    case ServiceLifetime.Scoped:
+                        builder.AsScoped(name, typeof(DummyType));
+                        break;
+
+                    case ServiceLifetime.Transient:
+                        builder.AsTransient(name, typeof(DummyType));
                         break;
                 }
 

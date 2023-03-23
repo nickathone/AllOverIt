@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.DependencyInjection.Exceptions;
 using AllOverIt.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -11,20 +12,31 @@ namespace AllOverIt.DependencyInjection
                                                            INamedServiceResolver<TService> where TService : class
     {
         private readonly IDictionary<string, Type> _namedImplementations = new Dictionary<string, Type>();
-        internal IServiceProvider _provider;
+        internal IServiceProvider _provider;        // assigned through field injection
 
         void INamedServiceRegistration<TService>.Register<TImplementation>(string name)
         {
+            _ = name.WhenNotNullOrEmpty(nameof(name));
+
             ((INamedServiceRegistration<TService>)this).Register(name, typeof(TImplementation));
         }
 
         void INamedServiceRegistration<TService>.Register(string name, Type implementationType)
         {
+            _ = name.WhenNotNullOrEmpty(nameof(name));
+
+            if (_namedImplementations.TryGetValue(name, out var namedType))
+            {
+                throw new DependencyRegistrationException($"The name '{name}' has already been registered against the type '{namedType.GetFriendlyName()}'.");
+            }
+
             _namedImplementations.Add(name, implementationType);
         }
 
         TService INamedServiceResolver<TService>.GetRequiredNamedService(string name)
         {
+            _ = name.WhenNotNullOrEmpty(nameof(name));
+
             if (_namedImplementations.TryGetValue(name, out var implementationType))
             {
                 return _provider
@@ -32,7 +44,7 @@ namespace AllOverIt.DependencyInjection
                     .Single(service => service.GetType() == implementationType);
             }
 
-            throw new InvalidOperationException($"No service of type {typeof(TService).GetFriendlyName()} was found for the name {name}.");
+            throw new DependencyRegistrationException($"No service of type {typeof(TService).GetFriendlyName()} was found for the name {name}.");
         }
     }
 
@@ -45,11 +57,13 @@ namespace AllOverIt.DependencyInjection
             _provider = provider.WhenNotNull(nameof(provider));
         }
 
-        public TService GetRequiredNamedService<TService>(string key)
+        TService INamedServiceResolver.GetRequiredNamedService<TService>(string name)
         {
+            _ = name.WhenNotNullOrEmpty(nameof(name));
+
             var resolver = _provider.GetRequiredService<INamedServiceResolver<TService>>();
 
-            return resolver.GetRequiredNamedService(key);
+            return resolver.GetRequiredNamedService(name);
         }
     }
 }
