@@ -178,15 +178,6 @@ namespace AllOverIt.Evaluator
                         return true;
                     }),
 
-                new FormulaTokenProcessorContext(
-                    (token, isUserDefined) => isUserDefined && token == ',',
-                    (_, _) =>
-                    {
-                        ++_currentIndex;
-                        ProcessMethodArgument();
-                        return true;
-                    }),
-
                 // an operator
                 new FormulaTokenProcessorContext(
                     (token, _) => IsCandidateOperation(token),
