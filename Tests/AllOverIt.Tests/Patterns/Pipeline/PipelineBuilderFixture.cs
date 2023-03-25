@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Patterns.Pipeline;
 using AllOverIt.Patterns.Pipeline.Extensions;
 using FakeItEasy;
@@ -670,7 +671,7 @@ namespace AllOverIt.Tests.Patterns.Pipeline
                 {
                     Invoking(() =>
                     {
-                        var prevStep = A.Fake<IPipelineBuilder<int, double>>();
+                        var prevStep = this.CreateStub<IPipelineBuilder<int, double>>();
 
                         _ = new PipelineBuilder<int, double, string>(prevStep, null);
                     })

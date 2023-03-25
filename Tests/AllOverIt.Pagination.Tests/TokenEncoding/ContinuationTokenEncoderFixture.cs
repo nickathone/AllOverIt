@@ -2,6 +2,7 @@
 using AllOverIt.Extensions;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Pagination.Exceptions;
 using AllOverIt.Pagination.Extensions;
 using AllOverIt.Pagination.TokenEncoding;
@@ -40,7 +41,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             {
                 Invoking(() =>
                 {
-                    _ = new ContinuationTokenEncoder(null, Create<PaginationDirection>(), A.Fake<IContinuationTokenSerializer>());
+                    _ = new ContinuationTokenEncoder(null, Create<PaginationDirection>(), this.CreateStub<IContinuationTokenSerializer>());
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -52,7 +53,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             {
                 Invoking(() =>
                 {
-                    _ = new ContinuationTokenEncoder(new List<IColumnDefinition>(), Create<PaginationDirection>(), A.Fake<IContinuationTokenSerializer>());
+                    _ = new ContinuationTokenEncoder(new List<IColumnDefinition>(), Create<PaginationDirection>(), this.CreateStub<IContinuationTokenSerializer>());
                 })
                 .Should()
                 .Throw<ArgumentException>()
@@ -65,7 +66,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [Fact]
             public void Should_Throw_When_References_Null()
             {
-                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, A.Fake<IContinuationTokenSerializer>());
+                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, this.CreateStub<IContinuationTokenSerializer>());
 
                 Invoking(() =>
                 {
@@ -79,7 +80,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [Fact]
             public void Should_Throw_When_References_Empty()
             {
-                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, A.Fake<IContinuationTokenSerializer>());
+                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, this.CreateStub<IContinuationTokenSerializer>());
 
                 Invoking(() =>
                 {
@@ -111,7 +112,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
                     Values = new object[] { expectedReference.Name, expectedReference.Id }
                 };
 
-                var serializerFake = A.Fake<IContinuationTokenSerializer>();
+                var serializerFake = this.CreateStub<IContinuationTokenSerializer>();
 
                 IContinuationToken actualToken = default;
 
@@ -180,7 +181,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [Fact]
             public void Should_Throw_When_References_Null()
             {
-                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, A.Fake<IContinuationTokenSerializer>());
+                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, this.CreateStub<IContinuationTokenSerializer>());
 
                 Invoking(() =>
                 {
@@ -194,7 +195,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [Fact]
             public void Should_Throw_When_References_Empty()
             {
-                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, A.Fake<IContinuationTokenSerializer>());
+                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, this.CreateStub<IContinuationTokenSerializer>());
 
                 Invoking(() =>
                 {
@@ -225,7 +226,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
                     Values = new object[] { expectedReference.Name, expectedReference.Id }
                 };
 
-                var serializerFake = A.Fake<IContinuationTokenSerializer>();
+                var serializerFake = this.CreateStub<IContinuationTokenSerializer>();
 
                 IContinuationToken actualToken = default;
 
@@ -277,7 +278,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [Fact]
             public void Should_Throw_When_References_Null()
             {
-                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, A.Fake<IContinuationTokenSerializer>());
+                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, this.CreateStub<IContinuationTokenSerializer>());
 
                 Invoking(() =>
                 {
@@ -301,7 +302,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
                     Values = new object[] { entity.Name, entity.Id }
                 };
 
-                var serializerFake = A.Fake<IContinuationTokenSerializer>();
+                var serializerFake = this.CreateStub<IContinuationTokenSerializer>();
 
                 IContinuationToken actualToken = default;
 
@@ -346,7 +347,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [Fact]
             public void Should_Throw_When_References_Null()
             {
-                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, A.Fake<IContinuationTokenSerializer>());
+                var encoder = new ContinuationTokenEncoder(_columns, PaginationDirection.Forward, this.CreateStub<IContinuationTokenSerializer>());
 
                 Invoking(() =>
                 {
@@ -370,7 +371,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
                     Values = new object[] { entity.Name, entity.Id }
                 };
 
-                var serializerFake = A.Fake<IContinuationTokenSerializer>();
+                var serializerFake = this.CreateStub<IContinuationTokenSerializer>();
 
                 IContinuationToken actualToken = default;
 
@@ -439,7 +440,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
                     Values = (object[]) null
                 };
 
-                var serializerFake = A.Fake<IContinuationTokenSerializer>();
+                var serializerFake = this.CreateStub<IContinuationTokenSerializer>();
 
                 IContinuationToken actualToken = default;
 

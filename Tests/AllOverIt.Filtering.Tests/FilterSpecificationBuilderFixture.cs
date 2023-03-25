@@ -4,6 +4,7 @@ using AllOverIt.Filtering.Filters;
 using AllOverIt.Filtering.Options;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Patterns.Specification;
 using FakeItEasy;
 using FluentAssertions;
@@ -155,7 +156,7 @@ namespace AllOverIt.Filtering.Tests
             {
                 Invoking(() =>
                 {
-                    _ = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(null, A.Fake<IDefaultQueryFilterOptions>());
+                    _ = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(null, this.CreateStub<IDefaultQueryFilterOptions>());
                 })
                     .Should()
                     .Throw<ArgumentNullException>()

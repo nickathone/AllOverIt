@@ -1,6 +1,7 @@
 ﻿using AllOverIt.DependencyInjection.Extensions;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +43,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ServiceProviderExtensions.GetRequiredNamedService<IDummyInterface>(A.Fake<IServiceProvider>(), null);
+                    _ = ServiceProviderExtensions.GetRequiredNamedService<IDummyInterface>(this.CreateStub<IServiceProvider>(), null);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -54,7 +55,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ServiceProviderExtensions.GetRequiredNamedService<IDummyInterface>(A.Fake<IServiceProvider>(), string.Empty);
+                    _ = ServiceProviderExtensions.GetRequiredNamedService<IDummyInterface>(this.CreateStub<IServiceProvider>(), string.Empty);
                 })
                 .Should()
                 .Throw<ArgumentException>()
@@ -66,7 +67,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ServiceProviderExtensions.GetRequiredNamedService<IDummyInterface>(A.Fake<IServiceProvider>(), "  ");
+                    _ = ServiceProviderExtensions.GetRequiredNamedService<IDummyInterface>(this.CreateStub<IServiceProvider>(), "  ");
                 })
                 .Should()
                 .Throw<ArgumentException>()

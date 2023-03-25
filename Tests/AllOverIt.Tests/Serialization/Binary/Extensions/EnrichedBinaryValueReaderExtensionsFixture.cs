@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Extensions;
 using FakeItEasy;
@@ -18,7 +19,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = EnrichedBinaryValueReaderExtensions.ReadValue<string>(null, A.Fake<IEnrichedBinaryReader>());
+                    _ = EnrichedBinaryValueReaderExtensions.ReadValue<string>(null, this.CreateStub<IEnrichedBinaryReader>());
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -30,7 +31,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = EnrichedBinaryValueReaderExtensions.ReadValue<string>(A.Fake<IEnrichedBinaryValueReader>(), null);
+                    _ = EnrichedBinaryValueReaderExtensions.ReadValue<string>(this.CreateStub<IEnrichedBinaryValueReader>(), null);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -41,7 +42,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             public void Should_Read_Value()
             {
                 var valueReaderFake = new Fake<IEnrichedBinaryValueReader>();
-                var readerFake = A.Fake<IEnrichedBinaryReader>();
+                var readerFake = this.CreateStub<IEnrichedBinaryReader>();
 
                 var expected = Create<string>();
 

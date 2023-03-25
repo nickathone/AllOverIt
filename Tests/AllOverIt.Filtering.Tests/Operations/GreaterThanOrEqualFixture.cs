@@ -2,6 +2,7 @@
 using AllOverIt.Filtering.Operations;
 using AllOverIt.Filtering.Options;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -16,7 +17,7 @@ namespace AllOverIt.Filtering.Tests.Operations
         {
             Invoking(() =>
             {
-                _ = new GreaterThanOrEqualOperation<DummyClass, string>(null, Create<string>(), A.Fake<IOperationFilterOptions>());
+                _ = new GreaterThanOrEqualOperation<DummyClass, string>(null, Create<string>(), this.CreateStub<IOperationFilterOptions>());
             })
                 .Should()
                 .Throw<ArgumentNullException>()

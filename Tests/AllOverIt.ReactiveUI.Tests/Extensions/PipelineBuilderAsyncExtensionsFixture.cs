@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Extensions;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Patterns.Pipeline;
 using AllOverIt.ReactiveUI.Extensions;
 using FakeItEasy;
@@ -35,7 +36,7 @@ namespace AllOverIt.ReactiveUI.Tests.Extensions
             {
                 Invoking(() =>
                 {
-                    var prevStep = A.Fake<IPipelineBuilderAsync<int, double>>();
+                    var prevStep = this.CreateStub<IPipelineBuilderAsync<int, double>>();
 
                     _ = PipelineBuilderAsyncExtensions.Pipe<int, double, string>(prevStep, null);
                 })

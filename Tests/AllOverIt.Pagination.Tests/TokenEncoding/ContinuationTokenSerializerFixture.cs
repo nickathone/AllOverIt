@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Pagination.TokenEncoding;
 using FakeItEasy;
 using FluentAssertions;
@@ -32,7 +33,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             {
                 Invoking(() =>
                 {
-                    var serializer = new ContinuationTokenSerializer(A.Fake<IContinuationTokenOptions>());
+                    var serializer = new ContinuationTokenSerializer(this.CreateStub<IContinuationTokenOptions>());
                     _ = serializer.Serialize(null);
                 })
                     .Should()
@@ -228,7 +229,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             {
                 Invoking(() =>
                 {
-                    var serializer = new ContinuationTokenSerializer(A.Fake<IContinuationTokenOptions>());
+                    var serializer = new ContinuationTokenSerializer(this.CreateStub<IContinuationTokenOptions>());
                     _ = serializer.TryDeserialize(null, out var _);
                 })
                     .Should()
@@ -239,7 +240,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             [Fact]
             public void Should_Return_False_When_Random_String()
             {
-                var serializer = new ContinuationTokenSerializer(A.Fake<IContinuationTokenOptions>());
+                var serializer = new ContinuationTokenSerializer(this.CreateStub<IContinuationTokenOptions>());
                 var actual = serializer.TryDeserialize(Create<string>(), out var _);
 
                 actual.Should().BeFalse();

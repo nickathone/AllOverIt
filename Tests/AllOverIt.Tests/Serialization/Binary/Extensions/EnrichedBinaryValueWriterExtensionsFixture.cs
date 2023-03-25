@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Extensions;
 using FakeItEasy;
@@ -18,7 +19,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             {
                 Invoking(() =>
                 {
-                    EnrichedBinaryValueWriterExtensions.WriteValue<string>(null, A.Fake<IEnrichedBinaryWriter>(), Create<string>());
+                    EnrichedBinaryValueWriterExtensions.WriteValue<string>(null, this.CreateStub<IEnrichedBinaryWriter>(), Create<string>());
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -30,7 +31,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             {
                 Invoking(() =>
                 {
-                    EnrichedBinaryValueWriterExtensions.WriteValue<string>(A.Fake<IEnrichedBinaryValueWriter>(), null, Create<string>());
+                    EnrichedBinaryValueWriterExtensions.WriteValue<string>(this.CreateStub<IEnrichedBinaryValueWriter>(), null, Create<string>());
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -41,7 +42,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             public void Should_Write_Value()
             {
                 var valueWriterFake = new Fake<IEnrichedBinaryValueWriter>();
-                var writerFake = A.Fake<IEnrichedBinaryWriter>();
+                var writerFake = this.CreateStub<IEnrichedBinaryWriter>();
 
                 var expected = Create<string>();
                 string actual = default;

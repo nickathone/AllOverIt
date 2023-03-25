@@ -1,16 +1,16 @@
 ﻿using AllOverIt.Extensions;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using FakeItEasy;
-using Xunit;
 using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace AllOverIt.Csv.Tests
 {
@@ -304,7 +304,7 @@ namespace AllOverIt.Csv.Tests
             {
                 await Invoking(async () =>
                     {
-                        await _serializer.SerializeAsync(A.Fake<TextWriter>(), (IEnumerable<DummySampleData>) null);
+                        await _serializer.SerializeAsync(this.CreateStub<TextWriter>(), (IEnumerable<DummySampleData>) null);
                     })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
@@ -399,7 +399,7 @@ namespace AllOverIt.Csv.Tests
             {
                 await Invoking(async () =>
                 {
-                    await _serializer.SerializeAsync(A.Fake<TextWriter>(), (IAsyncEnumerable<DummySampleData>) null);
+                    await _serializer.SerializeAsync(this.CreateStub<TextWriter>(), (IAsyncEnumerable<DummySampleData>) null);
                 })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()

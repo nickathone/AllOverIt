@@ -3,8 +3,10 @@ using AllOverIt.Evaluator.Tests.Variables.Dummies;
 using AllOverIt.Evaluator.Variables;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using FakeItEasy;
 using FluentAssertions;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -200,6 +202,23 @@ namespace AllOverIt.Evaluator.Tests.Variables
                 _registry.SetValue(name, value);
 
                 variable.Value.Should().Be(value);
+            }
+        }
+
+        public class Clear : VariableRegistryFixture
+        {
+            [Fact]
+            public void Should_Clear_Registry()
+            {
+                var variable = this.CreateStub<IVariable>();
+
+                _registry.AddVariable(variable);
+
+                _registry.Variables.Should().HaveCount(1);
+
+                _registry.Clear();
+
+                _registry.Variables.Should().HaveCount(0);
             }
         }
     }

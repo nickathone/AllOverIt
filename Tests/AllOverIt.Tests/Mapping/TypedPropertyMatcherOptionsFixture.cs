@@ -5,6 +5,7 @@ using System.Linq;
 using AllOverIt.Extensions;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Mapping;
 using AllOverIt.Mapping.Exceptions;
 using FakeItEasy;
@@ -351,7 +352,7 @@ namespace AllOverIt.Tests.Mapping
                     return value;
                 });
 
-                var mapper = A.Fake<IObjectMapper>();
+                var mapper = this.CreateStub<IObjectMapper>();
 
                 _ = _typedMatcherOptions.GetConvertedValue(mapper, nameof(DummySource.Prop3), Create<int>());
 
@@ -378,7 +379,7 @@ namespace AllOverIt.Tests.Mapping
 
                 _typedMatcherOptions.WithConversion(source => source.Prop2, (mapper, val) => val * factor);
 
-                var actual = _typedMatcherOptions.GetConvertedValue(A.Fake<IObjectMapper>(), nameof(DummySource.Prop2), value);
+                var actual = _typedMatcherOptions.GetConvertedValue(this.CreateStub<IObjectMapper>(), nameof(DummySource.Prop2), value);
 
                 actual.Should().BeEquivalentTo(value * factor);
             }

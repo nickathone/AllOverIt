@@ -1,5 +1,6 @@
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -32,7 +33,7 @@ namespace AllOverIt.Reactive.Tests
             {
                 Invoking(() =>
                     {
-                        ObservableExtensions.WaitUntil(A.Fake<IObservable<int>>(), null);
+                        ObservableExtensions.WaitUntil(this.CreateStub<IObservable<int>>(), null);
                     })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -105,7 +106,7 @@ namespace AllOverIt.Reactive.Tests
             {
                 Invoking(() =>
                     {
-                        ObservableExtensions.WaitUntil<int, int>(A.Fake<IObservable<int>>(), null, value => value);
+                        ObservableExtensions.WaitUntil<int, int>(this.CreateStub<IObservable<int>>(), null, value => value);
                     })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -156,7 +157,7 @@ namespace AllOverIt.Reactive.Tests
             {
                 await Invoking(async () =>
                 {
-                    _ = await ObservableExtensions.WaitUntilAsync(A.Fake<IObservable<int>>(), null);
+                    _ = await ObservableExtensions.WaitUntilAsync(this.CreateStub<IObservable<int>>(), null);
                 })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
@@ -220,7 +221,7 @@ namespace AllOverIt.Reactive.Tests
             {
                 await Invoking(async () =>
                 {
-                    _ = await ObservableExtensions.WaitUntilAsync<int, int>(A.Fake<IObservable<int>>(), null, Task.FromResult);
+                    _ = await ObservableExtensions.WaitUntilAsync<int, int>(this.CreateStub<IObservable<int>>(), null, Task.FromResult);
                 })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()

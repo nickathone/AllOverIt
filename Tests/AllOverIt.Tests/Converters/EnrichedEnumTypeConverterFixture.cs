@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Converters;
 using AllOverIt.Fixture;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Patterns.Enumeration;
 using FakeItEasy;
 using FluentAssertions;
@@ -34,7 +35,7 @@ namespace AllOverIt.Tests.Converters
         protected EnrichedEnumTypeConverterFixture()
         {
             _enrichedEnumConverter = new EnrichedEnumTypeConverter<DummyEnrichedEnum>();
-            _typeDescriptorContextFake = A.Fake<ITypeDescriptorContext>();
+            _typeDescriptorContextFake = this.CreateStub<ITypeDescriptorContext>();
         }
 
         public class CanConvertFrom : EnrichedEnumTypeConverterFixture
