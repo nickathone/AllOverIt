@@ -6,6 +6,8 @@ using AllOverIt.Evaluator.Variables;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -232,13 +234,15 @@ namespace AllOverIt.Evaluator
 
             if (isUserMethod)
             {
-                // we should at least have a 'UserMethod' in the stack to indicate a user method is being parsed
+#if DEBUG
+                // We should at least have a 'UserMethod' in the stack to indicate a user method is being parsed
                 if (_operatorStack.Count == 0)
                 {
                     throw new FormulaException("Invalid expression stack.");
                 }
+#endif
 
-                // methods pushed onto the operator stack have been prefixed with 'UserMethod' to identify them as methods since they 
+                // Methods pushed onto the operator stack have been prefixed with 'UserMethod' to identify them as methods since they 
                 // may take parameters, in which case it is time to pop the expressions so they can be used for the input.
                 if (_operatorStack.Peek() == CustomTokens.UserMethod)
                 {
@@ -381,13 +385,13 @@ namespace AllOverIt.Evaluator
             PushOperator(CustomTokens.UserMethod);      // to indicate a method operation
             PushOperator(CustomTokens.OpenScope);       // used to track nested argument expressions
 
-            // capture the current count of expressions - it should increase by the number of parameters expected by the method
+            // Capture the current count of expressions - it should increase by the number of parameters expected by the method
             var currentExpressionCount = _expressionStack.Count;
 
-            // passing true to indicate it is a method being parsed (so parameters can be parsed / read correctly)
+            // Passing true to indicate it is a method being parsed (so parameters can be parsed / read correctly)
             ParseContent(true);
 
-            // check if the expression is missing the required user method token
+            // Check if the expression is missing the required user method token
             if (_operatorStack.Peek() != CustomTokens.UserMethod)
             {
                 throw new FormulaException($"Invalid expression near method: {methodName}.");
@@ -395,7 +399,7 @@ namespace AllOverIt.Evaluator
 
             _operatorStack.Pop();                        // pop the 'UserMethod'
 
-            // determine how many arguments we need to pop 
+            // Determine how many arguments we need to pop 
             var operation = _userDefinedMethodFactory.GetMethod(methodName);    // will throw if not registered
             var expressionsRequired = operation.ArgumentCount;
 
@@ -437,10 +441,12 @@ namespace AllOverIt.Evaluator
         {
             var previousTokenWasExponent = false;
 
+#if DEBUG
             if (_currentIndex == _formula.Length)
             {
                 throw new FormulaException("Nothing to read.");
             }
+#endif
 
             var startIndex = _currentIndex;
 
@@ -464,10 +470,12 @@ namespace AllOverIt.Evaluator
                 }
             }
 
+#if DEBUG
             if (startIndex == _currentIndex)
             {
                 throw new FormulaException("Unexpected non-numerical token.");
             }
+#endif
 
             var operand = _formula[startIndex.._currentIndex].Span;
 
@@ -489,10 +497,12 @@ namespace AllOverIt.Evaluator
 
         private string ReadNamedOperand()
         {
+#if DEBUG
             if (_currentIndex == _formula.Length)
             {
                 throw new FormulaException("Nothing to read.");
             }
+#endif
 
             var startIndex = _currentIndex;
 
@@ -515,20 +525,24 @@ namespace AllOverIt.Evaluator
                 }
             }
 
+#if DEBUG
             if (startIndex == _currentIndex)
             {
                 throw new FormulaException("Unexpected empty named operand.");
             }
+#endif           
 
             return _formula[startIndex.._currentIndex].ToString();
         }
 
         private string ReadOperator()
         {
+#if DEBUG
             if (_currentIndex == _formula.Length)
             {
                 throw new FormulaException("Nothing to read.");
             }
+#endif
 
             var startIndex = _currentIndex;
 
@@ -559,10 +573,13 @@ namespace AllOverIt.Evaluator
                 }
             }
 
+#if DEBUG
             if (startIndex == _currentIndex)
             {
                 throw new FormulaException("Unexpected empty operation.");
             }
+#endif
+
 
             return _formula[startIndex.._currentIndex].ToString();
         }
