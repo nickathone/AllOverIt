@@ -219,6 +219,28 @@ namespace AllOverIt.Filtering.Tests.Builders
                     .NotThrow();
             }
 
+            [Fact]
+            public void Should_Throw_When_Array_Filter_Not_Initialized()
+            {
+                Invoking(() =>
+                {
+                    _filter = new DummyEntityFilter
+                    {
+                        Name =
+                    {
+                        In = new In<string>()
+                    }
+                    };
+
+                    _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
+
+                    var specification = _specificationBuilder.Create(model => model.Name, filter => filter.Name.In);
+                })
+                   .Should()
+                   .Throw<InvalidOperationException>()
+                   .WithMessage("Array based specifications expect an IList<T>.");
+            }
+
             [Theory]
             [InlineData(false, 0)]  // StringComparisonMode.None
             [InlineData(true, 0)]
