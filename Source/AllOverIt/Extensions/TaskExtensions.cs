@@ -1,25 +1,26 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using AllOverIt.Assertion;
+using System;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace AllOverIt.Extensions
 {
-    [ExcludeFromCodeCoverage]
+    /// <summary>Provides a variety of extension methods for <see cref="Task"/> types.</summary>
     public static class TaskExtensions
     {
-        public static void FireAndForget(this Task task, Action<Exception> exceptionHandler = null)
+        /// <summary>Awaits a <see cref="Task"/> and reports any faulted state via an exception handler, if provided.</summary>
+        /// <param name="task">The task to await.</param>
+        /// <param name="exceptionHandler">Reports a faulted task via an <see cref="ExceptionDispatchInfo"/>.
+        /// This object can be used to apply a strategy against the raised exception, or re-throw the original exception without losing stack
+        /// trace information.</param>
+        public static void FireAndForget(this Task task, Action<ExceptionDispatchInfo> exceptionHandler)
         {
+            _ = exceptionHandler.WhenNotNull(nameof(exceptionHandler));
+
             _ = DoFireAndForget(task, exceptionHandler);
         }
 
-        public static void FireAndForget<TException>(this Task task, Action<TException> exceptionHandler = null)
-            where TException : Exception
-        {
-            _ = DoFireAndForget(task, exceptionHandler);
-        }
-
-        private static async Task DoFireAndForget<TException>(Task task, Action<TException> exceptionHandler)
-            where TException : Exception
+        internal static async Task DoFireAndForget(Task task, Action<ExceptionDispatchInfo> exceptionHandler)
         {
             if (!task.IsCompleted || task.IsFaulted)
             {
@@ -28,9 +29,11 @@ namespace AllOverIt.Extensions
                     // No need to resume on the original SynchronizationContext
                     await task.ConfigureAwait(false);
                 }
-                catch (TException ex) when (exceptionHandler is not null)
+                catch (Exception exception) when (exceptionHandler is not null)
                 {
-                    exceptionHandler?.Invoke(ex);
+                    var dispatchInfo = ExceptionDispatchInfo.Capture(exception);
+
+                    exceptionHandler.Invoke(dispatchInfo);
                 }
             }
         }

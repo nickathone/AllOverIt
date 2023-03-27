@@ -15,7 +15,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
 
-namespace AllOverIt.Filtering.Tests
+namespace AllOverIt.Filtering.Tests.Builders
 {
     public class FilterSpecificationBuilderFixture : FixtureBase
     {
@@ -185,7 +185,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Create((Expression<Func<DummyEntity, string>>)null, f => f.Name.Contains);
+                    _specificationBuilder.Create( null, f => f.Name.Contains);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -199,7 +199,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Create(model => model.Name, (Func<DummyEntityFilter, IStringFilterOperation>)null);
+                    _specificationBuilder.Create(model => model.Name, (Func<DummyEntityFilter, IStringFilterOperation>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -657,7 +657,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Create((Expression<Func<DummyEntity, double>>)null, f => f.Price.GreaterThan);
+                    _specificationBuilder.Create((Expression<Func<DummyEntity, double>>) null, f => f.Price.GreaterThan);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -671,7 +671,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Create(model => model.Price, (Func<DummyEntityFilter, IBasicFilterOperation>) null);
+                    _specificationBuilder.Create(model => model.Price,  null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -972,7 +972,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.And((Expression<Func<DummyEntity, string>>) null, f => f.Name.GreaterThan, f => f.Name.Contains);
+                    _specificationBuilder.And( null, f => f.Name.GreaterThan, f => f.Name.Contains);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1000,7 +1000,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.And(model => model.Name, f => f.Name.GreaterThan, (Func<DummyEntityFilter, IStringFilterOperation>) null);
+                    _specificationBuilder.And(model => model.Name, f => f.Name.GreaterThan,  null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1027,7 +1027,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.And((Expression<Func<DummyEntity, string>>) null, f => f.Name.Contains, f => f.Name.GreaterThan);
+                    _specificationBuilder.And( null, f => f.Name.Contains, f => f.Name.GreaterThan);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1041,7 +1041,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.And(model => model.Name, (Func<DummyEntityFilter, IStringFilterOperation>) null, f => f.Name.GreaterThan);
+                    _specificationBuilder.And(model => model.Name,  null, f => f.Name.GreaterThan);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1082,7 +1082,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.And((Expression<Func<DummyEntity, string>>) null, f => f.Name.Contains, f => f.Name.NotContains);
+                    _specificationBuilder.And( null, f => f.Name.Contains, f => f.Name.NotContains);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1151,7 +1151,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.And(model => model.Price, (Func<DummyEntityFilter, IBasicFilterOperation>) null, f => f.Price.GreaterThan);
+                    _specificationBuilder.And(model => model.Price,  null, f => f.Price.GreaterThan);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1165,7 +1165,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.And(model => model.Price, f => f.Price.GreaterThan, (Func<DummyEntityFilter, IBasicFilterOperation>) null);
+                    _specificationBuilder.And(model => model.Price, f => f.Price.GreaterThan,  null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1196,7 +1196,7 @@ namespace AllOverIt.Filtering.Tests
             [InlineData(true, "AbC", "fgh", 6, "pqrAbCxyz", "cde")]
             public void Should_And_Contains_GreaterThan(bool useParameterizedQueries, string contains, string greaterThan,
                 int mode, string trueValue, string falseValue)
-{
+            {
                 var stringComparisonMode = StringComparisonMode.From(mode);
 
                 _options = new DefaultQueryFilterOptions
@@ -1508,7 +1508,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Or((Expression<Func<DummyEntity, string>>) null, f => f.Name.GreaterThan, f => f.Name.Contains);
+                    _specificationBuilder.Or( null, f => f.Name.GreaterThan, f => f.Name.Contains);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1536,7 +1536,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Or(model => model.Name, f => f.Name.GreaterThan, (Func<DummyEntityFilter, IStringFilterOperation>) null);
+                    _specificationBuilder.Or(model => model.Name, f => f.Name.GreaterThan,  null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1563,7 +1563,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Or((Expression<Func<DummyEntity, string>>) null, f => f.Name.Contains, f => f.Name.GreaterThan);
+                    _specificationBuilder.Or( null, f => f.Name.Contains, f => f.Name.GreaterThan);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1577,7 +1577,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Or(model => model.Name, (Func<DummyEntityFilter, IStringFilterOperation>) null, f => f.Name.GreaterThan);
+                    _specificationBuilder.Or(model => model.Name,  null, f => f.Name.GreaterThan);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1618,7 +1618,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Or((Expression<Func<DummyEntity, string>>) null, f => f.Name.Contains, f => f.Name.NotContains);
+                    _specificationBuilder.Or( null, f => f.Name.Contains, f => f.Name.NotContains);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1687,7 +1687,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Or(model => model.Price, (Func<DummyEntityFilter, IBasicFilterOperation>) null, f => f.Price.GreaterThan);
+                    _specificationBuilder.Or(model => model.Price,  null, f => f.Price.GreaterThan);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -1701,7 +1701,7 @@ namespace AllOverIt.Filtering.Tests
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Or(model => model.Price, f => f.Price.GreaterThan, (Func<DummyEntityFilter, IBasicFilterOperation>) null);
+                    _specificationBuilder.Or(model => model.Price, f => f.Price.GreaterThan,  null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()

@@ -203,9 +203,10 @@ namespace AllOverIt.Filtering.Builders
             Action<OperationFilterOptions> options)
         {
             var operation = filterOperation.Invoke(_filter);
-            var filterOptions = GetOperationFilterOptions(options);
 
-            Throw<InvalidOperationException>.WhenNull($"The filter operation resolver on {propertyExpression} cannot return null.");
+            Throw<InvalidOperationException>.WhenNull(operation, $"The filter operation resolver on {propertyExpression} cannot return null.");
+
+            var filterOptions = GetOperationFilterOptions(options);
 
             if (filterOptions.IgnoreDefaultFilterValue)
             {
@@ -241,9 +242,10 @@ namespace AllOverIt.Filtering.Builders
             Func<TFilter, IBasicFilterOperation> filterOperation, Action<OperationFilterOptions> options)
         {
             var operation = filterOperation.Invoke(_filter);
-            var filterOptions = GetOperationFilterOptions(options);
 
-            Throw<InvalidOperationException>.WhenNull($"The filter operation resolver on {propertyExpression} cannot return null.");
+            Throw<InvalidOperationException>.WhenNull(operation, $"The filter operation resolver on {propertyExpression} cannot return null.");
+
+            var filterOptions = GetOperationFilterOptions(options);
 
             // The TProperty is based on the entity's property type. When this is non-nullable but the filter's value type is
             // nullable we need to use reflection to determine if the filter's value is null - we cannot cast the operation to
@@ -288,7 +290,7 @@ namespace AllOverIt.Filtering.Builders
 
         // TODO: Check for opportunities to improve performance related to reflection
         //
-        // As an example, creates an EqualToOperation<,> based on a IEqualTo<>
+        // As an example, create an EqualToOperation<,> based on a IEqualTo<>
         // Caters for IBasicFilterOperation and IArrayFilterOperation
         private static ILinqSpecification<TType> CreateSpecificationOperation<TProperty>(Type specificationOperationType, IBasicFilterOperation operation,
             Expression<Func<TType, TProperty>> propertyExpression, IOperationFilterOptions options)

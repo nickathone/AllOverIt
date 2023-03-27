@@ -4,13 +4,15 @@ using AllOverIt.Filtering.Filters;
 using AllOverIt.Filtering.Options;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Patterns.Specification;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Xunit;
 
-namespace AllOverIt.Filtering.Tests
+namespace AllOverIt.Filtering.Tests.Builders
 {
     // Note: The tests for FilterSpecificationBuilder looks more at the different combinations
     //       of possible criteria whereas these tests focus on applying the options.
@@ -141,7 +143,7 @@ namespace AllOverIt.Filtering.Tests
                 var filterBuilder = CreateFilterBuilder();
 
                 filterBuilder.Where(model => model.Prop1, filter => filter.Prop1.EqualTo);
-                
+
                 var actual = filterBuilder.AsSpecification();
 
                 var model = new DummyClass
@@ -159,6 +161,34 @@ namespace AllOverIt.Filtering.Tests
 
         public class Where_String : FilterBuilderFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyExpression_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Where((Expression<Func<DummyClass, string>>) null, filter => filter.Prop3.Contains);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("propertyExpression");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Operation_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Where(model => model.Prop3, (Func<DummyFilter, IStringFilterOperation>) null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("operation");
+            }
+
             [Theory]
             [MemberData(nameof(FilterComparisonOptions))]
             public void Should_Apply_Filter(bool useParameterizedQueries, StringComparisonMode stringComparisonMode)
@@ -173,12 +203,12 @@ namespace AllOverIt.Filtering.Tests
                 var filterBuilder = CreateFilterBuilder(_filter, options);
 
                 var specification = filterBuilder
-                    .Where(model => model.Prop3, filter => filter.Prop3.EqualTo)
+                    .Where(model => model.Prop3, filter => filter.Prop3.Contains)
                     .AsSpecification();
 
                 var model = new DummyClass
                 {
-                    Prop3 = _filter.Prop3.EqualTo.Value
+                    Prop3 = _filter.Prop3.Contains.Value
                 };
 
                 var actual = specification.IsSatisfiedBy(model);
@@ -202,7 +232,7 @@ namespace AllOverIt.Filtering.Tests
                 var filterBuilder1 = CreateFilterBuilder(_filter, options);
 
                 var specification = filterBuilder1
-                    .Where(model => model.Prop3, filter => filter.Prop3.EqualTo)
+                    .Where(model => model.Prop3, filter => filter.Prop3.Contains)
                     .AsSpecification();
 
                 var model = new DummyClass
@@ -231,6 +261,34 @@ namespace AllOverIt.Filtering.Tests
 
         public class Where_Basic : FilterBuilderFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyExpression_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Where((Expression<Func<DummyClass, string>>) null, filter => filter.Prop3.EqualTo);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("propertyExpression");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Operation_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Where(model => model.Prop3, (Func<DummyFilter, IBasicFilterOperation>) null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("operation");
+            }
+
             [Theory]
             [InlineData(false)]
             [InlineData(true)]
@@ -374,6 +432,52 @@ namespace AllOverIt.Filtering.Tests
                 actual = specification.IsSatisfiedBy(model);
 
                 actual.Should().BeFalse();
+            }
+        }
+
+        public class Where_LinqSpecification : FilterBuilderFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Specification_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Where((ILinqSpecification<DummyClass>)null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("specification");
+            }
+
+            [Fact]
+            public void Should_Apply_Filter()
+            {
+                var options = new DefaultQueryFilterOptions
+                {
+                    UseParameterizedQueries = Create<bool>(),
+                    IgnoreDefaultFilterValues = Create<bool>()
+                };
+
+                var filterBuilder = CreateFilterBuilder(_filter, options);
+
+                var specification1 = filterBuilder
+                    .Where(model => model.Prop2, filter => filter.Prop2.EqualTo)
+                    .AsSpecification();
+
+                var specification2 = filterBuilder
+                    .Where(specification1)
+                    .AsSpecification();
+
+                var model = new DummyClass
+                {
+                    Prop2 = _filter.Prop2.EqualTo.Value
+                };
+
+                var actual = specification2.IsSatisfiedBy(model);
+
+                actual.Should().BeTrue();
             }
         }
 
@@ -527,6 +631,34 @@ namespace AllOverIt.Filtering.Tests
 
         public class Where_And_String : FilterBuilderFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyExpression_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.And((Expression<Func<DummyClass, string>>) null, filter => filter.Prop3.Contains);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("propertyExpression");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Operation_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.And(model => model.Prop3, (Func<DummyFilter, IStringFilterOperation>) null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("operation");
+            }
+
             [Theory]
             [MemberData(nameof(FilterComparisonOptions))]
             public void Should_Apply_And_Filter(bool useParameterizedQueries, StringComparisonMode stringComparisonMode)
@@ -541,14 +673,14 @@ namespace AllOverIt.Filtering.Tests
                 var filterBuilder = CreateFilterBuilder(_filter, options);
 
                 var specification = filterBuilder
-                    .Where(model => model.Prop3, filter => filter.Prop3.EqualTo)
-                    .And(model => model.Prop1, filter => filter.Prop1.EqualTo)
+                    .Where(model => model.Prop1, filter => filter.Prop1.EqualTo)
+                    .And(model => model.Prop3, filter => filter.Prop3.Contains)
                     .AsSpecification();
 
                 var model = new DummyClass
                 {
                     Prop1 = _filter.Prop1.EqualTo.Value,
-                    Prop3 = _filter.Prop3.EqualTo.Value
+                    Prop3 = _filter.Prop3.Contains.Value
                 };
 
                 var actual = specification.IsSatisfiedBy(model);
@@ -682,6 +814,34 @@ namespace AllOverIt.Filtering.Tests
 
         public class Where_And_Basic : FilterBuilderFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyExpression_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.And((Expression<Func<DummyClass, string>>) null, filter => filter.Prop3.EqualTo);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("propertyExpression");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Operation_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.And(model => model.Prop3, (Func<DummyFilter, IBasicFilterOperation>) null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("operation");
+            }
+
             [Theory]
             [InlineData(false)]
             [InlineData(true)]
@@ -834,6 +994,60 @@ namespace AllOverIt.Filtering.Tests
                 var actual = specification.IsSatisfiedBy(model);
 
                 actual.Should().BeTrue();       // the builder has completely ignored both nullable filters, so everything should return true
+            }
+        }
+
+        public class Where_And_LinqSpecification : FilterBuilderFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Specification_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.And((ILinqSpecification<DummyClass>) null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("specification");
+            }
+
+            [Fact]
+            public void Should_Apply_Filter()
+            {
+                var options = new DefaultQueryFilterOptions
+                {
+                    UseParameterizedQueries = Create<bool>(),
+                    IgnoreDefaultFilterValues = Create<bool>()
+                };
+
+                var filterBuilder = CreateFilterBuilder(_filter, options);
+
+                var specification1 = filterBuilder
+                    .Where(model => model.Prop2, filter => filter.Prop2.EqualTo)
+                    .AsSpecification();
+
+                var specification2 = filterBuilder
+                    .Where(model => model.Prop1, filter => filter.Prop1.NotEqualTo)
+                    .And(specification1)
+                    .AsSpecification();
+
+                var model = new DummyClass
+                {
+                    Prop1 = _filter.Prop1.NotEqualTo.Value.Value + 1,
+                    Prop2 = _filter.Prop2.EqualTo.Value
+                };
+
+                var actual = specification2.IsSatisfiedBy(model);
+
+                actual.Should().BeTrue();
+
+                model.Prop1 = _filter.Prop1.NotEqualTo.Value.Value;
+
+                actual = specification2.IsSatisfiedBy(model);
+
+                actual.Should().BeFalse();
             }
         }
 
@@ -996,6 +1210,34 @@ namespace AllOverIt.Filtering.Tests
 
         public class Where_Or_String : FilterBuilderFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyExpression_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Or((Expression<Func<DummyClass, string>>) null, filter => filter.Prop3.Contains);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("propertyExpression");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Operation_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Or(model => model.Prop3, (Func<DummyFilter, IStringFilterOperation>) null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("operation");
+            }
+
             [Theory]
             [MemberData(nameof(FilterComparisonOptions))]
             public void Should_Apply_Or_Filter(bool useParameterizedQueries, StringComparisonMode stringComparisonMode)
@@ -1010,8 +1252,8 @@ namespace AllOverIt.Filtering.Tests
                 var filterBuilder = CreateFilterBuilder(_filter, options);
 
                 var specification = filterBuilder
-                    .Where(model => model.Prop3, filter => filter.Prop3.EqualTo)
-                    .Or(model => model.Prop1, filter => filter.Prop1.EqualTo)
+                    .Where(model => model.Prop1, filter => filter.Prop1.EqualTo)
+                    .Or(model => model.Prop3, filter => filter.Prop3.Contains)
                     .AsSpecification();
 
                 var model = new DummyClass
@@ -1151,6 +1393,34 @@ namespace AllOverIt.Filtering.Tests
 
         public class Where_Or_Basic : FilterBuilderFixture
         {
+            [Fact]
+            public void Should_Throw_When_PropertyExpression_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Or((Expression<Func<DummyClass, string>>) null, filter => filter.Prop3.EqualTo);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("propertyExpression");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Operation_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Or(model => model.Prop3, (Func<DummyFilter, IBasicFilterOperation>) null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("operation");
+            }
+
             [Theory]
             [InlineData(false)]
             [InlineData(true)]
@@ -1303,6 +1573,61 @@ namespace AllOverIt.Filtering.Tests
                 var actual = specification.IsSatisfiedBy(model);
 
                 actual.Should().BeTrue();       // the builder has completely ignored both nullable filters, so everything should return true
+            }
+        }
+
+        public class Where_Or_LinqSpecification : FilterBuilderFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Specification_Null()
+            {
+                Invoking(() =>
+                {
+                    var filterBuilder = CreateFilterBuilder(_filter);
+
+                    _ = filterBuilder.Or((ILinqSpecification<DummyClass>) null);
+                })
+                .Should()
+                .Throw<ArgumentNullException>()
+                .WithNamedMessageWhenNull("specification");
+            }
+
+            [Fact]
+            public void Should_Apply_Filter()
+            {
+                var options = new DefaultQueryFilterOptions
+                {
+                    UseParameterizedQueries = Create<bool>(),
+                    IgnoreDefaultFilterValues = Create<bool>()
+                };
+
+                var filterBuilder = CreateFilterBuilder(_filter, options);
+
+                var specification1 = filterBuilder
+                    .Where(model => model.Prop2, filter => filter.Prop2.EqualTo)
+                    .AsSpecification();
+
+                var specification2 = filterBuilder
+                    .Where(model => model.Prop1, filter => filter.Prop1.NotEqualTo)
+                    .Or(specification1)
+                    .AsSpecification();
+
+                var model = new DummyClass
+                {
+                    Prop1 = _filter.Prop1.NotEqualTo.Value.Value + 1,
+                    Prop2 = _filter.Prop2.EqualTo.Value
+                };
+
+                var actual = specification2.IsSatisfiedBy(model);
+
+                actual.Should().BeTrue();
+
+                model.Prop1 = _filter.Prop1.NotEqualTo.Value.Value;
+                model.Prop2 = -model.Prop2;
+
+                actual = specification2.IsSatisfiedBy(model);
+
+                actual.Should().BeFalse();
             }
         }
 
@@ -1486,5 +1811,5 @@ namespace AllOverIt.Filtering.Tests
                 new object[] { true, StringComparisonMode.InvariantCultureIgnoreCase },
             };
         }
-    }           
+    }
 }
