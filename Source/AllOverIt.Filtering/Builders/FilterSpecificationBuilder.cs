@@ -336,7 +336,7 @@ namespace AllOverIt.Filtering.Builders
         private static ILinqSpecification<TType> CreateArraySpecificationOperation<TProperty>(Type genericOperation,
             Expression<Func<TType, TProperty>> propertyExpression, object values, IOperationFilterOptions options)
         {
-            Throw<InvalidOperationException>.When(values is not IList, "Array based specifications expected an IList<T>.");
+            Throw<InvalidOperationException>.When(values is not IList, "Array based specifications expect an IList<T>.");
 
             // The array based operations require special consideration when the value is double (for example) and
             // TProperty is double? because an error occurs due to List<double> cannot be converted to IList<double?>.

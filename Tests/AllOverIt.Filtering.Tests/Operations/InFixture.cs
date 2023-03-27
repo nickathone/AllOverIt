@@ -1,9 +1,9 @@
 ﻿using AllOverIt.Expressions.Strings;
+using AllOverIt.Filtering.Exceptions;
 using AllOverIt.Filtering.Operations;
 using AllOverIt.Filtering.Options;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Fixture.FakeItEasy;
-using FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Linq;
@@ -23,6 +23,17 @@ namespace AllOverIt.Filtering.Tests.Operations
                 .Should()
                 .Throw<ArgumentNullException>()
                 .WithNamedMessageWhenNull("propertyExpression");
+        }
+
+        [Fact]
+        public void Should_Throw_When_Values_Null()
+        {
+            Invoking(() =>
+            {
+                _ = new InOperation<DummyClass, string>(model => model.Name, null, this.CreateStub<IOperationFilterOptions>());
+            })
+                .Should()
+                .Throw<NullNotSupportedException>();
         }
 
         [Fact]
