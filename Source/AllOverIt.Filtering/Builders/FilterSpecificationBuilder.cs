@@ -272,7 +272,7 @@ namespace AllOverIt.Filtering.Builders
                 }
             }
 
-            var operationKey = _filterOperations.Keys.SingleOrDefault(type => operationType.IsDerivedFrom(type));
+            var operationKey = _filterOperations.Keys.SingleOrDefault(operationType.IsDerivedFrom);
 
             Throw<InvalidOperationException>.WhenNull(operationKey, $"The operation type '{operationType.GetFriendlyName()}' is not registered with a specification factory.");
 

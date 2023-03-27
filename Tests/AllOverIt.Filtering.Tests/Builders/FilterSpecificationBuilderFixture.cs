@@ -185,7 +185,7 @@ namespace AllOverIt.Filtering.Tests.Builders
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Create( null, f => f.Name.Contains);
+                    _specificationBuilder.Create(null, f => f.Name.Contains);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
