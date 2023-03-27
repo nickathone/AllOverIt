@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace AllOverIt.Mapping
 {
     /// <summary>Implements an object mapper that will copy property values from a source onto a target.</summary>
-    public sealed class ObjectMapper : IObjectMapper
+    public class ObjectMapper : IObjectMapper
     {
         internal readonly ObjectMapperConfiguration _configuration;
 
