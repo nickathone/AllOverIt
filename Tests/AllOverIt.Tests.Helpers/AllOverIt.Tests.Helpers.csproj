@@ -4,5 +4,9 @@
         <ProjectReference Include="..\..\Source\AllOverIt.Fixture\AllOverIt.Fixture.csproj" />
         <ProjectReference Include="..\..\Source\AllOverIt\AllOverIt.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" />
+    </ItemGroup>
     
 </Project>

@@ -86,10 +86,7 @@ namespace AllOverIt.Fixture.FakeItEasy
         public static TType CreateStub<TType>(this FixtureBase fixtureBase, Action<Fake<TType>> modifier)
           where TType : class
         {
-            if (modifier == null)
-            {
-                throw new ArgumentNullException(nameof(modifier));
-            }
+            _ = modifier ?? throw new ArgumentNullException(nameof(modifier));
 
             var fake = fixtureBase.Fixture.Create<Fake<TType>>();
             modifier.Invoke(fake);
@@ -149,10 +146,7 @@ namespace AllOverIt.Fixture.FakeItEasy
         public static IReadOnlyList<TType> CreateManyStubs<TType>(this FixtureBase fixtureBase, Action<Fake<TType>, int> modifier, int count)
             where TType : class
         {
-            if (modifier == null)
-            {
-                throw new ArgumentNullException(nameof(modifier));
-            }
+            _ = modifier ?? throw new ArgumentNullException(nameof(modifier));
 
             var stubs = new List<TType>();
 

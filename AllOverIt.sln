@@ -25,7 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{FC8E8D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0C08FAE6-4CD9-4C7B-A849-EB0DB9BD1451}"
 	ProjectSection(SolutionItems) = preProject
-		Tests\AllOverIt.runsettings = Tests\AllOverIt.runsettings
 		Tests\Directory.Build.props = Tests\Directory.Build.props
 	EndProjectSection
 EndProject
