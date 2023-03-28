@@ -11,7 +11,7 @@ using Xunit;
 
 namespace AllOverIt.Filtering.Tests.Operations
 {
-    public class InFixture : OperationsFixtureBase
+    public class InOperationFixture : OperationsFixtureBase
     {
         [Fact]
         public void Should_Throw_When_PropertyExpression_Null()

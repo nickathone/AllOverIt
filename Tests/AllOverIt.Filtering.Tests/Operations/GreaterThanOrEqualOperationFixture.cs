@@ -9,7 +9,7 @@ using Xunit;
 
 namespace AllOverIt.Filtering.Tests.Operations
 {
-    public class GreaterThanOrEqualFixture : OperationsFixtureBase
+    public class GreaterThanOrEqualOperationFixture : OperationsFixtureBase
     {
         [Fact]
         public void Should_Throw_When_PropertyExpression_Null()

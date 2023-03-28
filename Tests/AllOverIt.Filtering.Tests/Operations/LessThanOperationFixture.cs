@@ -9,14 +9,14 @@ using Xunit;
 
 namespace AllOverIt.Filtering.Tests.Operations
 {
-    public class EqualToFixture : OperationsFixtureBase
+    public class LessThanOperationFixture : OperationsFixtureBase
     {
         [Fact]
         public void Should_Throw_When_PropertyExpression_Null()
         {
             Invoking(() =>
             {
-                _ = new EqualToOperation<DummyClass, string>(null, Create<string>(), this.CreateStub<IOperationFilterOptions>());
+                _ = new LessThanOperation<DummyClass, string>(null, Create<string>(), this.CreateStub<IOperationFilterOptions>());
             })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -28,7 +28,7 @@ namespace AllOverIt.Filtering.Tests.Operations
         {
             Invoking(() =>
             {
-                _ = new EqualToOperation<DummyClass, string>(model => model.Name, Create<string>(), null);
+                _ = new LessThanOperation<DummyClass, string>(model => model.Name, Create<string>(), null);
             })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -45,7 +45,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 StringComparisonMode = stringComparisonMode
             };
 
-            var operation = new EqualToOperation<DummyClass, string>(model => model.Name, Model.Name, options);
+            var operation = new LessThanOperation<DummyClass, string>(model => model.Name, $"{Model.Name}ZZZ", options);
 
             operation.IsSatisfiedBy(Model).Should().BeTrue();
         }
@@ -60,7 +60,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 UseParameterizedQueries = useParameterizedQueries
             };
 
-            var operation = new EqualToOperation<DummyClass, int>(model => model.Id, Model.Id, options);
+            var operation = new LessThanOperation<DummyClass, int>(model => model.Id, Model.Id + 1, options);
 
             operation.IsSatisfiedBy(Model).Should().BeTrue();
         }
@@ -75,7 +75,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 StringComparisonMode = stringComparisonMode
             };
 
-            var operation = new EqualToOperation<DummyClass, string>(model => model.Name, Create<string>(), options);
+            var operation = new LessThanOperation<DummyClass, string>(model => model.Name, Model.Name, options);
 
             operation.IsSatisfiedBy(Model).Should().BeFalse();
         }
@@ -90,7 +90,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 UseParameterizedQueries = useParameterizedQueries
             };
 
-            var operation = new EqualToOperation<DummyClass, int>(model => model.Id, Create<int>(), options);
+            var operation = new LessThanOperation<DummyClass, int>(model => model.Id, Model.Id - 1, options);
 
             operation.IsSatisfiedBy(Model).Should().BeFalse();
         }

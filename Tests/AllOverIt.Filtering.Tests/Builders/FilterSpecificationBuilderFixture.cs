@@ -1,5 +1,6 @@
 using AllOverIt.Expressions.Strings;
 using AllOverIt.Filtering.Builders;
+using AllOverIt.Filtering.Exceptions;
 using AllOverIt.Filtering.Filters;
 using AllOverIt.Filtering.Options;
 using AllOverIt.Fixture;
@@ -185,7 +186,7 @@ namespace AllOverIt.Filtering.Tests.Builders
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Create(null, f => f.Name.Contains);
+                    _ = _specificationBuilder.Create(null, f => f.Name.Contains);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -199,7 +200,7 @@ namespace AllOverIt.Filtering.Tests.Builders
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Create(model => model.Name, (Func<DummyEntityFilter, IStringFilterOperation>) null);
+                    _ = _specificationBuilder.Create(model => model.Name, (Func<DummyEntityFilter, IStringFilterOperation>) null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -213,7 +214,7 @@ namespace AllOverIt.Filtering.Tests.Builders
                 {
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    _specificationBuilder.Create(model => model.Name, f => f.Name.Contains, null);
+                    _ = _specificationBuilder.Create(model => model.Name, f => f.Name.Contains, null);
                 })
                     .Should()
                     .NotThrow();
@@ -234,11 +235,102 @@ namespace AllOverIt.Filtering.Tests.Builders
 
                     _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
 
-                    var specification = _specificationBuilder.Create(model => model.Name, filter => filter.Name.In);
+                    _ = _specificationBuilder.Create(model => model.Name, filter => filter.Name.In);
                 })
                    .Should()
                    .Throw<InvalidOperationException>()
                    .WithMessage("Array based specifications expect an IList<T>.");
+            }
+
+            [Theory]
+            [InlineData(0)]
+            [InlineData(1)]
+            [InlineData(2)]
+            [InlineData(3)]
+            [InlineData(4)]
+            [InlineData(5)]
+            public void Should_Throw_When_Null_Not_Supported_Operation_Has_Null_Value(int operationIndex)
+            {
+                var expectedOperationNames = new[]
+                {
+                    "Contains()",
+                    "NotContains()",
+                    "StartsWith()",
+                    "EndsWith()",
+                    "EqualTo<string>()",
+                    "NotEqualTo<string>()",
+                };
+
+                Invoking(() =>
+                {
+                    _filter = new DummyEntityFilter
+                    {
+                        Name =
+                        {
+                            // These are all the defaults - just adding here for clarity
+                            Contains = new Contains(),
+                            NotContains = new NotContains(),
+                            StartsWith = new StartsWith(),
+                            EndsWith = new EndsWith(),
+                            EqualTo = new EqualTo<string>(),            // does not support null when a string
+                            NotEqualTo = new NotEqualTo<string>()       // does not support null when a string
+                        }
+                    };
+
+                    _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
+
+                    switch (operationIndex)
+                    {
+                        case 0:
+                            _ = _specificationBuilder.Create(model => model.Name, filter => filter.Name.Contains);
+                            break;
+
+                        case 1:
+                            _ = _specificationBuilder.Create(model => model.Name, filter => filter.Name.NotContains);
+                            break;
+
+                        case 2:
+                            _ = _specificationBuilder.Create(model => model.Name, filter => filter.Name.StartsWith);
+                            break;
+
+                        case 3:
+                            _ = _specificationBuilder.Create(model => model.Name, filter => filter.Name.EndsWith);
+                            break;
+
+                        case 4:
+                            _ = _specificationBuilder.Create(model => model.Name, filter => filter.Name.EqualTo);
+                            break;
+
+                        case 5:
+                            _ = _specificationBuilder.Create(model => model.Name, filter => filter.Name.NotEqualTo);
+                            break;
+                    }
+                })
+                   .Should()
+                   .Throw<NullNotSupportedException>()
+                   .WithMessage($"The filter operation {expectedOperationNames[operationIndex]} on model => model.Name does not support null values.");
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_Null_Supported_Operation_Has_Null_Value()
+            {
+                Invoking(() =>
+                {
+                    _filter = new DummyEntityFilter
+                    {
+                        Active =
+                        {
+                            // This is the default - just adding here for clarity
+                            EqualTo = new EqualTo<bool?>()
+                        }
+                    };
+
+                    _specificationBuilder = new FilterSpecificationBuilder<DummyEntity, DummyEntityFilter>(_filter, _options);
+
+                    _ = _specificationBuilder.Create(model => model.Active, filter => filter.Active.EqualTo);
+                })
+                .Should()
+                .NotThrow();
             }
 
             [Theory]

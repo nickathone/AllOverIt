@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Expressions.Strings;
+using AllOverIt.Filtering.Exceptions;
 using AllOverIt.Filtering.Operations;
 using AllOverIt.Filtering.Options;
 using AllOverIt.Fixture.Extensions;
@@ -9,7 +10,7 @@ using Xunit;
 
 namespace AllOverIt.Filtering.Tests.Operations
 {
-    public class StartsWithFixture : OperationsFixtureBase
+    public class StartsWithOperationFixture : OperationsFixtureBase
     {
         [Fact]
         public void Should_Throw_When_PropertyExpression_Null()
@@ -21,6 +22,17 @@ namespace AllOverIt.Filtering.Tests.Operations
                 .Should()
                 .Throw<ArgumentNullException>()
                 .WithNamedMessageWhenNull("propertyExpression");
+        }
+
+        [Fact]
+        public void Should_Throw_When_Value_Null()
+        {
+            Invoking(() =>
+            {
+                _ = new StartsWithOperation<DummyClass>(model => model.Name, null, this.CreateStub<IOperationFilterOptions>());
+            })
+                .Should()
+                .Throw<NullNotSupportedException>();
         }
 
         [Fact]

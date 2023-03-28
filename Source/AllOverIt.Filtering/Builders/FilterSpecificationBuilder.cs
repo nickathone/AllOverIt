@@ -234,7 +234,7 @@ namespace AllOverIt.Filtering.Builders
             }
             catch (NullNotSupportedException)
             {
-                throw new NullNotSupportedException($"The filter operation on {propertyExpression} does not support null values.");
+                throw new NullNotSupportedException($"The filter operation {operation.GetType().GetFriendlyName()}() on {propertyExpression} does not support null values.");
             }
         }
 

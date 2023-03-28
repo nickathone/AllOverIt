@@ -1,22 +1,24 @@
 ﻿using AllOverIt.Expressions.Strings;
+using AllOverIt.Filtering.Exceptions;
 using AllOverIt.Filtering.Operations;
 using AllOverIt.Filtering.Options;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Fixture.FakeItEasy;
 using FluentAssertions;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace AllOverIt.Filtering.Tests.Operations
 {
-    public class LessThanFixture : OperationsFixtureBase
+    public class NotInOperationFixture : OperationsFixtureBase
     {
         [Fact]
         public void Should_Throw_When_PropertyExpression_Null()
         {
             Invoking(() =>
             {
-                _ = new LessThanOperation<DummyClass, string>(null, Create<string>(), this.CreateStub<IOperationFilterOptions>());
+                _ = new NotInOperation<DummyClass, string>(null, CreateMany<string>().ToList(), this.CreateStub<IOperationFilterOptions>());
             })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -24,11 +26,22 @@ namespace AllOverIt.Filtering.Tests.Operations
         }
 
         [Fact]
+        public void Should_Throw_When_Values_Null()
+        {
+            Invoking(() =>
+            {
+                _ = new NotInOperation<DummyClass, string>(model => model.Name, null, this.CreateStub<IOperationFilterOptions>());
+            })
+                .Should()
+                .Throw<NullNotSupportedException>();
+        }
+
+        [Fact]
         public void Should_Throw_When_Options_Null()
         {
             Invoking(() =>
             {
-                _ = new LessThanOperation<DummyClass, string>(model => model.Name, Create<string>(), null);
+                _ = new NotInOperation<DummyClass, string>(model => model.Name, CreateMany<string>().ToList(), null);
             })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -45,7 +58,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 StringComparisonMode = stringComparisonMode
             };
 
-            var operation = new LessThanOperation<DummyClass, string>(model => model.Name, $"{Model.Name}ZZZ", options);
+            var operation = new NotInOperation<DummyClass, string>(model => model.Name, CreateMany<string>().ToList(), options);
 
             operation.IsSatisfiedBy(Model).Should().BeTrue();
         }
@@ -60,7 +73,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 UseParameterizedQueries = useParameterizedQueries
             };
 
-            var operation = new LessThanOperation<DummyClass, int>(model => model.Id, Model.Id + 1, options);
+            var operation = new NotInOperation<DummyClass, int>(model => model.Id, new[] { Model.Id - 1, Model.Id + 1 }, options);
 
             operation.IsSatisfiedBy(Model).Should().BeTrue();
         }
@@ -75,7 +88,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 StringComparisonMode = stringComparisonMode
             };
 
-            var operation = new LessThanOperation<DummyClass, string>(model => model.Name, Model.Name, options);
+            var operation = new NotInOperation<DummyClass, string>(model => model.Name, new[] { Model.Name, Create<string>() }, options);
 
             operation.IsSatisfiedBy(Model).Should().BeFalse();
         }
@@ -90,7 +103,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 UseParameterizedQueries = useParameterizedQueries
             };
 
-            var operation = new LessThanOperation<DummyClass, int>(model => model.Id, Model.Id - 1, options);
+            var operation = new NotInOperation<DummyClass, int>(model => model.Id, new[] { Model.Id, Create<int>() }, options);
 
             operation.IsSatisfiedBy(Model).Should().BeFalse();
         }

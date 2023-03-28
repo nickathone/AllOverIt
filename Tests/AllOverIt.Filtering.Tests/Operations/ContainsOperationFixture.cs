@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Expressions.Strings;
+using AllOverIt.Filtering.Exceptions;
 using AllOverIt.Filtering.Operations;
 using AllOverIt.Filtering.Options;
 using AllOverIt.Fixture.Extensions;
@@ -9,14 +10,14 @@ using Xunit;
 
 namespace AllOverIt.Filtering.Tests.Operations
 {
-    public class NotContainsFixture : OperationsFixtureBase
+    public class ContainsOperationFixture : OperationsFixtureBase
     {
         [Fact]
         public void Should_Throw_When_PropertyExpression_Null()
         {
             Invoking(() =>
             {
-                _ = new NotContainsOperation<DummyClass>(null, Create<string>(), this.CreateStub<IOperationFilterOptions>());
+                _ = new ContainsOperation<DummyClass>(null, Create<string>(), this.CreateStub<IOperationFilterOptions>());
             })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -24,11 +25,22 @@ namespace AllOverIt.Filtering.Tests.Operations
         }
 
         [Fact]
+        public void Should_Throw_When_Value_Null()
+        {
+            Invoking(() =>
+            {
+                _ = new ContainsOperation<DummyClass>(model => model.Name, null, this.CreateStub<IOperationFilterOptions>());
+            })
+                .Should()
+                .Throw<NullNotSupportedException>();
+        }
+
+        [Fact]
         public void Should_Throw_When_Options_Null()
         {
             Invoking(() =>
             {
-                _ = new NotContainsOperation<DummyClass>(model => model.Name, Create<string>(), null);
+                _ = new ContainsOperation<DummyClass>(model => model.Name, Create<string>(), null);
             })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -45,7 +57,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 StringComparisonMode = stringComparisonMode
             };
 
-            var operation = new NotContainsOperation<DummyClass>(model => model.Name, Create<string>(), options);
+            var operation = new ContainsOperation<DummyClass>(model => model.Name, Model.Name, options);
 
             operation.IsSatisfiedBy(Model).Should().BeTrue();
         }
@@ -60,7 +72,7 @@ namespace AllOverIt.Filtering.Tests.Operations
                 StringComparisonMode = stringComparisonMode
             };
 
-            var operation = new NotContainsOperation<DummyClass>(model => model.Name, Model.Name, options);
+            var operation = new ContainsOperation<DummyClass>(model => model.Name, Create<string>(), options);
 
             operation.IsSatisfiedBy(Model).Should().BeFalse();
         }
