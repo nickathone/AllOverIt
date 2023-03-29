@@ -1,9 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+
+#if !NET5_0_OR_GREATER
+using System.Collections;
+#endif
 
 namespace AllOverIt.Assertion
 {
@@ -239,7 +242,7 @@ namespace AllOverIt.Assertion
 
                 if (!any)
                 {
-                    throw new ArgumentException(errorMessage ?? "The argument cannot be empty", name);
+                    throw new ArgumentException(errorMessage ?? "The argument cannot be empty.", name);
                 }
             }
 
@@ -286,7 +289,7 @@ namespace AllOverIt.Assertion
                 return @object;
             }
 
-            throw new ArgumentException(errorMessage ?? "The argument cannot be empty", name);
+            throw new ArgumentException(errorMessage ?? "The argument cannot be empty.", name);
         }
 
 #endregion
