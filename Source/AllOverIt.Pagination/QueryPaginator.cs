@@ -66,6 +66,17 @@ namespace AllOverIt.Pagination
         }
 
         /// <inheritdoc />
+        public PaginationDirection GetQueryDirection(string continuationToken = default)
+        {
+            // continuationToken can be null
+            var decodedToken = TokenEncoder.Decode(continuationToken);
+
+            return decodedToken == ContinuationToken.None
+                ? _configuration.PaginationDirection
+                : decodedToken.Direction;
+        }
+
+        /// <inheritdoc />
         public IQueryPaginator<TEntity> ColumnAscending<TProperty>(Expression<Func<TEntity, TProperty>> expression)
         {
             _ = expression.WhenNotNull(nameof(expression));

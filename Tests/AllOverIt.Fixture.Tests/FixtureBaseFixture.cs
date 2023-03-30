@@ -1,6 +1,11 @@
+using AllOverIt.Extensions;
 using AllOverIt.Fixture.Exceptions;
+using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Fixture.Tests.Dummies;
 using AutoFixture;
+using AutoFixture.Dsl;
+using AutoFixture.Kernel;
+using FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -11,6 +16,61 @@ namespace AllOverIt.Fixture.Tests
 {
     public class FixtureBaseFixture : FixtureBase
     {
+        public class Constructor : FixtureBaseFixture
+        {
+            private class FixtureDummy : FixtureBase
+            {
+                public FixtureDummy()
+                {
+                }
+
+                public FixtureDummy(IFixture fixture)
+                    : base(fixture)
+                {
+                }
+
+                public FixtureDummy(ICustomization customization)
+                    : base(customization)
+                {
+                }
+            }
+
+            [Fact]
+            public void Should_Use_AutoFixture()
+            {
+                Fixture.Should().BeOfType<AutoFixture.Fixture>();
+            }
+
+            [Fact]
+            public void Should_Have_Customizations()
+            {
+                Fixture.Customizations.Should().ContainItemsAssignableTo<NodeComposer<float>>();
+                Fixture.Customizations.Should().ContainItemsAssignableTo<NodeComposer<double>>();
+                Fixture.Customizations.Should().ContainItemsAssignableTo<NodeComposer<decimal>>();
+            }
+
+            [Fact]
+            public void Should_Use_Custom_Fixture()
+            {
+                var fixtureFake = this.CreateStub<IFixture>();
+                var fixture = new FixtureDummy(fixtureFake);
+                
+                fixture.Fixture.Should().BeSameAs(fixtureFake);
+            }
+
+            [Fact]
+            public void Should_Add_Customization()
+            {
+                var fixtureFake = this.CreateStub<IFixture>();
+                var fixture = new FixtureDummy(fixtureFake);
+
+                var customizationFake = this.CreateStub<ICustomization>();
+                fixture.Customize(customizationFake);
+
+                A.CallTo(() => fixtureFake.Customize(customizationFake)).MustHaveHappenedOnceExactly();
+            }
+        }
+
         public class Invoking_Action : FixtureBaseFixture
         {
             [Fact]

@@ -3,10 +3,14 @@ using AutoFixture.AutoFakeItEasy;
 using FakeItEasy;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace AllOverIt.Fixture.FakeItEasy
 {
+    // These methods are effectively implicitly tested through their usage in tests.
+
+    [ExcludeFromCodeCoverage]
     /// <summary>Provides a variety of extension methods for <see cref="FixtureBase"/>.</summary>
     public static class FixtureBaseExtensions
     {
@@ -17,7 +21,7 @@ namespace AllOverIt.Fixture.FakeItEasy
         public static void UseFakeItEasy(this FixtureBase fixtureBase, ICustomization customization = null)
         {
             customization ??= new AutoFakeItEasyCustomization { GenerateDelegates = true };
-            fixtureBase.Fixture.Customize(customization);
+            fixtureBase.Customize(customization);
         }
 
         /// <summary>Creates a Fake of the specified type.</summary>

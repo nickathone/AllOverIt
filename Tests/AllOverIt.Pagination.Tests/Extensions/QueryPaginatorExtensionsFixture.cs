@@ -600,6 +600,133 @@ namespace AllOverIt.Pagination.Tests.Extensions
         public class GetPageResults : QueryPaginatorExtensionsFixture
         {
             [Fact]
+            public void Should_Get_First_Page()
+            {
+                _entities.Count.Should().Be(29);
+                var pageSize = _entities.Count / 3;     // Should get page counts of 9, 9, 9, 2
+
+                var skipSteps = GetSkipSteps(_entities.Count, pageSize, true);
+
+                var paginator = CreatePaginator(pageSize, PaginationDirection.Forward)
+                    .ColumnAscending(entity => entity.FirstName, entity => entity.Id);
+
+                var expectedQuery = _entities
+                    .OrderBy(item => item.FirstName)
+                    .ThenBy(item => item.Id);
+
+                var page1 = AssertPagedData(paginator, 1, skipSteps, expectedQuery, null);
+
+                var actual = QueryPaginatorExtensions.GetPageResults(paginator, null);
+
+                actual.Should().BeEquivalentTo(new
+                {
+                    Results = page1,
+                    TotalCount = _entities.Count,
+                    CurrentToken = (string) null,
+                    PreviousToken = (string) null,
+                    NextToken = paginator.TokenEncoder.EncodeNextPage(page1)
+                });
+            }
+
+            [Fact]
+            public void Should_Get_Next_Page()
+            {
+                _entities.Count.Should().Be(29);
+                var pageSize = _entities.Count / 3;     // Should get page counts of 9, 9, 9, 2
+
+                var skipSteps = GetSkipSteps(_entities.Count, pageSize, true);
+
+                var paginator = CreatePaginator(pageSize, PaginationDirection.Forward)
+                    .ColumnAscending(entity => entity.FirstName, entity => entity.Id);
+
+                var expectedQuery = _entities
+                    .OrderBy(item => item.FirstName)
+                    .ThenBy(item => item.Id);
+
+                var page1 = AssertPagedData(paginator, 1, skipSteps, expectedQuery, null);
+
+                var continuationToken = paginator.TokenEncoder.EncodeNextPage(page1);
+
+                var page2 = AssertPagedData(paginator, 2, skipSteps, expectedQuery, continuationToken);
+
+                var actual = QueryPaginatorExtensions.GetPageResults(paginator, continuationToken);
+
+                actual.Should().BeEquivalentTo(new
+                {
+                    Results = page2,
+                    TotalCount = _entities.Count,
+                    CurrentToken = continuationToken,
+                    PreviousToken = paginator.TokenEncoder.EncodePreviousPage(page2),
+                    NextToken = paginator.TokenEncoder.EncodeNextPage(page2)
+                });
+            }
+
+            [Fact]
+            public void Should_Get_Last_Page()
+            {
+                _entities.Count.Should().Be(29);
+                var pageSize = _entities.Count / 3;     // Should get page counts of 9, 9, 9, 2
+
+                var skipSteps = GetSkipSteps(_entities.Count, pageSize, false);
+
+                var paginator = CreatePaginator(pageSize, PaginationDirection.Backward)
+                    .ColumnDescending(entity => entity.FirstName, entity => entity.Id);
+
+                var expectedQuery = _entities
+                    .OrderByDescending(item => item.FirstName)
+                    .ThenByDescending(item => item.Id);
+
+                var page1 = AssertPagedData(paginator, 1, skipSteps, expectedQuery, null);
+
+                var actual = QueryPaginatorExtensions.GetPageResults(paginator, null);
+
+                actual.Should().BeEquivalentTo(new
+                {
+                    Results = page1,
+                    TotalCount = _entities.Count,
+                    CurrentToken = (string) null,
+                    PreviousToken = (string) null,
+                    NextToken = paginator.TokenEncoder.EncodeNextPage(page1)
+                });
+            }
+
+            [Fact]
+            public void Should_Get_Previous_Page()
+            {
+                _entities.Count.Should().Be(29);
+                var pageSize = _entities.Count / 3;     // Should get page counts of 9, 9, 9, 2
+
+                var skipSteps = GetSkipSteps(_entities.Count, pageSize, false);
+
+                var paginator = CreatePaginator(pageSize, PaginationDirection.Backward)
+                    .ColumnDescending(entity => entity.FirstName, entity => entity.Id);
+
+                var expectedQuery = _entities
+                    .OrderByDescending(item => item.FirstName)
+                    .ThenByDescending(item => item.Id);
+
+                var page1 = AssertPagedData(paginator, 1, skipSteps, expectedQuery, null);
+
+                var continuationToken = paginator.TokenEncoder.EncodeNextPage(page1);
+
+                var page2 = AssertPagedData(paginator, 2, skipSteps, expectedQuery, continuationToken);
+
+                var actual = QueryPaginatorExtensions.GetPageResults(paginator, continuationToken);
+
+                actual.Should().BeEquivalentTo(new
+                {
+                    Results = page2,
+                    TotalCount = _entities.Count,
+                    CurrentToken = continuationToken,
+                    PreviousToken = paginator.TokenEncoder.EncodePreviousPage(page2),
+                    NextToken = paginator.TokenEncoder.EncodeNextPage(page2)
+                });
+            }
+        }
+
+        public class Mixed_Functional : QueryPaginatorExtensionsFixture
+        {
+            [Fact]
             public void Should_Navigate_Pages_Forward()
             {
                 _entities.Count.Should().Be(29);

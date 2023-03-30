@@ -156,6 +156,204 @@ namespace AllOverIt.Pagination.Tests
             }
         }
 
+        public class GetQueryDirection : QueryPaginatorFixture
+        {
+            [Fact]
+            public void Should_Return_Forward_When_Configured_Forward_And_Token_Null()
+            {
+                var configuration = new QueryPaginatorConfiguration();
+
+                var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                var paginator = new QueryPaginator<DummyEntity>(query, configuration, _continuationTokenEncoderFactory)
+                    .ColumnAscending<int>(entity => entity.Id);
+
+                var actual = paginator.GetQueryDirection(null);
+
+                actual.Should().Be(PaginationDirection.Forward);
+            }
+
+            [Fact]
+            public void Should_Return_Forward_When_Configured_Forward_And_Token_Empty()
+            {
+                var configuration = new QueryPaginatorConfiguration();
+
+                var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                var paginator = new QueryPaginator<DummyEntity>(query, configuration, _continuationTokenEncoderFactory)
+                    .ColumnAscending<int>(entity => entity.Id);
+
+                var actual = paginator.GetQueryDirection(string.Empty);
+
+                actual.Should().Be(PaginationDirection.Forward);
+            }
+
+            [Fact]
+            public void Should_Return_Forward_When_Configured_Forward_And_Token_Whitespace()
+            {
+                var configuration = new QueryPaginatorConfiguration();
+
+                var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                var paginator = new QueryPaginator<DummyEntity>(query, configuration, _continuationTokenEncoderFactory)
+                    .ColumnAscending<int>(entity => entity.Id);
+
+                var actual = paginator.GetQueryDirection("  ");
+
+                actual.Should().Be(PaginationDirection.Forward);
+            }
+
+            [Fact]
+            public void Should_Return_Backward_When_Configured_Backward_And_Token_Null()
+            {
+                var configuration = new QueryPaginatorConfiguration
+                {
+                    PaginationDirection = PaginationDirection.Backward
+                };
+
+                var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                var paginator = new QueryPaginator<DummyEntity>(query, configuration, _continuationTokenEncoderFactory)
+                    .ColumnAscending<int>(entity => entity.Id);
+
+                var actual = paginator.GetQueryDirection(null);
+
+                actual.Should().Be(PaginationDirection.Backward);
+            }
+
+            [Fact]
+            public void Should_Return_Backward_When_Configured_Backward_And_Token_Empty()
+            {
+                var configuration = new QueryPaginatorConfiguration
+                {
+                    PaginationDirection = PaginationDirection.Backward
+                };
+
+                var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                var paginator = new QueryPaginator<DummyEntity>(query, configuration, _continuationTokenEncoderFactory)
+                    .ColumnAscending<int>(entity => entity.Id);
+
+                var actual = paginator.GetQueryDirection(string.Empty);
+
+                actual.Should().Be(PaginationDirection.Backward);
+            }
+
+            [Fact]
+            public void Should_Return_Backward_When_Configured_Backward_And_Token_Whitespace()
+            {
+                var configuration = new QueryPaginatorConfiguration
+                {
+                    PaginationDirection = PaginationDirection.Backward
+                };
+
+                var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                var paginator = new QueryPaginator<DummyEntity>(query, configuration, _continuationTokenEncoderFactory)
+                    .ColumnAscending<int>(entity => entity.Id);
+
+                var actual = paginator.GetQueryDirection("  ");
+
+                actual.Should().Be(PaginationDirection.Backward);
+            }
+
+            [Fact]
+            public void Should_Return_Forward_When_Configured_Forward_And_Token_Encoded_Forward()
+            {
+                var (all, p1, p2, p3, p4) = GetEntities();
+                var query = all.AsQueryable();
+
+                var config = new QueryPaginatorConfiguration
+                {
+                    PageSize = 3,
+                    PaginationDirection = PaginationDirection.Forward
+                };
+
+                var paginator = new QueryPaginator<DummyEntity>(query, config, _continuationTokenEncoderFactory)
+                    .ColumnAscending(entity => entity.Id);
+
+                var page1 = paginator.GetPageQuery().ToList();
+
+                var token = paginator.TokenEncoder.EncodeNextPage(page1);
+
+                var actual = paginator.GetQueryDirection(token);
+
+                actual.Should().Be(PaginationDirection.Forward);
+            }
+
+            [Fact]
+            public void Should_Return_Backward_When_Configured_Forward_And_Token_Encoded_Backward()
+            {
+                var (all, p1, p2, p3, p4) = GetEntities();
+                var query = all.AsQueryable();
+
+                var config = new QueryPaginatorConfiguration
+                {
+                    PageSize = 3,
+                    PaginationDirection = PaginationDirection.Forward
+                };
+
+                var paginator = new QueryPaginator<DummyEntity>(query, config, _continuationTokenEncoderFactory)
+                    .ColumnAscending(entity => entity.Id);
+
+                var page1 = paginator.GetPageQuery().ToList();
+
+                var token = paginator.TokenEncoder.EncodePreviousPage(page1);
+
+                var actual = paginator.GetQueryDirection(token);
+
+                actual.Should().Be(PaginationDirection.Backward);
+            }
+
+            [Fact]
+            public void Should_Return_Backward_When_Configured_Backward_And_Token_Encoded_Forward()
+            {
+                var (all, p1, p2, p3, p4) = GetEntities();
+                var query = all.AsQueryable();
+
+                var config = new QueryPaginatorConfiguration
+                {
+                    PageSize = 3,
+                    PaginationDirection = PaginationDirection.Backward
+                };
+
+                var paginator = new QueryPaginator<DummyEntity>(query, config, _continuationTokenEncoderFactory)
+                    .ColumnAscending(entity => entity.Id);
+
+                var page1 = paginator.GetPageQuery().ToList();
+
+                var token = paginator.TokenEncoder.EncodeNextPage(page1);
+
+                var actual = paginator.GetQueryDirection(token);
+
+                actual.Should().Be(PaginationDirection.Backward);
+            }
+
+            [Fact]
+            public void Should_Return_Forward_When_Configured_Backward_And_Token_Encoded_Backward()
+            {
+                var (all, p1, p2, p3, p4) = GetEntities();
+                var query = all.AsQueryable();
+
+                var config = new QueryPaginatorConfiguration
+                {
+                    PageSize = 3,
+                    PaginationDirection = PaginationDirection.Backward
+                };
+
+                var paginator = new QueryPaginator<DummyEntity>(query, config, _continuationTokenEncoderFactory)
+                    .ColumnAscending(entity => entity.Id);
+
+                var page1 = paginator.GetPageQuery().ToList();
+
+                var token = paginator.TokenEncoder.EncodePreviousPage(page1);
+
+                var actual = paginator.GetQueryDirection(token);
+
+                actual.Should().Be(PaginationDirection.Forward);
+            }
+        }
+
         public class ColumnAscending : QueryPaginatorFixture
         {
             [Fact]

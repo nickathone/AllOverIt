@@ -6,21 +6,24 @@ using System.Linq;
 
 namespace AllOverIt.Fixture
 {
-    /// <summary>
-    /// Acts as a base class for all fixtures, providing access to a variety of useful methods that help generate automated input values.
-    /// </summary>
+    /// <summary>A base class for all fixtures, providing access to a variety of useful methods that help generate automated input values.</summary>
     public abstract class FixtureBase
     {
         private readonly Random _random = new((int)DateTime.Now.Ticks);
 
         /// <summary> Provides access to the AutoFixture.Fixture being used.</summary>
-        protected internal IFixture Fixture { get; } = new AutoFixture.Fixture();
+        protected internal IFixture Fixture { get; }
 
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
+        /// <summary>Default constructor.</summary>
         protected FixtureBase()
+            : this(new AutoFixture.Fixture())
         {
+        }
+
+        internal FixtureBase(IFixture fixture)
+        {
+            Fixture = fixture;
+
             // Note: cannot used <double> for the factory as it will result in infinite recursion
             var rnd = new Random((int) DateTime.Now.Ticks);
 
@@ -29,12 +32,15 @@ namespace AllOverIt.Fixture
             Fixture.Customize<decimal>(composer => composer.FromFactory<int>(value => value * (0.5m + (decimal) rnd.NextDouble())));
         }
 
-        /// <summary>
-        /// Constructor that supports customization of AutoFixture's Fixture.
-        /// </summary>
+        /// <summary>Constructor that supports customization of AutoFixture's Fixture.</summary>
         /// <param name="customization">The customization instance.</param>
         protected FixtureBase(ICustomization customization)
             : this()
+        {
+            Customize(customization);
+        }
+
+        public void Customize(ICustomization customization)
         {
             Fixture.Customize(customization);
         }

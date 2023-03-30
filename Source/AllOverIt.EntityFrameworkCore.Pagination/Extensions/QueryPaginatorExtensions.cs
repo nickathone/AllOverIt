@@ -58,7 +58,9 @@ namespace AllOverIt.EntityFrameworkCore.Pagination.Extensions
 
             if (hasResults)
             {
-                var (first, last) = (pageResults[0], pageResults[^1]);
+                var (first, last) = queryPaginator.GetQueryDirection() == PaginationDirection.Forward
+                    ? (pageResults[0], pageResults[^1])
+                    : (pageResults[^1], pageResults[0]);
 
                 var hasPreviousPage = await queryPaginator
                     .HasPreviousPageAsync(first, cancellationToken)
