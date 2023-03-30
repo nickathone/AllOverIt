@@ -418,6 +418,40 @@ namespace AllOverIt.Pagination.Tests
                     .Should()
                     .Contain($".OrderByDescending(entity => entity.FirstName).Take({config.PageSize}).Reverse()");
             }
+
+            [Fact]
+            public void Should_Throw_When_Querying_Has_Begun()
+            {
+                var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                var paginator = new QueryPaginator<DummyEntity>(query, Create<QueryPaginatorConfiguration>(), _continuationTokenEncoderFactory)
+                    .ColumnAscending(entity => entity.FirstName);
+
+                _ = paginator.GetPageQuery();
+
+                Invoking(() =>
+                {
+                    paginator.ColumnAscending(entity => entity.Id);
+                })
+                .Should()
+                .Throw<PaginationException>()
+                .WithMessage("Additional columns cannot be added once pagination has begun.");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Querying_A_Field()
+            {
+                Invoking(() =>
+                {
+                    var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                    _ = new QueryPaginator<DummyEntity>(query, Create<QueryPaginatorConfiguration>(), _continuationTokenEncoderFactory)
+                        .ColumnAscending(entity => entity.Age);
+                })
+                .Should()
+                .Throw<PaginationException>()
+                .WithMessage("Paginated queries do not support fields.");
+            }
         }
 
         public class ColumnDescending : QueryPaginatorFixture
@@ -483,6 +517,40 @@ namespace AllOverIt.Pagination.Tests
                 query.ToString()
                     .Should()
                     .Contain($".OrderBy(entity => entity.FirstName).Take({config.PageSize}).Reverse()");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Querying_Has_Begun()
+            {
+                var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                var paginator = new QueryPaginator<DummyEntity>(query, Create<QueryPaginatorConfiguration>(), _continuationTokenEncoderFactory)
+                    .ColumnDescending(entity => entity.FirstName);
+
+                _ = paginator.GetPageQuery();
+
+                Invoking(() =>
+                {
+                    paginator.ColumnDescending(entity => entity.Id);
+                })
+                .Should()
+                .Throw<PaginationException>()
+                .WithMessage("Additional columns cannot be added once pagination has begun.");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Querying_A_Field()
+            {
+                Invoking(() =>
+                {
+                    var query = Array.Empty<DummyEntity>().AsQueryable();
+
+                    _ = new QueryPaginator<DummyEntity>(query, Create<QueryPaginatorConfiguration>(), _continuationTokenEncoderFactory)
+                        .ColumnDescending(entity => entity.Age);
+                })
+                .Should()
+                .Throw<PaginationException>()
+                .WithMessage("Paginated queries do not support fields.");
             }
         }
 
@@ -687,7 +755,7 @@ namespace AllOverIt.Pagination.Tests
             }
 
             [Fact]
-            public void Should_Get_Prev_Page_When_Ascending_Forward()
+            public void Should_Get_Previous_Page_When_Ascending_Forward()
             {
                 var (all, p1, p2, p3, p4) = GetEntities();
                 var query = all.AsQueryable();
@@ -714,7 +782,7 @@ namespace AllOverIt.Pagination.Tests
             }
 
             [Fact]
-            public void Should_Get_Prev_Page_When_Ascending_Backward()
+            public void Should_Get_Previous_Page_When_Ascending_Backward()
             {
                 var (all, p1, p2, p3, p4) = GetEntities();
                 var query = all.AsQueryable();
@@ -741,7 +809,7 @@ namespace AllOverIt.Pagination.Tests
             }
 
             [Fact]
-            public void Should_Get_Prev_Page_When_Descending_Forward()
+            public void Should_Get_Previous_Page_When_Descending_Forward()
             {
                 var (all, p1, p2, p3, p4) = GetEntities();
                 var query = all.AsQueryable();
@@ -768,7 +836,7 @@ namespace AllOverIt.Pagination.Tests
             }
 
             [Fact]
-            public void Should_Get_Prev_Page_When_Descending_Backward()
+            public void Should_Get_Previous_Page_When_Descending_Backward()
             {
                 var (all, p1, p2, p3, p4) = GetEntities();
                 var query = all.AsQueryable();
@@ -792,6 +860,51 @@ namespace AllOverIt.Pagination.Tests
                 page = paginator.GetPageQuery(token).ToList();
 
                 page.SequenceEqual(p2.Reverse()).Should().BeTrue();
+            }
+
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public void Should_Get_Next_Page_Using_Parameterized_Queries(bool useParameterizedQueries)
+            {
+                var getData = Enumerable
+                    .Range(1, 12)
+                    .Select(index =>
+                    {
+                        var entity = Create<DummyEntity>();
+                        entity.Id = index;
+
+                        return entity;
+                    });
+
+                // Get data where the Id's are duplicated
+                var all = getData.Concat(getData).AsReadOnlyCollection();
+
+                var sorted = all.OrderBy(item => item.Id).ThenBy(item => item.FirstName).AsReadOnlyCollection();
+
+                var p1 = sorted.Take(5).AsReadOnlyCollection();
+                var p2 = sorted.Skip(5).Take(5).AsReadOnlyCollection();
+
+                var query = all.AsQueryable();
+
+                var config = new QueryPaginatorConfiguration
+                {
+                    PageSize = 5,
+                    PaginationDirection = PaginationDirection.Forward,
+                    UseParameterizedQueries = useParameterizedQueries
+                };
+
+                var paginator = new QueryPaginator<DummyEntity>(query, config, _continuationTokenEncoderFactory)
+                    .ColumnAscending(entity => entity.Id)
+                    .ColumnAscending(entity => entity.FirstName);
+
+                var page1 = paginator.GetPageQuery().ToList();
+
+                var token = paginator.TokenEncoder.EncodeNextPage(page1);
+
+                var page2 = paginator.GetPageQuery(token).ToList();
+
+                page2.SequenceEqual(p2).Should().BeTrue();
             }
         }
 
@@ -896,7 +1009,7 @@ namespace AllOverIt.Pagination.Tests
             }
 
             [Fact]
-            public void Should_Get_Prev_Page_When_Ascending_Forward()
+            public void Should_Get_Previous_Page_When_Ascending_Forward()
             {
                 var (all, p1, p2, p3, p4) = GetEntities();
                 var query = all.AsQueryable();
@@ -922,7 +1035,7 @@ namespace AllOverIt.Pagination.Tests
             }
 
             [Fact]
-            public void Should_Get_Prev_Page_When_Ascending_Backward()
+            public void Should_Get_Previous_Page_When_Ascending_Backward()
             {
                 var (all, p1, p2, p3, p4) = GetEntities();
                 var query = all.AsQueryable();
@@ -948,7 +1061,7 @@ namespace AllOverIt.Pagination.Tests
             }
 
             [Fact]
-            public void Should_Get_Prev_Page_When_Descending_Forward()
+            public void Should_Get_Previous_Page_When_Descending_Forward()
             {
                 var (all, p1, p2, p3, p4) = GetEntities();
                 var query = all.AsQueryable();
@@ -974,7 +1087,7 @@ namespace AllOverIt.Pagination.Tests
             }
 
             [Fact]
-            public void Should_Get_Prev_Page_When_Descending_Backward()
+            public void Should_Get_Previous_Page_When_Descending_Backward()
             {
                 var (all, p1, p2, p3, p4) = GetEntities();
                 var query = all.AsQueryable();
@@ -997,6 +1110,51 @@ namespace AllOverIt.Pagination.Tests
                 page = paginator.GetPreviousPageQuery(page.Last()).ToList();
 
                 page.SequenceEqual(p2.Reverse()).Should().BeTrue();
+            }
+
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public void Should_Get_Previous_Page_Using_Parameterized_Queries(bool useParameterizedQueries)
+            {
+                var getData = Enumerable
+                    .Range(1, 12)
+                    .Select(index =>
+                    {
+                        var entity = Create<DummyEntity>();
+                        entity.Id = index;
+
+                        return entity;
+                    });
+
+                // Get data where the Id's are duplicated
+                var all = getData.Concat(getData).AsReadOnlyCollection();
+
+                var sorted = all.OrderByDescending(item => item.Id).ThenByDescending(item => item.FirstName).AsReadOnlyCollection();
+
+                var p1 = sorted.Take(5).AsReadOnlyCollection();
+                var p2 = sorted.Skip(5).Take(5).AsReadOnlyCollection();
+
+                var query = all.AsQueryable();
+
+                var config = new QueryPaginatorConfiguration
+                {
+                    PageSize = 5,
+                    PaginationDirection = PaginationDirection.Forward,
+                    UseParameterizedQueries = useParameterizedQueries
+                };
+
+                var paginator = new QueryPaginator<DummyEntity>(query, config, _continuationTokenEncoderFactory)
+                    .ColumnDescending(entity => entity.Id)
+                    .ColumnDescending(entity => entity.FirstName);
+
+                var page1 = paginator.GetPageQuery().ToList();
+
+                var token = paginator.TokenEncoder.EncodeNextPage(page1);
+
+                var page2 = paginator.GetPageQuery(token).ToList();
+
+                page2.SequenceEqual(p2).Should().BeTrue();
             }
         }
 
