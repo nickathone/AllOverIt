@@ -557,6 +557,11 @@ namespace AllOverIt.Pagination.Tests
 
         public class GetPageQuery : QueryPaginatorFixture
         {
+            private class EntityWithNullable
+            {
+                public int? Id { get; set; }
+            }
+
             [Fact]
             public void Should_Throw_When_No_Columns_Defined()
             {
@@ -904,6 +909,40 @@ namespace AllOverIt.Pagination.Tests
                 var token = paginator.TokenEncoder.EncodeNextPage(page1);
 
                 var page2 = paginator.GetPageQuery(token).ToList();
+
+                page2.SequenceEqual(p2).Should().BeTrue();
+            }
+
+            [Fact]
+            public void Should_Support_Nullable_Members()
+            {
+                // Token values don't have type info - if there's an int? with a value then the decoded value is simply an int.
+                // This test ensures the values are converted back to int? when assigning to the model.
+                var nullableAll = CreateMany<EntityWithNullable>(5);
+
+                var nullableSorted = nullableAll.OrderBy(item => item.Id).AsReadOnlyCollection();
+
+                var p1 = nullableSorted.Take(2).AsReadOnlyCollection();
+                var p2 = nullableSorted.Skip(2).Take(2).AsReadOnlyCollection();
+
+                var nullableQuery = nullableAll.AsQueryable();
+
+                var config = new QueryPaginatorConfiguration
+                {
+                    PageSize = 2,
+                    PaginationDirection = PaginationDirection.Forward,
+                    UseParameterizedQueries = false
+                };
+
+                var nullablePaginator = new QueryPaginator<EntityWithNullable>(nullableQuery, config, _continuationTokenEncoderFactory)
+                    .ColumnAscending(entity => entity.Id);
+
+                var page1 = nullablePaginator.GetPageQuery().ToList();
+
+                var token = nullablePaginator.TokenEncoder.EncodeNextPage(page1);
+
+                // Make sure the values in the token are decoded correctly.
+                var page2 = nullablePaginator.GetPageQuery(token).ToList();
 
                 page2.SequenceEqual(p2).Should().BeTrue();
             }

@@ -529,10 +529,7 @@ namespace AllOverIt.Pagination
 
         private void AssertColumnsDefined()
         {
-            if (_columns.NotAny())
-            {
-                throw new PaginationException("At least one column must be defined for pagination.");
-            }
+            Throw<PaginationException>.When(_columns.NotAny(), "At least one column must be defined for pagination.");
         }
     }
 }
