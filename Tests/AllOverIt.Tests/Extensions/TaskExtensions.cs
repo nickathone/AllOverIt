@@ -39,6 +39,16 @@ namespace AllOverIt.Tests.Extensions
         public class DoFireAndForget : TaskExtensions
         {
             [Fact]
+            public async Task Should_Await_Non_Faulted_Exception()
+            {
+                Exception actual = null;
+
+                await AllOverIt.Extensions.TaskExtensions.DoFireAndForget(Task.CompletedTask, dispatchInfo => actual = dispatchInfo.SourceException);
+
+                actual.Should().BeNull();
+            }
+
+            [Fact]
             public async Task Should_Handle_Faulted_Exception()
             {
                 var exception = new InvalidOperationException();

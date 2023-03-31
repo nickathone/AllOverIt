@@ -277,6 +277,52 @@ namespace AllOverIt.Tests.Serialization
         [InlineData(1)]
         [InlineData(2)]
         [InlineData(3)]
+        public void Should_Write_Defaults_All_Constructors(int constructor)
+        {
+            byte[] bytes;
+
+            using (var stream = new MemoryStream())
+            {
+                var writer = constructor switch
+                {
+                    1 => new EnrichedBinaryWriter(stream),
+                    2 => new EnrichedBinaryWriter(stream, Encoding.UTF8),
+                    _ => new EnrichedBinaryWriter(stream, Encoding.UTF8, true),
+                };
+
+                using (writer)
+                {
+                    writer.WriteObject((string) null, AllOverIt.Reflection.CommonTypes.StringType);
+                }
+
+                bytes = stream.ToArray();
+            }
+
+            string actual = string.Empty;
+
+            using (var stream = new MemoryStream(bytes))
+            {
+                var reader = constructor switch
+                {
+                    1 => new EnrichedBinaryReader(stream),
+                    2 => new EnrichedBinaryReader(stream, Encoding.UTF8),
+                    _ => new EnrichedBinaryReader(stream, Encoding.UTF8, true),
+                };
+
+                using (reader)
+                {
+                    // Should be read back as null
+                    actual = (string)reader.ReadObject();
+                }
+            }
+
+            actual.Should().BeNull();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
         public void Should_Write_Using_Write_Method1_Using_All_Constructors(int constructor)
         {
             var expected = Create<KnownTypes>();
