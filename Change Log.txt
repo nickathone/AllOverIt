@@ -19,6 +19,7 @@ AllOverIt
   * Added FileUtils CreateFileWithContentAsync()
   * Added commandline argument helper to escape strings
   * Added IComparer extension methods Reverse() and Then(); the latter allowing them to be composed like Chain of Responsibility
+  * Updated mapping to support ArrayList
 
 AllOverIt.AutoFixture
   * Updated AutoFixture v4.18.0
@@ -30,7 +31,7 @@ AllOverIt.DependencyInjection
   * Added support for registering named services
 
 AllOverIt.EntityFrameworkCore
-  * Updated Microsoft.EntityFrameworkCore.Relational v7.0.3 (NET7)
+  * Updated Microsoft.EntityFrameworkCore.Relational v7.0.4 (NET7)
 
 AllOverIt.EntityFrameworkCore.Diagrams
   * New package. Adds support for generating D2 entity relationship diagrams and exporting to text, svg, png, pdf.
@@ -42,13 +43,16 @@ AllOverIt.Fixture.FakeItEasy
 AllOverIt.GenericHost
   * Updated Microsoft.Extensions.Hosting v7.0.1
 
+AllOverIt.Serialization.Newtonsoft
+  * Updated Newtonsoft.Json v13.0.3
+
 AllOverIt.Pagination
   * Added GetPageResults() extension method for IQueryPaginator<TResult> - intended ONLY for memory based queries. Performs the
     same job as GetPageResultsAsync() found in AllOverIt.EntityFrameworkCore.Pagination.
 
 AllOverIt.ReactiveUI
   * Added support for a ReactiveCommand based pipeline (with support for chaining other sync / async pipeline steps)
-  * Updated ReactiveUI v18.4.22
+  * Updated ReactiveUI v18.4.26
 
 AllOverIt.Validation
   * Updated FluentValidation v11.5.1
