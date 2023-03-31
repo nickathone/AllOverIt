@@ -275,7 +275,7 @@ namespace AllOverIt.Mapping
             return null;
         }
 
-        private Type GetEnumerableElementType(Type sourceValueType)
+        private static Type GetEnumerableElementType(Type sourceValueType)
         {
             if (sourceValueType.IsArray)
             {
