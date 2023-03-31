@@ -1,6 +1,8 @@
-﻿using AllOverIt.Fixture;
+﻿using AllOverIt.Extensions;
+using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Fixture.FakeItEasy;
+using AllOverIt.Pagination.Exceptions;
 using AllOverIt.Pagination.TokenEncoding;
 using FakeItEasy;
 using FluentAssertions;
@@ -139,13 +141,14 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
 
         public class Deserialize : ContinuationTokenSerializerFixture
         {
+            private readonly ContinuationTokenSerializer _serializer = new ContinuationTokenSerializer(ContinuationTokenOptions.Default);
+
             [Fact]
             public void Should_Not_Throw_When_Token_Null()
             {
                 Invoking(() =>
                 {
-                    var serializer = new ContinuationTokenSerializer(ContinuationTokenOptions.Default);
-                    var actual = serializer.Deserialize(null);
+                    var actual = _serializer.Deserialize(null);
 
                     actual.Should().BeSameAs(ContinuationToken.None);
                 })
@@ -158,8 +161,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             {
                 Invoking(() =>
                 {
-                    var serializer = new ContinuationTokenSerializer(ContinuationTokenOptions.Default);
-                    var actual = serializer.Deserialize(string.Empty);
+                    var actual = _serializer.Deserialize(string.Empty);
 
                     actual.Should().BeSameAs(ContinuationToken.None);
                 })
@@ -172,13 +174,81 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
             {
                 Invoking(() =>
                 {
-                    var serializer = new ContinuationTokenSerializer(ContinuationTokenOptions.Default);
-                    var actual = serializer.Deserialize(" ");
+                    var actual = _serializer.Deserialize(" ");
 
                     actual.Should().BeSameAs(ContinuationToken.None);
                 })
                     .Should()
                     .NotThrow();
+            }
+
+            [Fact]
+            public void Should_Throw_When_Non_Base64_Token_Invalid()
+            {
+                Invoking(() =>
+                {
+                    _ = _serializer.Deserialize(Create<string>());
+                })
+                    .Should()
+                    .Throw<PaginationException>()
+                    .WithMessage("Malformed continuation token.");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Base64_Token_Invalid_No_Hash()
+            {
+                Invoking(() =>
+                {
+                    var options = new ContinuationTokenOptions
+                    {
+                        IncludeHash = false
+                    };
+
+                    var serializer = new ContinuationTokenSerializer(options);
+
+                    _ = serializer.Deserialize(Create<string>().ToBase64());
+                })
+                    .Should()
+                    .Throw<PaginationException>()
+                    .WithMessage("Unable to deserialize the continuation token.");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Base64_Token_Invalid_Expecting_Hash()
+            {
+                Invoking(() =>
+                {
+                    var options = new ContinuationTokenOptions
+                    {
+                        IncludeHash = true
+                    };
+
+                    var serializer = new ContinuationTokenSerializer(options);
+
+                    _ = serializer.Deserialize(Create<string>().ToBase64());
+                })
+                    .Should()
+                    .Throw<PaginationException>()
+                    .WithMessage("Continuation token has an invalid hash code.");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Base64_Token_Too_Short_Expecting_Hash()
+            {
+                Invoking(() =>
+                {
+                    var options = new ContinuationTokenOptions
+                    {
+                        IncludeHash = true
+                    };
+
+                    var serializer = new ContinuationTokenSerializer(options);
+
+                    _ = serializer.Deserialize("A".ToBase64());
+                })
+                    .Should()
+                    .Throw<PaginationException>()
+                    .WithMessage("Continuation token has an insufficient length.");
             }
         }
 
@@ -346,6 +416,61 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
 
                 token1.Should().BeEquivalentTo(continuationToken);
                 token2.Should().BeEquivalentTo(continuationToken);
+            }
+
+            [Fact]
+            public void Should_Return_False_When_Non_Base64_Token_Invalid()
+            {
+                var serializer = new ContinuationTokenSerializer(ContinuationTokenOptions.Default);
+
+                var actual = serializer.TryDeserialize(Create<string>(), out _);
+
+                actual.Should().BeFalse();
+            }
+
+            [Fact]
+            public void Should_Return_False_When_Base64_Token_Invalid_No_Hash()
+            {
+                var options = new ContinuationTokenOptions
+                {
+                    IncludeHash = false
+                };
+
+                var serializer = new ContinuationTokenSerializer(options);
+
+                var actual = serializer.TryDeserialize(Create<string>().ToBase64(), out _);
+
+                actual.Should().BeFalse();
+            }
+
+            [Fact]
+            public void Should_Return_False_When_Base64_Token_Invalid_Expecting_Hash()
+            {
+                var options = new ContinuationTokenOptions
+                {
+                    IncludeHash = true
+                };
+
+                var serializer = new ContinuationTokenSerializer(options);
+
+                var actual = serializer.TryDeserialize(Create<string>().ToBase64(), out _);
+
+                actual.Should().BeFalse();
+            }
+
+            [Fact]
+            public void Should_Return_False_When_Base64_Token_Too_Short_Expecting_Hash()
+            {
+                var options = new ContinuationTokenOptions
+                {
+                    IncludeHash = true
+                };
+
+                var serializer = new ContinuationTokenSerializer(options);
+
+                var actual = serializer.TryDeserialize("A".ToBase64(), out _);
+
+                actual.Should().BeFalse();
             }
         }
     }

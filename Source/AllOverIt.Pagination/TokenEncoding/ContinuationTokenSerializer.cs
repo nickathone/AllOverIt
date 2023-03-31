@@ -63,11 +63,9 @@ namespace AllOverIt.Pagination.TokenEncoding
                 return ContinuationToken.None;
             }
 
-            // Decompresses the stream if compression was used
-            if (!TryDeserialize(continuationToken, out var token))
-            {
-                throw new PaginationException("Invalid continuation token. Hash value mismatch.");
-            }
+            // Decompresses the stream if compression was used.
+            // Will throw if there's an error
+            _ = TryDeserialize(continuationToken, true, out var token);
 
             return token;
         }
@@ -76,12 +74,19 @@ namespace AllOverIt.Pagination.TokenEncoding
         {
             _ = continuationToken.WhenNotNull(nameof(continuationToken));
 
+            return TryDeserialize(continuationToken, false, out token);
+        }
+
+        private bool TryDeserialize(string continuationToken, bool throwOnError, out IContinuationToken token)
+        {
             token = default;
 
             var buffer = new Span<byte>(new byte[continuationToken.Length]);
 
             if (!Convert.TryFromBase64String(continuationToken, buffer, out var byteCount))
             {
+                Throw<PaginationException>.When(throwOnError, "Malformed continuation token.");
+
                 return false;
             }
 
@@ -92,6 +97,8 @@ namespace AllOverIt.Pagination.TokenEncoding
                 // Must have at least the hash value bytes + 1 byte of content
                 if (bytes.Length < HashByteLength + 1)
                 {
+                    Throw<PaginationException>.When(throwOnError, "Continuation token has an insufficient length.");
+
                     return false;
                 }
 
@@ -104,6 +111,8 @@ namespace AllOverIt.Pagination.TokenEncoding
 
                     if (!contentHash.SequenceEqual(hashBytes))
                     {
+                        Throw<PaginationException>.When(throwOnError, "Continuation token has an invalid hash code.");
+
                         return false;
                     }
                 }
@@ -113,7 +122,16 @@ namespace AllOverIt.Pagination.TokenEncoding
 
             using (var stream = new MemoryStream(bytes))
             {
-                token = _tokenStreamer.DeserializeFromStream(stream);
+                try
+                {
+                    token = _tokenStreamer.DeserializeFromStream(stream);
+                }
+                catch (Exception exception)
+                {
+                    Throw<PaginationException>.When(throwOnError, "Unable to deserialize the continuation token.", exception);
+
+                    return false;
+                }
             }
 
             return true;
