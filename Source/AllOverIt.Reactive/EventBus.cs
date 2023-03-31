@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -28,6 +29,7 @@ namespace AllOverIt.Reactive
         }
 
         /// <summary>Disposes of the observable sequence used for notifying observers of various events.</summary>
+        [ExcludeFromCodeCoverage]
         public void Dispose()
         {
             _subject?.Dispose();

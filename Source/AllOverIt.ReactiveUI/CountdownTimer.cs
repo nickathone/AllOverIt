@@ -14,6 +14,7 @@ namespace AllOverIt.ReactiveUI
     public sealed class CountdownTimer : ReactiveObject, ICountdownTimer
     {
         private readonly Subject<bool> _countdownCompletedSubject = new();      // publishes true if completed, false if cancelled
+        private readonly IScheduler _timerScheduler;
         private ReactiveCommand<int, Unit> _startCommand;
         private IDisposable _startDisposable;
         private IDisposable _intervalDisposable;
@@ -39,6 +40,17 @@ namespace AllOverIt.ReactiveUI
         /// <inheritdoc />
         public IObservable<bool> WhenCompleted() => _countdownCompletedSubject;
 
+        /// <summary>Default constructor.</summary>
+        public CountdownTimer()
+        {
+        }
+
+        // Only used for tests
+        internal CountdownTimer(IScheduler timerScheduler)
+        {
+            _timerScheduler = timerScheduler;
+        }
+
         /// <inheritdoc />
         public void Configure(double totalMilliseconds, double updateIntervalMilliseconds, IScheduler scheduler = null, CancellationToken cancellationToken = default)
         {
@@ -46,14 +58,14 @@ namespace AllOverIt.ReactiveUI
         }
 
         /// <inheritdoc />
-        public void Configure(TimeSpan totalTimeSpan, TimeSpan updateInterval, IScheduler scheduler = null, CancellationToken cancellationToken = default)
+        public void Configure(TimeSpan totalTimeSpan, TimeSpan updateInterval, IScheduler observeOnScheduler = null, CancellationToken cancellationToken = default)
         {
             if (IsRunning)
             {
                 throw new InvalidOperationException("The countdown timer period cannot be modified while executing.");
             }
 
-            TotalMilliseconds = (int)totalTimeSpan.TotalMilliseconds;
+            TotalMilliseconds = totalTimeSpan.TotalMilliseconds;
 
             var canStart = this.WhenAnyValue(vm => vm.IsRunning, value => !value);
 
@@ -62,20 +74,26 @@ namespace AllOverIt.ReactiveUI
                 IsRunning = true;
 
                 var remaining = totalTimeSpan - TimeSpan.FromMilliseconds(skipMilliseconds);		// it's ok if this is <= 0
-                var startTime = DateTime.Now;
 
-                var intervalObservable = Observable
-                    .Interval(updateInterval)
-                    .Select(_ =>
+                RemainingMilliseconds = remaining.TotalMilliseconds;
+                RemainingTimeSpan = remaining;
+
+                var scheduledInterval = _timerScheduler is not null
+                    ? Observable.Interval(updateInterval, _timerScheduler).TimeInterval(_timerScheduler)
+                    : Observable.Interval(updateInterval).TimeInterval();
+
+                var intervalObservable = scheduledInterval                    
+                    .Select(timeInterval =>
                     {
-                        var elapsed = DateTime.Now.Subtract(startTime);
-                        return remaining.Subtract(elapsed);
+                        remaining = remaining.Subtract(timeInterval.Interval);
+                        
+                        return remaining;
                     })
                     .TakeWhile(remainingTime => !cancellationToken.IsCancellationRequested && remainingTime > TimeSpan.Zero);
 
-                if (scheduler != null)
+                if (observeOnScheduler != null)
                 {
-                    intervalObservable = intervalObservable.ObserveOn(scheduler);
+                    intervalObservable = intervalObservable.ObserveOn(observeOnScheduler);
                 }
 
                 _intervalDisposable = intervalObservable
@@ -110,7 +128,7 @@ namespace AllOverIt.ReactiveUI
                 throw new InvalidOperationException($"The {nameof(Configure)}() method must be called first.");
             }
 
-            Stop();
+            ResetDisposables();
 
             _startDisposable = _startCommand.Execute(skipMilliseconds).Subscribe();
         }
@@ -124,11 +142,7 @@ namespace AllOverIt.ReactiveUI
         /// <inheritdoc />
         public void Stop()
         {
-            _intervalDisposable?.Dispose();
-            _intervalDisposable = null;
-
-            _startDisposable?.Dispose();
-            _startDisposable = null;
+            ResetDisposables();
 
             IsRunning = false;
         }
@@ -137,6 +151,15 @@ namespace AllOverIt.ReactiveUI
         public void Dispose()
         {
             Stop();
+        }
+
+        private void ResetDisposables()
+        {
+            _intervalDisposable?.Dispose();
+            _intervalDisposable = null;
+
+            _startDisposable?.Dispose();
+            _startDisposable = null;
         }
     }
 }

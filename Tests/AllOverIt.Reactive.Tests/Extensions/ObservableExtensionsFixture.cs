@@ -1,7 +1,6 @@
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Fixture.FakeItEasy;
-using FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Reactive.Subjects;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 using Xunit;
 using ObservableExtensions = AllOverIt.Reactive.Extensions.ObservableExtensions;
 
-namespace AllOverIt.Reactive.Tests
+namespace AllOverIt.Reactive.Tests.Extensions
 {
     public class ObservableExtensionsFixture : FixtureBase
     {
@@ -245,6 +244,29 @@ namespace AllOverIt.Reactive.Tests
                 var actual = await observable;
 
                 actual.Should().Be($"{expected * multiplier}");
+            }
+
+            [Fact]
+            public async Task Should_Return_Expected_Exception()
+            {
+                var expected = GetWithinRange(7, 9);
+                var multiplier = GetWithinRange(3, 5);
+                var subject = new Subject<int>();
+
+                var observable = ObservableExtensions.WaitUntilAsync(subject, value => value == expected, result => throw new Exception($"{result * multiplier}"));
+
+                for (var i = expected - 1; i <= expected + 1; i++)
+                {
+                    subject.OnNext(i);
+                }
+
+                await Invoking(async () =>
+                {
+                    _ = await observable;
+                })
+                .Should()
+                .ThrowAsync<Exception>()
+                .WithMessage($"{expected * multiplier}");
             }
         }
     }

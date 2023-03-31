@@ -1,12 +1,12 @@
 using AllOverIt.Fixture;
+using AllOverIt.Reactive.Extensions;
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
-using AllOverIt.Reactive.Extensions;
-using FluentAssertions;
 using Xunit;
 
-namespace AllOverIt.Reactive.Tests
+namespace AllOverIt.Reactive.Tests.Extensions
 {
     public class DisposableExtensionsFixture : FixtureBase
     {
@@ -43,9 +43,9 @@ namespace AllOverIt.Reactive.Tests
 
                 using (var disposables = new CompositeDisposable())
                 {
-                    DisposableExtensions.DisposeUsing(new DummyDisposable(guid), disposables);
-                    DisposableExtensions.DisposeUsing(new DummyDisposable(guid), disposables);
-                    DisposableExtensions.DisposeUsing(new DummyDisposable(guid), disposables);
+                    new DummyDisposable(guid).DisposeUsing(disposables);
+                    new DummyDisposable(guid).DisposeUsing(disposables);
+                    new DummyDisposable(guid).DisposeUsing(disposables);
                 }
 
                 Counter[guid].Should().Be(3);
