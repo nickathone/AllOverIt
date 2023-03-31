@@ -7,6 +7,7 @@ using AllOverIt.Mapping.Extensions;
 using AllOverIt.Reflection;
 using FluentAssertions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -234,6 +235,11 @@ namespace AllOverIt.Tests.Mapping
 
         public class Map_Target : ObjectMapperFixture
         {
+            private class ArrayListModel
+            {
+                public ArrayList Values { get; set; }
+            }
+
             [Fact]
             public void Should_Return_Null_When_Source_Null()
             {
@@ -300,6 +306,58 @@ namespace AllOverIt.Tests.Mapping
                 expected
                     .Should()
                     .BeEquivalentTo(actual);
+            }
+
+            [Fact]
+            public void Should_Map_To_ArrayList()
+            {
+                var source = new ArrayListModel
+                {
+                    Values = new ArrayList(CreateMany<int>().ToArray())
+                };
+
+                var mapper = new ObjectMapper();
+
+                var actual = mapper.Map<ArrayListModel>(source);
+
+                actual.Values.Should().BeSameAs(source.Values);
+            }
+
+            [Fact]
+            public void Should_Map_To_ArrayList_With_Deep_Clone()
+            {
+                var source = new ArrayListModel
+                {
+                    Values = new ArrayList(CreateMany<int>().ToArray())
+                };
+
+                var configuration = new ObjectMapperConfiguration();
+
+                configuration.Configure<ArrayListModel, ArrayListModel>(opt =>
+                {
+                    opt.DeepCopy(src => src.Values);
+                });
+
+                var mapper = new ObjectMapper(configuration);
+
+                var actual = mapper.Map<ArrayListModel>(source);
+
+                actual.Values.Should().NotBeSameAs(source.Values);
+
+                actual.Values.Should().BeEquivalentTo(source.Values);
+            }
+
+            [Fact]
+            public void Should_Map_To_Empty_ArrayList_When_Source_Null()
+            {
+                var source = new ArrayListModel();
+
+                var mapper = new ObjectMapper();
+
+                var actual = mapper.Map<ArrayListModel>(source);
+
+                actual.Values.Should().BeOfType<ArrayList>();
+                actual.Values.Count.Should().Be(0);
             }
 
             [Fact]

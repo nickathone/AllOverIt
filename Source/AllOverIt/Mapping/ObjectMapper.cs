@@ -162,8 +162,7 @@ namespace AllOverIt.Mapping
                 return sourceValue switch
                 {
                     IDictionary _ => MapToDictionary(sourceValue, sourceValueType, targetPropertyType),
-                    IEnumerable _ => MapToCollection(sourceValue, sourceValueType, targetPropertyType, deepCopy),
-                    _ => throw new ObjectMapperException($"Cannot map type '{sourceValueType.GetFriendlyName()}'."),
+                    /*IEnumerable*/ _ => MapToCollection(sourceValue, sourceValueType, targetPropertyType, deepCopy)
                 };
             }
 
@@ -217,15 +216,10 @@ namespace AllOverIt.Mapping
 
         private object MapToCollection(object sourceValue, Type sourceValueType, Type targetPropertyType, bool doDeepCopy)
         {
-            var sourceElementType = sourceValueType.IsArray
-                                    ? sourceValueType.GetElementType()
-                                    : sourceValueType.GetGenericArguments()[0];
+            var sourceElementType = GetEnumerableElementType(sourceValueType);
+            var targetElementType = GetEnumerableElementType(targetPropertyType);
 
-            var targetElementType = targetPropertyType.IsArray
-                ? targetPropertyType.GetElementType()
-                : targetPropertyType.GetGenericArguments()[0];
-
-            var (listType, listInstance) = CreateTypedList(targetElementType);
+            var (listType, listInstance) = CreateTypedList(targetPropertyType, targetElementType);
 
             var sourceElements = GetSourceElements(sourceValue);
 
@@ -233,21 +227,24 @@ namespace AllOverIt.Mapping
             {
                 var currentElement = sourceElement;
 
-                if (sourceElementType.IsValueType)
+                if (sourceElementType != CommonTypes.ObjectType)
                 {
-                    currentElement = ConvertValueIfNotTargetType(currentElement, sourceElementType, targetElementType);
-                }
-                else if (sourceElementType != CommonTypes.StringType)
-                {
-                    var targetCtor = targetElementType.GetConstructor(Type.EmptyTypes);     // TODO: ? worth caching a compiled factory
+                    if (sourceElementType.IsValueType)
+                    {
+                        currentElement = ConvertValueIfNotTargetType(currentElement, sourceElementType, targetElementType);
+                    }
+                    else if (sourceElementType != CommonTypes.StringType)
+                    {
+                        var targetCtor = targetElementType.GetConstructor(Type.EmptyTypes);     // TODO: ? worth caching a compiled factory
 
-                    Throw<ObjectMapperException>.WhenNull(
-                        targetCtor,
-                        $"The type '{targetElementType.GetFriendlyName()}' does not have a default constructor. Use a custom conversion.");
+                        Throw<ObjectMapperException>.WhenNull(
+                            targetCtor,
+                            $"The type '{targetElementType.GetFriendlyName()}' does not have a default constructor. Use a custom conversion.");
 
-                    var targetInstance = targetCtor.Invoke(null);
+                        var targetInstance = targetCtor.Invoke(null);
 
-                    currentElement = MapSourceToTarget(currentElement, targetInstance, doDeepCopy);
+                        currentElement = MapSourceToTarget(currentElement, targetInstance, doDeepCopy);
+                    }
                 }
 
                 listInstance.Add(currentElement);
@@ -265,18 +262,29 @@ namespace AllOverIt.Mapping
                 return instance;
             }
 
-            if (targetPropertyType.IsDerivedFrom(CommonTypes.IEnumerableGenericType))
+            if (targetPropertyType.IsEnumerableType())      // IsDerivedFrom(CommonTypes.IEnumerableGenericType)
             {
-                var targetElementType = targetPropertyType.IsArray
-                    ? targetPropertyType.GetElementType()
-                    : targetPropertyType.GetGenericArguments()[0];
+                var targetElementType = GetEnumerableElementType(targetPropertyType);
 
-                var (listType, listInstance) = CreateTypedList(targetElementType);
+                // Includes support for ArrayList
+                var (listType, listInstance) = CreateTypedList(targetPropertyType, targetElementType);
 
                 return GetAsListOrArray(listType, listInstance, targetPropertyType);
             }
 
             return null;
+        }
+
+        private Type GetEnumerableElementType(Type sourceValueType)
+        {
+            if (sourceValueType.IsArray)
+            {
+                return sourceValueType.GetElementType();
+            }
+
+            return sourceValueType.IsGenericEnumerableType()
+                ? sourceValueType.GetGenericArguments()[0]
+                : CommonTypes.ObjectType;
         }
 
         private static object GetAsListOrArray(Type listType, IList listInstance, Type targetPropertyType)
@@ -329,9 +337,12 @@ namespace AllOverIt.Mapping
             return (dictionaryInstance, targetKvpType);
         }
 
-        private (Type ListType, IList ListInstance) CreateTypedList(Type targetElementType)
+        private (Type ListType, IList ListInstance) CreateTypedList(Type targetPropertyType, Type targetElementType)
         {
-            var listType = CommonTypes.ListGenericType.MakeGenericType(new[] { targetElementType });
+            var listType = targetPropertyType.IsInterface || targetPropertyType.IsArray
+                ? CommonTypes.ListGenericType.MakeGenericType(new[] { targetElementType })
+                : targetPropertyType;   // Special cases, such as ArrayList (assuming it implements IList)
+
             var listInstance = (IList) CreateType(listType);
 
             return (listType, listInstance);
