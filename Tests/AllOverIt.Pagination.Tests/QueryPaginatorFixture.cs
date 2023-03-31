@@ -50,6 +50,7 @@ namespace AllOverIt.Pagination.Tests
             public string FirstName { get; set; }
             public Guid Reference { get; set; }
             public Status Status { get; set; }
+            public int Age;     // Purposely a field
         }
 
         private readonly IContinuationTokenEncoderFactory _continuationTokenEncoderFactory;
