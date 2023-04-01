@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using AllOverIt.Assertion;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Linq;
@@ -60,10 +61,7 @@ namespace AllOverIt.ReactiveUI
         /// <inheritdoc />
         public void Configure(TimeSpan totalTimeSpan, TimeSpan updateInterval, IScheduler observeOnScheduler = null, CancellationToken cancellationToken = default)
         {
-            if (IsRunning)
-            {
-                throw new InvalidOperationException("The countdown timer period cannot be modified while executing.");
-            }
+            Throw<InvalidOperationException>.When(IsRunning, "The countdown timer period cannot be modified while executing.");
 
             TotalMilliseconds = totalTimeSpan.TotalMilliseconds;
 
@@ -118,15 +116,9 @@ namespace AllOverIt.ReactiveUI
         /// <inheritdoc />
         public void Start(int skipMilliseconds = 0)
         {
-            if (IsRunning)
-            {
-                throw new InvalidOperationException("The countdown timer is already executing.");
-            }
+            Throw<InvalidOperationException>.WhenNull(_startCommand, $"The {nameof(Configure)}() method must be called first.");
 
-            if (_startCommand == null)
-            {
-                throw new InvalidOperationException($"The {nameof(Configure)}() method must be called first.");
-            }
+            Throw<InvalidOperationException>.When(IsRunning, "The countdown timer is already executing.");
 
             ResetDisposables();
 

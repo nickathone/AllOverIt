@@ -1,11 +1,14 @@
 ﻿using AllOverIt.Collections;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Fixture.FakeItEasy;
+using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Reactive.Testing;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Reactive.Concurrency;
 using Xunit;
 
 namespace AllOverIt.ReactiveUI.Tests
@@ -33,7 +36,38 @@ namespace AllOverIt.ReactiveUI.Tests
             }
 
             [Fact]
-            public void Should_Throw_When_Already_Running()
+            public void Should_Use_ObserveOn_Scheduler()
+            {
+                var totalMilliseconds = GetWithinRange(10000, 12000);
+                var updateIntervalMilliseconds = GetWithinRange(1000, 1500);
+
+                var observeOnSchedulerFake = this.CreateStub<IScheduler>();
+
+                var scheduled = false;
+
+                // Need to use this approach as we can't assert Schedule<T> was called
+                A.CallTo(observeOnSchedulerFake)
+                    .Where(call => call.Method.Name == "Schedule")
+                    .Invokes(call =>
+                    {
+                        scheduled = true;
+                    });
+
+                var scheduler = new TestScheduler();
+                scheduler.Start();
+
+                var timer = new CountdownTimer(scheduler);
+                timer.Configure(totalMilliseconds, updateIntervalMilliseconds, observeOnSchedulerFake);
+
+                timer.Start();
+
+                scheduler.AdvanceBy(TimeSpan.FromMilliseconds(totalMilliseconds * 2).Ticks);
+
+                scheduled.Should().BeTrue();
+            }
+
+            [Fact]
+            public void Should_Throw_When_Configure_When_Already_Running()
             {
                 var totalMilliseconds = GetWithinRange(10000, 12000);
                 var updateIntervalMilliseconds = GetWithinRange(1000, 1500);
@@ -55,6 +89,36 @@ namespace AllOverIt.ReactiveUI.Tests
 
         public class Start : CountdownTimerFixture
         {
+            [Fact]
+            public void Should_Throw_When_Not_Configured()
+            {
+                var timer = new CountdownTimer();
+
+                Invoking(() =>
+                {
+                    timer.Start();
+                })
+                .Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage($"The {nameof(ICountdownTimer.Configure)}() method must be called first.");
+            }
+
+            [Fact]
+            public void Should_Throw_When_Already_Running()
+            {
+                var timer = new CountdownTimer();
+                timer.Configure(Create<double>(), Create<double>());
+                timer.Start();
+
+                Invoking(() =>
+                {
+                    timer.Start();
+                })
+                .Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage("The countdown timer is already executing.");
+            }
+
             [Theory]
             [InlineData(0)]
             [InlineData(1)]
@@ -80,9 +144,11 @@ namespace AllOverIt.ReactiveUI.Tests
             }
 
             [Theory]
-            [InlineData(0)]
-            [InlineData(1)]
-            public void Should_Update_Notifications_While_Running(int skipFactor)
+            [InlineData(0, 0)]
+            [InlineData(1, 0)]
+            [InlineData(0, 1)]
+            [InlineData(1, 1)]
+            public void Should_Update_Notifications_While_Running(int skipFactor, int skipTimeMode)
             {
                 var actualNotifications = new List<double>();
 
@@ -118,7 +184,14 @@ namespace AllOverIt.ReactiveUI.Tests
                 timer.TotalTimeSpan.Should().BeCloseTo(TimeSpan.FromMilliseconds(totalMilliseconds), TimeSpan.FromMilliseconds(1));
                 timer.IsRunning.Should().BeFalse();
 
-                timer.Start(skipMilliseconds);
+                if (skipTimeMode == 0)
+                {
+                    timer.Start(skipMilliseconds);
+                }
+                else
+                {
+                    timer.Start(TimeSpan.FromMilliseconds(skipMilliseconds));
+                }
 
                 timer.IsRunning.Should().BeTrue();
 
@@ -131,43 +204,108 @@ namespace AllOverIt.ReactiveUI.Tests
                 expectedNotifications.Should().ContainInOrder(actualNotifications);
             }
 
-            // More Start() tests here
+            [Fact]
+            public void Should_Start_After_Stop()
+            {
+                var timer = new CountdownTimer();
+                timer.Configure(Create<double>(), Create<double>());
 
+                timer.IsRunning.Should().BeFalse();
+
+                timer.Start();
+
+                timer.IsRunning.Should().BeTrue();
+
+                timer.Stop();
+
+                timer.IsRunning.Should().BeFalse();
+
+                timer.Start();
+
+                timer.IsRunning.Should().BeTrue();
+            }
         }
 
-
-        // Stop() tests
-
-
-
-
-
-        // Group observable subscription checks together
-
-        [Fact]
-        public void Should_Notify_IsRunning()
+        public class Stop : CountdownTimerFixture
         {
-            var scheduler = new TestScheduler();
+            [Fact]
+            public void Should_Stop()
+            {
+                var timer = new CountdownTimer();
+                timer.Configure(Create<double>(), Create<double>());
 
-            var timer = new CountdownTimer();
-            timer.Configure(10000, 1000);
-
-            var isRunning = false;
-
-            timer.WhenAnyValue(vm => vm.IsRunning)
-                .Subscribe(value =>
+                Invoking(() =>
                 {
-                    isRunning = value;
-                });
+                    timer.Stop();
+                })
+                .Should()
+                .NotThrow();
+            }
 
-            isRunning.Should().BeFalse();
+            [Fact]
+            public void Should_Not_Throw_When_Already_Stopped()
+            {
+                var timer = new CountdownTimer();
+                timer.Configure(Create<double>(), Create<double>());
 
-            timer.Start();
+                timer.Start();
 
-            isRunning.Should().BeTrue();
+                timer.IsRunning.Should().BeTrue();
+                
+                timer.Stop();
+
+                timer.IsRunning.Should().BeFalse();
+            }
         }
 
+        public class Observables : CountdownTimerFixture
+        {
+            [Fact]
+            public void Should_Notify_IsRunning()
+            {
+                var scheduler = new TestScheduler();
 
+                var timer = new CountdownTimer();
+                timer.Configure(10000, 1000);
 
+                var isRunning = false;
+
+                timer.WhenAnyValue(vm => vm.IsRunning)
+                    .Subscribe(value =>
+                    {
+                        isRunning = value;
+                    });
+
+                isRunning.Should().BeFalse();
+
+                timer.Start();
+
+                isRunning.Should().BeTrue();
+            }
+
+            [Fact]
+            public void Should_Notify_When_Completed()
+            {
+                double totalMilliseconds = (int) GetWithinRange(10000, 12000);
+                double updateIntervalMilliseconds = (int) GetWithinRange(1000, 1500);
+
+                var scheduler = new TestScheduler();
+                scheduler.Start();
+
+                var completed = false;
+
+                var timer = new CountdownTimer(scheduler);
+                timer.Configure(totalMilliseconds, updateIntervalMilliseconds);
+
+                timer.WhenCompleted()
+                    .Subscribe(value => completed = value);
+
+                timer.Start();
+
+                scheduler.AdvanceBy(TimeSpan.FromMilliseconds(totalMilliseconds * 2).Ticks);
+
+                completed.Should().BeTrue();
+            }
+        }
     }
 }
