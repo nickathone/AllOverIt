@@ -1,14 +1,90 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Fixture.Extensions;
+using AutoFixture;
 using FluentAssertions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Xunit;
+using Xunit.Sdk;
 
 namespace AllOverIt.Tests.Assertion
 {
     public partial class GuardFixture
     {
+        private class DummyReadOnlyCollection : IReadOnlyCollection<int>
+        {
+            private readonly List<int> _items = new();
+
+            public int Count => _items.Count;
+
+            public DummyReadOnlyCollection(IEnumerable<int> items)
+            {
+                _items.AddRange(items);
+            }
+
+            public IEnumerator<int> GetEnumerator()
+            {
+                return _items.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
+        private class DummyEnumerable : ICollection<int>
+        {
+            private readonly List<int> _items = new();
+
+            public int Count => _items.Count;
+
+            public DummyEnumerable(IEnumerable<int> items)
+            {
+                _items.AddRange(items);
+            }
+
+            public bool IsReadOnly => throw new NotImplementedException();
+
+            public void Add(int item)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Clear()
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Contains(int item)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void CopyTo(int[] array, int arrayIndex)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IEnumerator<int> GetEnumerator()
+            {
+                return _items.GetEnumerator();
+            }
+
+            public bool Remove(int item)
+            {
+                throw new NotImplementedException();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
         public class WhenNotNull_Type : GuardFixture
         {
             [Fact]
@@ -318,6 +394,45 @@ namespace AllOverIt.Tests.Assertion
                 var actual = Guard.WhenNotEmpty(expected, Create<string>());
 
                 actual.Should().BeSameAs(expected);
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_List_Not_Empty()
+            {
+                Invoking(() =>
+                {
+                    var actual = new List<int>(CreateMany<int>());
+
+                    _ = actual.WhenNotEmpty();
+                })
+                    .Should()
+                    .NotThrow();
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_ReadOnlyCollection_Not_Empty()
+            {
+                Invoking(() =>
+                {
+                    var actual = new DummyReadOnlyCollection(CreateMany<int>());
+
+                    _ = actual.WhenNotEmpty();
+                })
+                    .Should()
+                    .NotThrow();
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_Collection_Not_Empty()
+            {
+                Invoking(() =>
+                {
+                    var actual = new DummyEnumerable(CreateMany<int>());
+
+                    _ = actual.WhenNotEmpty();
+                })
+                    .Should()
+                    .NotThrow();
             }
         }
     }

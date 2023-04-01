@@ -234,7 +234,9 @@ namespace AllOverIt.Assertion
                     IList<TType> iList => iList.Count != 0,
                     IReadOnlyCollection<TType> iReadOnlyCollection => iReadOnlyCollection.Count != 0,
                     ICollection<TType> items => items.Count != 0,
-                    ICollection iCollection => iCollection.Count != 0,
+                    
+                    // Not applicable in this method as it's generic
+                    // ICollection iCollection => iCollection.Count != 0,
 
                     _ => @object.Any()
                 };
