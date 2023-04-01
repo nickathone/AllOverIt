@@ -17,26 +17,26 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
 {
     public partial class ServiceCollectionExtensionsFixture
     {
-        private interface IDummyInterface
+        private interface IDummyDecoratorInterface
         {
             void SetValue(int value);
         }
 
-        private sealed class Dummy1 : IDummyInterface
+        private sealed class DummyDecorator1 : IDummyDecoratorInterface
         {
             public void SetValue(int value) { }
         }
 
-        private sealed class Dummy2 : IDummyInterface
+        private sealed class DummyDecorator2 : IDummyDecoratorInterface
         {
             public void SetValue(int value) { }
         }
 
-        private sealed class DummyDecorator : IDummyInterface
+        private sealed class DummyDecorator3 : IDummyDecoratorInterface
         {
-            public IDummyInterface Decorated{ get; }
+            public IDummyDecoratorInterface Decorated{ get; }
 
-            public DummyDecorator(IDummyInterface dummy)
+            public DummyDecorator3(IDummyDecoratorInterface dummy)
             {
                 Decorated = dummy;
             }
@@ -51,7 +51,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ServiceCollectionExtensions.Decorate<IDummyInterface, DummyDecorator>(null);
+                    _ = ServiceCollectionExtensions.Decorate<IDummyDecoratorInterface, DummyDecorator3>(null);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -63,29 +63,29 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 var services = new ServiceCollection();
 
-                services.AddSingleton<IDummyInterface, Dummy1>();
-                services.AddSingleton<IDummyInterface, Dummy2>();
+                services.AddSingleton<IDummyDecoratorInterface, DummyDecorator1>();
+                services.AddSingleton<IDummyDecoratorInterface, DummyDecorator2>();
 
-                ServiceCollectionExtensions.Decorate<IDummyInterface, DummyDecorator>(services);
+                ServiceCollectionExtensions.Decorate<IDummyDecoratorInterface, DummyDecorator3>(services);
 
                 var provider = services.BuildServiceProvider();
 
                 var instances = provider
-                    .GetService<IEnumerable<IDummyInterface>>()
+                    .GetService<IEnumerable<IDummyDecoratorInterface>>()
                     .AsReadOnlyCollection();
 
                 var decoratedTypes = new List<Type>();
 
                 foreach (var instance in instances)
                 {
-                    instance.Should().BeOfType<DummyDecorator>();
+                    instance.Should().BeOfType<DummyDecorator3>();
 
-                    var decorator = instance as DummyDecorator;
+                    var decorator = instance as DummyDecorator3;
 
                     decoratedTypes.Add(decorator!.Decorated.GetType());
                 }
 
-                decoratedTypes.Should().BeEquivalentTo(new[] {typeof(Dummy1), typeof(Dummy2)});
+                decoratedTypes.Should().BeEquivalentTo(new[] {typeof(DummyDecorator1), typeof(DummyDecorator2)});
             }
 
             [Theory]
@@ -99,31 +99,31 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                 switch (lifetime)
                 {
                     case ServiceLifetime.Singleton:
-                        services.AddSingleton<IDummyInterface, Dummy1>();
-                        services.AddSingleton<IDummyInterface, Dummy2>();
+                        services.AddSingleton<IDummyDecoratorInterface, DummyDecorator1>();
+                        services.AddSingleton<IDummyDecoratorInterface, DummyDecorator2>();
                         break;
 
                     case ServiceLifetime.Scoped:
-                        services.AddScoped<IDummyInterface, Dummy1>();
-                        services.AddScoped<IDummyInterface, Dummy2>();
+                        services.AddScoped<IDummyDecoratorInterface, DummyDecorator1>();
+                        services.AddScoped<IDummyDecoratorInterface, DummyDecorator2>();
                         break;
 
                     case ServiceLifetime.Transient:
-                        services.AddTransient<IDummyInterface, Dummy1>();
-                        services.AddTransient<IDummyInterface, Dummy2>();
+                        services.AddTransient<IDummyDecoratorInterface, DummyDecorator1>();
+                        services.AddTransient<IDummyDecoratorInterface, DummyDecorator2>();
                         break;
                 }
                 
-                ServiceCollectionExtensions.Decorate<IDummyInterface, DummyDecorator>(services);
+                ServiceCollectionExtensions.Decorate<IDummyDecoratorInterface, DummyDecorator3>(services);
 
                 var provider = services.BuildServiceProvider();
 
                 var instances1a = provider
-                    .GetService<IEnumerable<IDummyInterface>>()
+                    .GetService<IEnumerable<IDummyDecoratorInterface>>()
                     .AsReadOnlyCollection();
 
                 var instances1b = provider
-                    .GetService<IEnumerable<IDummyInterface>>()
+                    .GetService<IEnumerable<IDummyDecoratorInterface>>()
                     .AsReadOnlyCollection();
 
                 DependencyHelper.AssertInstanceEquality(instances1a, instances1b, sameScopeExpected);
@@ -133,7 +133,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                     var scopedProvider = scope.ServiceProvider;
 
                     var instances2 = scopedProvider
-                        .GetService<IEnumerable<IDummyInterface>>()
+                        .GetService<IEnumerable<IDummyDecoratorInterface>>()
                         .AsReadOnlyCollection();
 
                     DependencyHelper.AssertInstanceEquality(instances1a, instances2, differentScopeExpected);
@@ -148,11 +148,11 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                 {
                     var services = new ServiceCollection();
 
-                    ServiceCollectionExtensions.Decorate<IDummyInterface, DummyDecorator>(services);
+                    ServiceCollectionExtensions.Decorate<IDummyDecoratorInterface, DummyDecorator3>(services);
                 })
                 .Should()
                 .Throw<DependencyRegistrationException>()
-                .WithMessage($"No registered services found for the type '{typeof(IDummyInterface).GetFriendlyName()}'.");
+                .WithMessage($"No registered services found for the type '{typeof(IDummyDecoratorInterface).GetFriendlyName()}'.");
             }
 
             [Fact]
@@ -160,16 +160,16 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 var services = new ServiceCollection();
 
-                var expected = new Dummy1();
+                var expected = new DummyDecorator1();
 
                 // only applicable to case ServiceLifetime.Singleton:
-                services.AddSingleton<IDummyInterface>(expected);
+                services.AddSingleton<IDummyDecoratorInterface>(expected);
 
-                ServiceCollectionExtensions.Decorate<IDummyInterface, DummyDecorator>(services);
+                ServiceCollectionExtensions.Decorate<IDummyDecoratorInterface, DummyDecorator3>(services);
 
                 var provider = services.BuildServiceProvider();
 
-                var actual = provider.GetRequiredService<IDummyInterface>() as DummyDecorator;
+                var actual = provider.GetRequiredService<IDummyDecoratorInterface>() as DummyDecorator3;
 
                 actual.Decorated.Should().BeSameAs(expected);
             }
@@ -178,7 +178,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
 
         public class DecorateWithInterceptor : ServiceCollectionExtensionsFixture
         {
-            private class DummyInterceptor : InterceptorBase<IDummyInterface>
+            private class DummyInterceptor : InterceptorBase<IDummyDecoratorInterface>
             {
                 public Action<int> Callback { get; set; }
 
@@ -195,7 +195,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(null);
+                    _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyDecoratorInterface, DummyInterceptor>(null);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -207,11 +207,11 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 var services = new ServiceCollection();
 
-                services.AddSingleton<IDummyInterface, Dummy1>();
+                services.AddSingleton<IDummyDecoratorInterface, DummyDecorator1>();
 
                 Invoking(() =>
                 {
-                    _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, null);
+                    _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyDecoratorInterface, DummyInterceptor>(services, null);
                 })
                 .Should()
                 .NotThrow();
@@ -222,9 +222,9 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 var services = new ServiceCollection();
 
-                services.AddSingleton<IDummyInterface, Dummy1>();
+                services.AddSingleton<IDummyDecoratorInterface, DummyDecorator1>();
 
-                var actual = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, null);
+                var actual = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyDecoratorInterface, DummyInterceptor>(services, null);
 
                 actual.Should().BeSameAs(services);
             }
@@ -234,20 +234,20 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 var services = new ServiceCollection();
 
-                services.AddSingleton<IDummyInterface, Dummy1>();
+                services.AddSingleton<IDummyDecoratorInterface, DummyDecorator1>();
 
                 DummyInterceptor actual = default;
 
-                _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, interceptor =>
+                _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyDecoratorInterface, DummyInterceptor>(services, interceptor =>
                 {
                     actual = interceptor;
                 });
 
                 var provider = services.BuildServiceProvider();
 
-                _ = provider.GetRequiredService<IDummyInterface>();
+                _ = provider.GetRequiredService<IDummyDecoratorInterface>();
 
-                actual.Should().BeAssignableTo(typeof(IDummyInterface));
+                actual.Should().BeAssignableTo(typeof(IDummyDecoratorInterface));
             }
 
             [Fact]
@@ -255,20 +255,20 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             {
                 var services = new ServiceCollection();
 
-                services.AddSingleton<IDummyInterface, Dummy1>();
+                services.AddSingleton<IDummyDecoratorInterface, DummyDecorator1>();
 
                 int actual = 0;
 
                 Action<int> updater = value => actual = value;
 
-                _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyInterface, DummyInterceptor>(services, interceptor =>
+                _ = ServiceCollectionExtensions.DecorateWithInterceptor<IDummyDecoratorInterface, DummyInterceptor>(services, interceptor =>
                 {
                     interceptor.Callback = updater;
                 });
 
                 var provider = services.BuildServiceProvider();
 
-                var service = provider.GetRequiredService<IDummyInterface>();
+                var service = provider.GetRequiredService<IDummyDecoratorInterface>();
 
                 var expected = Create<int>();
 
