@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AllOverIt.Serialization.NewtonsoftJson.Converters
 {
@@ -28,8 +29,10 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
 
         /// <inheritdoc />
         /// <remarks>The converter only supports deserialization so this method will throw <exception cref="NotImplementedException" /> if called.</remarks>
+        [ExcludeFromCodeCoverage]
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            // This method will never be called as CanConvert() doesn't allow it
             throw new NotImplementedException();
         }
     }
