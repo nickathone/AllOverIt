@@ -33,6 +33,7 @@ namespace AllOverIt.Serialization.SystemTextJson
 
             if (options.Converters.All(converter => converter.GetType() != ConverterType))
             {
+                // Uses default options (deserialize floating values as double, rather than decimal)
                 options.Converters.Add(new NestedDictionaryConverter());
             }
 

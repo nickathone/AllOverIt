@@ -11,6 +11,18 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
     internal sealed class NestedDictionaryConverter : JsonConverter<Dictionary<string, object>>
     {
         private static readonly Type DictionaryType = typeof(Dictionary<string, object>);
+        private readonly NestedDictionaryConverterOptions _options;
+
+        public NestedDictionaryConverter()
+            : this(new NestedDictionaryConverterOptions())
+        {            
+        }
+
+        public NestedDictionaryConverter(NestedDictionaryConverterOptions options)
+        {
+            _options = options;
+        }
+
 
         /// <inheritdoc />
         public override Dictionary<string, object> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -59,11 +71,18 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
             writer.WriteEndObject();
         }
 
+        private object ReadFloatingValue(ref Utf8JsonReader reader)
+        {
+            return _options.ReadFloatingAsDecimals
+                ? reader.GetDecimal()
+                : reader.GetDouble();
+        }
+
         private object ReadValue(ref Utf8JsonReader reader, JsonSerializerOptions options)
         {
             return reader.TokenType switch
             {
-                JsonTokenType.Number => reader.TryGetInt32(out var intValue) ? intValue : reader.GetDouble(),
+                JsonTokenType.Number => reader.TryGetInt32(out var intValue) ? intValue : ReadFloatingValue(ref reader),
                 JsonTokenType.StartObject => Read(ref reader, null, options),
                 JsonTokenType.StartArray => ReadArray(ref reader, options),
                 JsonTokenType.String => reader.TryGetDateTime(out var date) ? date : reader.GetString(),
@@ -94,7 +113,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
                 writer.WritePropertyName(key);
             }
 
-            if (objectValue.GetType().IsArray)
+            if (objectValue is not null && objectValue.GetType().IsArray)
             {
                 WriteArray(writer, objectValue);
             }

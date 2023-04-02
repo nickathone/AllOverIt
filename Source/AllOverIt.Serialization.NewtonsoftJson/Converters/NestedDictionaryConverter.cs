@@ -128,12 +128,20 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
         {
             writer.WriteStartObject();
 
-            var element = value as IDictionary<string, object>;
+            var element = value as Dictionary<string, object>;
 
-            foreach (var kvp in element!)
+            foreach (var kvp in element)
             {
                 writer.WritePropertyName(kvp.Key);
-                WriteValue(writer, kvp.Value, serializer);
+
+                if (kvp.Value is not null)
+                {
+                    WriteValue(writer, kvp.Value, serializer);
+                }
+                else
+                {
+                    writer.WriteNull();
+                }
             }
 
             writer.WriteEndObject();

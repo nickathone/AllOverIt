@@ -44,6 +44,9 @@ AllOverIt.Fixture.FakeItEasy
 AllOverIt.GenericHost
   * Updated Microsoft.Extensions.Hosting v7.0.1
 
+AllOverIt.Serialization.SystemTextJson
+  * Added an option to NestedDictionaryConverter so floating values can be read as double or decimal.
+
 AllOverIt.Serialization.Newtonsoft
   * Updated Newtonsoft.Json v13.0.3
 

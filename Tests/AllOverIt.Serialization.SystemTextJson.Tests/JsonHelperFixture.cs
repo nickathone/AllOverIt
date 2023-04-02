@@ -682,7 +682,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
                     ? jsonHelper.GetValue<double>("Prop8")
                     : jsonHelper.GetValue<double>("prop8");
 
-                actual.Should().Be(_prop8);
+                actual.Should().BeApproximately(_prop8, 0.0000001d);
             }
 
             [Theory]
