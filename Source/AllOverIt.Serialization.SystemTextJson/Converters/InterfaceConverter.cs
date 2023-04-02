@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -26,8 +27,10 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
 
         /// <inheritdoc />
         /// <remarks>The converter only supports deserialization so this method will throw <exception cref="NotImplementedException" /> if called.</remarks>
+        [ExcludeFromCodeCoverage]
         public override void Write(Utf8JsonWriter writer, TInterface value, JsonSerializerOptions options)
         {
+            // This method will never be called as CanConvert() doesn't allow it
             throw new NotImplementedException();
         }
     }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AllOverIt.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using AllOverIt.Extensions;
 
 namespace AllOverIt.Serialization.SystemTextJson.Converters
 {
@@ -26,13 +26,10 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
             {
                 switch (reader.TokenType)
                 {
-                    case JsonTokenType.Comment:
-                        break;
-
                     case JsonTokenType.PropertyName:
                         var propertyName = reader.GetString();
 
-                        if (propertyName.IsNullOrEmpty() || !reader.Read())
+                        if (!reader.Read())
                         {
                             throw CreateReadJsonSerializationException(reader.TokenType);
                         }
@@ -97,6 +94,30 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
                 writer.WritePropertyName(key);
             }
 
+            if (objectValue.GetType().IsArray)
+            {
+                WriteArray(writer, objectValue);
+            }
+            else
+            {
+                WriteValue(writer, objectValue);
+            }
+        }
+
+        private static void WriteArray(Utf8JsonWriter writer, object objectValue)
+        {
+            writer.WriteStartArray();
+
+            foreach (var item in objectValue.GetObjectElements())
+            {
+                WriteValue(writer, null, item);
+            }
+
+            writer.WriteEndArray();
+        }
+
+        private static void WriteValue(Utf8JsonWriter writer, object objectValue)
+        {
             switch (objectValue)
             {
                 case string stringValue:
@@ -140,17 +161,6 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
                     }
 
                     writer.WriteEndObject();
-                    break;
-
-                case object[] array:
-                    writer.WriteStartArray();
-
-                    foreach (var item in array)
-                    {
-                        WriteValue(writer, null, item);
-                    }
-
-                    writer.WriteEndArray();
                     break;
 
                 case Enum enumValue:

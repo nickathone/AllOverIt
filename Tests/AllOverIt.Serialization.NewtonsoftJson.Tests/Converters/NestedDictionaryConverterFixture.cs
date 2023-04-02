@@ -4,6 +4,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
@@ -49,12 +50,6 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
                     Value = Create<string>(),
                     DayOfWeek = $"{Create<DayOfWeek>()}"            // there's no strong typing so this cannot be deserialized as an enum
                 };
-
-                //var prop3 = new
-                //{
-                //    Value1 = prop2,
-                //    Value2 = prop1
-                //};
 
                 var prop2Dictionary = includeUppercase
                     ? new Dictionary<string, object> {{"Value", prop2.Value}, { "DayOfWeek", prop2.DayOfWeek } }
@@ -102,18 +97,13 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
                 var prop2 = new
                 {
                     Value = Create<string>(),
-                    DayOfWeek = Create<DayOfWeek>()
+                    DayOfWeek = Create<DayOfWeek>(),
+                    Numbers = CreateMany<int>().ToArray()
                 };
 
-                //var prop3 = new
-                //{
-                //    Value1 = prop2,
-                //    Value2 = prop1
-                //};
-
                 var prop2Dictionary = includeUppercase
-                    ? new Dictionary<string, object> { { "Value", prop2.Value }, { "DayOfWeek", prop2.DayOfWeek } }
-                    : new Dictionary<string, object> { { "value", prop2.Value }, { "dayOfWeek", prop2.DayOfWeek } };
+                    ? new Dictionary<string, object> { { "Value", prop2.Value }, { "DayOfWeek", prop2.DayOfWeek }, { "Numbers", prop2.Numbers } }
+                    : new Dictionary<string, object> { { "value", prop2.Value }, { "dayOfWeek", prop2.DayOfWeek }, { "numbers", prop2.Numbers } };
 
                 var prop3Dictionary = includeUppercase
                     ? new Dictionary<string, object> { { "Value1", prop2Dictionary }, { "Value2", prop1 } }
@@ -142,8 +132,8 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests.Converters
                 var actual = _serializer.SerializeObject(dummyValue);
 
                 var expected = includeUppercase
-                    ? $@"{{""Prop"":{{""Prop1"":{prop1},""Prop2"":{{""Value"":""{prop2.Value}"",""DayOfWeek"":""{prop2.DayOfWeek}""}},""Prop3"":{{""Value1"":{{""Value"":""{prop2.Value}"",""DayOfWeek"":""{prop2.DayOfWeek}""}},""Value2"":{prop1}}}}}}}"
-                    : $@"{{""prop"":{{""prop1"":{prop1},""prop2"":{{""value"":""{prop2.Value}"",""dayOfWeek"":""{prop2.DayOfWeek}""}},""prop3"":{{""value1"":{{""value"":""{prop2.Value}"",""dayOfWeek"":""{prop2.DayOfWeek}""}},""value2"":{prop1}}}}}}}";
+                    ? $@"{{""Prop"":{{""Prop1"":{prop1},""Prop2"":{{""Value"":""{prop2.Value}"",""DayOfWeek"":""{prop2.DayOfWeek}"",""Numbers"":[{string.Join(',', prop2.Numbers)}]}},""Prop3"":{{""Value1"":{{""Value"":""{prop2.Value}"",""DayOfWeek"":""{prop2.DayOfWeek}"",""Numbers"":[{string.Join(',', prop2.Numbers)}]}},""Value2"":{prop1}}}}}}}"
+                    : $@"{{""prop"":{{""prop1"":{prop1},""prop2"":{{""value"":""{prop2.Value}"",""dayOfWeek"":""{prop2.DayOfWeek}"",""numbers"":[{string.Join(',', prop2.Numbers)}]}},""prop3"":{{""value1"":{{""value"":""{prop2.Value}"",""dayOfWeek"":""{prop2.DayOfWeek}"",""numbers"":[{string.Join(',', prop2.Numbers)}]}},""value2"":{prop1}}}}}}}";
 
                 actual.Should().Be(expected);
             }

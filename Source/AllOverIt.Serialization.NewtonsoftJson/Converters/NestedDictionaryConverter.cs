@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using AllOverIt.Extensions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using AllOverIt.Extensions;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace AllOverIt.Serialization.NewtonsoftJson.Converters
@@ -33,14 +34,6 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
 
         private object ReadValue(JsonReader reader)
         {
-            while (reader.TokenType == JsonToken.Comment)
-            {
-                if (!reader.Read())
-                {
-                    throw CreateReadJsonSerializationException();
-                }
-            }
-
             return reader.TokenType switch
             {
                 JsonToken.StartObject => ReadObject(reader),
@@ -61,9 +54,6 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
             {
                 switch (reader.TokenType)
                 {
-                    case JsonToken.Comment:
-                        break;
-
                     case JsonToken.EndArray:
                         return list;
 
@@ -85,13 +75,10 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
             {
                 switch (reader.TokenType)
                 {
-                    case JsonToken.Comment:
-                        break;
-
                     case JsonToken.PropertyName:
                         var propertyName = $"{reader.Value}";
 
-                        if (propertyName.IsNullOrEmpty() || !reader.Read())
+                        if (!reader.Read())
                         {
                             throw CreateReadJsonSerializationException();
                         }
@@ -156,9 +143,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
         {
             writer.WriteStartArray();
 
-            var array = value as IEnumerable<object>;
-
-            foreach (var element in array!)
+            foreach (var element in value.GetObjectElements())
             {
                 WriteValue(writer, element, serializer);
             }
@@ -166,6 +151,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
             writer.WriteEndArray();
         }
 
+        [ExcludeFromCodeCoverage]
         private static Exception CreateReadJsonSerializationException(JsonToken? tokenType = default)
         {
             var message = tokenType.HasValue
