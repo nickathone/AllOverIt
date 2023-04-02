@@ -189,7 +189,7 @@ namespace AllOverIt.Mapping
                 .MakeGenericType(targetKvpType)
                 .GetMethod("Add", new[] { targetKvpType });                             // TODO: ? worth caching this
 
-            var sourceElements = GetSourceElements(sourceValue);
+            var sourceElements = sourceValue.GetObjectElements();
 
             foreach (var sourceElement in sourceElements)
             {
@@ -221,7 +221,7 @@ namespace AllOverIt.Mapping
 
             var (listType, listInstance) = CreateTypedList(targetPropertyType, targetElementType);
 
-            var sourceElements = GetSourceElements(sourceValue);
+            var sourceElements = sourceValue.GetObjectElements();
 
             foreach (var sourceElement in sourceElements)
             {
@@ -313,16 +313,6 @@ namespace AllOverIt.Mapping
             }
 
             return sourceValue;
-        }
-
-        private static IEnumerable<object> GetSourceElements(object sourceElements)
-        {
-            var sourceItemsIterator = ((IEnumerable) sourceElements).GetEnumerator();
-
-            while (sourceItemsIterator.MoveNext())
-            {
-                yield return sourceItemsIterator.Current;
-            }
         }
 
         private (object Instance, Type KvpType) CreateDictionary(Type targetPropertyType)

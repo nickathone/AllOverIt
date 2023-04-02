@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Extensions;
 using AllOverIt.Fixture;
+using AllOverIt.Fixture.Extensions;
 using AllOverIt.Formatters.Exceptions;
 using AllOverIt.Formatters.Objects;
 using AllOverIt.Patterns.Enumeration;
@@ -2208,6 +2209,21 @@ namespace AllOverIt.Tests.Extensions
                 var actual = dummy.IsEnrichedEnum();
 
                 actual.Should().BeTrue();
+            }
+        }
+
+        public class GetObjectElements : ObjectExtensionsFixture
+        {
+            [Fact]
+            public void Should_Get_Object_Elements()
+            {
+                var expected = CreateMany<int>();
+
+                var actual = ObjectExtensions
+                    .GetObjectElements((object)expected)
+                    .Cast<int>();
+
+                actual.Should().ContainInOrder(expected);
             }
         }
 

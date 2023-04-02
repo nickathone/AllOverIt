@@ -3,6 +3,7 @@ using AllOverIt.Formatters.Objects;
 using AllOverIt.Helpers;
 using AllOverIt.Reflection;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -426,6 +427,19 @@ namespace AllOverIt.Extensions
         public static bool IsEnrichedEnum(this object @object)
         {
             return @object.GetType().IsEnrichedEnum();
+        }
+
+        /// <summary>Treats the provided object as an <see cref="IEnumerable{object}"/> so it can be enumerated.</summary>
+        /// <param name="@object">The object to treat as an <see cref="IEnumerable{object}"/> so it can be enumerated.</param>
+        /// <returns>The object's elements.</returns>
+        public static IEnumerable<object> GetObjectElements(this object @object)
+        {
+            var objectIterator = ((IEnumerable) @object).GetEnumerator();
+
+            while (objectIterator.MoveNext())
+            {
+                yield return objectIterator.Current;
+            }
         }
 
         private static PropertyInfo GetPropertyInfo(Type instanceType, string propertyName, BindingFlags bindingFlags)
