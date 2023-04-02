@@ -82,6 +82,11 @@ namespace AllOverIt.Serialization.SystemTextJson
 
         private void ApplyOptionSupportEnrichedEnums(JsonSerializerConfiguration configuration)
         {
+            if (!configuration.SupportEnrichedEnums.HasValue)
+            {
+                return;
+            }
+
             var enrichedEnumConverterFactory = Options.Converters.SingleOrDefault(item => item.GetType() == typeof(EnrichedEnumJsonConverterFactory));
 
             if (configuration.SupportEnrichedEnums.Value)

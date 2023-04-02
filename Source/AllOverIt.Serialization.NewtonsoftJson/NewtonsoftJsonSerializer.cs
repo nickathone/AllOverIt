@@ -98,6 +98,11 @@ namespace AllOverIt.Serialization.NewtonsoftJson
 
         private void ApplyOptionSupportEnrichedEnums(JsonSerializerConfiguration configuration)
         {
+            if (!configuration.SupportEnrichedEnums.HasValue)
+            {
+                return;
+            }
+
             var enrichedEnumConverterFactory = Settings.Converters.SingleOrDefault(item => item.GetType() == typeof(EnrichedEnumJsonConverterFactory));
 
             if (configuration.SupportEnrichedEnums.Value)
