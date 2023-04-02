@@ -29,7 +29,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
         {
             if (reader.TokenType != JsonTokenType.StartObject)
             {
-                throw CreateReadJsonSerializationException(reader.TokenType);
+                throw CreateJsonSerializationException(reader.TokenType);
             }
 
             var dictionary = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
@@ -43,7 +43,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
 
                         if (!reader.Read())
                         {
-                            throw CreateReadJsonSerializationException(reader.TokenType);
+                            throw CreateJsonSerializationException(reader.TokenType);
                         }
 
                         var value = ReadValue(ref reader, options);
@@ -89,7 +89,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
                 JsonTokenType.True => true,
                 JsonTokenType.False => false,
                 JsonTokenType.Null => null,
-                _ => throw CreateReadJsonSerializationException(reader.TokenType)
+                _ => throw CreateJsonSerializationException(reader.TokenType)
             };
         }
 
@@ -195,13 +195,9 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
             }
         }
 
-        private static Exception CreateReadJsonSerializationException(JsonTokenType? tokenType = default)
+        private static Exception CreateJsonSerializationException(JsonTokenType tokenType)
         {
-            var message = tokenType.HasValue
-                ? $"Unexpected token '{tokenType}' when converting {DictionaryType.GetFriendlyName()}."
-                : $"Unexpected error when converting {DictionaryType.GetFriendlyName()}.";
-
-            return new JsonException(message);
+            return new JsonException($"Unexpected token '{tokenType}' when converting {DictionaryType.GetFriendlyName()}.");
         }
     }
 }

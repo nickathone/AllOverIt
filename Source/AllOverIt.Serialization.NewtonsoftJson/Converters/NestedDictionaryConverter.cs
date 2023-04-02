@@ -42,7 +42,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
                 JsonToken.Integer or JsonToken.Float or JsonToken.String or JsonToken.Boolean or
                 JsonToken.Undefined or JsonToken.Null or JsonToken.Date or JsonToken.Bytes => reader.Value,
 
-                _ => throw CreateReadJsonSerializationException(reader.TokenType)
+                _ => throw CreateJsonSerializationException(reader.TokenType)
             };
         }
 
@@ -64,7 +64,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
                 }
             }
 
-            throw CreateReadJsonSerializationException();
+            throw CreateJsonSerializationException();
         }
 
         private object ReadObject(JsonReader reader)
@@ -80,7 +80,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
 
                         if (!reader.Read())
                         {
-                            throw CreateReadJsonSerializationException();
+                            throw CreateJsonSerializationException();
                         }
 
                         var value = ReadValue(reader);
@@ -92,7 +92,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
                 }
             }
 
-            throw CreateReadJsonSerializationException();
+            throw CreateJsonSerializationException();
         }
 
         private void WriteValue(JsonWriter writer, object value, JsonSerializer serializer)
@@ -160,7 +160,7 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
         }
 
         [ExcludeFromCodeCoverage]
-        private static Exception CreateReadJsonSerializationException(JsonToken? tokenType = default)
+        private static Exception CreateJsonSerializationException(JsonToken? tokenType = default)
         {
             var message = tokenType.HasValue
                 ? $"Unexpected token '{tokenType}' when converting {DictionaryType.GetFriendlyName()}."
