@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Serialization.Abstractions;
 using AllOverIt.Serialization.Abstractions.Exceptions;
+using AllOverIt.Serialization.NewtonsoftJson.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.IO;
@@ -8,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AllOverIt.Serialization.NewtonsoftJson.Converters;
 
 namespace AllOverIt.Serialization.NewtonsoftJson
 {
@@ -98,11 +98,6 @@ namespace AllOverIt.Serialization.NewtonsoftJson
 
         private void ApplyOptionSupportEnrichedEnums(JsonSerializerConfiguration configuration)
         {
-            if (!configuration.SupportEnrichedEnums.HasValue)
-            {
-                return;
-            }
-
             var enrichedEnumConverterFactory = Settings.Converters.SingleOrDefault(item => item.GetType() == typeof(EnrichedEnumJsonConverterFactory));
 
             if (configuration.SupportEnrichedEnums.Value)

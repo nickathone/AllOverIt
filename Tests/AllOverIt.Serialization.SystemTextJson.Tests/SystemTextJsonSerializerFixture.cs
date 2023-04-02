@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -10,6 +11,7 @@ using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Patterns.Enumeration;
 using AllOverIt.Serialization.Abstractions;
+using AllOverIt.Serialization.SystemTextJson.Converters;
 using FluentAssertions;
 using Xunit;
 
@@ -116,6 +118,45 @@ namespace AllOverIt.Serialization.SystemTextJson.Tests
                 _serializer.Options.PropertyNameCaseInsensitive
                     .Should()
                     .Be(!useCaseSensitive);
+            }
+
+            [Fact]
+            public void Should_Add_Support_Enriched_Enums()
+            {
+                var serializer = new SystemTextJsonSerializer();
+
+                serializer.Configure(new JsonSerializerConfiguration
+                {
+                    SupportEnrichedEnums = true
+                });
+
+                var hasFactory = serializer.Options.Converters.SingleOrDefault(converter => converter.GetType() == typeof(EnrichedEnumJsonConverterFactory));
+
+                hasFactory.Should().NotBeNull();
+            }
+
+            [Fact]
+            public void Should_Remove_Support_Enriched_Enums()
+            {
+                var serializer = new SystemTextJsonSerializer();
+
+                serializer.Configure(new JsonSerializerConfiguration
+                {
+                    SupportEnrichedEnums = true
+                });
+
+                var hasFactory = serializer.Options.Converters.SingleOrDefault(converter => converter.GetType() == typeof(EnrichedEnumJsonConverterFactory));
+
+                hasFactory.Should().NotBeNull();
+
+                serializer.Configure(new JsonSerializerConfiguration
+                {
+                    SupportEnrichedEnums = false
+                });
+
+                hasFactory = serializer.Options.Converters.SingleOrDefault(converter => converter.GetType() == typeof(EnrichedEnumJsonConverterFactory));
+
+                hasFactory.Should().BeNull();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -10,7 +11,6 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
     /// properties are also converted to and from a Dictionary&lt;string, object>.</summary>
     internal sealed class NestedDictionaryConverter : JsonConverter<Dictionary<string, object>>
     {
-        private static readonly Type DictionaryType = typeof(Dictionary<string, object>);
         private readonly NestedDictionaryConverterOptions _options;
 
         public NestedDictionaryConverter()
@@ -55,7 +55,7 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
                 }
             }
 
-            return dictionary;
+            throw CreateJsonSerializationException();
         }
 
         /// <inheritdoc />
@@ -195,9 +195,14 @@ namespace AllOverIt.Serialization.SystemTextJson.Converters
             }
         }
 
-        private static Exception CreateJsonSerializationException(JsonTokenType tokenType)
+        [ExcludeFromCodeCoverage]
+        private static Exception CreateJsonSerializationException(JsonTokenType? tokenType = default)
         {
-            return new JsonException($"Unexpected token '{tokenType}' when converting {DictionaryType.GetFriendlyName()}.");
+            var message = tokenType.HasValue
+                ? $"Unexpected token '{tokenType}' while {nameof(NestedDictionaryConverter)} was reading."
+                : $"Unexpected error while {nameof(NestedDictionaryConverter)} was reading.";
+
+            return new JsonException(message);
         }
     }
 }

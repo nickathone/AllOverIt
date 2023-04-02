@@ -163,8 +163,8 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Converters
         private static Exception CreateJsonSerializationException(JsonToken? tokenType = default)
         {
             var message = tokenType.HasValue
-                ? $"Unexpected token '{tokenType}' when converting {DictionaryType.GetFriendlyName()}."
-                : $"Unexpected error when converting {DictionaryType.GetFriendlyName()}.";
+                ? $"Unexpected token '{tokenType}' while {nameof(NestedDictionaryConverter)} was reading."
+                : $"Unexpected error while {nameof(NestedDictionaryConverter)} was reading.";
 
             return new JsonSerializationException(message);
         }

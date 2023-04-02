@@ -3,11 +3,13 @@ using AllOverIt.Fixture.Extensions;
 using AllOverIt.Patterns.Enumeration;
 using AllOverIt.Serialization.Abstractions;
 using AllOverIt.Serialization.Abstractions.Exceptions;
+using AllOverIt.Serialization.NewtonsoftJson.Converters;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -118,6 +120,43 @@ namespace AllOverIt.Serialization.NewtonsoftJson.Tests
                     .Should()
                     .Throw<SerializerConfigurationException>()
                     .WithMessage("Newtonsoft requires a custom converter to support case sensitivity.");
+            }
+
+            [Fact]
+            public void Should_Add_Support_Enriched_Enums()
+            {
+                _serializer.Configure(new JsonSerializerConfiguration
+                {
+                    SupportEnrichedEnums = true
+                });
+
+                var hasFactory = _serializer.Settings.Converters.SingleOrDefault(converter => converter.GetType() == typeof(EnrichedEnumJsonConverterFactory));
+
+                hasFactory.Should().NotBeNull();
+            }
+
+            [Fact]
+            public void Should_Remove_Support_Enriched_Enums()
+            {
+                var serializer = new NewtonsoftJsonSerializer();
+
+                serializer.Configure(new JsonSerializerConfiguration
+                {
+                    SupportEnrichedEnums = true
+                });
+
+                var hasFactory = serializer.Settings.Converters.SingleOrDefault(converter => converter.GetType() == typeof(EnrichedEnumJsonConverterFactory));
+
+                hasFactory.Should().NotBeNull();
+
+                serializer.Configure(new JsonSerializerConfiguration
+                {
+                    SupportEnrichedEnums = false
+                });
+
+                hasFactory = serializer.Settings.Converters.SingleOrDefault(converter => converter.GetType() == typeof(EnrichedEnumJsonConverterFactory));
+
+                hasFactory.Should().BeNull();
             }
         }
 
