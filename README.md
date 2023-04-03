@@ -227,6 +227,21 @@ Provides the ability to quickly create console applications that support depende
 | net7.0         |    Yes    |
 
 
+# AllOverIt.Mapping
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Mapping?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Mapping/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Mapping?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Mapping/)
+
+Provides an object mapper that is configuration free in many cases.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
 # AllOverIt.Pagination
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Pagination/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Pagination/)

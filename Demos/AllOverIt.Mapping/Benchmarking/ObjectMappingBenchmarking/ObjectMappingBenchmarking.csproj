@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Source\AllOverIt\AllOverIt.csproj" />
+        <ProjectReference Include="..\..\..\..\Source\AllOverIt.Mapping\AllOverIt.Mapping.csproj" />
     </ItemGroup>
 
 </Project>

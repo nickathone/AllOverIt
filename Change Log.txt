@@ -67,6 +67,9 @@ AllOverIt.Validation
 AllOverIt.Validation.Options - New Package
   * Add config options validation using FluentValidation and AllOverIt.Validation
 
+AllOverIt.Mapping - New Package
+  * Moved mapping from AllOverIt into its own package
+
 
 02 Feb 2023
 Version 6.3.0
