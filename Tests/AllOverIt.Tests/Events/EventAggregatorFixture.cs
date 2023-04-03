@@ -172,34 +172,36 @@ namespace AllOverIt.Tests.Events
 
         public class Subscribe_Action : EventAggregatorFixture
         {
-            // TODO: weak references are not behaving in unit tests
-            //[Fact]
-            //public void Should_Weak_Subscribe_To_Handler()
-            //{
-            //  var aggregator = new EventAggregator();
-
-            //  var handler = new Handler();
-            //  aggregator.Subscribe<DummyEvent>(handler.HandleEvent);
-
-            //  handler = null;
-
-            //  GC.Collect();
-            //  GC.Collect();
-
-            //  var message = new DummyEvent { Input = Create<int>() };
-
-            //  aggregator.Publish(message);
-
-            //  message.Output.Should().Be(0);
-            //}
-
             [Fact]
-            public void Should_Subscribe_To_Handler()
+            public async Task Should_Weak_Subscribe_To_Handler()
             {
                 var aggregator = new EventAggregator();
 
                 var handler = new Handler();
                 aggregator.Subscribe<DummyEvent>(handler.HandleEvent);
+
+                handler = null;
+
+                await Task.Delay(100);
+
+                GC.Collect();
+
+                var message = new DummyEvent { Input = Create<int>() };
+
+                aggregator.Publish(message);
+
+                message.Output.Should().Be(0);
+            }
+
+            [Theory]
+            [InlineData(false)]
+            [InlineData(true)]
+            public void Should_Subscribe_To_Handler(bool weakSubscription)
+            {
+                var aggregator = new EventAggregator();
+
+                var handler = new Handler();
+                aggregator.Subscribe<DummyEvent>(handler.HandleEvent, weakSubscription);
 
                 var message = new DummyEvent { Input = Create<int>() };
 
@@ -211,34 +213,36 @@ namespace AllOverIt.Tests.Events
 
         public class Subscribe_Func_Task : EventAggregatorFixture
         {
-            // TODO: weak references are not behaving in unit tests
-            //[Fact]
-            //public async Task Should_Weak_Subscribe_To_Handler()
-            //{
-            //  var aggregator = new EventAggregator();
-
-            //  var handler = new HandlerAsync();
-            //  aggregator.Subscribe<DummyEvent>(handler.HandleEventAsync);
-
-            //  handler = null;
-
-            //  GC.Collect();
-            //  GC.Collect();
-
-            //  var message = new DummyEvent { Input = Create<int>() };
-
-            //  await aggregator.PublishAsync(message);
-
-            //  message.Output.Should().Be(0);
-            //}
-
             [Fact]
-            public async Task Should_Subscribe_To_Handler()
+            public async Task Should_Weak_Subscribe_To_Handler()
             {
                 var aggregator = new EventAggregator();
 
                 var handler = new HandlerAsync();
                 aggregator.Subscribe<DummyEvent>(handler.HandleEventAsync);
+
+                handler = null;
+
+                await Task.Delay(100);
+
+                GC.Collect();
+
+                var message = new DummyEvent { Input = Create<int>() };
+
+                await aggregator.PublishAsync(message);
+
+                message.Output.Should().Be(0);
+            }
+
+            [Theory]
+            [InlineData(false)]
+            [InlineData(true)]
+            public async Task Should_Subscribe_To_Handler(bool weakSubscription)
+            {
+                var aggregator = new EventAggregator();
+
+                var handler = new HandlerAsync();
+                aggregator.Subscribe<DummyEvent>(handler.HandleEventAsync, weakSubscription);
 
                 var message = new DummyEvent { Input = Create<int>() };
 

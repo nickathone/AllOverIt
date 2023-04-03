@@ -10,6 +10,25 @@ namespace AllOverIt.Tests.Events
 {
     public class WeakSubscriptionFixture : FixtureBase
     {
+        private class HandlerDummy
+        {
+            public static int ActualValue { get; set; }
+
+            public void Handler(int value)
+            {
+            }
+
+            public static void StaticHandler(int value)
+            {
+                ActualValue = value;
+            }
+
+            public static HandlerDummy Create()
+            {
+                return new HandlerDummy();
+            }
+        }
+
         public class Constructor : WeakSubscriptionFixture
         {
             [Fact]
@@ -24,25 +43,6 @@ namespace AllOverIt.Tests.Events
 
         public class GetHandler : WeakSubscriptionFixture
         {
-            private class HandlerDummy
-            {
-                public static int ActualValue { get; set; }
-
-                public void Handler(int value)
-                {
-                }
-
-                public static void StaticHandler(int value)
-                {
-                    ActualValue = value;
-                }
-
-                public static HandlerDummy Create()
-                {
-                    return new HandlerDummy();
-                }
-            }
-
             [Fact]
             public void Should_Get_Handler()
             {
@@ -119,6 +119,48 @@ namespace AllOverIt.Tests.Events
                 subscription.Handle(expected);
 
                 actual.Should().Be(expected);
+            }
+
+            [Fact]
+            public void Should_Throw_When_Handler_Is_Different_Type()
+            {
+                Invoking(() =>
+                {
+                    Action<int> handler = value =>
+                    {
+                    };
+
+                    var subscription = new WeakSubscription(handler);
+
+                    subscription.Handle(string.Empty);
+                })
+                .Should()
+                .Throw<InvalidCastException>();
+            }
+
+            [Fact]
+            public async Task Should_Not_Throw_When_Handler_Disposed()
+            {
+                var handler = HandlerDummy.Create().Handler;
+
+                var subscription = new WeakSubscription(handler);
+
+                handler = null;
+
+                await Task.Delay(100);
+
+                GC.Collect();
+
+                var value = Create<int>();
+
+                Invoking(() =>
+                {
+                    // We cannot assert the handler is not invoked because it is null.
+                    // Other tests for GetHandler() prove the handler is returned as null.
+                    subscription.Handle<int>(value);
+                })
+                .Should()
+                .NotThrow();
             }
         }
     }
