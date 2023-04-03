@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace AllOverIt.Serialization.JsonHelper.Extensions
 {
-    // TODO: Currently tested indirectly via JsonHelper (SystemTextJson and NewtonsoftJson) - consider writing similar explicit tests for these extensions.
+    // Note: Tested indirectly via JsonHelper (SystemTextJson and NewtonsoftJson) - consider writing similar explicit tests for these extensions.
 
     /// <summary>Provides extension methods for <see cref="IElementDictionary"/>.</summary>
     public static class ElementDictionaryExtensions

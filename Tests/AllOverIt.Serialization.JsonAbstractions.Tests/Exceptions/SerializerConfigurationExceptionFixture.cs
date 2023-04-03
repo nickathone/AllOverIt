@@ -1,9 +1,9 @@
 ﻿using AllOverIt.Fixture;
-using AllOverIt.Serialization.Abstractions.Exceptions;
+using AllOverIt.Serialization.JsonAbstractions.Exceptions;
 using AllOverIt.Tests.Helpers;
 using Xunit;
 
-namespace AllOverIt.Serialization.Abstractions.Tests.Exceptions
+namespace AllOverIt.Serialization.JsonAbstractions.Tests.Exceptions
 {
     public class SerializerConfigurationExceptionFixture : FixtureBase
     {

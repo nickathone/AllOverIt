@@ -1,5 +1,5 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Serialization.Abstractions;
+using AllOverIt.Serialization.JsonAbstractions;
 using AllOverIt.Serialization.SystemTextJson.Converters;
 using System.IO;
 using System.Linq;

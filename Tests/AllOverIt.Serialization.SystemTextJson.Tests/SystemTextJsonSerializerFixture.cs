@@ -1,3 +1,9 @@
+using AllOverIt.Fixture;
+using AllOverIt.Fixture.Extensions;
+using AllOverIt.Patterns.Enumeration;
+using AllOverIt.Serialization.JsonAbstractions;
+using AllOverIt.Serialization.SystemTextJson.Converters;
+using FluentAssertions;
 using System;
 using System.IO;
 using System.Linq;
@@ -7,12 +13,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using AllOverIt.Fixture;
-using AllOverIt.Fixture.Extensions;
-using AllOverIt.Patterns.Enumeration;
-using AllOverIt.Serialization.Abstractions;
-using AllOverIt.Serialization.SystemTextJson.Converters;
-using FluentAssertions;
 using Xunit;
 
 namespace AllOverIt.Serialization.SystemTextJson.Tests

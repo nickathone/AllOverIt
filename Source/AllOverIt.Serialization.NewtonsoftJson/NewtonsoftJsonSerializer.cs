@@ -1,6 +1,6 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Serialization.Abstractions;
-using AllOverIt.Serialization.Abstractions.Exceptions;
+using AllOverIt.Serialization.JsonAbstractions;
+using AllOverIt.Serialization.JsonAbstractions.Exceptions;
 using AllOverIt.Serialization.NewtonsoftJson.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

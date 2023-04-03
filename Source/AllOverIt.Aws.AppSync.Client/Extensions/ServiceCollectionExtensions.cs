@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Aws.AppSync.Client.Configuration;
+using AllOverIt.Serialization.JsonAbstractions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using AllOverIt.Serialization.Abstractions;
 using System.Net.Http;
 
 namespace AllOverIt.Aws.AppSync.Client.Extensions

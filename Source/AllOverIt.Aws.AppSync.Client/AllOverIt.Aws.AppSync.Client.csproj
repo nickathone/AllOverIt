@@ -9,7 +9,7 @@
     
     <ItemGroup>
         <ProjectReference Include="..\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
-        <ProjectReference Include="..\AllOverIt.Serialization.Abstractions\AllOverIt.Serialization.Abstractions.csproj" />
+        <ProjectReference Include="..\AllOverIt.Serialization.JsonAbstractions\AllOverIt.Serialization.JsonAbstractions.csproj" />
         <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
     </ItemGroup>
 

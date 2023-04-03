@@ -1,8 +1,8 @@
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Patterns.Enumeration;
-using AllOverIt.Serialization.Abstractions;
-using AllOverIt.Serialization.Abstractions.Exceptions;
+using AllOverIt.Serialization.JsonAbstractions;
+using AllOverIt.Serialization.JsonAbstractions.Exceptions;
 using AllOverIt.Serialization.NewtonsoftJson.Converters;
 using FluentAssertions;
 using Newtonsoft.Json;

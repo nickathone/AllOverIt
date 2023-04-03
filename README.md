@@ -302,11 +302,11 @@ Provides utility extensions for use with ReactiveUI.
 | net7.0         |    Yes    |
 
 
-# AllOverIt.Serialization
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization/)
+# AllOverIt.Serialization.JsonHelper
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.JsonHelper?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.JsonHelper/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.JsonHelper?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.JsonHelper/)
 
-Provides common serialization helpers.
+Provides helpers that provide the ability to extract values from a JSON string or anonymous object.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -317,9 +317,9 @@ Provides common serialization helpers.
 | net7.0         |    Yes    |
 
 
-# AllOverIt.Serialization.Abstractions
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.Abstractions?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Abstractions/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.Abstractions?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Abstractions/)
+# AllOverIt.Serialization.JsonAbstractions
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.JsonAbstractions?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.JsonAbstractions/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.JsonAbstractions?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.JsonAbstractions/)
 
 Provides abstractions for JSON serialization.
 
@@ -336,7 +336,7 @@ Provides abstractions for JSON serialization.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.NewtonSoftJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.NewtonSoftJson/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.NewtonSoftJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.NewtonSoftJson/)
 
-A JSON serialization wrapper around NewtsonSoft.Json (an implementation for AllOverIt.Serialization.Abstractions).
+A JSON serialization wrapper around NewtsonSoft.Json (an implementation for AllOverIt.Serialization.JsonAbstractions).
 
 | Target         | Supported |
 |----------------|-----------|
@@ -351,7 +351,7 @@ A JSON serialization wrapper around NewtsonSoft.Json (an implementation for AllO
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.SystemTextJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.SystemTextJson/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.SystemTextJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.SystemTextJson/)
 
-A JSON serialization wrapper around System.Text.Json (an implementation for AllOverIt.Serialization.Abstractions).
+A JSON serialization wrapper around System.Text.Json (an implementation for AllOverIt.Serialization.JsonAbstractions).
 
 | Target         | Supported |
 |----------------|-----------|

@@ -7,7 +7,7 @@ using AllOverIt.Aws.AppSync.Client.Response;
 using AllOverIt.Aws.AppSync.Client.Subscription;
 using AllOverIt.Extensions;
 using AllOverIt.GenericHost;
-using AllOverIt.Serialization.Abstractions;
+using AllOverIt.Serialization.JsonAbstractions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

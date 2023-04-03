@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AllOverIt.Serialization.Abstractions
+namespace AllOverIt.Serialization.JsonAbstractions
 {
     /// <summary>Represents a JSON serializer and deserializer.</summary>
     public interface IJsonSerializer

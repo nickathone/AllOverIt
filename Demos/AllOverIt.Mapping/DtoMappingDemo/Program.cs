@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Extensions;
 using AllOverIt.Mapping;
 using AllOverIt.Reflection;
-using AllOverIt.Serialization.Abstractions;
+using AllOverIt.Serialization.JsonAbstractions;
 using AllOverIt.Serialization.SystemTextJson;
 using System;
 using System.Collections.Generic;

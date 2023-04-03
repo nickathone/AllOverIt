@@ -1,4 +1,4 @@
-﻿using AllOverIt.Serialization.Abstractions;
+﻿using AllOverIt.Serialization.JsonAbstractions;
 using AllOverIt.Serialization.JsonHelper;
 using AllOverIt.Serialization.SystemTextJson.Converters;
 using System;

@@ -15,7 +15,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Source\AllOverIt.Fixture\AllOverIt.Fixture.csproj" />
-        <ProjectReference Include="..\..\Source\AllOverIt.Serialization\AllOverIt.Serialization.csproj" />
+        <ProjectReference Include="..\..\Source\AllOverIt.Serialization.JsonHelper\AllOverIt.Serialization.JsonHelper.csproj" />
         <ProjectReference Include="..\AllOverIt.Tests.Helpers\AllOverIt.Tests.Helpers.csproj" />
     </ItemGroup>
 

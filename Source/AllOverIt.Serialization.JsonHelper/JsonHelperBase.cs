@@ -1,12 +1,12 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Serialization.Abstractions;
+using AllOverIt.Extensions;
+using AllOverIt.Serialization.JsonAbstractions;
 using AllOverIt.Serialization.JsonHelper.Extensions;
 using System.Collections.Generic;
-using AllOverIt.Extensions;
 
 namespace AllOverIt.Serialization.JsonHelper
 {
-    // TODO: Currently tested indirectly via JsonHelper (SystemTextJson and NewtonsoftJson)
+    // Note: Tested indirectly via JsonHelper (SystemTextJson and NewtonsoftJson)
 
     /// <summary>Provides functionality to extract values from a JSON string or anonymous object.</summary>
     public abstract class JsonHelperBase

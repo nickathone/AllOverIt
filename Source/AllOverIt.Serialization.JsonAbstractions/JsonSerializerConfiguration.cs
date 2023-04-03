@@ -1,4 +1,4 @@
-﻿namespace AllOverIt.Serialization.Abstractions
+﻿namespace AllOverIt.Serialization.JsonAbstractions
 {
     /// <summary>Provides configuration options to apply to a <see cref="IJsonSerializer"/>.</summary>
     public sealed class JsonSerializerConfiguration

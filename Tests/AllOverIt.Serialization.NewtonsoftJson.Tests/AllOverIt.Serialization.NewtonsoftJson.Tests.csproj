@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Source\AllOverIt.Serialization.JsonAbstractions\AllOverIt.Serialization.JsonAbstractions.csproj" />
         <ProjectReference Include="..\..\Source\AllOverIt.Serialization.NewtonsoftJson\AllOverIt.Serialization.NewtonsoftJson.csproj" />
         <ProjectReference Include="..\..\Source\AllOverIt.Fixture\AllOverIt.Fixture.csproj" />
     </ItemGroup>

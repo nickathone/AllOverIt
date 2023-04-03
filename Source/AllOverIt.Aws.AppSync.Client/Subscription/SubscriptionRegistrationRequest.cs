@@ -1,6 +1,6 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Aws.AppSync.Client.Response;
-using AllOverIt.Serialization.Abstractions;
+using AllOverIt.Serialization.JsonAbstractions;
 using System;
 
 namespace AllOverIt.Aws.AppSync.Client.Subscription
