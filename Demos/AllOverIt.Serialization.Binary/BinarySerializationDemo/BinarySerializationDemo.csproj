@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Source\AllOverIt\AllOverIt.csproj" />
+        <ProjectReference Include="..\..\..\Source\AllOverIt.Serialization.Binary\AllOverIt.Serialization.Binary.csproj" />
     </ItemGroup>
 
 </Project>

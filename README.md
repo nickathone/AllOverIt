@@ -347,6 +347,21 @@ A JSON serialization wrapper around NewtsonSoft.Json (an implementation for AllO
 | net7.0         |    Yes    |
 
 
+# AllOverIt.Serialization.Binary
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.Binary?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Binary/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.Binary?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Binary/)
+
+Provides support for binary serialization.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
 # AllOverIt.Serialization.SystemTextJson
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.SystemTextJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.SystemTextJson/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.SystemTextJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.SystemTextJson/)

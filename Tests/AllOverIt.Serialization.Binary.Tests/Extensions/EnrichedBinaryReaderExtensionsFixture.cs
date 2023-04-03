@@ -1,5 +1,4 @@
-﻿using AllOverIt.Extensions;
-using AllOverIt.Fixture;
+﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Serialization.Binary;

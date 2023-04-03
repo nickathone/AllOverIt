@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\AllOverIt.Serialization.Binary\AllOverIt.Serialization.Binary.csproj" />
         <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
     </ItemGroup>
 
