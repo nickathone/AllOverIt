@@ -47,13 +47,27 @@ namespace AllOverIt.Tests.Extensions
                     .ThrowAsync<OperationCanceledException>();
             }
 
-            [Fact]
-            public async Task Should_Iterate_Collection()
+            [Theory]
+            [InlineData(false)]
+            [InlineData(true)]
+            public async Task Should_Iterate_Collection(bool useCancellationToken)
             {
                 var values = CreateMany<bool>();
                 var expected = values.SelectAsReadOnlyCollection(item => !item);
 
-                var actual = await AsAsyncEnumerable(values).SelectAsync(item => Task.FromResult(!item)).ToListAsync();
+                IList<bool> actual;
+
+                if (useCancellationToken)
+                {
+                    using (var cts = new CancellationTokenSource())
+                    {
+                        actual = await AsAsyncEnumerable(values).SelectAsync(item => Task.FromResult(!item), cts.Token).ToListAsync();
+                    }
+                }
+                else
+                {
+                    actual = await AsAsyncEnumerable(values).SelectAsync(item => Task.FromResult(!item)).ToListAsync();
+                }
 
                 expected.Should().BeEquivalentTo(actual);
             }
