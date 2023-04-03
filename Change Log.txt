@@ -22,6 +22,9 @@ AllOverIt
   * Updated mapping to support ArrayList
   * Added object extension GetObjectElements()
 
+AllOverIt.Aws.Cdk.Appsync
+  * Updated to Amazon.CDK.AWS.AppSync v1.198.1
+
 AllOverIt.AutoFixture
   * Updated AutoFixture v4.18.0
 
