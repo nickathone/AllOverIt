@@ -39,9 +39,9 @@ namespace AllOverIt.Reflection
 
             var instance = Expression.Parameter(typeof(TType), "item");
 
-            var field = typeof(TType) != fieldInfo.DeclaringType
-                ? Expression.Field(Expression.TypeAs(instance, fieldInfo.DeclaringType), fieldInfo)
-                : Expression.Field(instance, fieldInfo);
+            var field = typeof(TType) == fieldInfo.DeclaringType
+                ? Expression.Field(instance, fieldInfo)
+                : Expression.Field(Expression.TypeAs(instance, fieldInfo.DeclaringType), fieldInfo);
 
             var convertField = Expression.TypeAs(field, typeof(object));
 
