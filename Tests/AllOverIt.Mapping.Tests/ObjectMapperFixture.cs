@@ -1,7 +1,6 @@
 ﻿using AllOverIt.Extensions;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
-using AllOverIt.Mapping;
 using AllOverIt.Mapping.Exceptions;
 using AllOverIt.Mapping.Extensions;
 using AllOverIt.Reflection;
@@ -13,9 +12,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using static AllOverIt.Tests.Mapping.ObjectMapperTypes;
 
-namespace AllOverIt.Tests.Mapping
+using static AllOverIt.Mapping.Tests.ObjectMapperTypes;
+
+namespace AllOverIt.Mapping.Tests
 {
     public class ObjectMapperFixture : FixtureBase
     {
@@ -125,7 +125,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Invoking(() =>
                 {
-                    _ = new ObjectMapper((Action<ObjectMapperOptions>) null, configuration => { });
+                    _ = new ObjectMapper(null, configuration => { });
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -137,7 +137,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Invoking(() =>
                 {
-                    _ = new ObjectMapper(options => { }, (Action<ObjectMapperConfiguration>) null);
+                    _ = new ObjectMapper(options => { }, null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -717,7 +717,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var actual = mapper.Map<DummyRootParentTarget>(source);
 
-                actual.RootB.Prop1.Should().Be((double) source.RootB.Prop1);
+                actual.RootB.Prop1.Should().Be( source.RootB.Prop1);
             }
 
             [Fact]
@@ -745,44 +745,44 @@ namespace AllOverIt.Tests.Mapping
                 {
                     RootA = new
                     {
-                        Prop1 = source.RootA.Prop1,
+                        source.RootA.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootA.Prop2a.Prop2,
-                            Prop3 = source.RootA.Prop2a.Prop3
+                            source.RootA.Prop2a.Prop2,
+                            source.RootA.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootA.Prop2b.Prop2,
-                            Prop3 = source.RootA.Prop2b.Prop3
+                            source.RootA.Prop2b.Prop2,
+                            source.RootA.Prop2b.Prop3
                         }
                     },
                     RootB = new
                     {
-                        Prop1 = source.RootB.Prop1,
+                        source.RootB.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootB.Prop2a.Prop2,
-                            Prop3 = source.RootB.Prop2a.Prop3
+                            source.RootB.Prop2a.Prop2,
+                            source.RootB.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootB.Prop2b.Prop2,
-                            Prop3 = source.RootB.Prop2b.Prop3
+                            source.RootB.Prop2b.Prop2,
+                            source.RootB.Prop2b.Prop3
                         }
                     },
                     RootC = new
                     {
-                        Prop1 = source.RootC.Prop1,
+                        source.RootC.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootC.Prop2a.Prop2,
-                            Prop3 = source.RootC.Prop2a.Prop3
+                            source.RootC.Prop2a.Prop2,
+                            source.RootC.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootC.Prop2b.Prop2,
-                            Prop3 = source.RootC.Prop2b.Prop3
+                            source.RootC.Prop2b.Prop2,
+                            source.RootC.Prop2b.Prop3
                         }
                     }
                 };
@@ -808,44 +808,44 @@ namespace AllOverIt.Tests.Mapping
                 {
                     RootA = new
                     {
-                        Prop1 = source.RootA.Prop1,
+                        source.RootA.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootA.Prop2a.Prop2,
-                            Prop3 = source.RootA.Prop2a.Prop3
+                            source.RootA.Prop2a.Prop2,
+                            source.RootA.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootA.Prop2b.Prop2,
-                            Prop3 = source.RootA.Prop2b.Prop3
+                            source.RootA.Prop2b.Prop2,
+                            source.RootA.Prop2b.Prop3
                         }
                     },
                     RootB = new
                     {
-                        Prop1 = source.RootB.Prop1,
+                        source.RootB.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootB.Prop2a.Prop2,
-                            Prop3 = source.RootB.Prop2a.Prop3
+                            source.RootB.Prop2a.Prop2,
+                            source.RootB.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootB.Prop2b.Prop2,
-                            Prop3 = source.RootB.Prop2b.Prop3
+                            source.RootB.Prop2b.Prop2,
+                            source.RootB.Prop2b.Prop3
                         }
                     },
                     RootC = new
                     {
-                        Prop1 = source.RootC.Prop1,
+                        source.RootC.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootC.Prop2a.Prop2,
-                            Prop3 = source.RootC.Prop2a.Prop3
+                            source.RootC.Prop2a.Prop2,
+                            source.RootC.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootC.Prop2b.Prop2,
-                            Prop3 = source.RootC.Prop2b.Prop3
+                            source.RootC.Prop2b.Prop2,
+                            source.RootC.Prop2b.Prop3
                         }
                     }
                 };
@@ -897,44 +897,44 @@ namespace AllOverIt.Tests.Mapping
                     {
                         RootA = new
                         {
-                            Prop1 = sourceItem.RootA.Prop1,
+                            sourceItem.RootA.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootA.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootA.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootA.Prop2a.Prop2,
+                                sourceItem.RootA.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootA.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootA.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootA.Prop2b.Prop2,
+                                sourceItem.RootA.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         },
                         RootB = new
                         {
-                            Prop1 = sourceItem.RootB.Prop1,
+                            sourceItem.RootB.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootB.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootB.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootB.Prop2a.Prop2,
+                                sourceItem.RootB.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootB.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootB.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootB.Prop2b.Prop2,
+                                sourceItem.RootB.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         },
                         RootC = new
                         {
-                            Prop1 = sourceItem.RootC.Prop1,
+                            sourceItem.RootC.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootC.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootC.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootC.Prop2a.Prop2,
+                                sourceItem.RootC.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootC.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootC.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootC.Prop2b.Prop2,
+                                sourceItem.RootC.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         }
                     };
@@ -992,44 +992,44 @@ namespace AllOverIt.Tests.Mapping
                     {
                         RootA = new
                         {
-                            Prop1 = sourceItem.RootA.Prop1,
+                            sourceItem.RootA.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootA.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootA.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootA.Prop2a.Prop2,
+                                sourceItem.RootA.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootA.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootA.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootA.Prop2b.Prop2,
+                                sourceItem.RootA.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         },
                         RootB = new
                         {
-                            Prop1 = sourceItem.RootB.Prop1,
+                            sourceItem.RootB.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootB.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootB.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootB.Prop2a.Prop2,
+                                sourceItem.RootB.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootB.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootB.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootB.Prop2b.Prop2,
+                                sourceItem.RootB.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         },
                         RootC = new
                         {
-                            Prop1 = sourceItem.RootC.Prop1,
+                            sourceItem.RootC.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootC.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootC.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootC.Prop2a.Prop2,
+                                sourceItem.RootC.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootC.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootC.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootC.Prop2b.Prop2,
+                                sourceItem.RootC.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         }
                     };
@@ -1119,7 +1119,7 @@ namespace AllOverIt.Tests.Mapping
 
                 configuration.Configure<KeyValuePair<string, int>, KeyValuePair<string, double>>(opt =>
                 {
-                    opt.ConstructUsing((mapper, value) => new KeyValuePair<string, double>(value.Key, (double) value.Value));
+                    opt.ConstructUsing((mapper, value) => new KeyValuePair<string, double>(value.Key, value.Value));
                 });
 
                 configuration.Configure<DummyDictionarySource, DummyDictionaryTarget>(opt =>
@@ -1137,7 +1137,7 @@ namespace AllOverIt.Tests.Mapping
                 source.Prop1.Should().BeEquivalentTo(actual.Prop1);
 
                 var expected = source.Prop2
-                    .Select(kvp => new KeyValuePair<string, double>(kvp.Key, (double) kvp.Value))
+                    .Select(kvp => new KeyValuePair<string, double>(kvp.Key, kvp.Value))
                     .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 expected.Should().BeEquivalentTo(actual.Prop2);
@@ -1181,7 +1181,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var mapper = new ObjectMapper(configuration);
 
-                var actual = mapper.Map<DummySource1, DummyTarget>(_source1, _target);
+                var actual = mapper.Map(_source1, _target);
 
                 actual.Should().BeSameAs(_target);
             }
@@ -1194,7 +1194,7 @@ namespace AllOverIt.Tests.Mapping
                 var mapper = new ObjectMapper(configuration);
 
                 // _source2 would fail because it needs a conversion from IReadOnlyCollection to IEnumerable on Prop10
-                Invoking(() => mapper.Map<DummySource1, DummyTarget>(_source1, _target))
+                Invoking(() => mapper.Map(_source1, _target))
                     .Should()
                     .NotThrow();
             }
@@ -1206,7 +1206,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var mapper = new ObjectMapper(configuration);
 
-                var actual = mapper.Map<DummySource1, DummyTarget>(_source1, _target);
+                var actual = mapper.Map(_source1, _target);
 
                 var expected = new
                 {
@@ -1245,7 +1245,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var mapper = new ObjectMapper(configuration);
 
-                var actual = mapper.Map<DummySource2, DummyTarget>(_source2, _target);
+                var actual = mapper.Map(_source2, _target);
 
                 var expected = new
                 {
@@ -1284,7 +1284,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var mapper = new ObjectMapper(configuration);
 
-                var actual = mapper.Map<DummySource2, DummyTarget>(_source2, _target);
+                var actual = mapper.Map(_source2, _target);
 
                 var expected = new
                 {
@@ -1323,7 +1323,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var mapper = new ObjectMapper(configuration);
 
-                var actual = mapper.Map<DummySource2, DummyTarget>(_source2, _target);
+                var actual = mapper.Map(_source2, _target);
 
                 var expected = new
                 {
@@ -1364,7 +1364,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var mapper = new ObjectMapper(configuration);
 
-                var actual = mapper.Map<DummySource2, DummyTarget>(_source2, _target);
+                var actual = mapper.Map(_source2, _target);
 
                 var expected = new
                 {
@@ -1403,7 +1403,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var mapper = new ObjectMapper(configuration);
 
-                var actual = mapper.Map<DummySource2, DummyTarget>(_source2, _target);
+                var actual = mapper.Map(_source2, _target);
 
                 var expected = new
                 {
@@ -1439,7 +1439,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var mapper = new ObjectMapper(configuration);
 
-                var actual = mapper.Map<DummySource2, DummyTarget>(_source2, _target);
+                var actual = mapper.Map(_source2, _target);
 
                 var expected = new
                 {
@@ -1476,7 +1476,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = new DummyRootParentSource();
                 var actual = new DummyRootParentTarget();
 
-                _ = mapper.Map<DummyRootParentSource, DummyRootParentTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.RootA.Should().BeSameAs(source.RootA);
             }
@@ -1496,9 +1496,9 @@ namespace AllOverIt.Tests.Mapping
                 var source = new DummyRootParentSource();
                 var actual = new DummyRootParentTarget();
 
-                _ = mapper.Map<DummyRootParentSource, DummyRootParentTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
-                actual.RootB.Prop1.Should().Be((double) source.RootB.Prop1);
+                actual.RootB.Prop1.Should().Be(source.RootB.Prop1);
             }
 
             [Fact]
@@ -1516,7 +1516,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = new DummyRootParentSource();
                 var actual = new DummyRootParentTarget();
 
-                _ = mapper.Map<DummyRootParentSource, DummyRootParentTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.RootA.Should().NotBeSameAs(source.RootA);                // deep cloned
                 actual.RootA.Prop2a.Should().NotBeSameAs(source.RootA.Prop2a);  // deep cloned
@@ -1527,44 +1527,44 @@ namespace AllOverIt.Tests.Mapping
                 {
                     RootA = new
                     {
-                        Prop1 = source.RootA.Prop1,
+                        source.RootA.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootA.Prop2a.Prop2,
-                            Prop3 = source.RootA.Prop2a.Prop3
+                            source.RootA.Prop2a.Prop2,
+                            source.RootA.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootA.Prop2b.Prop2,
-                            Prop3 = source.RootA.Prop2b.Prop3
+                            source.RootA.Prop2b.Prop2,
+                            source.RootA.Prop2b.Prop3
                         }
                     },
                     RootB = new
                     {
-                        Prop1 = source.RootB.Prop1,
+                        source.RootB.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootB.Prop2a.Prop2,
-                            Prop3 = source.RootB.Prop2a.Prop3
+                            source.RootB.Prop2a.Prop2,
+                            source.RootB.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootB.Prop2b.Prop2,
-                            Prop3 = source.RootB.Prop2b.Prop3
+                            source.RootB.Prop2b.Prop2,
+                            source.RootB.Prop2b.Prop3
                         }
                     },
                     RootC = new
                     {
-                        Prop1 = source.RootC.Prop1,
+                        source.RootC.Prop1,
                         Prop2a = new
                         {
-                            Prop2 = source.RootC.Prop2a.Prop2,
-                            Prop3 = source.RootC.Prop2a.Prop3
+                            source.RootC.Prop2a.Prop2,
+                            source.RootC.Prop2a.Prop3
                         },
                         Prop2b = new
                         {
-                            Prop2 = source.RootC.Prop2b.Prop2,
-                            Prop3 = source.RootC.Prop2b.Prop3
+                            source.RootC.Prop2b.Prop2,
+                            source.RootC.Prop2b.Prop3
                         }
                     }
                 };
@@ -1584,7 +1584,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = Create<DummyEnumerableRootSource>();
                 var actual = new DummyEnumerableRootTarget();
 
-                _ = mapper.Map<DummyEnumerableRootSource, DummyEnumerableRootTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.Prop1.Should().NotBeEmpty();
 
@@ -1596,44 +1596,44 @@ namespace AllOverIt.Tests.Mapping
                     {
                         RootA = new
                         {
-                            Prop1 = sourceItem.RootA.Prop1,
+                            sourceItem.RootA.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootA.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootA.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootA.Prop2a.Prop2,
+                                sourceItem.RootA.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootA.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootA.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootA.Prop2b.Prop2,
+                                sourceItem.RootA.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         },
                         RootB = new
                         {
-                            Prop1 = sourceItem.RootB.Prop1,
+                            sourceItem.RootB.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootB.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootB.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootB.Prop2a.Prop2,
+                                sourceItem.RootB.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootB.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootB.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootB.Prop2b.Prop2,
+                                sourceItem.RootB.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         },
                         RootC = new
                         {
-                            Prop1 = sourceItem.RootC.Prop1,
+                            sourceItem.RootC.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootC.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootC.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootC.Prop2a.Prop2,
+                                sourceItem.RootC.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootC.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootC.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootC.Prop2b.Prop2,
+                                sourceItem.RootC.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         }
                     };
@@ -1662,7 +1662,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = Create<DummySourceHost>();
                 var actual = new DummyAbstractTarget();
 
-                _ = mapper.Map<DummySourceHost, DummyAbstractTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.Prop1.Prop1.Should().Be(source.Prop1.Prop1);
             }
@@ -1683,7 +1683,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = Create<DummyEnumerableRootSource>();
                 var actual = new DummyEnumerableRootTarget();
 
-                _ = mapper.Map<DummyEnumerableRootSource, DummyEnumerableRootTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.Prop1.ForEach((prop, index) =>
                 {
@@ -1693,44 +1693,44 @@ namespace AllOverIt.Tests.Mapping
                     {
                         RootA = new
                         {
-                            Prop1 = sourceItem.RootA.Prop1,
+                            sourceItem.RootA.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootA.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootA.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootA.Prop2a.Prop2,
+                                sourceItem.RootA.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootA.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootA.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootA.Prop2b.Prop2,
+                                sourceItem.RootA.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         },
                         RootB = new
                         {
-                            Prop1 = sourceItem.RootB.Prop1,
+                            sourceItem.RootB.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootB.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootB.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootB.Prop2a.Prop2,
+                                sourceItem.RootB.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootB.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootB.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootB.Prop2b.Prop2,
+                                sourceItem.RootB.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         },
                         RootC = new
                         {
-                            Prop1 = sourceItem.RootC.Prop1,
+                            sourceItem.RootC.Prop1,
                             Prop2a = new
                             {
-                                Prop2 = sourceItem.RootC.Prop2a.Prop2,
-                                Prop3 = sourceItem.RootC.Prop2a.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootC.Prop2a.Prop2,
+                                sourceItem.RootC.Prop2a.Prop3       // this is an IEnumerable<int>
                             },
                             Prop2b = new
                             {
-                                Prop2 = sourceItem.RootC.Prop2b.Prop2,
-                                Prop3 = sourceItem.RootC.Prop2b.Prop3       // this is an IEnumerable<int>
+                                sourceItem.RootC.Prop2b.Prop2,
+                                sourceItem.RootC.Prop2b.Prop3       // this is an IEnumerable<int>
                             }
                         }
                     };
@@ -1761,7 +1761,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = Create<DummySource1>();
                 var actual = new DummyObservableCollectionHost();
 
-                _ = mapper.Map<DummySource1, DummyObservableCollectionHost>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.Prop1.Should().BeEquivalentTo(source.Prop9);
             }
@@ -1782,7 +1782,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = Create<DummyDictionarySource>();
                 var actual = new DummyDictionaryTarget();
 
-                _ = mapper.Map<DummyDictionarySource, DummyDictionaryTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.Prop1.Should().BeSameAs(source.Prop1);
             }
@@ -1795,7 +1795,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = Create<DummyEnumerableSource>();
                 var actual = new DummyArrayTarget();
 
-                _ = mapper.Map<DummyEnumerableSource, DummyArrayTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.Prop1.Should().BeEquivalentTo(source.Prop1);
             }
@@ -1814,7 +1814,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var actual = new DummyArrayTarget();
 
-                _ = mapper.Map<DummyEnumerableSource, DummyArrayTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.Prop1.Should().BeNull();
             }
@@ -1828,7 +1828,7 @@ namespace AllOverIt.Tests.Mapping
 
                 var actual = new DummyArrayTarget();
 
-                _ = mapper.Map<DummyEnumerableSource, DummyArrayTarget>(source, actual);
+                _ = mapper.Map(source, actual);
 
                 actual.Prop1.Should().BeEmpty();
             }
@@ -1841,7 +1841,7 @@ namespace AllOverIt.Tests.Mapping
                 var source = new DummyDictionarySource();
                 var actual = new DummyDictionaryTarget();
 
-                _ = objectMapper.Map<DummyDictionarySource, DummyDictionaryTarget>(source, actual);
+                _ = objectMapper.Map(source, actual);
 
                 actual.Prop1.Should().BeEmpty();
                 actual.Prop2.Should().BeEmpty();
@@ -1857,7 +1857,7 @@ namespace AllOverIt.Tests.Mapping
 
                 Invoking(() =>
                 {
-                    _ = mapper.Map<DummyDictionarySource, DummyDictionaryTarget>(source, actual);
+                    _ = mapper.Map(source, actual);
                 })
                     .Should()
                     .Throw<ObjectMapperException>()
@@ -1871,7 +1871,7 @@ namespace AllOverIt.Tests.Mapping
 
                 configuration.Configure<KeyValuePair<string, int>, KeyValuePair<string, double>>(opt =>
                 {
-                    opt.ConstructUsing((mapper, value) => new KeyValuePair<string, double>(value.Key, (double) value.Value));
+                    opt.ConstructUsing((mapper, value) => new KeyValuePair<string, double>(value.Key, value.Value));
                 });
 
                 configuration.Configure<DummyDictionarySource, DummyDictionaryTarget>(opt =>
@@ -1884,13 +1884,13 @@ namespace AllOverIt.Tests.Mapping
                 var source = Create<DummyDictionarySource>();
                 var actual = new DummyDictionaryTarget();
 
-                _ = objectMapper.Map<DummyDictionarySource, DummyDictionaryTarget>(source, actual);
+                _ = objectMapper.Map(source, actual);
 
                 actual.Prop1.Should().NotBeSameAs(source.Prop1);
                 source.Prop1.Should().BeEquivalentTo(actual.Prop1);
 
                 var expected = source.Prop2
-                    .Select(kvp => new KeyValuePair<string, double>(kvp.Key, (double) kvp.Value))
+                    .Select(kvp => new KeyValuePair<string, double>(kvp.Key, kvp.Value))
                     .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
                 expected.Should().BeEquivalentTo(actual.Prop2);

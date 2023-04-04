@@ -175,8 +175,10 @@ namespace AllOverIt.Tests.Process.Extensions
                 .NotThrow();
             }
 
-            [Fact]
-            public void Should_Set_Arguments()
+            [Theory]
+            [InlineData(true)]
+            [InlineData(false)]
+            public void Should_Set_Arguments(bool escape)
             {
                 var values = CreateMany<string>(3).ToArray();
 
@@ -191,7 +193,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ErrorOutputHandler
                 };
 
-                var actual = ProcessExecutorOptionsExtensions.WithArguments(_sut, values, Create<bool>());
+                var actual = ProcessExecutorOptionsExtensions.WithArguments(_sut, values, escape);
 
                 expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }

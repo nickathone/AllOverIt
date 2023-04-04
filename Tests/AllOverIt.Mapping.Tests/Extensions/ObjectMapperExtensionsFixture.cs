@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace AllOverIt.Tests.Mapping.Extensions
+namespace AllOverIt.Mapping.Tests.Extensions
 {
     public class ObjectMapperExtensionsFixture : FixtureBase
     {
@@ -54,7 +54,7 @@ namespace AllOverIt.Tests.Mapping.Extensions
             {
                 Invoking(() =>
                 {
-                    ObjectMapperExtensions.MapMany<DummyTarget>(_mapper, null).ToList();
+                    _mapper.MapMany<DummyTarget>(null).ToList();
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -64,7 +64,7 @@ namespace AllOverIt.Tests.Mapping.Extensions
             [Fact]
             public void Should_Map_Sources()
             {
-                var actual = ObjectMapperExtensions.MapMany<DummyTarget>(_mapper, _sources).ToList();
+                var actual = _mapper.MapMany<DummyTarget>(_sources).ToList();
 
                 actual.Should().NotBeEmpty();
 
@@ -91,7 +91,7 @@ namespace AllOverIt.Tests.Mapping.Extensions
             {
                 Invoking(() =>
                 {
-                    ObjectMapperExtensions.MapMany<DummySource, DummyTarget>(_mapper, null).ToList();
+                    _mapper.MapMany<DummySource, DummyTarget>(null).ToList();
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -101,7 +101,7 @@ namespace AllOverIt.Tests.Mapping.Extensions
             [Fact]
             public void Should_Map_Sources()
             {
-                var actual = ObjectMapperExtensions.MapMany<DummySource, DummyTarget>(_mapper, _sources).ToList();
+                var actual = _mapper.MapMany<DummySource, DummyTarget>(_sources).ToList();
 
                 actual.Should().NotBeEmpty();
 

@@ -1,5 +1,5 @@
 ﻿using AllOverIt.Aws.AppSync.Client.Authorization;
-using AllOverIt.Serialization.JsonAbstractions;
+using AllOverIt.Serialization.Json.Abstractions;
 
 namespace AllOverIt.Aws.AppSync.Client.Configuration
 {

@@ -8,7 +8,7 @@ using AllOverIt.Reflection;
 using FluentAssertions;
 using Xunit;
 
-namespace AllOverIt.Tests.Mapping
+namespace AllOverIt.Mapping.Tests
 {
     public class PropertyMatcherOptionsFixture : FixtureBase
     {
@@ -123,7 +123,7 @@ namespace AllOverIt.Tests.Mapping
             public void Should_Set_ExcludeWhen_For_Name()
             {
                 var name = Create<string>();
-                Func<object, bool> predicate = value => (int)value == 1;
+                Func<object, bool> predicate = value => (int) value == 1;
 
                 _options.ExcludeWhen(name, predicate);
 
@@ -443,7 +443,7 @@ namespace AllOverIt.Tests.Mapping
                 var value = Create<int>();
                 var factor = Create<int>();
 
-                _options.WithConversion(sourceName, (mapper, val) => (int)val * factor);
+                _options.WithConversion(sourceName, (mapper, val) => (int) val * factor);
 
                 var mapper = new ObjectMapper();
 
@@ -638,7 +638,7 @@ namespace AllOverIt.Tests.Mapping
                 Invoking(() =>
                 {
                     var mapper = new ObjectMapper();
-                    
+
                     _options.GetConvertedValue(mapper, "  ", Create<string>());
                 })
                     .Should()
@@ -657,7 +657,7 @@ namespace AllOverIt.Tests.Mapping
                 var value = Create<int>();
 
                 var mapper = new ObjectMapper();
-                
+
                 var actual = _options.GetConvertedValue(mapper, sourceName, value);
 
                 actual.Should().Be(value * factor);
@@ -669,7 +669,7 @@ namespace AllOverIt.Tests.Mapping
                 var value = Create<int>();
 
                 var mapper = new ObjectMapper();
-                
+
                 var actual = _options.GetConvertedValue(mapper, Create<string>(), value);
 
                 actual.Should().Be(value);

@@ -2,12 +2,12 @@
 using System;
 using System.Linq;
 using AllOverIt.Extensions;
-using AllOverIt.Serialization.JsonHelper.Extensions;
+using AllOverIt.Serialization.Json.Abstractions.Extensions;
 
 #if USE_NEWTSONSOFT
-using AllOverIt.Serialization.NewtonsoftJson;
+using AllOverIt.Serialization.Json.Newtonsoft;
 #else
-using AllOverIt.Serialization.SystemTextJson;
+using AllOverIt.Serialization.Json.SystemText;
 #endif
 
 // Uses JsonHelper to deserialize a string or object to a nested Dictionary<string, object>() that can be queried

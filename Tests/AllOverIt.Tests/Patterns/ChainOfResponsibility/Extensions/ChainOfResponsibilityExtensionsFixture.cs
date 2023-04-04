@@ -61,6 +61,22 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
             }
         }
 
+        private class DummyChainOfResponsibility3 : ChainOfResponsibilityHandler<DummyState, DummyState>
+        {
+            public override DummyState Handle(DummyState state)
+            {
+                state.Sequence++;
+
+                if (state.Sequence != 3)
+                {
+                    throw new InvalidOperationException("Handler sequence is not in the expected order");
+                }
+
+                state.ProcessedValue = state.Value + 1;
+                return state;
+            }
+        }
+
         private class DummyChainOfResponsibilityAsync1 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
         {
             public override Task<DummyState> HandleAsync(DummyState state)
@@ -100,6 +116,22 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 }
 
                 return base.HandleAsync(state);
+            }
+        }
+
+        private class DummyChainOfResponsibilityAsync3 : ChainOfResponsibilityHandlerAsync<DummyState, DummyState>
+        {
+            public override Task<DummyState> HandleAsync(DummyState state)
+            {
+                state.Sequence++;
+
+                if (state.Sequence != 3)
+                {
+                    throw new InvalidOperationException("Handler sequence is not in the expected order");
+                }
+
+                state.ProcessedValue = state.Value + 1;
+                return Task.FromResult(state);
             }
         }
 
@@ -302,6 +334,44 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
 
                 actual.ProcessedValue.Should().Be(4);
             }
+
+            [Fact]
+            public void Should_Compose_Handlers_Return_Third_Approach_1()
+            {
+                var handler1 = new DummyChainOfResponsibility1();
+                var handler2 = new DummyChainOfResponsibility2();
+                var handler3 = new DummyChainOfResponsibility3();
+
+                var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2).Then(handler3);
+
+                var state = new DummyState
+                {
+                    Value = 5
+                };
+
+                var actual = composed.Handle(state);
+
+                actual.ProcessedValue.Should().Be(6);
+            }
+
+            [Fact]
+            public void Should_Compose_Handlers_Return_Third_Approach_2()
+            {
+                var handler1 = new DummyChainOfResponsibility1();
+                var handler2 = new DummyChainOfResponsibility2();
+                var handler3 = new DummyChainOfResponsibility3();
+
+                var composed = handler1.Then(handler2).Then(handler3);
+
+                var state = new DummyState
+                {
+                    Value = 5
+                };
+
+                var actual = composed.Handle(state);
+
+                actual.ProcessedValue.Should().Be(6);
+            }
         }
 
         public class ThenAsync : ChainOfResponsibilityExtensionsFixture
@@ -364,6 +434,44 @@ namespace AllOverIt.Tests.Patterns.ChainOfResponsibility.Extensions
                 var actual = await composed.HandleAsync(state);
 
                 actual.ProcessedValue.Should().Be(4);
+            }
+
+            [Fact]
+            public async Task Should_Compose_Handlers_Return_Third_Approach_1()
+            {
+                var handler1 = new DummyChainOfResponsibilityAsync1();
+                var handler2 = new DummyChainOfResponsibilityAsync2();
+                var handler3 = new DummyChainOfResponsibilityAsync3();
+
+                var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2).Then(handler3);
+
+                var state = new DummyState
+                {
+                    Value = 5
+                };
+
+                var actual = await composed.HandleAsync(state);
+
+                actual.ProcessedValue.Should().Be(6);
+            }
+
+            [Fact]
+            public async Task Should_Compose_Handlers_Return_Third_Approach_2()
+            {
+                var handler1 = new DummyChainOfResponsibilityAsync1();
+                var handler2 = new DummyChainOfResponsibilityAsync2();
+                var handler3 = new DummyChainOfResponsibilityAsync3();
+
+                var composed = handler1.Then(handler2).Then(handler3);
+
+                var state = new DummyState
+                {
+                    Value = 5
+                };
+
+                var actual = await composed.HandleAsync(state);
+
+                actual.ProcessedValue.Should().Be(6);
             }
         }
     }

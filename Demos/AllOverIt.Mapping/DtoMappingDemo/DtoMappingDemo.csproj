@@ -6,7 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Source\AllOverIt.Mapping\AllOverIt.Mapping.csproj" />
-      <ProjectReference Include="..\..\..\Source\AllOverIt.Serialization.SystemTextJson\AllOverIt.Serialization.SystemTextJson.csproj" />
+      <ProjectReference Include="..\..\..\Source\AllOverIt.Serialization.Json.SystemText\AllOverIt.Serialization.Json.SystemText.csproj" />
     </ItemGroup>
 
 </Project>

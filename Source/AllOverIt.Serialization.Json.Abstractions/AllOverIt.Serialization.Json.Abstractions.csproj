@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+        <Copyright>Copyright © 2021</Copyright>
+        <Description>Provides JSON serialization abstractions.</Description>
+        <PackageTags>utilities;serialization;json</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="AllOverIt.Serialization.Json.Abstractions.Tests" />
+    </ItemGroup>
+    
+</Project>

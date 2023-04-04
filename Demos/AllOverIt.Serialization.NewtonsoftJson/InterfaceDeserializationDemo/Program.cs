@@ -1,6 +1,6 @@
-﻿using AllOverIt.Serialization.NewtonsoftJson;
-using AllOverIt.Serialization.NewtonsoftJson.Converters;
-using AllOverIt.Serialization.NewtonsoftJson.Extensions;
+﻿using AllOverIt.Serialization.Json.Newtonsoft;
+using AllOverIt.Serialization.Json.Newtonsoft.Converters;
+using AllOverIt.Serialization.Json.Newtonsoft.Extensions;
 using Newtonsoft.Json;
 using System;
 using System.Linq;

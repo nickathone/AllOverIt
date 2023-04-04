@@ -1,12 +1,12 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
-using AllOverIt.Mapping;
 using FluentAssertions;
 using System;
 using Xunit;
-using static AllOverIt.Tests.Mapping.ObjectMapperTypes;
 
-namespace AllOverIt.Tests.Mapping
+using static AllOverIt.Mapping.Tests.ObjectMapperTypes;
+
+namespace AllOverIt.Mapping.Tests
 {
     public class ObjectMapperTypeFactoryFixture : FixtureBase
     {
@@ -18,7 +18,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Invoking(() =>
                 {
-                    _factory.Add((Type) null, typeof(DummyTarget), (mapper, value) => new { });
+                    _factory.Add(null, typeof(DummyTarget), (mapper, value) => new { });
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -30,7 +30,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Invoking(() =>
                 {
-                    _factory.Add(typeof(DummySource2), (Type) null, (mapper, value) => new { });
+                    _factory.Add(typeof(DummySource2), null, (mapper, value) => new { });
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -70,7 +70,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Invoking(() =>
                 {
-                    _ = _factory.TryGet((Type) null, typeof(DummyTarget), out _);
+                    _ = _factory.TryGet(null, typeof(DummyTarget), out _);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -82,7 +82,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Invoking(() =>
                 {
-                    _ = _factory.TryGet(typeof(DummySource2), (Type) null, out _);
+                    _ = _factory.TryGet(typeof(DummySource2), null, out _);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -143,7 +143,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Func<object> factory = () => new { };
 
-                var actual =_factory.GetOrAdd(typeof(DummyTarget), factory);
+                var actual = _factory.GetOrAdd(typeof(DummyTarget), factory);
 
                 factory.Should().BeSameAs(actual);
             }

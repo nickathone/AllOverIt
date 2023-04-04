@@ -8,7 +8,7 @@ using FluentAssertions;
 using System;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization.Binary.Extensions
+namespace AllOverIt.Serialization.Binary.Tests.Extensions
 {
     public class EnrichedBinaryValueWriterExtensionsFixture : FixtureBase
     {
@@ -19,7 +19,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             {
                 Invoking(() =>
                 {
-                    EnrichedBinaryValueWriterExtensions.WriteValue<string>(null, this.CreateStub<IEnrichedBinaryWriter>(), Create<string>());
+                    EnrichedBinaryValueWriterExtensions.WriteValue(null, this.CreateStub<IEnrichedBinaryWriter>(), Create<string>());
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -31,7 +31,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             {
                 Invoking(() =>
                 {
-                    EnrichedBinaryValueWriterExtensions.WriteValue<string>(this.CreateStub<IEnrichedBinaryValueWriter>(), null, Create<string>());
+                    EnrichedBinaryValueWriterExtensions.WriteValue(this.CreateStub<IEnrichedBinaryValueWriter>(), null, Create<string>());
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -51,7 +51,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
                    .CallsTo(fake => fake.WriteValue(writerFake, expected))
                     .Invokes(call => actual = call.Arguments.Get<string>(1));
 
-                EnrichedBinaryValueWriterExtensions.WriteValue<string>(valueWriterFake.FakedObject, writerFake, expected);
+                EnrichedBinaryValueWriterExtensions.WriteValue(valueWriterFake.FakedObject, writerFake, expected);
 
                 actual.Should().Be(expected);
             }

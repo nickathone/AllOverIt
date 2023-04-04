@@ -1,19 +1,16 @@
 ﻿using AllOverIt.Fixture;
-using AllOverIt.Mapping;
+using AllOverIt.Fixture.Extensions;
 using AllOverIt.Mapping.Exceptions;
-using AllOverIt.Reflection;
 using FluentAssertions;
 using System;
-using System.Reflection;
 using Xunit;
-using AllOverIt.Fixture.Extensions;
 
-using static AllOverIt.Tests.Mapping.ObjectMapperTypes;
+using static AllOverIt.Mapping.Tests.ObjectMapperTypes;
 
-namespace AllOverIt.Tests.Mapping
+namespace AllOverIt.Mapping.Tests
 {
     public class PropertyMatcherCacheFixture : FixtureBase
-    {       
+    {
         public class CreateMapper : PropertyMatcherCacheFixture
         {
             private readonly PropertyMatcherCache _cache = new();
@@ -21,7 +18,7 @@ namespace AllOverIt.Tests.Mapping
             [Fact]
             public void Should_Throw_When_Source_Type_Null()
             {
-                Invoking(() =>_cache.CreateMapper(null, typeof(DummyTarget), Create<PropertyMatcherOptions>()))
+                Invoking(() => _cache.CreateMapper(null, typeof(DummyTarget), Create<PropertyMatcherOptions>()))
                     .Should()
                     .Throw<ArgumentNullException>()
                     .WithNamedMessageWhenNull("sourceType");

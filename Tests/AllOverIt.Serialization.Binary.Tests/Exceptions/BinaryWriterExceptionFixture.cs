@@ -3,7 +3,7 @@ using AllOverIt.Serialization.Binary.Exceptions;
 using AllOverIt.Tests.Helpers;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization.Binary.Exceptions
+namespace AllOverIt.Serialization.Binary.Tests.Exceptions
 {
     public class BinaryWriterExceptionFixture : FixtureBase
     {

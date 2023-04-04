@@ -40,6 +40,40 @@ namespace AllOverIt.Tests.Caching
             PopulateCache(_cache);
         }
 
+        public class KeyComparer : GenericCacheFixture
+        {
+            [Theory]
+            [InlineData(false)]
+            [InlineData(true)]
+            public void Should_Compare_Same_Key_Type(bool same)
+            {
+                var key1 = new KeyType1(Create<int>(), Create<string>());
+
+                var key2 = new KeyType1(
+                    same ? key1.Key1 : Create<int>(),
+                    same ? key1.Key2 : Create<string>());
+
+                var comparer = GenericCache.GenericCacheKeyComparer.Instance;
+
+                var actual = comparer.Equals(key1, key2);
+
+                actual.Should().Be(same);
+            }
+
+            [Fact]
+            public void Should_Compare_Different_Key_Type()
+            {
+                var key1 = new KeyType1(Create<int>(), Create<string>());
+                var key2 = new KeyType2(Create<bool>(), Create<int>(), Create<string>());
+
+                var comparer = GenericCache.GenericCacheKeyComparer.Instance;
+
+                var actual = comparer.Equals(key1, key2);
+
+                actual.Should().BeFalse();
+            }
+        }
+
         public class Default : GenericCacheFixture
         {          
             [Fact]
@@ -330,6 +364,25 @@ namespace AllOverIt.Tests.Caching
                 _ = _cache.TryGetValue<IReadOnlyCollection<string>>(key, out var actual);
 
                 expected.Should().BeEquivalentTo(actual);
+            }
+
+            [Fact]
+            public void Should_Add_Different_Key_Types()
+            {
+                var key1 = new KeyType1(Create<int>(), Create<string>());
+                var key2 = new KeyType2(Create<bool>(), Create<int>(), Create<string>());
+
+                var expected1 = CreateMany<string>();
+                var expected2 = CreateMany<int>();
+
+                _cache.Add(key1, expected1);
+                _cache.Add(key2, expected2);
+
+                _ = _cache.TryGetValue<IReadOnlyCollection<string>>(key1, out var actual1);
+                _ = _cache.TryGetValue<IReadOnlyCollection<int>>(key2, out var actual2);
+
+                expected1.Should().BeEquivalentTo(actual1);
+                expected2.Should().BeEquivalentTo(actual2);
             }
 
             [Fact]

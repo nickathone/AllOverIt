@@ -11,7 +11,7 @@ using AllOverIt.Extensions;
 using Xunit;
 using System.Collections.ObjectModel;
 
-namespace AllOverIt.Tests.Mapping
+namespace AllOverIt.Mapping.Tests
 {
     internal static class ObjectMapperTypes
     {

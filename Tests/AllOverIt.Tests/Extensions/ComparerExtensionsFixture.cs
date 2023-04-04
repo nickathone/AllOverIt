@@ -55,7 +55,9 @@ namespace AllOverIt.Tests.Extensions
             [Fact]
             public void Should_Reverse_Items()
             {
+                // Duplicating values so the comparer considers elements that are equal
                 var values = CreateMany<DummyString>().ToList();
+                values = values.Concat(values).ToList();
 
                 values.Sort(DummyFirstComparer.Instance.Reverse());
 

@@ -1,5 +1,4 @@
-﻿
-namespace AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Models
+﻿namespace AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Models
 {
     internal abstract class Person
     {

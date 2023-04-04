@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-using static AllOverIt.Tests.Mapping.ObjectMapperTypes;
+using static AllOverIt.Mapping.Tests.ObjectMapperTypes;
 
-namespace AllOverIt.Tests.Mapping
+namespace AllOverIt.Mapping.Tests
 {
     public class ObjectPropertyMatcherFixture : FixtureBase
     {
@@ -205,7 +205,7 @@ namespace AllOverIt.Tests.Mapping
                 options.WithConversion(nameof(DummySource2.Prop8), (mapper, value) =>
                 {
                     actualMapper = mapper;
-                    return (int)value * factor;
+                    return (int) value * factor;
                 });
 
                 var actual = new ObjectPropertyMatcher(typeof(DummySource2), typeof(DummyTarget), options);

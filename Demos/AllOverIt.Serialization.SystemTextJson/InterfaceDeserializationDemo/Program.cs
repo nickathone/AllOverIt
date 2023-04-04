@@ -1,8 +1,7 @@
-﻿using AllOverIt.Serialization.SystemTextJson;
-using AllOverIt.Serialization.SystemTextJson.Converters;
-using AllOverIt.Serialization.SystemTextJson.Extensions;
+﻿using AllOverIt.Serialization.Json.SystemText;
+using AllOverIt.Serialization.Json.SystemText.Converters;
+using AllOverIt.Serialization.Json.SystemText.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 

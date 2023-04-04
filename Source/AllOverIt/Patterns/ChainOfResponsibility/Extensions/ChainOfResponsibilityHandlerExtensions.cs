@@ -28,6 +28,10 @@ namespace AllOverIt.Patterns.ChainOfResponsibility.Extensions
 
             IChainOfResponsibilityHandler<TInput, TOutput> IChainOfResponsibilityHandler<TInput, TOutput>.SetNext(IChainOfResponsibilityHandler<TInput, TOutput> handler)
             {
+                // Need to cater for two forms of usage:
+                //   var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2).Then(handler3);
+                // and
+                //   var composed = handler1.Then(handler2).Then(handler3);
                 _last = _last is null
                     ? _first.SetNext(handler)
                     : _last.SetNext(handler);
@@ -55,6 +59,10 @@ namespace AllOverIt.Patterns.ChainOfResponsibility.Extensions
 
             IChainOfResponsibilityHandlerAsync<TInput, TOutput> IChainOfResponsibilityHandlerAsync<TInput, TOutput>.SetNext(IChainOfResponsibilityHandlerAsync<TInput, TOutput> handler)
             {
+                // Need to cater for two forms of usage:
+                //   var composed = ChainOfResponsibilityHandlerExtensions.Then(handler1, handler2).Then(handler3);
+                // and
+                //   var composed = handler1.Then(handler2).Then(handler3);
                 _last = _last is null
                     ? _first.SetNext(handler)
                     : _last.SetNext(handler);

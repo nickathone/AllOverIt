@@ -4,8 +4,8 @@
         <OutputType>Exe</OutputType>
     </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\AllOverIt.Serialization.NewtonsoftJson\AllOverIt.Serialization.NewtonsoftJson.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Source\AllOverIt.Serialization.Json.Newtonsoft\AllOverIt.Serialization.Json.Newtonsoft.csproj" />
+    </ItemGroup>
 
 </Project>

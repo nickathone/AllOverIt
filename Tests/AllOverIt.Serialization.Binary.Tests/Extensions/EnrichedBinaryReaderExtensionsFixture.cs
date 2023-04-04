@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization.Binary.Extensions
+namespace AllOverIt.Serialization.Binary.Tests.Extensions
 {
     // ALL TESTS ARE BEHAVIOURAL AND MAY NOT REFLECT HOW THE ACTUAL IMPLEMENTATION WORKS.
     // FUNCTIONAL TESTS COVER THE REAL IMPLEMENTATION.
@@ -438,7 +438,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
                     .CallsTo(fake => fake.ReadObject())
                     .ReturnsNextFromSequence(1, 0, 1, -1, 2);
 
-                var actual = _readerFake.FakedObject                    .ReadEnumerable()
+                var actual = _readerFake.FakedObject.ReadEnumerable()
                     .Select(item => (int) item);
 
                 actual.SequenceEqual(values).Should().BeTrue();

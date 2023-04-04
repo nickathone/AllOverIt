@@ -1,6 +1,6 @@
-﻿using AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Models;
+﻿using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Models;
 
-namespace AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Writers
+namespace AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Writers
 {
     internal sealed class TeacherWriter : PersonWriter<Teacher>
     {

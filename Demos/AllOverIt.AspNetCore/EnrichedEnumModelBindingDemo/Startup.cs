@@ -1,5 +1,5 @@
 using AllOverIt.AspNetCore.Extensions;
-using AllOverIt.Serialization.NewtonsoftJson.Converters;
+using AllOverIt.Serialization.Json.Newtonsoft.Converters;
 using AllOverIt.Validation;
 using EnrichedEnumModelBindingDemo.Problems;
 using EnrichedEnumModelBindingDemo.Requests;

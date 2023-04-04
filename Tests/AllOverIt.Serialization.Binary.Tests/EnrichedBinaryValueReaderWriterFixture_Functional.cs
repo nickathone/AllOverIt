@@ -1,9 +1,9 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Extensions;
-using AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Models;
-using AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Readers;
-using AllOverIt.Tests.Serialization.Binary.FunctionalTypes.Writers;
+using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Models;
+using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Readers;
+using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Writers;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.IO;
 using System.Text;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization
+namespace AllOverIt.Serialization.Binary.Tests
 {
     public class EnrichedBinaryValueReaderWriterFixture : FixtureBase
     {

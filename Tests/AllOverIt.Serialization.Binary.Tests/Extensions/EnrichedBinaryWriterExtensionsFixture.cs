@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization.Binary.Extensions
+namespace AllOverIt.Serialization.Binary.Tests.Extensions
 {
     // ALL TESTS ARE BEHAVIOURAL AND MAY NOT REFLECT HOW THE ACTUAL IMPLEMENTATION WORKS.
     // FUNCTIONAL TESTS COVER THE REAL IMPLEMENTATION.

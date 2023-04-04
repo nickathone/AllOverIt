@@ -3,7 +3,7 @@ using AllOverIt.Mapping.Exceptions;
 using AllOverIt.Tests.Helpers;
 using Xunit;
 
-namespace AllOverIt.Tests.Mapping.Exceptions
+namespace AllOverIt.Mapping.Tests.Exceptions
 {
     public class ObjectMapperExceptionFixture : FixtureBase
     {

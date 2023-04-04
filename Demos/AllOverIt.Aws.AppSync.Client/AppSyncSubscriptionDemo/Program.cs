@@ -2,9 +2,9 @@
 using AllOverIt.Aws.AppSync.Client.Configuration;
 using AllOverIt.Aws.AppSync.Client.Extensions;
 using AllOverIt.GenericHost;
-using AllOverIt.Serialization.JsonAbstractions;
-using AllOverIt.Serialization.NewtonsoftJson;
-using AllOverIt.Serialization.SystemTextJson;
+using AllOverIt.Serialization.Json.Abstractions;
+using AllOverIt.Serialization.Json.Newtonsoft;
+using AllOverIt.Serialization.Json.SystemText;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

@@ -1,16 +1,15 @@
 ﻿using AllOverIt.Fixture;
-using AllOverIt.Mapping;
+using AllOverIt.Fixture.Extensions;
 using AllOverIt.Reflection;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using AllOverIt.Fixture.Extensions;
 
-using static AllOverIt.Tests.Mapping.ObjectMapperTypes;
+using static AllOverIt.Mapping.Tests.ObjectMapperTypes;
 
-namespace AllOverIt.Tests.Mapping
+namespace AllOverIt.Mapping.Tests
 {
     public class ObjectMapperConfigurationFixture : FixtureBase
     {
@@ -50,7 +49,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Invoking(() =>
                 {
-                    _ = new ObjectMapperConfiguration((Action<ObjectMapperOptions>) null);
+                    _ = new ObjectMapperConfiguration( null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -146,7 +145,7 @@ namespace AllOverIt.Tests.Mapping
                 {
                     options.Binding = binding;
 
-                    options.WithConversion(src => src.Prop13, (mapper, value) => (DummyEnum) value);                    
+                    options.WithConversion(src => src.Prop13, (mapper, value) => (DummyEnum) value);
                 });
 
                 configuration._propertyMatcherCache
@@ -177,7 +176,7 @@ namespace AllOverIt.Tests.Mapping
                 {
                     options.Filter = propInfo => new[] { "Prop10", "Prop12", "Prop8" }.Contains(propInfo.Name);
 
-                    options.WithConversion(src => src.Prop13, (mapper, value) => (DummyEnum) value);                    
+                    options.WithConversion(src => src.Prop13, (mapper, value) => (DummyEnum) value);
                 });
 
                 configuration._propertyMatcherCache
@@ -282,7 +281,7 @@ namespace AllOverIt.Tests.Mapping
                         .WithAlias(src => src.Prop8, trg => trg.Prop1)
                         .WithAlias(src => (int) src.Prop12, trg => trg.Prop5);
 
-                    options.WithConversion(src => src.Prop8, (mapper, value) => 
+                    options.WithConversion(src => src.Prop8, (mapper, value) =>
                     {
                         actualMapper = mapper;
                         return value * factor;

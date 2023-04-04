@@ -8,7 +8,7 @@ using FluentAssertions;
 using System;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization.Binary.Extensions
+namespace AllOverIt.Serialization.Binary.Tests.Extensions
 {
     public class EnrichedBinaryValueReaderExtensionsFixture : FixtureBase
     {
@@ -31,7 +31,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
             {
                 Invoking(() =>
                 {
-                    _ = EnrichedBinaryValueReaderExtensions.ReadValue<string>(this.CreateStub<IEnrichedBinaryValueReader>(), null);
+                    _ = this.CreateStub<IEnrichedBinaryValueReader>().ReadValue<string>(null);
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
@@ -50,7 +50,7 @@ namespace AllOverIt.Tests.Serialization.Binary.Extensions
                    .CallsTo(fake => fake.ReadValue(readerFake))
                    .Returns(expected);
 
-                var actual = EnrichedBinaryValueReaderExtensions.ReadValue<string>(valueReaderFake.FakedObject, readerFake);
+                var actual = valueReaderFake.FakedObject.ReadValue<string>(readerFake);
 
                 actual.Should().Be(expected);
             }

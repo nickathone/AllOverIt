@@ -11,7 +11,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\Source\AllOverIt.GenericHost\AllOverIt.GenericHost.csproj" />
         <ProjectReference Include="..\..\..\Source\AllOverIt.Pagination\AllOverIt.Pagination.csproj" />
-        <ProjectReference Include="..\..\..\Source\AllOverIt.Serialization.NewtonsoftJson\AllOverIt.Serialization.NewtonsoftJson.csproj" />
     </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@ namespace AllOverIt.Caching
     /// of the key elements must support equality comparison.</summary>
     public class GenericCache : IGenericCache
     {
-        private class GenericCacheKeyComparer : IEqualityComparer<GenericCacheKeyBase>
+        internal class GenericCacheKeyComparer : IEqualityComparer<GenericCacheKeyBase>
         {
             public static readonly GenericCacheKeyComparer Instance = new();
 

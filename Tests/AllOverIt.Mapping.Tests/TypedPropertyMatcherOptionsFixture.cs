@@ -12,9 +12,9 @@ using FakeItEasy;
 using FluentAssertions;
 using Xunit;
 
-using static AllOverIt.Tests.Mapping.ObjectMapperTypes;
+using static AllOverIt.Mapping.Tests.ObjectMapperTypes;
 
-namespace AllOverIt.Tests.Mapping
+namespace AllOverIt.Mapping.Tests
 {
     public class TypedPropertyMatcherOptionsFixture : FixtureBase
     {
@@ -334,7 +334,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 Invoking(() =>
                 {
-                    _typedMatcherOptions.WithConversion<int>(source => source.Prop3, null);
+                    _typedMatcherOptions.WithConversion(source => source.Prop3, null);
                 })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -346,7 +346,7 @@ namespace AllOverIt.Tests.Mapping
             {
                 IObjectMapper actual = null;
 
-                _typedMatcherOptions.WithConversion<int>(source => source.Prop3, (mapper, value) =>
+                _typedMatcherOptions.WithConversion(source => source.Prop3, (mapper, value) =>
                 {
                     actual = mapper;
                     return value;
@@ -438,10 +438,10 @@ namespace AllOverIt.Tests.Mapping
                 _ = mapper.Map<DummyTarget>(source);
 
                 actual.Should().BeSameAs(mapper);
-            }            
+            }
 
             [Fact]
-            public void Should_Map_Property_Using_ConstructUsing()            
+            public void Should_Map_Property_Using_ConstructUsing()
             {
                 var source = Create<DummyEnumerableSource>();
                 var expected = source.Prop1.Select(item => $"{item}").AsReadOnlyCollection();

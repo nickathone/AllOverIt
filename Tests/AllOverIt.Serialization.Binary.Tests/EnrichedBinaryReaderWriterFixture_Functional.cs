@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Fixture;
-using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Exceptions;
 using AllOverIt.Serialization.Binary.Extensions;
 using FluentAssertions;
@@ -10,7 +9,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace AllOverIt.Tests.Serialization
+namespace AllOverIt.Serialization.Binary.Tests
 {
     public class EnrichedBinaryReaderWriterFixture : FixtureBase
     {
@@ -156,7 +155,7 @@ namespace AllOverIt.Tests.Serialization
                 Float = reader.ReadSingle();
                 Double = reader.ReadDouble();
                 Decimal = reader.ReadDecimal();
-                
+
                 String = reader.ReadSafeString();
                 NullString = reader.ReadSafeString();
 
@@ -292,13 +291,13 @@ namespace AllOverIt.Tests.Serialization
 
                 using (writer)
                 {
-                    writer.WriteObject((string) null, AllOverIt.Reflection.CommonTypes.StringType);
+                    writer.WriteObject(null, Reflection.CommonTypes.StringType);
                 }
 
                 bytes = stream.ToArray();
             }
 
-            string actual = string.Empty;
+            var actual = string.Empty;
 
             using (var stream = new MemoryStream(bytes))
             {
@@ -312,7 +311,7 @@ namespace AllOverIt.Tests.Serialization
                 using (reader)
                 {
                     // Should be read back as null
-                    actual = (string)reader.ReadObject();
+                    actual = (string) reader.ReadObject();
                 }
             }
 
