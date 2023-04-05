@@ -174,6 +174,23 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                 actual.Decorated.Should().BeSameAs(expected);
             }
 
+            [Fact]
+            public void Should_Resolve_Implementation_Factory()
+            {
+                var services = new ServiceCollection();
+
+                // only applicable to case ServiceLifetime.Singleton:
+                services.AddSingleton<IDummyDecoratorInterface>(_ => new DummyDecorator1());
+
+                ServiceCollectionExtensions.Decorate<IDummyDecoratorInterface, DummyDecorator3>(services);
+
+                var provider = services.BuildServiceProvider();
+
+                var actual = provider.GetRequiredService<IDummyDecoratorInterface>() as DummyDecorator3;
+
+                actual.Decorated.Should().BeOfType<DummyDecorator1>();
+            }
+
         }
 
         public class DecorateWithInterceptor : ServiceCollectionExtensionsFixture
