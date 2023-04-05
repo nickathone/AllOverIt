@@ -26,7 +26,7 @@ namespace AllOverIt.Assertion
 {
             if (expression is null)
             {
-                ThrowArgumentNullException(nameof(expression), errorMessage);
+                throw CreateArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -55,7 +55,7 @@ namespace AllOverIt.Assertion
         {
             if (expression is null)
             {
-                ThrowArgumentNullException(nameof(expression), errorMessage);
+                throw CreateArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -84,7 +84,7 @@ namespace AllOverIt.Assertion
         {
             if (expression is null)
             {
-                ThrowArgumentNullException(nameof(expression), errorMessage);
+                throw CreateArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -112,7 +112,7 @@ namespace AllOverIt.Assertion
         {
             if (expression is null)
             {
-                ThrowArgumentNullException(nameof(expression), errorMessage);
+                throw CreateArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -140,7 +140,7 @@ namespace AllOverIt.Assertion
         {
             if (expression is null)
             {
-                ThrowArgumentNullException(nameof(expression), errorMessage);
+                throw CreateArgumentNullException(nameof(expression), errorMessage);
             }
 
             switch (expression)
@@ -180,7 +180,7 @@ namespace AllOverIt.Assertion
         {
             if (@object is null)
             {
-                ThrowArgumentNullException(name, errorMessage);
+                throw CreateArgumentNullException(name, errorMessage);
             }
 
             return @object;
@@ -203,7 +203,7 @@ namespace AllOverIt.Assertion
         {
             if (@object is null)
             {
-                ThrowArgumentNullException(name, errorMessage);
+                throw CreateArgumentNullException(name, errorMessage);
             }
 
             return WhenNotEmpty(@object, name, errorMessage);
@@ -267,7 +267,7 @@ namespace AllOverIt.Assertion
         {
             if (@object is null)
             {
-                ThrowArgumentNullException(name, errorMessage);
+                throw CreateArgumentNullException(name, errorMessage);
             }
 
             return WhenNotEmpty(@object, name, errorMessage);

@@ -36,13 +36,13 @@ namespace AllOverIt.Tests.Assertion
             }
         }
 
-        private class DummyEnumerable : ICollection<int>
+        private class DummyCollection : ICollection<int>
         {
             private readonly List<int> _items = new();
 
             public int Count => _items.Count;
 
-            public DummyEnumerable(IEnumerable<int> items)
+            public DummyCollection(IEnumerable<int> items)
             {
                 _items.AddRange(items);
             }
@@ -77,6 +77,26 @@ namespace AllOverIt.Tests.Assertion
             public bool Remove(int item)
             {
                 throw new NotImplementedException();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
+        private class DummyEnumerable : IEnumerable<int>
+        {
+            private readonly List<int> _items;
+
+            public DummyEnumerable(IEnumerable<int> items)
+            {
+                _items = new List<int>(items);    
+            }
+
+            public IEnumerator<int> GetEnumerator()
+            {
+                return _items.GetEnumerator();
             }
 
             IEnumerator IEnumerable.GetEnumerator()
@@ -424,6 +444,19 @@ namespace AllOverIt.Tests.Assertion
 
             [Fact]
             public void Should_Not_Throw_When_Collection_Not_Empty()
+            {
+                Invoking(() =>
+                {
+                    var actual = new DummyCollection(CreateMany<int>());
+
+                    _ = actual.WhenNotEmpty();
+                })
+                    .Should()
+                    .NotThrow();
+            }
+
+            [Fact]
+            public void Should_Not_Throw_When_Enumerable_Not_Empty()
             {
                 Invoking(() =>
                 {
