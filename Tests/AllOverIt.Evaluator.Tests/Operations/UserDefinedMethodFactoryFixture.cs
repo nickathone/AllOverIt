@@ -12,7 +12,7 @@ namespace AllOverIt.Evaluator.Tests.Operations
     {
         private UserDefinedMethodFactory _factory;
 
-        public class Constructor : UserDefinedMethodFactoryFixture
+        public class RegisteredMethods : UserDefinedMethodFactoryFixture
         {
             [Theory]
             [InlineData("ROUND", typeof(RoundOperation))]
@@ -54,6 +54,20 @@ namespace AllOverIt.Evaluator.Tests.Operations
                 var operation = _factory.GetMethod(name);
 
                 operation.Should().BeOfType(operationType);
+            }
+
+            [Fact]
+            public void Should_Return_Registered_And_UserDefined_Methods()
+            {
+                _factory = new UserDefinedMethodFactory();
+
+                var methodName = Create<string>();
+                _factory.RegisterMethod<LessThanOrEqualOperation>(methodName);
+
+                _factory.RegisteredMethods.Should().HaveCount(30);      // 29 built-in plus 1
+
+                _factory.RegisteredMethods.Should().Contain(methodName.ToUpperInvariant());
+                _factory.IsRegistered(methodName).Should().BeTrue();    // The method names are added uppercase - use IsRegistered() as another sanity check
             }
         }
 

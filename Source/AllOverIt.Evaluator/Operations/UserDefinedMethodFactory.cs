@@ -40,9 +40,7 @@ namespace AllOverIt.Evaluator.Operations
         private IDictionary<string, Lazy<ArithmeticOperationBase>> _userMethodsRegistry;
 
         /// <summary>Provides a list of all built-in and custom registered methods.</summary>
-        public IEnumerable<string> RegisteredMethods => BuiltInMethodsRegistry.Keys
-            .Concat(_userMethodsRegistry?.Keys ?? Enumerable.Empty<string>())
-            .AsReadOnlyCollection();
+        public IEnumerable<string> RegisteredMethods => GetRegisteredMethods();
 
         static UserDefinedMethodFactory()
         {
@@ -83,7 +81,7 @@ namespace AllOverIt.Evaluator.Operations
         /// <remarks>The operation type is expected to be thread-safe and should therefore not store state.</remarks>
         public void RegisterMethod<TOperationType>(string methodName) where TOperationType : ArithmeticOperationBase, new()
         {
-            _userMethodsRegistry ??=  new Dictionary<string, Lazy<ArithmeticOperationBase>>();
+            _userMethodsRegistry ??= new Dictionary<string, Lazy<ArithmeticOperationBase>>();
 
             RegisterMethod<TOperationType>(_userMethodsRegistry, methodName, true);
         }
@@ -118,6 +116,18 @@ namespace AllOverIt.Evaluator.Operations
             }
 
             throw new KeyNotFoundException($"The '{methodName}' method is not registered with the {nameof(UserDefinedMethodFactory)}.");
+        }
+
+        private IEnumerable<string> GetRegisteredMethods()
+        {
+            var keys = BuiltInMethodsRegistry.Keys.AsEnumerable();
+
+            if (_userMethodsRegistry is not null)
+            {
+                keys = keys.Concat(_userMethodsRegistry.Keys);
+            }
+
+            return keys;
         }
 
         private static void RegisterMethod<TOperationType>(IDictionary<string, Lazy<ArithmeticOperationBase>> operationRegistry, string methodName,
