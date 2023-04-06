@@ -9,6 +9,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Concurrency;
+using System.Threading;
 using Xunit;
 
 namespace AllOverIt.ReactiveUI.Tests
@@ -214,6 +215,58 @@ namespace AllOverIt.ReactiveUI.Tests
                     timer.IsRunning.Should().BeFalse();
 
                     expectedNotifications.Should().ContainInOrder(actualNotifications);
+                }
+            }
+
+            [Theory]
+            [InlineData(0, 0)]
+            [InlineData(1, 0)]
+            [InlineData(0, 1)]
+            [InlineData(1, 1)]
+            public void Should_Cancel_While_Running(int skipFactor, int skipTimeMode)
+            {
+                double totalMilliseconds = (int) GetWithinRange(10000, 12000);
+                double updateIntervalMilliseconds = (int) GetWithinRange(1000, 1500);
+                var skipMilliseconds = skipFactor * GetWithinRange(100, 200);
+
+                var scheduler = new TestScheduler();
+                scheduler.Start();
+
+                using (var cts = new CancellationTokenSource())
+                {
+                    using (var timer = new CountdownTimer(scheduler))
+                    {
+                        timer.Configure(totalMilliseconds, updateIntervalMilliseconds, null, cts.Token);
+
+                        timer.TotalMilliseconds.Should().Be(totalMilliseconds);
+                        timer.TotalTimeSpan.Should().BeCloseTo(TimeSpan.FromMilliseconds(totalMilliseconds), TimeSpan.FromMilliseconds(1));
+                        timer.IsRunning.Should().BeFalse();
+
+                        if (skipTimeMode == 0)
+                        {
+                            timer.Start(skipMilliseconds);
+                        }
+                        else
+                        {
+                            timer.Start(TimeSpan.FromMilliseconds(skipMilliseconds));
+                        }
+
+                        timer.IsRunning.Should().BeTrue();
+
+                        var advanceBy = TimeSpan.FromMilliseconds(updateIntervalMilliseconds * 2).Ticks;
+
+                        scheduler.AdvanceBy(advanceBy);
+
+                        timer.RemainingMilliseconds.Should().BeGreaterThan(0);
+                        timer.IsRunning.Should().BeTrue();
+
+                        cts.Cancel();
+
+                        scheduler.AdvanceBy(advanceBy);
+
+                        timer.RemainingMilliseconds.Should().Be(0);
+                        timer.IsRunning.Should().BeFalse();
+                    }
                 }
             }
 

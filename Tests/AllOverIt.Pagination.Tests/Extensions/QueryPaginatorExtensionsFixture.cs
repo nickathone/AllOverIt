@@ -629,6 +629,31 @@ namespace AllOverIt.Pagination.Tests.Extensions
             }
 
             [Fact]
+            public void Should_Not_Have_Next_Or_Previous_Page()
+            {
+                _entities.Count.Should().Be(29);
+                var pageSize = _entities.Count;
+
+                var paginator = CreatePaginator(pageSize, PaginationDirection.Forward)
+                    .ColumnAscending(entity => entity.FirstName, entity => entity.Id);
+
+                var expectedQuery = _entities
+                    .OrderBy(item => item.FirstName)
+                    .ThenBy(item => item.Id);
+
+                var actual = QueryPaginatorExtensions.GetPageResults(paginator, null);
+
+                actual.Should().BeEquivalentTo(new
+                {
+                    Results = expectedQuery.ToList(),
+                    TotalCount = _entities.Count,
+                    CurrentToken = (string) null,
+                    PreviousToken = (string) null,
+                    NextToken = (string) null
+                });
+            }
+
+            [Fact]
             public void Should_Get_Next_Page()
             {
                 _entities.Count.Should().Be(29);

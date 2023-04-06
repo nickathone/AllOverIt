@@ -69,6 +69,16 @@ namespace AllOverIt.Serialization.Json.Newtonsoft.Tests.Converters
 
                 actual.Prop1.Should().Be(expected);
             }
+
+            [Fact]
+            public void Should_Read_Null_Enum_Value()
+            {
+                var value = $@"{{""Prop1"":null}}";
+
+                var actual = _serializer.DeserializeObject<DummyValue>(value);
+
+                actual.Prop1.Should().BeNull();
+            }
         }
 
         public class Write : EnrichedEnumJsonConverterFixture
