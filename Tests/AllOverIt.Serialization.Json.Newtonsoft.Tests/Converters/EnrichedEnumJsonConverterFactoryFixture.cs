@@ -93,6 +93,18 @@ namespace AllOverIt.Serialization.Json.Newtonsoft.Tests.Converters
 
                 converter.Should().BeOfType<EnrichedEnumJsonConverter<DummyEnrichedEnum1>>();
             }
+
+            [Fact]
+            public void Should_Cache_Converter()
+            {
+                var converterFactory = new EnrichedEnumJsonConverterFactory();
+                
+                var converter1 = converterFactory.CreateConverter(typeof(DummyEnrichedEnum1));
+                var converter2 = converterFactory.CreateConverter(typeof(DummyEnrichedEnum1));
+
+                converter1.Should().BeOfType<EnrichedEnumJsonConverter<DummyEnrichedEnum1>>();
+                converter1.Should().BeSameAs(converter2);
+            }
         }
 
         public class Serialization : EnrichedEnumJsonConverterFactoryFixture
