@@ -19,7 +19,6 @@ AllOverIt
   * Added FileUtils CreateFileWithContentAsync()
   * Added commandline argument helper to escape strings
   * Added IComparer extension methods Reverse() and Then(); the latter allowing them to be composed like Chain of Responsibility
-  * Updated mapping to support ArrayList
   * Added object extension GetObjectElements()
 
 AllOverIt.Aws.Cdk.Appsync
@@ -75,6 +74,7 @@ AllOverIt.Validation.Options - New Package
 
 AllOverIt.Mapping - New Package
   * Moved mapping from AllOverIt into its own package
+  * Updated mapping to support ArrayList
 
 
 02 Feb 2023

@@ -2,9 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
-        <Copyright>Copyright © 2021</Copyright>
-        <Description>Contains ASP.NET Core utilities.</Description>
-        <PackageTags>utilities;aspnetcore</PackageTags>
+        <Description>A library containing ASP.NET Core utilities.</Description>
+        <PackageTags>AllOverIt;Utilities;AspNetCore</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

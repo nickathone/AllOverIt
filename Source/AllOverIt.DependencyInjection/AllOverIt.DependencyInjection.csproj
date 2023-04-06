@@ -2,9 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
-        <Copyright>Copyright © 2022</Copyright>
         <Description>A library containing useful dependency injection related utilities.</Description>
-        <PackageTags>utilities;dependencyinjection</PackageTags>
+        <PackageTags>AllOverIt;Utilities;DependencyInjection</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

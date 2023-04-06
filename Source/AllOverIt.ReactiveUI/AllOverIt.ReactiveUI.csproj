@@ -2,9 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
-        <Copyright>Copyright © 2022</Copyright>
-        <Description>Provides utility extensions for use with ReactiveUI.</Description>
-        <PackageTags>utilities;reactive</PackageTags>
+        <Description>A library containing utility extensions for use with ReactiveUI.</Description>
+        <PackageTags>AllOverIt;Utilities;Reactive;ReactiveUI</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

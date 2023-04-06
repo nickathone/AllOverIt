@@ -3,12 +3,13 @@
         <LangVersion>Latest</LangVersion>
         <Version>7.0.0-rc.1</Version>
         <Authors>Malcolm Smith</Authors>
-        <Company></Company>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/mjfreelancing/AllOverIt</RepositoryUrl>
         <PackageIcon>aoi_package_icon.png</PackageIcon>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
 
         <!--Stop warning related to end-of-life .NET versions-->
         <CheckEolTargetFramework>false</CheckEolTargetFramework>
@@ -30,7 +31,7 @@
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>
-      <None Include="..\..\readme.md">
+      <None Include="..\..\README.md">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>

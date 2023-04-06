@@ -2,7 +2,7 @@
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt/)
 
-A general purpose library containing a variety of classes, utilities, and helpers to fill in regularly occuring software development gaps.
+A general purpose library containing a variety of classes and helper utilities.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -19,7 +19,7 @@ Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) 
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.AspNetCore?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.AspNetCore/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.AspNetCore?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.AspNetCore/)
 
-Provides additional features for use in ASP .NET Core applications.
+A library containing ASP.NET Core utilities.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -34,7 +34,7 @@ Provides additional features for use in ASP .NET Core applications.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Assertion?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Assertion/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Assertion?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Assertion/)
 
-A library of pre and post condition assertion helper methods.
+A library containing pre and post condition assertion helper methods.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -49,7 +49,7 @@ A library of pre and post condition assertion helper methods.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Aws.AppSync.Client?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Aws.AppSync.Client/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Aws.AppSync.Client?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Aws.AppSync.Client/)
 
-Provides an AWS AppSync Graphql Subscription client.
+A library containing AppSync GraphQL and Subscription clients.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -64,7 +64,7 @@ Provides an AWS AppSync Graphql Subscription client.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Aws.Cdk.AppSync?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Aws.Cdk.AppSync/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Aws.Cdk.AppSync?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Aws.Cdk.AppSync/)
 
-Includes a code-first graphql schema generator that also provides support for binding resolvers to None, Http, and Lamda datasources.
+A library to help build AWS Graphql schemas using a code-first approach.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -111,7 +111,7 @@ A library containing useful dependency injection related utilities.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.EntityFrameworkCore?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.EntityFrameworkCore?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore/)
 
-Provides additional features for use in Entity Framework Core applications.
+A library providing utilities for use with EntityFramework Core.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -126,7 +126,7 @@ Provides additional features for use in Entity Framework Core applications.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.EntityFrameworkCore.Diagrams?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Diagrams/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.EntityFrameworkCore.Diagrams?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Diagrams/)
 
-A library providing formatters to generate ERD diagrams using Entity Framework Core.
+A library providing formatters to generate ERD diagrams using EntityFramework Core.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -141,7 +141,7 @@ A library providing formatters to generate ERD diagrams using Entity Framework C
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.EntityFrameworkCore.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Pagination/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.EntityFrameworkCore.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.EntityFrameworkCore.Pagination/)
 
-A library providing pagination utilities for use with Entity Framework Core.
+A library providing keyset-based pagination for use with EntityFramework Core.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -156,7 +156,7 @@ A library providing pagination utilities for use with Entity Framework Core.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Evaluator?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Evaluator/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Evaluator?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Evaluator/)
 
-A library designed to parse and evaluate mathemtical expressions. It provides support for custom operators, functions and includes constant, mutable, immutable, lazy, and delegate based variables to satisfy just about any requirement.
+A library containing an extendable expression compiler and evaluator.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -186,7 +186,7 @@ A library providing queryable filtering utilities.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Fixture?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Fixture/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Fixture?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Fixture/)
 
-Contains a base Fixture class that includes a number of helpful utility methods.
+A library containing a base fixture class with numerous helper methods to assist with creating unit test scaffolding. Utilizes AutoFixture to do most of the hard work.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -201,7 +201,7 @@ Contains a base Fixture class that includes a number of helpful utility methods.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Fixture.FakeItEasy?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Fixture.FakeItEasy/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Fixture.FakeItEasy?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Fixture.FakeItEasy/)
 
-Extends **AllOverIt.Fixture** to assist with the creation of single/multiple stubs and fakes.
+A library extending **AllOverIt.Fixture** to support FakeItEasy integration.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -216,7 +216,7 @@ Extends **AllOverIt.Fixture** to assist with the creation of single/multiple stu
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.GenericHost?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.GenericHost/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.GenericHost?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.GenericHost/)
 
-Provides the ability to quickly create console applications that support dependency injection without being concerned with all of the ceremony.
+A library containing a convenient wrapper for building console applications that support dependency injection.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -231,7 +231,7 @@ Provides the ability to quickly create console applications that support depende
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Mapping?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Mapping/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Mapping?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Mapping/)
 
-Provides an object mapper that is configuration free in many cases.
+A library containing an object mapper that is mostly configuration free.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -246,7 +246,7 @@ Provides an object mapper that is configuration free in many cases.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Pagination/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Pagination?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Pagination/)
 
-A library providing queryable pagination utilities.
+A library providing queryable keyset-based pagination utilities.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -257,26 +257,11 @@ A library providing queryable pagination utilities.
 | net7.0         |    Yes    |
 
 
-# AllOverIt.Plugin
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Plugin?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Plugin/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Plugin?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Plugin/)
-
-A library providing a dynamic plugin framework.
-
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    No     |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
-
-
 # AllOverIt.Reactive
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Reactive/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Reactive/)
 
-Provides utility extensions for use with System.Reactive.
+A library containing utility extensions for use with System.Reactive.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -291,52 +276,7 @@ Provides utility extensions for use with System.Reactive.
 [![NuGet](https://img.shields.io/nuget/v/AllOverItUI.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.ReactiveUI/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverItUI.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.ReactiveUI/)
 
-Provides utility extensions for use with ReactiveUI.
-
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
-
-
-# AllOverIt.Serialization.JsonHelper
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.JsonHelper?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.JsonHelper/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.JsonHelper?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.JsonHelper/)
-
-Provides helpers that provide the ability to extract values from a JSON string or anonymous object.
-
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
-
-
-# AllOverIt.Serialization.JsonAbstractions
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.JsonAbstractions?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.JsonAbstractions/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.JsonAbstractions?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.JsonAbstractions/)
-
-Provides abstractions for JSON serialization.
-
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
-
-
-# AllOverIt.Serialization.NewtonSoftJson
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.NewtonSoftJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.NewtonSoftJson/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.NewtonSoftJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.NewtonSoftJson/)
-
-A JSON serialization wrapper around NewtsonSoft.Json (an implementation for AllOverIt.Serialization.JsonAbstractions).
+A library containing utility extensions for use with ReactiveUI.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -351,7 +291,7 @@ A JSON serialization wrapper around NewtsonSoft.Json (an implementation for AllO
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.Binary?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Binary/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.Binary?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Binary/)
 
-Provides support for binary serialization.
+A library providing support for binary serialization.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -362,11 +302,41 @@ Provides support for binary serialization.
 | net7.0         |    Yes    |
 
 
-# AllOverIt.Serialization.SystemTextJson
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.SystemTextJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.SystemTextJson/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.SystemTextJson?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.SystemTextJson/)
+# AllOverIt.Serialization.Json.Abstractions
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.Json.Abstractions?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Json.Abstractions/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.Json.Abstractions?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Json.Abstractions/)
 
-A JSON serialization wrapper around System.Text.Json (an implementation for AllOverIt.Serialization.JsonAbstractions).
+A library containing JSON serialization abstractions.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
+# AllOverIt.Serialization.Json.NewtonSoft
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.Json.NewtonSoft?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Json.NewtonSoft/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.Json.NewtonSoft?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Json.NewtonSoft/)
+
+A library containing a wrapper for Newtonsoft.Json serialization based on AllOverIt.Serialization.Json.Abstractions.
+
+| Target         | Supported |
+|----------------|-----------|
+| netstandard2.1 |    Yes    |
+| netcoreapp3.1  |    Yes    |
+| net5.0         |    Yes    |
+| net6.0         |    Yes    |
+| net7.0         |    Yes    |
+
+
+# AllOverIt.Serialization.Json.SystemText
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Serialization.Json.SystemText?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Json.SystemText/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Serialization.Json.SystemText?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Serialization.Json.SystemText/)
+
+A library containing a wrapper for System.Text.Json serialization based on AllOverIt.Serialization.Json.Abstractions.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -381,7 +351,7 @@ A JSON serialization wrapper around System.Text.Json (an implementation for AllO
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Validation?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validation/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Validation?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validation/)
 
-Provides additional validators and extensions for use with FluentValidation.
+A library containing additional validators and extensions for use with FluentValidation.
 
 | Target         | Supported |
 |----------------|-----------|
@@ -396,7 +366,7 @@ Provides additional validators and extensions for use with FluentValidation.
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Validation.Options?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validation.Options/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Validation.Options?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Validation.Options/)
 
-Provides Options validation using FluentValidation.
+A library containing Options validation using FluentValidation.
 
 | Target         | Supported |
 |----------------|-----------|

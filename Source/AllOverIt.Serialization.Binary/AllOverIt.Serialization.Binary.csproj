@@ -2,9 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
-        <Copyright>Copyright © 2023</Copyright>
-        <Description>Provides support for binary serialization.</Description>
-        <PackageTags>utilities;binary;serialization</PackageTags>
+        <Description>A library providing support for binary serialization.</Description>
+        <PackageTags>AllOverIt;Utilities;Binary;Serialization;Deserialization</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

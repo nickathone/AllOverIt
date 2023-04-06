@@ -2,9 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
-        <Copyright>Copyright © 2015</Copyright>
-        <Description>Provides an extendable expression compiler and evaluator</Description>
-        <PackageTags>utilities;evaluator</PackageTags>
+        <Description>A library containing an extendable expression compiler and evaluator.</Description>
+        <PackageTags>AllOverIt;Utilities;Evaluator</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

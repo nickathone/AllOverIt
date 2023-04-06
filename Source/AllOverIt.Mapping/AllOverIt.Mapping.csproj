@@ -2,9 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
-        <Copyright>Copyright © 2023</Copyright>
-        <Description>Provides an object mapper that is configuration free in many cases.</Description>
-        <PackageTags>utilities;mapping</PackageTags>
+        <Description>A library containing an object mapper that is mostly configuration free.</Description>
+        <PackageTags>AllOverIt;Utilities;Mapping</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
