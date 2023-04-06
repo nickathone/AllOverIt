@@ -95,16 +95,20 @@ namespace AllOverIt.Serialization.Json.SystemText.Tests.Converters
             }
 
             [Fact]
-            public void Should_Cache_Converter()
+            public void Should_Not_Cache_Converter()
             {
-                var converterFactory = new EnrichedEnumJsonConverterFactory();
+                var converterFactory = new EnrichedEnumJsonConverterFactory
+                {
+                    EnableCaching = false,
+                };
+
                 var options = new JsonSerializerOptions();
 
                 var converter1 = converterFactory.CreateConverter(typeof(DummyEnrichedEnum1), options);
                 var converter2 = converterFactory.CreateConverter(typeof(DummyEnrichedEnum1), options);
 
                 converter1.Should().BeOfType<EnrichedEnumJsonConverter<DummyEnrichedEnum1>>();
-                converter1.Should().BeSameAs(converter2);
+                converter1.Should().NotBeSameAs(converter2);
             }
         }
 
