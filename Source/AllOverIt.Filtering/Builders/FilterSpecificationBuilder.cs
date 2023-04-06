@@ -315,8 +315,9 @@ namespace AllOverIt.Filtering.Builders
             }
             catch (TargetInvocationException exception)
             {
+                // The InnerException will never be null - it holds the underlying exception thrown by the invoked method
                 // The operation may throw a NullNotSupportedException
-                throw exception.InnerException ?? exception;
+                throw exception.InnerException;
             }
         }
 

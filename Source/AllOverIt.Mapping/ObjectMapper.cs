@@ -262,7 +262,7 @@ namespace AllOverIt.Mapping
                 return instance;
             }
 
-            if (targetPropertyType.IsEnumerableType())      // IsDerivedFrom(CommonTypes.IEnumerableGenericType)
+            if (targetPropertyType.IsEnumerableType())  // Cater for IEnumerable and IEnumerable<T>
             {
                 var targetElementType = GetEnumerableElementType(targetPropertyType);
 

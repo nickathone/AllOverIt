@@ -54,7 +54,8 @@ namespace AllOverIt.Aspects.Interceptor
             }
             catch (TargetInvocationException exception)
             {
-                var fault = exception.InnerException;       // Will never be null
+                // The InnerException will never be null - it holds the underlying exception thrown by the invoked method
+                var fault = exception.InnerException;
 
                 Faulted(targetMethod, args, state, fault);
 
