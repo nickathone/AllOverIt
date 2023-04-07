@@ -5,7 +5,6 @@
         <Authors>Malcolm Smith</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/mjfreelancing/AllOverIt</RepositoryUrl>
         <PackageIcon>aoi_package_icon.png</PackageIcon>
