@@ -5,7 +5,7 @@ namespace AllOverIt.Collections
 {
     /// <summary>Provides a truly immutable list.</summary>
     /// <typeparam name="TType">The type stored by the list.</typeparam>
-    public sealed class ReadOnlyList<TType> : IReadOnlyList<TType>
+    public class ReadOnlyList<TType> : IReadOnlyList<TType>
     {
         private readonly IList<TType> _list;
 

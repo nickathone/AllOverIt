@@ -20,6 +20,7 @@ AllOverIt
   * Added commandline argument helper to escape strings
   * Added IComparer extension methods Reverse() and Then(); the latter allowing them to be composed like Chain of Responsibility
   * Added object extension GetObjectElements()
+  * Unseal ReadOnlyCollection, ReadOnlyList, ReadOnlyDictionary
 
 AllOverIt.Aws.Cdk.Appsync
   * Updated to Amazon.CDK.AWS.AppSync v1.198.1
