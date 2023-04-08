@@ -16,13 +16,12 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
             _options = options.WhenNotNull(nameof(options));
         }
 
-        public override string Generate(DbContext dbContext)
+        public override string GenerateDiagram(DbContext dbContext, IReadOnlyDictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>> entries)
         {
             var sb = new StringBuilder();
             var relationships = new List<string>();
 
             var dbContextEntityTypes = dbContext.Model.GetEntityTypes().AsReadOnlyCollection();
-            var entries = GetEntityColumnDescriptors(dbContext);
 
             var defaultShapeStyle = !_options.Entities.ShapeStyle.IsDefault()
                 ? _options.Entities.ShapeStyle.AsText(2)

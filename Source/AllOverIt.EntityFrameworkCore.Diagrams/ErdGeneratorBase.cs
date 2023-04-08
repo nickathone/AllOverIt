@@ -5,13 +5,27 @@ using System.Collections.Generic;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams
 {
+    /// <summary>Identifies an entity type.</summary>
+    /// <param name="Type">The entity type.</param>
+    /// <param name="TableName">The entity's associated table name.</param>
     public sealed record EntityIdentifier(Type Type, string TableName);
 
+    /// <summary>Base class for an entity relationship diagram generator.</summary>
     public abstract class ErdGeneratorBase : IErdGenerator
     {
-        public abstract string Generate(DbContext dbContext);
+        /// <summary>Generates the entity relationship diagram.</summary>
+        /// <param name="dbContext">The source <see cref="DbContext"/> to generate an entity relationship diagram.</param>
+        /// <returns>The generated diagram text.</returns>
+        public string Generate(DbContext dbContext)
+        {
+            var descriptors = GetEntityColumnDescriptors(dbContext);
 
-        protected static IReadOnlyDictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>> GetEntityColumnDescriptors(DbContext dbContext)
+            return GenerateDiagram(dbContext, descriptors);
+        }
+
+        public abstract string GenerateDiagram(DbContext dbContext, IReadOnlyDictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>> descriptors);
+
+        private static IReadOnlyDictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>> GetEntityColumnDescriptors(DbContext dbContext)
         {
             var entityDescriptors = new Dictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>>();
 
