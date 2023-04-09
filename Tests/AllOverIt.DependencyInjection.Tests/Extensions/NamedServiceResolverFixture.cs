@@ -1,5 +1,6 @@
 ﻿using AllOverIt.DependencyInjection.Exceptions;
 using AllOverIt.DependencyInjection.Extensions;
+using AllOverIt.Extensions;
 using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using FakeItEasy;
@@ -18,6 +19,10 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
         }
 
         private sealed class Dummy1 : IDummyInterface
+        {
+        }
+
+        private sealed class Dummy2
         {
         }
 
@@ -158,6 +163,20 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                     var actual = ((INamedServiceResolver<IDummyInterface>) _serviceResolver).GetRequiredNamedService(name);
 
                     actual.Should().BeOfType<Dummy1>();
+                }
+
+                [Fact]
+                public void Should_Throw_When_Type_Does_Not_Implement_Service()
+                {
+                    var name = Create<string>();
+
+                    Invoking(() =>
+                    {
+                        _registration.Register(name, typeof(Dummy2));
+                    })
+                    .Should()
+                    .Throw<DependencyRegistrationException>()
+                    .WithMessage($"The type '{typeof(Dummy2).GetFriendlyName}' with name '{name}' does not implement '{nameof(IDummyInterface)}'.");
                 }
 
                 [Fact]

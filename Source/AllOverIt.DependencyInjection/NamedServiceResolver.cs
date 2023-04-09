@@ -30,6 +30,11 @@ namespace AllOverIt.DependencyInjection
                 throw new DependencyRegistrationException($"The name '{name}' has already been registered against the type '{namedType.GetFriendlyName()}'.");
             }
 
+            if (!implementationType.IsDerivedFrom(typeof(TService)))
+            {
+                throw new DependencyRegistrationException($"The type '{implementationType.GetFriendlyName}' with name '{name}' does not implement '{typeof(TService).GetFriendlyName()}'.");
+            }
+
             _namedImplementations.Add(name, implementationType);
         }
 
