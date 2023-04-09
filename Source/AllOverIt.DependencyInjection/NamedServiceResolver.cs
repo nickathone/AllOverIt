@@ -32,7 +32,7 @@ namespace AllOverIt.DependencyInjection
 
             if (!implementationType.IsDerivedFrom(typeof(TService)))
             {
-                throw new DependencyRegistrationException($"The type '{implementationType.GetFriendlyName}' with name '{name}' does not implement '{typeof(TService).GetFriendlyName()}'.");
+                throw new DependencyRegistrationException($"The type '{implementationType.GetFriendlyName()}' with name '{name}' does not implement '{typeof(TService).GetFriendlyName()}'.");
             }
 
             _namedImplementations.Add(name, implementationType);

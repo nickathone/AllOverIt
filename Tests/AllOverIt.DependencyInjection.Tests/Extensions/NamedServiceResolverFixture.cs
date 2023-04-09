@@ -176,7 +176,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                     })
                     .Should()
                     .Throw<DependencyRegistrationException>()
-                    .WithMessage($"The type '{typeof(Dummy2).GetFriendlyName}' with name '{name}' does not implement '{nameof(IDummyInterface)}'.");
+                    .WithMessage($"The type '{typeof(Dummy2).GetFriendlyName()}' with name '{name}' does not implement '{nameof(IDummyInterface)}'.");
                 }
 
                 [Fact]
