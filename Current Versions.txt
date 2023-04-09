@@ -35,18 +35,18 @@
         - AllOverIt dependencies:                - [6]
 
 
-  [8]  AllOverIt.Serialization.JsonAbstractions
+  [8]  AllOverIt.Serialization.Json.Abstractions
         - Targets                                - netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0
         - AllOverIt dependencies:                - None
 
 
-  [9]  AllOverIt.Serialization.NewtonsoftJson
+  [9]  AllOverIt.Serialization.Json.Newtonsoft
         - Targets                                - netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0
         - AllOverIt dependencies:                - [1], [8], [16]
 
 
 
-  [10] AllOverIt.Serialization.SystemTextJson
+  [10] AllOverIt.Serialization.Json.SystemText
         - Targets                                - netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0
         - AllOverIt dependencies:                - [1], [8], [16]
 
@@ -86,9 +86,9 @@
         - AllOverIt dependencies:                - [16]
 
 
-  [18]  AllOverIt.Serialization.JsonHelper
+  [18]  AllOverIt.Serialization
         - Targets                                - netstandard2.1;netcoreapp3.1;net5.0;net6.0;net7.0
-        - AllOverIt dependencies:                - [1], [8]
+        - AllOverIt dependencies:                - [1]
 
 
   [19] AllOverIt.Pagination

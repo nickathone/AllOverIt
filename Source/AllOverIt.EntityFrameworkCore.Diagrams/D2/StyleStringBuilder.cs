@@ -4,7 +4,7 @@ using AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
 {
-    public static class StyleStringBuilder
+    internal static class StyleStringBuilder
     {
         public static string Create(int indent, Action<Action<string, string>> styler)
         {

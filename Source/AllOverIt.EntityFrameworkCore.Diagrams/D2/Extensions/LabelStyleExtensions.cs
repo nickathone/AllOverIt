@@ -1,6 +1,6 @@
 ﻿namespace AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions
 {
-    public static class LabelStyleExtensions
+    internal static class LabelStyleExtensions
     {
         public static string AsText(this LabelStyle labelStyle, int indent)
         {

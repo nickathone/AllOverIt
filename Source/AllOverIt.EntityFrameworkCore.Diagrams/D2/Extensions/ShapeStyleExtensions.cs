@@ -1,6 +1,6 @@
 ﻿namespace AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions
 {
-    public static class ShapeStyleExtensions
+    internal static class ShapeStyleExtensions
     {
         public static string AsText(this ShapeStyle shapeStyle, int indent)
         {

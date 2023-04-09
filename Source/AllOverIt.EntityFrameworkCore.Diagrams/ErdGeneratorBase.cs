@@ -1,10 +1,12 @@
-﻿using AllOverIt.Extensions;
+﻿using AllOverIt.Collections;
+using AllOverIt.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams
 {
+
     /// <summary>Identifies an entity type.</summary>
     /// <param name="Type">The entity type.</param>
     /// <param name="TableName">The entity's associated table name.</param>
@@ -23,9 +25,15 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
             return GenerateDiagram(dbContext, descriptors);
         }
 
-        public abstract string GenerateDiagram(DbContext dbContext, IReadOnlyDictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>> descriptors);
+        /// <summary>Override in a concrete class to generate the entity relationship diagram using the provided
+        /// <see cref="DbContext"/> and entity-column relationship details.</summary>
+        /// <param name="dbContext">The source <see cref="DbContext"/> to generate an entity relationship diagram.</param>
+        /// <param name="entityColumns">A read-only dictionary containing relationship details for all entities and their
+        /// associated columns discovered from the provided <paramref name="dbContext"/>.</param>
+        /// <returns>An entity relationship diagram based on a provided <see cref="DbContext"/>.</returns>
+        public abstract string GenerateDiagram(DbContext dbContext, EntityColumns entityColumns);
 
-        private static IReadOnlyDictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>> GetEntityColumnDescriptors(DbContext dbContext)
+        private static EntityColumns GetEntityColumnDescriptors(DbContext dbContext)
         {
             var entityDescriptors = new Dictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>>();
 
@@ -40,7 +48,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
                 entityDescriptors.Add(identifier, descriptors);
             }
 
-            return entityDescriptors;
+            return new EntityColumns(entityDescriptors);
         }
     }
 }

@@ -12,15 +12,19 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions
 {
     public static class D2ErdGeneratorExtensions
     {
-        // Exports the diagram to a text file (options.DiagramFileName) as a minimum, and optionally additional
-        // formats (options.Formats).
-        public static async Task ExportAsync(this D2ErdGenerator formatter, DbContext dbContext, D2ErdExportOptions options,
+        /// <summary>Exports the D2 diagram to a file along with any additional configured formats.</summary>
+        /// <param name="generator">The entity relationship diagram generator.</param>
+        /// <param name="dbContext">The source <see cref="DbContext"/> to generate an entity relationship diagram.</param>
+        /// <param name="options">The D2 diagram export options.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>A task that completes when the diagram export is completed.</returns>
+        public static async Task ExportAsync(this D2ErdGenerator generator, DbContext dbContext, D2ErdExportOptions options,
             CancellationToken cancellationToken = default)
         {
             _ = dbContext.WhenNotNull(nameof(dbContext));
             _ = options.WhenNotNull(nameof(options));
 
-            var content = formatter.Generate(dbContext);
+            var content = generator.Generate(dbContext);
 
             await CreateDiagramFileAsync(content, options, cancellationToken).ConfigureAwait(false);
             await FormatDiagramFileAsync(options, cancellationToken).ConfigureAwait(false);
@@ -29,11 +33,15 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions
 
         private static Task CreateDiagramFileAsync(string content, D2ErdExportOptions options, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             return FileUtils.CreateFileWithContentAsync(content, options.DiagramFileName, cancellationToken);
         }
 
         private static Task FormatDiagramFileAsync(D2ErdExportOptions options, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             var formatFile = ProcessBuilder
                .For("d2.exe")
                .WithArguments("fmt", options.DiagramFileName)
@@ -46,6 +54,8 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2.Extensions
 
         private static async Task CreateAdditionalFormatsAsync(D2ErdExportOptions options, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             if (options.Formats.IsNullOrEmpty())
             {
                 return;

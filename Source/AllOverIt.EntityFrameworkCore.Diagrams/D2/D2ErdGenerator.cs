@@ -7,16 +7,20 @@ using System.Text;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
 {
+    /// <summary>Implements an entity relationship diagram generator for the D2 format.</summary>
     public sealed class D2ErdGenerator : ErdGeneratorBase
     {
         private readonly ErdOptions _options;
 
+        /// <summary>Constructor.</summary>
+        /// <param name="options">The entity relationship diagram generator options.</param>
         public D2ErdGenerator(ErdOptions options)
         {
             _options = options.WhenNotNull(nameof(options));
         }
 
-        public override string GenerateDiagram(DbContext dbContext, IReadOnlyDictionary<EntityIdentifier, IReadOnlyCollection<ColumnDescriptor>> entries)
+        /// <inheritdoc/>
+        public override string GenerateDiagram(DbContext dbContext, EntityColumns entityColumns)
         {
             var sb = new StringBuilder();
             var relationships = new List<string>();
@@ -29,7 +33,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
 
             var entityNodeGenerator = new EntityNodeGenerator(_options, dbContextEntityTypes, defaultShapeStyle);
 
-            foreach (var (entityIdentifier, columns) in entries)
+            foreach (var (entityIdentifier, columns) in entityColumns)
             {
                 var entityNode = entityNodeGenerator.CreateNode(entityIdentifier, columns, relationships.Add);
 

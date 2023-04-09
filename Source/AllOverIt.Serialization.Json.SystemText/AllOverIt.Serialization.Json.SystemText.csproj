@@ -12,7 +12,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\AllOverIt.Serialization.Json.Abstractions\AllOverIt.Serialization.Json.Abstractions.csproj" />
-        <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
     </ItemGroup>
 
     <ItemGroup>

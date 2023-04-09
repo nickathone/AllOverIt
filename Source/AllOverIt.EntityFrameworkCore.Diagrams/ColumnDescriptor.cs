@@ -7,16 +7,28 @@ using System.Linq;
 
 namespace AllOverIt.EntityFrameworkCore.Diagrams
 {
+    /// <summary>Describes an entity column.</summary>
     public sealed class ColumnDescriptor
     {
+        /// <summary>The column name.</summary>
         public string ColumnName { get; }
+
+        /// <summary>The column type.</summary>
         public string ColumnType { get; }
+
+        /// <summary>Indicates if the column is nullable.</summary>
         public bool IsNullable { get; }
+
+        /// <summary>Indicates the column's maximum length, where applicable.</summary>
         public int? MaxLength { get; }
+
+        /// <summary>Indicates the constraint type.</summary>
         public ConstraintType Constraint { get; } = ConstraintType.None;
+
+        /// <summary>Provides foreign key principles.</summary>
         public IReadOnlyCollection<PrincipalForeignKey> ForeignKeyPrincipals { get; }
 
-        public ColumnDescriptor(IProperty column)
+        internal ColumnDescriptor(IProperty column)
         {
             ColumnName = column.Name;
             ColumnType = column.GetColumnType();
@@ -41,7 +53,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
         }
 
         // Alternative factory method that can be used as a method group
-        public static ColumnDescriptor Create(IProperty column)
+        internal static ColumnDescriptor Create(IProperty column)
         {
             return new ColumnDescriptor(column);
         }
