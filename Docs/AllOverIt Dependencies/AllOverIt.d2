@@ -1,0 +1,102 @@
+direction: right
+
+aoi: AllOverIt
+aoi-aspnetcore: AllOverIt.AspNetCore
+aoi-assertion: AllOverIt.Assertion
+aoi-aws-appsync-client: AllOverIt.Aws.AppSync.Client
+aoi-aws-cdk-appsync: AllOverIt.Aws.Cdk.AppSync
+aoi-csv: AllOverIt.Csv
+aoi-dependencyinjection: AllOverIt.DependencyInjection
+aoi-entityframework: AllOverIt.EntityFrameworkCore
+aoi-entityframework-diagrams: AllOverIt.EntityFrameworkCore.Diagrams
+aoi-entityframework-pagination: AllOverIt.EntityFrameworkCore.Pagination
+aoi-evaluator: AllOverIt.Evaluator
+aoi-filtering: AllOverIt.Filtering
+aoi-fixture: AllOverIt.Fixture
+aoi-fixture-fakeiteasy: AllOverIt.Fixture.FakeItEasy
+aoi-generichost: AllOverIt.GenericHost
+aoi-mapping: AllOverIt.Mapping
+aoi-pagination: AllOverIt.Pagination
+aoi-reactive: AllOverIt.Reactive
+aoi-reactiveui: AllOverIt.ReactiveUI
+aoi-serialization-binary: AllOverIt.Serialization.Binary
+aoi-serialization-json-abstractions: AllOverIt.Serialization.Json.Abstractions
+aoi-serialization-json-newtonsoft: AllOverIt.Serialization.Json.NewtonSoft
+aoi-serialization-json-systemtext: AllOverIt.Serialization.Json.SystemText
+aoi-validation: AllOverIt.Validation
+aoi-validation-options: AllOverIt.Validation.Options
+
+# AllOverIt
+aoi-assertion <- aoi
+
+# AllOverIt.AspNetCore
+aoi <- aoi-aspnetcore
+
+# AllOverIt.Assertion
+
+# AllOverIt.Aws.AppSync.Client
+aoi-reactive <- aoi-aws-appsync-client
+aoi-serialization-json-abstractions <- aoi-aws-appsync-client
+
+# AllOverIt.Aws.Cdk.AppSync
+aoi <- aoi-aws-cdk-appsync
+
+# AllOverIt.Csv
+aoi <- aoi-csv
+
+# AllOverIt.DependencyInjection
+aoi <- aoi-dependencyinjection
+
+# AllOverIt.EntityFrameworkCore
+aoi <- aoi-entityframework
+
+# AllOverIt.EntityFrameworkCore.Diagrams
+aoi <- aoi-entityframework-diagrams
+
+# AllOverIt.EntityFrameworkCore.Pagination
+aoi-entityframework <- aoi-entityframework-pagination
+aoi-pagination <- aoi-entityframework-pagination
+
+# AllOverIt.Evaluator
+aoi <- aoi-evaluator
+
+# AllOverIt.Filtering
+aoi <- aoi-filtering
+
+# AllOverIt.Fixture
+
+# AllOverIt.Fixture.FakeItEasy
+aoi-fixture <- aoi-fixture-fakeiteasy
+
+# AllOverIt.GenericHost
+aoi <- aoi-generichost
+
+# AllOverIt.Mapping
+aoi <- aoi-mapping
+
+# AllOverIt.Pagination
+aoi-serialization-binary <- aoi-pagination
+
+# AllOverIt.Reactive
+aoi <- aoi-reactive
+
+# AllOverIt.ReactiveUI
+aoi <- aoi-reactiveui
+
+# AllOverIt.Serialization.Binary
+aoi <- aoi-serialization-binary
+
+# AllOverIt.Serialization.Json.Abstractions
+aoi <- aoi-serialization-json-abstractions
+
+# AllOverIt.Serialization.Json.NewtonSoft
+aoi-serialization-json-abstractions <- aoi-serialization-json-newtonsoft
+
+# AllOverIt.Serialization.Json.SystemText
+aoi-serialization-json-abstractions <- aoi-serialization-json-systemtext
+
+# AllOverIt.Validation
+aoi <- aoi-validation
+
+# AllOverIt.Validation.Options
+aoi-validation <- aoi-validation-options
