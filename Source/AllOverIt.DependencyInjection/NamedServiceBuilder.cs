@@ -17,48 +17,48 @@ namespace AllOverIt.DependencyInjection
 
         public INamedServiceBuilder<TService> AsTransient<TImplementation>(string name) where TImplementation : class, TService
         {
-            _services.AddTransient<TService, TImplementation>();
             RegisterImplementation<TImplementation>(name);
+            _services.AddTransient<TService, TImplementation>();
 
             return this;
         }
 
         public INamedServiceBuilder<TService> AsTransient(string name, Type implementationType)
         {
-            _services.AddTransient(typeof(TService), implementationType);
             RegisterImplementation(name, implementationType);
+            _services.AddTransient(typeof(TService), implementationType);
 
             return this;
         }
 
         public INamedServiceBuilder<TService> AsScoped<TImplementation>(string name) where TImplementation : class, TService
         {
-            _services.AddScoped<TService, TImplementation>();
             RegisterImplementation<TImplementation>(name);
+            _services.AddScoped<TService, TImplementation>();
 
             return this;
         }
 
         public INamedServiceBuilder<TService> AsScoped(string name, Type implementationType)
         {
-            _services.AddScoped(typeof(TService), implementationType);
             RegisterImplementation(name, implementationType);
+            _services.AddScoped(typeof(TService), implementationType);
 
             return this;
         }
 
         public INamedServiceBuilder<TService> AsSingleton<TImplementation>(string name) where TImplementation : class, TService
         {
-            _services.AddSingleton<TService, TImplementation>();
             RegisterImplementation<TImplementation>(name);
+            _services.AddSingleton<TService, TImplementation>();
 
             return this;
         }
 
         public INamedServiceBuilder<TService> AsSingleton(string name, Type implementationType)
         {
-            _services.AddSingleton(typeof(TService), implementationType);
             RegisterImplementation(name, implementationType);
+            _services.AddSingleton(typeof(TService), implementationType);
 
             return this;
         }

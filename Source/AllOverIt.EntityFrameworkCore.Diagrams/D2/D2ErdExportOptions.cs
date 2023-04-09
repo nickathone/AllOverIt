@@ -7,6 +7,8 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
     public sealed class D2ErdExportOptions
     {
         private const string DefaultLayoutEngine = "elk";
+
+        /// <summary>The default them to use.</summary>
         public const Theme DefaultTheme = Theme.Neutral;
 
         /// <summary>The diagram text export filename.</summary>

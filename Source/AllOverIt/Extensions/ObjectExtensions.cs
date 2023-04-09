@@ -163,10 +163,8 @@ namespace AllOverIt.Extensions
             }
         }
 
-        /// <summary>
-        /// Specifies the binding options to use when calculating the hash code of an object when using
-        /// <see cref="CalculateHashCode{TType}(TType,IEnumerable{string},IEnumerable{string})"/>.
-        /// </summary>
+        /// <summary>Specifies the binding options to use when calculating the hash code of an object when using
+        /// <see cref="CalculateHashCode{TType}(TType,IEnumerable{string},IEnumerable{string})"/>.</summary>
         public static BindingOptions DefaultHashCodeBindings { get; set; } = BindingOptions.Instance | BindingOptions.AllAccessor | BindingOptions.AllVisibility;
 
         /// <summary>Creates a dictionary containing property names and associated values.</summary>
@@ -429,8 +427,8 @@ namespace AllOverIt.Extensions
             return @object.GetType().IsEnrichedEnum();
         }
 
-        /// <summary>Treats the provided object as an <see cref="IEnumerable{object}"/> so it can be enumerated.</summary>
-        /// <param name="@object">The object to treat as an <see cref="IEnumerable{object}"/> so it can be enumerated.</param>
+        /// <summary>Treats the provided object as an <see cref="IEnumerable{Object}"/> so it can be enumerated.</summary>
+        /// <param name="object">The object to treat as an <see cref="IEnumerable{Object}"/> so it can be enumerated.</param>
         /// <returns>The object's elements.</returns>
         public static IEnumerable<object> GetObjectElements(this object @object)
         {

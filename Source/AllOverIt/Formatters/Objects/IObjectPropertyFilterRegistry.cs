@@ -12,8 +12,6 @@ namespace AllOverIt.Formatters.Objects
         /// <typeparam name="TFilter">The filter type.</typeparam>
         /// <param name="serializerOptions">Options to be used by each constructed serializer. If no options are provided then
         /// a default <see cref="ObjectPropertySerializerOptions"/> instance will be used.</param>
-        /// <remarks>This method should not be used if multiple threads construct the same filter type because each filter instance
-        /// will be assigned to the same <see cref="ObjectPropertySerializerOptions.Filter"/> property.</remarks>
         public void Register<TType, TFilter>(ObjectPropertySerializerOptions serializerOptions = default)
             where TFilter : ObjectPropertyFilter, new();
 

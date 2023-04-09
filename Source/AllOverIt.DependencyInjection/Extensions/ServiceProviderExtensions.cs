@@ -4,6 +4,7 @@ using System;
 
 namespace AllOverIt.DependencyInjection.Extensions
 {
+    /// <summary>Provides dependency injection extension methods for <see cref="IServiceProvider"/>.</summary>
     public static partial class ServiceProviderExtensions
     {
         /// <summary>Gets a required implementation type based on a previously registered name. The implementation must implement

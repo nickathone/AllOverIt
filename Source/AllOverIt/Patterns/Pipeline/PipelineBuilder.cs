@@ -41,6 +41,7 @@ namespace AllOverIt.Patterns.Pipeline
         }
 
         /// <summary>Creates a new pipeline with an initial step, of type <typeparamref name="TPipelineStep"/>.</summary>
+        /// <typeparam name="TPipelineStep">The type of the initial pipeline step.</typeparam>
         /// <typeparam name="TIn">The input type for the pipeline step.</typeparam>
         /// <typeparam name="TOut">The output type for the pipeline step.</typeparam>
         /// <returns>A new pipeline builder instance that can have additional pipeline steps appended.</returns>
@@ -83,6 +84,7 @@ namespace AllOverIt.Patterns.Pipeline
         }
 
         /// <summary>Creates a new asynchronous pipeline with an initial step, of type <typeparamref name="TPipelineStep"/>.</summary>
+        /// <typeparam name="TPipelineStep">The type of the initial pipeline step.</typeparam>
         /// <typeparam name="TIn">The input type for the pipeline step.</typeparam>
         /// <typeparam name="TOut">The output type for the pipeline step.</typeparam>
         /// <returns>A new pipeline builder instance that can have additional pipeline steps appended.</returns>

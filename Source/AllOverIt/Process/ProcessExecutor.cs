@@ -11,6 +11,8 @@ using SystemProcess = System.Diagnostics.Process;
 
 namespace AllOverIt.Process
 {
+    /// <summary>Implements a process executor that supports argument passing, setting a working directory, using process
+    /// specific environments and can capture standard and error output as a buffered result or asynchronously.</summary>
     public sealed class ProcessExecutor : IProcessExecutor
     {
         [ExcludeFromCodeCoverage]
@@ -74,6 +76,7 @@ namespace AllOverIt.Process
             return DoExecuteBufferedAsync(cancellationToken);
         }
 
+        /// <summary>Disposes of process resources.</summary>
         [ExcludeFromCodeCoverage]
         public void Dispose()
         {
