@@ -3,7 +3,6 @@ using AllOverIt.Validation.Options.Extensions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
 namespace OptionsValidationDemo
@@ -21,7 +20,7 @@ namespace OptionsValidationDemo
                     services
                         .AddOptions<AppOptions>()
                         .Bind(hostContext.Configuration.GetSection(AppOptions.SectionName))
-                        .UseFluentValidation()      // Use FluentValidation to provide the validation rules
+                        .UseFluentValidation()      // Use FluentValidation to provide the rule validation
                         .ValidateOnStart();         // Validate immediately - not later when the app attempts to read the options
 
                     // If not using the generic version of CreateConsoleHostBuilder(), then this must be manually called

@@ -34,7 +34,7 @@ namespace AllOverIt.Formatters.Objects
         public string EmptyValueOutput { get; set; } = "<empty>";
 
         /// <summary>Provides options that allow array values to be collated to a single value.</summary>
-        /// <remarks>If a <see cref="Filter"/> has been provided to the <see cref="ObjectPropertySerializer"/> then
+        /// <remarks>If a <see cref="IObjectPropertySerializer.Filter"/> has been provided to the <see cref="ObjectPropertySerializer"/> then
         /// its enumerable options will override these settings.</remarks>
         public ObjectPropertyEnumerableOptions EnumerableOptions { get; } = new();
 

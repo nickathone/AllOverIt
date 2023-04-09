@@ -21,6 +21,7 @@ namespace AllOverIt.Formatters.Objects
         /// <summary>Constructor.</summary>
         /// <param name="options">Specifies options that determine how serialization of properties and their values are handled.
         /// If null, a default set of options will be used.</param>
+        /// <param name="filter">Provides support for filtering properties and values when serializing.</param>
         public ObjectPropertySerializer(ObjectPropertySerializerOptions options = default, ObjectPropertyFilter filter = default)
         {
             Filter = filter;
