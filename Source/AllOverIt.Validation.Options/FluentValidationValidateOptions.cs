@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Extensions;
 using FluentValidation;
 using Microsoft.Extensions.Options;
 using System.Linq;
