@@ -364,18 +364,19 @@ namespace AllOverIt.Fixture
             return items;
         }
 
-
-
-
-        protected static void AssertDefaultConstructor<TException>() where TException : Exception, new()
+        /// <summary>Asserts that an exception of type <typeparamref name="TException"/> has a default constructor.</summary>
+        /// <typeparam name="TException">The exception type.</typeparam>
+        protected static void AssertDefaultConstructor<TException>(string expectedMessage = default) where TException : Exception, new()
         {
             var exception = new TException();
 
-            var expected = $"Exception of type '{typeof(TException).FullName}' was thrown.";
+            var expected = expectedMessage ?? $"Exception of type '{typeof(TException).FullName}' was thrown.";
 
             exception.Message.Should().Be(expected);
         }
 
+        /// <summary>Asserts that an exception of type <typeparamref name="TException"/> does not have a default constructor.</summary>
+        /// <typeparam name="TException">The exception type.</typeparam>
         protected static void AssertNoDefaultConstructor<TException>() where TException : Exception
         {
             var constructor = typeof(TException).GetConstructor(Type.EmptyTypes);
@@ -383,17 +384,25 @@ namespace AllOverIt.Fixture
             constructor.Should().BeNull();
         }
 
+        /// <summary>Asserts that an exception of type <typeparamref name="TException"/> has a constructor accepting
+        /// a string message.</summary>
+        /// <typeparam name="TException">The exception type.</typeparam>
         protected void AssertConstructorWithMessage<TException>() where TException : Exception
         {
             var message = Create<string>();
 
             var constructor = typeof(TException).GetConstructor(new Type[] { typeof(string) });
 
+            constructor.Should().NotBeNull();
+
             var exception = (Exception) constructor.Invoke(new[] { message });
 
             exception.Message.Should().Be(message);
         }
 
+        /// <summary>Asserts that an exception of type <typeparamref name="TException"/> does not have a constructor
+        /// accepting a string message.</summary>
+        /// <typeparam name="TException">The exception type.</typeparam>
         protected static void AssertNoConstructorWithMessage<TException>() where TException : Exception
         {
             var constructor = typeof(TException).GetConstructor(new Type[] { typeof(string) });
@@ -401,12 +410,17 @@ namespace AllOverIt.Fixture
             constructor.Should().BeNull();
         }
 
+        /// <summary>Asserts that an exception of type <typeparamref name="TException"/> has a constructor accepting
+        /// a string message and an inner exception.</summary>
+        /// <typeparam name="TException">The exception type.</typeparam>
         protected void AssertConstructorWithMessageAndInnerException<TException>() where TException : Exception
         {
             var message = Create<string>();
             var innerException = new Exception();
 
             var constructor = typeof(TException).GetConstructor(new Type[] { typeof(string), typeof(Exception) });
+
+            constructor.Should().NotBeNull();
 
             var exception = (Exception) constructor.Invoke(new object[] { message, innerException });
 
@@ -418,10 +432,6 @@ namespace AllOverIt.Fixture
                 .Should()
                 .BeSameAs(innerException);
         }
-
-
-
-
 
         /// <summary>Asserts when a specified action is invoked that an AggregateException will be thrown and all expected exception
         /// types are handled.</summary>

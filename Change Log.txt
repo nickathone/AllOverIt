@@ -41,6 +41,9 @@ AllOverIt.EntityFrameworkCore.Diagrams
   * New package. Adds support for generating D2 entity relationship diagrams and exporting to text, svg, png, pdf.
 
 AllOverIt.Fixture
+  * Added exception assertion helpers
+  * Updated FluentAssertions v6.10.0
+
 AllOverIt.Fixture.FakeItEasy
   * Updated FluentAssertions v6.10.0
 
