@@ -1,6 +1,6 @@
 # Overview
 **AllOverIt** began as a general purpose library in 2015 and has since evolved into a suite of libraries
-aimed at providing a simplified, consistent, approach to cross-cutting and functional concerns such as
+aimed at providing a simplified and consistent approach to cross-cutting and functional concerns such as
 caching, serialization, threading, reflection, conversions, mapping, event messaging, validation,
 AWS AppSync, data (`IEnumable<T>` and `IQueryable<T>`) filtering and pagination, and much more.
 
