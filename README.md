@@ -16,6 +16,7 @@ be found below.
 
 
 # Packages
+**AllOverIt** is a mono-repository. A summary for each of the available packages is provided below.
 
 ---
 
@@ -45,7 +46,7 @@ Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) 
 A library containing ASP.NET Core utilities.
 
 | netstandard2.1           | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------------ |
+| -------------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_multiplication_x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -59,7 +60,7 @@ A library containing ASP.NET Core utilities.
 A library containing pre and post condition assertion helper methods.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -73,7 +74,7 @@ A library containing pre and post condition assertion helper methods.
 A library containing AppSync GraphQL and Subscription clients.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -86,8 +87,8 @@ A library containing AppSync GraphQL and Subscription clients.
 
 A library to help build AWS Graphql schemas using a code-first approach.
 
-| netstandard2.1        | netcoreapp3.1      | net5.0                | net6.0                | net7.0                |
-| ------------------------------------------------------------------------------------------------------------------ |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: \* | :heavy_check_mark: | :heavy_check_mark: \* | :heavy_check_mark: \* | :heavy_check_mark: \* |
 
 \* Although not explicitly built for all platforms, the AWS CDK supports Net Core 3.1 and above.
@@ -103,7 +104,7 @@ A library to help build AWS Graphql schemas using a code-first approach.
 A library to assist with CSV export using CsvHelper.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -117,7 +118,7 @@ A library to assist with CSV export using CsvHelper.
 A library containing useful dependency injection related utilities.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -131,7 +132,7 @@ A library containing useful dependency injection related utilities.
 A library providing utilities for use with EntityFramework Core.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -145,7 +146,7 @@ A library providing utilities for use with EntityFramework Core.
 A library providing formatters to generate ERD diagrams using EntityFramework Core.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -159,7 +160,7 @@ A library providing formatters to generate ERD diagrams using EntityFramework Co
 A library providing keyset-based pagination for use with EntityFramework Core.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -173,7 +174,7 @@ A library providing keyset-based pagination for use with EntityFramework Core.
 A library containing an extendable expression compiler and evaluator.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -187,7 +188,7 @@ A library containing an extendable expression compiler and evaluator.
 A library providing queryable filtering utilities.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -201,7 +202,7 @@ A library providing queryable filtering utilities.
 A library containing a base fixture class with numerous helper methods to assist with creating unit test scaffolding. Utilizes AutoFixture to do most of the hard work.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -215,7 +216,7 @@ A library containing a base fixture class with numerous helper methods to assist
 A library extending **AllOverIt.Fixture** to support FakeItEasy integration.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -229,7 +230,7 @@ A library extending **AllOverIt.Fixture** to support FakeItEasy integration.
 A library containing a convenient wrapper for building console applications that support dependency injection.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -243,7 +244,7 @@ A library containing a convenient wrapper for building console applications that
 A library containing an object mapper that is mostly configuration free.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -257,7 +258,7 @@ A library containing an object mapper that is mostly configuration free.
 A library providing queryable keyset-based pagination utilities.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -271,7 +272,7 @@ A library providing queryable keyset-based pagination utilities.
 A library containing utility extensions for use with System.Reactive.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -285,7 +286,7 @@ A library containing utility extensions for use with System.Reactive.
 A library containing utility extensions for use with ReactiveUI.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -299,7 +300,7 @@ A library containing utility extensions for use with ReactiveUI.
 A library providing support for binary serialization.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -313,7 +314,7 @@ A library providing support for binary serialization.
 A library containing JSON serialization abstractions.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -327,7 +328,7 @@ A library containing JSON serialization abstractions.
 A library containing a wrapper for Newtonsoft.Json serialization based on AllOverIt.Serialization.Json.Abstractions.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -341,7 +342,7 @@ A library containing a wrapper for Newtonsoft.Json serialization based on AllOve
 A library containing a wrapper for System.Text.Json serialization based on AllOverIt.Serialization.Json.Abstractions.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -355,7 +356,7 @@ A library containing a wrapper for System.Text.Json serialization based on AllOv
 A library containing additional validators and extensions for use with FluentValidation.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
@@ -369,7 +370,7 @@ A library containing additional validators and extensions for use with FluentVal
 A library containing Options validation using FluentValidation.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
