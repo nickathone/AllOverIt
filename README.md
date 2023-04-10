@@ -7,9 +7,10 @@ AWS AppSync, data (`IEnumable<T>` and `IQueryable<T>`) filtering and pagination,
 The suite has an ever growing list of behavioural and functional unit tests. The coverage details can
 be found below.
 
-| Line Coverage | Branch Coverage | Method Coverage |
-| ------------------------------------------------- |
+| Line Coverage                                     | Branch Coverage                                     | Method Coverage                                     |
+| --------------------------------------------------|-----------------------------------------------------|---------------------------------------------------- |
 | ![](/Docs/Code%20Coverage/badge_linecoverage.png) | ![](/Docs/Code%20Coverage/badge_branchcoverage.png) | ![](/Docs/Code%20Coverage/badge_methodcoverage.png) |
+
 
 [Refer to this link](/Docs/Code%20Coverage/summary.link) for a summary of line and branch test code coverage.
 
@@ -23,8 +24,9 @@ be found below.
 A general purpose library containing a variety of classes and helper utilities.
 
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| ------------------------------------------------------------------------------------------------------ |
+| -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
 
 Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) for usage information.
 
