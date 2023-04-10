@@ -8,8 +8,8 @@ The suite has an ever growing list of behavioural and functional unit tests. The
 be found below.
 
 | Line Coverage | Branch Coverage | Method Coverage |
-| ------------------------------- |
-| ![](/Docs/Code%20Coverage/badge_linecoverage.png) | ![](/Docs/Code%20Coverage/badge_branchcoverage.png) | ![](/Docs/Code%20Coverage/badge_methodcoverage.png)
+| ------------------------------------------------- |
+| ![](/Docs/Code%20Coverage/badge_linecoverage.png) | ![](/Docs/Code%20Coverage/badge_branchcoverage.png) | ![](/Docs/Code%20Coverage/badge_methodcoverage.png) |
 
 [Refer to this link](/Docs/Code%20Coverage/summary.link) for a summary of line and branch test code coverage.
 
