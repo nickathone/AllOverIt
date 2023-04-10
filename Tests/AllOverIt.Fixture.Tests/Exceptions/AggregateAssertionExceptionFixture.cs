@@ -1,6 +1,4 @@
-﻿using AllOverIt.Fixture;
-using AllOverIt.Fixture.Exceptions;
-using AllOverIt.Tests.Helpers;
+﻿using AllOverIt.Fixture.Exceptions;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -12,19 +10,19 @@ namespace AllOverIt.Fixture.Tests.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<AggregateAssertionException>();
+            AssertDefaultConstructor<AggregateAssertionException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<AggregateAssertionException>();
+            AssertConstructorWithMessage<AggregateAssertionException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<AggregateAssertionException>();
+            AssertConstructorWithMessageAndInnerException<AggregateAssertionException>();
         }
 
         [Fact]

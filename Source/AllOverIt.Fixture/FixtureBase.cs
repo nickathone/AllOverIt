@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Fixture.Exceptions;
 using AutoFixture;
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -362,6 +363,65 @@ namespace AllOverIt.Fixture
 
             return items;
         }
+
+
+
+
+        protected static void AssertDefaultConstructor<TException>() where TException : Exception, new()
+        {
+            var exception = new TException();
+
+            var expected = $"Exception of type '{typeof(TException).FullName}' was thrown.";
+
+            exception.Message.Should().Be(expected);
+        }
+
+        protected static void AssertNoDefaultConstructor<TException>() where TException : Exception
+        {
+            var constructor = typeof(TException).GetConstructor(Type.EmptyTypes);
+
+            constructor.Should().BeNull();
+        }
+
+        protected void AssertConstructorWithMessage<TException>() where TException : Exception
+        {
+            var message = Create<string>();
+
+            var constructor = typeof(TException).GetConstructor(new Type[] { typeof(string) });
+
+            var exception = (Exception) constructor.Invoke(new[] { message });
+
+            exception.Message.Should().Be(message);
+        }
+
+        protected static void AssertNoConstructorWithMessage<TException>() where TException : Exception
+        {
+            var constructor = typeof(TException).GetConstructor(new Type[] { typeof(string) });
+
+            constructor.Should().BeNull();
+        }
+
+        protected void AssertConstructorWithMessageAndInnerException<TException>() where TException : Exception
+        {
+            var message = Create<string>();
+            var innerException = new Exception();
+
+            var constructor = typeof(TException).GetConstructor(new Type[] { typeof(string), typeof(Exception) });
+
+            var exception = (Exception) constructor.Invoke(new object[] { message, innerException });
+
+            exception.Message
+                .Should()
+                .Be(message);
+
+            exception.InnerException
+                .Should()
+                .BeSameAs(innerException);
+        }
+
+
+
+
 
         /// <summary>Asserts when a specified action is invoked that an AggregateException will be thrown and all expected exception
         /// types are handled.</summary>

@@ -1,10 +1,8 @@
-using AllOverIt.Extensions;
 using AllOverIt.Fixture.Exceptions;
 using AllOverIt.Fixture.FakeItEasy;
 using AllOverIt.Fixture.Tests.Dummies;
 using AutoFixture;
 using AutoFixture.Dsl;
-using AutoFixture.Kernel;
 using FakeItEasy;
 using FluentAssertions;
 using System;

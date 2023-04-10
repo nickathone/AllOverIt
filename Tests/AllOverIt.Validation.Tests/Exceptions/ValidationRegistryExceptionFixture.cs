@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Fixture;
-using AllOverIt.Tests.Helpers;
 using AllOverIt.Validation.Exceptions;
 using Xunit;
 
@@ -10,19 +9,19 @@ namespace AllOverIt.Validation.Tests.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<ValidationRegistryException>();
+            AssertDefaultConstructor<ValidationRegistryException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<ValidationRegistryException>();
+            AssertConstructorWithMessage<ValidationRegistryException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<ValidationRegistryException>();
+            AssertConstructorWithMessageAndInnerException<ValidationRegistryException>();
         }
     }
 }

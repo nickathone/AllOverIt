@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Pagination.Exceptions;
-using AllOverIt.Tests.Helpers;
 using Xunit;
 
 namespace AllOverIt.Pagination.Tests.Exceptions
@@ -10,19 +9,19 @@ namespace AllOverIt.Pagination.Tests.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<PaginationException>();
+            AssertDefaultConstructor<PaginationException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<PaginationException>();
+            AssertConstructorWithMessage<PaginationException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<PaginationException>();
+            AssertConstructorWithMessageAndInnerException<PaginationException>();
         }
     }
 }

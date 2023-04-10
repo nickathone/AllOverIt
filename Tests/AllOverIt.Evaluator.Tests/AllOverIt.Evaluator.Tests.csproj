@@ -23,7 +23,6 @@
         <ProjectReference Include="..\..\Source\AllOverIt.Evaluator\AllOverIt.Evaluator.csproj" />
         <ProjectReference Include="..\..\Source\AllOverIt.Fixture.FakeItEasy\AllOverIt.Fixture.FakeItEasy.csproj" />
         <ProjectReference Include="..\..\Source\AllOverIt.Fixture\AllOverIt.Fixture.csproj" />
-        <ProjectReference Include="..\AllOverIt.Tests.Helpers\AllOverIt.Tests.Helpers.csproj" />
     </ItemGroup>
 
 </Project>

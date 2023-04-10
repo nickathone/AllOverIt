@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Source\AllOverIt.Fixture\AllOverIt.Fixture.csproj" />
     <ProjectReference Include="..\..\Source\AllOverIt.Serialization.Json.Abstractions\AllOverIt.Serialization.Json.Abstractions.csproj" />
-    <ProjectReference Include="..\AllOverIt.Tests.Helpers\AllOverIt.Tests.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

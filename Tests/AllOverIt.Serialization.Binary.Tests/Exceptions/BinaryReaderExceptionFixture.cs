@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Serialization.Binary.Exceptions;
-using AllOverIt.Tests.Helpers;
 using Xunit;
 
 namespace AllOverIt.Serialization.Binary.Tests.Exceptions
@@ -10,19 +9,19 @@ namespace AllOverIt.Serialization.Binary.Tests.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<BinaryReaderException>();
+            AssertDefaultConstructor<BinaryReaderException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<BinaryReaderException>();
+            AssertConstructorWithMessage<BinaryReaderException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<BinaryReaderException>();
+            AssertConstructorWithMessageAndInnerException<BinaryReaderException>();
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Reflection.Exceptions;
-using AllOverIt.Tests.Helpers;
 using Xunit;
 
 namespace AllOverIt.Tests.Reflection.Exceptions
@@ -10,19 +9,19 @@ namespace AllOverIt.Tests.Reflection.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<ReflectionException>();
+            AssertDefaultConstructor<ReflectionException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<ReflectionException>();
+            AssertConstructorWithMessage<ReflectionException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<ReflectionException>();
+            AssertConstructorWithMessageAndInnerException<ReflectionException>();
         }
     }
 }

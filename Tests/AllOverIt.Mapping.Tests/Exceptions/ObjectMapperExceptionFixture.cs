@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Mapping.Exceptions;
-using AllOverIt.Tests.Helpers;
 using Xunit;
 
 namespace AllOverIt.Mapping.Tests.Exceptions
@@ -10,19 +9,19 @@ namespace AllOverIt.Mapping.Tests.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<ObjectMapperException>();
+            AssertDefaultConstructor<ObjectMapperException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<ObjectMapperException>();
+            AssertConstructorWithMessage<ObjectMapperException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<ObjectMapperException>();
+            AssertConstructorWithMessageAndInnerException<ObjectMapperException>();
         }
     }
 }

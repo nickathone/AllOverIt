@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Process.Exceptions;
-using AllOverIt.Tests.Helpers;
 using Xunit;
 
 namespace AllOverIt.Tests.Process.Exceptions
@@ -10,19 +9,19 @@ namespace AllOverIt.Tests.Process.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<ProcessException>();
+            AssertDefaultConstructor<ProcessException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<ProcessException>();
+            AssertConstructorWithMessage<ProcessException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<ProcessException>();
+            AssertConstructorWithMessageAndInnerException<ProcessException>();
         }
     }
 }

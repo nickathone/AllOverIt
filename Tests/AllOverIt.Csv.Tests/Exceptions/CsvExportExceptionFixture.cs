@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Csv.Exceptions;
 using AllOverIt.Fixture;
-using AllOverIt.Tests.Helpers;
 using Xunit;
 
 namespace AllOverIt.Csv.Tests.Exceptions
@@ -10,19 +9,19 @@ namespace AllOverIt.Csv.Tests.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<CsvExportException>();
+            AssertDefaultConstructor<CsvExportException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<CsvExportException>();
+            AssertConstructorWithMessage<CsvExportException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<CsvExportException>();
+            AssertConstructorWithMessageAndInnerException<CsvExportException>();
         }
     }
 }

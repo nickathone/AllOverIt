@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Patterns.Command.Exceptions;
-using AllOverIt.Tests.Helpers;
 using Xunit;
 
 namespace AllOverIt.Tests.Patterns.Command.Exceptions
@@ -10,19 +9,19 @@ namespace AllOverIt.Tests.Patterns.Command.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<CommandException>();
+            AssertDefaultConstructor<CommandException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<CommandException>();
+            AssertConstructorWithMessage<CommandException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<CommandException>();
+            AssertConstructorWithMessageAndInnerException<CommandException>();
         }
     }
 }

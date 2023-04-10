@@ -1,35 +1,43 @@
-#Packages
+# Overview
+AllOverIt is a suite of libraries that has been constantly evolving since 2015.
+
+
+
+
+# Packages
+
+---
 
 ## AllOverIt
-[![NuGet](https://img.shields.io/nuget/v/AllOverIt?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverIt?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt/)
 
 A general purpose library containing a variety of classes and helper utilities.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) for usage information.
 
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt/)
+
+
+---
+
 
 ## AllOverIt.AspNetCore
+
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.AspNetCore?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.AspNetCore/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.AspNetCore?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.AspNetCore/)
 
 A library containing ASP.NET Core utilities.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    No     |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1           | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------------ |
+| :heavy_multiplication_x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Assertion
@@ -38,13 +46,12 @@ A library containing ASP.NET Core utilities.
 
 A library containing pre and post condition assertion helper methods.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Aws.AppSync.Client
@@ -53,13 +60,12 @@ A library containing pre and post condition assertion helper methods.
 
 A library containing AppSync GraphQL and Subscription clients.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Aws.Cdk.AppSync
@@ -68,15 +74,14 @@ A library containing AppSync GraphQL and Subscription clients.
 
 A library to help build AWS Graphql schemas using a code-first approach.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    No \*  |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    No \*  |
-| net6.0         |    No \*  |
-| net7.0         |    No \*  |
+| netstandard2.1        | netcoreapp3.1      | net5.0                | net6.0                | net7.0                |
+| ------------------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: \* | :heavy_check_mark: | :heavy_check_mark: \* | :heavy_check_mark: \* | :heavy_check_mark: \* |
 
 \* Although not explicitly built for all platforms, the AWS CDK supports Net Core 3.1 and above.
+
+
+---
 
 
 ## AllOverIt.Csv
@@ -85,13 +90,12 @@ A library to help build AWS Graphql schemas using a code-first approach.
 
 A library to assist with CSV export using CsvHelper.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.DependencyInjection
@@ -100,13 +104,12 @@ A library to assist with CSV export using CsvHelper.
 
 A library containing useful dependency injection related utilities.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.EntityFrameworkCore
@@ -115,13 +118,12 @@ A library containing useful dependency injection related utilities.
 
 A library providing utilities for use with EntityFramework Core.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.EntityFrameworkCore.Diagrams
@@ -130,13 +132,12 @@ A library providing utilities for use with EntityFramework Core.
 
 A library providing formatters to generate ERD diagrams using EntityFramework Core.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.EntityFrameworkCore.Pagination
@@ -145,13 +146,12 @@ A library providing formatters to generate ERD diagrams using EntityFramework Co
 
 A library providing keyset-based pagination for use with EntityFramework Core.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Evaluator
@@ -160,13 +160,12 @@ A library providing keyset-based pagination for use with EntityFramework Core.
 
 A library containing an extendable expression compiler and evaluator.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Filtering
@@ -175,13 +174,12 @@ A library containing an extendable expression compiler and evaluator.
 
 A library providing queryable filtering utilities.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Fixture
@@ -190,13 +188,12 @@ A library providing queryable filtering utilities.
 
 A library containing a base fixture class with numerous helper methods to assist with creating unit test scaffolding. Utilizes AutoFixture to do most of the hard work.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Fixture.FakeItEasy
@@ -205,13 +202,12 @@ A library containing a base fixture class with numerous helper methods to assist
 
 A library extending **AllOverIt.Fixture** to support FakeItEasy integration.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.GenericHost
@@ -220,13 +216,12 @@ A library extending **AllOverIt.Fixture** to support FakeItEasy integration.
 
 A library containing a convenient wrapper for building console applications that support dependency injection.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Mapping
@@ -235,13 +230,12 @@ A library containing a convenient wrapper for building console applications that
 
 A library containing an object mapper that is mostly configuration free.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Pagination
@@ -250,13 +244,12 @@ A library containing an object mapper that is mostly configuration free.
 
 A library providing queryable keyset-based pagination utilities.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Reactive
@@ -265,13 +258,12 @@ A library providing queryable keyset-based pagination utilities.
 
 A library containing utility extensions for use with System.Reactive.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.ReactiveUI
@@ -280,13 +272,12 @@ A library containing utility extensions for use with System.Reactive.
 
 A library containing utility extensions for use with ReactiveUI.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Serialization.Binary
@@ -295,13 +286,12 @@ A library containing utility extensions for use with ReactiveUI.
 
 A library providing support for binary serialization.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Serialization.Json.Abstractions
@@ -310,13 +300,12 @@ A library providing support for binary serialization.
 
 A library containing JSON serialization abstractions.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Serialization.Json.NewtonSoft
@@ -325,13 +314,12 @@ A library containing JSON serialization abstractions.
 
 A library containing a wrapper for Newtonsoft.Json serialization based on AllOverIt.Serialization.Json.Abstractions.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Serialization.Json.SystemText
@@ -340,13 +328,12 @@ A library containing a wrapper for Newtonsoft.Json serialization based on AllOve
 
 A library containing a wrapper for System.Text.Json serialization based on AllOverIt.Serialization.Json.Abstractions.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Validation
@@ -355,13 +342,12 @@ A library containing a wrapper for System.Text.Json serialization based on AllOv
 
 A library containing additional validators and extensions for use with FluentValidation.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
 
 
 ## AllOverIt.Validation.Options
@@ -370,13 +356,10 @@ A library containing additional validators and extensions for use with FluentVal
 
 A library containing Options validation using FluentValidation.
 
-| Target         | Supported |
-|----------------|-----------|
-| netstandard2.1 |    Yes    |
-| netcoreapp3.1  |    Yes    |
-| net5.0         |    Yes    |
-| net6.0         |    Yes    |
-| net7.0         |    Yes    |
+| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| ------------------------------------------------------------------------------------------------------ |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
 
 # Dependencies
 The following diagram shows the explicit dependencies used by AllOverIt.

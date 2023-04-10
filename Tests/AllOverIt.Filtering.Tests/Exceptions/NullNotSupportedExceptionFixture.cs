@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Filtering.Exceptions;
 using AllOverIt.Fixture;
-using AllOverIt.Tests.Helpers;
 using Xunit;
 
 namespace AllOverIt.Filtering.Tests.Exceptions
@@ -10,19 +9,19 @@ namespace AllOverIt.Filtering.Tests.Exceptions
         [Fact]
         public void Should_Have_Default_Constructor()
         {
-            Fixture.AssertDefaultConstructor<NullNotSupportedException>();
+            AssertDefaultConstructor<NullNotSupportedException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message()
         {
-            Fixture.AssertConstructorWithMessage<NullNotSupportedException>();
+            AssertConstructorWithMessage<NullNotSupportedException>();
         }
 
         [Fact]
         public void Should_Have_Constructor_With_Message_And_InnerException()
         {
-            Fixture.AssertConstructorWithMessageAndInnerException<NullNotSupportedException>();
+            AssertConstructorWithMessageAndInnerException<NullNotSupportedException>();
         }
     }
 }

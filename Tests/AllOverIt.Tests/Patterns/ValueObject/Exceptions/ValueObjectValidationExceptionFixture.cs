@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Patterns.ValueObject.Exceptions;
-using AllOverIt.Tests.Helpers;
 using FluentAssertions;
 using Xunit;
 
@@ -11,13 +10,13 @@ namespace AllOverIt.Tests.Patterns.ValueObject.Exceptions
         [Fact]
         public void Should_Not_Have_Default_Constructor()
         {
-            Fixture.AssertNoDefaultConstructor<ValueObjectValidationException>();
+            AssertNoDefaultConstructor<ValueObjectValidationException>();
         }
 
         [Fact]
         public void Should_Not_Have_Constructor_With_Message()
         {
-            Fixture.AssertNoConstructorWithMessage<ValueObjectValidationException>();
+            AssertNoConstructorWithMessage<ValueObjectValidationException>();
         }
 
         [Fact]
