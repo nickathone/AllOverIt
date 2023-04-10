@@ -12,7 +12,8 @@ be found below.
 | ![](/Docs/Code%20Coverage/badge_linecoverage.png) | ![](/Docs/Code%20Coverage/badge_branchcoverage.png) | ![](/Docs/Code%20Coverage/badge_methodcoverage.png) |
 
 
-Refer to this [link](/Docs/Code%20Coverage/summary.html) or this [markdown](/Docs/Code%20Coverage/summary.md) for a summary of line and branch test code coverage.
+Refer to this <a href="/Docs/Code%20Coverage/summary.html" target="_blank">link</a> or this
+<a href="/Docs/Code%20Coverage/summary.md" target="_blank">markdown</a> for a summary of line and branch test code coverage.
 
 
 # Packages
