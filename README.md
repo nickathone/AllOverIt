@@ -1,7 +1,17 @@
 # Overview
-AllOverIt is a suite of libraries that has been constantly evolving since 2015.
+**AllOverIt** began as a general purpose library in 2015 and has since evolved into a suite of libraries
+aimed at providing a simplified, consistent, approach to cross-cutting and functional concerns such as
+caching, serialization, threading, reflection, conversions, mapping, event messaging, validation,
+AWS AppSync, data (`IEnumable<T>` and `IQueryable<T>`) filtering and pagination, and much more.
 
+The suite has an ever growing list of behavioural and functional unit tests. The coverage details can
+be found below.
 
+| Line Coverage | Branch Coverage | Method Coverage |
+| ------------------------------- |
+| ![](/Docs/Code%20Coverage/badge_linecoverage.png) | ![](/Docs/Code%20Coverage/badge_branchcoverage.png) | ![](/Docs/Code%20Coverage/badge_methodcoverage.png)
+
+[Refer to this link](/Docs/Code%20Coverage/summary.link) for a summary of line and branch test code coverage.
 
 
 # Packages
@@ -362,5 +372,5 @@ A library containing Options validation using FluentValidation.
 
 
 # Dependencies
-The following diagram shows the explicit dependencies used by AllOverIt.
-![AllOverIt Dependencies](/Docs/Dependencies/AllOverIt.png)
+The following diagram shows the explicit dependencies used across the entire AllOverIt suite.
+[![AllOverIt Dependencies](/Docs/Dependencies/AllOverIt.png)](/Docs/Dependencies/AllOverIt.png)
