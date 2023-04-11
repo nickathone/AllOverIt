@@ -80,6 +80,9 @@ AllOverIt.Mapping - New Package
   * Moved mapping from AllOverIt into its own package
   * Updated mapping to support ArrayList
 
+AllOverIt.Wpf
+  * New package
+
 
 02 Feb 2023
 Version 6.3.0

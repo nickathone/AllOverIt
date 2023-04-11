@@ -2,14 +2,14 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0-windows</TargetFramework>
-        <UseWindowsForms>true</UseWindowsForms>
+        <TargetFramework>net7.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
         <LangVersion>Latest</LangVersion>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Source\AllOverIt.Evaluator\AllOverIt.Evaluator.csproj" />
+      <ProjectReference Include="..\..\..\..\Source\AllOverIt.Wpf\AllOverIt.Wpf.csproj" />
     </ItemGroup>
 
 </Project>

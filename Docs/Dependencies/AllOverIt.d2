@@ -26,6 +26,7 @@ mal-smith: AllOverIt {
   aoi-serialization-json-systemtext: AllOverIt.Serialization.Json.SystemText
   aoi-validation: AllOverIt.Validation
   aoi-validation-options: AllOverIt.Validation.Options
+  aoi-wpf: AllOverIt.Wpf
 }
 
 msft: Microsoft {
@@ -215,3 +216,6 @@ fluentvalidation.fluentvalidation <- mal-smith.aoi-validation
 # AllOverIt.Validation.Options
 mal-smith.aoi-validation <- mal-smith.aoi-validation-options
 msft.msft-extensions-options <- mal-smith.aoi-validation-options
+
+# AllOverIt.Wpf
+mal-smith.aoi <- mal-smith.aoi-wpf
