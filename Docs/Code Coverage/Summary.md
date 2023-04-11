@@ -1,8 +1,8 @@
 # Summary
 |||
 |:---|:---|
-| Generated on: | 10/04/2023 - 10:09:45 PM |
-| Coverage date: | 10/04/2023 - 10:04:31 PM - 10/04/2023 - 10:08:48 PM |
+| Generated on: | 11/04/2023 - 11:11:17 PM |
+| Coverage date: | 11/04/2023 - 11:00:35 PM - 11/04/2023 - 11:10:01 PM |
 | Parser: | MultiReport (64x Cobertura) |
 | Assemblies: | 17 |
 | Classes: | 388 |
@@ -12,8 +12,8 @@
 | Uncovered lines: | 42 |
 | Coverable lines: | 11189 |
 | Total lines: | 28283 |
-| **Branch coverage:** | 96.7% (2257 of 2332) |
-| Covered branches: | 2257 |
+| **Branch coverage:** | 96.7% (2256 of 2332) |
+| Covered branches: | 2256 |
 | Total branches: | 2332 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
@@ -277,8 +277,8 @@
 |AllOverIt.Evaluator.Variables.VariableFactory|34|0|34|74|100%|4|4|100%|
 |AllOverIt.Evaluator.Variables.VariableLookup|25|0|25|61|100%|8|8|100%|
 |AllOverIt.Evaluator.Variables.VariableRegistry|37|0|37|80|100%|8|8|100%|
-|**AllOverIt.Filtering**|**647**|**1**|**648**|**1616**|**99.8%**|**120**|**130**|**92.3%**|
-|AllOverIt.Filtering.Builders.FilterBuilder`2|71|0|71|159|100%|19|24|79.1%|
+|**AllOverIt.Filtering**|**647**|**1**|**648**|**1616**|**99.8%**|**119**|**130**|**91.5%**|
+|AllOverIt.Filtering.Builders.FilterBuilder`2|71|0|71|159|100%|18|24|75%|
 |AllOverIt.Filtering.Builders.FilterSpecificationBuilder`2|220|1|221|412|99.5%|51|56|91%|
 |AllOverIt.Filtering.Exceptions.NullNotSupportedException|9|0|9|28|100%|0|0||
 |AllOverIt.Filtering.Extensions.FilterExtensions|12|0|12|42|100%|2|2|100%|
