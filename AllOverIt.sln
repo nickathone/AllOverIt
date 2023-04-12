@@ -7,8 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Docs\Dependencies\AllOverIt.d2 = Docs\Dependencies\AllOverIt.d2
-		Change Log.txt = Change Log.txt
 		Current Versions.txt = Current Versions.txt
+		Change Log.md = Change Log.md
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
