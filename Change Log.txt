@@ -3,6 +3,8 @@
 XX XXX XXXX
 Version 7.0.0
 ======================================================================================================================
+Multiple dependency package updates
+
 AllOverIt
   * Added interceptor support to cater for Aspected Oriented Programming (AOP)
   * Added string extension IsEmpty()
@@ -72,7 +74,7 @@ AllOverIt.ReactiveUI
   * Updated ReactiveUI v18.4.26
 
 AllOverIt.Validation
-  * Updated FluentValidation v11.5.1
+  * Updated FluentValidation v11.5.2
 
 AllOverIt.Validation.Options - New Package
   * Add config options validation using FluentValidation and AllOverIt.Validation
