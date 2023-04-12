@@ -9,23 +9,23 @@
 
 ## AllOverIt
 * Added interceptor support to cater for Aspected Oriented Programming (AOP)
-* Added string extension IsEmpty()
-* IAsyncEnumerable extension updates
-* Added async version of ChainOfResponsibility handler / composer
+* Added string extension `IsEmpty()`
+* `IAsyncEnumerable` extension updates
+* Added async version of `ChainOfResponsibilityHandler` and `ChainOfResponsibilityComposer`
 * Added a pipeline pattern implementation
-* Added AllOverIt.Plugin.PluginLoadContext to dynamically load assemblies (for .NET Core 3.1 and above)
-* Fixed some Breadcrumbs overloads that were not recording the caller details
+* Added `AllOverIt.Plugin.PluginLoadContext` to dynamically load assemblies (for .NET Core 3.1 and above)
+* Fixed some `Breadcrumbs` overloads that were not recording the caller details
 * Updates to string comparison utils (expressions) to detect null constant values and convert / throw as required
 * General tidy up of all exception classes
-* Deprecated AllOverIt.Process, replacing it with ProcessExecutor
-* Added Task extensions FireAndForget()
-* Removed unnecessary 'continueOnCapturedContext' argument from TaskHelper.WhenAll()
-* Added FileUtils CreateFileWithContentAsync()
+* Deprecated `AllOverIt.Process`, replacing it with `ProcessExecutor`
+* Added Task extensions `FireAndForget()`
+* Removed unnecessary 'continueOnCapturedContext' argument from `TaskHelper.WhenAll()`
+* Added FileUtils `CreateFileWithContentAsync()`
 * Added commandline argument helper to escape strings
-* Added IComparer extension methods Reverse() and Then(); the latter allowing them to be composed like Chain of Responsibility
-* Added object extension GetObjectElements()
-* Unseal ReadOnlyCollection, ReadOnlyList, ReadOnlyDictionary
-* Changed RepeatingTask.Start() to use overloads rather than a default initial delay (previously after the CancellationToken)
+* Added `IComparer` extension methods `Reverse()` and `Then()`. The latter allows them to be composed like Chain of Responsibility.
+* Added object extension `GetObjectElements()`
+* Unseal `ReadOnlyCollection`, `ReadOnlyList`, `ReadOnlyDictionary`
+* Changed `RepeatingTask.Start()` to use overloads rather than a default initial delay (previously after the `CancellationToken`)
 
 
 ## AllOverIt.AspNetCore
@@ -86,11 +86,11 @@
 
 ## AllOverIt.Mapping :new:
 * Moved `ObjectMapper` from `AllOverIt` into this dedicated package
-* Updated support ArrayList
+* Updated support `ArrayList`
 
 
 ## AllOverIt.Pagination
-* Added GetPageResults() extension method for `IQueryPaginator<TResult>`. This is intended ONLY for memory based queries.
+* Added `GetPageResults()` extension method for `IQueryPaginator<TResult>`. This is intended ONLY for memory based queries.
   It Performs the same job as `GetPageResultsAsync()` found in `AllOverIt.EntityFrameworkCore.Pagination`.
 
 
@@ -126,7 +126,8 @@
 * Unchanged
 
 ## AllOverIt.Validation.Options :new:
-* Provides support for `ConfigOptions` validation using `FluentValidation` and `AllOverIt.Validation`
+* Provides support for Configuration Options validation using `FluentValidation` and `AllOverIt.Validation` via the
+  `OptionsBuilder<TOptions>` extension method called `UseFluentValidation()`.
 
 
 ## AllOverIt.Wpf :new:
