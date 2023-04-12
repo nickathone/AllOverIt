@@ -21,6 +21,7 @@ AllOverIt
   * Added IComparer extension methods Reverse() and Then(); the latter allowing them to be composed like Chain of Responsibility
   * Added object extension GetObjectElements()
   * Unseal ReadOnlyCollection, ReadOnlyList, ReadOnlyDictionary
+  * Changed RepeatingTask.Start() to use overloads rather than a default initial delay (previously after the CancellationToken)
 
 AllOverIt.Aws.Cdk.Appsync
   * Updated to Amazon.CDK.AWS.AppSync v1.198.1
