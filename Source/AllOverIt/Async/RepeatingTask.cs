@@ -37,7 +37,7 @@ namespace AllOverIt.Async
         /// <returns>The started task.</returns>
         public static Task Start(Action action, int repeatDelay, CancellationToken cancellationToken)
         {
-            return StartImpl(action, repeatDelay, 0, cancellationToken);
+            return StartImpl(action, 0, repeatDelay, cancellationToken);
         }
 
         /// <summary>Creates and starts a new task after an initial delay that repeatedly invokes a function.</summary>
@@ -48,7 +48,7 @@ namespace AllOverIt.Async
         /// <returns>The started task.</returns>
         public static Task Start(Action action, int initialDelay, int repeatDelay, CancellationToken cancellationToken)
         {
-            return StartImpl(action, repeatDelay, initialDelay, cancellationToken);
+            return StartImpl(action, initialDelay, repeatDelay, cancellationToken);
         }
 
         private static Task InvokeIfNotCancelled(Func<Task> action, CancellationToken cancellationToken)
