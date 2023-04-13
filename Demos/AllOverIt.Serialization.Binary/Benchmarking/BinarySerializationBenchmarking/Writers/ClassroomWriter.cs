@@ -1,8 +1,8 @@
 ﻿using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Extensions;
-using BinarySerializationDemo.Models;
+using BinarySerializationBenchmarking.Models;
 
-namespace BinarySerializationDemo.Writers
+namespace BinarySerializationBenchmarking.Writers
 {
     internal sealed class ClassroomWriter : EnrichedBinaryValueWriter<Classroom>
     {

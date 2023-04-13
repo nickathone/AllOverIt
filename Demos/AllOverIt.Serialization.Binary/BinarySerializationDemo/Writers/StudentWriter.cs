@@ -1,3 +1,8 @@
-﻿internal sealed class StudentWriter : PersonWriter<Student>
+﻿using BinarySerializationDemo.Models;
+
+namespace BinarySerializationDemo.Writers
 {
+    internal sealed class StudentWriter : PersonWriter<Student>
+    {
+    }
 }

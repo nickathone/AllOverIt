@@ -1,8 +1,8 @@
 ﻿using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Extensions;
-using BinarySerializationDemo.Models;
+using BinarySerializationBenchmarking.Models;
 
-namespace BinarySerializationDemo.Readers
+namespace BinarySerializationBenchmarking.Readers
 {
     internal sealed class ClassroomReader : EnrichedBinaryValueReader<Classroom>
     {

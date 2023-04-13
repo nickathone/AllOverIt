@@ -1,4 +1,4 @@
-﻿namespace BinarySerializationDemo.Models
+﻿namespace BinarySerializationBenchmarking.Models
 {
     internal abstract class Person
     {

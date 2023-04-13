@@ -1,19 +1,19 @@
 ﻿using AllOverIt.Serialization.Binary;
 using AllOverIt.Serialization.Binary.Extensions;
-using BinarySerializationDemo.Models;
+using BinarySerializationBenchmarking.Models;
 
-namespace BinarySerializationDemo.Readers
+namespace BinarySerializationBenchmarking.Readers
 {
-    internal sealed class StudentReader : EnrichedBinaryValueReader<Student>
+    internal sealed class TeacherReader : EnrichedBinaryValueReader<Teacher>
     {
         public override object ReadValue(IEnrichedBinaryReader reader)
         {
             var firstName = reader.ReadSafeString();
             var lastName = reader.ReadSafeString();
-            var gender = reader.ReadEnum<Gender>();
+            var gender = (Gender) reader.ReadEnum();
             var age = reader.ReadNullable<int>();
 
-            return new Student
+            return new Teacher
             {
                 FirstName = firstName,
                 LastName = lastName,
