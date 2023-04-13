@@ -76,9 +76,13 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox.Handlers
                 return false;
             }
 
-            if (text.Length <= 2)
+            if (text.Length == 1 && text[0] is '-' or '.')
             {
-                // Must be '.' or '-.'
+                return true;
+            }
+
+            if (text.Length == 2 && text == "-.")
+            {
                 return true;
             }
 
