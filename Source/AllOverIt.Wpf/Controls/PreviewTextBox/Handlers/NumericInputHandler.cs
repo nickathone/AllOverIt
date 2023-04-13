@@ -60,7 +60,7 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox.Handlers
                     return true;
                 }
 
-                if (GetCharacterCount(text, NegativeSign) > 1)
+                if (HasMoreThanOne(text, NegativeSign))
                 {
                     return false;
                 }
@@ -71,7 +71,7 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox.Handlers
                 return int.TryParse(text, out var _);
             }
 
-            if (GetCharacterCount(text, DecimalSeparator) > 1)
+            if (HasMoreThanOne(text, DecimalSeparator))
             {
                 return false;
             }
@@ -90,7 +90,7 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox.Handlers
             return double.TryParse(text, out var _);
         }
 
-        private static int GetCharacterCount(string text, char character)
+        private static bool HasMoreThanOne(string text, char character)
         {
             var count = 0;
 
@@ -99,10 +99,15 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox.Handlers
                 if (ch == character)
                 {
                     count++;
+
+                    if (count == 2)
+                    {
+                        return true;
+                    }
                 }
             }
 
-            return count;
+            return false;
         }
     }
 }
