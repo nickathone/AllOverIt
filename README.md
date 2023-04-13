@@ -46,9 +46,9 @@ Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) 
 
 A library containing ASP.NET Core utilities.
 
-| netstandard2.1           | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_multiplication_x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
+| -------------------|--------------------|--------------------|------------------- |
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
 ---
@@ -281,8 +281,8 @@ A library containing utility extensions for use with System.Reactive.
 
 
 ## AllOverIt.ReactiveUI
-[![NuGet](https://img.shields.io/nuget/v/AllOverItUI.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.ReactiveUI/)
-[![NuGet](https://img.shields.io/nuget/dt/AllOverItUI.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.ReactiveUI/)
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.ReactiveUI?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.ReactiveUI/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.ReactiveUI?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.ReactiveUI/)
 
 A library containing utility extensions for use with ReactiveUI.
 
@@ -373,6 +373,38 @@ A library containing Options validation using FluentValidation.
 | netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
 | -------------------|--------------------|--------------------|--------------------|------------------- |
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
+
+
+## AllOverIt.Wpf
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Wpf?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Wpf/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Wpf?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Wpf/)
+
+A library containing general purpose WPF utilities.
+
+| net5.0-windows     | net6.0-windows     | net7.0-windows     |
+| -------------------|--------------------|--------------------|
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
+
+
+## AllOverIt.Wpf.Controls
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Wpf.Controls?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Wpf.Controls/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Wpf.Controls?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Wpf.Controls/)
+
+A library containing useful WPF controls.
+
+| net5.0-windows     | net6.0-windows     | net7.0-windows     |
+| -------------------|--------------------|--------------------|
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+
+---
+
 
 
 # Dependencies

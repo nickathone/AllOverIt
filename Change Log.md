@@ -131,4 +131,8 @@
 
 
 ## AllOverIt.Wpf :new:
+* General purpose WPF utilities
+
+
+## AllOverIt.Wpf.Controls :new:
 * Includes a `PreviewTextBox` control
