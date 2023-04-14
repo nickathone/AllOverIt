@@ -51,54 +51,59 @@ namespace AllOverIt.Async
             return StartImpl(action, initialDelay, repeatDelay, cancellationToken);
         }
 
-        private static Task InvokeIfNotCancelled(Func<Task> action, CancellationToken cancellationToken)
-        {
-            return cancellationToken.IsCancellationRequested ? Task.CompletedTask : action.Invoke();
-        }
-
         private static Task StartImpl(Func<Task> action, int initialDelay, int repeatDelay, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew(async () =>
             {
+                // There's no ConfigureAwait() false here as there's no SynchronizationContext to be captured
+
                 try
                 {
                     if (initialDelay > 0)
                     {
-                        await InvokeIfNotCancelled(() => Task.Delay(initialDelay, cancellationToken), cancellationToken);
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        await Task.Delay(initialDelay, cancellationToken);
                     }
 
                     while (!cancellationToken.IsCancellationRequested)
                     {
-                        await InvokeIfNotCancelled(action, cancellationToken);
-                        await InvokeIfNotCancelled(() => Task.Delay(repeatDelay, cancellationToken), cancellationToken);
+                        await action.Invoke();
+
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        await Task.Delay(repeatDelay, cancellationToken);
                     }
                 }
                 catch (OperationCanceledException)
                 {
                     // break out
                 }
-            }, cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default).Unwrap();
+            }, cancellationToken, TaskCreationOptions.None, TaskScheduler.Default).Unwrap();
         }
 
         private static Task StartImpl(Action action, int initialDelay, int repeatDelay, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew(async () =>
             {
+                // There's no ConfigureAwait() false here as there's no SynchronizationContext to be captured
+
                 try
                 {
                     if (initialDelay > 0)
                     {
-                        await InvokeIfNotCancelled(() => Task.Delay(initialDelay, cancellationToken), cancellationToken);
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        await Task.Delay(initialDelay, cancellationToken);
                     }
 
                     while (!cancellationToken.IsCancellationRequested)
                     {
-                        if (!cancellationToken.IsCancellationRequested)
-                        {
-                            action.Invoke();
-                        }
+                        action.Invoke();
 
-                        await InvokeIfNotCancelled(() => Task.Delay(repeatDelay, cancellationToken), cancellationToken);
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        await Task.Delay(repeatDelay, cancellationToken);
                     }
                 }
                 catch (OperationCanceledException)
