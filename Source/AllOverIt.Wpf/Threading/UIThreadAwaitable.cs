@@ -1,6 +1,6 @@
 ﻿namespace AllOverIt.Wpf.Threading
 {
-    public struct UIThreadAwaitable
+    public readonly struct UIThreadAwaitable
     {
         public UIThreadAwaiter GetAwaiter()
         {

@@ -127,4 +127,8 @@
         - Targets                                - net5.0-windows;net6.0-windows;net7.0-windows
         - AllOverIt dependencies:                - [1], [16]
 
+  [27] AllOverIt.Wpf.Controls
+        - Targets                                - net5.0-windows;net6.0-windows;net7.0-windows
+        - AllOverIt dependencies:                - [1], [16]
+
 =====================================================================================================================================================================
