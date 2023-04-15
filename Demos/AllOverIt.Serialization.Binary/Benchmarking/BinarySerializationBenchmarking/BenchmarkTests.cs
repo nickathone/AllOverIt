@@ -66,7 +66,7 @@ namespace BinarySerializationBenchmarking
                     reader.Readers.Add(new TeacherReader());
                     reader.Readers.Add(new ClassroomReader());
 
-                    var classroom = (Classroom) reader.ReadObject();
+                    _ = (Classroom) reader.ReadObject();
                 }
             }
 
@@ -77,14 +77,14 @@ namespace BinarySerializationBenchmarking
         public void NewtonSoft()
         {
             var serialized = JsonConvert.SerializeObject(_classroom);
-            var classroom = JsonConvert.DeserializeObject<Classroom>(serialized);
+            _ = JsonConvert.DeserializeObject<Classroom>(serialized);
         }
 
         [Benchmark]
         public void SystemText()
         {
             var serialized = System.Text.Json.JsonSerializer.Serialize(_classroom);
-            var classroom = System.Text.Json.JsonSerializer.Deserialize<Classroom>(serialized);
+            _ = System.Text.Json.JsonSerializer.Deserialize<Classroom>(serialized);
         }
 
         static Classroom CreateClassroom()
