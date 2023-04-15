@@ -87,7 +87,7 @@ namespace BinarySerializationBenchmarking
             _ = System.Text.Json.JsonSerializer.Deserialize<Classroom>(serialized);
         }
 
-        static Classroom CreateClassroom()
+        private static Classroom CreateClassroom()
         {
             return new Classroom
             {
