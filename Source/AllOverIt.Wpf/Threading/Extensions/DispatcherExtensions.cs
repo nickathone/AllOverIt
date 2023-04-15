@@ -11,11 +11,11 @@ namespace AllOverIt.Wpf.Threading.Extensions
         /// worker thread back to the UI thread.</summary>
         /// <param name="dispatcher">The dispatcher to bind to.</param>
         /// <returns>An awaitable object that when awaited completes when the dispatcher is bound to.</returns>
-        public static BindToDispatcherAwaitable BindTo(this Dispatcher dispatcher)
+        public static DispatcherAwaitable BindTo(this Dispatcher dispatcher)
         {
             _ = dispatcher.WhenNotNull(nameof(dispatcher));
 
-            return new BindToDispatcherAwaitable(dispatcher);
+            return new DispatcherAwaitable(dispatcher);
         }
     }
 }

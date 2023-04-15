@@ -5,7 +5,8 @@ using System.Threading;
 namespace AllOverIt.Wpf.Threading
 {
     /// <summary>An awaiter that will queue a continuation on the thread associated with
-    /// a SynchronizationContext.</summary>
+    /// a <see cref="SynchronizationContext"/>. Once awaited all subsequent code execution
+    /// will be bound to this thread until the context is changed.</summary>
     public readonly struct SynchronizationContextAwaiter : INotifyCompletion
     {
         // The 'state' is the continuation to be invoked
@@ -22,12 +23,12 @@ namespace AllOverIt.Wpf.Threading
             _synchronizationContext = synchronizationContext;
         }
 
-        /// <summary>Queues the <paramref name="continuation"/> on the thread associated with the required
-        /// SynchronizationContext.</summary>
-        /// <param name="continuation">The continuation to be queued on the thread associated with the required SynchronizationContext.</param>
-        public void OnCompleted(Action continuation)
+        /// <summary>Queues the <paramref name="action"/> on the thread associated with the required
+        /// synchronization context.</summary>
+        /// <param name="action">The action to be queued on the thread associated with the required SynchronizationContext.</param>
+        public void OnCompleted(Action action)
         {
-            _synchronizationContext.Post(SynchronizationCallback, continuation);
+            _synchronizationContext.Post(SynchronizationCallback, action);
         }
 
         /// <summary>Performs no operation. A required method for the awaiter.</summary>

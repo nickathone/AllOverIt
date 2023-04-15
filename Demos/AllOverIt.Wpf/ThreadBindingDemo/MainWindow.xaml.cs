@@ -38,7 +38,7 @@ namespace ThreadBindingDemo
 
                     // Re-throw the exception on the main thread. Will be handled by the unhandled
                     // exception handler in app.cs
-                    UIThread.ContinueOnUIThread(_ => edi.Throw());
+                    UIThread.Invoke(() => edi.Throw());
                 });
         }
 
@@ -105,7 +105,7 @@ namespace ThreadBindingDemo
                             LogMessage(uiSynchronizationContext, "Switch to UI thread using 'UIThread.Bind()' - START");
 
                             // There is no ConfigureAwait() - we are permanently switching to the UI thread
-                            await UIThread.BindTo();
+                            await UIThread.BindToAsync();
 
                             // This is safe, we are now on the UI thread
                             OutputTextBox.AppendText($"  => now on (and will remain on) UI thread Id {Environment.CurrentManagedThreadId}{Environment.NewLine}");
@@ -143,7 +143,7 @@ namespace ThreadBindingDemo
 
                             // NOTE: This will appear out of sequence in the logs because it is executed on a worker thread.
                             //       We could set up a signal to wait for it, but showing it out of sequence further validates it is running asynchronously.
-                            UIThread.ContinueOnWorkerThread(() =>
+                            UIThread.InvokeOnWorkerThread(() =>
                             {
                                 LogMessage(uiSynchronizationContext, $"{Environment.NewLine} ** Switched to worker thread using 'UIThread.ContinueOnWorkerThread()' (iteration {count}), now on thread Id {Environment.CurrentManagedThreadId} (could be out of sequence){Environment.NewLine}{Environment.NewLine}");
                             });

@@ -4,10 +4,11 @@ using System.Runtime.CompilerServices;
 
 namespace AllOverIt.Wpf.Threading
 {
+    /// <summary>An awaiter that will queue a continuation onto the UI thread. Once awaited
+    /// all subsequent code execution will be bound to the UI thread until the context is
+    /// changed.</summary>
     public sealed class UIThreadAwaiter : INotifyCompletion
     {
-        private bool _isBound;
-
         /// <summary>Always returns false. The <see cref="OnCompleted(Action)"/> method will ensure
         /// the continuation is invoked, or queued to be invoked, on the UI thread.</summary>
         public bool IsCompleted { get; private set; }
@@ -16,24 +17,20 @@ namespace AllOverIt.Wpf.Threading
         {
         }
 
-        /// <summary>Queues the <paramref name="continuation"/> on the UI thread.</summary>
-        /// <param name="continuation">The continuation to be queued on the UI thread.</param>
-        public void OnCompleted(Action continuation)
+        /// <summary>Queues the <paramref name="action"/> on the UI thread.</summary>
+        /// <param name="action">The continuation to be queued on the UI thread.</param>
+        public void OnCompleted(Action action)
         {
-            UIThread.ContinueOnUIThread(isBound =>
+            UIThread.Invoke(() =>
             {
-                _isBound = isBound;
                 IsCompleted = true;
-
-                continuation.Invoke();
+                action.Invoke();
             });
         }
 
-        /// <summary>Asserts the continuation was invoked on the UI thread.</summary>
-        /// <exception cref="InvalidOperationException">When the continuation could not be invoked on the UI thread.</exception>
+        /// <summary>Performs no operation. A required method for the awaiter.</summary>
         public void GetResult()
         {
-            Throw<InvalidOperationException>.When(!_isBound, "Unable to bind to the UI thread.");
         }
     }
 }
