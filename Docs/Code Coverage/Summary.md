@@ -1,31 +1,31 @@
 # Summary
 |||
 |:---|:---|
-| Generated on: | 11/04/2023 - 11:11:17 PM |
-| Coverage date: | 11/04/2023 - 11:00:35 PM - 11/04/2023 - 11:10:01 PM |
+| Generated on: | 16/04/2023 - 9:32:05 PM |
+| Coverage date: | 16/04/2023 - 9:26:41 PM - 16/04/2023 - 9:31:28 PM |
 | Parser: | MultiReport (64x Cobertura) |
 | Assemblies: | 17 |
 | Classes: | 388 |
 | Files: | 397 |
-| **Line coverage:** | 99.6% (11147 of 11189) |
-| Covered lines: | 11147 |
-| Uncovered lines: | 42 |
-| Coverable lines: | 11189 |
-| Total lines: | 28283 |
-| **Branch coverage:** | 96.7% (2256 of 2332) |
+| **Line coverage:** | 99.6% (11164 of 11208) |
+| Covered lines: | 11164 |
+| Uncovered lines: | 44 |
+| Coverable lines: | 11208 |
+| Total lines: | 28320 |
+| **Branch coverage:** | 96.8% (2256 of 2330) |
 | Covered branches: | 2256 |
-| Total branches: | 2332 |
+| Total branches: | 2330 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|
-|**AllOverIt**|**4921**|**4**|**4925**|**13678**|**99.9%**|**940**|**960**|**97.9%**|
+|**AllOverIt**|**4938**|**6**|**4944**|**13715**|**99.8%**|**938**|**958**|**97.9%**|
 |AllOverIt.Aspects.Interceptor.InterceptorBase`1|41|0|41|100|100%|2|2|100%|
 |AllOverIt.Aspects.Interceptor.InterceptorFactory|11|0|11|35|100%|2|2|100%|
 |AllOverIt.Aspects.Interceptor.InterceptorState|1|0|1|13|100%|0|0||
 |AllOverIt.Async.AsyncLazy`1|9|0|9|44|100%|0|0||
 |AllOverIt.Async.CompositeAsyncDisposable|51|0|51|95|100%|6|6|100%|
-|AllOverIt.Async.RepeatingTask|51|0|51|79|100%|2|2|100%|
+|AllOverIt.Async.RepeatingTask|68|2|70|116|97.1%|0|0||
 |AllOverIt.Async.TaskHelper|37|0|37|224|100%|0|0||
 |AllOverIt.Caching.GenericCache|159|0|159|369|100%|6|6|100%|
 |AllOverIt.Caching.GenericCacheKey`1|5|0|5|140|100%|0|0||
@@ -277,9 +277,9 @@
 |AllOverIt.Evaluator.Variables.VariableFactory|34|0|34|74|100%|4|4|100%|
 |AllOverIt.Evaluator.Variables.VariableLookup|25|0|25|61|100%|8|8|100%|
 |AllOverIt.Evaluator.Variables.VariableRegistry|37|0|37|80|100%|8|8|100%|
-|**AllOverIt.Filtering**|**647**|**1**|**648**|**1616**|**99.8%**|**119**|**130**|**91.5%**|
-|AllOverIt.Filtering.Builders.FilterBuilder`2|71|0|71|159|100%|18|24|75%|
-|AllOverIt.Filtering.Builders.FilterSpecificationBuilder`2|220|1|221|412|99.5%|51|56|91%|
+|**AllOverIt.Filtering**|**647**|**1**|**648**|**1616**|**99.8%**|**121**|**130**|**93%**|
+|AllOverIt.Filtering.Builders.FilterBuilder`2|71|0|71|159|100%|19|24|79.1%|
+|AllOverIt.Filtering.Builders.FilterSpecificationBuilder`2|220|1|221|412|99.5%|52|56|92.8%|
 |AllOverIt.Filtering.Exceptions.NullNotSupportedException|9|0|9|28|100%|0|0||
 |AllOverIt.Filtering.Extensions.FilterExtensions|12|0|12|42|100%|2|2|100%|
 |AllOverIt.Filtering.Extensions.FilterSpecificationExtensions|5|0|5|27|100%|0|0||
