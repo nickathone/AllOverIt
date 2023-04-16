@@ -1,0 +1,19 @@
+direction: right
+
+aoi: AllOverIt
+aoi.alloverit-reactiveui: AllOverIt.ReactiveUI
+aoi.alloverit: AllOverIt
+microsoft-extensions-dependencyinjection-abstractions: Microsoft.Extensions.DependencyInjection.Abstractions
+microsoft-extensions-dependencyinjection-abstractions.style.fill: lightblue
+microsoft-extensions-dependencyinjection-abstractions.style.opacity: 0.8
+reactiveui: ReactiveUI
+reactiveui.style.fill: lightblue
+reactiveui.style.opacity: 0.8
+reactiveui-fody: ReactiveUI.Fody
+reactiveui-fody.style.fill: lightblue
+reactiveui-fody.style.opacity: 0.8
+
+aoi.alloverit <- aoi.alloverit-reactiveui
+microsoft-extensions-dependencyinjection-abstractions <- aoi.alloverit-reactiveui
+reactiveui <- aoi.alloverit-reactiveui
+reactiveui-fody <- aoi.alloverit-reactiveui

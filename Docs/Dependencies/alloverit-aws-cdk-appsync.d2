@@ -1,0 +1,11 @@
+direction: right
+
+aoi: AllOverIt
+aoi.alloverit-aws-cdk-appsync: AllOverIt.Aws.Cdk.AppSync
+aoi.alloverit: AllOverIt
+amazon-cdk-aws-appsync: Amazon.CDK.AWS.AppSync
+amazon-cdk-aws-appsync.style.fill: lightblue
+amazon-cdk-aws-appsync.style.opacity: 0.8
+
+aoi.alloverit <- aoi.alloverit-aws-cdk-appsync
+amazon-cdk-aws-appsync <- aoi.alloverit-aws-cdk-appsync

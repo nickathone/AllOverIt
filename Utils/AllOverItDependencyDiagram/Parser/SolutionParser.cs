@@ -11,17 +11,12 @@ namespace SolutionInspector.Parser
     {
         public IReadOnlyCollection<SolutionProject> Projects { get; }
 
-        public SolutionParser(string solutionFilePath)
-            : this(solutionFilePath, Array.Empty<string>())
+        public SolutionParser(string solutionFilePath, string projectIncludePath)
         {
+            Projects = GetProjects(solutionFilePath, projectIncludePath);
         }
 
-        public SolutionParser(string solutionFilePath, IEnumerable<string> projectIncludePaths)
-        {
-            Projects = GetProjects(solutionFilePath, projectIncludePaths);
-        }
-
-        private static IReadOnlyCollection<SolutionProject> GetProjects(string solutionFilePath, IEnumerable<string> projectIncludePaths)
+        private static IReadOnlyCollection<SolutionProject> GetProjects(string solutionFilePath, string projectIncludePath)
         {
             var projects = new List<SolutionProject>();
 
@@ -31,12 +26,7 @@ namespace SolutionInspector.Parser
                 .Where(project => project.ProjectType == SolutionProjectType.KnownToBeMSBuildFormat)
                 .Where(project =>
                 {
-                    if (!projectIncludePaths.Any())
-                    {
-                        return true;
-                    }
-
-                    return projectIncludePaths.Any(includePath => project.AbsolutePath.StartsWith(includePath, StringComparison.OrdinalIgnoreCase));
+                    return project.AbsolutePath.StartsWith(projectIncludePath, StringComparison.OrdinalIgnoreCase);
                 });
 
             foreach (var projectItem in orderedProjects)

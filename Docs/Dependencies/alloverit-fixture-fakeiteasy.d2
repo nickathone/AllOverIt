@@ -1,0 +1,15 @@
+direction: right
+
+aoi: AllOverIt
+aoi.alloverit-fixture-fakeiteasy: AllOverIt.Fixture.FakeItEasy
+aoi.alloverit-fixture: AllOverIt.Fixture
+autofixture-autofakeiteasy: AutoFixture.AutoFakeItEasy
+autofixture-autofakeiteasy.style.fill: lightblue
+autofixture-autofakeiteasy.style.opacity: 0.8
+fakeiteasy: FakeItEasy
+fakeiteasy.style.fill: lightblue
+fakeiteasy.style.opacity: 0.8
+
+aoi.alloverit-fixture <- aoi.alloverit-fixture-fakeiteasy
+autofixture-autofakeiteasy <- aoi.alloverit-fixture-fakeiteasy
+fakeiteasy <- aoi.alloverit-fixture-fakeiteasy

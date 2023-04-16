@@ -1,4 +1,5 @@
-﻿using AllOverIt.Io;
+﻿using AllOverIt.Extensions;
+using AllOverIt.Io;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
 using SolutionInspector.Parser;
@@ -13,18 +14,70 @@ using System.Threading.Tasks;
 namespace SolutionInspector
 {
     internal record ProjectDependency(string Alias, string DependencyAlias);
+    internal record ProjectAliases(IDictionary<string, string> AllAliases, HashSet<ProjectDependency> AllDependencies);
 
     internal class Program
     {
-        static async Task Main(/*string[] args*/)
+        static async Task Main()
         {
             var applicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var allOverItRoot = FileUtils.GetAbsolutePath(applicationPath, @"..\..\..\..\..\");
             var solutionPath = Path.Combine(allOverItRoot, "AllOverIt.sln");
             var projectsRootPath = Path.Combine(allOverItRoot, "Source");
 
-            // The paths are required to work out depencdeny project absolute paths from their relative paths
-            var solutionParser = new SolutionParser(solutionPath, new[] { projectsRootPath });
+            var projectAliases = GetProjectAliases(solutionPath, projectsRootPath);
+
+            WriteDependenciesToConsole(projectAliases);
+
+            var docsPath = Path.Combine(allOverItRoot, @"Docs\Dependencies");
+            await CreateAllFilesAsync(projectAliases, docsPath);
+
+            Console.WriteLine();
+            Console.WriteLine($"AllOverIt.");
+        }
+
+        private static async Task CreateAllFilesAsync(ProjectAliases projectAliases, string docsPath)
+        {
+            var scopes = new[] { string.Empty }     // everything
+                .Concat(projectAliases.AllAliases.Where(item => item.Key.StartsWith("alloverit"))
+                .SelectAsReadOnlyCollection(item => item.Key));
+
+            // Create all diagrams, then process the image exports in parallel 4 at a time
+            // Could do it all sequentially, but showing how the partioned work can be performed
+            var d2FilePaths = await scopes
+                .SelectAsync(async scope =>
+                {
+                    // Get the D2 diagram content
+                    var d2Content = GenerateD2Content(projectAliases, scope);
+
+                    // Create the file and return the fully-qualified file path
+                    return await CreateD2FileAsync(d2Content, docsPath, scope);
+                })
+                .ToListAsync();
+
+            var extensions = new[] { "svg", "png" /*, "pdf"*/ };
+
+            await d2FilePaths
+                .SelectMany(path =>
+                {
+                    // Create all combinations of files to be created
+                    return extensions.Select(extension => new
+                    {
+                        D2FilePath = path,
+                        Extension = extension
+                    });
+                })
+                .ForEachAsTaskAsync(async item =>
+                {
+                    // And process them in, at most, 8 tasks
+                    await ExportD2ImageFileAsync(item.D2FilePath, item.Extension);
+                }, 8);
+        }
+
+        private static ProjectAliases GetProjectAliases(string solutionPath, string projectsRootPath)
+        {
+            // The paths are required to work out dependency project absolute paths from their relative paths
+            var solutionParser = new SolutionParser(solutionPath, projectsRootPath);
 
             var allAliases = new Dictionary<string, string>();              // e.g., alloverit-assertion: AllOverIt.Assertion
             var allDependencies = new HashSet<ProjectDependency>();
@@ -35,8 +88,16 @@ namespace SolutionInspector
 
                 UpdateAliasCache(projectAlias, project.Name, allAliases);
                 AddProjectDependencies(projectAlias, project.Dependencies, allAliases, allDependencies);
-                AddPackageDependencies(projectAlias, project.Dependencies, allAliases, allDependencies/*, aliasGroups*/);
+                AddPackageDependencies(projectAlias, project.Dependencies, allAliases, allDependencies);
             }
+
+            return new ProjectAliases(allAliases, allDependencies);
+        }
+
+        private static void WriteDependenciesToConsole(ProjectAliases projectAliases)
+        {
+            var allAliases = projectAliases.AllAliases;
+            var allDependencies = projectAliases.AllDependencies;
 
             var sortedDependenies = allDependencies
                 .OrderBy(dependency => dependency.Alias)
@@ -47,21 +108,13 @@ namespace SolutionInspector
                 var aliasName = allAliases[alias];
                 var dependencyName = allAliases[dependencyAlias];
 
-                WriteDependsOnToConsole(aliasName, dependencyName);
+                WriteDependencyToConsole(aliasName, dependencyName);
             }
 
             Console.WriteLine();
-
-            var d2Content = GenerateD2Content(allAliases, sortedDependenies);
-
-            var docsPath = Path.Combine(allOverItRoot, @"Docs\Dependencies");
-            await CreateD2FilesAsync(d2Content, docsPath);
-
-            Console.WriteLine();
-            Console.WriteLine($"AllOverIt.");
         }
 
-        private static string GenerateD2Content(IDictionary<string, string> allAliases, IOrderedEnumerable<ProjectDependency> sortedDependenies)
+        private static string GenerateD2Content(ProjectAliases projectAliases, string scope = default)
         {
             var sb = new StringBuilder();
 
@@ -70,7 +123,25 @@ namespace SolutionInspector
 
             sb.AppendLine($"aoi: AllOverIt");
 
-            foreach (var alias in allAliases)
+            var allAliases = projectAliases.AllAliases;
+            var allDependencies = projectAliases.AllDependencies.AsEnumerable();
+
+            var aliasesUsed = allAliases;
+
+            if (scope.IsNotNullOrEmpty())
+            {
+                allDependencies = allDependencies.Where(item => item.Alias == scope).AsReadOnlyCollection();
+
+                aliasesUsed = new Dictionary<string, string>();
+
+                foreach (var (alias, dependencyAlias) in allDependencies)
+                {
+                    UpdateAliasCache(alias, allAliases[alias], aliasesUsed);
+                    UpdateAliasCache(dependencyAlias, allAliases[dependencyAlias], aliasesUsed);
+                }
+            }
+
+            foreach (var alias in aliasesUsed)
             {
                 // Alias: Display Name
                 sb.AppendLine($"{GetDiagramAliasId(alias.Key)}: {alias.Value}");
@@ -85,7 +156,7 @@ namespace SolutionInspector
 
             sb.AppendLine();
 
-            foreach (var (alias, dependencyAlias) in sortedDependenies)
+            foreach (var (alias, dependencyAlias) in allDependencies)
             {
                 sb.AppendLine($"{GetDiagramAliasId(dependencyAlias)} <- {GetDiagramAliasId(alias)}");
             }
@@ -93,7 +164,7 @@ namespace SolutionInspector
             return sb.ToString();
         }
 
-        private static void WriteDependsOnToConsole(string aliasName, string dependencyName)
+        private static void WriteDependencyToConsole(string aliasName, string dependencyName)
         {
             var foreground = Console.ForegroundColor;
 
@@ -114,32 +185,25 @@ namespace SolutionInspector
             }
         }
 
-        private static async Task CreateD2FilesAsync(string content, string docsPath)
+        private static async Task<string> CreateD2FileAsync(string content, string docsPath, string scope)
         {
-            var d2FileName = Path.Combine(docsPath, "AllOverIt.d2");
+            var fileName = scope.IsNullOrEmpty()
+                ? "alloverit-all.d2"
+                : $"{scope}.d2";
 
-            Console.WriteLine($"Creating D2 diagram...");
+            var d2FilePath = Path.Combine(docsPath, fileName);
 
-            await CreateD2DiagramAsync(d2FileName, content);
+            Console.WriteLine($"Creating D2 diagram and images for '{Path.GetFileNameWithoutExtension(fileName)}'...");
 
-            Console.WriteLine($"Exporting images...");
-
-            await Task.WhenAll(
-                ExportD2ImageFileAsync(d2FileName, "svg"),
-                ExportD2ImageFileAsync(d2FileName, "png"),
-                ExportD2ImageFileAsync(d2FileName, "pdf")
-            );
-        }
-
-        private static async Task CreateD2DiagramAsync(string d2FileName, string content)
-        {
-            File.WriteAllText(d2FileName, content);
+            File.WriteAllText(d2FilePath, content);
 
             await ProcessBuilder
                 .For("d2.exe")
-                .WithArguments("fmt", d2FileName)
+                .WithArguments("fmt", d2FilePath)
                 .BuildProcessExecutor()
                 .ExecuteAsync();
+
+            return d2FilePath;
         }
 
         private static async Task ExportD2ImageFileAsync(string d2FileName, string extension)
@@ -153,7 +217,7 @@ namespace SolutionInspector
 
             await export.ExecuteAsync();
 
-            Console.WriteLine($"Exported image as {imageFileName}");
+            Console.WriteLine($"Exported image {imageFileName}");
         }
 
         private static string GetDiagramAliasId(string alias)
