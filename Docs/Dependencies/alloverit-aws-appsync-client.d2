@@ -3,6 +3,11 @@ direction: right
 aoi: AllOverIt
 aoi.alloverit-aws-appsync-client: AllOverIt.Aws.AppSync.Client
 aoi.alloverit-reactive: AllOverIt.Reactive
+aoi.alloverit: AllOverIt
+aoi.alloverit-assertion: AllOverIt.Assertion
+system-reactive: System.Reactive
+system-reactive.style.fill: lightblue
+system-reactive.style.opacity: 0.8
 aoi.alloverit-serialization-json-abstractions: AllOverIt.Serialization.Json.Abstractions
 microsoft-extensions-dependencyinjection: Microsoft.Extensions.DependencyInjection
 microsoft-extensions-dependencyinjection.style.fill: lightblue
@@ -12,6 +17,11 @@ microsoft-extensions-http.style.fill: lightblue
 microsoft-extensions-http.style.opacity: 0.8
 
 aoi.alloverit-reactive <- aoi.alloverit-aws-appsync-client
+aoi.alloverit <- aoi.alloverit-reactive
+aoi.alloverit-assertion <- aoi.alloverit
+system-reactive <- aoi.alloverit-reactive
 aoi.alloverit-serialization-json-abstractions <- aoi.alloverit-aws-appsync-client
+aoi.alloverit <- aoi.alloverit-serialization-json-abstractions
+aoi.alloverit-assertion <- aoi.alloverit
 microsoft-extensions-dependencyinjection <- aoi.alloverit-aws-appsync-client
 microsoft-extensions-http <- aoi.alloverit-aws-appsync-client

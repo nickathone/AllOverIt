@@ -3,9 +3,13 @@ direction: right
 aoi: AllOverIt
 aoi.alloverit-serialization-json-newtonsoft: AllOverIt.Serialization.Json.Newtonsoft
 aoi.alloverit-serialization-json-abstractions: AllOverIt.Serialization.Json.Abstractions
+aoi.alloverit: AllOverIt
+aoi.alloverit-assertion: AllOverIt.Assertion
 newtonsoft-json: Newtonsoft.Json
 newtonsoft-json.style.fill: lightblue
 newtonsoft-json.style.opacity: 0.8
 
 aoi.alloverit-serialization-json-abstractions <- aoi.alloverit-serialization-json-newtonsoft
+aoi.alloverit <- aoi.alloverit-serialization-json-abstractions
+aoi.alloverit-assertion <- aoi.alloverit
 newtonsoft-json <- aoi.alloverit-serialization-json-newtonsoft

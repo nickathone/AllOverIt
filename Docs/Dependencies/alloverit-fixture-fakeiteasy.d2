@@ -3,6 +3,12 @@ direction: right
 aoi: AllOverIt
 aoi.alloverit-fixture-fakeiteasy: AllOverIt.Fixture.FakeItEasy
 aoi.alloverit-fixture: AllOverIt.Fixture
+autofixture: AutoFixture
+autofixture.style.fill: lightblue
+autofixture.style.opacity: 0.8
+fluentassertions: FluentAssertions
+fluentassertions.style.fill: lightblue
+fluentassertions.style.opacity: 0.8
 autofixture-autofakeiteasy: AutoFixture.AutoFakeItEasy
 autofixture-autofakeiteasy.style.fill: lightblue
 autofixture-autofakeiteasy.style.opacity: 0.8
@@ -11,5 +17,7 @@ fakeiteasy.style.fill: lightblue
 fakeiteasy.style.opacity: 0.8
 
 aoi.alloverit-fixture <- aoi.alloverit-fixture-fakeiteasy
+autofixture <- aoi.alloverit-fixture
+fluentassertions <- aoi.alloverit-fixture
 autofixture-autofakeiteasy <- aoi.alloverit-fixture-fakeiteasy
 fakeiteasy <- aoi.alloverit-fixture-fakeiteasy

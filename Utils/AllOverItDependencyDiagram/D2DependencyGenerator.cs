@@ -132,14 +132,38 @@ namespace SolutionInspector
 
             if (scope.IsNotNullOrEmpty())
             {
-                allDependencies = allDependencies.Where(item => item.Alias == scope).AsReadOnlyCollection();
+                IEnumerable<ProjectDependency> GetProjectDependencies(string alias)
+                {
+                    var dependencies = ProjectAliases.AllDependencies.Where(item => item.Alias == alias);
+
+                    foreach (var dependency in dependencies)
+                    {
+                        yield return dependency;
+
+                        foreach (var dependencyAlias in GetProjectDependencies(dependency.DependencyAlias))
+                        {
+                            yield return dependencyAlias;
+                        }
+                    }
+                }
+
+                // Get all dependencies recursively
+                allDependencies = GetProjectDependencies(scope).AsReadOnlyCollection();
 
                 aliasesUsed = new Dictionary<string, string>();
 
-                foreach (var (alias, dependencyAlias) in allDependencies)
+                if (allDependencies.Any())
                 {
-                    UpdateAliasCache(alias, allAliases[alias], aliasesUsed);
-                    UpdateAliasCache(dependencyAlias, allAliases[dependencyAlias], aliasesUsed);
+                    foreach (var (alias, dependencyAlias) in allDependencies)
+                    {
+                        UpdateAliasCache(alias, allAliases[alias], aliasesUsed);
+                        UpdateAliasCache(dependencyAlias, allAliases[dependencyAlias], aliasesUsed);
+                    }
+                }
+                else
+                {
+                    // If there's no dependencies then add the scope itself - otherwise there'll be nothing to export
+                    UpdateAliasCache(scope, allAliases[scope], aliasesUsed);
                 }
             }
 
