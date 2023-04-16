@@ -175,6 +175,7 @@ namespace AllOverIt.Extensions
         /// <summary>Asynchronously projects each element of a sequence into a new form that includes the element's zero-based index.</summary>
         /// <typeparam name="TType">The element type.</typeparam>
         /// <param name="items">The source sequence of elements.</param>
+        /// <param name="cancellationToken">A cancellation token to cancel the processing.</param>
         /// <returns>The projected sequence including the element's index.</returns>
         public static async IAsyncEnumerable<(TType Item, int Index)> WithIndexAsync<TType>(this IAsyncEnumerable<TType> items,
             [EnumeratorCancellation] CancellationToken cancellationToken = default)

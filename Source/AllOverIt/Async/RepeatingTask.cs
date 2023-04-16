@@ -11,7 +11,6 @@ namespace AllOverIt.Async
         /// <param name="action">The asynchronous function to execute each time the task repeats.</param>
         /// <param name="cancellationToken">The cancellation token used to terminate the task.</param>
         /// <param name="repeatDelay">The frequency (milliseconds) the task should repeat.</param>
-        /// <param name="initialDelay">An initial delay (milliseconds) to wait before executing the first function invocation.</param>
         /// <returns>The started task.</returns>
         public static Task Start(Func<Task> action, int repeatDelay, CancellationToken cancellationToken)
         {
@@ -33,7 +32,6 @@ namespace AllOverIt.Async
         /// <param name="action">The function to execute each time the task repeats.</param>
         /// <param name="cancellationToken">The cancellation token used to terminate the task.</param>
         /// <param name="repeatDelay">The frequency (milliseconds) the task should repeat.</param>
-        /// <param name="initialDelay">An initial delay (milliseconds) to wait before executing the first function invocation.</param>
         /// <returns>The started task.</returns>
         public static Task Start(Action action, int repeatDelay, CancellationToken cancellationToken)
         {

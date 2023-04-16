@@ -122,7 +122,7 @@ namespace AllOverIt.Expressions.Strings
                 : Expression.Call(instance, ContainsMethodInfo, value);
         }
 
-        /// <summary>Creates a <see cref="MethodCallExpression"/> that will will execute the instance method <see cref="string.Contains(string, StringComparison)"
+        /// <summary>Creates a <see cref="MethodCallExpression"/> that will will execute the instance method <see cref="string.Contains(string, StringComparison)" />
         /// based on the provided <see cref="StringComparisonMode"/> option.</summary>
         /// <param name="instance">The string instance to call the method on.</param>
         /// <param name="value">The string value to be passed to the called method.</param>

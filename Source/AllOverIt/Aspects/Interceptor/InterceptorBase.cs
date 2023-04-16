@@ -76,7 +76,7 @@ namespace AllOverIt.Aspects.Interceptor
             return InterceptorState.None;
         }
 
-        /// <summary>Called when the decorated instance method invocation faults (throws an exception).
+        /// <summary>Called when the decorated instance method invocation faults (throws an exception).</summary>
         /// <param name="targetMethod">The info for the method being intercepted.</param>
         /// <param name="args">The arguments passed to the intercepted method.</param>
         /// <param name="state">The state object returned by <see cref="BeforeInvoke(MethodInfo, object[])"/>.
