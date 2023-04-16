@@ -1,6 +1,6 @@
 ﻿namespace SolutionInspector.Parser
 {
-    public sealed class ProjectReference
+    internal sealed class ProjectReference
     {
         public string Path { get; init; }
     }

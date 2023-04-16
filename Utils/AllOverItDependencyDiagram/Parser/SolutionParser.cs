@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SolutionInspector.Parser
 {
-    public sealed class SolutionParser
+    internal sealed class SolutionParser
     {
         public IReadOnlyCollection<SolutionProject> Projects { get; }
 

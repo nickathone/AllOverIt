@@ -2,7 +2,7 @@
 
 namespace SolutionInspector.Parser
 {
-    public sealed class SolutionProject
+    internal sealed class SolutionProject
     {
         public string Name { get; init; }
         public string Path { get; init; }
