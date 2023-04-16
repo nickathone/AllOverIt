@@ -41,6 +41,8 @@ namespace AllOverIt.Fixture
             Customize(customization);
         }
 
+        /// <summary>Constructor that supports customization of AutoFixture's Fixture.</summary>
+        /// <param name="customization">The customization instance.</param>
         public void Customize(ICustomization customization)
         {
             Fixture.Customize(customization);

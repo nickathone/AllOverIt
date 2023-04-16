@@ -10,8 +10,8 @@ namespace AllOverIt.Fixture.FakeItEasy
 {
     // These methods are effectively implicitly tested through their usage in tests.
 
-    [ExcludeFromCodeCoverage]
     /// <summary>Provides a variety of extension methods for <see cref="FixtureBase"/>.</summary>
+    [ExcludeFromCodeCoverage]
     public static class FixtureBaseExtensions
     {
         /// <summary>Adds a customization for FakeItEasy.</summary>
@@ -74,7 +74,7 @@ namespace AllOverIt.Fixture.FakeItEasy
         /// <param name="fixtureBase">The <see cref="FixtureBase"/> instance.</param>
         /// <returns>A stub of the specified type.</returns>
         /// <remarks>A stub is an object that holds pre-defined data or setup that is used to satisfy calls made during a test.</remarks>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for documentation")]
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for documentation")]
         public static TType CreateStub<TType>(this FixtureBase fixtureBase)
             where TType : class
         {
