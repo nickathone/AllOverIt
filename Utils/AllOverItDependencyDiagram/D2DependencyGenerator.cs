@@ -35,36 +35,21 @@ namespace SolutionInspector
                 .Concat(ProjectAliases.AllAliases.Where(item => item.Key.StartsWith("alloverit"))
                 .SelectAsReadOnlyCollection(item => item.Key));
 
-            // Create all diagrams, then process the image exports in parallel 4 at a time
-            // Could do it all sequentially, but showing how the partioned work can be performed
-            var d2FilePaths = await scopes
-                .SelectAsync(async scope =>
-                {
-                    // Get the D2 diagram content
-                    var d2Content = GenerateD2Content(scope);
-
-                    // Create the file and return the fully-qualified file path
-                    return await CreateD2FileAsync(d2Content, docsPath, scope);
-                })
-                .ToListAsync();
-
             var extensions = new[] { "svg", "png" /*, "pdf"*/ };
 
-            await d2FilePaths
-                .SelectMany(path =>
+            foreach (var scope in scopes)
+            {
+                // Get the D2 diagram content
+                var d2Content = GenerateD2Content(scope);
+
+                // Create the file and return the fully-qualified file path
+                var filePath = await CreateD2FileAsync(d2Content, docsPath, scope);
+
+                foreach (var extension in extensions)
                 {
-                    // Create all combinations of files to be created
-                    return extensions.Select(extension => new
-                    {
-                        D2FilePath = path,
-                        Extension = extension
-                    });
-                })
-                .ForEachAsTaskAsync(async item =>
-                {
-                    // And process them in, at most, 8 tasks
-                    await ExportD2ImageFileAsync(item.D2FilePath, item.Extension);
-                }, 8);
+                    await ExportD2ImageFileAsync(filePath, extension);
+                }
+            }
         }
 
         private void InitProjectAliases(string solutionPath, string projectsRootPath)
@@ -99,22 +84,43 @@ namespace SolutionInspector
             }
         }
 
-        private void AddPackageDependencies(string projectAlias, IReadOnlyCollection<ConditionalReferences> projectDependencies)
+        private void AddPackageDependencies(string parentAlias, IReadOnlyCollection<ConditionalReferences> projectDependencies)
         {
             var allPackageDependencies = projectDependencies.SelectMany(dependency => dependency.PackageReferences);
 
             foreach (var packageDependency in allPackageDependencies)
             {
-                var packageDependencyName = packageDependency.Name;
-
-                var packageDependencyAlias = packageDependencyName.Replace(".", "-").ToLowerInvariant();
-
-                UpdateAliasCache(packageDependencyAlias, packageDependencyName, ProjectAliases.AllAliases);
-
-                var dependency = new ProjectDependency(projectAlias, packageDependencyAlias);
-                ProjectAliases.AllDependencies.Add(dependency);
+                ProcessPackageReference(parentAlias, packageDependency);
             }
         }
+
+
+
+        private void ProcessPackageReference(string packageAlias, PackageReference packageDependency)
+        {
+            var packageDependencyName = packageDependency.Name;
+
+            var packageDependencyAlias = packageDependencyName.Replace(".", "-").ToLowerInvariant();
+
+            UpdateAliasCache(packageDependencyAlias, packageDependencyName, ProjectAliases.AllAliases);
+
+            var dependency = new ProjectDependency(packageAlias, packageDependencyAlias);
+            
+            if (ProjectAliases.AllDependencies.Add(dependency)) // dependency is a record type
+            {
+                Console.WriteLine($"{dependency.Alias} - {dependency.DependencyAlias}");
+
+                foreach (var transitive in packageDependency.TransitiveReferences)
+                {
+                    ProcessPackageReference(packageDependencyAlias, transitive);
+                }
+            }
+        }
+
+
+
+
+
 
         private string GenerateD2Content(string scope = default)
         {
@@ -215,6 +221,8 @@ namespace SolutionInspector
                 .WithArguments("fmt", d2FilePath)
                 .BuildProcessExecutor()
                 .ExecuteAsync();
+
+            Console.WriteLine($"Created diagram {d2FilePath}");
 
             return d2FilePath;
         }

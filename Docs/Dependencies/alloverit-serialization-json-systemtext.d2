@@ -8,8 +8,36 @@ aoi.alloverit-assertion: AllOverIt.Assertion
 system-text-json: System.Text.Json
 system-text-json.style.fill: lightblue
 system-text-json.style.opacity: 0.8
+microsoft-bcl-asyncinterfaces: Microsoft.Bcl.AsyncInterfaces
+microsoft-bcl-asyncinterfaces.style.fill: lightblue
+microsoft-bcl-asyncinterfaces.style.opacity: 0.8
+system-text-encodings-web: System.Text.Encodings.Web
+system-text-encodings-web.style.fill: lightblue
+system-text-encodings-web.style.opacity: 0.8
+system-buffers: System.Buffers
+system-buffers.style.fill: lightblue
+system-buffers.style.opacity: 0.8
+system-memory: System.Memory
+system-memory.style.fill: lightblue
+system-memory.style.opacity: 0.8
+system-numerics-vectors: System.Numerics.Vectors
+system-numerics-vectors.style.fill: lightblue
+system-numerics-vectors.style.opacity: 0.8
+system-runtime-compilerservices-unsafe: System.Runtime.CompilerServices.Unsafe
+system-runtime-compilerservices-unsafe.style.fill: lightblue
+system-runtime-compilerservices-unsafe.style.opacity: 0.8
+system-threading-tasks-extensions: System.Threading.Tasks.Extensions
+system-threading-tasks-extensions.style.fill: lightblue
+system-threading-tasks-extensions.style.opacity: 0.8
 
 aoi.alloverit-serialization-json-abstractions <- aoi.alloverit-serialization-json-systemtext
 aoi.alloverit <- aoi.alloverit-serialization-json-abstractions
 aoi.alloverit-assertion <- aoi.alloverit
 system-text-json <- aoi.alloverit-serialization-json-systemtext
+microsoft-bcl-asyncinterfaces <- system-text-json
+system-text-encodings-web <- system-text-json
+system-buffers <- system-text-json
+system-memory <- system-text-json
+system-numerics-vectors <- system-text-json
+system-runtime-compilerservices-unsafe <- system-text-json
+system-threading-tasks-extensions <- system-text-json

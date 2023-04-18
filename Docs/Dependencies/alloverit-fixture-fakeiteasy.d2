@@ -6,6 +6,12 @@ aoi.alloverit-fixture: AllOverIt.Fixture
 autofixture: AutoFixture
 autofixture.style.fill: lightblue
 autofixture.style.opacity: 0.8
+fare: Fare
+fare.style.fill: lightblue
+fare.style.opacity: 0.8
+system-componentmodel-annotations: System.ComponentModel.Annotations
+system-componentmodel-annotations.style.fill: lightblue
+system-componentmodel-annotations.style.opacity: 0.8
 fluentassertions: FluentAssertions
 fluentassertions.style.fill: lightblue
 fluentassertions.style.opacity: 0.8
@@ -15,9 +21,20 @@ autofixture-autofakeiteasy.style.opacity: 0.8
 fakeiteasy: FakeItEasy
 fakeiteasy.style.fill: lightblue
 fakeiteasy.style.opacity: 0.8
+castle-core: Castle.Core
+castle-core.style.fill: lightblue
+castle-core.style.opacity: 0.8
 
 aoi.alloverit-fixture <- aoi.alloverit-fixture-fakeiteasy
 autofixture <- aoi.alloverit-fixture
+fare <- autofixture
+system-componentmodel-annotations <- autofixture
 fluentassertions <- aoi.alloverit-fixture
 autofixture-autofakeiteasy <- aoi.alloverit-fixture-fakeiteasy
+autofixture <- autofixture-autofakeiteasy
+fare <- autofixture
+system-componentmodel-annotations <- autofixture
+fakeiteasy <- autofixture-autofakeiteasy
+castle-core <- fakeiteasy
 fakeiteasy <- aoi.alloverit-fixture-fakeiteasy
+castle-core <- fakeiteasy

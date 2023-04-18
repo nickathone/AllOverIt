@@ -7,7 +7,15 @@ aoi.alloverit-assertion: AllOverIt.Assertion
 microsoft-entityframeworkcore-relational: Microsoft.EntityFrameworkCore.Relational
 microsoft-entityframeworkcore-relational.style.fill: lightblue
 microsoft-entityframeworkcore-relational.style.opacity: 0.8
+microsoft-entityframeworkcore: Microsoft.EntityFrameworkCore
+microsoft-entityframeworkcore.style.fill: lightblue
+microsoft-entityframeworkcore.style.opacity: 0.8
+microsoft-extensions-configuration-abstractions: Microsoft.Extensions.Configuration.Abstractions
+microsoft-extensions-configuration-abstractions.style.fill: lightblue
+microsoft-extensions-configuration-abstractions.style.opacity: 0.8
 
 aoi.alloverit <- aoi.alloverit-entityframeworkcore-diagrams
 aoi.alloverit-assertion <- aoi.alloverit
 microsoft-entityframeworkcore-relational <- aoi.alloverit-entityframeworkcore-diagrams
+microsoft-entityframeworkcore <- microsoft-entityframeworkcore-relational
+microsoft-extensions-configuration-abstractions <- microsoft-entityframeworkcore-relational

@@ -8,6 +8,12 @@ aoi.alloverit-assertion: AllOverIt.Assertion
 microsoft-entityframeworkcore-relational: Microsoft.EntityFrameworkCore.Relational
 microsoft-entityframeworkcore-relational.style.fill: lightblue
 microsoft-entityframeworkcore-relational.style.opacity: 0.8
+microsoft-entityframeworkcore: Microsoft.EntityFrameworkCore
+microsoft-entityframeworkcore.style.fill: lightblue
+microsoft-entityframeworkcore.style.opacity: 0.8
+microsoft-extensions-configuration-abstractions: Microsoft.Extensions.Configuration.Abstractions
+microsoft-extensions-configuration-abstractions.style.fill: lightblue
+microsoft-extensions-configuration-abstractions.style.opacity: 0.8
 aoi.alloverit-pagination: AllOverIt.Pagination
 aoi.alloverit-serialization-binary: AllOverIt.Serialization.Binary
 microsoft-extensions-dependencyinjection-abstractions: Microsoft.Extensions.DependencyInjection.Abstractions
@@ -18,6 +24,8 @@ aoi.alloverit-entityframeworkcore <- aoi.alloverit-entityframeworkcore-paginatio
 aoi.alloverit <- aoi.alloverit-entityframeworkcore
 aoi.alloverit-assertion <- aoi.alloverit
 microsoft-entityframeworkcore-relational <- aoi.alloverit-entityframeworkcore
+microsoft-entityframeworkcore <- microsoft-entityframeworkcore-relational
+microsoft-extensions-configuration-abstractions <- microsoft-entityframeworkcore-relational
 aoi.alloverit-pagination <- aoi.alloverit-entityframeworkcore-pagination
 aoi.alloverit-serialization-binary <- aoi.alloverit-pagination
 aoi.alloverit <- aoi.alloverit-serialization-binary

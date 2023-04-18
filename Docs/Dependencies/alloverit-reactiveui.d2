@@ -10,12 +10,51 @@ microsoft-extensions-dependencyinjection-abstractions.style.opacity: 0.8
 reactiveui: ReactiveUI
 reactiveui.style.fill: lightblue
 reactiveui.style.opacity: 0.8
+dynamicdata: DynamicData
+dynamicdata.style.fill: lightblue
+dynamicdata.style.opacity: 0.8
+splat: Splat
+splat.style.fill: lightblue
+splat.style.opacity: 0.8
+system-componentmodel: System.ComponentModel
+system-componentmodel.style.fill: lightblue
+system-componentmodel.style.opacity: 0.8
+system-diagnostics-contracts: System.Diagnostics.Contracts
+system-diagnostics-contracts.style.fill: lightblue
+system-diagnostics-contracts.style.opacity: 0.8
+system-dynamic-runtime: System.Dynamic.Runtime
+system-dynamic-runtime.style.fill: lightblue
+system-dynamic-runtime.style.opacity: 0.8
+system-runtime-serialization-primitives: System.Runtime.Serialization.Primitives
+system-runtime-serialization-primitives.style.fill: lightblue
+system-runtime-serialization-primitives.style.opacity: 0.8
 reactiveui-fody: ReactiveUI.Fody
 reactiveui-fody.style.fill: lightblue
 reactiveui-fody.style.opacity: 0.8
+fody: Fody
+fody.style.fill: lightblue
+fody.style.opacity: 0.8
 
 aoi.alloverit <- aoi.alloverit-reactiveui
 aoi.alloverit-assertion <- aoi.alloverit
 microsoft-extensions-dependencyinjection-abstractions <- aoi.alloverit-reactiveui
 reactiveui <- aoi.alloverit-reactiveui
+dynamicdata <- reactiveui
+splat <- reactiveui
+system-componentmodel <- reactiveui
+system-diagnostics-contracts <- reactiveui
+system-dynamic-runtime <- reactiveui
+system-runtime-serialization-primitives <- reactiveui
 reactiveui-fody <- aoi.alloverit-reactiveui
+reactiveui <- reactiveui-fody
+dynamicdata <- reactiveui
+splat <- reactiveui
+system-componentmodel <- reactiveui
+system-diagnostics-contracts <- reactiveui
+system-dynamic-runtime <- reactiveui
+system-runtime-serialization-primitives <- reactiveui
+fody <- reactiveui-fody
+system-componentmodel <- reactiveui-fody
+system-diagnostics-contracts <- reactiveui-fody
+system-dynamic-runtime <- reactiveui-fody
+system-runtime-serialization-primitives <- reactiveui-fody
