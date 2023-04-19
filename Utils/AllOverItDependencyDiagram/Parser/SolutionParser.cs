@@ -15,11 +15,9 @@ namespace SolutionInspector.Parser
     {
         private readonly IDictionary<(string, string), IEnumerable<PackageReference>> _nugetCache = new Dictionary<(string, string), IEnumerable<PackageReference>>();
 
-        public IReadOnlyCollection<SolutionProject> Projects { get; }
-
-        public SolutionParser(string solutionFilePath, string projectIncludePath)
+        public Task<IReadOnlyCollection<SolutionProject>> ParseAsync(string solutionFilePath, string projectIncludePath)
         {
-            Projects = GetProjectsAsync(solutionFilePath, projectIncludePath).GetAwaiter().GetResult();     // todo: to be removed from here
+            return GetProjectsAsync(solutionFilePath, projectIncludePath);
         }
 
         private async Task<IReadOnlyCollection<SolutionProject>> GetProjectsAsync(string solutionFilePath, string projectIncludePath)
@@ -33,7 +31,8 @@ namespace SolutionInspector.Parser
                 .Where(project =>
                 {
                     return project.AbsolutePath.StartsWith(projectIncludePath, StringComparison.OrdinalIgnoreCase);
-                });
+                })
+                .OrderBy(item => item.ProjectName);
 
             foreach (var projectItem in orderedProjects)
             {
@@ -141,10 +140,10 @@ namespace SolutionInspector.Parser
 
         private Task<IEnumerable<PackageReference>> GetTransitivePackageReferencesAsync(string packageName, string packageVersion)
         {
-            return GetTransitivePackageReferencesAsync2(packageName, packageVersion, 1);
+            return GetTransitivePackageReferencesRecursivelyAsync(packageName, packageVersion, 1);
         }
 
-        private async Task<IEnumerable<PackageReference>> GetTransitivePackageReferencesAsync2(string packageName, string packageVersion,
+        private async Task<IEnumerable<PackageReference>> GetTransitivePackageReferencesRecursivelyAsync(string packageName, string packageVersion,
             int depth)
         {
             if (depth > 1)
@@ -181,7 +180,6 @@ namespace SolutionInspector.Parser
                                   })
                     );
 
-
                 if (dependenciesByFramework.Any())
                 {
                     var packageReferencesList = new List<PackageReference>();
@@ -195,9 +193,9 @@ namespace SolutionInspector.Parser
                         var dependencyName = dependency.Id;
                         var dependencyVersion = dependency.Version;
 
-                        var transitiveReferences = await GetTransitivePackageReferencesAsync2(dependencyName, dependencyVersion, depth + 1);
+                        var transitiveReferences = await GetTransitivePackageReferencesRecursivelyAsync(dependencyName, dependencyVersion, depth + 1);
 
-                        var packageReference = new PackageReference
+                        var packageReference = new PackageReference(true)
                         {
                             Name = dependencyName,
                             Version = dependencyVersion,
@@ -212,7 +210,6 @@ namespace SolutionInspector.Parser
 
                 _nugetCache.Add(cacheKey, packageReferences);
             }
-
 
             return packageReferences ?? Array.Empty<PackageReference>();
         }

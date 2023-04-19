@@ -12,27 +12,21 @@ using System.Threading.Tasks;
 
 namespace SolutionInspector
 {
-    internal sealed class D2DependencyGenerator
+    internal static class D2DependencyGenerator
     {
-        public ProjectAliases ProjectAliases { get; private set; }
-
-        public D2DependencyGenerator(string solutionPath, string projectsRootPath)
+        public static async Task CreateAllFilesAsync(string solutionPath, string projectsRootPath, string docsPath, Action<ProjectAliases> reportDiagramData)
         {
+            // The paths are required to work out dependency project absolute paths from their relative paths
             _ = solutionPath.WhenNotNullOrEmpty();
             _ = projectsRootPath.WhenNotNullOrEmpty();
+            _ = docsPath.WhenNotNullOrEmpty();
 
-            var allAliases = new Dictionary<string, string>();
-            var allDependencies = new HashSet<ProjectDependency>();
+            var projectAliases = await GetProjectAliasesAsync(solutionPath, projectsRootPath);
 
-            ProjectAliases = new ProjectAliases(allAliases, allDependencies);
-                
-            InitProjectAliases(solutionPath, projectsRootPath);
-        }
+            reportDiagramData.Invoke(projectAliases);
 
-        public async Task CreateAllFilesAsync(string docsPath)
-        {
             var scopes = new[] { string.Empty }     // everything
-                .Concat(ProjectAliases.AllAliases.Where(item => item.Key.StartsWith("alloverit"))
+                .Concat(projectAliases.AllAliases.Where(item => item.Key.StartsWith("alloverit"))
                 .SelectAsReadOnlyCollection(item => item.Key));
 
             var extensions = new[] { "svg", "png" /*, "pdf"*/ };
@@ -40,7 +34,7 @@ namespace SolutionInspector
             foreach (var scope in scopes)
             {
                 // Get the D2 diagram content
-                var d2Content = GenerateD2Content(scope);
+                var d2Content = GenerateD2Content(projectAliases, scope);
 
                 // Create the file and return the fully-qualified file path
                 var filePath = await CreateD2FileAsync(d2Content, docsPath, scope);
@@ -52,22 +46,29 @@ namespace SolutionInspector
             }
         }
 
-        private void InitProjectAliases(string solutionPath, string projectsRootPath)
+        private static async Task<ProjectAliases> GetProjectAliasesAsync(string solutionPath, string projectsRootPath)
         {
-            // The paths are required to work out dependency project absolute paths from their relative paths
-            var solutionParser = new SolutionParser(solutionPath, projectsRootPath);
+            var allAliases = new Dictionary<string, ProjectAlias>();
+            var allDependencies = new HashSet<ProjectDependency>();
 
-            foreach (var project in solutionParser.Projects)
+            var projectAliases = new ProjectAliases(allAliases, allDependencies);
+
+            var solutionParser = new SolutionParser();
+            var projects = await solutionParser.ParseAsync(solutionPath, projectsRootPath);
+
+            foreach (var project in projects)
             {
                 var projectAlias = project.Name.Replace(".", "-").ToLowerInvariant();
 
-                UpdateAliasCache(projectAlias, project.Name, ProjectAliases.AllAliases);
-                AddProjectDependencies(projectAlias, project.Dependencies);
-                AddPackageDependencies(projectAlias, project.Dependencies);
+                UpdateAliasCache(projectAlias, project.Name, AliasType.Project, projectAliases.AllAliases);
+                AddProjectDependencies(projectAlias, project.Dependencies, projectAliases);
+                AddPackageDependencies(projectAlias, project.Dependencies, projectAliases);
             }
+
+            return projectAliases;
         }
 
-        private void AddProjectDependencies(string projectAlias, IReadOnlyCollection<ConditionalReferences> projectDependencies)
+        private static void AddProjectDependencies(string projectAlias, IReadOnlyCollection<ConditionalReferences> projectDependencies, ProjectAliases projectAliases)
         {
             var allProjectDependencies = projectDependencies.SelectMany(dependency => dependency.ProjectReferences);
 
@@ -77,52 +78,48 @@ namespace SolutionInspector
 
                 var projectDependencyAlias = projectDependencyName.Replace(".", "-").ToLowerInvariant();
 
-                UpdateAliasCache(projectDependencyAlias, projectDependencyName, ProjectAliases.AllAliases);
+                UpdateAliasCache(projectDependencyAlias, projectDependencyName, AliasType.Project, projectAliases.AllAliases);
 
                 var dependency = new ProjectDependency(projectAlias, projectDependencyAlias);
-                ProjectAliases.AllDependencies.Add(dependency);
+                projectAliases.AllDependencies.Add(dependency);
             }
         }
 
-        private void AddPackageDependencies(string parentAlias, IReadOnlyCollection<ConditionalReferences> projectDependencies)
+        private static void AddPackageDependencies(string parentAlias, IReadOnlyCollection<ConditionalReferences> projectDependencies, ProjectAliases projectAliases)
         {
             var allPackageDependencies = projectDependencies.SelectMany(dependency => dependency.PackageReferences);
 
             foreach (var packageDependency in allPackageDependencies)
             {
-                ProcessPackageReference(parentAlias, packageDependency);
+                ProcessPackageReference(parentAlias, packageDependency, projectAliases);
             }
         }
 
-
-
-        private void ProcessPackageReference(string packageAlias, PackageReference packageDependency)
+        private static void ProcessPackageReference(string alias, PackageReference packageDependency, ProjectAliases projectAliases)
         {
             var packageDependencyName = packageDependency.Name;
 
             var packageDependencyAlias = packageDependencyName.Replace(".", "-").ToLowerInvariant();
 
-            UpdateAliasCache(packageDependencyAlias, packageDependencyName, ProjectAliases.AllAliases);
+            var aliasType = packageDependency.IsTransitive
+                ? AliasType.Transitive
+                : AliasType.Package;
 
-            var dependency = new ProjectDependency(packageAlias, packageDependencyAlias);
-            
-            if (ProjectAliases.AllDependencies.Add(dependency)) // dependency is a record type
+            UpdateAliasCache(packageDependencyAlias, packageDependencyName, aliasType, projectAliases.AllAliases);
+
+            var dependency = new ProjectDependency(alias, packageDependencyAlias);
+
+            // Only add the dependency if it hasn't been seen before. Note, 'dependency' is a record type.
+            if (projectAliases.AllDependencies.Add(dependency))
             {
-                Console.WriteLine($"{dependency.Alias} - {dependency.DependencyAlias}");
-
                 foreach (var transitive in packageDependency.TransitiveReferences)
                 {
-                    ProcessPackageReference(packageDependencyAlias, transitive);
+                    ProcessPackageReference(packageDependencyAlias, transitive, projectAliases);
                 }
             }
         }
 
-
-
-
-
-
-        private string GenerateD2Content(string scope = default)
+        private static string GenerateD2Content(ProjectAliases projectAliases, string scope = default)
         {
             var sb = new StringBuilder();
 
@@ -131,8 +128,8 @@ namespace SolutionInspector
 
             sb.AppendLine($"aoi: AllOverIt");
 
-            var allAliases = ProjectAliases.AllAliases;
-            var allDependencies = ProjectAliases.AllDependencies.AsEnumerable();
+            var allAliases = projectAliases.AllAliases;
+            var allDependencies = projectAliases.AllDependencies.AsEnumerable();
 
             var aliasesUsed = allAliases;
 
@@ -140,7 +137,7 @@ namespace SolutionInspector
             {
                 IEnumerable<ProjectDependency> GetProjectDependencies(string alias)
                 {
-                    var dependencies = ProjectAliases.AllDependencies.Where(item => item.Alias == alias);
+                    var dependencies = projectAliases.AllDependencies.Where(item => item.Alias == alias);
 
                     foreach (var dependency in dependencies)
                     {
@@ -156,7 +153,7 @@ namespace SolutionInspector
                 // Get all dependencies recursively
                 allDependencies = GetProjectDependencies(scope).AsReadOnlyCollection();
 
-                aliasesUsed = new Dictionary<string, string>();
+                aliasesUsed = new Dictionary<string, ProjectAlias>();
 
                 if (allDependencies.Any())
                 {
@@ -175,13 +172,18 @@ namespace SolutionInspector
 
             foreach (var alias in aliasesUsed)
             {
-                // Alias: Display Name
-                sb.AppendLine($"{GetDiagramAliasId(alias.Key)}: {alias.Value}");
+                var projectAlias = alias.Value;
+
+                sb.AppendLine($"{GetDiagramAliasId(alias.Key)}: {projectAlias.DisplayName}");
 
                 // Style non-AllOverIt dependencies
                 if (!alias.Key.StartsWith("alloverit"))
                 {
-                    sb.AppendLine($"{alias.Key}.style.fill: lightblue");
+                    var color = projectAlias.AliasType == AliasType.Package
+                        ? "#ADD8E6"     // Blue
+                        : "#FFEC96";    // Yellow
+
+                    sb.AppendLine($"{alias.Key}.style.fill: \"{color}\"");
                     sb.AppendLine($"{alias.Key}.style.opacity: 0.8");
                 }
             }
@@ -196,11 +198,30 @@ namespace SolutionInspector
             return sb.ToString();
         }
 
-        private static void UpdateAliasCache(string alias, string name, IDictionary<string, string> aliases)
+        private static void UpdateAliasCache(string alias, string name, AliasType aliasType, IDictionary<string, ProjectAlias> aliases)
+        {
+            if (aliases.TryGetValue(alias, out var projectAlias))
+            {
+                // Override transitive references with explicit package references (for the diagram output)
+                if (projectAlias.AliasType == AliasType.Transitive && aliasType == AliasType.Package)
+                {
+                    projectAlias = new ProjectAlias(name, aliasType);
+                }
+            }
+            else
+            {
+                projectAlias = new ProjectAlias(name, aliasType);
+            }
+
+            // Add / Replace as applicable
+            aliases[alias] = projectAlias;
+        }
+
+        private static void UpdateAliasCache(string alias, ProjectAlias projectAlias, IDictionary<string, ProjectAlias> aliases)
         {
             if (!aliases.ContainsKey(alias))
             {
-                aliases.Add(alias, name);
+                aliases.Add(alias, projectAlias);
             }
         }
 

@@ -16,12 +16,8 @@ namespace SolutionInspector
             var solutionPath = Path.Combine(allOverItRoot, "AllOverIt.sln");
             var projectsRootPath = Path.Combine(allOverItRoot, "Source");
 
-            var generator = new D2DependencyGenerator(solutionPath, projectsRootPath);
-
-            WriteDependenciesToConsole(generator.ProjectAliases);
-
             var docsPath = Path.Combine(allOverItRoot, @"Docs\Dependencies");
-            await generator.CreateAllFilesAsync(docsPath);
+            await D2DependencyGenerator.CreateAllFilesAsync(solutionPath, projectsRootPath, docsPath, WriteDependenciesToConsole);
 
             Console.WriteLine();
             Console.WriteLine($"AllOverIt.");
@@ -38,29 +34,29 @@ namespace SolutionInspector
 
             foreach (var (alias, dependencyAlias) in sortedDependenies)
             {
-                var aliasName = allAliases[alias];
-                var dependencyName = allAliases[dependencyAlias];
-
-                WriteDependencyToConsole(aliasName, dependencyName);
+                WriteDependencyToConsole(allAliases[alias], allAliases[dependencyAlias]);
             }
 
             Console.WriteLine();
         }
 
-        private static void WriteDependencyToConsole(string aliasName, string dependencyName)
+        private static void WriteDependencyToConsole(ProjectAlias alias, ProjectAlias dependency)
         {
             var foreground = Console.ForegroundColor;
 
             try
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"{aliasName}");
+                Console.Write($"{alias.DisplayName}");
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($" depends on ");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"{dependencyName}");
+                Console.Write($"{dependency.DisplayName}");
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($" ({dependency.AliasType})");
             }
             finally
             {
