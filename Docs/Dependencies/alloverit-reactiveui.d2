@@ -2,59 +2,52 @@ direction: right
 
 aoi: AllOverIt
 aoi.alloverit-reactiveui: AllOverIt.ReactiveUI
-aoi.alloverit: AllOverIt
-aoi.alloverit-assertion: AllOverIt.Assertion
 microsoft-extensions-dependencyinjection-abstractions: Microsoft.Extensions.DependencyInjection.Abstractions
-microsoft-extensions-dependencyinjection-abstractions.style.fill: lightblue
+microsoft-extensions-dependencyinjection-abstractions.style.fill: "#ADD8E6"
 microsoft-extensions-dependencyinjection-abstractions.style.opacity: 0.8
+microsoft-extensions-dependencyinjection-abstractions <- aoi.alloverit-reactiveui
 reactiveui: ReactiveUI
-reactiveui.style.fill: lightblue
+reactiveui.style.fill: "#ADD8E6"
 reactiveui.style.opacity: 0.8
 dynamicdata: DynamicData
-dynamicdata.style.fill: lightblue
+dynamicdata.style.fill: "#FFEC96"
 dynamicdata.style.opacity: 0.8
+dynamicdata <- reactiveui
 splat: Splat
-splat.style.fill: lightblue
+splat.style.fill: "#FFEC96"
 splat.style.opacity: 0.8
+splat <- reactiveui
 system-componentmodel: System.ComponentModel
-system-componentmodel.style.fill: lightblue
+system-componentmodel.style.fill: "#FFEC96"
 system-componentmodel.style.opacity: 0.8
+system-componentmodel <- reactiveui
 system-diagnostics-contracts: System.Diagnostics.Contracts
-system-diagnostics-contracts.style.fill: lightblue
+system-diagnostics-contracts.style.fill: "#FFEC96"
 system-diagnostics-contracts.style.opacity: 0.8
+system-diagnostics-contracts <- reactiveui
 system-dynamic-runtime: System.Dynamic.Runtime
-system-dynamic-runtime.style.fill: lightblue
+system-dynamic-runtime.style.fill: "#FFEC96"
 system-dynamic-runtime.style.opacity: 0.8
+system-dynamic-runtime <- reactiveui
 system-runtime-serialization-primitives: System.Runtime.Serialization.Primitives
-system-runtime-serialization-primitives.style.fill: lightblue
+system-runtime-serialization-primitives.style.fill: "#FFEC96"
 system-runtime-serialization-primitives.style.opacity: 0.8
-reactiveui-fody: ReactiveUI.Fody
-reactiveui-fody.style.fill: lightblue
-reactiveui-fody.style.opacity: 0.8
-fody: Fody
-fody.style.fill: lightblue
-fody.style.opacity: 0.8
-
-aoi.alloverit <- aoi.alloverit-reactiveui
-aoi.alloverit-assertion <- aoi.alloverit
-microsoft-extensions-dependencyinjection-abstractions <- aoi.alloverit-reactiveui
+system-runtime-serialization-primitives <- reactiveui
 reactiveui <- aoi.alloverit-reactiveui
-dynamicdata <- reactiveui
-splat <- reactiveui
-system-componentmodel <- reactiveui
-system-diagnostics-contracts <- reactiveui
-system-dynamic-runtime <- reactiveui
-system-runtime-serialization-primitives <- reactiveui
-reactiveui-fody <- aoi.alloverit-reactiveui
+reactiveui-fody: ReactiveUI.Fody
+reactiveui-fody.style.fill: "#ADD8E6"
+reactiveui-fody.style.opacity: 0.8
 reactiveui <- reactiveui-fody
-dynamicdata <- reactiveui
-splat <- reactiveui
-system-componentmodel <- reactiveui
-system-diagnostics-contracts <- reactiveui
-system-dynamic-runtime <- reactiveui
-system-runtime-serialization-primitives <- reactiveui
+fody: Fody
+fody.style.fill: "#FFEC96"
+fody.style.opacity: 0.8
 fody <- reactiveui-fody
 system-componentmodel <- reactiveui-fody
 system-diagnostics-contracts <- reactiveui-fody
 system-dynamic-runtime <- reactiveui-fody
 system-runtime-serialization-primitives <- reactiveui-fody
+reactiveui-fody <- aoi.alloverit-reactiveui
+aoi.alloverit: AllOverIt
+aoi.alloverit-assertion: AllOverIt.Assertion
+aoi.alloverit-assertion <- aoi.alloverit
+aoi.alloverit <- aoi.alloverit-reactiveui

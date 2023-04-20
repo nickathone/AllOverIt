@@ -195,7 +195,7 @@ namespace SolutionInspector.Parser
 
                         var transitiveReferences = await GetTransitivePackageReferencesRecursivelyAsync(dependencyName, dependencyVersion, depth + 1);
 
-                        var packageReference = new PackageReference(true)
+                        var packageReference = new PackageReference(true, depth)
                         {
                             Name = dependencyName,
                             Version = dependencyVersion,

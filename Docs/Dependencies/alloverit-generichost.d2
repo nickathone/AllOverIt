@@ -2,106 +2,99 @@ direction: right
 
 aoi: AllOverIt
 aoi.alloverit-generichost: AllOverIt.GenericHost
-aoi.alloverit: AllOverIt
-aoi.alloverit-assertion: AllOverIt.Assertion
 microsoft-extensions-hosting: Microsoft.Extensions.Hosting
-microsoft-extensions-hosting.style.fill: lightblue
+microsoft-extensions-hosting.style.fill: "#ADD8E6"
 microsoft-extensions-hosting.style.opacity: 0.8
 microsoft-extensions-configuration-abstractions: Microsoft.Extensions.Configuration.Abstractions
-microsoft-extensions-configuration-abstractions.style.fill: lightblue
+microsoft-extensions-configuration-abstractions.style.fill: "#FFEC96"
 microsoft-extensions-configuration-abstractions.style.opacity: 0.8
-microsoft-extensions-configuration-binder: Microsoft.Extensions.Configuration.Binder
-microsoft-extensions-configuration-binder.style.fill: lightblue
-microsoft-extensions-configuration-binder.style.opacity: 0.8
-microsoft-extensions-configuration-commandline: Microsoft.Extensions.Configuration.CommandLine
-microsoft-extensions-configuration-commandline.style.fill: lightblue
-microsoft-extensions-configuration-commandline.style.opacity: 0.8
-microsoft-extensions-configuration-environmentvariables: Microsoft.Extensions.Configuration.EnvironmentVariables
-microsoft-extensions-configuration-environmentvariables.style.fill: lightblue
-microsoft-extensions-configuration-environmentvariables.style.opacity: 0.8
-microsoft-extensions-configuration-fileextensions: Microsoft.Extensions.Configuration.FileExtensions
-microsoft-extensions-configuration-fileextensions.style.fill: lightblue
-microsoft-extensions-configuration-fileextensions.style.opacity: 0.8
-microsoft-extensions-configuration-json: Microsoft.Extensions.Configuration.Json
-microsoft-extensions-configuration-json.style.fill: lightblue
-microsoft-extensions-configuration-json.style.opacity: 0.8
-microsoft-extensions-configuration-usersecrets: Microsoft.Extensions.Configuration.UserSecrets
-microsoft-extensions-configuration-usersecrets.style.fill: lightblue
-microsoft-extensions-configuration-usersecrets.style.opacity: 0.8
-microsoft-extensions-configuration: Microsoft.Extensions.Configuration
-microsoft-extensions-configuration.style.fill: lightblue
-microsoft-extensions-configuration.style.opacity: 0.8
-microsoft-extensions-dependencyinjection-abstractions: Microsoft.Extensions.DependencyInjection.Abstractions
-microsoft-extensions-dependencyinjection-abstractions.style.fill: lightblue
-microsoft-extensions-dependencyinjection-abstractions.style.opacity: 0.8
-microsoft-extensions-dependencyinjection: Microsoft.Extensions.DependencyInjection
-microsoft-extensions-dependencyinjection.style.fill: lightblue
-microsoft-extensions-dependencyinjection.style.opacity: 0.8
-microsoft-extensions-fileproviders-abstractions: Microsoft.Extensions.FileProviders.Abstractions
-microsoft-extensions-fileproviders-abstractions.style.fill: lightblue
-microsoft-extensions-fileproviders-abstractions.style.opacity: 0.8
-microsoft-extensions-fileproviders-physical: Microsoft.Extensions.FileProviders.Physical
-microsoft-extensions-fileproviders-physical.style.fill: lightblue
-microsoft-extensions-fileproviders-physical.style.opacity: 0.8
-microsoft-extensions-hosting-abstractions: Microsoft.Extensions.Hosting.Abstractions
-microsoft-extensions-hosting-abstractions.style.fill: lightblue
-microsoft-extensions-hosting-abstractions.style.opacity: 0.8
-microsoft-extensions-logging-abstractions: Microsoft.Extensions.Logging.Abstractions
-microsoft-extensions-logging-abstractions.style.fill: lightblue
-microsoft-extensions-logging-abstractions.style.opacity: 0.8
-microsoft-extensions-logging-configuration: Microsoft.Extensions.Logging.Configuration
-microsoft-extensions-logging-configuration.style.fill: lightblue
-microsoft-extensions-logging-configuration.style.opacity: 0.8
-microsoft-extensions-logging-console: Microsoft.Extensions.Logging.Console
-microsoft-extensions-logging-console.style.fill: lightblue
-microsoft-extensions-logging-console.style.opacity: 0.8
-microsoft-extensions-logging-debug: Microsoft.Extensions.Logging.Debug
-microsoft-extensions-logging-debug.style.fill: lightblue
-microsoft-extensions-logging-debug.style.opacity: 0.8
-microsoft-extensions-logging-eventlog: Microsoft.Extensions.Logging.EventLog
-microsoft-extensions-logging-eventlog.style.fill: lightblue
-microsoft-extensions-logging-eventlog.style.opacity: 0.8
-microsoft-extensions-logging-eventsource: Microsoft.Extensions.Logging.EventSource
-microsoft-extensions-logging-eventsource.style.fill: lightblue
-microsoft-extensions-logging-eventsource.style.opacity: 0.8
-microsoft-extensions-logging: Microsoft.Extensions.Logging
-microsoft-extensions-logging.style.fill: lightblue
-microsoft-extensions-logging.style.opacity: 0.8
-microsoft-extensions-options: Microsoft.Extensions.Options
-microsoft-extensions-options.style.fill: lightblue
-microsoft-extensions-options.style.opacity: 0.8
-microsoft-extensions-primitives: Microsoft.Extensions.Primitives
-microsoft-extensions-primitives.style.fill: lightblue
-microsoft-extensions-primitives.style.opacity: 0.8
-system-diagnostics-diagnosticsource: System.Diagnostics.DiagnosticSource
-system-diagnostics-diagnosticsource.style.fill: lightblue
-system-diagnostics-diagnosticsource.style.opacity: 0.8
-
-aoi.alloverit <- aoi.alloverit-generichost
-aoi.alloverit-assertion <- aoi.alloverit
-microsoft-extensions-hosting <- aoi.alloverit-generichost
 microsoft-extensions-configuration-abstractions <- microsoft-extensions-hosting
+microsoft-extensions-configuration-binder: Microsoft.Extensions.Configuration.Binder
+microsoft-extensions-configuration-binder.style.fill: "#FFEC96"
+microsoft-extensions-configuration-binder.style.opacity: 0.8
 microsoft-extensions-configuration-binder <- microsoft-extensions-hosting
+microsoft-extensions-configuration-commandline: Microsoft.Extensions.Configuration.CommandLine
+microsoft-extensions-configuration-commandline.style.fill: "#FFEC96"
+microsoft-extensions-configuration-commandline.style.opacity: 0.8
 microsoft-extensions-configuration-commandline <- microsoft-extensions-hosting
+microsoft-extensions-configuration-environmentvariables: Microsoft.Extensions.Configuration.EnvironmentVariables
+microsoft-extensions-configuration-environmentvariables.style.fill: "#FFEC96"
+microsoft-extensions-configuration-environmentvariables.style.opacity: 0.8
 microsoft-extensions-configuration-environmentvariables <- microsoft-extensions-hosting
+microsoft-extensions-configuration-fileextensions: Microsoft.Extensions.Configuration.FileExtensions
+microsoft-extensions-configuration-fileextensions.style.fill: "#FFEC96"
+microsoft-extensions-configuration-fileextensions.style.opacity: 0.8
 microsoft-extensions-configuration-fileextensions <- microsoft-extensions-hosting
+microsoft-extensions-configuration-json: Microsoft.Extensions.Configuration.Json
+microsoft-extensions-configuration-json.style.fill: "#FFEC96"
+microsoft-extensions-configuration-json.style.opacity: 0.8
 microsoft-extensions-configuration-json <- microsoft-extensions-hosting
+microsoft-extensions-configuration-usersecrets: Microsoft.Extensions.Configuration.UserSecrets
+microsoft-extensions-configuration-usersecrets.style.fill: "#FFEC96"
+microsoft-extensions-configuration-usersecrets.style.opacity: 0.8
 microsoft-extensions-configuration-usersecrets <- microsoft-extensions-hosting
+microsoft-extensions-configuration: Microsoft.Extensions.Configuration
+microsoft-extensions-configuration.style.fill: "#FFEC96"
+microsoft-extensions-configuration.style.opacity: 0.8
 microsoft-extensions-configuration <- microsoft-extensions-hosting
+microsoft-extensions-dependencyinjection-abstractions: Microsoft.Extensions.DependencyInjection.Abstractions
+microsoft-extensions-dependencyinjection-abstractions.style.fill: "#FFEC96"
+microsoft-extensions-dependencyinjection-abstractions.style.opacity: 0.8
 microsoft-extensions-dependencyinjection-abstractions <- microsoft-extensions-hosting
+microsoft-extensions-dependencyinjection: Microsoft.Extensions.DependencyInjection
+microsoft-extensions-dependencyinjection.style.fill: "#FFEC96"
+microsoft-extensions-dependencyinjection.style.opacity: 0.8
 microsoft-extensions-dependencyinjection <- microsoft-extensions-hosting
-microsoft-extensions-dependencyinjection-abstractions <- microsoft-extensions-dependencyinjection
+microsoft-extensions-fileproviders-abstractions: Microsoft.Extensions.FileProviders.Abstractions
+microsoft-extensions-fileproviders-abstractions.style.fill: "#FFEC96"
+microsoft-extensions-fileproviders-abstractions.style.opacity: 0.8
 microsoft-extensions-fileproviders-abstractions <- microsoft-extensions-hosting
+microsoft-extensions-fileproviders-physical: Microsoft.Extensions.FileProviders.Physical
+microsoft-extensions-fileproviders-physical.style.fill: "#FFEC96"
+microsoft-extensions-fileproviders-physical.style.opacity: 0.8
 microsoft-extensions-fileproviders-physical <- microsoft-extensions-hosting
+microsoft-extensions-hosting-abstractions: Microsoft.Extensions.Hosting.Abstractions
+microsoft-extensions-hosting-abstractions.style.fill: "#FFEC96"
+microsoft-extensions-hosting-abstractions.style.opacity: 0.8
 microsoft-extensions-hosting-abstractions <- microsoft-extensions-hosting
+microsoft-extensions-logging-abstractions: Microsoft.Extensions.Logging.Abstractions
+microsoft-extensions-logging-abstractions.style.fill: "#FFEC96"
+microsoft-extensions-logging-abstractions.style.opacity: 0.8
 microsoft-extensions-logging-abstractions <- microsoft-extensions-hosting
+microsoft-extensions-logging-configuration: Microsoft.Extensions.Logging.Configuration
+microsoft-extensions-logging-configuration.style.fill: "#FFEC96"
+microsoft-extensions-logging-configuration.style.opacity: 0.8
 microsoft-extensions-logging-configuration <- microsoft-extensions-hosting
+microsoft-extensions-logging-console: Microsoft.Extensions.Logging.Console
+microsoft-extensions-logging-console.style.fill: "#FFEC96"
+microsoft-extensions-logging-console.style.opacity: 0.8
 microsoft-extensions-logging-console <- microsoft-extensions-hosting
+microsoft-extensions-logging-debug: Microsoft.Extensions.Logging.Debug
+microsoft-extensions-logging-debug.style.fill: "#FFEC96"
+microsoft-extensions-logging-debug.style.opacity: 0.8
 microsoft-extensions-logging-debug <- microsoft-extensions-hosting
+microsoft-extensions-logging-eventlog: Microsoft.Extensions.Logging.EventLog
+microsoft-extensions-logging-eventlog.style.fill: "#FFEC96"
+microsoft-extensions-logging-eventlog.style.opacity: 0.8
 microsoft-extensions-logging-eventlog <- microsoft-extensions-hosting
+microsoft-extensions-logging-eventsource: Microsoft.Extensions.Logging.EventSource
+microsoft-extensions-logging-eventsource.style.fill: "#FFEC96"
+microsoft-extensions-logging-eventsource.style.opacity: 0.8
 microsoft-extensions-logging-eventsource <- microsoft-extensions-hosting
+microsoft-extensions-logging: Microsoft.Extensions.Logging
+microsoft-extensions-logging.style.fill: "#FFEC96"
+microsoft-extensions-logging.style.opacity: 0.8
 microsoft-extensions-logging <- microsoft-extensions-hosting
+microsoft-extensions-options: Microsoft.Extensions.Options
+microsoft-extensions-options.style.fill: "#FFEC96"
+microsoft-extensions-options.style.opacity: 0.8
 microsoft-extensions-options <- microsoft-extensions-hosting
-microsoft-extensions-dependencyinjection-abstractions <- microsoft-extensions-options
-microsoft-extensions-primitives <- microsoft-extensions-options
+system-diagnostics-diagnosticsource: System.Diagnostics.DiagnosticSource
+system-diagnostics-diagnosticsource.style.fill: "#FFEC96"
+system-diagnostics-diagnosticsource.style.opacity: 0.8
 system-diagnostics-diagnosticsource <- microsoft-extensions-hosting
+microsoft-extensions-hosting <- aoi.alloverit-generichost
+aoi.alloverit: AllOverIt
+aoi.alloverit-assertion: AllOverIt.Assertion
+aoi.alloverit-assertion <- aoi.alloverit
+aoi.alloverit <- aoi.alloverit-generichost

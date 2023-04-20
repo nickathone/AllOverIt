@@ -2,16 +2,15 @@ direction: right
 
 aoi: AllOverIt
 aoi.alloverit-csv: AllOverIt.Csv
-aoi.alloverit: AllOverIt
-aoi.alloverit-assertion: AllOverIt.Assertion
 csvhelper: CsvHelper
-csvhelper.style.fill: lightblue
+csvhelper.style.fill: "#ADD8E6"
 csvhelper.style.opacity: 0.8
 microsoft-csharp: Microsoft.CSharp
-microsoft-csharp.style.fill: lightblue
+microsoft-csharp.style.fill: "#FFEC96"
 microsoft-csharp.style.opacity: 0.8
-
-aoi.alloverit <- aoi.alloverit-csv
-aoi.alloverit-assertion <- aoi.alloverit
-csvhelper <- aoi.alloverit-csv
 microsoft-csharp <- csvhelper
+csvhelper <- aoi.alloverit-csv
+aoi.alloverit: AllOverIt
+aoi.alloverit-assertion: AllOverIt.Assertion
+aoi.alloverit-assertion <- aoi.alloverit
+aoi.alloverit <- aoi.alloverit-csv

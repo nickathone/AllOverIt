@@ -2,16 +2,15 @@ direction: right
 
 aoi: AllOverIt
 aoi.alloverit-reactive: AllOverIt.Reactive
-aoi.alloverit: AllOverIt
-aoi.alloverit-assertion: AllOverIt.Assertion
 system-reactive: System.Reactive
-system-reactive.style.fill: lightblue
+system-reactive.style.fill: "#ADD8E6"
 system-reactive.style.opacity: 0.8
 system-threading-tasks-extensions: System.Threading.Tasks.Extensions
-system-threading-tasks-extensions.style.fill: lightblue
+system-threading-tasks-extensions.style.fill: "#FFEC96"
 system-threading-tasks-extensions.style.opacity: 0.8
-
-aoi.alloverit <- aoi.alloverit-reactive
-aoi.alloverit-assertion <- aoi.alloverit
-system-reactive <- aoi.alloverit-reactive
 system-threading-tasks-extensions <- system-reactive
+system-reactive <- aoi.alloverit-reactive
+aoi.alloverit: AllOverIt
+aoi.alloverit-assertion: AllOverIt.Assertion
+aoi.alloverit-assertion <- aoi.alloverit
+aoi.alloverit <- aoi.alloverit-reactive

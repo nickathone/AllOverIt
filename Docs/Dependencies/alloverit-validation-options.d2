@@ -2,26 +2,25 @@ direction: right
 
 aoi: AllOverIt
 aoi.alloverit-validation-options: AllOverIt.Validation.Options
-aoi.alloverit-validation: AllOverIt.Validation
-aoi.alloverit: AllOverIt
-aoi.alloverit-assertion: AllOverIt.Assertion
-fluentvalidation: FluentValidation
-fluentvalidation.style.fill: lightblue
-fluentvalidation.style.opacity: 0.8
 microsoft-extensions-options: Microsoft.Extensions.Options
-microsoft-extensions-options.style.fill: lightblue
+microsoft-extensions-options.style.fill: "#ADD8E6"
 microsoft-extensions-options.style.opacity: 0.8
 microsoft-extensions-dependencyinjection-abstractions: Microsoft.Extensions.DependencyInjection.Abstractions
-microsoft-extensions-dependencyinjection-abstractions.style.fill: lightblue
+microsoft-extensions-dependencyinjection-abstractions.style.fill: "#FFEC96"
 microsoft-extensions-dependencyinjection-abstractions.style.opacity: 0.8
-microsoft-extensions-primitives: Microsoft.Extensions.Primitives
-microsoft-extensions-primitives.style.fill: lightblue
-microsoft-extensions-primitives.style.opacity: 0.8
-
-aoi.alloverit-validation <- aoi.alloverit-validation-options
-aoi.alloverit <- aoi.alloverit-validation
-aoi.alloverit-assertion <- aoi.alloverit
-fluentvalidation <- aoi.alloverit-validation
-microsoft-extensions-options <- aoi.alloverit-validation-options
 microsoft-extensions-dependencyinjection-abstractions <- microsoft-extensions-options
+microsoft-extensions-primitives: Microsoft.Extensions.Primitives
+microsoft-extensions-primitives.style.fill: "#FFEC96"
+microsoft-extensions-primitives.style.opacity: 0.8
 microsoft-extensions-primitives <- microsoft-extensions-options
+microsoft-extensions-options <- aoi.alloverit-validation-options
+aoi.alloverit-validation: AllOverIt.Validation
+fluentvalidation: FluentValidation
+fluentvalidation.style.fill: "#ADD8E6"
+fluentvalidation.style.opacity: 0.8
+fluentvalidation <- aoi.alloverit-validation
+aoi.alloverit: AllOverIt
+aoi.alloverit-assertion: AllOverIt.Assertion
+aoi.alloverit-assertion <- aoi.alloverit
+aoi.alloverit <- aoi.alloverit-validation
+aoi.alloverit-validation <- aoi.alloverit-validation-options

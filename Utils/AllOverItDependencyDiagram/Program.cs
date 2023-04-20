@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Io;
+using SolutionInspector.Parser;
 using System;
 using System.IO;
 using System.Linq;
@@ -23,40 +24,33 @@ namespace SolutionInspector
             Console.WriteLine($"AllOverIt.");
         }
 
-        private static void WriteDependenciesToConsole(ProjectAliases projectAliases)
+        private static void WriteDependenciesToConsole(SolutionProject solutionProject)
         {
-            var allAliases = projectAliases.AllAliases;
-            var allDependencies = projectAliases.AllDependencies;
+            var sortedDependenies = solutionProject.Dependencies
+                .SelectMany(item => item.ProjectReferences)
+                .Select(item => item.Path)
+                .Order();
 
-            var sortedDependenies = allDependencies
-                .OrderBy(dependency => dependency.Alias)
-                .ThenBy(dependency => dependency.DependencyAlias);
-
-            foreach (var (alias, dependencyAlias) in sortedDependenies)
+            foreach (var dependency in sortedDependenies)
             {
-                WriteDependencyToConsole(allAliases[alias], allAliases[dependencyAlias]);
+                WriteDependencyToConsole(solutionProject.Name, Path.GetFileNameWithoutExtension(dependency));
             }
-
-            Console.WriteLine();
         }
 
-        private static void WriteDependencyToConsole(ProjectAlias alias, ProjectAlias dependency)
+        private static void WriteDependencyToConsole(string alias, string dependency)
         {
             var foreground = Console.ForegroundColor;
 
             try
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"{alias.DisplayName}");
+                Console.Write($"{alias}");
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($" depends on ");
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"{dependency.DisplayName}");
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($" ({dependency.AliasType})");
+                Console.WriteLine($"{dependency}");
             }
             finally
             {

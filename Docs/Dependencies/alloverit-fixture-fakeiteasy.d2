@@ -2,39 +2,35 @@ direction: right
 
 aoi: AllOverIt
 aoi.alloverit-fixture-fakeiteasy: AllOverIt.Fixture.FakeItEasy
-aoi.alloverit-fixture: AllOverIt.Fixture
-autofixture: AutoFixture
-autofixture.style.fill: lightblue
-autofixture.style.opacity: 0.8
-fare: Fare
-fare.style.fill: lightblue
-fare.style.opacity: 0.8
-system-componentmodel-annotations: System.ComponentModel.Annotations
-system-componentmodel-annotations.style.fill: lightblue
-system-componentmodel-annotations.style.opacity: 0.8
-fluentassertions: FluentAssertions
-fluentassertions.style.fill: lightblue
-fluentassertions.style.opacity: 0.8
 autofixture-autofakeiteasy: AutoFixture.AutoFakeItEasy
-autofixture-autofakeiteasy.style.fill: lightblue
+autofixture-autofakeiteasy.style.fill: "#ADD8E6"
 autofixture-autofakeiteasy.style.opacity: 0.8
-fakeiteasy: FakeItEasy
-fakeiteasy.style.fill: lightblue
-fakeiteasy.style.opacity: 0.8
-castle-core: Castle.Core
-castle-core.style.fill: lightblue
-castle-core.style.opacity: 0.8
-
-aoi.alloverit-fixture <- aoi.alloverit-fixture-fakeiteasy
-autofixture <- aoi.alloverit-fixture
-fare <- autofixture
-system-componentmodel-annotations <- autofixture
-fluentassertions <- aoi.alloverit-fixture
-autofixture-autofakeiteasy <- aoi.alloverit-fixture-fakeiteasy
+autofixture: AutoFixture
+autofixture.style.fill: "#ADD8E6"
+autofixture.style.opacity: 0.8
 autofixture <- autofixture-autofakeiteasy
-fare <- autofixture
-system-componentmodel-annotations <- autofixture
+fakeiteasy: FakeItEasy
+fakeiteasy.style.fill: "#ADD8E6"
+fakeiteasy.style.opacity: 0.8
 fakeiteasy <- autofixture-autofakeiteasy
+autofixture-autofakeiteasy <- aoi.alloverit-fixture-fakeiteasy
+castle-core: Castle.Core
+castle-core.style.fill: "#FFEC96"
+castle-core.style.opacity: 0.8
 castle-core <- fakeiteasy
 fakeiteasy <- aoi.alloverit-fixture-fakeiteasy
-castle-core <- fakeiteasy
+aoi.alloverit-fixture: AllOverIt.Fixture
+fare: Fare
+fare.style.fill: "#FFEC96"
+fare.style.opacity: 0.8
+fare <- autofixture
+system-componentmodel-annotations: System.ComponentModel.Annotations
+system-componentmodel-annotations.style.fill: "#FFEC96"
+system-componentmodel-annotations.style.opacity: 0.8
+system-componentmodel-annotations <- autofixture
+autofixture <- aoi.alloverit-fixture
+fluentassertions: FluentAssertions
+fluentassertions.style.fill: "#ADD8E6"
+fluentassertions.style.opacity: 0.8
+fluentassertions <- aoi.alloverit-fixture
+aoi.alloverit-fixture <- aoi.alloverit-fixture-fakeiteasy
