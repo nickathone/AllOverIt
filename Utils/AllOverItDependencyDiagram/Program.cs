@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SolutionInspector
 {
+    // The current version is not using DI so unit testability hasn't been a priority
     internal class Program
     {
         static async Task Main()
@@ -18,7 +19,7 @@ namespace SolutionInspector
             var projectsRootPath = Path.Combine(allOverItRoot, "Source");
 
             var docsPath = Path.Combine(allOverItRoot, @"Docs\Dependencies");
-            await D2DependencyGenerator.CreateAllFilesAsync(solutionPath, projectsRootPath, docsPath, WriteDependenciesToConsole);
+            await D2DependencyGenerator.CreateDiagramsAsync(solutionPath, projectsRootPath, docsPath, WriteDependenciesToConsole);
 
             Console.WriteLine();
             Console.WriteLine($"AllOverIt.");
