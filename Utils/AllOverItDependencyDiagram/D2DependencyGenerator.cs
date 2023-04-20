@@ -2,6 +2,7 @@
 using AllOverIt.Extensions;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
+using AllOverItDependencyDiagram.Logging;
 using SolutionInspector.Parser;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,19 @@ using System.Threading.Tasks;
 
 namespace SolutionInspector
 {
-    internal static class D2DependencyGenerator
+    internal sealed class D2DependencyGenerator
     {
         private const string PackageStyleFill = "#ADD8E6";
         private const string TransitiveStyleFill = "#FFEC96";
         private static readonly string[] ImageExtensions = new[] { "svg", "png" /*, "pdf"*/ };
+        private readonly Action<ConsoleLineOutput> _logger;
 
-        public static async Task CreateDiagramsAsync(string solutionPath, string projectsRootPath, string docsPath, Action<SolutionProject> reportDiagramData)
+        public D2DependencyGenerator(Action<ConsoleLineOutput> logger)
+        {
+            _logger = logger.WhenNotNull();
+        }
+
+        public async Task CreateDiagramsAsync(string solutionPath, string projectsRootPath, string docsPath)
         {
             // The paths are required to work out dependency project absolute paths from their relative paths
             _ = solutionPath.WhenNotNullOrEmpty();
@@ -30,16 +37,16 @@ namespace SolutionInspector
 
             foreach (var project in allProjects)
             {
-                reportDiagramData.Invoke(project);
+                LogDependenciesToConsole(project);
             }
 
             var indexedProjects = allProjects.ToDictionary(project => project.Name, project => project);
 
             await ExportAsIndividual(indexedProjects, docsPath);
             await ExportAsAll(indexedProjects, docsPath);
-        }
+        }   
 
-        private static async Task ExportAsIndividual(IDictionary<string, SolutionProject> indexedProjects, string docsPath)
+        private async Task ExportAsIndividual(IDictionary<string, SolutionProject> indexedProjects, string docsPath)
         {
             foreach (var scopedProject in indexedProjects.Values)
             {
@@ -49,14 +56,14 @@ namespace SolutionInspector
             }
         }
 
-        private static Task ExportAsAll(Dictionary<string, SolutionProject> indexedProjects, string docsPath)
+        private Task ExportAsAll(IDictionary<string, SolutionProject> indexedProjects, string docsPath)
         {
             var d2Content = GenerateD2Content(indexedProjects);
 
             return CreateD2FileAndImages("AllOverIt-All", d2Content, docsPath);
         }
 
-        private static async Task CreateD2FileAndImages(string scope, string d2Content, string docsPath)
+        private async Task CreateD2FileAndImages(string scope, string d2Content, string docsPath)
         {
             // Create the file and return the fully-qualified file path
             var filePath = await CreateD2FileAsync(d2Content, docsPath, GetDiagramAliasId(scope, false));
@@ -266,7 +273,7 @@ namespace SolutionInspector
             return GetDiagramAliasId(package.Name);
         }
 
-        private static async Task<string> CreateD2FileAsync(string content, string docsPath, string scope)
+        private async Task<string> CreateD2FileAsync(string content, string docsPath, string scope)
         {
             var fileName = scope.IsNullOrEmpty()
                 ? "alloverit-all.d2"
@@ -274,7 +281,20 @@ namespace SolutionInspector
 
             var d2FilePath = Path.Combine(docsPath, fileName);
 
-            Console.WriteLine($"Creating D2 diagram and images for '{Path.GetFileNameWithoutExtension(fileName)}'...");
+
+            //Console.Write($"Creating D2 diagram and images for '{Path.GetFileNameWithoutExtension(fileName)}'...");
+            
+            var fragments = new ConsoleLineFragment[]
+            {
+                new ConsoleLineFragment(ConsoleColor.White, "Creating D2 diagram and images for "),
+                new ConsoleLineFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(fileName)),
+                new ConsoleLineFragment(ConsoleColor.White, "...")
+            };
+
+            var output = new ConsoleLineOutput(fragments, false);
+            _logger.Invoke(output);
+
+
 
             File.WriteAllText(d2FilePath, content);
 
@@ -284,14 +304,38 @@ namespace SolutionInspector
                 .BuildProcessExecutor()
                 .ExecuteAsync();
 
-            Console.WriteLine($"Created diagram {d2FilePath}");
+            //Console.WriteLine("Done");
+
+            fragments = new ConsoleLineFragment[]
+            {
+                new ConsoleLineFragment(ConsoleColor.Green, "Done")
+            };
+
+            output = new ConsoleLineOutput(fragments, true);
+            _logger.Invoke(output);
 
             return d2FilePath;
         }
 
-        private static async Task ExportD2ImageFileAsync(string d2FileName, string extension)
+        private async Task ExportD2ImageFileAsync(string d2FileName, string extension)
         {
             var imageFileName = Path.ChangeExtension(d2FileName, extension);
+
+
+            //Console.Write($"Creating image {imageFileName}...");
+
+            var fragments = new ConsoleLineFragment[]
+            {
+                new ConsoleLineFragment(ConsoleColor.White, "Creating image "),
+                new ConsoleLineFragment(ConsoleColor.Yellow, imageFileName),
+                new ConsoleLineFragment(ConsoleColor.White, "...")
+            };
+
+            var output = new ConsoleLineOutput(fragments, false);
+            _logger.Invoke(output);
+
+
+
 
             var export = ProcessBuilder
                .For("d2.exe")
@@ -300,7 +344,15 @@ namespace SolutionInspector
 
             await export.ExecuteAsync();
 
-            Console.WriteLine($"Exported image {imageFileName}");
+            //Console.WriteLine("Done");
+
+            fragments = new ConsoleLineFragment[]
+            {
+                new ConsoleLineFragment(ConsoleColor.Green, "Done")
+            };
+
+            output = new ConsoleLineOutput(fragments, true);
+            _logger.Invoke(output);
         }
 
         private static string GetDiagramAliasId(string alias, bool includeAoiPrefixIfApplicable = true)
@@ -311,6 +363,48 @@ namespace SolutionInspector
             return includeAoiPrefixIfApplicable && alias.StartsWith("alloverit")
                 ? $"aoi.{alias}"
                 : alias;
+        }
+
+        private void LogDependenciesToConsole(SolutionProject solutionProject)
+        {
+            var sortedProjectDependenies = solutionProject.Dependencies
+                .SelectMany(item => item.ProjectReferences)
+                .Select(item => item.Path)
+                .Order();
+
+            foreach (var dependency in sortedProjectDependenies)
+            {
+                var fragments = new ConsoleLineFragment[]
+                {
+                    new ConsoleLineFragment(ConsoleColor.Yellow, solutionProject.Name),
+                    new ConsoleLineFragment(ConsoleColor.White, " depends on "),
+                    new ConsoleLineFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(dependency))
+                };
+
+                var output = new ConsoleLineOutput(fragments, true);
+
+                _logger.Invoke(output);
+            }
+
+            var sortedPackageDependenies = solutionProject.Dependencies
+                .SelectMany(item => item.PackageReferences)
+                .Select(item => item.Name)
+                .Distinct()     // Multiple packages may depend on another common package
+                .Order().ToList();
+
+            foreach (var dependency in sortedPackageDependenies)
+            {
+                var fragments = new ConsoleLineFragment[]
+                {
+                    new ConsoleLineFragment(ConsoleColor.Yellow, solutionProject.Name),
+                    new ConsoleLineFragment(ConsoleColor.White, " depends on "),
+                    new ConsoleLineFragment(ConsoleColor.Yellow, dependency)
+                };
+
+                var output = new ConsoleLineOutput(fragments, true);
+
+                _logger.Invoke(output);
+            }
         }
     }
 }
