@@ -409,4 +409,4 @@ A library containing useful WPF controls.
 
 # Dependencies
 The following diagram shows the explicit dependencies used across the entire AllOverIt suite.
-[![AllOverIt Dependencies](/Docs/Dependencies/AllOverIt.png)](/Docs/Dependencies/AllOverIt.png)
+[![AllOverIt Dependencies](/Docs/Dependencies/alloverit-all.png)](/Docs/Dependencies/alloverit-all.png)
