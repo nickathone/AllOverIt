@@ -27,14 +27,25 @@ namespace SolutionInspector
 
         private static void WriteDependenciesToConsole(SolutionProject solutionProject)
         {
-            var sortedDependenies = solutionProject.Dependencies
+            var sortedProjectDependenies = solutionProject.Dependencies
                 .SelectMany(item => item.ProjectReferences)
                 .Select(item => item.Path)
                 .Order();
 
-            foreach (var dependency in sortedDependenies)
+            foreach (var dependency in sortedProjectDependenies)
             {
                 WriteDependencyToConsole(solutionProject.Name, Path.GetFileNameWithoutExtension(dependency));
+            }
+
+            var sortedPackageDependenies = solutionProject.Dependencies
+                .SelectMany(item => item.PackageReferences)
+                .Select(item => item.Name)
+                .Distinct()     // Multiple packages may depend on another common package
+                .Order().ToList();
+
+            foreach (var dependency in sortedPackageDependenies)
+            {
+                WriteDependencyToConsole(solutionProject.Name, dependency);
             }
         }
 

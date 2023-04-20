@@ -16,7 +16,7 @@ namespace SolutionInspector
     {
         private const string PackageStyleFill = "#ADD8E6";
         private const string TransitiveStyleFill = "#FFEC96";
-        private static readonly string[] ImageExtensions = new[] { "svg"/*, , "png" "pdf"*/ };
+        private static readonly string[] ImageExtensions = new[] { "svg", "png" /*, "pdf"*/ };
 
         public static async Task CreateDiagramsAsync(string solutionPath, string projectsRootPath, string docsPath, Action<SolutionProject> reportDiagramData)
         {
