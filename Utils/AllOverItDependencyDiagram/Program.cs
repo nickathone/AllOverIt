@@ -19,7 +19,9 @@ namespace SolutionInspector
 
             var docsPath = Path.Combine(allOverItRoot, @"Docs\Dependencies");
 
-            var generator = new D2DependencyGenerator(output => ConsoleLogger.Log(output));
+            var logger = new ConsoleLogger();
+            var generator = new D2DependencyGenerator(logger);
+
             await generator.CreateDiagramsAsync(solutionPath, projectsRootPath, docsPath);
 
             Console.WriteLine();

@@ -2,9 +2,14 @@
 
 namespace AllOverItDependencyDiagram.Logging
 {
-    internal sealed class ConsoleLogger
+    internal class ConsoleLogger : IConsoleLogger
     {
-        public static void Log(ConsoleLineOutput output)
+        public ConsoleLineOutputBuilder AddFragment(ConsoleColor consoleColor, string text)
+        {
+            return new ConsoleLineOutputBuilder(consoleColor, text, LogToConsole);
+        }
+
+        private static void LogToConsole(ConsoleLineOutput output)
         {
             var foreground = Console.ForegroundColor;
 

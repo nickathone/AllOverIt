@@ -1,4 +1,6 @@
-﻿namespace AllOverItDependencyDiagram.Logging
+﻿using System.Collections.Generic;
+
+namespace AllOverItDependencyDiagram.Logging
 {
-    internal record ConsoleLineOutput(ConsoleLineFragment[] Fragments, bool AppendLineBreak);
+    internal record ConsoleLineOutput(IEnumerable<ConsoleLineFragment> Fragments, bool AppendLineBreak);
 }

@@ -18,9 +18,9 @@ namespace SolutionInspector
         private const string PackageStyleFill = "#ADD8E6";
         private const string TransitiveStyleFill = "#FFEC96";
         private static readonly string[] ImageExtensions = new[] { "svg", "png" /*, "pdf"*/ };
-        private readonly Action<ConsoleLineOutput> _logger;
+        private readonly IConsoleLogger _logger;
 
-        public D2DependencyGenerator(Action<ConsoleLineOutput> logger)
+        public D2DependencyGenerator(IConsoleLogger logger)
         {
             _logger = logger.WhenNotNull();
         }
@@ -281,20 +281,11 @@ namespace SolutionInspector
 
             var d2FilePath = Path.Combine(docsPath, fileName);
 
-
-            //Console.Write($"Creating D2 diagram and images for '{Path.GetFileNameWithoutExtension(fileName)}'...");
-            
-            var fragments = new ConsoleLineFragment[]
-            {
-                new ConsoleLineFragment(ConsoleColor.White, "Creating D2 diagram and images for "),
-                new ConsoleLineFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(fileName)),
-                new ConsoleLineFragment(ConsoleColor.White, "...")
-            };
-
-            var output = new ConsoleLineOutput(fragments, false);
-            _logger.Invoke(output);
-
-
+            _logger
+                .AddFragment(ConsoleColor.White, "Creating D2 diagram for ")
+                .AddFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(fileName))
+                .AddFragment(ConsoleColor.White, "...")
+                .Log(false);
 
             File.WriteAllText(d2FilePath, content);
 
@@ -304,15 +295,9 @@ namespace SolutionInspector
                 .BuildProcessExecutor()
                 .ExecuteAsync();
 
-            //Console.WriteLine("Done");
-
-            fragments = new ConsoleLineFragment[]
-            {
-                new ConsoleLineFragment(ConsoleColor.Green, "Done")
-            };
-
-            output = new ConsoleLineOutput(fragments, true);
-            _logger.Invoke(output);
+            _logger
+                .AddFragment(ConsoleColor.Green, "Done")
+                .Log(true);
 
             return d2FilePath;
         }
@@ -321,21 +306,11 @@ namespace SolutionInspector
         {
             var imageFileName = Path.ChangeExtension(d2FileName, extension);
 
-
-            //Console.Write($"Creating image {imageFileName}...");
-
-            var fragments = new ConsoleLineFragment[]
-            {
-                new ConsoleLineFragment(ConsoleColor.White, "Creating image "),
-                new ConsoleLineFragment(ConsoleColor.Yellow, imageFileName),
-                new ConsoleLineFragment(ConsoleColor.White, "...")
-            };
-
-            var output = new ConsoleLineOutput(fragments, false);
-            _logger.Invoke(output);
-
-
-
+            _logger
+                .AddFragment(ConsoleColor.White, "Creating image ")
+                .AddFragment(ConsoleColor.Yellow, imageFileName)
+                .AddFragment(ConsoleColor.White, "...")
+                .Log(false);
 
             var export = ProcessBuilder
                .For("d2.exe")
@@ -344,15 +319,9 @@ namespace SolutionInspector
 
             await export.ExecuteAsync();
 
-            //Console.WriteLine("Done");
-
-            fragments = new ConsoleLineFragment[]
-            {
-                new ConsoleLineFragment(ConsoleColor.Green, "Done")
-            };
-
-            output = new ConsoleLineOutput(fragments, true);
-            _logger.Invoke(output);
+            _logger
+                .AddFragment(ConsoleColor.Green, "Done")
+                .Log(true);
         }
 
         private static string GetDiagramAliasId(string alias, bool includeAoiPrefixIfApplicable = true)
@@ -374,37 +343,27 @@ namespace SolutionInspector
 
             foreach (var dependency in sortedProjectDependenies)
             {
-                var fragments = new ConsoleLineFragment[]
-                {
-                    new ConsoleLineFragment(ConsoleColor.Yellow, solutionProject.Name),
-                    new ConsoleLineFragment(ConsoleColor.White, " depends on "),
-                    new ConsoleLineFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(dependency))
-                };
-
-                var output = new ConsoleLineOutput(fragments, true);
-
-                _logger.Invoke(output);
+                _logger
+                    .AddFragment(ConsoleColor.Yellow, solutionProject.Name)
+                    .AddFragment(ConsoleColor.White, " depends on ")
+                    .AddFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(dependency))
+                    .Log(true);
             }
 
             var sortedPackageDependenies = solutionProject.Dependencies
                 .SelectMany(item => item.PackageReferences)
                 .Select(item => item.Name)
-                .Distinct()     // Multiple packages may depend on another common package
+                .Distinct()                                     // Multiple packages may depend on another common package
                 .Order().ToList();
 
             foreach (var dependency in sortedPackageDependenies)
             {
-                var fragments = new ConsoleLineFragment[]
-                {
-                    new ConsoleLineFragment(ConsoleColor.Yellow, solutionProject.Name),
-                    new ConsoleLineFragment(ConsoleColor.White, " depends on "),
-                    new ConsoleLineFragment(ConsoleColor.Yellow, dependency)
-                };
-
-                var output = new ConsoleLineOutput(fragments, true);
-
-                _logger.Invoke(output);
+                _logger
+                    .AddFragment(ConsoleColor.Yellow, solutionProject.Name)
+                    .AddFragment(ConsoleColor.White, " depends on ")
+                    .AddFragment(ConsoleColor.Yellow, dependency)
+                    .Log(true);
             }
         }
-    }
+    }    
 }
