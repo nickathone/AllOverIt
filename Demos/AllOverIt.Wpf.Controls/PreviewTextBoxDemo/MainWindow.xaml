@@ -6,7 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:previewhandler="clr-namespace:AllOverIt.Wpf.Controls.PreviewTextBox.Handlers;assembly=AllOverIt.Wpf.Controls"
     xmlns:previewtextbox="clr-namespace:AllOverIt.Wpf.Controls.PreviewTextBox;assembly=AllOverIt.Wpf.Controls"
-    Title="MainWindow"
     Width="800"
     Height="460"
     WindowStartupLocation="CenterScreen"
