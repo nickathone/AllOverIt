@@ -11,7 +11,12 @@ namespace SolutionInspector.Parser
 {
     internal sealed class SolutionParser
     {
-        private readonly NugetPackageReferencesResolver _nugetResolver = new(1);
+        private readonly NugetPackageReferencesResolver _nugetResolver;
+
+        public SolutionParser(int maxTransitiveDepth)
+        {
+            _nugetResolver = new NugetPackageReferencesResolver(maxTransitiveDepth);
+        }
 
         public Task<IReadOnlyCollection<SolutionProject>> ParseAsync(string solutionFilePath, string projectIncludePath)
         {

@@ -15,9 +15,13 @@ namespace SolutionInspector
 {
     internal sealed class D2DependencyGenerator
     {
+        // These could all become options if required
+        private const int IndividualProjectTransitiveDepth = 1;
+        private const int AllProjectsTransitiveDepth = 0;
         private const string PackageStyleFill = "#ADD8E6";
         private const string TransitiveStyleFill = "#FFEC96";
         private static readonly string[] ImageExtensions = new[] { "svg", "png" /*, "pdf"*/ };
+
         private readonly IConsoleLogger _logger;
 
         public D2DependencyGenerator(IConsoleLogger logger)
@@ -32,7 +36,7 @@ namespace SolutionInspector
             _ = projectsRootPath.WhenNotNullOrEmpty();
             _ = docsPath.WhenNotNullOrEmpty();
 
-            var solutionParser = new SolutionParser();
+            var solutionParser = new SolutionParser(Math.Max(IndividualProjectTransitiveDepth, AllProjectsTransitiveDepth));
             var allProjects = await solutionParser.ParseAsync(solutionPath, projectsRootPath);
 
             foreach (var project in allProjects)
@@ -84,7 +88,7 @@ namespace SolutionInspector
             sb.AppendLine($"aoi: AllOverIt");
 
             var dependencySet = new HashSet<string>();
-            AppendProjectDependencies(solutionProject, solutionProjects, dependencySet, 1);
+            AppendProjectDependencies(solutionProject, solutionProjects, dependencySet, IndividualProjectTransitiveDepth);
 
             foreach (var dependency in dependencySet)
             {
@@ -109,7 +113,7 @@ namespace SolutionInspector
 
             foreach (var solutionProject in solutionProjects)
             {
-                AppendProjectDependencies(solutionProject.Value, solutionProjects, dependencySet, 0);
+                AppendProjectDependencies(solutionProject.Value, solutionProjects, dependencySet, AllProjectsTransitiveDepth);
             }
 
             foreach (var dependency in dependencySet)
