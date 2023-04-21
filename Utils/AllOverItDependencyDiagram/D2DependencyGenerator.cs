@@ -14,6 +14,11 @@ using System.Threading.Tasks;
 
 namespace SolutionInspector
 {
+    //internal sealed class D2DependencyGeneratorOptions
+    //{
+
+    //}
+
     internal sealed class D2DependencyGenerator
     {
         // These could all become options if required
@@ -23,12 +28,12 @@ namespace SolutionInspector
         private const string TransitiveStyleFill = "#FFEC96";
         private static readonly string[] ImageExtensions = new[] { "svg", "png" };
 
-        private readonly IConsoleLogger _logger;
+        private readonly IDependencyGeneratorLogger _logger;
 
         private string _projectGroupName;
         private string _projectGroupPrefix;
 
-        public D2DependencyGenerator(IConsoleLogger logger)
+        public D2DependencyGenerator(IDependencyGeneratorLogger logger)
         {
             _logger = logger.WhenNotNull();
         }
@@ -47,7 +52,7 @@ namespace SolutionInspector
 
             foreach (var project in allProjects)
             {
-                LogDependenciesToConsole(project);
+                LogExplicitDependencies(project);
             }
 
             var indexedProjects = allProjects.ToDictionary(project => project.Name, project => project);
@@ -60,6 +65,7 @@ namespace SolutionInspector
         {
             _projectGroupName = Path.GetFileNameWithoutExtension(solutionPath);
 
+            // TODO: This won't work if the incoming solution name is all lowercase - may need to be passed in as an option
             // Extract all capital letters and use them as the group prefix (lowercased)
             var regex = new Regex("[A-Z]");
 
@@ -364,7 +370,7 @@ namespace SolutionInspector
             return alias.ToLowerInvariant().Replace(".", "-");
         }
 
-        private void LogDependenciesToConsole(SolutionProject solutionProject)
+        private void LogExplicitDependencies(SolutionProject solutionProject)
         {
             var sortedProjectDependenies = solutionProject.Dependencies
                 .SelectMany(item => item.ProjectReferences)

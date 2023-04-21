@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace AllOverItDependencyDiagram.Logging
 {
-    internal class ConsoleLogger : IConsoleLogger
+    internal class DependencyGeneratorLogger : IDependencyGeneratorLogger
     {
         private const string ForegroundPrefix = "fore";
         private const string BackgroundPrefix = "back";
@@ -35,48 +35,48 @@ namespace AllOverItDependencyDiagram.Logging
 
         private readonly StringBuilder _stringBuilder = new();
 
-        public IConsoleLogger WriteFormatted(string formattedText)
+        public IDependencyGeneratorLogger WriteFormatted(string formattedText)
         {
             LogToConsole(formattedText);
 
             return this;
         }
 
-        public IConsoleLogger WriteFormattedLine(string formattedText)
+        public IDependencyGeneratorLogger WriteFormattedLine(string formattedText)
         {
             LogToConsole(formattedText);
 
             return WriteLine();
         }
 
-        public IConsoleLogger WriteFragment(ConsoleColor foreColor, string text)
+        public IDependencyGeneratorLogger WriteFragment(ConsoleColor foreColor, string text)
         {
             return AddFragment(foreColor, null, text);
         }
 
-        public IConsoleLogger WriteFragment(ConsoleColor foreColor, ConsoleColor backColor, string text)
+        public IDependencyGeneratorLogger WriteFragment(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
             return WriteFragment(foreColor, backColor, text);
         }
 
-        public IConsoleLogger WriteLine(ConsoleColor foreColor, string text)
+        public IDependencyGeneratorLogger WriteLine(ConsoleColor foreColor, string text)
         {
             return AddFragment(foreColor, null, text).WriteLine();
         }
 
-        public IConsoleLogger WriteLine(ConsoleColor foreColor, ConsoleColor backColor, string text)
+        public IDependencyGeneratorLogger WriteLine(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
             return WriteFragment(foreColor, backColor, text).WriteLine();
         }
 
-        public IConsoleLogger WriteLine()
+        public IDependencyGeneratorLogger WriteLine()
         {
             Console.WriteLine();
 
             return this;
         }
 
-        private IConsoleLogger AddFragment(ConsoleColor? foreColor, ConsoleColor? backColor, string text)
+        private IDependencyGeneratorLogger AddFragment(ConsoleColor? foreColor, ConsoleColor? backColor, string text)
         {
             if (foreColor.HasValue)
             {
