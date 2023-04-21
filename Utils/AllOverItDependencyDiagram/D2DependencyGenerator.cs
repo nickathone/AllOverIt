@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SolutionInspector
@@ -20,9 +21,12 @@ namespace SolutionInspector
         private const int AllProjectsTransitiveDepth = 0;
         private const string PackageStyleFill = "#ADD8E6";
         private const string TransitiveStyleFill = "#FFEC96";
-        private static readonly string[] ImageExtensions = new[] { "svg", "png" /*, "pdf"*/ };
+        private static readonly string[] ImageExtensions = new[] { "svg", "png" };
 
         private readonly IConsoleLogger _logger;
+
+        private string _projectGroupName;
+        private string _projectGroupPrefix;
 
         public D2DependencyGenerator(IConsoleLogger logger)
         {
@@ -36,6 +40,8 @@ namespace SolutionInspector
             _ = projectsRootPath.WhenNotNullOrEmpty();
             _ = docsPath.WhenNotNullOrEmpty();
 
+            InitProjectGroupInfo(solutionPath);
+
             var solutionParser = new SolutionParser(Math.Max(IndividualProjectTransitiveDepth, AllProjectsTransitiveDepth));
             var allProjects = await solutionParser.ParseAsync(solutionPath, projectsRootPath);
 
@@ -48,7 +54,27 @@ namespace SolutionInspector
 
             await ExportAsIndividual(indexedProjects, docsPath);
             await ExportAsAll(indexedProjects, docsPath);
-        }   
+        }
+
+        private void InitProjectGroupInfo(string solutionPath)
+        {
+            _projectGroupName = Path.GetFileNameWithoutExtension(solutionPath);
+
+            // Extract all capital letters and use them as the group prefix (lowercased)
+            var regex = new Regex("[A-Z]");
+
+            var matches = regex.Matches(_projectGroupName);
+
+            var capitalLetters = new char[matches.Count];
+            var i = 0;
+
+            foreach (var match in matches.Cast<Match>())
+            {
+                capitalLetters[i++] = match.Value[0];
+            }
+
+            _projectGroupPrefix = new string(capitalLetters).ToLowerInvariant();
+        }
 
         private async Task ExportAsIndividual(IDictionary<string, SolutionProject> indexedProjects, string docsPath)
         {
@@ -67,10 +93,10 @@ namespace SolutionInspector
             return CreateD2FileAndImages("AllOverIt-All", d2Content, docsPath);
         }
 
-        private async Task CreateD2FileAndImages(string scope, string d2Content, string docsPath)
+        private async Task CreateD2FileAndImages(string projectScope, string d2Content, string docsPath)
         {
             // Create the file and return the fully-qualified file path
-            var filePath = await CreateD2FileAsync(d2Content, docsPath, GetDiagramAliasId(scope, false));
+            var filePath = await CreateD2FileAsync(d2Content, docsPath, GetDiagramAliasId(projectScope, false));
 
             foreach (var extension in ImageExtensions)
             {
@@ -78,7 +104,7 @@ namespace SolutionInspector
             }
         }
 
-        private static string GenerateD2Content(SolutionProject solutionProject, IDictionary<string, SolutionProject> solutionProjects)
+        private string GenerateD2Content(SolutionProject solutionProject, IDictionary<string, SolutionProject> solutionProjects)
         {
             var sb = new StringBuilder();
 
@@ -100,14 +126,14 @@ namespace SolutionInspector
             return sb.ToString();
         }
 
-        private static string GenerateD2Content(IDictionary<string, SolutionProject> solutionProjects)
+        private string GenerateD2Content(IDictionary<string, SolutionProject> solutionProjects)
         {
             var sb = new StringBuilder();
 
             sb.AppendLine("direction: right");
             sb.AppendLine();
 
-            sb.AppendLine($"aoi: AllOverIt");
+            sb.AppendLine($"{_projectGroupPrefix}: {_projectGroupName}");
 
             var dependencySet = new HashSet<string>();
 
@@ -126,10 +152,9 @@ namespace SolutionInspector
             return sb.ToString();
         }
 
-        private static void AppendProjectDependencies(SolutionProject solutionProject, IDictionary<string, SolutionProject> solutionProjects,
+        private void AppendProjectDependencies(SolutionProject solutionProject, IDictionary<string, SolutionProject> solutionProjects,
             HashSet<string> dependencySet, int maxTransitiveDepth)
         {
-
             var projectName = solutionProject.Name;
             var projectAlias = GetDiagramAliasId(projectName);
 
@@ -145,7 +170,7 @@ namespace SolutionInspector
             }
         }
 
-        private static void AppendProjectDependenciesRecursively(ProjectReference projectReference, IDictionary<string, SolutionProject> solutionProjects,
+        private void AppendProjectDependenciesRecursively(ProjectReference projectReference, IDictionary<string, SolutionProject> solutionProjects,
             HashSet<string> dependencySet, int maxTransitiveDepth)
         {
             var projectName = GetProjectName(projectReference);
@@ -173,7 +198,7 @@ namespace SolutionInspector
             }
         }
 
-        private static void AppendPackageDependencies(SolutionProject solutionProject, HashSet<string> dependencySet, int maxTransitiveDepth)
+        private void AppendPackageDependencies(SolutionProject solutionProject, HashSet<string> dependencySet, int maxTransitiveDepth)
         {
             var projectName = solutionProject.Name;
             var projectAlias = GetDiagramAliasId(projectName);
@@ -199,7 +224,7 @@ namespace SolutionInspector
             }
 
             var packageName = packageReference.Name;
-            var packageAlias = GetDiagramAliasId(packageName);
+            var packageAlias = GetDiagramPackageAliasId(packageName);
 
             dependencySet.Add($"{packageAlias}: {packageName}");
 
@@ -216,7 +241,7 @@ namespace SolutionInspector
             }
 
             var packageName = packageReference.Name;
-            var packageAlias = GetDiagramAliasId(packageName);
+            var packageAlias = GetDiagramPackageAliasId(packageName);
 
             dependencySet.Add($"{packageAlias}: {packageName}");
 
@@ -267,21 +292,21 @@ namespace SolutionInspector
             return Path.GetFileNameWithoutExtension(project.Path);
         }
 
-        private static string GetProjectAliasId(ProjectReference project)
+        private string GetProjectAliasId(ProjectReference project)
         {
             return GetDiagramAliasId(GetProjectName(project));
         }
 
         private static string GetPackageAliasId(PackageReference package)
         {
-            return GetDiagramAliasId(package.Name);
+            return GetDiagramPackageAliasId(package.Name);
         }
 
-        private async Task<string> CreateD2FileAsync(string content, string docsPath, string scope)
+        private async Task<string> CreateD2FileAsync(string content, string docsPath, string projectScope)
         {
-            var fileName = scope.IsNullOrEmpty()
-                ? "alloverit-all.d2"
-                : $"{scope}.d2";
+            var fileName = projectScope.IsNullOrEmpty()
+                ? $"{_projectGroupName.ToLowerInvariant()}-all.d2"
+                : $"{projectScope}.d2";
 
             var d2FilePath = Path.Combine(docsPath, fileName);
 
@@ -325,14 +350,18 @@ namespace SolutionInspector
             _logger.WriteLine(ConsoleColor.Green, "Done");
         }
 
-        private static string GetDiagramAliasId(string alias, bool includeAoiPrefixIfApplicable = true)
+        private string GetDiagramAliasId(string alias, bool includeProjectGroupPrefix = true)
         {
             alias = alias.ToLowerInvariant().Replace(".", "-");
 
-            // Group all 'AllOverIt' packages together
-            return includeAoiPrefixIfApplicable && alias.StartsWith("alloverit")
-                ? $"aoi.{alias}"
+            return includeProjectGroupPrefix
+                ? $"{_projectGroupPrefix}.{alias}"
                 : alias;
+        }
+
+        private static string GetDiagramPackageAliasId(string alias)
+        {
+            return alias.ToLowerInvariant().Replace(".", "-");
         }
 
         private void LogDependenciesToConsole(SolutionProject solutionProject)
