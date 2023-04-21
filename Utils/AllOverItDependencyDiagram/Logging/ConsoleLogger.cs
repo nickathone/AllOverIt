@@ -35,41 +35,41 @@ namespace AllOverItDependencyDiagram.Logging
 
         private readonly StringBuilder _stringBuilder = new();
 
-        public IConsoleLogger AddFormatted(string formattedText)
+        public IConsoleLogger WriteFormatted(string formattedText)
         {
             LogToConsole(formattedText);
 
             return this;
         }
 
-        public IConsoleLogger AddFormattedLine(string formattedText)
+        public IConsoleLogger WriteFormattedLine(string formattedText)
         {
             LogToConsole(formattedText);
 
-            return NewLine();
+            return WriteLine();
         }
 
-        public IConsoleLogger AddFragment(ConsoleColor foreColor, string text)
+        public IConsoleLogger WriteFragment(ConsoleColor foreColor, string text)
         {
             return AddFragment(foreColor, null, text);
         }
 
-        public IConsoleLogger AddFragment(ConsoleColor foreColor, ConsoleColor backColor, string text)
+        public IConsoleLogger WriteFragment(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
-            return AddFragment(foreColor, backColor, text);
+            return WriteFragment(foreColor, backColor, text);
         }
 
-        public IConsoleLogger AddLine(ConsoleColor foreColor, string text)
+        public IConsoleLogger WriteLine(ConsoleColor foreColor, string text)
         {
-            return AddFragment(foreColor, null, text).NewLine();
+            return AddFragment(foreColor, null, text).WriteLine();
         }
 
-        public IConsoleLogger AddLine(ConsoleColor foreColor, ConsoleColor backColor, string text)
+        public IConsoleLogger WriteLine(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
-            return AddFragment(foreColor, backColor, text).NewLine();
+            return WriteFragment(foreColor, backColor, text).WriteLine();
         }
 
-        public IConsoleLogger NewLine()
+        public IConsoleLogger WriteLine()
         {
             Console.WriteLine();
 

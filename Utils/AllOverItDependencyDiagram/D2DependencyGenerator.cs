@@ -287,9 +287,9 @@ namespace SolutionInspector
 
             // Showing how to mix AddFormatted() with AddFragment() where the latter
             // is a simple alternative to using string interpolation.
-            _logger.AddFormatted("{forecolor:white}Creating D2 diagram for ")
-                   .AddFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(fileName))
-                   .AddFormatted("{forecolor:white}...");
+            _logger.WriteFormatted("{forecolor:white}Creating D2 diagram for ")
+                   .WriteFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(fileName))
+                   .WriteFormatted("{forecolor:white}...");
 
             File.WriteAllText(d2FilePath, content);
 
@@ -300,7 +300,7 @@ namespace SolutionInspector
                 .ExecuteAsync();
 
             // An example using formatted text
-            _logger.AddFormattedLine("{forecolor:green}Done");
+            _logger.WriteFormattedLine("{forecolor:green}Done");
 
             return d2FilePath;
         }
@@ -310,9 +310,9 @@ namespace SolutionInspector
             var imageFileName = Path.ChangeExtension(d2FileName, extension);
 
             _logger
-                .AddFragment(ConsoleColor.White, "Creating image ")
-                .AddFragment(ConsoleColor.Yellow, imageFileName)
-                .AddFragment(ConsoleColor.White, "...");
+                .WriteFragment(ConsoleColor.White, "Creating image ")
+                .WriteFragment(ConsoleColor.Yellow, imageFileName)
+                .WriteFragment(ConsoleColor.White, "...");
 
             var export = ProcessBuilder
                .For("d2.exe")
@@ -322,7 +322,7 @@ namespace SolutionInspector
             await export.ExecuteAsync();
 
             // An example using a foreground color and text
-            _logger.AddLine(ConsoleColor.Green, "Done");
+            _logger.WriteLine(ConsoleColor.Green, "Done");
         }
 
         private static string GetDiagramAliasId(string alias, bool includeAoiPrefixIfApplicable = true)
@@ -345,9 +345,9 @@ namespace SolutionInspector
             foreach (var dependency in sortedProjectDependenies)
             {
                 _logger
-                    .AddFragment(ConsoleColor.Yellow, solutionProject.Name)
-                    .AddFragment(ConsoleColor.White, " depends on ")
-                    .AddLine(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(dependency));
+                    .WriteFragment(ConsoleColor.Yellow, solutionProject.Name)
+                    .WriteFragment(ConsoleColor.White, " depends on ")
+                    .WriteLine(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(dependency));
             }
 
             var sortedPackageDependenies = solutionProject.Dependencies
@@ -359,9 +359,9 @@ namespace SolutionInspector
             foreach (var dependency in sortedPackageDependenies)
             {
                 _logger
-                    .AddFragment(ConsoleColor.Yellow, solutionProject.Name)
-                    .AddFragment(ConsoleColor.White, " depends on ")
-                    .AddLine(ConsoleColor.Yellow, dependency);
+                    .WriteFragment(ConsoleColor.Yellow, solutionProject.Name)
+                    .WriteFragment(ConsoleColor.White, " depends on ")
+                    .WriteLine(ConsoleColor.Yellow, dependency);
             }
         }
     }    
