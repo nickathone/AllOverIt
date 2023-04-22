@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Assertion;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using System;
 using System.Linq;
 using System.Reactive;
@@ -19,6 +18,9 @@ namespace AllOverIt.ReactiveUI
         private ReactiveCommand<int, Unit> _startCommand;
         private IDisposable _startDisposable;
         private IDisposable _intervalDisposable;
+        private bool _isRunning;
+        private double _remainingMilliseconds;
+        private TimeSpan _remainingTimeSpan;
 
         /// <inheritdoc />
         public double TotalMilliseconds { get; private set; }
@@ -27,16 +29,25 @@ namespace AllOverIt.ReactiveUI
         public TimeSpan TotalTimeSpan => TimeSpan.FromMilliseconds(TotalMilliseconds);
 
         /// <inheritdoc />
-        [Reactive]
-        public bool IsRunning { get; private set; }
+        public bool IsRunning
+        {
+            get => _isRunning;
+            private set => this.RaiseAndSetIfChanged(ref _isRunning, value);
+        }
 
         /// <inheritdoc />
-        [Reactive]
-        public double RemainingMilliseconds { get; private set; }
+        public double RemainingMilliseconds
+        {
+            get => _remainingMilliseconds;
+            private set => this.RaiseAndSetIfChanged(ref _remainingMilliseconds, value);
+        }
 
         /// <inheritdoc />
-        [Reactive]
-        public TimeSpan RemainingTimeSpan { get; private set; }
+        public TimeSpan RemainingTimeSpan
+        {
+            get => _remainingTimeSpan;
+            private set => this.RaiseAndSetIfChanged(ref _remainingTimeSpan, value);
+        }
 
         /// <inheritdoc />
         public IObservable<bool> WhenCompleted() => _countdownCompletedSubject;
