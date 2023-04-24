@@ -10,9 +10,9 @@ using Xunit;
 
 namespace AllOverIt.ReactiveUI.Tests.Extensions
 {
-    public class ReactiveCommandExtensionsExtensions : FixtureBase
+    public class ReactiveCommandExtensionsFixture : FixtureBase
     {
-        public class Pipe_ReactiveCommand_TIn_TPrevOut : ReactiveCommandExtensionsExtensions
+        public class Pipe_ReactiveCommand_TIn_TPrevOut : ReactiveCommandExtensionsFixture
         {
             [Fact]
             public void Should_Throw_When_Command_Null()
