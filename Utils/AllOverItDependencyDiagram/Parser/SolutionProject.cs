@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SolutionInspector.Parser
+namespace AllOverItDependencyDiagram.Parser
 {
     internal sealed class SolutionProject
     {

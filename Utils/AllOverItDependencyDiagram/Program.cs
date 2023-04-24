@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Io;
+using AllOverItDependencyDiagram.Generator;
 using AllOverItDependencyDiagram.Logging;
 using System;
 using System.IO;
@@ -17,12 +18,15 @@ namespace SolutionInspector
             var solutionPath = Path.Combine(allOverItRoot, "AllOverIt.sln");
             var projectsRootPath = Path.Combine(allOverItRoot, "Source");
 
-            var docsPath = Path.Combine(allOverItRoot, @"Docs\Dependencies");
+            var options = new D2DependencyGeneratorOptions
+            {
+                DiagramExportPath = Path.Combine(allOverItRoot, @"Docs\Dependencies")
+            };
 
             var logger = new DependencyGeneratorLogger();
-            var generator = new D2DependencyGenerator(logger);
+            var generator = new D2DependencyGenerator(options, logger);
 
-            await generator.CreateDiagramsAsync(solutionPath, projectsRootPath, docsPath);
+            await generator.CreateDiagramsAsync(solutionPath, projectsRootPath);
 
             Console.WriteLine();
             Console.WriteLine($"AllOverIt.");

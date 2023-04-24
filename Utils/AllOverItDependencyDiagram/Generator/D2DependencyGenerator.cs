@@ -12,42 +12,32 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SolutionInspector
+namespace AllOverItDependencyDiagram.Generator
 {
-    //internal sealed class D2DependencyGeneratorOptions
-    //{
-
-    //}
-
     internal sealed class D2DependencyGenerator
     {
-        // These could all become options if required
-        private const int IndividualProjectTransitiveDepth = 1;
-        private const int AllProjectsTransitiveDepth = 0;
-        private const string PackageStyleFill = "#ADD8E6";
-        private const string TransitiveStyleFill = "#FFEC96";
-        private static readonly string[] ImageExtensions = new[] { "svg", "png" };
-
+        private readonly D2DependencyGeneratorOptions _options;
         private readonly IDependencyGeneratorLogger _logger;
 
         private string _projectGroupName;
         private string _projectGroupPrefix;
 
-        public D2DependencyGenerator(IDependencyGeneratorLogger logger)
+        public D2DependencyGenerator(D2DependencyGeneratorOptions options, IDependencyGeneratorLogger logger)
         {
+            _options = options.WhenNotNull();
             _logger = logger.WhenNotNull();
         }
 
-        public async Task CreateDiagramsAsync(string solutionPath, string projectsRootPath, string docsPath)
+        public async Task CreateDiagramsAsync(string solutionPath, string projectsRootPath)
         {
-            // The paths are required to work out dependency project absolute paths from their relative paths
+            // The paths are required to work out dependency project absolute paths from their relative paths.
+            // projectsRootPath is the root of all projects to be processed (to ensure other sub-folders are excluded).
             _ = solutionPath.WhenNotNullOrEmpty();
             _ = projectsRootPath.WhenNotNullOrEmpty();
-            _ = docsPath.WhenNotNullOrEmpty();
 
             InitProjectGroupInfo(solutionPath);
 
-            var solutionParser = new SolutionParser(Math.Max(IndividualProjectTransitiveDepth, AllProjectsTransitiveDepth));
+            var solutionParser = new SolutionParser(Math.Max(_options.IndividualProjectTransitiveDepth, _options.AllProjectsTransitiveDepth));
             var allProjects = await solutionParser.ParseAsync(solutionPath, projectsRootPath);
 
             foreach (var project in allProjects)
@@ -57,56 +47,62 @@ namespace SolutionInspector
 
             var indexedProjects = allProjects.ToDictionary(project => project.Name, project => project);
 
-            await ExportAsIndividual(indexedProjects, docsPath);
-            await ExportAsAll(indexedProjects, docsPath);
+            await ExportAsIndividual(indexedProjects);
+            await ExportAsAll(indexedProjects);
         }
 
         private void InitProjectGroupInfo(string solutionPath)
         {
             _projectGroupName = Path.GetFileNameWithoutExtension(solutionPath);
 
-            // TODO: This won't work if the incoming solution name is all lowercase - may need to be passed in as an option
-            // Extract all capital letters and use them as the group prefix (lowercased)
             var regex = new Regex("[A-Z]");
 
             var matches = regex.Matches(_projectGroupName);
 
-            var capitalLetters = new char[matches.Count];
-            var i = 0;
-
-            foreach (var match in matches.Cast<Match>())
+            // Cater for when the incoming solution name is all lowercase
+            if (matches.Count == 0)
             {
-                capitalLetters[i++] = match.Value[0];
+                _projectGroupPrefix = _projectGroupName.ToLowerInvariant();
             }
+            else
+            {
+                var capitalLetters = new char[matches.Count];
+                var i = 0;
 
-            _projectGroupPrefix = new string(capitalLetters).ToLowerInvariant();
+                foreach (var match in matches.Cast<Match>())
+                {
+                    capitalLetters[i++] = match.Value[0];
+                }
+
+                _projectGroupPrefix = new string(capitalLetters).ToLowerInvariant();
+            }
         }
 
-        private async Task ExportAsIndividual(IDictionary<string, SolutionProject> indexedProjects, string docsPath)
+        private async Task ExportAsIndividual(IDictionary<string, SolutionProject> indexedProjects)
         {
             foreach (var scopedProject in indexedProjects.Values)
             {
                 var d2Content = GenerateD2Content(scopedProject, indexedProjects);
 
-                await CreateD2FileAndImages(scopedProject.Name, d2Content, docsPath);
+                await CreateD2FileAndImages(scopedProject.Name, d2Content);
             }
         }
 
-        private Task ExportAsAll(IDictionary<string, SolutionProject> indexedProjects, string docsPath)
+        private Task ExportAsAll(IDictionary<string, SolutionProject> indexedProjects)
         {
             var d2Content = GenerateD2Content(indexedProjects);
 
-            return CreateD2FileAndImages("AllOverIt-All", d2Content, docsPath);
+            return CreateD2FileAndImages("AllOverIt-All", d2Content);
         }
 
-        private async Task CreateD2FileAndImages(string projectScope, string d2Content, string docsPath)
+        private async Task CreateD2FileAndImages(string projectScope, string d2Content)
         {
             // Create the file and return the fully-qualified file path
-            var filePath = await CreateD2FileAsync(d2Content, docsPath, GetDiagramAliasId(projectScope, false));
+            var filePath = await CreateD2FileAsync(d2Content, GetDiagramAliasId(projectScope, false));
 
-            foreach (var extension in ImageExtensions)
+            foreach (var format in _options.ImageFormats)
             {
-                await ExportD2ImageFileAsync(filePath, extension);
+                await ExportD2ImageFileAsync(filePath, format);
             }
         }
 
@@ -120,7 +116,7 @@ namespace SolutionInspector
             sb.AppendLine($"aoi: AllOverIt");
 
             var dependencySet = new HashSet<string>();
-            AppendProjectDependencies(solutionProject, solutionProjects, dependencySet, IndividualProjectTransitiveDepth);
+            AppendProjectDependencies(solutionProject, solutionProjects, dependencySet, _options.IndividualProjectTransitiveDepth);
 
             foreach (var dependency in dependencySet)
             {
@@ -145,7 +141,7 @@ namespace SolutionInspector
 
             foreach (var solutionProject in solutionProjects)
             {
-                AppendProjectDependencies(solutionProject.Value, solutionProjects, dependencySet, AllProjectsTransitiveDepth);
+                AppendProjectDependencies(solutionProject.Value, solutionProjects, dependencySet, _options.AllProjectsTransitiveDepth);
             }
 
             foreach (var dependency in dependencySet)
@@ -222,7 +218,7 @@ namespace SolutionInspector
             }
         }
 
-        private static bool AppendPackageDependencies(PackageReference packageReference, HashSet<string> dependencySet, int maxTransitiveDepth)
+        private bool AppendPackageDependencies(PackageReference packageReference, HashSet<string> dependencySet, int maxTransitiveDepth)
         {
             if (packageReference.Depth > maxTransitiveDepth)
             {
@@ -239,7 +235,7 @@ namespace SolutionInspector
             return true;
         }
 
-        private static bool AppendPackageDependenciesRecursively(PackageReference packageReference, HashSet<string> dependencySet, int maxTransitiveDepth)
+        private bool AppendPackageDependenciesRecursively(PackageReference packageReference, HashSet<string> dependencySet, int maxTransitiveDepth)
         {
             if (packageReference.Depth > maxTransitiveDepth)
             {
@@ -252,7 +248,8 @@ namespace SolutionInspector
             dependencySet.Add($"{packageAlias}: {packageName}");
 
             var transitiveStyleFillEntry = GetTransitiveStyleFillEntry(packageAlias);
-            var packageStyleFillEntry = GetPackageStyleFillEntry(packageAlias); ;
+            var packageStyleFillEntry = GetPackageStyleFillEntry(packageAlias);
+            ;
 
             // The diagram should style package reference over transient reference
             if (packageReference.IsTransitive)
@@ -283,14 +280,14 @@ namespace SolutionInspector
             return true;
         }
 
-        private static string GetPackageStyleFillEntry(string packageAlias)
+        private string GetPackageStyleFillEntry(string packageAlias)
         {
-            return $"{packageAlias}.style.fill: \"{PackageStyleFill}\"";
+            return $"{packageAlias}.style.fill: \"{_options.PackageStyleFill}\"";
         }
 
-        private static string GetTransitiveStyleFillEntry(string packageAlias)
+        private string GetTransitiveStyleFillEntry(string packageAlias)
         {
-            return $"{packageAlias}.style.fill: \"{TransitiveStyleFill}\"";
+            return $"{packageAlias}.style.fill: \"{_options.TransitiveStyleFill}\"";
         }
 
         private static string GetProjectName(ProjectReference project)
@@ -308,13 +305,13 @@ namespace SolutionInspector
             return GetDiagramPackageAliasId(package.Name);
         }
 
-        private async Task<string> CreateD2FileAsync(string content, string docsPath, string projectScope)
+        private async Task<string> CreateD2FileAsync(string content, string projectScope)
         {
             var fileName = projectScope.IsNullOrEmpty()
                 ? $"{_projectGroupName.ToLowerInvariant()}-all.d2"
                 : $"{projectScope}.d2";
 
-            var d2FilePath = Path.Combine(docsPath, fileName);
+            var d2FilePath = Path.Combine(_options.DiagramExportPath, fileName);
 
             // Showing how to mix AddFormatted() with AddFragment() where the latter
             // is a simple alternative to using string interpolation.
@@ -336,9 +333,9 @@ namespace SolutionInspector
             return d2FilePath;
         }
 
-        private async Task ExportD2ImageFileAsync(string d2FileName, string extension)
+        private async Task ExportD2ImageFileAsync(string d2FileName, D2ImageFormat format)
         {
-            var imageFileName = Path.ChangeExtension(d2FileName, extension);
+            var imageFileName = Path.ChangeExtension(d2FileName, $"{format}").ToLowerInvariant();
 
             _logger
                 .WriteFragment(ConsoleColor.White, "Creating image ")
@@ -399,5 +396,5 @@ namespace SolutionInspector
                     .WriteLine(ConsoleColor.Yellow, dependency);
             }
         }
-    }    
+    }
 }

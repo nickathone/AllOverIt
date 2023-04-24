@@ -1,4 +1,4 @@
-﻿namespace SolutionInspector.Parser
+﻿namespace AllOverItDependencyDiagram.Parser
 {
     internal sealed class ProjectReference
     {

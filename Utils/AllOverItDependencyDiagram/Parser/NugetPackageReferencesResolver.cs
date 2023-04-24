@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace SolutionInspector.Parser
+namespace AllOverItDependencyDiagram.Parser
 {
     internal sealed class NugetPackageReferencesResolver
     {

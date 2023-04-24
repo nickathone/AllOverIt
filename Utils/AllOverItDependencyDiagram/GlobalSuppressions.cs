@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("GeneratedRegex", "SYSLIB1045:Convert to 'GeneratedRegexAttribute'.", Justification = "Not a concern in this utility", Scope = "member", Target = "~M:SolutionInspector.D2DependencyGenerator.InitProjectGroupInfo(System.String)")]
+[assembly: SuppressMessage("GeneratedRegex", "SYSLIB1045:Convert to 'GeneratedRegexAttribute'.", Justification = "Not a concern in this utility", Scope = "member", Target = "~M:AllOverItDependencyDiagram.Generator.D2DependencyGenerator.InitProjectGroupInfo(System.String)")]

@@ -18,9 +18,9 @@ namespace SolutionInspector.Parser
             _nugetResolver = new NugetPackageReferencesResolver(maxTransitiveDepth);
         }
 
-        public Task<IReadOnlyCollection<SolutionProject>> ParseAsync(string solutionFilePath, string projectIncludePath)
+        public Task<IReadOnlyCollection<SolutionProject>> ParseAsync(string solutionFilePath, string projectRootFolder)
         {
-            return GetProjectsAsync(solutionFilePath, projectIncludePath);
+            return GetProjectsAsync(solutionFilePath, projectRootFolder);
         }
 
         private async Task<IReadOnlyCollection<SolutionProject>> GetProjectsAsync(string solutionFilePath, string projectIncludePath)
