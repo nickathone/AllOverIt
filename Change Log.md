@@ -95,11 +95,12 @@
 
 
 ## AllOverIt.Reactive
-* Unchanged
+* Added ObservableObject, ObservableProxy and PropertyNotifyExtensions
 
 
 ## AllOverIt.ReactiveUI
 * Added support for a `ReactiveCommand` based pipeline (with support for chaining other sync / async pipeline steps)
+* Added ReactiveProxy
 
 
 ## AllOverIt.Serialization.Binary :new:
