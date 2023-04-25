@@ -26,6 +26,7 @@
 * Added object extension `GetObjectElements()`
 * Unseal `ReadOnlyCollection`, `ReadOnlyList`, `ReadOnlyDictionary`
 * Changed `RepeatingTask.Start()` to use overloads rather than a default initial delay (previously after the `CancellationToken`)
+* Added ColorConsoleLogger
 
 
 ## AllOverIt.AspNetCore

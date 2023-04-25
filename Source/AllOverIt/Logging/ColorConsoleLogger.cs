@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace AllOverIt.Logging
 {
+    /// <summary>A console logger capable of generating output in color.</summary>
     public sealed class ColorConsoleLogger : IColorConsoleLogger
     {
         private const string ForegroundPrefix = "fore";
@@ -34,6 +35,7 @@ namespace AllOverIt.Logging
 
         private readonly StringBuilder _stringBuilder = new();
 
+        /// <inheritdoc />
         public IColorConsoleLogger WriteFormatted(string formattedText)
         {
             LogToConsole(formattedText);
@@ -41,6 +43,7 @@ namespace AllOverIt.Logging
             return this;
         }
 
+        /// <inheritdoc />
         public IColorConsoleLogger WriteFormattedLine(string formattedText)
         {
             LogToConsole(formattedText);
@@ -48,26 +51,31 @@ namespace AllOverIt.Logging
             return WriteLine();
         }
 
+        /// <inheritdoc />
         public IColorConsoleLogger WriteFragment(ConsoleColor foreColor, string text)
         {
             return AddFragment(foreColor, null, text);
         }
 
+        /// <inheritdoc />
         public IColorConsoleLogger WriteFragment(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
             return WriteFragment(foreColor, backColor, text);
         }
 
+        /// <inheritdoc />
         public IColorConsoleLogger WriteLine(ConsoleColor foreColor, string text)
         {
             return AddFragment(foreColor, null, text).WriteLine();
         }
 
+        /// <inheritdoc />
         public IColorConsoleLogger WriteLine(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
             return WriteFragment(foreColor, backColor, text).WriteLine();
         }
 
+        /// <inheritdoc />
         public IColorConsoleLogger Write(string text)
         {
             Console.Write(text);
@@ -75,6 +83,15 @@ namespace AllOverIt.Logging
             return this;
         }
 
+        /// <inheritdoc />
+        public IColorConsoleLogger WriteLine(string text)
+        {
+            Console.WriteLine(text);
+
+            return this;
+        }
+
+        /// <inheritdoc />
         public IColorConsoleLogger WriteLine()
         {
             Console.WriteLine();
