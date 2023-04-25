@@ -26,7 +26,7 @@ namespace AllOverItDependencyDiagram
             var logger = new DependencyGeneratorLogger();
             var generator = new D2DependencyGenerator(options, logger);
 
-            await generator.CreateDiagramsAsync(solutionPath, projectsRootPath);
+            await generator.CreateDiagramsAsync(solutionPath, projectsRootPath, "net7.0");
 
             Console.WriteLine();
             Console.WriteLine($"AllOverIt.");

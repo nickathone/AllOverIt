@@ -28,7 +28,7 @@ namespace AllOverItDependencyDiagram.Generator
             _logger = logger.WhenNotNull();
         }
 
-        public async Task CreateDiagramsAsync(string solutionPath, string projectsRootPath)
+        public async Task CreateDiagramsAsync(string solutionPath, string projectsRootPath, string targetFramework)
         {
             // The paths are required to work out dependency project absolute paths from their relative paths.
             // projectsRootPath is the root of all projects to be processed (to ensure other sub-folders are excluded).
@@ -38,7 +38,7 @@ namespace AllOverItDependencyDiagram.Generator
             InitProjectGroupInfo(solutionPath);
 
             var solutionParser = new SolutionParser(Math.Max(_options.IndividualProjectTransitiveDepth, _options.AllProjectsTransitiveDepth));
-            var allProjects = await solutionParser.ParseAsync(solutionPath, projectsRootPath);
+            var allProjects = await solutionParser.ParseAsync(solutionPath, projectsRootPath, targetFramework);
 
             foreach (var project in allProjects)
             {
@@ -205,34 +205,15 @@ namespace AllOverItDependencyDiagram.Generator
             var projectName = solutionProject.Name;
             var projectAlias = GetDiagramAliasId(projectName);
 
-            dependencySet.Add($"{projectAlias}: {projectName}");
-
             foreach (var package in solutionProject.Dependencies.SelectMany(item => item.PackageReferences))
             {
-                var added = AppendPackageDependencies(package, dependencySet, maxTransitiveDepth);
+                var added = AppendPackageDependenciesRecursively(package, dependencySet, maxTransitiveDepth);
 
                 if (added)
                 {
                     dependencySet.Add($"{GetPackageAliasId(package)} <- {projectAlias}");
                 }
             }
-        }
-
-        private bool AppendPackageDependencies(PackageReference packageReference, HashSet<string> dependencySet, int maxTransitiveDepth)
-        {
-            if (packageReference.Depth > maxTransitiveDepth)
-            {
-                return false;
-            }
-
-            var packageName = packageReference.Name;
-            var packageAlias = GetDiagramPackageAliasId(packageName);
-
-            dependencySet.Add($"{packageAlias}: {packageName}");
-
-            AppendPackageDependenciesRecursively(packageReference, dependencySet, maxTransitiveDepth);
-
-            return true;
         }
 
         private bool AppendPackageDependenciesRecursively(PackageReference packageReference, HashSet<string> dependencySet, int maxTransitiveDepth)
@@ -243,13 +224,12 @@ namespace AllOverItDependencyDiagram.Generator
             }
 
             var packageName = packageReference.Name;
-            var packageAlias = GetDiagramPackageAliasId(packageName);
+            var packageAlias = GetDiagramPackageAliasId(packageReference);
 
-            dependencySet.Add($"{packageAlias}: {packageName}");
+            dependencySet.Add($"{packageAlias}: {packageName}\\nv{packageReference.Version}");
 
             var transitiveStyleFillEntry = GetTransitiveStyleFillEntry(packageAlias);
             var packageStyleFillEntry = GetPackageStyleFillEntry(packageAlias);
-            ;
 
             // The diagram should style package reference over transient reference
             if (packageReference.IsTransitive)
@@ -290,19 +270,19 @@ namespace AllOverItDependencyDiagram.Generator
             return $"{packageAlias}.style.fill: \"{_options.TransitiveStyleFill}\"";
         }
 
-        private static string GetProjectName(ProjectReference project)
+        private static string GetProjectName(ProjectReference projectReference)
         {
-            return Path.GetFileNameWithoutExtension(project.Path);
+            return Path.GetFileNameWithoutExtension(projectReference.Path);
         }
 
-        private string GetProjectAliasId(ProjectReference project)
+        private string GetProjectAliasId(ProjectReference projectReference)
         {
-            return GetDiagramAliasId(GetProjectName(project));
+            return GetDiagramAliasId(GetProjectName(projectReference));
         }
 
-        private static string GetPackageAliasId(PackageReference package)
+        private static string GetPackageAliasId(PackageReference packageReference)
         {
-            return GetDiagramPackageAliasId(package.Name);
+            return GetDiagramPackageAliasId(packageReference);
         }
 
         private async Task<string> CreateD2FileAsync(string content, string projectScope)
@@ -315,8 +295,8 @@ namespace AllOverItDependencyDiagram.Generator
 
             // Showing how to mix AddFormatted() with AddFragment() where the latter
             // is a simple alternative to using string interpolation.
-            _logger.WriteFormatted("{forecolor:white}Creating D2 diagram for ")
-                   .WriteFragment(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(fileName))
+            _logger.WriteFormatted("{forecolor:white}Creating diagram: ")
+                   .WriteFragment(ConsoleColor.Yellow, Path.GetFileName(fileName))
                    .WriteFormatted("{forecolor:white}...");
 
             File.WriteAllText(d2FilePath, content);
@@ -338,8 +318,8 @@ namespace AllOverItDependencyDiagram.Generator
             var imageFileName = Path.ChangeExtension(d2FileName, $"{format}").ToLowerInvariant();
 
             _logger
-                .WriteFragment(ConsoleColor.White, "Creating image ")
-                .WriteFragment(ConsoleColor.Yellow, imageFileName)
+                .WriteFragment(ConsoleColor.White, "Creating image: ")
+                .WriteFragment(ConsoleColor.Yellow, Path.GetFileName(imageFileName))
                 .WriteFragment(ConsoleColor.White, "...");
 
             var export = ProcessBuilder
@@ -362,9 +342,9 @@ namespace AllOverItDependencyDiagram.Generator
                 : alias;
         }
 
-        private static string GetDiagramPackageAliasId(string alias)
+        private static string GetDiagramPackageAliasId(PackageReference package)
         {
-            return alias.ToLowerInvariant().Replace(".", "-");
+            return $"{package.Name}_{package.Version}".Replace(".", "-").ToLowerInvariant();
         }
 
         private void LogExplicitDependencies(SolutionProject solutionProject)

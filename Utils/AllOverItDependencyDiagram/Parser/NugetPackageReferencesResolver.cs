@@ -30,16 +30,12 @@ namespace AllOverItDependencyDiagram.Parser
                 return Array.Empty<PackageReference>();
             }
 
+            packageVersion = GetAssumedVersion(packageVersion);
+
             var cacheKey = (packageName, packageVersion);
 
             if (!_nugetCache.TryGetValue(cacheKey, out var packageReferences))
             {
-                if (packageVersion[0] == '[')
-                {
-                    // Need to handle versions such as [2.1.1, 3.0.0)
-                    packageVersion = packageVersion[1..^1].Split(",").First().Trim();
-                }
-
                 var apiUrl = $"https://api.nuget.org/v3-flatcontainer/{packageName}/{packageVersion}/{packageName}.nuspec";
                 var nuspecXml = await apiUrl.GetStringAsync();
                 var nuspec = XDocument.Parse(nuspecXml);
@@ -70,7 +66,7 @@ namespace AllOverItDependencyDiagram.Parser
                     foreach (var dependency in dependenciesByFramework.Last().Value)
                     {
                         var dependencyName = dependency.Id;
-                        var dependencyVersion = dependency.Version;
+                        var dependencyVersion = GetAssumedVersion(dependency.Version);
 
                         var transitiveReferences = await GetPackageReferencesRecursively(dependencyName, dependencyVersion, depth + 1);
 
@@ -91,6 +87,17 @@ namespace AllOverItDependencyDiagram.Parser
             }
 
             return packageReferences?.AsReadOnlyCollection() ?? AllOverIt.Collections.Collection.EmptyReadOnly<PackageReference>();
+        }
+
+        private static string GetAssumedVersion(string packageVersion)
+        {
+            if (packageVersion[0] == '[')
+            {
+                // Need to handle versions such as [2.1.1, 3.0.0)
+                packageVersion = packageVersion[1..^1].Split(",").First().Trim();
+            }
+
+            return packageVersion;
         }
     }
 }

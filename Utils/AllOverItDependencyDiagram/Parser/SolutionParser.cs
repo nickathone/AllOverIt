@@ -5,12 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AllOverItDependencyDiagram.Parser
 {
     internal sealed class SolutionParser
     {
+        private static readonly Regex TargetFrameworksRegex = new(@"'\$\(TargetFramework\)'\s*==\s*'(?<target>.*?)'", RegexOptions.Singleline);
+
         private readonly NugetPackageReferencesResolver _nugetResolver;
 
         public SolutionParser(int maxTransitiveDepth)
@@ -18,12 +21,7 @@ namespace AllOverItDependencyDiagram.Parser
             _nugetResolver = new NugetPackageReferencesResolver(maxTransitiveDepth);
         }
 
-        public Task<IReadOnlyCollection<SolutionProject>> ParseAsync(string solutionFilePath, string projectRootFolder)
-        {
-            return GetProjectsAsync(solutionFilePath, projectRootFolder);
-        }
-
-        private async Task<IReadOnlyCollection<SolutionProject>> GetProjectsAsync(string solutionFilePath, string projectIncludePath)
+        public async Task<IReadOnlyCollection<SolutionProject>> ParseAsync(string solutionFilePath, string projectRootFolder, string targetFramework)
         {
             var projects = new List<SolutionProject>();
 
@@ -33,7 +31,7 @@ namespace AllOverItDependencyDiagram.Parser
                 .Where(project => project.ProjectType == SolutionProjectType.KnownToBeMSBuildFormat)
                 .Where(project =>
                 {
-                    return project.AbsolutePath.StartsWith(projectIncludePath, StringComparison.OrdinalIgnoreCase);
+                    return project.AbsolutePath.StartsWith(projectRootFolder, StringComparison.OrdinalIgnoreCase);
                 })
                 .OrderBy(item => item.ProjectName);
 
@@ -43,7 +41,15 @@ namespace AllOverItDependencyDiagram.Parser
                 var projectFolder = Path.GetDirectoryName(projectItem.AbsolutePath);
 
                 var targetFrameworks = GetTargetFrameworks(projectRootElement.PropertyGroups);
-                var conditionalReferences = await GetConditionalReferencesAsync(projectFolder, projectRootElement.ItemGroups).ToListAsync();
+
+                // Can't skip (without additional logic) as we need to cater for WPF projects targeting, such as net7.0-windows;net6.0-windows;net5.0-windows
+                //
+                // if (!targetFrameworks.Contains(targetFramework))
+                // {
+                //     continue;
+                // }
+
+                var conditionalReferences = await GetConditionalReferencesAsync(projectFolder, projectRootElement.ItemGroups, targetFramework).ToListAsync();
 
                 var project = new SolutionProject
                 {
@@ -70,7 +76,8 @@ namespace AllOverItDependencyDiagram.Parser
                 .Split(";");
         }
 
-        private async IAsyncEnumerable<ConditionalReferences> GetConditionalReferencesAsync(string projectFolder, IEnumerable<ProjectItemGroupElement> itemGroups)
+        private async IAsyncEnumerable<ConditionalReferences> GetConditionalReferencesAsync(string projectFolder, IEnumerable<ProjectItemGroupElement> itemGroups,
+            string targetFramework)
         {
             var conditionItemGroups = itemGroups
                 .Select(grp => new
@@ -82,6 +89,32 @@ namespace AllOverItDependencyDiagram.Parser
 
             foreach (var itemGroup in conditionItemGroups)
             {
+                // Should more elaborate parsing be required, refer to this link for possible condition usage:
+                // https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions?view=vs-2022
+
+                // Example: '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'net5.0'
+                var condition = itemGroup.Key;
+
+                // Only process conditions that have an exact match (when not empty)
+                if (!condition.IsNullOrEmpty())
+                {
+                    // Matches a string that starts with '$(TargetFramework)', followed by zero or more whitespace characters, followed by '==',
+                    // followed by zero or more whitespace characters, followed by a string enclosed in single quotes. The contents of the string
+                    // inside the single quotes are captured in a named group called 'target'.
+                    //
+                    // (?   - This starts a named capture group. The <target> part of the group indicates the name of the group.
+                    //        The ? indicates that this is an optional group.
+                    //
+                    // .*?  - This matches any character (except for a newline if 'RegexOptions.Singleline' is not used) zero or more times,
+                    //        but as few times as possible (a non-greedy match).
+                    var matches = TargetFrameworksRegex.Matches(condition).Select(item => item.Groups["target"].Value);
+
+                    if (!matches.Contains(targetFramework))
+                    {
+                        continue;
+                    }
+                }
+
                 var items = itemGroup.SelectMany(value => value.Items).ToList();
 
                 var projectReferences = GetProjectReferences(projectFolder, items);
@@ -89,7 +122,7 @@ namespace AllOverItDependencyDiagram.Parser
 
                 var conditionalReferences = new ConditionalReferences
                 {
-                    Condition = itemGroup.Key,
+                    Condition = condition,
                     ProjectReferences = projectReferences,
                     PackageReferences = packageReferences
                 };
@@ -121,7 +154,9 @@ namespace AllOverItDependencyDiagram.Parser
                 .SelectAsync(async item =>
                 {
                     var packageName = item.Include;
+
                     var packageVersion = item.Metadata.SingleOrDefault(item => item.Name == "Version")?.Value;
+
                     var transitivePackages = await _nugetResolver.GetPackageReferences(packageName, packageVersion);
 
                     return new PackageReference

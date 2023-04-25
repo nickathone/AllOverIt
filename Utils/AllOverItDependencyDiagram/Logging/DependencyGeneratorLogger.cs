@@ -30,7 +30,6 @@ namespace AllOverItDependencyDiagram.Logging
         //
         // Note that the use of [\s\S] instead of . is to match any character, including newline characters. If we were to use .
         // instead of [\s\S], it would not match newline characters, unless the RegexOptions.Singleline option is used.
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("GeneratedRegex", "SYSLIB1045:Convert to 'GeneratedRegexAttribute'.", Justification = "Not available on all target platforms")]
         private static readonly Regex ColorMatchRegex = new($@"{{({ForegroundPrefix}|{BackgroundPrefix})color:([\s\S]*?)\}}([\s\S]*?)(?={{({ForegroundPrefix}|{BackgroundPrefix})color:|\z)");
 
         private readonly StringBuilder _stringBuilder = new();
