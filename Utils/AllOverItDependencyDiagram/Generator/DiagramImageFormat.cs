@@ -1,6 +1,6 @@
 ﻿namespace AllOverItDependencyDiagram.Generator
 {
-    public enum D2ImageFormat
+    public enum DiagramImageFormat
     {
         Svg,
         Png

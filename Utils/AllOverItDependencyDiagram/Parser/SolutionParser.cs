@@ -118,7 +118,7 @@ namespace AllOverItDependencyDiagram.Parser
                 var items = itemGroup.SelectMany(value => value.Items).ToList();
 
                 var projectReferences = GetProjectReferences(projectFolder, items);
-                var packageReferences = await GetPackageReferencesAsync(items);
+                var packageReferences = await GetPackageReferencesAsync(items, targetFramework);
 
                 var conditionalReferences = new ConditionalReferences
                 {
@@ -147,7 +147,7 @@ namespace AllOverItDependencyDiagram.Parser
                 .ToList();
         }
 
-        private async Task<IReadOnlyCollection<PackageReference>> GetPackageReferencesAsync(IEnumerable<ProjectItemElement> projectItems)
+        private async Task<IReadOnlyCollection<PackageReference>> GetPackageReferencesAsync(IEnumerable<ProjectItemElement> projectItems, string targetFramework)
         {
             var packageReferences = await projectItems
                 .Where(item => item.ItemType.Equals("PackageReference", StringComparison.OrdinalIgnoreCase))
@@ -157,7 +157,7 @@ namespace AllOverItDependencyDiagram.Parser
 
                     var packageVersion = item.Metadata.SingleOrDefault(item => item.Name == "Version")?.Value;
 
-                    var transitivePackages = await _nugetResolver.GetPackageReferences(packageName, packageVersion);
+                    var transitivePackages = await _nugetResolver.GetPackageReferences(packageName, packageVersion, targetFramework);
 
                     return new PackageReference
                     {

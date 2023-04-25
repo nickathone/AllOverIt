@@ -1,6 +1,6 @@
 ﻿using AllOverIt.Io;
+using AllOverIt.Logging;
 using AllOverItDependencyDiagram.Generator;
-using AllOverItDependencyDiagram.Logging;
 using System;
 using System.IO;
 using System.Reflection;
@@ -18,13 +18,16 @@ namespace AllOverItDependencyDiagram
             var solutionPath = Path.Combine(allOverItRoot, "AllOverIt.sln");
             var projectsRootPath = Path.Combine(allOverItRoot, "Source");
 
-            var options = new D2DependencyGeneratorOptions
+            var options = new ProjectDependencyGeneratorOptions
             {
                 DiagramExportPath = Path.Combine(allOverItRoot, @"Docs\Dependencies")
             };
 
-            var logger = new DependencyGeneratorLogger();
-            var generator = new D2DependencyGenerator(options, logger);
+            // Uncomment this line to generate the D2 files but not the images
+            // options.ImageFormats.Clear();
+
+            var logger = new ColorConsoleLogger();
+            var generator = new ProjectDependencyGenerator(options, logger);
 
             await generator.CreateDiagramsAsync(solutionPath, projectsRootPath, "net7.0");
 

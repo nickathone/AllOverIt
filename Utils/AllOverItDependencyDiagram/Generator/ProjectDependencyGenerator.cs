@@ -2,7 +2,7 @@
 using AllOverIt.Extensions;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
-using AllOverItDependencyDiagram.Logging;
+using AllOverIt.Logging;
 using AllOverItDependencyDiagram.Parser;
 using System;
 using System.Collections.Generic;
@@ -14,15 +14,15 @@ using System.Threading.Tasks;
 
 namespace AllOverItDependencyDiagram.Generator
 {
-    internal sealed class D2DependencyGenerator
+    public sealed class ProjectDependencyGenerator
     {
-        private readonly D2DependencyGeneratorOptions _options;
-        private readonly IDependencyGeneratorLogger _logger;
+        private readonly ProjectDependencyGeneratorOptions _options;
+        private readonly IColorConsoleLogger _logger;
 
         private string _projectGroupName;
         private string _projectGroupPrefix;
 
-        public D2DependencyGenerator(D2DependencyGeneratorOptions options, IDependencyGeneratorLogger logger)
+        public ProjectDependencyGenerator(ProjectDependencyGeneratorOptions options, IColorConsoleLogger logger)
         {
             _options = options.WhenNotNull();
             _logger = logger.WhenNotNull();
@@ -313,7 +313,7 @@ namespace AllOverItDependencyDiagram.Generator
             return d2FilePath;
         }
 
-        private async Task ExportD2ImageFileAsync(string d2FileName, D2ImageFormat format)
+        private async Task ExportD2ImageFileAsync(string d2FileName, DiagramImageFormat format)
         {
             var imageFileName = Path.ChangeExtension(d2FileName, $"{format}").ToLowerInvariant();
 

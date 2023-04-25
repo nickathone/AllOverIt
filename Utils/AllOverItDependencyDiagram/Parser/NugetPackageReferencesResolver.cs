@@ -1,4 +1,5 @@
-﻿using AllOverIt.Extensions;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Extensions;
 using Flurl.Http;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,16 @@ namespace AllOverItDependencyDiagram.Parser
 {
     internal sealed class NugetPackageReferencesResolver
     {
+        public static readonly string[] TargetFrameworkOrderPreference = new[]
+        {
+            "net7.0",
+            "net6.0",
+            "net5.0",
+            ".netcoreapp3.1",
+            ".netstandard2.1",
+            ".netstandard2.0"
+        };
+
         private readonly IDictionary<(string, string), IEnumerable<PackageReference>> _nugetCache = new Dictionary<(string, string), IEnumerable<PackageReference>>();
         private readonly int _maxDepth;
 
@@ -18,12 +29,12 @@ namespace AllOverItDependencyDiagram.Parser
             _maxDepth = maxDepth;
         }
 
-        public Task<IReadOnlyCollection<PackageReference>> GetPackageReferences(string packageName, string packageVersion)
+        public Task<IReadOnlyCollection<PackageReference>> GetPackageReferences(string packageName, string packageVersion, string targetFramework)
         {
-            return GetPackageReferencesRecursively(packageName, packageVersion, 1);
+            return GetPackageReferencesRecursively(packageName, packageVersion, 1, targetFramework);
         }
 
-        private async Task<IReadOnlyCollection<PackageReference>> GetPackageReferencesRecursively(string packageName, string packageVersion, int depth)
+        private async Task<IReadOnlyCollection<PackageReference>> GetPackageReferencesRecursively(string packageName, string packageVersion, int depth, string targetFramework)
         {
             if (depth > _maxDepth)
             {
@@ -57,18 +68,20 @@ namespace AllOverItDependencyDiagram.Parser
 
                 if (dependenciesByFramework.Any())
                 {
+                    var useTarget = UseTargetFramework(dependenciesByFramework.Keys);
+
+                    var dependencies = dependenciesByFramework
+                        .Single(kvp => useTarget.Equals(kvp.Key, StringComparison.OrdinalIgnoreCase))
+                        .Value;
+
                     var packageReferencesList = new List<PackageReference>();
 
-                    // =====
-                    // take the last for now - until everything is actually grouped (or constrained) by the target framework
-                    // =====
-
-                    foreach (var dependency in dependenciesByFramework.Last().Value)
+                    foreach (var dependency in dependencies)
                     {
                         var dependencyName = dependency.Id;
                         var dependencyVersion = GetAssumedVersion(dependency.Version);
 
-                        var transitiveReferences = await GetPackageReferencesRecursively(dependencyName, dependencyVersion, depth + 1);
+                        var transitiveReferences = await GetPackageReferencesRecursively(dependencyName, dependencyVersion, depth + 1, targetFramework);
 
                         var packageReference = new PackageReference(true, depth)
                         {
@@ -98,6 +111,19 @@ namespace AllOverItDependencyDiagram.Parser
             }
 
             return packageVersion;
+        }
+
+        private static string UseTargetFramework(IEnumerable<string> targetFrameworks)
+        {
+            // Processing like this to ensure the list is provided in the order of TargetFrameworks.Descending
+            var availableTargets = targetFrameworks.Select(key => key.ToLowerInvariant());
+            availableTargets = TargetFrameworkOrderPreference.Intersect(availableTargets);
+
+            var useTarget = availableTargets.FirstOrDefault();
+
+            Throw<InvalidOperationException>.WhenNull(useTarget, $"Cannot find usable targetFramework from {string.Join(", ", targetFrameworks)}");
+
+            return useTarget;
         }
     }
 }

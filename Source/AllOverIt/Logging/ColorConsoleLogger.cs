@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace AllOverItDependencyDiagram.Logging
+namespace AllOverIt.Logging
 {
-    internal class DependencyGeneratorLogger : IDependencyGeneratorLogger
+    public sealed class ColorConsoleLogger : IColorConsoleLogger
     {
         private const string ForegroundPrefix = "fore";
         private const string BackgroundPrefix = "back";
@@ -34,48 +34,55 @@ namespace AllOverItDependencyDiagram.Logging
 
         private readonly StringBuilder _stringBuilder = new();
 
-        public IDependencyGeneratorLogger WriteFormatted(string formattedText)
+        public IColorConsoleLogger WriteFormatted(string formattedText)
         {
             LogToConsole(formattedText);
 
             return this;
         }
 
-        public IDependencyGeneratorLogger WriteFormattedLine(string formattedText)
+        public IColorConsoleLogger WriteFormattedLine(string formattedText)
         {
             LogToConsole(formattedText);
 
             return WriteLine();
         }
 
-        public IDependencyGeneratorLogger WriteFragment(ConsoleColor foreColor, string text)
+        public IColorConsoleLogger WriteFragment(ConsoleColor foreColor, string text)
         {
             return AddFragment(foreColor, null, text);
         }
 
-        public IDependencyGeneratorLogger WriteFragment(ConsoleColor foreColor, ConsoleColor backColor, string text)
+        public IColorConsoleLogger WriteFragment(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
             return WriteFragment(foreColor, backColor, text);
         }
 
-        public IDependencyGeneratorLogger WriteLine(ConsoleColor foreColor, string text)
+        public IColorConsoleLogger WriteLine(ConsoleColor foreColor, string text)
         {
             return AddFragment(foreColor, null, text).WriteLine();
         }
 
-        public IDependencyGeneratorLogger WriteLine(ConsoleColor foreColor, ConsoleColor backColor, string text)
+        public IColorConsoleLogger WriteLine(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
             return WriteFragment(foreColor, backColor, text).WriteLine();
         }
 
-        public IDependencyGeneratorLogger WriteLine()
+        public IColorConsoleLogger Write(string text)
+        {
+            Console.Write(text);
+
+            return this;
+        }
+
+        public IColorConsoleLogger WriteLine()
         {
             Console.WriteLine();
 
             return this;
         }
 
-        private IDependencyGeneratorLogger AddFragment(ConsoleColor? foreColor, ConsoleColor? backColor, string text)
+        private IColorConsoleLogger AddFragment(ConsoleColor? foreColor, ConsoleColor? backColor, string text)
         {
             if (foreColor.HasValue)
             {
@@ -108,7 +115,7 @@ namespace AllOverItDependencyDiagram.Logging
                 var matches = ColorMatchRegex
                     .Matches(message)
                     .Cast<Match>()
-                    .ToList();
+                    .AsReadOnlyCollection();
                 
                 if (!matches.Any())
                 {
