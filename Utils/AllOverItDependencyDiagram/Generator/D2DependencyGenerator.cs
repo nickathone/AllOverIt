@@ -42,7 +42,7 @@ namespace AllOverItDependencyDiagram.Generator
 
             foreach (var project in allProjects)
             {
-                LogExplicitDependencies(project);
+                LogDependencies(project);
             }
 
             var indexedProjects = allProjects.ToDictionary(project => project.Name, project => project);
@@ -347,7 +347,7 @@ namespace AllOverItDependencyDiagram.Generator
             return $"{package.Name}_{package.Version}".Replace(".", "-").ToLowerInvariant();
         }
 
-        private void LogExplicitDependencies(SolutionProject solutionProject)
+        private void LogDependencies(SolutionProject solutionProject)
         {
             var sortedProjectDependenies = solutionProject.Dependencies
                 .SelectMany(item => item.ProjectReferences)
@@ -363,17 +363,46 @@ namespace AllOverItDependencyDiagram.Generator
             }
 
             var sortedPackageDependenies = solutionProject.Dependencies
-                .SelectMany(item => item.PackageReferences)
-                .Select(item => item.Name)
+                .SelectMany(item => GetAllPackageDependencies(item.PackageReferences))
+                .Select(item => (item.Name, item.Version))
                 .Distinct()                                     // Multiple packages may depend on another common package
-                .Order().ToList();
+                .Order()
+                .GroupBy(item => item.Name);
 
             foreach (var dependency in sortedPackageDependenies)
             {
-                _logger
-                    .WriteFragment(ConsoleColor.Yellow, solutionProject.Name)
-                    .WriteFragment(ConsoleColor.White, " depends on ")
-                    .WriteLine(ConsoleColor.Yellow, dependency);
+                var dependencyName = dependency.Key;
+                var dependencyVersions = dependency.ToList();
+
+                if (dependencyVersions.Count == 1)
+                {
+                    var dependencyVersion = dependencyVersions.Single();
+
+                    _logger
+                        .WriteFragment(ConsoleColor.Yellow, solutionProject.Name)
+                        .WriteFragment(ConsoleColor.White, " depends on ")
+                        .WriteLine(ConsoleColor.Yellow, $"{dependencyName} v{dependencyVersion.Version}");
+                }
+                else
+                {
+                    var versions = dependencyVersions.Select(item => $"v{item.Version}");
+
+                    _logger
+                        .WriteLine(ConsoleColor.Red, $"{solutionProject.Name} depends on multiple versions of {dependencyName} {string.Join(", ", versions)}");
+                }
+            }
+        }
+
+        private static IEnumerable<PackageReference> GetAllPackageDependencies(IEnumerable<PackageReference> packageReferences)
+        {
+            foreach (var packageReference in packageReferences)
+            {
+                yield return packageReference;
+
+                foreach (var transitiveReference in GetAllPackageDependencies(packageReference.TransitiveReferences))
+                {
+                    yield return transitiveReference;
+                }
             }
         }
     }
