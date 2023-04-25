@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace SolutionInspector
+namespace AllOverItDependencyDiagram
 {
     // The current version is not using DI so unit testability hasn't been a priority
     internal class Program

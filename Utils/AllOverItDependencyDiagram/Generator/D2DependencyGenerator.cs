@@ -3,7 +3,7 @@ using AllOverIt.Extensions;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
 using AllOverItDependencyDiagram.Logging;
-using SolutionInspector.Parser;
+using AllOverItDependencyDiagram.Parser;
 using System;
 using System.Collections.Generic;
 using System.IO;

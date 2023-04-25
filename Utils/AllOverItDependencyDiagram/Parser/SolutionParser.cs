@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SolutionInspector.Parser
+namespace AllOverItDependencyDiagram.Parser
 {
     internal sealed class SolutionParser
     {
@@ -102,12 +102,9 @@ namespace SolutionInspector.Parser
         {
             return projectItems
                 .Where(item => item.ItemType.Equals("ProjectReference", StringComparison.OrdinalIgnoreCase))
-                .Select(item => 
+                .Select(item =>
                 {
                     var projectPath = FileUtils.GetAbsolutePath(projectFolder, item.Include);
-
-                    // This can be used if the project ever needs to be inspected:
-                    // var projectRootElement = ProjectRootElement.Open(projectPath);
 
                     return new ProjectReference
                     {
