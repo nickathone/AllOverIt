@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
         <Description>A library to help build AWS Graphql schemas using a code-first approach.</Description>
         <PackageTags>AllOverIt;Utilities;AWS;Amazon;AppSync;CDK;Graphql</PackageTags>
     </PropertyGroup>
