@@ -19,12 +19,12 @@ namespace AllOverIt.Reactive
         /// <param name="model">The wrapped model instance.</param>
         protected ObservableProxy(TType model)
         {
-            Model = model.WhenNotNull(nameof(model));    
+            Model = model.WhenNotNull(nameof(model));
         }
 
         /// <summary>Compares the current and new value of a property on the wrapped <see cref="Model"/>. If the new value is
-        /// different then the <see cref="PropertyChanging"/> event is called, then the value is updated via <paramref name="setValue"/>,
-        /// then the <see cref="PropertyChanged"/> event is called.</summary>
+        /// different then the <see cref="ObservableObject.PropertyChanging"/> event is called, then the value is updated via
+        /// <paramref name="setValue"/>, then the <see cref="ObservableObject.PropertyChanged"/> event is called.</summary>
         /// <typeparam name="TProperty">The property type.</typeparam>
         /// <param name="oldValue">The current property value.</param>
         /// <param name="newValue">The new property value to be set.</param>
@@ -38,8 +38,8 @@ namespace AllOverIt.Reactive
         }
 
         /// <summary>Compares the current and new value of a property on the wrapped <see cref="Model"/>. If the new value is
-        /// different then the <see cref="PropertyChanging"/> event is called, then the value is updated via <paramref name="setValue"/>,
-        /// then the <see cref="PropertyChanged"/> event is called.</summary>
+        /// different then the <see cref="ObservableObject.PropertyChanging"/> event is called, then the value is updated via <paramref name="setValue"/>,
+        /// then the <see cref="ObservableObject.PropertyChanged"/> event is called.</summary>
         /// <typeparam name="TProperty">The property type.</typeparam>
         /// <param name="oldValue">The current property value.</param>
         /// <param name="newValue">The new property value to be set.</param>
@@ -55,8 +55,8 @@ namespace AllOverIt.Reactive
         }
 
         /// <summary>Compares the current and new value of a property on the wrapped <see cref="Model"/>. If the new value is
-        /// different then the <see cref="PropertyChanging"/> event is called, then the value is updated via <paramref name="setValue"/>,
-        /// then the <see cref="PropertyChanged"/> event is called.</summary>
+        /// different then the <see cref="ObservableObject.PropertyChanging"/> event is called, then the value is updated via <paramref name="setValue"/>,
+        /// then the <see cref="ObservableObject.PropertyChanged"/> event is called.</summary>
         /// <typeparam name="TProperty">The property type.</typeparam>
         /// <param name="oldValue">The current property value.</param>
         /// <param name="newValue">The new property value to be set.</param>
