@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Extensions;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,6 +8,7 @@ using System.Text.RegularExpressions;
 namespace AllOverIt.Logging
 {
     /// <summary>A console logger capable of generating output in color.</summary>
+    [ExcludeFromCodeCoverage]
     public sealed class ColorConsoleLogger : IColorConsoleLogger
     {
         private const string ForegroundPrefix = "fore";
