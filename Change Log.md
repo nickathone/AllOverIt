@@ -138,3 +138,4 @@
 
 ## AllOverIt.Wpf.Controls :new:
 * Includes a `PreviewTextBox` control
+* Includes a 'ExecuteCommandOnEnterKeyBehavior' behavior
