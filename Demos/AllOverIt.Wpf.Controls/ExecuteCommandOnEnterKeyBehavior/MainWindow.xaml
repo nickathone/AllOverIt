@@ -7,8 +7,9 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:ExecuteCommandOnEnterKeyBehavior"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="350" Closing="OnWindowClosing"
+    Width="350"
     Height="120"
+    Closing="OnWindowClosing"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.DataContext>
@@ -16,12 +17,12 @@
     </Window.DataContext>
     <Grid>
         <TextBox
-                Width="290"
-                Height="40"
-                Padding="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Background="LightSalmon">
+            Width="290"
+            Height="40"
+            Padding="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="LightSalmon">
             <i:Interaction.Behaviors>
                 <behavior:ExecuteCommandOnEnterKeyBehavior Command="{Binding ShowMessageCommand}" CommandParameter="{Binding CurrentDateTime}" />
             </i:Interaction.Behaviors>
