@@ -4,6 +4,7 @@ using System.Windows.Input;
 
 namespace AllOverIt.Wpf.Behaviors
 {
+    /// <summary>Implements a behavior that invokes a command when the Enter key is pressed on the associated object.</summary>
     public class ExecuteCommandOnEnterKeyBehavior : Behavior<UIElement>
     {
         /// <summary>The <see cref="Command"/> dependency property.</summary>
