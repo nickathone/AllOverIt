@@ -45,10 +45,11 @@ namespace AllOverItDependencyDiagram.Generator
                 LogDependencies(project);
             }
 
-            var indexedProjects = allProjects.ToDictionary(project => project.Name, project => project);
+            var solutionProjects = allProjects.ToDictionary(project => project.Name, project => project);
 
-            await ExportAsIndividual(indexedProjects);
-            await ExportAsAll(indexedProjects);
+            await ExportAsSummary(solutionProjects);
+            await ExportAsIndividual(solutionProjects);
+            await ExportAsAll(solutionProjects);
         }
 
         private void InitProjectGroupInfo(string solutionPath)
@@ -78,19 +79,190 @@ namespace AllOverItDependencyDiagram.Generator
             }
         }
 
-        private async Task ExportAsIndividual(IDictionary<string, SolutionProject> indexedProjects)
+        private async Task ExportAsSummary(IDictionary<string, SolutionProject> solutionProjects)
         {
-            foreach (var scopedProject in indexedProjects.Values)
+            var sb = new StringBuilder();
+
+            sb.AppendLine("# Dependency Summary");
+
+            var maxLengths = new int[3];
+
+            foreach (var solutionProject in solutionProjects)
             {
-                var d2Content = GenerateD2Content(scopedProject, indexedProjects);
+                sb.AppendLine();
+                sb.AppendLine("|Package|Dependency|Transitive|");
+                sb.AppendLine("|-|-|-|");
+
+                var dependencySet = new HashSet<string>();
+                var transitiveSet = new HashSet<string>();
+
+
+
+                void AppendProjectDependencies(SolutionProject solutionProject)
+                {
+                    //var projectName = solutionProject.Name;                  
+
+                    //dependencySet.Add(projectName);
+
+                    AppendPackageDependencies(solutionProject);
+
+                    foreach (var project in solutionProject.Dependencies.SelectMany(item => item.ProjectReferences))
+                    {
+                        AppendProjectDependenciesRecursively(project);
+                    }
+                }
+
+                void AppendProjectDependenciesRecursively(ProjectReference projectReference)
+                {
+                    var projectName = GetProjectName(projectReference);
+
+                    dependencySet.Add(projectName);
+
+                    // Add all packages dependencies (recursively) for the current project
+                    foreach (var package in solutionProjects[projectName].Dependencies.SelectMany(item => item.PackageReferences))
+                    {
+                        AppendPackageDependenciesRecursively(package);
+                    }
+
+                    // Add all project dependencies (recursively) for the current project
+                    foreach (var project in solutionProjects[projectName].Dependencies.SelectMany(item => item.ProjectReferences))
+                    {
+                        AppendProjectDependenciesRecursively(project);
+                    }
+                }
+
+                void AppendPackageDependencies(SolutionProject solutionProject)
+                {
+                    var projectName = solutionProject.Name;
+
+                    foreach (var package in solutionProject.Dependencies.SelectMany(item => item.PackageReferences))
+                    {
+                        AppendPackageDependenciesRecursively(package);
+                    }
+                }
+
+                void AppendPackageDependenciesRecursively(PackageReference packageReference)
+                {
+                    var packageNameVersion = $"{packageReference.Name} v{packageReference.Version}";
+
+                    if (packageReference.Depth == 0)
+                    {
+                        dependencySet.Add(packageNameVersion);
+                    }
+                    else
+                    {
+                        transitiveSet.Add(packageNameVersion);
+                    }
+
+                    foreach (var package in packageReference.TransitiveReferences)
+                    {
+                        AppendPackageDependenciesRecursively(package);
+                    }
+                }
+
+
+
+
+                // Projects and explicit packages
+                AppendProjectDependencies(solutionProject.Value);
+
+
+
+
+                var dependencies = dependencySet.Order().ToArray();
+                var transitives = transitiveSet.Order().ToArray();
+
+                maxLengths[0] = Math.Max(maxLengths[0], solutionProject.Value.Name.Length);
+
+                if (dependencies.Any())
+                {
+                    maxLengths[1] = Math.Max(maxLengths[1], dependencies.Max(item => item.Length));
+                }
+
+                if (transitives.Any())
+                {
+                    maxLengths[2] = Math.Max(maxLengths[2], transitives.Max(item => item.Length));
+                }
+
+
+                static string GetElement<T>(T[] elements, int index, Func<T, string> selector)
+                {
+                    if (index >= elements.Length)
+                    {
+                        return string.Empty;
+                    }
+
+                    return selector.Invoke(elements[index]);
+                }
+
+
+                string GetSummaryLine(int index)
+                {
+                    var project = GetElement(new[] { solutionProject.Value }, index, item => Path.GetFileNameWithoutExtension(item.Path));
+
+                    var package = GetElement(dependencies, index, item => item);
+
+                    if (index == 0 && package.IsNullOrEmpty())
+                    {
+                        package = "-";
+                    }
+
+                    var transitive = GetElement(transitives, index, item => item);
+
+                    return $"|{project}|{package}|{transitive}|";
+                }
+
+                var maxCount = Math.Max(dependencies.Length, transitives.Length);
+
+                // Cater for when there's no dependencies - we at least want the project listed
+                maxCount = Math.Max(maxCount, 1);
+
+                for (var i = 0; i < maxCount; i++)
+                {
+                    var line = GetSummaryLine(i);
+                    sb.AppendLine(line);
+                }
+            }
+
+
+
+            var style = $$"""
+                <style>
+                  th:nth-child(1) {
+                    width: {{maxLengths[0]}}ch;
+                  }
+                  th:nth-child(2) {
+                    width: {{maxLengths[1]}}ch;
+                  }
+                  th:nth-child(3) {
+                    width: {{maxLengths[2]}}ch;
+                  }
+                  tr:first-child th {
+                    background-color: #444654;
+                  }
+                </style>
+
+
+                """;        // only 1 newline is added to the content
+
+            sb.Insert(0, style);
+
+            var output = sb.ToString();
+        }
+
+        private async Task ExportAsIndividual(IDictionary<string, SolutionProject> solutionProjects)
+        {
+            foreach (var scopedProject in solutionProjects.Values)
+            {
+                var d2Content = GenerateD2Content(scopedProject, solutionProjects);
 
                 await CreateD2FileAndImages(scopedProject.Name, d2Content);
             }
         }
 
-        private Task ExportAsAll(IDictionary<string, SolutionProject> indexedProjects)
+        private Task ExportAsAll(IDictionary<string, SolutionProject> solutionProjects)
         {
-            var d2Content = GenerateD2Content(indexedProjects);
+            var d2Content = GenerateD2Content(solutionProjects);
 
             return CreateD2FileAndImages("AllOverIt-All", d2Content);
         }
