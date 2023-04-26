@@ -15,7 +15,7 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox
     {
         private readonly IDictionary<ICommand, Action<RoutedEventArgs>> _commandHandlers = new Dictionary<ICommand, Action<RoutedEventArgs>>();
 
-        /// <summary>The PreviewTextChanged routed event.</summary>
+        /// <summary>The <see cref="PreviewTextChanged"/> routed event.</summary>
         public static readonly RoutedEvent PreviewTextChangedEvent = EventManager.RegisterRoutedEvent(
             nameof(PreviewTextChanged),
             RoutingStrategy.Tunnel,
@@ -31,7 +31,7 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox
             remove => RemoveHandler(PreviewTextChangedEvent, value);
         }
 
-        /// <summary>The PreviewHandler dependency property.</summary>
+        /// <summary>The <see cref="PreviewHandler"/> dependency property.</summary>
         public static readonly DependencyProperty PreviewHandlerProperty =
             DependencyProperty.Register(
                 nameof(PreviewHandler),
