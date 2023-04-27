@@ -38,7 +38,7 @@ namespace AllOverIt.Logging
         private readonly StringBuilder _stringBuilder = new();
 
         /// <inheritdoc />
-        public IColorConsoleLogger WriteFormatted(string formattedText)
+        public IColorConsoleLogger Write(string formattedText)
         {
             LogToConsole(formattedText);
 
@@ -46,23 +46,23 @@ namespace AllOverIt.Logging
         }
 
         /// <inheritdoc />
-        public IColorConsoleLogger WriteFormattedLine(string formattedText)
-        {
-            LogToConsole(formattedText);
-
-            return WriteLine();
-        }
-
-        /// <inheritdoc />
-        public IColorConsoleLogger WriteFragment(ConsoleColor foreColor, string text)
+        public IColorConsoleLogger Write(ConsoleColor foreColor, string text)
         {
             return AddFragment(foreColor, null, text);
         }
 
         /// <inheritdoc />
-        public IColorConsoleLogger WriteFragment(ConsoleColor foreColor, ConsoleColor backColor, string text)
+        public IColorConsoleLogger Write(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
-            return WriteFragment(foreColor, backColor, text);
+            return Write(foreColor, backColor, text);
+        }
+
+        /// <inheritdoc />
+        public IColorConsoleLogger WriteLine(string formattedText)
+        {
+            LogToConsole(formattedText);
+
+            return WriteLine();
         }
 
         /// <inheritdoc />
@@ -74,23 +74,7 @@ namespace AllOverIt.Logging
         /// <inheritdoc />
         public IColorConsoleLogger WriteLine(ConsoleColor foreColor, ConsoleColor backColor, string text)
         {
-            return WriteFragment(foreColor, backColor, text).WriteLine();
-        }
-
-        /// <inheritdoc />
-        public IColorConsoleLogger Write(string text)
-        {
-            Console.Write(text);
-
-            return this;
-        }
-
-        /// <inheritdoc />
-        public IColorConsoleLogger WriteLine(string text)
-        {
-            Console.WriteLine(text);
-
-            return this;
+            return Write(foreColor, backColor, text).WriteLine();
         }
 
         /// <inheritdoc />

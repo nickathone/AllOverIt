@@ -1,8 +1,8 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Extensions;
+using AllOverIt.Logging;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
-using AllOverIt.Logging;
 using AllOverItDependencyDiagram.Parser;
 using System;
 using System.Collections.Generic;
@@ -79,31 +79,75 @@ namespace AllOverItDependencyDiagram.Generator
             }
         }
 
-        private async Task ExportAsSummary(IDictionary<string, SolutionProject> solutionProjects)
+
+
+        /*
+            55A9EE: A brighter blue that should provide good contrast against white and also complement the other colors you've chosen.
+            6EBE50: A green color that is similar to 62B178 but brighter, and should provide good contrast against white.
+            C56EE0: A purple color that is similar to B19CD9 but brighter, and should provide good contrast against white.
+            FF8C67: An orange color that is similar to FF7F50 but brighter, and should provide good contrast against white.
+            E3505C: A red color that is similar to CB484D but brighter, and should provide good contrast against white.
+            FFC33C: A bright yellow color that can complement the other colors you've chosen and should provide good contrast against white.
+         */
+
+        private const string Blue = "55A9EE";
+        private const string Green = "6EBE50";
+        private const string Purple = "C56EE0";
+        private const string Orange = "FF8C67";
+        private const string Red = "E3505C";
+        private const string Yellow = "FFC33C";
+
+        public static readonly IDictionary<string, string> TargetFrameworkBadges = new Dictionary<string, string>
+        {
+            { "net7.0", $"![](https://img.shields.io/badge/.NET-7.0-{Blue}.svg)"},
+            { "net7.0-windows", $"![](https://img.shields.io/badge/.NET-7.0--windows-{Blue}.svg)"},
+            { "net6.0", $"![](https://img.shields.io/badge/.NET-6.0-{Orange}.svg)"},
+            { "net6.0-windows", $"![](https://img.shields.io/badge/.NET-6.0--windows-{Orange}.svg)"},
+            { "net5.0", $"![](https://img.shields.io/badge/.NET-5.0-{Yellow}.svg)"},
+            { "net5.0-windows", $"![](https://img.shields.io/badge/.NET-5.0--windows-{Yellow}.svg)"},
+            { "netcoreapp3.1", $"![](https://img.shields.io/badge/.NET-coreapp3.1-{Purple}.svg)"},
+            { "netstandard2.1", $"![](https://img.shields.io/badge/.NET-standard2.1-{Green}.svg)"},
+            { "netstandard2.0", $"![](https://img.shields.io/badge/.NET-standard2.0-{Red}.svg)"}            
+        };
+
+        private Task ExportAsSummary(IDictionary<string, SolutionProject> solutionProjects)
         {
             var sb = new StringBuilder();
 
             sb.AppendLine("# Dependency Summary");
 
             var maxLengths = new int[3];
+            var first = true;
 
             foreach (var solutionProject in solutionProjects)
             {
-                sb.AppendLine();
-                sb.AppendLine("|Package|Dependency|Transitive|");
-                sb.AppendLine("|-|-|-|");
+                if (first)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("|Package|Dependencies|Transitives|");
+                    sb.AppendLine("|-|-|-|");
+                    first = false;
+                }
+                else
+                {
+                    sb.AppendLine("|<br>|||");
+                }
+
+                var frameworkBadges = TargetFrameworkBadges.Keys
+                    .Intersect(solutionProject.Value.TargetFrameworks)
+                    .Select(key => TargetFrameworkBadges[key])
+                    .ToList();
+
+                var projectBadges = $"|{string.Join(" ", frameworkBadges)}|||";
+
+
+
 
                 var dependencySet = new HashSet<string>();
                 var transitiveSet = new HashSet<string>();
 
-
-
                 void AppendProjectDependencies(SolutionProject solutionProject)
                 {
-                    //var projectName = solutionProject.Name;                  
-
-                    //dependencySet.Add(projectName);
-
                     AppendPackageDependencies(solutionProject);
 
                     foreach (var project in solutionProject.Dependencies.SelectMany(item => item.ProjectReferences))
@@ -160,14 +204,7 @@ namespace AllOverItDependencyDiagram.Generator
                     }
                 }
 
-
-
-
-                // Projects and explicit packages
                 AppendProjectDependencies(solutionProject.Value);
-
-
-
 
                 var dependencies = dependencySet.Order().ToArray();
                 var transitives = transitiveSet.Order().ToArray();
@@ -204,7 +241,7 @@ namespace AllOverItDependencyDiagram.Generator
 
                     if (index == 0 && package.IsNullOrEmpty())
                     {
-                        package = "-";
+                        package = "None";
                     }
 
                     var transitive = GetElement(transitives, index, item => item);
@@ -221,33 +258,19 @@ namespace AllOverItDependencyDiagram.Generator
                 {
                     var line = GetSummaryLine(i);
                     sb.AppendLine(line);
+
+                    if (i == 0)
+                    {
+                        sb.AppendLine(projectBadges);
+                    }
                 }
             }
 
+            var content = sb.ToString();
 
+            var summaryPath = Path.Combine(_options.DiagramExportPath, "summary.md");
 
-            var style = $$"""
-                <style>
-                  th:nth-child(1) {
-                    width: {{maxLengths[0]}}ch;
-                  }
-                  th:nth-child(2) {
-                    width: {{maxLengths[1]}}ch;
-                  }
-                  th:nth-child(3) {
-                    width: {{maxLengths[2]}}ch;
-                  }
-                  tr:first-child th {
-                    background-color: #444654;
-                  }
-                </style>
-
-
-                """;        // only 1 newline is added to the content
-
-            sb.Insert(0, style);
-
-            var output = sb.ToString();
+            return File.WriteAllTextAsync(summaryPath, content);
         }
 
         private async Task ExportAsIndividual(IDictionary<string, SolutionProject> solutionProjects)
@@ -467,9 +490,9 @@ namespace AllOverItDependencyDiagram.Generator
 
             // Showing how to mix AddFormatted() with AddFragment() where the latter
             // is a simple alternative to using string interpolation.
-            _logger.WriteFormatted("{forecolor:white}Creating diagram: ")
-                   .WriteFragment(ConsoleColor.Yellow, Path.GetFileName(fileName))
-                   .WriteFormatted("{forecolor:white}...");
+            _logger.Write("{forecolor:white}Creating diagram: ")
+                   .Write(ConsoleColor.Yellow, Path.GetFileName(fileName))
+                   .Write("{forecolor:white}...");
 
             File.WriteAllText(d2FilePath, content);
 
@@ -480,7 +503,7 @@ namespace AllOverItDependencyDiagram.Generator
                 .ExecuteAsync();
 
             // An example using formatted text
-            _logger.WriteFormattedLine("{forecolor:green}Done");
+            _logger.WriteLine("{forecolor:green}Done");
 
             return d2FilePath;
         }
@@ -490,9 +513,9 @@ namespace AllOverItDependencyDiagram.Generator
             var imageFileName = Path.ChangeExtension(d2FileName, $"{format}").ToLowerInvariant();
 
             _logger
-                .WriteFragment(ConsoleColor.White, "Creating image: ")
-                .WriteFragment(ConsoleColor.Yellow, Path.GetFileName(imageFileName))
-                .WriteFragment(ConsoleColor.White, "...");
+                .Write(ConsoleColor.White, "Creating image: ")
+                .Write(ConsoleColor.Yellow, Path.GetFileName(imageFileName))
+                .Write(ConsoleColor.White, "...");
 
             var export = ProcessBuilder
                .For("d2.exe")
@@ -529,8 +552,8 @@ namespace AllOverItDependencyDiagram.Generator
             foreach (var dependency in sortedProjectDependenies)
             {
                 _logger
-                    .WriteFragment(ConsoleColor.Yellow, solutionProject.Name)
-                    .WriteFragment(ConsoleColor.White, " depends on ")
+                    .Write(ConsoleColor.Yellow, solutionProject.Name)
+                    .Write(ConsoleColor.White, " depends on ")
                     .WriteLine(ConsoleColor.Yellow, Path.GetFileNameWithoutExtension(dependency));
             }
 
@@ -551,8 +574,8 @@ namespace AllOverItDependencyDiagram.Generator
                     var dependencyVersion = dependencyVersions.Single();
 
                     _logger
-                        .WriteFragment(ConsoleColor.Yellow, solutionProject.Name)
-                        .WriteFragment(ConsoleColor.White, " depends on ")
+                        .Write(ConsoleColor.Yellow, solutionProject.Name)
+                        .Write(ConsoleColor.White, " depends on ")
                         .WriteLine(ConsoleColor.Yellow, $"{dependencyName} v{dependencyVersion.Version}");
                 }
                 else
