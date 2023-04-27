@@ -25,9 +25,11 @@ Refer to this <a href="/Docs/Code%20Coverage/summary.html" target="_blank">link<
 
 A general purpose library containing a variety of classes and helper utilities.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) for usage information.
@@ -46,9 +48,10 @@ Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) 
 
 A library containing ASP.NET Core utilities.
 
-| netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 
 
 ---
@@ -60,9 +63,11 @@ A library containing ASP.NET Core utilities.
 
 A library containing pre and post condition assertion helper methods.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -74,9 +79,11 @@ A library containing pre and post condition assertion helper methods.
 
 A library containing AppSync GraphQL and Subscription clients.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -88,11 +95,10 @@ A library containing AppSync GraphQL and Subscription clients.
 
 A library to help build AWS Graphql schemas using a code-first approach.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: \* | :heavy_check_mark: | :heavy_check_mark: \* | :heavy_check_mark: \* | :heavy_check_mark: \* |
-
-\* Although not explicitly built for all platforms, the AWS CDK supports Net Core 3.1 and above.
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 
 
 ---
@@ -104,9 +110,11 @@ A library to help build AWS Graphql schemas using a code-first approach.
 
 A library to assist with CSV export using CsvHelper.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -118,9 +126,11 @@ A library to assist with CSV export using CsvHelper.
 
 A library containing useful dependency injection related utilities.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -132,9 +142,11 @@ A library containing useful dependency injection related utilities.
 
 A library providing utilities for use with EntityFramework Core.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -146,9 +158,11 @@ A library providing utilities for use with EntityFramework Core.
 
 A library providing formatters to generate ERD diagrams using EntityFramework Core.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -160,9 +174,11 @@ A library providing formatters to generate ERD diagrams using EntityFramework Co
 
 A library providing keyset-based pagination for use with EntityFramework Core.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -174,9 +190,11 @@ A library providing keyset-based pagination for use with EntityFramework Core.
 
 A library containing an extendable expression compiler and evaluator.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -188,9 +206,11 @@ A library containing an extendable expression compiler and evaluator.
 
 A library providing queryable filtering utilities.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -202,9 +222,11 @@ A library providing queryable filtering utilities.
 
 A library containing a base fixture class with numerous helper methods to assist with creating unit test scaffolding. Utilizes AutoFixture to do most of the hard work.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -216,9 +238,11 @@ A library containing a base fixture class with numerous helper methods to assist
 
 A library extending **AllOverIt.Fixture** to support FakeItEasy integration.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -230,9 +254,11 @@ A library extending **AllOverIt.Fixture** to support FakeItEasy integration.
 
 A library containing a convenient wrapper for building console applications that support dependency injection.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -244,9 +270,11 @@ A library containing a convenient wrapper for building console applications that
 
 A library containing an object mapper that is mostly configuration free.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -258,9 +286,11 @@ A library containing an object mapper that is mostly configuration free.
 
 A library providing queryable keyset-based pagination utilities.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -272,9 +302,11 @@ A library providing queryable keyset-based pagination utilities.
 
 A library containing utility extensions for use with System.Reactive.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -286,9 +318,11 @@ A library containing utility extensions for use with System.Reactive.
 
 A library containing utility extensions for use with ReactiveUI.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -300,9 +334,11 @@ A library containing utility extensions for use with ReactiveUI.
 
 A library providing support for binary serialization.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -314,9 +350,11 @@ A library providing support for binary serialization.
 
 A library containing JSON serialization abstractions.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -328,9 +366,11 @@ A library containing JSON serialization abstractions.
 
 A library containing a wrapper for Newtonsoft.Json serialization based on AllOverIt.Serialization.Json.Abstractions.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -342,9 +382,11 @@ A library containing a wrapper for Newtonsoft.Json serialization based on AllOve
 
 A library containing a wrapper for System.Text.Json serialization based on AllOverIt.Serialization.Json.Abstractions.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -356,9 +398,11 @@ A library containing a wrapper for System.Text.Json serialization based on AllOv
 
 A library containing additional validators and extensions for use with FluentValidation.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -370,9 +414,11 @@ A library containing additional validators and extensions for use with FluentVal
 
 A library containing Options validation using FluentValidation.
 
-| netstandard2.1     | netcoreapp3.1      | net5.0             | net6.0             | net7.0             |
-| -------------------|--------------------|--------------------|--------------------|------------------- |
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -384,9 +430,10 @@ A library containing Options validation using FluentValidation.
 
 A library containing general purpose WPF utilities.
 
-| net5.0-windows     | net6.0-windows     | net7.0-windows     |
-| -------------------|--------------------|--------------------|
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0--windows-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0--windows-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0--windows-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 
 
 ---
@@ -398,9 +445,10 @@ A library containing general purpose WPF utilities.
 
 A library containing useful WPF controls.
 
-| net5.0-windows     | net6.0-windows     | net7.0-windows     |
-| -------------------|--------------------|--------------------|
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+![](https://img.shields.io/badge/.NET-7.0--windows-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0--windows-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-5.0--windows-FFC33C.svg)
+![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 
 
 ---
