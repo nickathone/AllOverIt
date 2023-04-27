@@ -1,0 +1,12 @@
+th:nth-child(1) {
+  width: {{maxLengths[0]}}ch;
+}
+th:nth-child(2) {
+  width: {{maxLengths[1]}}ch;
+}
+th:nth-child(3) {
+  width: {{maxLengths[2]}}ch;
+}
+tr:first-child th {
+  background-color: #444654;
+}

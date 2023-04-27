@@ -1,17 +1,6 @@
-<style>
-  th:nth-child(1) {
-    width: 41ch;
-  }
-  th:nth-child(2) {
-    width: 60ch;
-  }
-  th:nth-child(3) {
-    width: 62ch;
-  }
-  tr:first-child th {
-    background-color: #444654;
-  }
-</style>
+<head>
+  <link rel="stylesheet" href="summary.css">
+</head>
 
 # Dependency Summary
 
