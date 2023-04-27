@@ -12,7 +12,8 @@ namespace AllOverItDependencyDiagram.Generator
 
         public string TransitiveStyleFill { get; set; } = "#FFEC96";
 
-        public IList<DiagramImageFormat> ImageFormats { get; } = new List<DiagramImageFormat> { DiagramImageFormat.Svg, DiagramImageFormat.Png };
+        // Also supports svg and pdf
+        public IList<DiagramImageFormat> ImageFormats { get; } = new List<DiagramImageFormat> { DiagramImageFormat.Png };
 
         public string DiagramExportPath { get; set; }
     }
