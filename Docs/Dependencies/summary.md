@@ -1,6 +1,4 @@
-<head>
-  <link rel="stylesheet" href="summary.css">
-</head>
+<link rel="stylesheet" href="summary.css">
 
 # Dependency Summary
 

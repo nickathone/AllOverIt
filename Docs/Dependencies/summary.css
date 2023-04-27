@@ -1,12 +1,15 @@
 th:nth-child(1) {
-  width: {{maxLengths[0]}}ch;
+  width: 60ch;
 }
+
 th:nth-child(2) {
-  width: {{maxLengths[1]}}ch;
+  width: 60ch;
 }
+
 th:nth-child(3) {
-  width: {{maxLengths[2]}}ch;
+  width: 60ch;
 }
+
 tr:first-child th {
   background-color: #444654;
 }
