@@ -9,7 +9,7 @@ ReportGenerator.exe "-reports:.\TestResults\/**/*.cobertura.xml" "-targetdir:.\T
 rmdir /s /q TestResults
 
 copy ".\TestCoverage\summary.html" ".\Docs\Code Coverage\summary.html"
-copy ".\TestCoverage\Summary.md" ".\Docs\Code Coverage\Summary.md"
+copy ".\TestCoverage\Summary.md" ".\Docs\Code Coverage\summary.md"
 copy ".\TestCoverage\badge_linecoverage.png" ".\Docs\Code Coverage\badge_linecoverage.png"
 copy ".\TestCoverage\badge_branchcoverage.png" ".\Docs\Code Coverage\badge_branchcoverage.png"
 copy ".\TestCoverage\badge_methodcoverage.png" ".\Docs\Code Coverage\badge_methodcoverage.png"
