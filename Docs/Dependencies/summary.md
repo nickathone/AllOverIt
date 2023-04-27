@@ -5,7 +5,6 @@
 |AllOverIt|AllOverIt.Assertion||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.AspNetCore|AllOverIt|Microsoft.AspNetCore.Mvc.Analyzers v2.2.0|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)|||
 ||AllOverIt.Assertion|Microsoft.AspNetCore.Mvc.ApiExplorer v2.2.0|
@@ -21,11 +20,9 @@
 |||Microsoft.Extensions.Caching.Memory v2.2.0|
 |||Microsoft.Extensions.DependencyInjection v2.2.0|
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Assertion|None||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Aws.AppSync.Client|AllOverIt|Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion|Microsoft.Extensions.Logging v7.0.0|
@@ -35,7 +32,6 @@
 ||Microsoft.Extensions.Http v7.0.0||
 ||System.Reactive v5.0.0||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Aws.Cdk.AppSync|AllOverIt|Amazon.CDK v1.198.1|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)|||
 ||AllOverIt.Assertion|Amazon.CDK.AWS.CertificateManager v1.198.1|
@@ -52,31 +48,26 @@
 |||Amazon.JSII.Runtime v1.74.0|
 |||Constructs v3.3.69|
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Csv|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 ||CsvHelper v30.0.1||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.DependencyInjection|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 ||Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.EntityFrameworkCore|AllOverIt|Microsoft.EntityFrameworkCore v7.0.5|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion|Microsoft.Extensions.Configuration.Abstractions v7.0.0|
 ||Microsoft.EntityFrameworkCore.Relational v7.0.5||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.EntityFrameworkCore.Diagrams|AllOverIt|Microsoft.EntityFrameworkCore v7.0.5|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion|Microsoft.Extensions.Configuration.Abstractions v7.0.0|
 ||Microsoft.EntityFrameworkCore.Relational v7.0.5||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.EntityFrameworkCore.Pagination|AllOverIt|Microsoft.EntityFrameworkCore v7.0.5|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion|Microsoft.Extensions.Configuration.Abstractions v7.0.0|
@@ -86,23 +77,19 @@
 ||Microsoft.EntityFrameworkCore.Relational v7.0.5||
 ||Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Evaluator|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Filtering|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Fixture|AutoFixture v4.18.0|Fare v2.1.1|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||FluentAssertions v6.10.0|System.ComponentModel.Annotations v4.3.0|
 |||System.Configuration.ConfigurationManager v4.4.0|
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Fixture.FakeItEasy|AllOverIt.Fixture|AutoFixture v4.18.0|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AutoFixture v4.18.0|Castle.Core v4.3.1|
@@ -111,7 +98,6 @@
 ||FluentAssertions v6.10.0|System.ComponentModel.Annotations v4.3.0|
 |||System.Configuration.ConfigurationManager v4.4.0|
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.GenericHost|AllOverIt|Microsoft.Extensions.Configuration v7.0.0|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion|Microsoft.Extensions.Configuration.Abstractions v7.0.0|
@@ -136,62 +122,52 @@
 |||Microsoft.Extensions.Options v7.0.1|
 |||System.Diagnostics.DiagnosticSource v7.0.1|
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Mapping|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Pagination|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 ||AllOverIt.Serialization.Binary||
 ||Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Reactive|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 ||System.Reactive v5.0.0||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.ReactiveUI|AllOverIt|DynamicData v7.13.1|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion|Splat v14.6.8|
 ||Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0||
 ||ReactiveUI v18.4.26||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Serialization.Binary|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Serialization.Json.Abstractions|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Serialization.Json.Newtonsoft|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 ||AllOverIt.Serialization.Json.Abstractions||
 ||Newtonsoft.Json v13.0.3||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Serialization.Json.SystemText|AllOverIt|System.Text.Encodings.Web v7.0.0|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 ||AllOverIt.Serialization.Json.Abstractions||
 ||System.Text.Json v7.0.2||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Validation|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion||
 ||FluentValidation v11.5.2||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Validation.Options|AllOverIt|Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0|
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 ||AllOverIt.Assertion|Microsoft.Extensions.Primitives v7.0.0|
@@ -199,12 +175,10 @@
 ||FluentValidation v11.5.2||
 ||Microsoft.Extensions.Options v7.0.1||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Wpf|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0--windows-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0--windows-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0--windows-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)|||
 ||AllOverIt.Assertion||
 |<br>|||
-|**Package**|**Dependencies**|**Transitives**|
 |AllOverIt.Wpf.Controls|AllOverIt||
 |![](https://img.shields.io/badge/.NET-7.0--windows-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0--windows-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0--windows-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)|||
 ||AllOverIt.Assertion||
