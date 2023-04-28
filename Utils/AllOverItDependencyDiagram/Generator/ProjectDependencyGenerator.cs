@@ -136,8 +136,8 @@ namespace AllOverItDependencyDiagram.Generator
 
                 sb.AppendLine();
 
-                sb.AppendLine("|Dependencies|");
-                sb.AppendLine("|:-|");
+                sb.AppendLine("### Dependencies");
+                sb.AppendLine();
 
 
                 var dependencySet = new HashSet<string>();
@@ -210,12 +210,12 @@ namespace AllOverItDependencyDiagram.Generator
                 {
                     foreach (var dependency in dependencies)
                     {
-                        sb.AppendLine($"|{dependency}|");
+                        sb.AppendLine($"* {dependency}");
                     }
                 }
                 else
                 {
-                    sb.AppendLine("None");
+                    sb.AppendLine("* None");
                 }
 
                 sb.AppendLine();
