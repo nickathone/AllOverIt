@@ -15,6 +15,6 @@ namespace AllOverItDependencyDiagram.Generator
         // Also supports svg and pdf
         public IList<DiagramImageFormat> ImageFormats { get; } = new List<DiagramImageFormat> { DiagramImageFormat.Png };
 
-        public string DiagramExportPath { get; set; }
+        public string ExportPath { get; set; }
     }
 }

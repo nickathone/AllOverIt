@@ -20,7 +20,7 @@ namespace AllOverItDependencyDiagram
 
             var options = new ProjectDependencyGeneratorOptions
             {
-                DiagramExportPath = Path.Combine(allOverItRoot, @"Docs\Dependencies")
+                ExportPath = Path.Combine(allOverItRoot, @"Docs\Dependencies")
             };
 
             // Uncomment this line to generate the D2 files but not the images
