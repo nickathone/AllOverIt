@@ -1,7 +1,7 @@
 # Dependency Summary
 
 |Package|Dependencies|Transitives|
-|-|-|-|
+|:-|:-|:-|
 |AllOverIt|AllOverIt.Assertion||
 |![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)|||
 |<br>|||
