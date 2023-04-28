@@ -4,6 +4,7 @@ using AllOverIt.Logging;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
 using AllOverItDependencyDiagram.Parser;
+using Microsoft.Build.Evaluation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -121,26 +122,9 @@ namespace AllOverItDependencyDiagram.Generator
 
             foreach (var solutionProject in solutionProjects)
             {
-                if (first)
-                {
-                    sb.AppendLine();
-                    sb.AppendLine("|Package|Dependencies|Transitives|");
-                    sb.AppendLine("|-|-|-|");
-                    first = false;
-                }
-                else
-                {
-                    sb.AppendLine("|<br>|||");
-                }
-
-                var frameworkBadges = TargetFrameworkBadges.Keys
-                    .Intersect(solutionProject.Value.TargetFrameworks)
-                    .Select(key => TargetFrameworkBadges[key])
-                    .ToList();
-
-                var projectBadges = $"|{string.Join(" ", frameworkBadges)}|||";
-
-
+                sb.AppendLine();
+                sb.AppendLine("|Package|Dependencies|");
+                sb.AppendLine("|:-|:-|");
 
 
                 var dependencySet = new HashSet<string>();
@@ -206,64 +190,29 @@ namespace AllOverItDependencyDiagram.Generator
 
                 AppendProjectDependencies(solutionProject.Value);
 
-                var dependencies = dependencySet.Order().ToArray();
-                var transitives = transitiveSet.Order().ToArray();
 
-                maxLengths[0] = Math.Max(maxLengths[0], solutionProject.Value.Name.Length);
 
-                if (dependencies.Any())
+
+                var frameworkBadges = TargetFrameworkBadges.Keys
+                    .Intersect(solutionProject.Value.TargetFrameworks)
+                    .Select(key => TargetFrameworkBadges[key])
+                    .ToList();
+
+                var projectBadges = string.Join(" ", frameworkBadges);
+
+
+                var project = Path.GetFileNameWithoutExtension(solutionProject.Value.Path);
+
+                sb.AppendLine($"|{project}|{projectBadges}|");
+
+                var dependencies = dependencySet.Concat(transitiveSet).Order().ToArray();
+
+                foreach (var dependency in dependencies)
                 {
-                    maxLengths[1] = Math.Max(maxLengths[1], dependencies.Max(item => item.Length));
-                }
-
-                if (transitives.Any())
-                {
-                    maxLengths[2] = Math.Max(maxLengths[2], transitives.Max(item => item.Length));
-                }
-
-
-                static string GetElement<T>(T[] elements, int index, Func<T, string> selector)
-                {
-                    if (index >= elements.Length)
-                    {
-                        return string.Empty;
-                    }
-
-                    return selector.Invoke(elements[index]);
+                    sb.AppendLine($"||{dependency}|");
                 }
 
 
-                string GetSummaryLine(int index)
-                {
-                    var project = GetElement(new[] { solutionProject.Value }, index, item => Path.GetFileNameWithoutExtension(item.Path));
-
-                    var package = GetElement(dependencies, index, item => item);
-
-                    if (index == 0 && package.IsNullOrEmpty())
-                    {
-                        package = "None";
-                    }
-
-                    var transitive = GetElement(transitives, index, item => item);
-
-                    return $"|{project}|{package}|{transitive}|";
-                }
-
-                var maxCount = Math.Max(dependencies.Length, transitives.Length);
-
-                // Cater for when there's no dependencies - we at least want the project listed
-                maxCount = Math.Max(maxCount, 1);
-
-                for (var i = 0; i < maxCount; i++)
-                {
-                    var line = GetSummaryLine(i);
-                    sb.AppendLine(line);
-
-                    if (i == 0)
-                    {
-                        sb.AppendLine(projectBadges);
-                    }
-                }
             }
 
             var content = sb.ToString();
