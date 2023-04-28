@@ -4,7 +4,6 @@ using AllOverIt.Logging;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
 using AllOverItDependencyDiagram.Parser;
-using Microsoft.Build.Evaluation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -116,15 +115,29 @@ namespace AllOverItDependencyDiagram.Generator
             var sb = new StringBuilder();
 
             sb.AppendLine("# Dependency Summary");
+            sb.AppendLine();
 
             var maxLengths = new int[3];
-            var first = true;
 
             foreach (var solutionProject in solutionProjects)
             {
+                var project = Path.GetFileNameWithoutExtension(solutionProject.Value.Path);
+                sb.AppendLine($"## {project}");
                 sb.AppendLine();
-                sb.AppendLine("|Package|Dependencies|");
-                sb.AppendLine("|:-|:-|");
+
+
+                var frameworkBadges = TargetFrameworkBadges.Keys
+                    .Intersect(solutionProject.Value.TargetFrameworks)
+                    .Select(key => TargetFrameworkBadges[key])
+                    .ToList();
+
+                var projectBadges = string.Join(" ", frameworkBadges);
+                sb.AppendLine(projectBadges);
+
+                sb.AppendLine();
+
+                sb.AppendLine("|Dependencies|");
+                sb.AppendLine("|:-|");
 
 
                 var dependencySet = new HashSet<string>();
@@ -191,28 +204,27 @@ namespace AllOverItDependencyDiagram.Generator
                 AppendProjectDependencies(solutionProject.Value);
 
 
-
-
-                var frameworkBadges = TargetFrameworkBadges.Keys
-                    .Intersect(solutionProject.Value.TargetFrameworks)
-                    .Select(key => TargetFrameworkBadges[key])
-                    .ToList();
-
-                var projectBadges = string.Join(" ", frameworkBadges);
-
-
-                var project = Path.GetFileNameWithoutExtension(solutionProject.Value.Path);
-
-                sb.AppendLine($"|{project}|{projectBadges}|");
-
                 var dependencies = dependencySet.Concat(transitiveSet).Order().ToArray();
 
-                foreach (var dependency in dependencies)
+                if (dependencies.Any())
                 {
-                    sb.AppendLine($"||{dependency}|");
+                    foreach (var dependency in dependencies)
+                    {
+                        sb.AppendLine($"|{dependency}|");
+                    }
+                }
+                else
+                {
+                    sb.AppendLine("None");
                 }
 
-
+                sb.AppendLine();
+                sb.AppendLine($"<br>");
+                sb.AppendLine();
+                sb.AppendLine($"---");
+                sb.AppendLine();
+                sb.AppendLine($"<br>");
+                sb.AppendLine();
             }
 
             var content = sb.ToString();
