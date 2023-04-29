@@ -14,13 +14,13 @@ namespace SubscribedEventsDemo
             using (var disposables = new CompositeDisposable())
             {
                 var subject = new Subject<int>();
-                var bus = new EventBus();
+                var eventBus = new EventBus();
 
                 subject
                     .Where(value => value % 2 == 0)
                     .Subscribe(value =>
                     {
-                        bus.Publish<EvenEvent>();
+                        eventBus.Publish<EvenEvent>();
                     })
                     .DisposeUsing(disposables);
 
@@ -29,7 +29,7 @@ namespace SubscribedEventsDemo
                     .Subscribe(value =>
                     {
                         var oddEvent = new OddEvent(value);
-                        bus.Publish(oddEvent);
+                        eventBus.Publish(oddEvent);
                     })
                     .DisposeUsing(disposables);
 
@@ -45,25 +45,26 @@ namespace SubscribedEventsDemo
                     .DisposeUsing(disposables);
 
                 // Subscribe directly to the event bus
-                bus.GetEvent<EvenEvent>()
+                eventBus.GetEvent<EvenEvent>()
                     .Subscribe(evt =>
                     {
                         Console.WriteLine("Received an even number event");
                     })
                     .DisposeUsing(disposables);
 
-                // Subscribe via a handler
-                new OddEventHandler(bus)
+                // Subscribe via a handler - this handler will negate the value without modifying the original event
+                new OddEventHandler(eventBus, true)
                 {
                     IsActive = true
-                }.DisposeUsing(disposables);
+                }
+                .DisposeUsing(disposables);
 
-                //bus.GetEvent<OddEvent>()
-                //    .Subscribe(evt =>
-                //    {
-                //        Console.WriteLine($"Received an odd number event: {evt.Value}");
-                //    })
-                //    .DisposeUsing(disposables);
+                // Another OddEvent handler, but this one does not negate the value
+                new OddEventHandler(eventBus, false)
+                {
+                    IsActive = true
+                }
+                .DisposeUsing(disposables);
 
                 for (var i = 20; i <= 30; i++)
                 {
