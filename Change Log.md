@@ -97,6 +97,7 @@
 
 ## AllOverIt.Reactive
 * Added ObservableObject, ObservableProxy and PropertyNotifyExtensions
+* Added EventBusHandler
 
 
 ## AllOverIt.ReactiveUI

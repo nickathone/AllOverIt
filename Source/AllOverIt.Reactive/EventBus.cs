@@ -25,7 +25,7 @@ namespace AllOverIt.Reactive
         /// <inheritdoc />
         public IObservable<TEvent> GetEvent<TEvent>()
         {
-            return _subject.OfType<TEvent>().AsObservable();
+            return _subject.OfType<TEvent>();
         }
 
         /// <summary>Disposes of the observable sequence used for notifying observers of various events.</summary>

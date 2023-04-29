@@ -41,8 +41,10 @@ namespace SubscribedEventsDemo
                         Console.WriteLine();
                         Console.WriteLine($"*** Waited until value > 25 (value = {value}) ***");
                         Console.WriteLine();
-                    });
+                    })
+                    .DisposeUsing(disposables);
 
+                // Subscribe directly to the event bus
                 bus.GetEvent<EvenEvent>()
                     .Subscribe(evt =>
                     {
@@ -50,12 +52,18 @@ namespace SubscribedEventsDemo
                     })
                     .DisposeUsing(disposables);
 
-                bus.GetEvent<OddEvent>()
-                    .Subscribe(evt =>
-                    {
-                        Console.WriteLine($"Received an odd number event: {evt.Value}");
-                    })
-                    .DisposeUsing(disposables);
+                // Subscribe via a handler
+                new OddEventHandler(bus)
+                {
+                    IsActive = true
+                }.DisposeUsing(disposables);
+
+                //bus.GetEvent<OddEvent>()
+                //    .Subscribe(evt =>
+                //    {
+                //        Console.WriteLine($"Received an odd number event: {evt.Value}");
+                //    })
+                //    .DisposeUsing(disposables);
 
                 for (var i = 20; i <= 30; i++)
                 {
