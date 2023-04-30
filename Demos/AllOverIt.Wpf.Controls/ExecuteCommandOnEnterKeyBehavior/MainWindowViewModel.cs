@@ -1,5 +1,6 @@
-﻿using AllOverIt.Reactive;
-using ExecuteCommandOnEnterKeyBehavior.Extensions;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Reactive;
+using AllOverIt.Wpf.Threading;
 using System;
 using System.Reactive.Linq;
 using System.Windows.Input;
@@ -21,25 +22,19 @@ namespace ExecuteCommandOnEnterKeyBehavior
 
         public MainWindowViewModel()
         {
+            var uiThread = Environment.CurrentManagedThreadId;
+
             _intervalSubscription = Observable
                 .Interval(TimeSpan.FromSeconds(1))
-                .ObserveOnUIThread()
                 .Subscribe(_ =>
                 {
-                    CurrentDateTime = DateTime.Now;
+                    UIThread.Invoke(() =>
+                    {
+                        Throw<InvalidOperationException>.When(uiThread != Environment.CurrentManagedThreadId, "Expected to be running on the UI thread.");
+
+                        CurrentDateTime = DateTime.Now;
+                    });
                 });
-
-            // The code below achieves the same, without the extension method
-
-            //Observable
-            //    .Interval(TimeSpan.FromSeconds(1))
-            //    .Subscribe(_ =>
-            //    {
-            //        UIThread.Invoke(() =>
-            //        {
-            //            CurrentDateTime = DateTime.Now;
-            //        });
-            //    });
         }
 
         // If this demo was written using ReactiveUI it would have used an ActivatableViewModel
