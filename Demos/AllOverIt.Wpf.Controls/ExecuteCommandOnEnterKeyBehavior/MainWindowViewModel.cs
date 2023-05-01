@@ -1,8 +1,8 @@
-﻿using AllOverIt.Assertion;
-using AllOverIt.Reactive;
+﻿using AllOverIt.Reactive;
 using AllOverIt.Wpf.Threading;
 using System;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Windows.Input;
 
 namespace ExecuteCommandOnEnterKeyBehavior
@@ -22,19 +22,27 @@ namespace ExecuteCommandOnEnterKeyBehavior
 
         public MainWindowViewModel()
         {
-            var uiThread = Environment.CurrentManagedThreadId;
+            // Approach #1
+            var uiSynchronizationContext = SynchronizationContext.Current;
 
             _intervalSubscription = Observable
                 .Interval(TimeSpan.FromSeconds(1))
+                .ObserveOn(uiSynchronizationContext)
                 .Subscribe(_ =>
                 {
-                    UIThread.Invoke(() =>
-                    {
-                        Throw<InvalidOperationException>.When(uiThread != Environment.CurrentManagedThreadId, "Expected to be running on the UI thread.");
-
-                        CurrentDateTime = DateTime.Now;
-                    });
+                    CurrentDateTime = DateTime.Now;
                 });
+
+            //// Approach #2
+            //_intervalSubscription = Observable
+            //    .Interval(TimeSpan.FromSeconds(1))
+            //    .Subscribe(_ =>
+            //    {
+            //        UIThread.Invoke(() =>
+            //        {
+            //            CurrentDateTime = DateTime.Now;
+            //        });
+            //    });
         }
 
         // If this demo was written using ReactiveUI it would have used an ActivatableViewModel
