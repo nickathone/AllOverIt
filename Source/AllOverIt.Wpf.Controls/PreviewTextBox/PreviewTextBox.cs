@@ -61,6 +61,8 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox
             _commandHandlers.Add(EditingCommands.DeletePreviousWord, HandleDeletePreviousWord);
         }
 
+        /// <summary>Raised when the control is initialized.</summary>
+        /// <param name="eventArgs">The event args.</param>
         protected override void OnInitialized(EventArgs eventArgs)
         {
             // handle application and editing commands
@@ -69,6 +71,8 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox
             base.OnInitialized(eventArgs);
         }
 
+        /// <summary>Raised when a key is pressed down.</summary>
+        /// <param name="eventArgs">The event args that contains the event data.</param>
         protected override void OnKeyDown(KeyEventArgs eventArgs)
         {
             if (eventArgs.Key == Key.Space)
@@ -79,6 +83,8 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox
             base.OnKeyDown(eventArgs);
         }
 
+        /// <summary>Invoked when an unhandled PreviewTextInput attached event reaches an element in its route.</summary>
+        /// <param name="eventArgs">The events args that contains the event data.</param>
         protected override void OnPreviewTextInput(TextCompositionEventArgs eventArgs)
         {
             OnTextInput(eventArgs, eventArgs.Text);
@@ -86,6 +92,8 @@ namespace AllOverIt.Wpf.Controls.PreviewTextBox
             base.OnPreviewTextInput(eventArgs);
         }
 
+        /// <summary>Invoked when an unhandled PreviewTextChanged attached event reaches an element in its route.</summary>
+        /// <param name="eventArgs">The events args that contains the event data.</param>
         protected virtual void OnPreviewTextChanged(PreviewTextChangedEventArgs eventArgs)
         {
             RaiseEvent(eventArgs);

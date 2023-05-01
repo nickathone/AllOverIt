@@ -11,6 +11,8 @@ namespace AllOverIt.Wpf.Threading
     {
         private readonly Dispatcher _dispatcher;
 
+        /// <summary>Returns <see langword="true"/> when the calling thread is associated with the
+        /// dispatcher passed to the constructor.</summary>
         public bool IsCompleted => _dispatcher.CheckAccess();
 
         internal DispatcherAwaiter(Dispatcher dispatcher)
@@ -18,7 +20,8 @@ namespace AllOverIt.Wpf.Threading
             _dispatcher = dispatcher;
         }
 
-        /// <summary>Queues the <paramref name="action"/> on the UI thread.</summary>
+        /// <summary>Queues the <paramref name="action"/> on the thread associated with the dispatcher
+        /// passed to the constructor.</summary>
         /// <param name="action">The action to be queued on the UI thread.</param>
         public void OnCompleted(Action action)
         {
