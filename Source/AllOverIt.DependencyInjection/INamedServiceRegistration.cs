@@ -10,6 +10,7 @@ namespace AllOverIt.DependencyInjection
         /// as a <typeparamref name="TImplementation"/>.</summary>
         /// <typeparam name="TImplementation">The implementation type to be registered.</typeparam>
         /// <param name="name">The name used to identify the implementation to be resolved.</param>
+        /// <remarks>Multiple names can be registered against the same service and implementation types if required.</remarks>
         void Register<TImplementation>(string name) where TImplementation : TService;
 
         /// <summary>Registers a named implementation of <typeparamref name="TService"/>
@@ -17,6 +18,7 @@ namespace AllOverIt.DependencyInjection
         /// <param name="name">The name used to identify the implementation to be resolved.</param>
         /// <param name="implementationType">The type implementing <typeparamref name="TService"/> that will
         /// later be resolved based on the provided <paramref name="name"/>.</param>
+        /// <remarks>Multiple names can be registered against the same service and implementation types if required.</remarks>
         void Register(string name, Type implementationType);
     }
 }

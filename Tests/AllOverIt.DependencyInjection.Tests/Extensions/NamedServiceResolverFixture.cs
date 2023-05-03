@@ -26,6 +26,10 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
         {
         }
 
+        private sealed class Dummy3 : IDummyInterface
+        {
+        }
+
         private readonly NamedServiceResolver<IDummyInterface> _serviceResolver = new NamedServiceResolver<IDummyInterface>();
         private INamedServiceRegistration<IDummyInterface> _registration => _serviceResolver;
         private readonly IServiceProvider _serviceProvider;  // using a real one since it's easier than faking against extension methods
@@ -35,6 +39,7 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddTransient<IDummyInterface, Dummy1>();
+            serviceCollection.AddTransient<IDummyInterface, Dummy3>();
             serviceCollection.AddSingleton<INamedServiceResolver<IDummyInterface>>(_serviceResolver);       // needed for NamedServiceResolver tests
 
             _serviceProvider = serviceCollection.BuildServiceProvider();
@@ -258,6 +263,26 @@ namespace AllOverIt.DependencyInjection.Tests.Extensions
                     .Should()
                     .Throw<DependencyRegistrationException>()
                     .WithMessage($"No service of type {nameof(IDummyInterface)} was found for the name {name}.");
+                }
+
+                [Fact]
+                public void Should_Register_Multiple_Names_To_Same_Implementation()
+                {
+                    var name1 = Create<string>();
+                    var name2 = Create<string>();
+                    var name3 = Create<string>();
+
+                    _registration.Register(name1, typeof(Dummy1));
+                    _registration.Register(name2, typeof(Dummy1));
+                    _registration.Register(name3, typeof(Dummy3));
+
+                    var actual1 = ((INamedServiceResolver<IDummyInterface>) _serviceResolver).GetRequiredNamedService(name1);
+                    var actual2 = ((INamedServiceResolver<IDummyInterface>) _serviceResolver).GetRequiredNamedService(name2);
+                    var actual3 = ((INamedServiceResolver<IDummyInterface>) _serviceResolver).GetRequiredNamedService(name3);
+
+                    actual1.Should().BeOfType<Dummy1>();
+                    actual2.Should().BeOfType<Dummy1>();
+                    actual3.Should().BeOfType<Dummy3>();
                 }
             }
         }

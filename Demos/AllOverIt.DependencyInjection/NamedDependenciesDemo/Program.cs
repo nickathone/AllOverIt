@@ -13,7 +13,8 @@ namespace NamedDependenciesDemo
             // Register 3 implementations of IRepository - using generics
             services
                 .AddNamedServices<IRepository>()
-                .AsScoped<NumberRepository>("number")
+                .AsScoped<NumberRepository>("number1")
+                .AsScoped<NumberRepository>("number2")      // Showing 2 registrations can point to the same type
                 .AsScoped<GuidRepository>("guid")
                 .AsScoped<DateTimeRepository>("datetime");
 
@@ -41,8 +42,11 @@ namespace NamedDependenciesDemo
 
             var repositoryResolver = provider.GetRequiredService<INamedServiceResolver<IRepository>>();
 
-            var numberRepository = repositoryResolver.GetRequiredNamedService("number");
-            Console.WriteLine($"Number: {numberRepository.GetValue()}");
+            var number1Repository = repositoryResolver.GetRequiredNamedService("number1");
+            Console.WriteLine($"Number 1: {number1Repository.GetValue()}");
+
+            var number2Repository = repositoryResolver.GetRequiredNamedService("number2");
+            Console.WriteLine($"Number 2: {number2Repository.GetValue()}");
 
             var guidRepository = repositoryResolver.GetRequiredNamedService("guid");
             Console.WriteLine($"GUID: {guidRepository.GetValue()}");
@@ -60,8 +64,11 @@ namespace NamedDependenciesDemo
 
             var repositoryResolver = provider.GetRequiredService<INamedServiceResolver>();
 
-            var numberRepository = repositoryResolver.GetRequiredNamedService<IRepository>("number");
-            Console.WriteLine($"Number: {numberRepository.GetValue()}");
+            var number1Repository = repositoryResolver.GetRequiredNamedService<IRepository>("number1");
+            Console.WriteLine($"Number 1: {number1Repository.GetValue()}");
+
+            var number2Repository = repositoryResolver.GetRequiredNamedService<IRepository>("number2");
+            Console.WriteLine($"Number 2: {number2Repository.GetValue()}");
 
             var guidRepository = repositoryResolver.GetRequiredNamedService<IRepository>("guid");
             Console.WriteLine($"GUID: {guidRepository.GetValue()}");
