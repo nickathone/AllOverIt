@@ -1,6 +1,4 @@
-﻿using AllOverIt.Collections;
-using AllOverIt.Fixture;
-using AllOverIt.Fixture.Extensions;
+﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.FakeItEasy;
 using FakeItEasy;
 using FluentAssertions;
@@ -65,7 +63,7 @@ namespace AllOverIt.ReactiveUI.Tests
 
                     timer.Start();
 
-                    scheduler.AdvanceBy(TimeSpan.FromMilliseconds(totalMilliseconds * 2).Ticks);
+                    scheduler.AdvanceByMilliseconds(totalMilliseconds);
 
                     scheduled.Should().BeTrue();
                 }
@@ -208,7 +206,7 @@ namespace AllOverIt.ReactiveUI.Tests
 
                     timer.IsRunning.Should().BeTrue();
 
-                    scheduler.AdvanceBy(TimeSpan.FromMilliseconds(totalMilliseconds * 2).Ticks);
+                    scheduler.AdvanceByMilliseconds(totalMilliseconds);
 
                     timer.RemainingMilliseconds.Should().Be(0);
                     timer.RemainingTimeSpan.Should().Be(TimeSpan.FromMilliseconds(0));
@@ -253,16 +251,14 @@ namespace AllOverIt.ReactiveUI.Tests
 
                         timer.IsRunning.Should().BeTrue();
 
-                        var advanceBy = TimeSpan.FromMilliseconds(updateIntervalMilliseconds * 2).Ticks;
-
-                        scheduler.AdvanceBy(advanceBy);
+                        scheduler.AdvanceByMilliseconds(updateIntervalMilliseconds * 2);
 
                         timer.RemainingMilliseconds.Should().BeGreaterThan(0);
                         timer.IsRunning.Should().BeTrue();
 
                         cts.Cancel();
 
-                        scheduler.AdvanceBy(advanceBy);
+                        scheduler.AdvanceByMilliseconds(updateIntervalMilliseconds * 2);
 
                         timer.RemainingMilliseconds.Should().Be(0);
                         timer.IsRunning.Should().BeFalse();
