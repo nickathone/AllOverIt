@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+using AllOverIt.Extensions;
+using AllOverIt.Patterns.Specification;
+using AllOverIt.Patterns.Specification.Extensions;
 
-namespace AllOverIt.Patterns.Specification.Extensions
+namespace AllOverIt.Extensions
 {
     /// <summary>Provides a variety of specification extension methods for <see cref="IQueryable{T}"/>.</summary>
     public static class QueryableExtensions

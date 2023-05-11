@@ -1,4 +1,5 @@
-﻿using AllOverIt.Fixture;
+﻿using AllOverIt.Extensions;
+using AllOverIt.Fixture;
 using AllOverIt.Patterns.Specification;
 using AllOverIt.Patterns.Specification.Extensions;
 using AllOverIt.Tests.Patterns.Specification.Dummies;
@@ -6,7 +7,7 @@ using FluentAssertions;
 using System.Linq;
 using Xunit;
 
-namespace AllOverIt.Tests.Patterns.Specification.Extensions
+namespace AllOverIt.Tests.Extensions
 {
     public class QueryableExtensionsFixture : FixtureBase
     {
@@ -25,7 +26,7 @@ namespace AllOverIt.Tests.Patterns.Specification.Extensions
                 public void Should_Return_IQueryable()
                 {
                     var actual = Enumerable.Range(1, 10).AsQueryable().Where(_isEven);
-                    
+
                     actual.Should().BeAssignableTo<IQueryable<int>>();
                 }
 
@@ -152,7 +153,7 @@ namespace AllOverIt.Tests.Patterns.Specification.Extensions
                     var specification = LinqSpecification<int>.Create(value => value < 5);
                     var actual = values.SkipWhile(specification).ToList();
 
-                    var expected = new[] {5, 6, 7, 8, 9, 10};
+                    var expected = new[] { 5, 6, 7, 8, 9, 10 };
 
                     expected.Should().BeEquivalentTo(actual);
                 }
@@ -179,7 +180,7 @@ namespace AllOverIt.Tests.Patterns.Specification.Extensions
                     var specification = LinqSpecification<int>.Create(value => value < 5);
                     var actual = values.TakeWhile(specification).ToList();
 
-                    var expected = new[] {1, 2, 3, 4};
+                    var expected = new[] { 1, 2, 3, 4 };
 
                     expected.Should().BeEquivalentTo(actual);
                 }

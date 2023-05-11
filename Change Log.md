@@ -27,6 +27,7 @@
 * Unseal `ReadOnlyCollection`, `ReadOnlyList`, `ReadOnlyDictionary`
 * Changed `RepeatingTask.Start()` to use overloads rather than a default initial delay (previously after the `CancellationToken`)
 * Added ColorConsoleLogger
+* Moved QueryableExtensions from AllOverIt.Patterns.Specification.Extensions to AllOverIt.Extensions
 
 
 ## AllOverIt.AspNetCore
