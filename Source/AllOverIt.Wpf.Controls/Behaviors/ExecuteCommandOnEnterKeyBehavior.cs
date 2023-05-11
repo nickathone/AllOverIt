@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace AllOverIt.Wpf.Behaviors
+namespace AllOverIt.Wpf.Controls.Behaviors
 {
     /// <summary>Implements a behavior that invokes a command when the Enter key is pressed on the associated object.</summary>
     public class ExecuteCommandOnEnterKeyBehavior : Behavior<UIElement>
