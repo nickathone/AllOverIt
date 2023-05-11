@@ -28,6 +28,7 @@
 * Changed `RepeatingTask.Start()` to use overloads rather than a default initial delay (previously after the `CancellationToken`)
 * Added ColorConsoleLogger
 * Moved QueryableExtensions from AllOverIt.Patterns.Specification.Extensions to AllOverIt.Extensions
+* Add overloads for RepeatingTask that accept a Timespan
 
 
 ## AllOverIt.AspNetCore
