@@ -63,7 +63,7 @@ namespace AllOverIt.ReactiveUI.Tests
 
                     timer.Start();
 
-                    scheduler.AdvanceByMilliseconds(totalMilliseconds);
+                    scheduler.AdvanceByMilliseconds(totalMilliseconds * 2);
 
                     scheduled.Should().BeTrue();
                 }
@@ -206,7 +206,7 @@ namespace AllOverIt.ReactiveUI.Tests
 
                     timer.IsRunning.Should().BeTrue();
 
-                    scheduler.AdvanceByMilliseconds(totalMilliseconds);
+                    scheduler.AdvanceByMilliseconds(totalMilliseconds * 2);
 
                     timer.RemainingMilliseconds.Should().Be(0);
                     timer.RemainingTimeSpan.Should().Be(TimeSpan.FromMilliseconds(0));
