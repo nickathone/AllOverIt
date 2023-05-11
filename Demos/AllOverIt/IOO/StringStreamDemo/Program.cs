@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using AllOverIt.Io;
+using AllOverIt.IO;
 
 namespace StringStreamDemo
 {

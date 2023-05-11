@@ -1,11 +1,11 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
-using AllOverIt.Io;
+using AllOverIt.IO;
 using FluentAssertions;
 using System;
 using Xunit;
 
-namespace AllOverIt.Tests.Io
+namespace AllOverIt.Tests.IO
 {
     public class FileUtilsFixture : FixtureBase
     {

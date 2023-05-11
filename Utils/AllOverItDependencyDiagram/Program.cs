@@ -1,4 +1,4 @@
-﻿using AllOverIt.Io;
+﻿using AllOverIt.IO;
 using AllOverIt.Logging;
 using AllOverItDependencyDiagram.Generator;
 using System;

@@ -1,5 +1,5 @@
 ﻿using AllOverIt.Extensions;
-using AllOverIt.Io;
+using AllOverIt.IO;
 using Microsoft.Build.Construction;
 using System;
 using System.Collections.Generic;

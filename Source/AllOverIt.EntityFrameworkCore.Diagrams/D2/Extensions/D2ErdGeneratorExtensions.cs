@@ -1,6 +1,6 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Extensions;
-using AllOverIt.Io;
+using AllOverIt.IO;
 using AllOverIt.Process;
 using AllOverIt.Process.Extensions;
 using Microsoft.EntityFrameworkCore;

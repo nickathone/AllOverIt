@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AllOverIt.Io
+namespace AllOverIt.IO
 {
     /// <summary>Contains file and path related utilities.</summary>
     public static class FileUtils

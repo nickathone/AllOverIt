@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 
-namespace AllOverIt.Io
+namespace AllOverIt.IO
 {
     /// <summary>Contains search related operations for files that support cancellation.</summary>
     [ExcludeFromCodeCoverage]

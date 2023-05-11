@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace AllOverIt.Io
+namespace AllOverIt.IO
 {
     /// <summary>Implements a text streamer for character output in a particular Encoding, backed by a memory stream.</summary>
     public class TextStreamer : MemoryStream
