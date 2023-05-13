@@ -80,7 +80,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllOverIt.AspNetCore", "Sou
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AllOverIt.AspNetCore", "AllOverIt.AspNetCore", "{2832A6A4-B658-4AC7-8CC6-3C5B1148DDDA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Io", "Io", "{7D0E9F64-0026-40E0-BE68-4B6745C89508}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IO", "IO", "{7D0E9F64-0026-40E0-BE68-4B6745C89508}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{B361DA8D-6E98-42AF-933B-03D46A556A14}"
 EndProject
@@ -335,6 +335,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObservableDemo", "Demos\AllOverIt.Reactive\ObservableDemo\ObservableDemo.csproj", "{E5B32579-A447-4F9B-9993-D513D093BA84}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExecuteCommandOnEnterKeyBehavior", "Demos\AllOverIt.Wpf.Controls\ExecuteCommandOnEnterKeyBehavior\ExecuteCommandOnEnterKeyBehavior.csproj", "{B8746E48-11F6-4D1D-8217-FEF4121A29D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTaskDemo", "Demos\AllOverIt\Async\BackgroundTaskDemo\BackgroundTaskDemo.csproj", "{7D463E05-7B56-4622-95F5-FFC4E24DF8C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -794,6 +796,10 @@ Global
 		{B8746E48-11F6-4D1D-8217-FEF4121A29D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8746E48-11F6-4D1D-8217-FEF4121A29D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8746E48-11F6-4D1D-8217-FEF4121A29D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D463E05-7B56-4622-95F5-FFC4E24DF8C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D463E05-7B56-4622-95F5-FFC4E24DF8C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D463E05-7B56-4622-95F5-FFC4E24DF8C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D463E05-7B56-4622-95F5-FFC4E24DF8C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -953,6 +959,7 @@ Global
 		{B09CC2C6-A8AB-43FE-A072-C74F68C521EB} = {C13798A8-E6DF-42EE-9B51-BD36FA7063EC}
 		{E5B32579-A447-4F9B-9993-D513D093BA84} = {5CBF91E4-7BC4-40C4-A68C-55726C4D0E1B}
 		{B8746E48-11F6-4D1D-8217-FEF4121A29D8} = {9F9E0484-B7C2-4CEC-B47B-D0AE62512F1B}
+		{7D463E05-7B56-4622-95F5-FFC4E24DF8C0} = {8C59FA79-C374-4755-9195-1E36C14E8EB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19DD11B3-596E-4862-B5C4-1FFFFB173106}
