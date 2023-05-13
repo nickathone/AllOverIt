@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllOverIt.Assertion;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -20,7 +21,7 @@ namespace AllOverIt.Wpf.Threading
 
         internal SynchronizationContextAwaiter(SynchronizationContext synchronizationContext)
         {
-            _synchronizationContext = synchronizationContext;
+            _synchronizationContext = synchronizationContext.WhenNotNull(nameof(synchronizationContext));
         }
 
         /// <summary>Queues the <paramref name="action"/> on the thread associated with the required

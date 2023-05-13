@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllOverIt.Assertion;
+using System;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 
@@ -17,7 +18,7 @@ namespace AllOverIt.Wpf.Threading
 
         internal DispatcherAwaiter(Dispatcher dispatcher)
         {
-            _dispatcher = dispatcher;
+            _dispatcher = dispatcher.WhenNotNull(nameof(dispatcher));
         }
 
         /// <summary>Queues the <paramref name="action"/> on the thread associated with the dispatcher

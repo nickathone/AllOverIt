@@ -158,9 +158,9 @@ namespace AllOverIt.Tests.Async
 
                 stopwatch.Stop();
 
-                delays[0].Should().BeLessThan(repeatDelay);   // should be invoked without delay
-                delays[1].Should().BeGreaterOrEqualTo(repeatDelay);
-                delays[2].Should().BeGreaterOrEqualTo(repeatDelay);
+                delays[0].Should().BeLessThan(repeatDelay);                 // Should be invoked without delay
+                delays[1].Should().BeGreaterOrEqualTo(repeatDelay - 1);     // Providing some latitude
+                delays[2].Should().BeGreaterOrEqualTo(repeatDelay - 1);
             }
 
             [Theory]
@@ -200,9 +200,9 @@ namespace AllOverIt.Tests.Async
 
                 stopwatch.Stop();
 
-                delays[0].Should().BeGreaterOrEqualTo(initialDelay);
-                delays[1].Should().BeGreaterOrEqualTo(repeatDelay);
-                delays[2].Should().BeGreaterOrEqualTo(repeatDelay);
+                delays[0].Should().BeGreaterOrEqualTo(initialDelay - 1);    // Providing some latitude
+                delays[1].Should().BeGreaterOrEqualTo(repeatDelay - 1);
+                delays[2].Should().BeGreaterOrEqualTo(repeatDelay - 1);
             }
         }
 

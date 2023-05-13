@@ -103,7 +103,8 @@ namespace AllOverIt.Async
         {
             return Task.Factory.StartNew(async () =>
             {
-                // There's no ConfigureAwait() false here as there's no SynchronizationContext to be captured
+                // ConfigureAwait() isn't strictly required here as there is no synchronization context,
+                // but it keeps all code consistent.
 
                 try
                 {
@@ -111,7 +112,7 @@ namespace AllOverIt.Async
                     {
                         cancellationToken.ThrowIfCancellationRequested();
 
-                        await Task.Delay(initialDelay, cancellationToken);
+                        await Task.Delay(initialDelay, cancellationToken).ConfigureAwait(false);
                     }
 
                     while (!cancellationToken.IsCancellationRequested)
@@ -120,7 +121,7 @@ namespace AllOverIt.Async
 
                         cancellationToken.ThrowIfCancellationRequested();
 
-                        await Task.Delay(repeatDelay, cancellationToken);
+                        await Task.Delay(repeatDelay, cancellationToken).ConfigureAwait(false);
                     }
                 }
                 catch (OperationCanceledException)
@@ -134,7 +135,8 @@ namespace AllOverIt.Async
         {
             return Task.Factory.StartNew(async () =>
             {
-                // There's no ConfigureAwait() false here as there's no SynchronizationContext to be captured
+                // ConfigureAwait() isn't strictly required here as there is no synchronization context,
+                // but it keeps all code consistent.
 
                 try
                 {
@@ -142,7 +144,7 @@ namespace AllOverIt.Async
                     {
                         cancellationToken.ThrowIfCancellationRequested();
 
-                        await Task.Delay(initialDelay, cancellationToken);
+                        await Task.Delay(initialDelay, cancellationToken).ConfigureAwait(false);
                     }
 
                     while (!cancellationToken.IsCancellationRequested)
@@ -151,7 +153,7 @@ namespace AllOverIt.Async
 
                         cancellationToken.ThrowIfCancellationRequested();
 
-                        await Task.Delay(repeatDelay, cancellationToken);
+                        await Task.Delay(repeatDelay, cancellationToken).ConfigureAwait(false);
                     }
                 }
                 catch (OperationCanceledException)
