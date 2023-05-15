@@ -30,6 +30,7 @@
 * Moved QueryableExtensions from AllOverIt.Patterns.Specification.Extensions to AllOverIt.Extensions
 * Add overloads for RepeatingTask that accept a Timespan
 * Added BackgroundTask and BackgroundTask\<TResult>
+* Added SemaphoreSlim DisposableWaitAsync() extension method
 
 
 ## AllOverIt.AspNetCore
