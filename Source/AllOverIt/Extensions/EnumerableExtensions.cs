@@ -126,8 +126,8 @@ namespace AllOverIt.Extensions
         /// <param name="selector">The transform function applied to each element.</param>
         /// <param name="cancellationToken">A CancellationToken to cancel the operation.</param>
         /// <returns>The projected results as an IReadOnlyCollection{TResult}.</returns>
-        public static async Task<IReadOnlyCollection<TResult>> SelectAsReadOnlyCollectionAsync<TSource, TResult>(this IEnumerable<TSource> items, Func<TSource, Task<TResult>> selector,
-            CancellationToken cancellationToken = default)
+        public static async Task<IReadOnlyCollection<TResult>> SelectAsReadOnlyCollectionAsync<TSource, TResult>(this IEnumerable<TSource> items,
+            Func<TSource, Task<TResult>> selector, CancellationToken cancellationToken = default)
         {
             _ = items.WhenNotNull(nameof(items));
 
@@ -145,8 +145,8 @@ namespace AllOverIt.Extensions
         /// <param name="selector">The transform function applied to each element.</param>
         /// <param name="cancellationToken">A CancellationToken to cancel the operation.</param>
         /// <returns>The projected results as an IReadOnlyList{TResult}.</returns>
-        public static async Task<IReadOnlyList<TResult>> SelectAsReadOnlyListAsync<TSource, TResult>(this IEnumerable<TSource> items, Func<TSource, Task<TResult>> selector,
-            CancellationToken cancellationToken = default)
+        public static async Task<IReadOnlyList<TResult>> SelectAsReadOnlyListAsync<TSource, TResult>(this IEnumerable<TSource> items, Func<TSource,
+            Task<TResult>> selector, CancellationToken cancellationToken = default)
         {
             _ = items.WhenNotNull(nameof(items));
 
@@ -234,8 +234,9 @@ namespace AllOverIt.Extensions
         /// <typeparam name="TType">The element type.</typeparam>
         /// <param name="items">The source sequence of elements.</param>
         /// <param name="action">The asynchronous action to invoke against each element in the sequence.</param>
+        /// <param name="cancellationToken">An optional cancellation token.</param>
         /// <returns>An awaitable task that completes when the iteration is complete.</returns>
-        public static async Task ForEachAsync<TType>(this IEnumerable<TType> items, Func<TType, int, Task> action)
+        public static async Task ForEachAsync<TType>(this IEnumerable<TType> items, Func<TType, int, Task> action, CancellationToken cancellationToken = default)
         {
             _ = items.WhenNotNull(nameof(items));
 
@@ -243,6 +244,8 @@ namespace AllOverIt.Extensions
 
             foreach (var item in items)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 await action.Invoke(item, index++).ConfigureAwait(false);
             }
         }

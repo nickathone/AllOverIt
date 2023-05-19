@@ -705,6 +705,23 @@ namespace AllOverIt.Tests.Extensions
 
                 count.Should().Be(values.Length);
             }
+
+            [Fact]
+            public async Task Should_Throw_When_Cancelled()
+            {
+                await Invoking(
+                        async () =>
+                        {
+                            var cts = new CancellationTokenSource();
+                            cts.Cancel();
+
+                            IEnumerable<int> items = new[] { 1, 2, 3 };
+
+                            await items.ForEachAsync((_, _) => Task.CompletedTask, cts.Token);
+                        })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
+            }
         }
 
         public class FindMatches : EnumerableExtensionsFixture

@@ -31,6 +31,7 @@
 * Add overloads for RepeatingTask that accept a Timespan
 * Added BackgroundTask and BackgroundTask\<TResult>
 * Added SemaphoreSlim DisposableWaitAsync() extension method
+* Added a CancellationToken to ForEachAsync()
 
 
 ## AllOverIt.AspNetCore
