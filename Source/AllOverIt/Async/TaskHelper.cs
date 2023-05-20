@@ -2,7 +2,7 @@
 
 namespace AllOverIt.Async
 {
-    /// <summary>Provides a variety of extension methods for <see cref="Task{T}"/>.</summary>
+    /// <summary>Provides a variety of helper methods for <see cref="Task{T}"/>.</summary>
     public static class TaskHelper
     {
         #region WhenAll

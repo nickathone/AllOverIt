@@ -103,6 +103,7 @@
 ## AllOverIt.Reactive
 * Added ObservableObject, ObservableProxy and PropertyNotifyExtensions
 * Added EventBusHandler
+* Added ExecuteAsyncAndWait() to support invoking an asynchronous method from void methods, such as event handlers.
 
 
 ## AllOverIt.ReactiveUI
