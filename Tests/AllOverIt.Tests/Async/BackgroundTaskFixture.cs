@@ -78,7 +78,9 @@ namespace AllOverIt.Tests.Async
             {
                 var cts = new CancellationTokenSource();
 
-                var backgroundTask = new BackgroundTask(token => Task.Delay(-1, token), edi => handled, cts.Token);
+                var backgroundTask = new BackgroundTask(
+                    token => Task.Delay(-1, token),
+                    edi => handled, cts.Token);
 
                 cts.Cancel();
 
@@ -225,7 +227,11 @@ namespace AllOverIt.Tests.Async
             {
                 var cts = new CancellationTokenSource();
 
-                var backgroundTask = new BackgroundTask(token => Task.Delay(-1, token), TaskCreationOptions.None, TaskScheduler.Current, edi => handled, cts.Token);
+                var backgroundTask = new BackgroundTask(
+                    token => Task.Delay(-1, token),
+                    TaskCreationOptions.None,
+                    TaskScheduler.Current,
+                    edi => handled, cts.Token);
 
                 cts.Cancel();
 
