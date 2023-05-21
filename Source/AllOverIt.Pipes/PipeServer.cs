@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-
     public sealed class PipeServer<TType> : IPipeServer<TType>, IPipeEvents<TType>, IPipeServerEvents<TType>
     {
         private BackgroundTask _backgroundTask;
@@ -23,6 +22,7 @@ namespace AllOverIt.Pipes
 
         private readonly IMessageSerializer<TType> _serializer;
 
+        private IList<IPipeConnection<TType>> Connections { get; } = new List<IPipeConnection<TType>>();
         private IAwaitableLock _connectionsLock = new AwaitableLock();
 
 
@@ -56,28 +56,23 @@ namespace AllOverIt.Pipes
         }
 
 
+        public bool IsActive
+        {
+            get
+            {
+                Task task = _backgroundTask;
 
-        /// <summary>
-        /// All connections(include disconnected clients)
-        /// </summary>
-        private IList<IPipeConnection<TType>> Connections { get; } = new List<IPipeConnection<TType>>();
-
-
-
-        //public IReadOnlyCollection<PipeConnection<TType>> ConnectedClients => Connections
-        //    .Where(connection => connection.IsConnected)
-        //    .ToList();
-
-
-
-        public bool IsActive => _backgroundTask != null &&
-                                 !((Task) _backgroundTask).IsCompleted &&
-                                 !((Task) _backgroundTask).IsCanceled &&
-                                 !((Task) _backgroundTask).IsFaulted;
+                return task is not null &&
+                    !task.IsCompleted &&
+                    !task.IsCanceled &&
+                    !task.IsFaulted;
+            }
+        }
 
 
         public void Start()
         {
+            
             // TODO: Throw if already started
 
 
@@ -87,13 +82,13 @@ namespace AllOverIt.Pipes
                 {
                     try
                     {
-                        var connectionPipeName = $"{PipeName}_{Guid.NewGuid()}";
+                        var connectionPipeName = $"{Guid.NewGuid()}";
 
                         // Send the client the name of the data pipe to use
                         var serverStream = //CreatePipeStreamFunc?.Invoke(PipeName) ??              - applies security options
                             PipeServerFactory.Create(PipeName);
 
-                        await using (serverStream.ConfigureAwait(false))
+                        await using (serverStream)
                         {
                             //check out use
                             //PipeStreamInitializeAction?.Invoke(serverStream);
@@ -148,12 +143,11 @@ namespace AllOverIt.Pipes
                         throw;
                     }
                     // Catch the IOException that is raised if the pipe is broken or disconnected.
-                    catch (IOException exception)
+                    catch (IOException)
                     {
-                        // TODO: 'e' should be reported - for example, cannot get impersonated user until data has been read from the stream
+                        // TODO: should be reported - for example, cannot get impersonated user until data has been read from the stream
 
-                        // ?? Task.Yield() instead
-                        await Task.Delay(TimeSpan.FromMilliseconds(1), token).ConfigureAwait(false);
+                        await Task.Yield();
                     }
 
                     // allow this to go through the exception handler

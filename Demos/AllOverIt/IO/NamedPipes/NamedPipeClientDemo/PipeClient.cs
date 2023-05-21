@@ -116,7 +116,7 @@ namespace NamedPipeDemo
         private static void SendConnectionRegularMessages(IPipeConnection<PipeMessage> connection)
         {
             Observable
-                .Interval(TimeSpan.FromMilliseconds(100))
+                .Interval(TimeSpan.FromMilliseconds(25))
                 .TakeWhile(_ => connection.IsConnected)
                 .SelectMany(async async =>
                 {
@@ -126,7 +126,7 @@ namespace NamedPipeDemo
                     }
                     catch (IOException)
                     {
-                        // Server has most likely broken the connection
+                        // Most likely a broken pipe
                     }
                     catch (Exception exception)
                     {

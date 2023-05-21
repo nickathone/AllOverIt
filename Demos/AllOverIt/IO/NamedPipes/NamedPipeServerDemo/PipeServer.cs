@@ -41,7 +41,9 @@ namespace NamedPipeDemo
 
                     server.OnMessageReceived += (_, args) =>
                     {
-                        Console.WriteLine($"Client {args.Connection.PipeName} says: {args.Message}");
+                        var connection = args.Connection;
+
+                        Console.WriteLine($"Client {connection.PipeName} (as '{connection.GetImpersonationUserName()}') sent: {args.Message}");
                     };
 
                     server.OnException += (_, args) => OnExceptionOccurred(args.Exception);
@@ -114,15 +116,17 @@ namespace NamedPipeDemo
 
         private static void OnClientConnected(ConnectionEventArgs<PipeMessage> args, CancellationToken cancellationToken)
         {
+            var connection = args.Connection;
+
             TaskHelper.ExecuteAsyncAndWait(async () =>
             {
-                Console.WriteLine($"Client {args.Connection.PipeName} is now connected!");
+                Console.WriteLine($"Client {connection.PipeName} is now connected.");
 
                 try
                 {
                     Console.WriteLine("Sending welcome message");
 
-                    await args.Connection.WriteAsync(new PipeMessage
+                    await connection.WriteAsync(new PipeMessage
                     {
                         Text = "Welcome!"
                     }, cancellationToken).ConfigureAwait(false);
@@ -134,14 +138,14 @@ namespace NamedPipeDemo
 
                 Console.WriteLine("Message sent");
 
-                SendConnectionRegularMessages(args.Connection);
+                SendConnectionRegularMessages(connection);
             });
         }
 
         private static void SendConnectionRegularMessages(IPipeConnection<PipeMessage> connection)
         {
             Observable
-                .Interval(TimeSpan.FromMilliseconds(100))
+                .Interval(TimeSpan.FromMilliseconds(25))
                 .TakeWhile(_ => connection.IsConnected)
                 .SelectMany(async async =>
                 {
@@ -151,7 +155,7 @@ namespace NamedPipeDemo
                     }
                     catch (IOException)
                     {
-                        // Client has most likely broken the connection
+                        // Most likely a broken pipe
                     }
                     catch (Exception exception)
                     {
