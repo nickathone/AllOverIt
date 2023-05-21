@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+        <Description>A general purpose library containing a variety of classes and helper utilities.</Description>
+        <PackageTags>AllOverIt;Utilities;Async;Threading;IO;Pipes;NamedPipes</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
+    </ItemGroup>
+
+</Project>

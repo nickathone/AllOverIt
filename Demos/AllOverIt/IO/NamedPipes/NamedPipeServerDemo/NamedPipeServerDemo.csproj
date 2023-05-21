@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\..\Source\AllOverIt.Serialization.Binary\AllOverIt.Serialization.Binary.csproj" />
+        <ProjectReference Include="..\..\..\..\..\Source\AllOverIt\AllOverIt.csproj" />
+        <ProjectReference Include="..\NamedPipeTypes\NamedPipeTypes.csproj" />
+
+    </ItemGroup>
+
+</Project>
