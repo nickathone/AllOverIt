@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public sealed class PipeStreamWriter : /*IDisposable,*/ IAsyncDisposable
+    public sealed class PipeStreamWriter : IAsyncDisposable
     {
         private PipeStream _pipeStream;
         private SemaphoreSlim _semaphoreSlim = new(1, 1);
@@ -35,24 +35,14 @@ namespace AllOverIt.Pipes
 
             using (await _semaphoreSlim.DisposableWaitAsync(cancellationToken))
             {
-                Console.WriteLine("To be removed: Write length");
-
                 await WriteLengthAsync(buffer.Length, cancellationToken).ConfigureAwait(false);
-
-                Console.WriteLine("To be removed: Write buffer");
 
                 await _pipeStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
 
-                Console.WriteLine("To be removed: Written");
-
                 try
                 {
-                    Console.WriteLine("To be removed: Flushing");
-
                     // Flush all buffers to the underlying device
                     await _pipeStream.FlushAsync(cancellationToken).ConfigureAwait(false);
-
-                    Console.WriteLine("To be removed: Flushed");
 
                     // Wait for the other end to read all sent bytes
                     _pipeStream.WaitForPipeDrain();

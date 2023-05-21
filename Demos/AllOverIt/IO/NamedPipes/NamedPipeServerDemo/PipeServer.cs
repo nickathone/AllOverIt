@@ -2,6 +2,9 @@
 using AllOverIt.Reactive;
 using NamedPipeTypes;
 using System;
+using System.IO;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -130,7 +133,34 @@ namespace NamedPipeDemo
                 }
 
                 Console.WriteLine("Message sent");
+
+                SendConnectionRegularMessages(args.Connection);
             });
+        }
+
+        private static void SendConnectionRegularMessages(IPipeConnection<PipeMessage> connection)
+        {
+            Observable
+                .Interval(TimeSpan.FromMilliseconds(100))
+                .TakeWhile(_ => connection.IsConnected)
+                .SelectMany(async async =>
+                {
+                    try
+                    {
+                        await connection.WriteAsync(new PipeMessage { Text = $"{DateTime.Now:o}" }).ConfigureAwait(false);
+                    }
+                    catch (IOException)
+                    {
+                        // Client has most likely broken the connection
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception.Message);
+                    }
+
+                    return Unit.Default;
+                })
+                .Subscribe();
         }
     }
 }

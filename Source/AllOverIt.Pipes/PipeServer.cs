@@ -262,7 +262,6 @@ namespace AllOverIt.Pipes
 
             Reactive.TaskHelper.ExecuteAsyncAndWait(async () =>
             {
-                // May be remove them within a background thread
                 using (await _connectionsLock.GetLockAsync())
                 {
                     var connection = args.Connection;
