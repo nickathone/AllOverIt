@@ -28,7 +28,7 @@ namespace NamedPipeDemo
                 using var source = new CancellationTokenSource();
 
                 Console.WriteLine($"Running in SERVER mode. PipeName: {pipeName}");
-                Console.WriteLine("Enter 'q' to exit");
+                Console.WriteLine("Enter 'quit' to exit");
 
                 await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
                 {
@@ -54,7 +54,7 @@ namespace NamedPipeDemo
                             {
                                 var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
 
-                                if (message == "q")
+                                if (message == "quit")
                                 {
                                     source.Cancel();
 

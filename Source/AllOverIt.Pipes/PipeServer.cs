@@ -184,8 +184,6 @@ namespace AllOverIt.Pipes
             {
                 var connection = Connections.First();
 
-                Console.WriteLine($"To be removed: Disconnecting {connection.PipeName}");
-
                 await connection.DisconnectAsync().ConfigureAwait(false);
             }
         }

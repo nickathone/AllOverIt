@@ -27,17 +27,13 @@ namespace NamedPipeDemo
                 using var source = new CancellationTokenSource();
 
                 Console.WriteLine($"Running in CLIENT mode. PipeName: {pipeName}");
-                Console.WriteLine("Enter 'q' to exit");
+                Console.WriteLine("Enter 'quit' to exit");
 
                 await using var client = new PipeClient<PipeMessage>(pipeName, serializer);
 
                 client.OnMessageReceived += (o, args) => Console.WriteLine("MessageReceived: " + args.Message);
 
-                client.OnDisconnected += (o, args) =>
-                {
-                    Console.WriteLine("Disconnected from server");
-                    source.Cancel();
-                };
+                client.OnDisconnected += (o, args) => Console.WriteLine("Disconnected from server");
 
                 client.OnConnected += Client_OnConnected;
 
@@ -53,7 +49,7 @@ namespace NamedPipeDemo
 
                             var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
 
-                            if (message == "q")
+                            if (message == "quit")
                             {
                                 source.Cancel();
                                 break;
@@ -70,8 +66,6 @@ namespace NamedPipeDemo
                         }
                         catch (Exception exception)
                         {
-                            Console.WriteLine($"To be removed: {exception.Message}");
-
                             OnExceptionOccurred(exception);
                             source.Cancel();
                         }
