@@ -366,17 +366,20 @@ namespace AllOverIt.Tests.Async
         public class Implicit_Operator_Task : BackgroundTask_TResult_Fixture
         {
             [Fact]
-            public void Should_Throw_When_BackgroundTask_Null()
+            public void Should_Not_Throw_When_BackgroundTask_Null()
             {
+                Task actual = Task.CompletedTask;
+
                 Invoking(() =>
                 {
                     BackgroundTask<bool> backgroundTask = null;
 
-                    _ = (Task) backgroundTask;
+                    actual = (Task) backgroundTask;
                 })
                 .Should()
-                .Throw<ArgumentNullException>()
-                .WithNamedMessageWhenNull("backgroundTask");
+                .NotThrow();
+
+                actual.Should().BeNull();
             }
         }
 

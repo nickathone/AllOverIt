@@ -90,7 +90,7 @@ namespace AllOverIt.Async
         /// <param name="backgroundTask">The <see cref="BackgroundTask"/> to implicitly convert to a <see cref="Task"/>.</param>
         public static implicit operator Task<TResult>(BackgroundTask<TResult> backgroundTask)
         {
-            return backgroundTask.WhenNotNull(nameof(backgroundTask))._task;
+            return backgroundTask?._task;
         }
 
         /// <summary>Gets an awaiter used to await this <see cref="BackgroundTask"/>.</summary>
