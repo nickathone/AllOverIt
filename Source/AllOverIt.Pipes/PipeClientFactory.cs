@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO.Pipes;
+﻿using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,38 +6,32 @@ namespace AllOverIt.Pipes
 {
     internal static class PipeClientFactory
     {
-        public static async Task<PipeReaderWriter> ConnectAsync(
-            string pipeName,
-            string serverName,
+        public static async Task<PipeReaderWriter> ConnectAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
             //Func<string, string, NamedPipeClientStream> func = null,
-            PipeSecurity pipeSecurity = null,
-            CancellationToken cancellationToken = default)
         {
-            var pipe = await CreateAndConnectAsync(pipeName, serverName, pipeSecurity, cancellationToken).ConfigureAwait(false);
+            var pipeStream = await CreateAndConnectAsync(pipeName, serverName, cancellationToken).ConfigureAwait(false);
 
-            return new PipeReaderWriter(pipe);
+            return new PipeReaderWriter(pipeStream);
         }
 
-        public static async Task<NamedPipeClientStream> CreateAndConnectAsync(
-            string pipeName,
-            string serverName,
+        public static async Task<NamedPipeClientStream> CreateAndConnectAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
             //Func<string, string, NamedPipeClientStream> func = null,
-            PipeSecurity pipeSecurity = null,
-            CancellationToken cancellationToken = default)
         {
-            var pipe = //func != null
-                       //? func(pipeName, serverName) :
-                Create(pipeName, serverName);
+            var pipe = Create(pipeName, serverName);
 
             try
             {
-                await pipe.ConnectAsync(cancellationToken).ConfigureAwait(false);
+                await pipe
+                    .ConnectAsync(cancellationToken)
+                    .ConfigureAwait(false);
 
                 return pipe;
             }
             catch
             {
-                await pipe.DisposeAsync().ConfigureAwait(false);
+                await pipe
+                    .DisposeAsync()
+                    .ConfigureAwait(false);
 
                 throw;
             }
@@ -49,8 +42,8 @@ namespace AllOverIt.Pipes
             return new NamedPipeClientStream(
                 serverName,
                 pipeName,
-                direction: PipeDirection.InOut,
-                options: PipeOptions.Asynchronous | PipeOptions.WriteThrough);
+                PipeDirection.InOut,
+                PipeOptions.Asynchronous | PipeOptions.WriteThrough);
         }
     }
 }

@@ -70,7 +70,6 @@ namespace AllOverIt.Pipes
             }
         }
 
-        [System.Runtime.Versioning.SupportedOSPlatform("windows")]
         public void Start(PipeSecurity pipeSecurity = null)
         {
             

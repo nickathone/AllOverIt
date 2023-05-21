@@ -32,7 +32,6 @@ namespace AllOverIt.Pipes
         /// </summary>
         /// <exception cref="InvalidOperationException"></exception>
         Task ConnectAsync(CancellationToken cancellationToken = default);
-        Task ConnectAsync(PipeSecurity pipeSecurity, CancellationToken cancellationToken);
 
         /// <summary>
         /// Disconnects from server

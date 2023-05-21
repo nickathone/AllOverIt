@@ -81,12 +81,7 @@ namespace AllOverIt.Pipes
         /// <summary>
         /// Connects to the named pipe server asynchronously.
         /// </summary>
-        public Task ConnectAsync(CancellationToken cancellationToken = default)
-        {
-            return ConnectAsync(null, cancellationToken);
-        }
-
-        public async Task ConnectAsync(PipeSecurity pipeSecurity, CancellationToken cancellationToken)
+        public async Task ConnectAsync(CancellationToken cancellationToken = default)
         {
             // TODO: Add auto-reconnect if the server is lost
 
@@ -104,11 +99,11 @@ namespace AllOverIt.Pipes
             {
                 //IsConnecting = true;
 
-                var connectionPipeName = await GetConnectionPipeName(pipeSecurity, cancellationToken).ConfigureAwait(false);
+                var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
 
                 // Connect to the actual data pipe
                 var dataPipe = await PipeClientFactory
-                    .CreateAndConnectAsync(connectionPipeName, ServerName, pipeSecurity, cancellationToken)
+                    .CreateAndConnectAsync(connectionPipeName, ServerName, cancellationToken)
                     .ConfigureAwait(false);
 
 
@@ -190,10 +185,10 @@ namespace AllOverIt.Pipes
         /// </summary>
         /// <exception cref="InvalidOperationException"></exception>
         /// <returns></returns>
-        private async Task<string> GetConnectionPipeName(PipeSecurity pipeSecurity, CancellationToken cancellationToken)
+        private async Task<string> GetConnectionPipeName(CancellationToken cancellationToken)
         {
             var reader = await PipeClientFactory
-                .ConnectAsync(PipeName, ServerName, pipeSecurity, cancellationToken)
+                .ConnectAsync(PipeName, ServerName, cancellationToken)
                 .ConfigureAwait(false);
 
             await using (reader)

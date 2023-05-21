@@ -6,8 +6,13 @@
         <PackageTags>AllOverIt;Utilities;Async;Threading;IO;Pipes;NamedPipes</PackageTags>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <!--Platform compatibility - related to the use of PipeSecurity-->
+        <NoWarn>CA1416</NoWarn>
+    </PropertyGroup>
+
     <ItemGroup>
-      <ProjectReference Include="..\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
+        <ProjectReference Include="..\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
     </ItemGroup>
 
 </Project>
