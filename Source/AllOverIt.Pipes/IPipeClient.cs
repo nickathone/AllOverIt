@@ -4,19 +4,6 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public interface IPipeClientEvents<TType>
-    {
-        /// <summary>
-        /// Invoked after each the client connect to the server (include reconnects).
-        /// </summary>
-        event EventHandler<ConnectionEventArgs<TType>> OnConnected;
-
-        /// <summary>
-        /// Invoked when the client disconnects from the server (e.g., the pipe is closed or broken).
-        /// </summary>
-        event EventHandler<ConnectionEventArgs<TType>> OnDisconnected;
-    }
-
     public interface IPipeClient<TType> : IPipe<TType>
     {
 
@@ -37,21 +24,6 @@ namespace AllOverIt.Pipes
         /// </summary>
         public string ServerName { get; }
 
-        /// <summary>
-        /// Active connection.
-        /// </summary>
-        //public PipeConnection<T> Connection { get; }
-
-
-        ///// <summary>
-        ///// Invoked after each the client connect to the server (include reconnects).
-        ///// </summary>
-        //event EventHandler<ConnectionEventArgs<T>> OnConnected;
-
-        ///// <summary>
-        ///// Invoked when the client disconnects from the server (e.g., the pipe is closed or broken).
-        ///// </summary>
-        //event EventHandler<ConnectionEventArgs<T>> OnDisconnected;
 
 
         /// <summary>
@@ -66,6 +38,5 @@ namespace AllOverIt.Pipes
         /// <param name="_"></param>
         /// <returns></returns>
         Task DisconnectAsync(CancellationToken cancellationToken = default);
-
     }
 }

@@ -9,13 +9,9 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public sealed class PipeStreamWriter : IDisposable, IAsyncDisposable
+    public sealed class PipeStreamWriter : /*IDisposable,*/ IAsyncDisposable
     {
-
-        /// <summary>
-        /// Gets the underlying <c>PipeStream</c> object.
-        /// </summary>
-        private readonly PipeStream _pipeStream;
+        private PipeStream _pipeStream;
         private SemaphoreSlim _semaphoreSlim = new(1, 1);
 
 
@@ -39,19 +35,29 @@ namespace AllOverIt.Pipes
 
             using (await _semaphoreSlim.DisposableWaitAsync(cancellationToken))
             {
+                Console.WriteLine("To be removed: Write length");
+
                 await WriteLengthAsync(buffer.Length, cancellationToken).ConfigureAwait(false);
+
+                Console.WriteLine("To be removed: Write buffer");
 
                 await _pipeStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
 
+                Console.WriteLine("To be removed: Written");
+
                 try
                 {
+                    Console.WriteLine("To be removed: Flushing");
+
                     // Flush all buffers to the underlying device
                     await _pipeStream.FlushAsync(cancellationToken).ConfigureAwait(false);
+
+                    Console.WriteLine("To be removed: Flushed");
 
                     // Wait for the other end to read all sent bytes
                     _pipeStream.WaitForPipeDrain();
                 }
-                catch (IOException)
+                catch (IOException exception)
                 {
                     // Ignore: https://stackoverflow.com/questions/45308306/gracefully-closing-a-named-pipe-and-disposing-of-streams
                 }
@@ -62,25 +68,16 @@ namespace AllOverIt.Pipes
         /// <summary>
         /// Dispose internal <see cref="PipeStream"/>
         /// </summary>
-        public void Dispose()
-        {
-            //_pipeStream.Dispose();
-
-            _semaphoreSlim?.Dispose();
-        }
-
-        /// <summary>
-        /// Dispose internal <see cref="PipeStream"/>
-        /// </summary>
         public async ValueTask DisposeAsync()
         {
-            if (_semaphoreSlim != null)
+            if (_pipeStream is not null)
             {
                 await _pipeStream.DisposeAsync().ConfigureAwait(false);
-
-                _semaphoreSlim.Dispose();
-                _semaphoreSlim = null;
+                _pipeStream = null;
             }
+
+            _semaphoreSlim?.Dispose();
+            _semaphoreSlim = null;
         }
 
 

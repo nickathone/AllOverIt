@@ -13,5 +13,4 @@
         /// <returns>An initialized instance of the required type.</returns>
         public TType Deserialize(byte[] bytes);
     }
-
 }

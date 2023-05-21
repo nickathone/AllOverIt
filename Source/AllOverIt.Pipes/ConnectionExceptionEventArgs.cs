@@ -3,24 +3,18 @@ using System;
 
 namespace AllOverIt.Pipes
 {
-    public class ConnectionExceptionEventArgs<T> : ConnectionEventArgs<T>
+    public sealed class ConnectionExceptionEventArgs<TType> : ConnectionEventArgs<TType>
     {
-        /// <summary>
-        /// The exception that was thrown
-        /// </summary>
+        /// <summary>The exception that was raised.</summary>
         public Exception Exception { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <param name="exception"></param>
-        public ConnectionExceptionEventArgs(PipeConnection<T> connection, Exception exception)
+        /// <summary>Constructor.</summary>
+        /// <param name="connection">The connection associated with the event.</param>
+        /// <param name="exception">The exception associated with the event.</param>
+        public ConnectionExceptionEventArgs(IPipeConnection<TType> connection, Exception exception)
             : base(connection)
         {
             Exception = exception.WhenNotNull(nameof(exception));
         }
     }
-
-
 }

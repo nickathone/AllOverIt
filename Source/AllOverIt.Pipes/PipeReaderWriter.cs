@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public sealed class PipeReaderWriter : IDisposable, IAsyncDisposable
+    public sealed class PipeReaderWriter : /*IDisposable,*/ IAsyncDisposable
     {
         private readonly PipeStream _pipeStream;
         private readonly PipeStreamReader _streamReader;
@@ -55,9 +55,9 @@ namespace AllOverIt.Pipes
         /// Reads the next object from the pipe. 
         /// </summary>
         /// <returns>The next object read from the pipe, or <c>null</c> if the pipe disconnected.</returns>
-        public async Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
+        public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
-            return await _streamReader.ReadAsync(cancellationToken).ConfigureAwait(false);
+            return _streamReader.ReadAsync(cancellationToken);
         }
 
         /// <summary>
@@ -65,25 +65,13 @@ namespace AllOverIt.Pipes
         /// </summary>
         /// <param name="buffer">Object to write to the pipe</param>
         /// <param name="cancellationToken"></param>
-        public async Task WriteAsync(byte[] buffer, CancellationToken cancellationToken = default)
+        public Task WriteAsync(byte[] buffer, CancellationToken cancellationToken = default)
         {
             // Writes, flushes, and waits for the pipe to drain
-            await _streamWriter.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
+            return _streamWriter.WriteAsync(buffer, cancellationToken);
         }
 
 
-
-        /// <summary>
-        /// Dispose internal <see cref="PipeStream"/>
-        /// </summary>
-        public void Dispose()
-        {
-            _pipeStream.Dispose();
-
-            // This is redundant, just to avoid mistakes and follow the general logic of Dispose
-            _streamReader.Dispose();
-            _streamWriter.Dispose();
-        }
 
         /// <summary>
         /// Dispose internal <see cref="PipeStream"/>

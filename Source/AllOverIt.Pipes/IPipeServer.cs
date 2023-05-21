@@ -4,19 +4,6 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public interface IPipeServerEvents<TType>
-    {
-        /// <summary>
-        /// Invoked whenever a client connects to the server.
-        /// </summary>
-        event EventHandler<ConnectionEventArgs<TType>> ClientConnected;
-
-        /// <summary>
-        /// Invoked whenever a client disconnects from the server.
-        /// </summary>
-        event EventHandler<ConnectionEventArgs<TType>> ClientDisconnected;
-    }
-
     public interface IPipeServer<TType> : IPipe<TType>
     {
         /// <summary>
@@ -28,16 +15,6 @@ namespace AllOverIt.Pipes
         bool IsActive { get; }
 
 
-        ///// <summary>
-        ///// Invoked whenever a client connects to the server.
-        ///// </summary>
-        //event EventHandler<ConnectionEventArgs<TType>> ClientConnected;
-
-        ///// <summary>
-        ///// Invoked whenever a client disconnects from the server.
-        ///// </summary>
-        //event EventHandler<ConnectionEventArgs<TType>> ClientDisconnected;
-
 
         /// <summary>
         /// 
@@ -46,13 +23,8 @@ namespace AllOverIt.Pipes
         void Start();
 
 
-        ///// <summary>
-        ///// Closes all open client connections and stops listening for new ones.
-        ///// </summary>
+        /// <summary>Closes all client connections and stops listening for new connections.</summary>
         Task StopAsync();
-
-
-
 
         /// <summary>Asynchronously sends a message to the client with a specfied pipe name..</summary>
         /// <param name="message">The message to send to all connected clients.</param>

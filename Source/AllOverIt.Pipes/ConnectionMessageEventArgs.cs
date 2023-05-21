@@ -1,23 +1,17 @@
 ﻿namespace AllOverIt.Pipes
 {
-    public class ConnectionMessageEventArgs<TType> : ConnectionEventArgs<TType>
+    public sealed class ConnectionMessageEventArgs<TType> : ConnectionEventArgs<TType>
     {
-        /// <summary>
-        /// Message sent by the other end of the pipe
-        /// </summary>
+        /// <summary>The message sent by the other end of the pipe.</summary>
         public TType Message { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <param name="message"></param>
+        /// <summary>Constructor.</summary>
+        /// <param name="connection">The connection associated with the event.</param>
+        /// <param name="message">The message associated with the event.</param>
         public ConnectionMessageEventArgs(IPipeConnection<TType> connection, TType message)
             : base(connection)
         {
             Message = message;
         }
     }
-
-
 }

@@ -2,47 +2,11 @@
 using AllOverIt.Reactive;
 using NamedPipeTypes;
 using System;
-using System.Reactive;
-using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace NamedPipeDemo
 {
-    public sealed class AsyncCommand
-    {
-        private readonly Func<Task> _execute;
-
-        public AsyncCommand(Func<Task> execute)
-        {
-            _execute = execute;
-        }
-
-        public void Execute()
-        {
-            var completionSource = new TaskCompletionSource<bool>();
-
-            _execute.Invoke().ContinueWith(task =>
-            {
-                if (task.IsFaulted)
-                {
-                    completionSource.TrySetException(task.Exception);
-                }
-                else if (task.IsCanceled)
-                {
-                    completionSource.TrySetCanceled();
-                }
-                else
-                {
-                    completionSource.TrySetResult(true);
-                }
-            });
-
-            completionSource.Task.GetAwaiter().GetResult();
-        }
-    }
-
-
     internal static class PipeServer
     {
         private static void OnExceptionOccurred(Exception exception)
@@ -63,61 +27,67 @@ namespace NamedPipeDemo
                 Console.WriteLine($"Running in SERVER mode. PipeName: {pipeName}");
                 Console.WriteLine("Enter 'q' to exit");
 
-                await using var server = new PipeServer<PipeMessage>(pipeName, serializer);
-
-                server.ClientConnected += (_, args) => OnClientConnected(args, source.Token);
-
-                server.ClientDisconnected += (_, args) =>
+                await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
                 {
-                    Console.WriteLine($"Client {args.Connection.PipeName} disconnected");
-                };
+                    server.ClientConnected += (_, args) => OnClientConnected(args, source.Token);
 
-                server.OnMessageReceived += (_, args) =>
-                {
-                    Console.WriteLine($"Client {args.Connection.PipeName} says: {args.Message}");
-                };
-
-                server.OnException += (_, args) => OnExceptionOccurred(args.Exception);
-
-                _ = Task.Run(async () =>
-                {
-                    while (true)
+                    server.ClientDisconnected += (_, args) =>
                     {
-                        try
-                        {
-                            var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
+                        Console.WriteLine($"Client {args.Connection.PipeName} disconnected");
+                    };
 
-                            if (message == "q")
+                    server.OnMessageReceived += (_, args) =>
+                    {
+                        Console.WriteLine($"Client {args.Connection.PipeName} says: {args.Message}");
+                    };
+
+                    server.OnException += (_, args) => OnExceptionOccurred(args.Exception);
+
+                    _ = Task.Run(async () =>
+                    {
+                        while (!source.Token.IsCancellationRequested)
+                        {
+                            try
                             {
-                                source.Cancel();
-                                break;
+                                var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
+
+                                if (message == "q")
+                                {
+                                    source.Cancel();
+
+                                    Console.WriteLine("Quiting...");
+
+                                    break;
+                                }
+
+                                // Console.WriteLine($"Sent to {server.ConnectedClients.Count} clients");
+
+                                await server.WriteAsync(new PipeMessage
+                                {
+                                    Text = message,
+                                }, source.Token).ConfigureAwait(false);
                             }
-
-                            // Console.WriteLine($"Sent to {server.ConnectedClients.Count} clients");
-
-                            await server.WriteAsync(new PipeMessage
+                            catch (Exception exception)
                             {
-                                Text = message,
-                            }, source.Token).ConfigureAwait(false);
+                                OnExceptionOccurred(exception);
+                            }
                         }
-                        catch (Exception exception)
-                        {
-                            OnExceptionOccurred(exception);
-                        }
-                    }
-                }, source.Token);
+                    }, source.Token);
 
-                Console.WriteLine("Server starting...");
+                    Console.WriteLine("Server starting...");
 
-                server.Start();
+                    server.Start();
 
-                Console.WriteLine("Server is started!");
+                    Console.WriteLine("Server is started!");
 
-                // Wait until the user quites with 'q'
-                await Task.Delay(Timeout.InfiniteTimeSpan, source.Token).ConfigureAwait(false);
+                    // Wait until the user quites with 'q'
+                    await WaitForCancellationAsync(source.Token).ConfigureAwait(false);
 
-                // Disposing the server will shut it down
-                await server.DisposeAsync().ConfigureAwait(false);
+                    // When the server is disposed it will shut down
+                    Console.WriteLine("Stopping Server...!");
+                }
+
+                Console.WriteLine("Server Stopped!");
             }
             catch (OperationCanceledException)
             {
@@ -125,6 +95,17 @@ namespace NamedPipeDemo
             catch (Exception exception)
             {
                 OnExceptionOccurred(exception);
+            }
+        }
+
+        private static async Task WaitForCancellationAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
 

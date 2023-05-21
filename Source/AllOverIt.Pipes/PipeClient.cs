@@ -1,5 +1,7 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Async;
 using System;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,14 +12,12 @@ namespace AllOverIt.Pipes
     {
         private const string LocalServer = ".";
 
+        private readonly IMessageSerializer<TType> _serializer;
         private PipeConnection<TType> _connection;
 
 
         /// <inheritdoc/>
-        public bool IsConnected => _connection != null;
-
-
-        private readonly IMessageSerializer<TType> _serializer;
+        public bool IsConnected => _connection?.IsConnected ?? false;
 
 
         /// <inheritdoc/>
@@ -98,8 +98,6 @@ namespace AllOverIt.Pipes
             {
                 //IsConnecting = true;
 
-
-
                 var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
 
                 // Connect to the actual data pipe
@@ -111,11 +109,11 @@ namespace AllOverIt.Pipes
                 // TODO: Handle cleanup if exception occurs after this
                 _connection = new PipeConnection<TType>(dataPipe, connectionPipeName, _serializer, ServerName);
 
-                // TODO: fix async void
+                // Unsubscribes all event handlers and disposes of the connection
                 _connection.OnDisconnected += OnConnectionDisconnected;
 
-                _connection.OnMessageReceived += (_, args) => RaiseOnMessageReceived(args);
-                _connection.OnException += (_, args) => RaiseExceptionOccurred(args.Exception);
+                _connection.OnMessageReceived += DoOnConnectionMessageReceived;
+                _connection.OnException += DoOnConnectionException;
 
                 _connection.Connect();
 
@@ -142,9 +140,7 @@ namespace AllOverIt.Pipes
         /// <returns></returns>
         public async Task DisconnectAsync(CancellationToken _ = default)
         {
-            //ReconnectionTimer.Stop();
-
-            await DoDisconnectAsync().ConfigureAwait(false);
+            await DoOnDisconnectedAsync().ConfigureAwait(false);
         }
 
 
@@ -178,7 +174,7 @@ namespace AllOverIt.Pipes
         {
             //ReconnectionTimer.Dispose();
 
-            await DoDisconnectAsync().ConfigureAwait(false);
+            await DoOnDisconnectedAsync().ConfigureAwait(false);
         }
 
 
@@ -190,11 +186,9 @@ namespace AllOverIt.Pipes
         /// <returns></returns>
         private async Task<string> GetConnectionPipeName(CancellationToken cancellationToken = default)
         {
-            var handshake = await PipeClientFactory.ConnectAsync(PipeName, ServerName, /*CreatePipeStreamFunc,*/ cancellationToken).ConfigureAwait(false);
-
-            await using (handshake.ConfigureAwait(false))
+            await using (var reader = await PipeClientFactory.ConnectAsync(PipeName, ServerName, /*CreatePipeStreamFunc,*/ cancellationToken).ConfigureAwait(false))
             {
-                var bytes = await handshake.ReadAsync(cancellationToken).ConfigureAwait(false);
+                var bytes = await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 
                 // TODO: Custom exception
                 Throw<InvalidOperationException>.WhenNull(bytes, "Connection handshake failed.");
@@ -203,28 +197,21 @@ namespace AllOverIt.Pipes
             }
         }
 
-
-
-        // TODO: fix async void
-        private async void OnConnectionDisconnected(object sender, ConnectionEventArgs<TType> args)
+        private void OnConnectionDisconnected(object sender, ConnectionEventArgs<TType> args)
         {
             try
             {
-                await DoDisconnectAsync().ConfigureAwait(false);
+                Reactive.TaskHelper.ExecuteAsyncAndWait(DoOnDisconnectedAsync);
             }
             catch (Exception exception)
             {
                 RaiseExceptionOccurred(exception);
             }
 
-            RaiseOnDisconnected(args);
+            OnDisconnected?.Invoke(this, args);
         }
 
-
-
-
-
-        private async Task DoDisconnectAsync()
+        private async Task DoOnDisconnectedAsync()
         {
             if (_connection == null)
             {
@@ -232,25 +219,27 @@ namespace AllOverIt.Pipes
             }
 
             _connection.OnDisconnected -= OnConnectionDisconnected;
+            _connection.OnMessageReceived -= DoOnConnectionMessageReceived;
+            _connection.OnException -= DoOnConnectionException;
 
             await _connection.DisposeAsync().ConfigureAwait(false);
 
             _connection = null;
-        }
-
-        private void RaiseOnMessageReceived(ConnectionMessageEventArgs<TType> args)
-        {
-            OnMessageReceived?.Invoke(this, args);
-        }
-
-        private void RaiseOnDisconnected(ConnectionEventArgs<TType> args)
-        {
-            OnDisconnected?.Invoke(this, args);
-        }
+        }       
 
         private void DoOnConnected(ConnectionEventArgs<TType> args)
         {
             OnConnected?.Invoke(this, args);
+        }
+
+        private void DoOnConnectionMessageReceived(object sender, ConnectionMessageEventArgs<TType> args)
+        {
+            OnMessageReceived?.Invoke(this, args);
+        }
+
+        private void DoOnConnectionException(object sender, ConnectionExceptionEventArgs<TType> args)
+        {
+            RaiseExceptionOccurred(args.Exception);
         }
 
         private void RaiseExceptionOccurred(Exception exception)

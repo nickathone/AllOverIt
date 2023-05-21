@@ -29,16 +29,25 @@ namespace NamedPipeDemo
                 await using var client = new PipeClient<PipeMessage>(pipeName, serializer);
 
                 client.OnMessageReceived += (o, args) => Console.WriteLine("MessageReceived: " + args.Message);
-                client.OnDisconnected += (o, args) => Console.WriteLine("Disconnected from server");
+
+                client.OnDisconnected += (o, args) =>
+                {
+                    Console.WriteLine("Disconnected from server");
+                    source.Cancel();
+                };
+
                 client.OnConnected += (o, args) => Console.WriteLine("Connected to server");
+
                 client.OnException += (o, args) => OnExceptionOccurred(args.Exception);
 
                 _ = Task.Run(async () =>
                 {
-                    while (true)
+                    while (!source.Token.IsCancellationRequested)
                     {
                         try
                         {
+                            Console.WriteLine("Waiting for user input");
+
                             var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
 
                             if (message == "q")
@@ -47,15 +56,24 @@ namespace NamedPipeDemo
                                 break;
                             }
 
-                            await client.WriteAsync(new PipeMessage
-                            {
-                                Text = message
-                            }, source.Token).ConfigureAwait(false);
+                            Console.WriteLine($"Sending message: {message}");
+
+                            await client
+                                .WriteAsync(new PipeMessage
+                                {
+                                    Text = message
+                                }, source.Token)
+                                .ConfigureAwait(false);
                         }
                         catch (Exception exception)
                         {
+                            Console.WriteLine($"To be removed: {exception.Message}");
+
                             OnExceptionOccurred(exception);
+                            source.Cancel();
                         }
+
+                        Console.WriteLine("User input processed");
                     }
                 }, source.Token);
 
@@ -65,7 +83,11 @@ namespace NamedPipeDemo
 
                 Console.WriteLine("Client connected");
 
-                await Task.Delay(Timeout.InfiniteTimeSpan, source.Token).ConfigureAwait(false);
+                // Wait until the user quites with 'q'
+                await WaitForCancellationAsync(source.Token).ConfigureAwait(false);
+
+                // When the client is disposed it will shut down
+                Console.WriteLine("Disposing Client...");
             }
             catch (OperationCanceledException)
             {
@@ -73,6 +95,17 @@ namespace NamedPipeDemo
             catch (Exception exception)
             {
                 OnExceptionOccurred(exception);
+            }
+        }
+
+        private static async Task WaitForCancellationAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
     }   

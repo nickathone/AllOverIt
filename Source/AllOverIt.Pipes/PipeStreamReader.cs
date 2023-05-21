@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public sealed class PipeStreamReader : IDisposable, IAsyncDisposable
+    public sealed class PipeStreamReader : /*IDisposable,*/ IAsyncDisposable
     {
+        private PipeStream _pipeStream;
+
+
         /// <summary>
         /// Gets a value indicating whether the pipe is connected or not.
         /// </summary>
-        public bool IsConnected { get; private set; }
-
-        private PipeStream BaseStream { get; }
+        public bool IsConnected => _pipeStream.IsConnected;// { get; private set; }
 
 
 
@@ -26,8 +27,8 @@ namespace AllOverIt.Pipes
         /// <param name="stream">Pipe to read from</param>
         public PipeStreamReader(PipeStream stream)
         {
-            BaseStream = stream.WhenNotNull(nameof(stream));
-            IsConnected = stream.IsConnected;
+            _pipeStream = stream.WhenNotNull(nameof(stream));
+            //IsConnected = stream.IsConnected;
         }
 
 
@@ -49,14 +50,13 @@ namespace AllOverIt.Pipes
 
 
 
-        public void Dispose()
-        {
-            BaseStream.Dispose();
-        }
-
         public async ValueTask DisposeAsync()
         {
-            await BaseStream.DisposeAsync().ConfigureAwait(false);
+            if (_pipeStream is not null)
+            {
+                await _pipeStream.DisposeAsync().ConfigureAwait(false);
+                _pipeStream = null;
+            }
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace AllOverIt.Pipes
 
             if (!bytes.Any())
             {
-                IsConnected = false;
+                //IsConnected = false;
                 return 0;
             }
 
@@ -82,7 +82,7 @@ namespace AllOverIt.Pipes
         {
             var buffer = new byte[length];
 
-            var read = await BaseStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
+            var read = await _pipeStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
 
             if (read != buffer.Length)
             {

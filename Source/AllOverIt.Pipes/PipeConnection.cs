@@ -8,16 +8,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public interface IPipeConnection<TType>
-    {
-        public string PipeName { get; }
-        public string ServerName { get; }
-        public bool IsConnected { get; }
-
-        void Connect();
-        Task DisconnectAsync();
-        Task WriteAsync(TType value, CancellationToken cancellationToken = default);
-    }
+    // This connection is not re-usable (connect / disconnect) since the decorated stream is disposed of.
 
     public sealed class PipeConnection<TType> : IPipeConnection<TType>, IAsyncDisposable
     {
@@ -26,9 +17,9 @@ namespace AllOverIt.Pipes
 
         private readonly IMessageSerializer<TType> _serializer;
 
-        private readonly PipeReaderWriter _pipeReaderWriter;
-
         private BackgroundTask _backgroundeader;
+
+        private PipeReaderWriter _pipeReaderWriter;
 
 
         /// <summary>
@@ -44,7 +35,7 @@ namespace AllOverIt.Pipes
         /// <summary>
         /// Gets a value indicating whether the pipe is connected or not.
         /// </summary>
-        public bool IsConnected => _pipeReaderWriter.IsConnected;
+        public bool IsConnected => _pipeReaderWriter?.IsConnected ?? false;
 
 
         /// <summary>
@@ -68,8 +59,6 @@ namespace AllOverIt.Pipes
             _pipeStream = stream.WhenNotNull(nameof(stream));
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));
-
-            _pipeReaderWriter = new PipeReaderWriter(stream);
         }
 
         internal PipeConnection(PipeStream stream, string pipeName, IMessageSerializer<TType> serializer, string serverName)
@@ -90,6 +79,8 @@ namespace AllOverIt.Pipes
 
             _backgroundeader = new BackgroundTask(async cancellationToken =>
             {
+                _pipeReaderWriter = new PipeReaderWriter(_pipeStream);
+
                 while (!cancellationToken.IsCancellationRequested && IsConnected)
                 {
                     try
@@ -98,7 +89,7 @@ namespace AllOverIt.Pipes
                             .ReadAsync(cancellationToken)
                             .ConfigureAwait(false);
 
-                        if (bytes == null && !IsConnected)
+                        if (bytes == null || !IsConnected)
                         {
                             break;
                         }
@@ -123,6 +114,14 @@ namespace AllOverIt.Pipes
 
         public async Task DisconnectAsync()
         {
+            if (_pipeReaderWriter is not null)
+            {
+                // This must be disposed so the background reader can detect when the server breaks the connection
+                await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
+
+                _pipeReaderWriter = null;
+            }
+
             if (_backgroundeader != null)
             {
                 await _backgroundeader.DisposeAsync().ConfigureAwait(false);
@@ -148,9 +147,7 @@ namespace AllOverIt.Pipes
             await _pipeReaderWriter.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Gets the user name of the client on the other end of the pipe.
-        /// </summary>
+        /// <summary>Gets the user name of the client on the other end of the pipe.</summary>
         /// <returns>The user name of the client on the other end of the pipe.</returns>
         /// <exception cref="InvalidOperationException"><see cref="_pipeStream"/> is not <see cref="NamedPipeServerStream"/>.</exception>
         /// <exception cref="InvalidOperationException">No pipe connections have been made yet.</exception>
@@ -177,9 +174,7 @@ namespace AllOverIt.Pipes
         public async ValueTask DisposeAsync()
         {
             await DisconnectAsync().ConfigureAwait(false);
-            await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
         }
-
 
         private void DoOnDisconnected()
         {

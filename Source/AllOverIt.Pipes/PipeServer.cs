@@ -76,40 +76,6 @@ namespace AllOverIt.Pipes
                                  !((Task) _backgroundTask).IsFaulted;
 
 
-
-        private void DoOnClientConnected(ConnectionEventArgs<TType> args)
-        {
-            ClientConnected?.Invoke(this, args);
-        }
-
-        private void DoOnClientDisconnected(ConnectionEventArgs<TType> args)
-        {
-            ClientDisconnected?.Invoke(this, args);
-
-            Reactive.TaskHelper.ExecuteAsyncAndWait(async () =>
-            {
-                // May be remove them within a background thread
-                using (await _connectionsLock.GetLockAsync())
-                {
-                    var connection = args.Connection;
-
-                    Connections.Remove(connection);
-                }
-            });
-        }
-
-        private void DoOnMessageReceived(ConnectionMessageEventArgs<TType> args)
-        {
-            OnMessageReceived?.Invoke(this, args);
-        }
-
-        private void OnExceptionOccurred(Exception exception)
-        {
-            OnException?.Invoke(this, new ExceptionEventArgs(exception));
-        }
-
-
-
         public void Start()
         {
             // TODO: Throw if already started
@@ -135,14 +101,11 @@ namespace AllOverIt.Pipes
 
                             await serverStream.WaitForConnectionAsync(token).ConfigureAwait(false);
 
-                            using (var handshakeWrapper = new PipeReaderWriter(serverStream))
+                            await using (var writer = new PipeReaderWriter(serverStream))
                             {
-                                await using (handshakeWrapper.ConfigureAwait(false))
-                                {
-                                    await handshakeWrapper
-                                        .WriteAsync(Encoding.UTF8.GetBytes(connectionPipeName), token)
-                                        .ConfigureAwait(false);
-                                }
+                                await writer
+                                    .WriteAsync(Encoding.UTF8.GetBytes(connectionPipeName), token)
+                                    .ConfigureAwait(false);
                             }
                         }
 
@@ -169,7 +132,7 @@ namespace AllOverIt.Pipes
 
                         connection.OnMessageReceived += (_, args) => DoOnMessageReceived(args);
                         connection.OnDisconnected += (_, args) => DoOnClientDisconnected(args);
-                        connection.OnException += (_, args) => OnExceptionOccurred(args.Exception);
+                        connection.OnException += (_, args) => DoOnConnectionException(args.Exception);
 
                         connection.Connect();
 
@@ -215,10 +178,16 @@ namespace AllOverIt.Pipes
                 _backgroundTask = null;
             }
 
-            // We don't need to lock since no new connections are possible
-            await Connections.ForEachAsync((connection, _) => connection.DisconnectAsync());
+            // We don't need to lock since no new connections are possible.
+            // Can't use foreach() as the collection is modified.
+            while (Connections.Any())
+            {
+                var connection = Connections.First();
 
-            Connections.Clear();
+                Console.WriteLine($"To be removed: Disconnecting {connection.PipeName}");
+
+                await connection.DisconnectAsync().ConfigureAwait(false);
+            }
         }
 
         /// <summary>Asynchronously sends a message to all connected clients.</summary>
@@ -264,7 +233,7 @@ namespace AllOverIt.Pipes
                 }
                 catch
                 {
-                    // TODO: Capture and ignore only exceptions related to the client becoming disconnected before the message is received
+                    // TODO: Report / handle
                 }
             }, cancellationToken);
         }
@@ -279,6 +248,38 @@ namespace AllOverIt.Pipes
                 _connectionsLock.Dispose();
                 _connectionsLock = null;
             }
+        }
+
+
+        private void DoOnClientConnected(ConnectionEventArgs<TType> args)
+        {
+            ClientConnected?.Invoke(this, args);
+        }
+
+        private void DoOnClientDisconnected(ConnectionEventArgs<TType> args)
+        {
+            ClientDisconnected?.Invoke(this, args);
+
+            Reactive.TaskHelper.ExecuteAsyncAndWait(async () =>
+            {
+                // May be remove them within a background thread
+                using (await _connectionsLock.GetLockAsync())
+                {
+                    var connection = args.Connection;
+
+                    Connections.Remove(connection);
+                }
+            });
+        }
+
+        private void DoOnMessageReceived(ConnectionMessageEventArgs<TType> args)
+        {
+            OnMessageReceived?.Invoke(this, args);
+        }
+
+        private void DoOnConnectionException(Exception exception)
+        {
+            OnException?.Invoke(this, new ExceptionEventArgs(exception));
         }
     }
 }
