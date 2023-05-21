@@ -35,7 +35,7 @@ namespace NamedPipeDemo
 
                 await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
                 {
-                    server.ClientConnected += (_, args) => OnClientConnected(args, source.Token);
+                    server.ClientConnected += (_, args) => OnClientConnected(server, args, source.Token);
 
                     server.ClientDisconnected += (_, args) =>
                     {
@@ -136,7 +136,7 @@ namespace NamedPipeDemo
             }
         }
 
-        private static void OnClientConnected(ConnectionEventArgs<PipeMessage> args, CancellationToken cancellationToken)
+        private static void OnClientConnected(IPipeServer<PipeMessage> server, ConnectionEventArgs<PipeMessage> args, CancellationToken cancellationToken)
         {
             var connection = args.Connection;
 
@@ -160,15 +160,15 @@ namespace NamedPipeDemo
 
                 Console.WriteLine("Message sent");
 
-                SendConnectionRegularMessages(connection);
+                SendConnectionRegularMessages(server, connection);
             });
         }
 
-        private static void SendConnectionRegularMessages(IPipeConnection<PipeMessage> connection)
+        private static void SendConnectionRegularMessages(IPipeServer<PipeMessage> server, IPipeConnection<PipeMessage> connection)
         {
             Observable
                 .Interval(TimeSpan.FromMilliseconds(25))
-                .TakeWhile(_ => connection.IsConnected)
+                .TakeWhile(_ => server.IsActive && connection.IsConnected)
                 .SelectMany(async async =>
                 {
                     try

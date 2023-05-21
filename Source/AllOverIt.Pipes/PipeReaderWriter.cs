@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public sealed class PipeReaderWriter : /*IDisposable,*/ IAsyncDisposable
+    public sealed class PipeReaderWriter : IAsyncDisposable
     {
-        private readonly PipeStream _pipeStream;
-        private readonly PipeStreamReader _streamReader;
-        private readonly PipeStreamWriter _streamWriter;
+        private PipeStream _pipeStream;
+        private PipeStreamReader _streamReader;
+        private PipeStreamWriter _streamWriter;
 
 
         /// <summary>
@@ -78,13 +78,26 @@ namespace AllOverIt.Pipes
         /// </summary>
         public async ValueTask DisposeAsync()
         {
-            await _pipeStream.DisposeAsync().ConfigureAwait(false);
+            if (_pipeStream is not null)
+            {
+                await _pipeStream.DisposeAsync().ConfigureAwait(false);
+                _pipeStream = null;
+            }
 
             // TODO: Check this - they seem to dispose the same reference as BaseStream
             //
             // This is redundant, just to avoid mistakes and follow the general logic of Dispose
-            await _streamReader.DisposeAsync().ConfigureAwait(false);
-            await _streamWriter.DisposeAsync().ConfigureAwait(false);
+            if (_streamReader is not null)
+            {
+                await _streamReader.DisposeAsync().ConfigureAwait(false);
+                _streamReader = null;
+            }
+
+            if (_streamWriter is not null)
+            {
+                await _streamWriter.DisposeAsync().ConfigureAwait(false);
+                _streamWriter = null;
+            }
         }
     }
 }

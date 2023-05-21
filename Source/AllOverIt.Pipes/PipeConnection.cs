@@ -17,7 +17,7 @@ namespace AllOverIt.Pipes
 
         private readonly IMessageSerializer<TType> _serializer;
 
-        private BackgroundTask _backgroundeader;
+        private BackgroundTask _backgroundReader;
 
         private PipeReaderWriter _pipeReaderWriter;
 
@@ -75,9 +75,9 @@ namespace AllOverIt.Pipes
         public void Connect()
         {
             // TODO: Custom exception
-            Throw<InvalidOperationException>.WhenNotNull(_backgroundeader, "The connection is already open.");
+            Throw<InvalidOperationException>.WhenNotNull(_backgroundReader, "The connection is already open.");
 
-            _backgroundeader = new BackgroundTask(async cancellationToken =>
+            _backgroundReader = new BackgroundTask(async cancellationToken =>
             {
                 _pipeReaderWriter = new PipeReaderWriter(_pipeStream);
 
@@ -128,11 +128,11 @@ namespace AllOverIt.Pipes
                 _pipeReaderWriter = null;
             }
 
-            if (_backgroundeader != null)
+            if (_backgroundReader != null)
             {
-                await _backgroundeader.DisposeAsync().ConfigureAwait(false);
+                await _backgroundReader.DisposeAsync().ConfigureAwait(false);
 
-                _backgroundeader = null;
+                _backgroundReader = null;
             }
         }
 
