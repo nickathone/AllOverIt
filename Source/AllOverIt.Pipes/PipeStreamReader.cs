@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes
 {
-    public sealed class PipeStreamReader : /*IDisposable,*/ IAsyncDisposable
+    public sealed class PipeStreamReader : IAsyncDisposable
     {
         private PipeStream _pipeStream;
 
@@ -84,6 +84,7 @@ namespace AllOverIt.Pipes
 
             var read = await _pipeStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
 
+            // This can occur if the connection is killed while communicating with the server
             if (read != buffer.Length)
             {
                 return throwIfReadLessThanLength

@@ -98,6 +98,12 @@ namespace AllOverIt.Pipes
 
                         DoOnMessageReceived(@object);
                     }
+                    catch (IOException)
+                    {
+                        // PipeStreamReader will throw IOException if an expected byte count is not received.
+                        // This can occur if the connection is killed during communication. Fall through so
+                        // the connection is treated as disconnected.
+                    }
                     catch (OperationCanceledException)
                     {
                     }

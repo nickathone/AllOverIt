@@ -87,6 +87,4 @@ namespace AllOverIt.Pipes
             await _streamWriter.DisposeAsync().ConfigureAwait(false);
         }
     }
-
-
 }
