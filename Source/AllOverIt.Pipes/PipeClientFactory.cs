@@ -11,9 +11,10 @@ namespace AllOverIt.Pipes
             string pipeName,
             string serverName,
             //Func<string, string, NamedPipeClientStream> func = null,
+            PipeSecurity pipeSecurity = null,
             CancellationToken cancellationToken = default)
         {
-            var pipe = await CreateAndConnectAsync(pipeName, serverName, /*func,*/ cancellationToken).ConfigureAwait(false);
+            var pipe = await CreateAndConnectAsync(pipeName, serverName, pipeSecurity, cancellationToken).ConfigureAwait(false);
 
             return new PipeReaderWriter(pipe);
         }
@@ -22,6 +23,7 @@ namespace AllOverIt.Pipes
             string pipeName,
             string serverName,
             //Func<string, string, NamedPipeClientStream> func = null,
+            PipeSecurity pipeSecurity = null,
             CancellationToken cancellationToken = default)
         {
             var pipe = //func != null

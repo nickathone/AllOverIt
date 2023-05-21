@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Async;
 using System;
+using System.IO.Pipes;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
@@ -80,7 +81,12 @@ namespace AllOverIt.Pipes
         /// <summary>
         /// Connects to the named pipe server asynchronously.
         /// </summary>
-        public async Task ConnectAsync(CancellationToken cancellationToken = default)
+        public Task ConnectAsync(CancellationToken cancellationToken = default)
+        {
+            return ConnectAsync(null, cancellationToken);
+        }
+
+        public async Task ConnectAsync(PipeSecurity pipeSecurity, CancellationToken cancellationToken)
         {
             // TODO: Add auto-reconnect if the server is lost
 
@@ -98,11 +104,11 @@ namespace AllOverIt.Pipes
             {
                 //IsConnecting = true;
 
-                var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
+                var connectionPipeName = await GetConnectionPipeName(pipeSecurity, cancellationToken).ConfigureAwait(false);
 
                 // Connect to the actual data pipe
                 var dataPipe = await PipeClientFactory
-                    .CreateAndConnectAsync(connectionPipeName, ServerName, cancellationToken)
+                    .CreateAndConnectAsync(connectionPipeName, ServerName, pipeSecurity, cancellationToken)
                     .ConfigureAwait(false);
 
 
@@ -184,9 +190,13 @@ namespace AllOverIt.Pipes
         /// </summary>
         /// <exception cref="InvalidOperationException"></exception>
         /// <returns></returns>
-        private async Task<string> GetConnectionPipeName(CancellationToken cancellationToken = default)
+        private async Task<string> GetConnectionPipeName(PipeSecurity pipeSecurity, CancellationToken cancellationToken)
         {
-            await using (var reader = await PipeClientFactory.ConnectAsync(PipeName, ServerName, /*CreatePipeStreamFunc,*/ cancellationToken).ConfigureAwait(false))
+            var reader = await PipeClientFactory
+                .ConnectAsync(PipeName, ServerName, pipeSecurity, cancellationToken)
+                .ConfigureAwait(false);
+
+            await using (reader)
             {
                 var bytes = await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 

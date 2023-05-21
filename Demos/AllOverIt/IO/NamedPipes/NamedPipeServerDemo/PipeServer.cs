@@ -3,8 +3,11 @@ using AllOverIt.Reactive;
 using NamedPipeTypes;
 using System;
 using System.IO;
+using System.IO.Pipes;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -81,7 +84,26 @@ namespace NamedPipeDemo
 
                     Console.WriteLine("Server starting...");
 
-                    server.Start();
+
+
+
+                            var pipeSecurity = new PipeSecurity();
+
+                            // Get the identity of the user account you want to grant or deny access
+                            var userSid = new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null);
+
+                            // Create an access rule to grant or deny specific rights to the user
+                            var allowRule = new PipeAccessRule(userSid, PipeAccessRights.ReadWrite, AccessControlType.Allow);
+                            //var denyRule = new PipeAccessRule(userSid, PipeAccessRights.FullControl, AccessControlType.Deny);
+
+                            // Add the access rules to the PipeSecurity object
+                            pipeSecurity.AddAccessRule(allowRule);
+                            //pipeSecurity.AddAccessRule(denyRule);
+
+
+
+
+                    server.Start(pipeSecurity);
 
                     Console.WriteLine("Server is started!");
 

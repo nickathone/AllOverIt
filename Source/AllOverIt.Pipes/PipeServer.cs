@@ -6,6 +6,7 @@ using AllOverIt.Threading.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -69,8 +70,8 @@ namespace AllOverIt.Pipes
             }
         }
 
-
-        public void Start()
+        [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+        public void Start(PipeSecurity pipeSecurity = null)
         {
             
             // TODO: Throw if already started
@@ -85,8 +86,7 @@ namespace AllOverIt.Pipes
                         var connectionPipeName = $"{Guid.NewGuid()}";
 
                         // Send the client the name of the data pipe to use
-                        var serverStream = //CreatePipeStreamFunc?.Invoke(PipeName) ??              - applies security options
-                            PipeServerFactory.Create(PipeName);
+                        var serverStream = PipeServerFactory.Create(PipeName, pipeSecurity);       // TODO: Allow the factory to provide default security, this will override if not null
 
                         await using (serverStream)
                         {
@@ -105,8 +105,7 @@ namespace AllOverIt.Pipes
                         }
 
                         // Wait for the client to connect to the data pipe
-                        var connectionStream = //CreatePipeStreamFunc?.Invoke(connectionPipeName) ??   - applies security options
-                            PipeServerFactory.Create(connectionPipeName);
+                        var connectionStream = PipeServerFactory.Create(connectionPipeName);
 
                         //check out use
                         //PipeStreamInitializeAction?.Invoke(connectionStream);

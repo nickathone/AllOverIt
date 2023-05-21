@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace AllOverIt.Pipes
         /// 
         /// </summary>
         /// <returns></returns>
-        void Start();
+        void Start(PipeSecurity pipeSecurity = null);
 
 
         /// <summary>Closes all client connections and stops listening for new connections.</summary>
