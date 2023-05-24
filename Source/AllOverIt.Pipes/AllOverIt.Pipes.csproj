@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <!--Platform compatibility - related to the use of PipeSecurity-->
+        <!--Platform compatibility - related to the use of PipeSecurity only available on Windows-->
         <NoWarn>CA1416</NoWarn>
     </PropertyGroup>
 

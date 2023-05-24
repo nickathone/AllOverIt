@@ -89,19 +89,19 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* Amazon.CDK v1.200.0
-* Amazon.CDK.AWS.AppSync v1.200.0
-* Amazon.CDK.AWS.CertificateManager v1.200.0
-* Amazon.CDK.AWS.Cognito v1.200.0
-* Amazon.CDK.AWS.DynamoDB v1.200.0
-* Amazon.CDK.AWS.EC2 v1.200.0
-* Amazon.CDK.AWS.Elasticsearch v1.200.0
-* Amazon.CDK.AWS.IAM v1.200.0
-* Amazon.CDK.AWS.Lambda v1.200.0
-* Amazon.CDK.AWS.OpenSearchService v1.200.0
-* Amazon.CDK.AWS.RDS v1.200.0
-* Amazon.CDK.AWS.S3.Assets v1.200.0
-* Amazon.CDK.AWS.SecretsManager v1.200.0
+* Amazon.CDK v1.201.0
+* Amazon.CDK.AWS.AppSync v1.201.0
+* Amazon.CDK.AWS.CertificateManager v1.201.0
+* Amazon.CDK.AWS.Cognito v1.201.0
+* Amazon.CDK.AWS.DynamoDB v1.201.0
+* Amazon.CDK.AWS.EC2 v1.201.0
+* Amazon.CDK.AWS.Elasticsearch v1.201.0
+* Amazon.CDK.AWS.IAM v1.201.0
+* Amazon.CDK.AWS.Lambda v1.201.0
+* Amazon.CDK.AWS.OpenSearchService v1.201.0
+* Amazon.CDK.AWS.RDS v1.201.0
+* Amazon.CDK.AWS.S3.Assets v1.201.0
+* Amazon.CDK.AWS.SecretsManager v1.201.0
 * Amazon.JSII.Runtime v1.74.0
 * Constructs v3.3.69
 
@@ -343,6 +343,23 @@
 
 <br>
 
+## AllOverIt.Pipes
+
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+
+### Dependencies
+
+* AllOverIt
+* AllOverIt.Assertion
+* AllOverIt.Reactive
+* System.Reactive v5.0.0
+
+<br>
+
+---
+
+<br>
+
 ## AllOverIt.Reactive
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg) ![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
@@ -369,7 +386,7 @@
 * AllOverIt.Assertion
 * DynamicData v7.13.5
 * Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0
-* ReactiveUI v18.4.34
+* ReactiveUI v18.4.44
 * Splat v14.6.8
 
 <br>
