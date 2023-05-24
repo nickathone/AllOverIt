@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 
 namespace AllOverIt.Wpf.Controls.ButtonMenu
@@ -28,6 +29,8 @@ namespace AllOverIt.Wpf.Controls.ButtonMenu
         {
             if (ContextMenu is not null)
             {
+                ContextMenu.PlacementTarget = this;
+                ContextMenu.Placement = PlacementMode.Top;
                 ContextMenu.IsOpen = true;
             }
         }
@@ -36,15 +39,13 @@ namespace AllOverIt.Wpf.Controls.ButtonMenu
         {
             if (sender is ContextMenu contextMenu)
             {
-                contextMenu.PlacementTarget = this;
-
                 // Schedule the positioning code to run after the current layout pass is complete
                 // otherwise the positioning of the menu will not be correct the first time it is
                 // displayed (because the ActualWidth and ActualHeight have not been calculated)
                 Dispatcher.BeginInvoke(() =>
                 {
-                    contextMenu.HorizontalOffset = contextMenu.ActualWidth + 16;
-                    contextMenu.VerticalOffset = -contextMenu.ActualHeight;
+                    contextMenu.HorizontalOffset = contextMenu.ActualWidth - 16;
+                    contextMenu.VerticalOffset = 16;
                 }, DispatcherPriority.Render);
             }
         }

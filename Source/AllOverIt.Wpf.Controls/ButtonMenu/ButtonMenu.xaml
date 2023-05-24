@@ -5,9 +5,6 @@
     Click="OnButtonClick"
     DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Button.ContextMenu>
-        <ContextMenu
-            ItemsSource="{Binding MenuItems}"
-            Opened="OnContextMenuOpened"
-            Placement="MousePoint" />
+        <ContextMenu ItemsSource="{Binding MenuItems}" Opened="OnContextMenuOpened" />
     </Button.ContextMenu>
 </Button>

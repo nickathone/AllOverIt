@@ -6,23 +6,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ButtonMenu Demo"
-    Width="250"
-    Height="190" WindowStartupLocation="CenterScreen"
+    Width="600"
+    Height="300" WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
         <buttonMenu:ButtonMenu
             x:Name="buttonMenu"
             Grid.Row="1"
-            Width="120"
+            Width="240"
             Height="40"
             Background="Red"
             Content="Click Here"
             FontSize="20"
             Foreground="White">
             <buttonMenu:ButtonMenu.MenuItems>
-                <MenuItem Click="OnMenu1" Header="Item 1" />
-                <MenuItem Click="OnMenu2" Header="Item 2" />
-                <MenuItem Click="OnMenu3" Header="Item 3" />
+                <MenuItem Click="OnMenu1" Header="Menu Item 1" />
+                <MenuItem Click="OnMenu2" Header="Menu Item 2" />
+                <MenuItem Click="OnMenu3" Header="Menu Item 3" />
             </buttonMenu:ButtonMenu.MenuItems>
         </buttonMenu:ButtonMenu>
     </Grid>
