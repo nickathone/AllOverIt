@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
-        <Description>A general purpose library containing a variety of classes and helper utilities.</Description>
+        <Description>A library providing support for pipe based communication.</Description>
         <PackageTags>AllOverIt;Utilities;Async;Threading;IO;Pipes;NamedPipes</PackageTags>
     </PropertyGroup>
 

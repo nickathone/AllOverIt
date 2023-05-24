@@ -100,6 +100,10 @@
   It Performs the same job as `GetPageResultsAsync()` found in `AllOverIt.EntityFrameworkCore.Pagination`.
 
 
+## AllOverIt.Pipes
+* Provides support for named client and server pipes.
+
+
 ## AllOverIt.Reactive
 * Added ObservableObject, ObservableProxy and PropertyNotifyExtensions
 * Added EventBusHandler
