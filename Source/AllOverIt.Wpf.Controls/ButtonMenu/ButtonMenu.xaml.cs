@@ -30,7 +30,7 @@ namespace AllOverIt.Wpf.Controls.ButtonMenu
             if (ContextMenu is not null)
             {
                 ContextMenu.PlacementTarget = this;
-                ContextMenu.Placement = PlacementMode.Top;
+                ContextMenu.Placement = PlacementMode.MousePoint;
                 ContextMenu.IsOpen = true;
             }
         }
@@ -44,8 +44,8 @@ namespace AllOverIt.Wpf.Controls.ButtonMenu
                 // displayed (because the ActualWidth and ActualHeight have not been calculated)
                 Dispatcher.BeginInvoke(() =>
                 {
-                    contextMenu.HorizontalOffset = contextMenu.ActualWidth - 16;
-                    contextMenu.VerticalOffset = 16;
+                    contextMenu.HorizontalOffset = contextMenu.ActualWidth + 16;
+                    contextMenu.VerticalOffset = -contextMenu.ActualHeight;
                 }, DispatcherPriority.Render);
             }
         }
