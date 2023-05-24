@@ -1,0 +1,13 @@
+﻿<Button
+    x:Class="AllOverIt.Wpf.Controls.ButtonMenu.ButtonMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Click="OnButtonClick"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Button.ContextMenu>
+        <ContextMenu
+            ItemsSource="{Binding MenuItems}"
+            Opened="OnContextMenuOpened"
+            Placement="MousePoint" />
+    </Button.ContextMenu>
+</Button>
