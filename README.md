@@ -296,6 +296,16 @@ A library providing queryable keyset-based pagination utilities.
 ---
 
 
+## AllOverIt.Pipes
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Pipes?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Pipes/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Pipes?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Pipes/)
+
+A library providing support for pipe based communication.
+
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+
+
 ## AllOverIt.Reactive
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Reactive/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Reactive?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Reactive/)
