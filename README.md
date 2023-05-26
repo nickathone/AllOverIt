@@ -9,11 +9,11 @@ be found below.
 
 | Line Coverage                                     | Branch Coverage                                     | Method Coverage                                     |
 | --------------------------------------------------|-----------------------------------------------------|---------------------------------------------------- |
-| ![](/Docs/Code%20Coverage/badge_linecoverage.png) | ![](/Docs/Code%20Coverage/badge_branchcoverage.png) | ![](/Docs/Code%20Coverage/badge_methodcoverage.png) |
+| ![](./Docs/Code%20Coverage/badge_linecoverage.png) | ![](./Docs/Code%20Coverage/badge_branchcoverage.png) | ![](./Docs/Code%20Coverage/badge_methodcoverage.png) |
 
 
-Refer to this <a href="/Docs/Code%20Coverage/summary.html" target="_blank">link</a> or this
-<a href="/Docs/Code%20Coverage/summary.md" target="_blank">markdown</a> for a summary of line and branch test code coverage.
+Refer to this <a href="./Docs/Code%20Coverage/summary.html" target="_blank">link</a> or this
+<a href="./Docs/Code%20Coverage/summary.md" target="_blank">markdown</a> for a summary of line and branch test code coverage.
 
 
 # Packages
@@ -467,4 +467,4 @@ A library containing useful WPF controls.
 
 # Dependencies
 The following diagram shows the explicit dependencies used across the entire AllOverIt suite.
-[![AllOverIt Dependencies](/Docs/Dependencies/alloverit-all.png)](/Docs/Dependencies/alloverit-all.png)
+[![AllOverIt Dependencies](./Docs/Dependencies/alloverit-all.png)](./Docs/Dependencies/alloverit-all.png)
