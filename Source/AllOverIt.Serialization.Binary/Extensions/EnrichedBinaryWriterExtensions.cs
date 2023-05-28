@@ -250,7 +250,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
         /// <param name="enumerable">The IEnumerable to be written.</param>
         /// <param name="valueType">The type of each value in the <see cref="IEnumerable{TType}"/>. If the <paramref name="valueType"/>
         /// is null then the runtime type of the first value read will be used.</param>
-        public static void WriteEnumerable(this IEnrichedBinaryWriter writer, IEnumerable enumerable, Type valueType)       // TODO: tests, include null valueType *********
+        public static void WriteEnumerable(this IEnrichedBinaryWriter writer, IEnumerable enumerable, Type valueType)
         {
             _ = writer.WhenNotNull(nameof(writer));
             _ = enumerable.WhenNotNull(nameof(enumerable));
