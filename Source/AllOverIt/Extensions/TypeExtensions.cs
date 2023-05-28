@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Reflection;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -222,6 +223,32 @@ namespace AllOverIt.Extensions
               : CommonTypes.IEnumerableType.IsAssignableFrom(type);
         }
 
+        /// <summary>Gets the element type for any type assignable from <see cref="IEnumerable"/> (or an array). If the type is a generic
+        /// it is expected to have a single generic argument type, such as <see cref="IEnumerable{TType}"/> or <see cref="IList{TType}"/>.</summary>
+        /// <param name="type">The type to get the element type for.</param>
+        /// <returns>The element type for any type assignable from <see cref="IEnumerable"/> (or an array).</returns>
+        public static Type GetEnumerableElementType(this Type type)
+        {
+            Throw<InvalidOperationException>.When(!CommonTypes.IEnumerableType.IsAssignableFrom(type), $"{type.GetFriendlyName()} is not an {nameof(IEnumerable)}.");
+
+            if (type.IsArray)
+            {
+                return type.GetElementType();
+            }
+
+            if (!type.IsGenericEnumerableType())        // Cater for IEnumerable
+            {
+                return CommonTypes.ObjectType;
+            }
+
+            var genericsArguments = type.GetGenericArguments();
+
+            Throw<InvalidOperationException>.When(genericsArguments.Count() > 1, $"{type.GetFriendlyName()} is not an {nameof(IEnumerable)} with one generic argument.");
+
+            return type.GetGenericArguments()[0];
+        }
+
+
         /// <summary>Indicates if the <see cref="Type"/> represents a generic enumerable type.</summary>
         /// <param name="type">The type to compare.</param>
         /// <returns><see langword="true" /> if the <see cref="Type"/> represents a generic enumerable type, otherwise <see langword="false" />.</returns>
@@ -352,6 +379,16 @@ namespace AllOverIt.Extensions
         public static MethodInfo GetInstanceMethod(this Type type, string methodName)
         {
             return type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        }
+
+        /// <summary>Creates a new list with elements of type <paramref name="type"/>.</summary>
+        /// <param name="type">The new list's element type.</param>
+        /// <returns>A new list instance.</returns>
+        public static IList CreateList(this Type type)
+        {
+            var listType = CommonTypes.ListGenericType.MakeGenericType(new[] { type });
+
+            return (IList) Activator.CreateInstance(listType);
         }
 
         private static bool IsRawGenericType(this Type type, Type generic)

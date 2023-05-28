@@ -32,6 +32,7 @@
 * Added BackgroundTask and BackgroundTask\<TResult>
 * Added SemaphoreSlim DisposableWaitAsync() extension method
 * Added a CancellationToken to ForEachAsync()
+* Added Type extension methods GetEnumerableElementType(), CreateList()
 
 
 ## AllOverIt.AspNetCore

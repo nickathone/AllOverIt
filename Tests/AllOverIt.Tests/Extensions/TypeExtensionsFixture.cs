@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Patterns.Enumeration;
 using Xunit;
+using System.Collections;
 
 namespace AllOverIt.Tests.Extensions
 {
@@ -599,6 +600,47 @@ namespace AllOverIt.Tests.Extensions
             }
         }
 
+        public class GetEnumerableElementType : TypeExtensionsFixture
+        {
+            [Theory]
+            [InlineData(typeof(int[]), typeof(int))]
+            [InlineData(typeof(IEnumerable<string>), typeof(string))]
+            [InlineData(typeof(IList<double>), typeof(double))]
+            [InlineData(typeof(ArrayList), typeof(object))]                 // ArrayList is a IEnumerable
+            public void Should_Get_Element_Type(Type enumerableType, Type expectedType)
+            {
+                var actual = enumerableType.GetEnumerableElementType();
+
+                expectedType.Should().BeSameAs(actual);
+            }
+
+            [Theory]
+            [InlineData(typeof(DummyType))]
+            public void Should_Throw_If_Not_Enumerable(Type type)
+            {
+                Invoking(() =>
+                {
+                    _ = type.GetEnumerableElementType();
+                })
+                .Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage($"{type.GetFriendlyName()} is not an {nameof(IEnumerable)}.");
+            }
+
+            [Theory]
+            [InlineData(typeof(IDictionary<string, object>))]
+            public void Should_Throw_If_Enumerable_With_More_Than_One_Generic_Argument(Type type)
+            {
+                Invoking(() =>
+                {
+                    _ = type.GetEnumerableElementType();
+                })
+                .Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage($"{type.GetFriendlyName()} is not an {nameof(IEnumerable)} with one generic argument.");
+            }
+        }
+
         public class IsGenericEnumerableType : TypeExtensionsFixture
         {
             [Theory]
@@ -927,6 +969,18 @@ namespace AllOverIt.Tests.Extensions
                 var actual = AllOverIt.Extensions.TypeExtensions.GetInstanceMethod(typeof(InstanceMethodClass), nameof(InstanceMethodClass.Method3));
 
                 actual.Name.Should().Be(nameof(InstanceMethodClass.Method3));
+            }
+        }
+
+        public class CreateList : TypeExtensionsFixture
+        {
+
+            [Fact]
+            public void Should_Create_List()
+            {
+                var actual = AllOverIt.Extensions.TypeExtensions.CreateList(typeof(string));
+
+                actual.Should().BeOfType<List<string>>();
             }
         }
     }
