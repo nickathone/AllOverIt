@@ -95,6 +95,8 @@ namespace AllOverIt.Serialization.Binary
         private readonly IReadOnlyCollection<Func<Type, TypeIdentifier?>> _typeIdLookups;
 
         /// <inheritdoc />
+        /// <remarks>If a property type doesn't have a registered writer the <see cref="EnrichedBinaryWriter"/> will use a
+        /// <see cref="DynamicBinaryValueWriter"/>.</remarks>
         public IList<IEnrichedBinaryValueWriter> Writers { get; } = new List<IEnrichedBinaryValueWriter>();
 
         /// <inheritdoc cref="BinaryWriter(Stream)"/>
@@ -166,7 +168,8 @@ namespace AllOverIt.Serialization.Binary
                 IsTypeNullable,
                 IsUserDefinedOrCached,      // Above IDictionary / IEnumerable so class types, including those inheriting IDictionary / IEnumerable, can be checked first
                 IsDictionary,               // Above IsEnumerable, since IDictionary is IEnumerable
-                IsEnumerable
+                IsEnumerable,
+                AddDynamicWriter            // Must be last in the list
             };
         }
 
@@ -182,7 +185,7 @@ namespace AllOverIt.Serialization.Binary
                 }
             }
 
-            // Should never get here
+            // Should never get here - ? have an option so dynamic is opt-in
             throw new BinaryWriterException($"No binary writer registered for the type '{type.GetFriendlyName()}'.");
         }
 
@@ -215,6 +218,22 @@ namespace AllOverIt.Serialization.Binary
             return default;
         }
 
+        private TypeIdentifier? IsUserDefinedOrCached(Type type)
+        {
+            var converter = Writers.SingleOrDefault(converter => converter.Type == type);
+
+            if (converter == null)
+            {
+                return default;
+            }
+
+            var assemblyTypeName = type.AssemblyQualifiedName;
+
+            return _userDefinedTypeCache.ContainsKey(assemblyTypeName)
+                ? TypeIdentifier.Cached
+                : TypeIdentifier.UserDefined;
+        }
+
         private TypeIdentifier? IsDictionary(Type type)
         {
             if (typeof(IDictionary).IsAssignableFrom(type))
@@ -239,20 +258,13 @@ namespace AllOverIt.Serialization.Binary
             return default;
         }
 
-        private TypeIdentifier? IsUserDefinedOrCached(Type type)
+        private TypeIdentifier? AddDynamicWriter(Type type)
         {
-            var converter = Writers.SingleOrDefault(converter => converter.Type == type);
+            // Add a writer that will dynamically process all properties
+            var writer = new DynamicBinaryValueWriter(type);
+            Writers.Add(writer);
 
-            if (converter == null)
-            {
-                return default;
-            }
-
-            var assemblyTypeName = type.AssemblyQualifiedName;
-
-            return _userDefinedTypeCache.ContainsKey(assemblyTypeName)
-                ? TypeIdentifier.Cached
-                : TypeIdentifier.UserDefined;
+            return TypeIdentifier.UserDefined;
         }
     }
 }

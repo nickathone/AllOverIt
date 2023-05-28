@@ -58,6 +58,12 @@ namespace AllOverIt.Serialization.Binary
                     var cacheIndex = reader._userDefinedTypeCache.Keys.Count + 1;
                     reader._userDefinedTypeCache.Add(cacheIndex, assemblyTypeName);
 
+                    // If there's no registered reader then add a dynamic reader
+                    if (!reader.Readers.Any(converter => converter.Type == valueType))
+                    {
+                        reader.Readers.Add(new DynamicBinaryValueReader(valueType));
+                    }
+
                     var converter = reader.Readers.SingleOrDefault(converter => converter.Type == valueType);
 
                     return converter.ReadValue(reader);
@@ -68,6 +74,8 @@ namespace AllOverIt.Serialization.Binary
         private readonly IDictionary<int, string> _userDefinedTypeCache = new Dictionary<int, string>();
 
         /// <inheritdoc />
+        /// <remarks>If a property type doesn't have a registered reader the <see cref="EnrichedBinaryReader"/> will use a
+        /// <see cref="DynamicBinaryValueReader"/>.</remarks>
         public IList<IEnrichedBinaryValueReader> Readers { get; } = new List<IEnrichedBinaryValueReader>();
 
         /// <inheritdoc cref="BinaryReader(Stream)"/>
