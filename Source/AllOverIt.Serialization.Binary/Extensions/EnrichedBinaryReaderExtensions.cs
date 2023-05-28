@@ -3,6 +3,7 @@ using AllOverIt.Extensions;
 using AllOverIt.Reflection;
 using AllOverIt.Serialization.Binary.Exceptions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -103,18 +104,6 @@ namespace AllOverIt.Serialization.Binary.Extensions
                 .ReadObject();
         }
 
-        /// <summary>Reads an enumerable from the current stream that was originally written using
-        /// <see cref="EnrichedBinaryWriterExtensions.WriteObject{TType}(IEnrichedBinaryWriter, TType)"/>.</summary>
-        /// <typeparam name="TValue">The value type to be read from the current stream.</typeparam>
-        /// <param name="reader">The reader that is reading from the current stream.</param>
-        /// <returns>The object read from the stream.</returns>
-        public static IEnumerable<TValue> ReadObjectAsEnumerable<TValue>(this IEnrichedBinaryReader reader)
-        {
-            return reader
-                .WhenNotNull(nameof(reader))
-                .ReadObject<List<object>>().Select(item => (TValue) item);
-        }
-
         /// <summary>Reads a typed dictionary from the current stream that was originally written using
         /// <see cref="EnrichedBinaryWriterExtensions.WriteObject{TType}(IEnrichedBinaryWriter, TType)"/>.</summary>
         /// <typeparam name="TKey">The dictionary key type to be read from the current stream.</typeparam>
@@ -142,17 +131,25 @@ namespace AllOverIt.Serialization.Binary.Extensions
         }
 
         /// <summary>Reads an enumerable value from the current stream that was originally written using
-        /// <see cref="EnrichedBinaryWriterExtensions.WriteEnumerable(IEnrichedBinaryWriter, System.Collections.IEnumerable)"/>
+        /// <see cref="EnrichedBinaryWriterExtensions.WriteEnumerable(IEnrichedBinaryWriter, IEnumerable)"/>
         /// or one of its overloads.</summary>
         /// <param name="reader">The reader that is reading from the current stream.</param>
         /// <returns>The IEnumerable read from the stream.</returns>
-        public static IEnumerable<object> ReadEnumerable(this IEnrichedBinaryReader reader)
+        public static IEnumerable ReadEnumerable(this IEnrichedBinaryReader reader)
         {
             var count = reader
                 .WhenNotNull(nameof(reader))
                 .ReadInt32();
 
-            var values = new List<object>();
+            if (count == 0)
+            {
+                return Array.Empty<object>();
+            }
+
+            var assemblyTypeName = reader.ReadString();
+            var elementType = Type.GetType(assemblyTypeName);
+
+            var values = elementType.CreateList();
 
             for (var i = 0; i < count; i++)
             {
@@ -172,13 +169,11 @@ namespace AllOverIt.Serialization.Binary.Extensions
         /// to the <typeparamref name="TValue"/> type.</returns>
         public static IEnumerable<TValue> ReadEnumerable<TValue>(this IEnrichedBinaryReader reader)
         {
-            return reader
-                .WhenNotNull(nameof(reader))
-                .ReadEnumerable().SelectAsReadOnlyCollection(item => (TValue) item);
+            return (IEnumerable<TValue>) reader.ReadEnumerable();
         }
 
         /// <summary>Reads a dictionary value from the current stream that was originally written using
-        /// <see cref="EnrichedBinaryWriterExtensions.WriteDictionary(IEnrichedBinaryWriter, System.Collections.IDictionary)"/> or one of its overloads.</summary>
+        /// <see cref="EnrichedBinaryWriterExtensions.WriteDictionary(IEnrichedBinaryWriter, IDictionary)"/> or one of its overloads.</summary>
         /// <param name="reader">The reader that is reading from the current stream.</param>
         /// <returns>The IDictionary read from the stream, returned as IDictionary&lt;object, object&gt;.</returns>
         public static IDictionary<object, object> ReadDictionary(this IEnrichedBinaryReader reader)

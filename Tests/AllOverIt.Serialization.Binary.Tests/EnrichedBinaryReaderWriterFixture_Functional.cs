@@ -72,7 +72,7 @@ namespace AllOverIt.Serialization.Binary.Tests
                 writer.WriteTimeSpan(TimeSpan);
 
                 // Items below require WriteObject
-                writer.WriteObject(Doubles);                    // Must be read back as List<object> and then converted
+                writer.WriteObject(Doubles);
                 writer.WriteObject(Dictionary);
             }
 
@@ -100,9 +100,8 @@ namespace AllOverIt.Serialization.Binary.Tests
                 DateTime = reader.ReadDateTime();
                 TimeSpan = reader.ReadTimeSpan();
 
-                // Must use this syntax when written using WriteObject()
-                // Same as reader.ReadObject<List<object>>().Select(item => (double)item);
-                Doubles = reader.ReadObjectAsEnumerable<double>();
+                // Using ReadObject() to compliment WriteObject()
+                Doubles = (List<double>) reader.ReadObject();
 
                 // Must use this syntax when written using WriteObject()
                 // Same as reader.ReadObject<Dictionary<object, object>>().ToDictionary(kvp => (int) kvp.Key, kvp => (string) kvp.Value);
@@ -167,7 +166,7 @@ namespace AllOverIt.Serialization.Binary.Tests
                 DateTime = reader.ReadObject<DateTime>();
                 TimeSpan = reader.ReadObject<TimeSpan>();
 
-                // Must use this syntax when using WriteEnumerable()
+                // Using ReadEnumerable<T>() to compliment WriteEnumerable<T>()
                 Doubles = reader.ReadEnumerable<double>();
 
                 // Must use this syntax when using WriteTypedDictionary()
@@ -225,9 +224,8 @@ namespace AllOverIt.Serialization.Binary.Tests
                 DateTime = reader.ReadObject<DateTime>();
                 TimeSpan = reader.ReadObject<TimeSpan>();
 
-                // Must use this syntax when written using WriteObject()
-                // Same as reader.ReadObject<List<object>>().Select(item => (double)item);
-                Doubles = reader.ReadObjectAsEnumerable<double>();
+                // Using ReadObject() to compliment WriteObject()
+                Doubles = (IList<double>)reader.ReadObject();
 
                 // Must use this syntax when written using WriteObject()
                 // Same as reader.ReadObject<Dictionary<object, object>>().ToDictionary(kvp => (int) kvp.Key, kvp => (string) kvp.Value);
@@ -498,8 +496,8 @@ namespace AllOverIt.Serialization.Binary.Tests
             {
                 using (var reader = new EnrichedBinaryReader(stream, Encoding.UTF8, true))
                 {
-                    // Same as: reader.ReadObject<List<object>>().Select(item => (int)item);
-                    actual = reader.ReadObjectAsEnumerable<int>();
+                    // Must use ReadObject() to compliment WriteObject()
+                    actual = ((IEnumerable<int>) reader.ReadObject());
                 }
             }
 
@@ -559,8 +557,8 @@ namespace AllOverIt.Serialization.Binary.Tests
             {
                 using (var reader = new EnrichedBinaryReader(stream, Encoding.UTF8, true))
                 {
-                    // Same as: reader.ReadObject<List<object>>().Select(item => (int)item);
-                    actual = reader.ReadObjectAsEnumerable<int>();
+                    // Must use ReadObject() to compliment WriteObject()
+                    actual = ((IEnumerable<int>) reader.ReadObject());
                 }
             }
 

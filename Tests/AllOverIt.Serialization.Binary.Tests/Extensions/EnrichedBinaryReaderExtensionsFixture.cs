@@ -321,35 +321,6 @@ namespace AllOverIt.Serialization.Binary.Tests.Extensions
             }
         }
 
-        public class ReadObjectAsEnumerable : EnrichedBinaryReaderExtensionsFixture
-        {
-            [Fact]
-            public void Should_Throw_When_Reader_Null()
-            {
-                Invoking(() =>
-                {
-                    EnrichedBinaryReaderExtensions.ReadObjectAsEnumerable<DummyEnum>(null);
-                })
-                    .Should()
-                    .Throw<ArgumentNullException>()
-                    .WithNamedMessageWhenNull("reader");
-            }
-
-            [Fact]
-            public void Should_Read_Object()
-            {
-                var value = CreateMany<DummyType>().Select(item => (object) item).ToList();
-
-                _readerFake
-                    .CallsTo(fake => fake.ReadObject())
-                    .Returns(value);
-
-                var actual = _readerFake.FakedObject.ReadObjectAsEnumerable<DummyType>();
-
-                actual.Should().BeEquivalentTo(value);
-            }
-        }
-
         public class ReadObjectAsDictionary : EnrichedBinaryReaderExtensionsFixture
         {
             [Fact]
@@ -435,11 +406,14 @@ namespace AllOverIt.Serialization.Binary.Tests.Extensions
                     .Returns(5);
 
                 _readerFake
+                    .CallsTo(fake => fake.ReadString())
+                    .Returns(typeof(int).AssemblyQualifiedName);
+
+                _readerFake
                     .CallsTo(fake => fake.ReadObject())
                     .ReturnsNextFromSequence(1, 0, 1, -1, 2);
 
-                var actual = _readerFake.FakedObject.ReadEnumerable()
-                    .Select(item => (int) item);
+                var actual = (List<int>) _readerFake.FakedObject.ReadEnumerable();
 
                 actual.SequenceEqual(values).Should().BeTrue();
             }
@@ -467,6 +441,10 @@ namespace AllOverIt.Serialization.Binary.Tests.Extensions
                 _readerFake
                     .CallsTo(fake => fake.ReadInt32())
                     .Returns(5);
+
+                _readerFake
+                    .CallsTo(fake => fake.ReadString())
+                    .Returns(typeof(int).AssemblyQualifiedName);
 
                 _readerFake
                     .CallsTo(fake => fake.ReadObject())

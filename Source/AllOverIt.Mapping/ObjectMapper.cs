@@ -216,8 +216,8 @@ namespace AllOverIt.Mapping
 
         private object MapToCollection(object sourceValue, Type sourceValueType, Type targetPropertyType, bool doDeepCopy)
         {
-            var sourceElementType = GetEnumerableElementType(sourceValueType);
-            var targetElementType = GetEnumerableElementType(targetPropertyType);
+            var sourceElementType = sourceValueType.GetEnumerableElementType();
+            var targetElementType = targetPropertyType.GetEnumerableElementType();
 
             var (listType, listInstance) = CreateTypedList(targetPropertyType, targetElementType);
 
@@ -264,7 +264,7 @@ namespace AllOverIt.Mapping
 
             if (targetPropertyType.IsEnumerableType())  // Cater for IEnumerable and IEnumerable<T>
             {
-                var targetElementType = GetEnumerableElementType(targetPropertyType);
+                var targetElementType = targetPropertyType.GetEnumerableElementType();
 
                 // Includes support for ArrayList
                 var (listType, listInstance) = CreateTypedList(targetPropertyType, targetElementType);
@@ -273,18 +273,6 @@ namespace AllOverIt.Mapping
             }
 
             return null;
-        }
-
-        private static Type GetEnumerableElementType(Type sourceValueType)
-        {
-            if (sourceValueType.IsArray)
-            {
-                return sourceValueType.GetElementType();
-            }
-
-            return sourceValueType.IsGenericEnumerableType()
-                ? sourceValueType.GetGenericArguments()[0]
-                : CommonTypes.ObjectType;
         }
 
         private static object GetAsListOrArray(Type listType, IList listInstance, Type targetPropertyType)

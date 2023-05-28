@@ -92,5 +92,43 @@ namespace AllOverIt.Serialization.Binary.Tests
 
             actual.Should().BeEquivalentTo(expected);
         }
+
+        [Fact]
+        public void Should_Read_Write_Object_Using_Dynamic_Reader_Writer()
+        {
+            var expected = Create<Classroom>();
+
+            object actual = null;
+
+            byte[] bytes;
+
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new EnrichedBinaryWriter(stream, Encoding.UTF8, true))
+                {
+                    //writer.Writers.Add(new StudentWriter());
+                    //writer.Writers.Add(new TeacherWriter());
+                    //writer.Writers.Add(new ClassroomWriter());
+
+                    writer.WriteObject(expected);
+                }
+
+                bytes = stream.ToArray();
+            }
+
+            using (var stream = new MemoryStream(bytes))
+            {
+                using (var reader = new EnrichedBinaryReader(stream, Encoding.UTF8, true))
+                {
+                    //reader.Readers.Add(new StudentReader());
+                    //reader.Readers.Add(new TeacherReader());
+                    //reader.Readers.Add(new ClassroomReader());
+
+                    actual = reader.ReadObject<Classroom>();
+                }
+            }
+
+            actual.Should().BeEquivalentTo(expected);
+        }
     }
 }

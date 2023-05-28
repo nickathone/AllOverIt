@@ -3,11 +3,17 @@
 namespace AllOverIt.Serialization.Binary
 {
     /// <inheritdoc cref="IEnrichedBinaryValueReader"/>
-    /// <typeparam name="TType">The object type read by this value reader.</typeparam>
-    public abstract class EnrichedBinaryValueReader<TType> : IEnrichedBinaryValueReader
+    public abstract class EnrichedBinaryValueReader : IEnrichedBinaryValueReader
     {
         /// <inheritdoc />
-        public Type Type => typeof(TType);
+        public Type Type { get; }
+
+        /// <summary>Constructor.</summary>
+        /// <param name="type">The object type read by this value reader.</param>
+        public EnrichedBinaryValueReader(Type type)
+        {
+            Type = type;
+        }
 
         /// <inheritdoc />
         public abstract object ReadValue(IEnrichedBinaryReader reader);

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AllOverIt.Serialization.Binary.Extensions
 {
@@ -182,8 +183,15 @@ namespace AllOverIt.Serialization.Binary.Extensions
                 .WriteObject(value, typeof(TType));
         }
 
-        /// <summary>Writes an IEnumerable to the current stream. Each value type will be determined by the generic argument of IEnumerable, if available,
-        /// otherwise the runtime type of each value will be determined (which has a small additional overhead). Use generic IEnumerable's where possible.</summary>
+        /// <summary>Writes an <see cref="IEnumerable"/> to the current stream. Each value type will be determined by the generic
+        /// argument of IEnumerable, if available, otherwise the runtime type of each value will be determined (which has a small
+        /// additional overhead). Use generic IEnumerable's where possible. If the <see cref="IEnumerable"/> is a generic type then
+        /// it is expected to have exactly one generic argument. Use the <see cref="WriteDictionary(IEnrichedBinaryWriter, IDictionary)"/>
+        /// method, or one of its overloads, for dictionary values.
+        /// <br />
+        /// The number of elements and the element type (when the collection is not empty) are included in the stream to ensure the values
+        /// are read back correctly. If the <see cref="IEnumerable"/> is not a generic type then the element type is recorded as an
+        /// <see cref="object"/> so casting may be required when reading the values back.</summary>
         /// <param name="writer">The binary writer that is writing to the current stream.</param>
         /// <param name="enumerable">The IEnumerable to be written.</param>
         public static void WriteEnumerable(this IEnrichedBinaryWriter writer, IEnumerable enumerable)
@@ -195,17 +203,34 @@ namespace AllOverIt.Serialization.Binary.Extensions
             // IEnumerable<int>                      => contains one generic argument
             // int?[]{}.Select(item => (object)item) => returns SelectEnumerableIterator<int?, object> - two generic arguments
             //
-            // Capturing the generic type if available, otherwise will get the type of each value
-            var genericArguments = enumerable.GetType().GetGenericArguments();
 
-            var argType = genericArguments.Length == 1
-                ? genericArguments[0]
-                : CommonTypes.ObjectType;
+            var enumerableType = enumerable.GetType();
 
-            WriteEnumerable(writer, enumerable, argType);
+            // Due to the above potential edge cases this code is not using enumerableType.IsGenericEnumerableType()
+            // as this does not (intentionally) cater for anything other than arrays and IEnumerable types.
+
+            Type elementType = default;         // Passed to WriteEnumerable() when enumerableType is IEnumerable
+
+            if (enumerableType.IsArray)
+            {
+                elementType = enumerableType.GetElementType();
+            }
+            else if (enumerableType.IsGenericEnumerableType())
+            {
+                var genericsArguments = enumerableType.GetGenericArguments();
+
+                if (genericsArguments.Count() == 1)
+                {
+                    elementType = enumerableType.GetGenericArguments()[0];
+                }
+            }
+
+            WriteEnumerable(writer, enumerable, elementType);
         }
 
-        /// <summary>Writes an IEnumerable to the current stream.</summary>
+        /// <summary>Writes an <see cref="IEnumerable{TType}"/> to the current stream.<br />
+        /// The number of elements and the element type (when the collection is not empty) are included in the stream to ensure the values
+        /// are read back correctly.</summary>
         /// <typeparam name="TType">The type of each value in the IEnumerable.</typeparam>
         /// <param name="writer">The binary writer that is writing to the current stream.</param>
         /// <param name="enumerable">The IEnumerable to be written.</param>
@@ -217,21 +242,48 @@ namespace AllOverIt.Serialization.Binary.Extensions
             WriteEnumerable(writer, enumerable, typeof(TType));
         }
 
-        /// <summary>Writes an IEnumerable to the current stream.</summary>
+        /// <summary>Writes an <see cref="IEnumerable"/> to the current stream.
+        /// <br />
+        /// The number of elements and the element type (when the collection is not empty) are included in the stream to ensure the values
+        /// are read back correctly.</summary>
         /// <param name="writer">The binary writer that is writing to the current stream.</param>
         /// <param name="enumerable">The IEnumerable to be written.</param>
-        /// <param name="valueType">The type of each value in the IEnumerable.</param>
-        public static void WriteEnumerable(this IEnrichedBinaryWriter writer, IEnumerable enumerable, Type valueType)
+        /// <param name="valueType">The type of each value in the <see cref="IEnumerable{TType}"/>. If the <paramref name="valueType"/>
+        /// is null then the runtime type of the first value read will be used.</param>
+        public static void WriteEnumerable(this IEnrichedBinaryWriter writer, IEnumerable enumerable, Type valueType)       // TODO: tests, include null valueType *********
         {
             _ = writer.WhenNotNull(nameof(writer));
             _ = enumerable.WhenNotNull(nameof(enumerable));
 
-            if (enumerable is not ICollection collection)
+            var elementType = valueType;
+
+            if (elementType is null ||
+                enumerable is not ICollection collection)
             {
-                var values = new List<object>();
+                IList values = null;
 
                 foreach (var value in enumerable)
                 {
+                    if (values is null)
+                    {
+                        elementType = value?.GetType();
+
+                        // break out of the loop if all we needed was the elementType
+                        if (enumerable is ICollection)
+                        {
+                            break;
+                        }
+
+                        if (value is null || elementType == CommonTypes.ObjectType)
+                        {
+                            values = new List<object>();
+                        }
+                        else
+                        {
+                            values = elementType.CreateList();
+                        }
+                    }
+
                     values.Add(value);
                 }
 
@@ -240,9 +292,15 @@ namespace AllOverIt.Serialization.Binary.Extensions
 
             writer.Write(collection.Count);
 
-            foreach (var value in collection)
+            if (collection.Count > 0)
             {
-                writer.WriteObject(value, valueType);
+                var assemblyTypeName = elementType.AssemblyQualifiedName;
+                writer.Write(assemblyTypeName);
+
+                foreach (var value in collection)
+                {
+                    writer.WriteObject(value, elementType);
+                }
             }
         }
 

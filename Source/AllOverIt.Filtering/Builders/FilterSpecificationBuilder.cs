@@ -397,9 +397,7 @@ namespace AllOverIt.Filtering.Builders
 
         private static IList ConvertListElements(IEnumerable elements, Type elementType)
         {
-            var listType = CommonTypes.ListGenericType.MakeGenericType(new[] { elementType });
-
-            var typedList = (IList) Activator.CreateInstance(listType);
+            var typedList = elementType.CreateList();
 
             foreach (var element in elements)
             {

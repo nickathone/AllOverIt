@@ -124,6 +124,7 @@ namespace AllOverIt.Pagination.TokenEncoding
             {
                 try
                 {
+                    // It's possible the stream could result in token being returned as null - will be thrown below
                     token = _tokenStreamer.DeserializeFromStream(stream);
                 }
                 catch (Exception exception)
@@ -134,7 +135,9 @@ namespace AllOverIt.Pagination.TokenEncoding
                 }
             }
 
-            return true;
+            Throw<PaginationException>.When(token is null && throwOnError, "Malformed continuation token.");
+
+            return token is not null;
         }
     }
 }

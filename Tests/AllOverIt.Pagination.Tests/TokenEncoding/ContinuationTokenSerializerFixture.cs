@@ -338,8 +338,10 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
                 actual.Should().BeTrue();
             }
 
-            [Fact]
-            public void Should_Return_False_When_Invalid_Token()
+            [Theory]
+            [InlineData("12", "34")]        // All valid base64 characters
+            [InlineData("^&", "12")]        // Some invalid base64 characters
+            public void Should_Return_False_When_Invalid_Token(string prefix, string suffix)
             {
                 var continuationToken = new ContinuationToken
                 {
@@ -355,7 +357,7 @@ namespace AllOverIt.Pagination.Tests.TokenEncoding
 
                 var tokenString = serializer.Serialize(continuationToken);
 
-                var actual = serializer.TryDeserialize($"12{tokenString}34", out var token);
+                var actual = serializer.TryDeserialize($"{prefix}{tokenString}{suffix}", out var token);
 
                 actual.Should().BeFalse();
                 token.Should().BeNull();
