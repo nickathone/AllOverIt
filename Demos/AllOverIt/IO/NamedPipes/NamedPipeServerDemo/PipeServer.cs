@@ -20,11 +20,19 @@ namespace NamedPipeDemo
             Console.Error.WriteLine($"Exception: {exception}");
         }
 
-        public static async Task RunAsync(string pipeName)
+        public static async Task RunAsync(string pipeName, bool useCustomReaderWriter = true)
         {
             var serializer = new BinaryMessageSerializer<PipeMessage>();
-            serializer.Readers.Add(new PipeMessageReader());
-            serializer.Writers.Add(new PipeMessageWriter());
+
+            // If the custom reader/writers are not register then a DynamicBinaryValueReader / DynamicBinaryValueWriter
+            // will be created by EnrichedBinaryReader / EnrichedBinaryWriter. The customer reader / writer will be
+            // more efficient in time and space as they can be tailored to the exact shape of the model and avoid
+            // writing unnecessary type information.
+            if (useCustomReaderWriter)
+            {
+                serializer.Readers.Add(new PipeMessageReader());
+                serializer.Writers.Add(new PipeMessageWriter());
+            }
 
             try
             {

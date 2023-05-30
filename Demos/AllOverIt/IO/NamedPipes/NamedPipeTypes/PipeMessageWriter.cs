@@ -11,6 +11,7 @@ namespace NamedPipeTypes
 
             writer.WriteGuid(message.Id);
             writer.WriteSafeString(message.Text);
+            writer.WriteInt32(message.Child.Value);
         }
     }
 }

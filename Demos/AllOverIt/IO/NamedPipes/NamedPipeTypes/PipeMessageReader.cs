@@ -9,11 +9,16 @@ namespace NamedPipeTypes
         {
             var id = reader.ReadGuid();
             var text = reader.ReadSafeString();
+            var value = reader.ReadInt32();
 
             return new PipeMessage
             {
                 Id = id,
-                Text = text
+                Text = text,
+                Child =
+                {
+                    Value = value
+                }
             };
         }
     }
