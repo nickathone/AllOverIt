@@ -118,6 +118,7 @@
 
 ## AllOverIt.Serialization.Binary :new:
 * Moved the binary serialization from `AllOverIt` into this dedicated package
+* Improved support for IEnumerable and arrays
 
 
 ## AllOverIt.Serialization.Json.Abstractions

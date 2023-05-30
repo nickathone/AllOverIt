@@ -243,11 +243,10 @@ namespace AllOverIt.Extensions
 
             var genericsArguments = type.GetGenericArguments();
 
-            Throw<InvalidOperationException>.When(genericsArguments.Count() > 1, $"{type.GetFriendlyName()} is not an {nameof(IEnumerable)} with one generic argument.");
+            Throw<InvalidOperationException>.When(genericsArguments.Length > 1, $"{type.GetFriendlyName()} is not an {nameof(IEnumerable)} with one generic argument.");
 
             return type.GetGenericArguments()[0];
         }
-
 
         /// <summary>Indicates if the <see cref="Type"/> represents a generic enumerable type.</summary>
         /// <param name="type">The type to compare.</param>
