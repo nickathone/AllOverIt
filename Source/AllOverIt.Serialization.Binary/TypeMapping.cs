@@ -63,6 +63,9 @@
         /// <summary>Indicates the next value in the stream is an IDictionary.</summary>
         Dictionary = 20,
 
+        /// <summary>Indicates the next value in the stream is an array.</summary>
+        Array = 21,
+
         /// <summary>Indicates the next value in the stream is a user defined type. The assembly qualified name will be written to the stream.</summary>
         UserDefined = 126,
 

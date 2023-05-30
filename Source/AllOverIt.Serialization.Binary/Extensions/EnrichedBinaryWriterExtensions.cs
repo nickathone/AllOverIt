@@ -183,14 +183,26 @@ namespace AllOverIt.Serialization.Binary.Extensions
                 .WriteObject(value, typeof(TType));
         }
 
+        /// <summary>Writes an array to the current stream. All other arrays in the form of an object or an <see cref="IEnumerable"/> can
+        /// be written using <see cref="WriteEnumerable(IEnrichedBinaryWriter, IEnumerable)"/>, including <see cref="ArrayList"/>.</summary>
+        /// <typeparam name="TValue">The array's element type.</typeparam>
+        /// <param name="writer">The binary writer that is writing to the current stream.</param>
+        /// <param name="array">The array of values to be written.</param>
+        public static void WriteArray<TValue>(this IEnrichedBinaryWriter writer, TValue[] array)
+        {
+            _ = array.WhenNotNull(nameof(array));
+
+            WriteEnumerable(writer, array, typeof(TValue));
+        }
+
         /// <summary>Writes an <see cref="IEnumerable"/> to the current stream. Each value type will be determined by the generic
         /// argument of IEnumerable, if available, otherwise the runtime type of each value will be determined (which has a small
         /// additional overhead). Use generic IEnumerable's where possible. If the <see cref="IEnumerable"/> is a generic type then
         /// it is expected to have exactly one generic argument. Use the <see cref="WriteDictionary(IEnrichedBinaryWriter, IDictionary)"/>
         /// method, or one of its overloads, for dictionary values.
         /// <br />
-        /// The number of elements and the element type (when the collection is not empty) are included in the stream to ensure the values
-        /// are read back correctly. If the <see cref="IEnumerable"/> is not a generic type then the element type is recorded as an
+        /// The number of elements and the element type is included in the stream to ensure the values are read back correctly.
+        /// If the <see cref="IEnumerable"/> is not a generic type then the element type is recorded as an
         /// <see cref="object"/> so casting may be required when reading the values back.</summary>
         /// <param name="writer">The binary writer that is writing to the current stream.</param>
         /// <param name="enumerable">The IEnumerable to be written.</param>
@@ -219,7 +231,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
             {
                 var genericsArguments = enumerableType.GetGenericArguments();
 
-                if (genericsArguments.Count() == 1)
+                if (genericsArguments.Length == 1)
                 {
                     elementType = enumerableType.GetGenericArguments()[0];
                 }
@@ -229,8 +241,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
         }
 
         /// <summary>Writes an <see cref="IEnumerable{TType}"/> to the current stream.<br />
-        /// The number of elements and the element type (when the collection is not empty) are included in the stream to ensure the values
-        /// are read back correctly.</summary>
+        /// The number of elements and the element type is included in the stream to ensure the values are read back correctly.</summary>
         /// <typeparam name="TType">The type of each value in the IEnumerable.</typeparam>
         /// <param name="writer">The binary writer that is writing to the current stream.</param>
         /// <param name="enumerable">The IEnumerable to be written.</param>
@@ -242,10 +253,8 @@ namespace AllOverIt.Serialization.Binary.Extensions
             WriteEnumerable(writer, enumerable, typeof(TType));
         }
 
-        /// <summary>Writes an <see cref="IEnumerable"/> to the current stream.
-        /// <br />
-        /// The number of elements and the element type (when the collection is not empty) are included in the stream to ensure the values
-        /// are read back correctly.</summary>
+        /// <summary>Writes an <see cref="IEnumerable"/> to the current stream. The number of elements and the element type is included
+        /// in the stream to ensure the values are read back correctly.</summary>
         /// <param name="writer">The binary writer that is writing to the current stream.</param>
         /// <param name="enumerable">The IEnumerable to be written.</param>
         /// <param name="valueType">The type of each value in the <see cref="IEnumerable{TType}"/>. If the <paramref name="valueType"/>
@@ -292,11 +301,12 @@ namespace AllOverIt.Serialization.Binary.Extensions
 
             writer.Write(collection.Count);
 
+            // The element type is required so ReadEnumerable knows the type of list to create
+            var assemblyTypeName = elementType.AssemblyQualifiedName;
+            writer.Write(assemblyTypeName);
+
             if (collection.Count > 0)
             {
-                var assemblyTypeName = elementType.AssemblyQualifiedName;
-                writer.Write(assemblyTypeName);
-
                 foreach (var value in collection)
                 {
                     writer.WriteObject(value, elementType);

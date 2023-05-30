@@ -105,11 +105,7 @@ namespace AllOverIt.Serialization.Binary.Tests
             using (var stream = new MemoryStream())
             {
                 using (var writer = new EnrichedBinaryWriter(stream, Encoding.UTF8, true))
-                {
-                    //writer.Writers.Add(new StudentWriter());
-                    //writer.Writers.Add(new TeacherWriter());
-                    //writer.Writers.Add(new ClassroomWriter());
-
+                {                 
                     writer.WriteObject(expected);
                 }
 
@@ -120,10 +116,6 @@ namespace AllOverIt.Serialization.Binary.Tests
             {
                 using (var reader = new EnrichedBinaryReader(stream, Encoding.UTF8, true))
                 {
-                    //reader.Readers.Add(new StudentReader());
-                    //reader.Readers.Add(new TeacherReader());
-                    //reader.Readers.Add(new ClassroomReader());
-
                     actual = reader.ReadObject<Classroom>();
                 }
             }

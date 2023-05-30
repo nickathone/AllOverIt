@@ -58,8 +58,9 @@ namespace AllOverIt.Serialization.Binary
             { TypeIdentifier.Guid, (writer, value) => writer.WriteGuid((Guid)value) },
             { TypeIdentifier.DateTime, (writer, value) => writer.WriteDateTime((DateTime)value) },
             { TypeIdentifier.TimeSpan, (writer, value) => writer.WriteTimeSpan((TimeSpan)value) },
-            { TypeIdentifier.Dictionary, (writer, value) => writer.WriteDictionary((IDictionary)value) },
             { TypeIdentifier.Enumerable, (writer, value) => writer.WriteEnumerable((IEnumerable)value) },
+            { TypeIdentifier.Dictionary, (writer, value) => writer.WriteDictionary((IDictionary)value) },
+            { TypeIdentifier.Array, (writer, value) => writer.WriteEnumerable((IEnumerable)value) },
             {
                 TypeIdentifier.Cached, (writer, value) =>
                 {
@@ -175,18 +176,13 @@ namespace AllOverIt.Serialization.Binary
 
         private TypeIdentifier GetRawTypeId(Type type)
         {
-            foreach (var lookup in _typeIdLookups)
-            {
-                var typeId = lookup.Invoke(type);
+            var identifierQuery = from lookup in _typeIdLookups
+                                  let typeId = lookup.Invoke(type)
+                                  where typeId.HasValue
+                                  select typeId.Value;
 
-                if (typeId.HasValue)
-                {
-                    return typeId.Value;
-                }
-            }
-
-            // Should never get here - ? have an option so dynamic is opt-in
-            throw new BinaryWriterException($"No binary writer registered for the type '{type.GetFriendlyName()}'.");
+            // Will always find a registered and/or dynamic writer, so we must return the first match.
+            return identifierQuery.First();
         }
 
         private TypeIdentifier? IsTypeRegistered(Type type)
@@ -246,12 +242,17 @@ namespace AllOverIt.Serialization.Binary
 
         private TypeIdentifier? IsEnumerable(Type type)
         {
-            // Not checking for strings since it's is a pre-registered type
+            // Note: not checking for strings since it is a pre-registered type
+
+            if (type.IsArray)
+            {
+                // When read back, the values are returned as an array
+                return TypeIdentifier.Array;
+            }
+
             if (type.IsArray || type.IsEnumerableType())
             {
-                // We could attempt to write the type once if it is an IEnumerable<T> but this gets
-                // more complicated with nullable, anonymous and iterator types - opting for convenience
-                // and simplicity over stream size.
+                // When read back, the values are returned as a list
                 return TypeIdentifier.Enumerable;
             }
 

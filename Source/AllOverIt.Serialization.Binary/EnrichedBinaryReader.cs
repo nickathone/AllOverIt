@@ -32,8 +32,9 @@ namespace AllOverIt.Serialization.Binary
             { TypeIdentifier.Guid, reader => reader.ReadGuid() },
             { TypeIdentifier.DateTime, reader => reader.ReadDateTime() },
             { TypeIdentifier.TimeSpan, reader => reader.ReadTimeSpan() },
+            { TypeIdentifier.Enumerable, reader => reader.ReadEnumerable() },       // Returns the value as a List
             { TypeIdentifier.Dictionary, reader => reader.ReadDictionary() },
-            { TypeIdentifier.Enumerable, reader => reader.ReadEnumerable() },
+            { TypeIdentifier.Array, reader => reader.ReadArray() },                 // Returns the value as a []
             {
                 TypeIdentifier.Cached, reader =>
                 {

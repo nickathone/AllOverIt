@@ -96,7 +96,8 @@ namespace AllOverIt.Serialization.Binary.Extensions
         /// <see cref="EnrichedBinaryWriterExtensions.WriteObject{TType}(IEnrichedBinaryWriter, TType)"/>.</summary>
         /// <typeparam name="TValue">The value type to be read from the current stream.</typeparam>
         /// <param name="reader">The reader that is reading from the current stream.</param>
-        /// <returns>The object read from the stream.</returns>
+        /// <returns>The object read from the stream. If the value written was a collection then the value
+        /// read will always be a <see cref="List{TValue}}"/>.</returns>
         public static TValue ReadObject<TValue>(this IEnrichedBinaryReader reader)
         {
             return (TValue) reader
@@ -130,6 +131,45 @@ namespace AllOverIt.Serialization.Binary.Extensions
                 .ReadObject();
         }
 
+        /// <summary>Reads an array from the current stream that was originally written using
+        /// <see cref="EnrichedBinaryWriterExtensions.WriteArray{TValue}(IEnrichedBinaryWriter, TValue[])"/> or
+        /// <see cref="EnrichedBinaryWriterExtensions.WriteEnumerable(IEnrichedBinaryWriter, IEnumerable)"/> (or an overload)
+        /// and returns it as an array (not a List).</summary>
+        /// <param name="reader">The reader that is reading from the current stream.</param>
+        /// <returns>The array read from the stream.</returns>
+        public static object ReadArray(this IEnrichedBinaryReader reader)
+        {
+            var count = reader
+              .WhenNotNull(nameof(reader))
+              .ReadInt32();
+
+            var assemblyTypeName = reader.ReadString();
+            var elementType = Type.GetType(assemblyTypeName);
+
+            var values = Array.CreateInstance(elementType, count);
+
+            for (var i = 0; i < count; i++)
+            {
+                var value = reader.ReadObject();
+                values.SetValue(value, i);
+            }
+
+            return values;
+        }
+
+        /// <summary>Reads an array from the current stream that was originally written using
+        /// <see cref="EnrichedBinaryWriterExtensions.WriteArray{TValue}(IEnrichedBinaryWriter, TValue[])"/> or
+        /// <see cref="EnrichedBinaryWriterExtensions.WriteEnumerable(IEnrichedBinaryWriter, IEnumerable)"/> (or an overload)
+        /// and returns it as an array (not a List).</summary>
+        /// <typeparam name="TValue">The array's element type. The actual element type will be read from the stream so
+        /// if it doesn't match this type then an <see cref="InvalidCastException"/> will be raised.</typeparam>
+        /// <param name="reader">The reader that is reading from the current stream.</param>
+        /// <returns>The array read from the stream.</returns>
+        public static TValue[] ReadArray<TValue>(this IEnrichedBinaryReader reader)
+        {
+            return (TValue[]) ReadArray(reader);
+        }
+
         /// <summary>Reads an enumerable value from the current stream that was originally written using
         /// <see cref="EnrichedBinaryWriterExtensions.WriteEnumerable(IEnrichedBinaryWriter, IEnumerable)"/>
         /// or one of its overloads.</summary>
@@ -141,13 +181,13 @@ namespace AllOverIt.Serialization.Binary.Extensions
                 .WhenNotNull(nameof(reader))
                 .ReadInt32();
 
-            if (count == 0)
-            {
-                return Array.Empty<object>();
-            }
-
             var assemblyTypeName = reader.ReadString();
             var elementType = Type.GetType(assemblyTypeName);
+
+            if (count == 0)
+            {
+                return elementType.CreateList();
+            }
 
             var values = elementType.CreateList();
 
