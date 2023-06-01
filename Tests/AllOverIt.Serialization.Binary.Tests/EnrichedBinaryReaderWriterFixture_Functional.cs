@@ -41,6 +41,7 @@ namespace AllOverIt.Serialization.Binary.Tests
             public Guid Guid { get; set; }
             public DateTime DateTime { get; set; }
             public TimeSpan TimeSpan { get; set; }
+            public IEnumerable<string> Strings { get; set; }
             public IEnumerable<double> Doubles { get; set; }
             public IEnumerable<int?> NullableInts { get; set; }
             public IEnumerable<double> EmptyDoubles { get; set; }
@@ -76,7 +77,8 @@ namespace AllOverIt.Serialization.Binary.Tests
                 writer.WriteTimeSpan(TimeSpan);
 
                 // Testing IEnumerable
-                writer.WriteEnumerable((IEnumerable) Doubles);
+                writer.WriteEnumerable((IEnumerable) Strings, typeof(string));  // Testing explicit type info, and first item is null
+                writer.WriteEnumerable((IEnumerable) Doubles, null);
                 writer.WriteEnumerable((IEnumerable) NullableInts);
                 writer.WriteEnumerable((IEnumerable) EmptyDoubles);
 
@@ -113,6 +115,7 @@ namespace AllOverIt.Serialization.Binary.Tests
                 DateTime = reader.ReadDateTime();
                 TimeSpan = reader.ReadTimeSpan();
 
+                Strings = (List<string>) reader.ReadEnumerable();
                 Doubles = (List<double>) reader.ReadEnumerable();
                 NullableInts = (List<int?>) reader.ReadEnumerable();
                 EmptyDoubles = (List<double>) reader.ReadEnumerable();
@@ -155,6 +158,7 @@ namespace AllOverIt.Serialization.Binary.Tests
                 writer.WriteObject(DateTime);
                 writer.WriteObject(TimeSpan);
 
+                writer.WriteEnumerable(Strings, typeof(string));  // Testing explicit type info, and first item is null
                 writer.WriteEnumerable(Doubles);
                 writer.WriteEnumerable(NullableInts);
                 writer.WriteEnumerable(EmptyDoubles);
@@ -165,7 +169,7 @@ namespace AllOverIt.Serialization.Binary.Tests
                 writer.WriteEnumerable(IntArray);
                 writer.WriteEnumerable(EmptyDoubleArray);
 
-                writer.WriteDictionary(Dictionary);     // is generic overload <int, string>
+                writer.WriteDictionary(Dictionary);                 // is generic overload <int, string>
             }
 
             public void Read_Method2(IEnrichedBinaryReader reader)
@@ -195,6 +199,7 @@ namespace AllOverIt.Serialization.Binary.Tests
                 TimeSpan = reader.ReadObject<TimeSpan>();
 
                 // Using ReadEnumerable<T>() to compliment WriteEnumerable<T>()
+                Strings = reader.ReadEnumerable<string>();
                 Doubles = reader.ReadEnumerable<double>();
                 NullableInts = reader.ReadEnumerable<int?>();
                 EmptyDoubles = reader.ReadEnumerable<double>();
@@ -234,6 +239,7 @@ namespace AllOverIt.Serialization.Binary.Tests
                 writer.WriteObject(Guid);
                 writer.WriteObject(DateTime);
                 writer.WriteObject(TimeSpan);
+                writer.WriteObject(Strings);
                 writer.WriteObject(Doubles);
                 writer.WriteObject(NullableInts);
                 writer.WriteObject(EmptyDoubles);
@@ -271,6 +277,7 @@ namespace AllOverIt.Serialization.Binary.Tests
                 TimeSpan = reader.ReadObject<TimeSpan>();
 
                 // Using ReadObject() to compliment WriteObject()
+                Strings = reader.ReadObject<IList<string>>();
                 Doubles = reader.ReadObject<IList<double>>();
                 NullableInts = reader.ReadObject<IList<int?>>();
                 EmptyDoubles = reader.ReadObject<IList<double>>();
@@ -419,8 +426,8 @@ namespace AllOverIt.Serialization.Binary.Tests
 
         [Theory]
         [InlineData(1)]
-        //[InlineData(2)]
-        //[InlineData(3)]
+        [InlineData(2)]
+        [InlineData(3)]
         public void Should_Write_Using_Write_Extensions_Method2_Using_All_Constructors(int constructor)
         {
             var expected = CreateKnownTypes();
@@ -558,9 +565,9 @@ namespace AllOverIt.Serialization.Binary.Tests
         }
 
         [Fact]
-        public void Should_Write_SelectEnumerableIterator_Using_WriteEnumerable()
+        public void Should_Write_SelectIterator_Using_WriteEnumerable()
         {
-            var expected = CreateMany<int>().Select(item => (object) item);     // returns SelectEnumerableIterator<int?, object> - two generic arguments
+            var expected = CreateMany<int>().Select(item => item);     // returns SelectListIterator<int?, object> - two generic arguments
 
             IEnumerable<int> actual = default;
 
@@ -570,7 +577,7 @@ namespace AllOverIt.Serialization.Binary.Tests
             {
                 using (var writer = new EnrichedBinaryWriter(stream, Encoding.UTF8, true))
                 {
-                    writer.WriteEnumerable(expected);
+                    writer.WriteEnumerable(expected);                   // interpreted as WriteEnumerable<int> so the type info will be used
                 }
 
                 bytes = stream.ToArray();
@@ -588,9 +595,9 @@ namespace AllOverIt.Serialization.Binary.Tests
         }
 
         [Fact]
-        public void Should_Write_SelectEnumerableIterator_Using_WriteObject()
+        public void Should_Write_SelectIterator_Using_WriteObject()
         {
-            var expected = CreateMany<int>().Select(item => (object) item);     // returns SelectEnumerableIterator<int?, object> - two generic arguments
+            var expected = CreateMany<int>().Select(item => item);     // returns SelectListIterator<int?, object> - two generic arguments
 
             IEnumerable<int> actual = default;
 
@@ -681,6 +688,8 @@ namespace AllOverIt.Serialization.Binary.Tests
         {
             var knownTypes = Create<KnownTypes>();
 
+            knownTypes.Strings = new List<string> { null, "a", "b" };
+            knownTypes.Doubles = knownTypes.Doubles.ToList();               // replace Autofixture type
             knownTypes.NullableInts = new int?[3] { 1, null, 3 };
             knownTypes.EmptyDoubleArray = Array.Empty<double>();
             knownTypes.EmptyDoubles = new List<double>();

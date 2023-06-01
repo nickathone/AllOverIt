@@ -258,7 +258,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
         /// <param name="writer">The binary writer that is writing to the current stream.</param>
         /// <param name="enumerable">The IEnumerable to be written.</param>
         /// <param name="valueType">The type of each value in the <see cref="IEnumerable{TType}"/>. If the <paramref name="valueType"/>
-        /// is null then the runtime type of the first value read will be used.</param>
+        /// is null then the runtime type of the first value read will be used. If the first value is <see langword="null"/> then object is used.</param>
         public static void WriteEnumerable(this IEnrichedBinaryWriter writer, IEnumerable enumerable, Type valueType)
         {
             _ = writer.WhenNotNull(nameof(writer));
@@ -269,34 +269,31 @@ namespace AllOverIt.Serialization.Binary.Extensions
             if (elementType is null ||
                 enumerable is not ICollection collection)
             {
+                collection = null;
                 IList values = null;
 
                 foreach (var value in enumerable)
                 {
                     if (values is null)
                     {
-                        elementType = value?.GetType();
+                        elementType ??= value?.GetType() ?? CommonTypes.ObjectType;
 
                         // break out of the loop if all we needed was the elementType
-                        if (enumerable is ICollection)
+                        if (enumerable is ICollection enumerableCollection)
                         {
+                            collection = enumerableCollection;
                             break;
                         }
 
-                        if (value is null || elementType == CommonTypes.ObjectType)
-                        {
-                            values = new List<object>();
-                        }
-                        else
-                        {
-                            values = elementType.CreateList();
-                        }
+                        values = value is null
+                            ? new List<object>()
+                            : elementType.CreateList();
                     }
 
                     values.Add(value);
                 }
 
-                collection = values;
+                collection ??= values;
             }
 
             writer.Write(collection.Count);
