@@ -3,7 +3,6 @@ using AllOverIt.Reactive.Extensions;
 using ObservableDemo.Entities;
 using ObservableDemo.Models;
 using System;
-using System.Collections.Generic;
 
 namespace ObservableDemo
 {
