@@ -121,8 +121,7 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 var subject = new Subject<int>();
 
                 ObservableExtensions
-                    .WaitUntil(subject, value => value == expected,
-                        result => $"{result * multiplier}")
+                    .WaitUntil(subject, value => value == expected, result => $"{result * multiplier}")
                     .Subscribe(value =>
                     {
                         actual = value;
@@ -188,7 +187,8 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 var multiplier = GetWithinRange(3, 5);
                 var subject = new Subject<int>();
 
-                var observable = ObservableExtensions.WaitUntilAsync<int>(subject, value => value == expected, value => Task.FromResult(value * multiplier));
+                var observable = ObservableExtensions.WaitUntilAsync<int>(
+                    subject, value => value == expected, value => Task.FromResult(value * multiplier));
 
                 for (var i = expected - 1; i <= expected + 1; i++)
                 {
@@ -234,7 +234,8 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 var multiplier = GetWithinRange(3, 5);
                 var subject = new Subject<int>();
 
-                var observable = ObservableExtensions.WaitUntilAsync(subject, value => value == expected, result => Task.FromResult($"{result * multiplier}"));
+                var observable = ObservableExtensions.WaitUntilAsync(subject,
+                    value => value == expected, result => Task.FromResult($"{result * multiplier}"));
 
                 for (var i = expected - 1; i <= expected + 1; i++)
                 {
@@ -253,7 +254,8 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 var multiplier = GetWithinRange(3, 5);
                 var subject = new Subject<int>();
 
-                var observable = ObservableExtensions.WaitUntilAsync(subject, value => value == expected, result => throw new Exception($"{result * multiplier}"));
+                var observable = ObservableExtensions.WaitUntilAsync(subject,
+                    value => value == expected, result => throw new Exception($"{result * multiplier}"));
 
                 for (var i = expected - 1; i <= expected + 1; i++)
                 {
