@@ -12,8 +12,6 @@ namespace AllOverIt.Pipes.Serialization.Binary
 
         protected override byte[] SerializeToBytes(TType @object)
         {
-            byte[] bytes;
-
             using (var stream = new MemoryStream())
             {
                 using (var serializerWriter = new EnrichedBinaryWriter(stream, Encoding.UTF8, true))
@@ -26,10 +24,8 @@ namespace AllOverIt.Pipes.Serialization.Binary
                     serializerWriter.WriteObject(@object);
                 }
 
-                bytes = stream.ToArray();
+                return stream.ToArray();
             }
-
-            return bytes;
         }
 
         protected override TType DeserializeFromBytes(byte[] bytes)
