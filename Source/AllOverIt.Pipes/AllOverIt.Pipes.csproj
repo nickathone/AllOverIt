@@ -12,6 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\AllOverIt.Pipes.Serialization\AllOverIt.Pipes.Serialization.csproj" />
         <ProjectReference Include="..\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
     </ItemGroup>
 

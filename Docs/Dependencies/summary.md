@@ -351,8 +351,40 @@
 
 * AllOverIt
 * AllOverIt.Assertion
+* AllOverIt.Pipes.Serialization
 * AllOverIt.Reactive
 * System.Reactive v5.0.0
+
+<br>
+
+---
+
+<br>
+
+## AllOverIt.Pipes.Serialization
+
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+
+### Dependencies
+
+* None
+
+<br>
+
+---
+
+<br>
+
+## AllOverIt.Pipes.Serialization.Binary
+
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+
+### Dependencies
+
+* AllOverIt
+* AllOverIt.Assertion
+* AllOverIt.Pipes.Serialization
+* AllOverIt.Serialization.Binary
 
 <br>
 

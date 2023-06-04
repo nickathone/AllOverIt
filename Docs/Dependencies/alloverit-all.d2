@@ -96,7 +96,12 @@ aoi.alloverit <- aoi.alloverit-generichost
 aoi.alloverit-mapping: AllOverIt.Mapping
 aoi.alloverit <- aoi.alloverit-mapping
 aoi.alloverit-pipes: AllOverIt.Pipes
+aoi.alloverit-pipes-serialization: AllOverIt.Pipes.Serialization
+aoi.alloverit-pipes-serialization <- aoi.alloverit-pipes
 aoi.alloverit-reactive <- aoi.alloverit-pipes
+aoi.alloverit-pipes-serialization-binary: AllOverIt.Pipes.Serialization.Binary
+aoi.alloverit-pipes-serialization <- aoi.alloverit-pipes-serialization-binary
+aoi.alloverit-serialization-binary <- aoi.alloverit-pipes-serialization-binary
 aoi.alloverit-reactiveui: AllOverIt.ReactiveUI
 microsoft-extensions-dependencyinjection-abstractions_7-0-0 <- aoi.alloverit-reactiveui
 reactiveui_18-4-44: ReactiveUI\nv18.4.44

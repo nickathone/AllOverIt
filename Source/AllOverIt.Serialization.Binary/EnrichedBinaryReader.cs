@@ -65,7 +65,7 @@ namespace AllOverIt.Serialization.Binary
                         reader.Readers.Add(new DynamicBinaryValueReader(valueType));
                     }
 
-                    var converter = reader.Readers.SingleOrDefault(converter => converter.Type == valueType);
+                    var converter = reader.Readers.Single(converter => converter.Type == valueType);
 
                     return converter.ReadValue(reader);
                 }

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+        <Description>Provides serialization abstractions for AllOverIt.Pipes.</Description>
+        <PackageTags>AllOverIt;Utilities;Async;Threading;IO;Pipes;NamedPipes</PackageTags>
+    </PropertyGroup>
+
+</Project>
