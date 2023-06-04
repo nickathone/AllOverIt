@@ -1,9 +1,9 @@
 using AllOverIt.Fixture;
+using System.Reactive.Subjects;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Fixture.FakeItEasy;
 using FluentAssertions;
 using System;
-using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Xunit;
 using ObservableExtensions = AllOverIt.Reactive.Extensions.ObservableExtensions;
@@ -20,7 +20,6 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 Invoking(() =>
                     {
                         ObservableExtensions.WaitUntil((IObservable<int>) null, _ => true);
-
                     })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -93,7 +92,6 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 Invoking(() =>
                     {
                         ObservableExtensions.WaitUntil<int, int>(null, _ => true, value => value);
-
                     })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -105,7 +103,8 @@ namespace AllOverIt.Reactive.Tests.Extensions
             {
                 Invoking(() =>
                     {
-                        ObservableExtensions.WaitUntil<int, int>(this.CreateStub<IObservable<int>>(), null, value => value);
+                        ObservableExtensions.WaitUntil<int, int>(this.CreateStub<IObservable<int>>(), null,
+                            value => value);
                     })
                     .Should()
                     .Throw<ArgumentNullException>()
@@ -142,9 +141,9 @@ namespace AllOverIt.Reactive.Tests.Extensions
             public async Task Should_Throw_When_Observable_Null()
             {
                 await Invoking(async () =>
-                {
-                    _ = await ObservableExtensions.WaitUntilAsync((IObservable<int>) null, _ => true);
-                })
+                    {
+                        _ = await ObservableExtensions.WaitUntilAsync((IObservable<int>) null, _ => true);
+                    })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
                     .WithNamedMessageWhenNull("observable");
@@ -154,9 +153,9 @@ namespace AllOverIt.Reactive.Tests.Extensions
             public async Task Should_Throw_When_Predicate_Null()
             {
                 await Invoking(async () =>
-                {
-                    _ = await ObservableExtensions.WaitUntilAsync(this.CreateStub<IObservable<int>>(), null);
-                })
+                    {
+                        _ = await ObservableExtensions.WaitUntilAsync(this.CreateStub<IObservable<int>>(), null);
+                    })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
                     .WithNamedMessageWhenNull("predicate");
@@ -168,7 +167,9 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 var expected = GetWithinRange(7, 9);
                 var subject = new Subject<int>();
 
-                var observable = ObservableExtensions.WaitUntilAsync(subject, value => value == expected);
+                var observable = ObservableExtensions.WaitUntilAsync(
+                    subject,
+                    value => value == expected);
 
                 for (var i = expected - 1; i <= expected + 1; i++)
                 {
@@ -187,8 +188,11 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 var multiplier = GetWithinRange(3, 5);
                 var subject = new Subject<int>();
 
-                var observable = ObservableExtensions.WaitUntilAsync<int>(
-                    subject, value => value == expected, value => Task.FromResult(value * multiplier));
+                var observable = ObservableExtensions
+                    .WaitUntilAsync<int>(
+                        subject,
+                        value => value == expected,
+                        value => Task.FromResult(value * multiplier));
 
                 for (var i = expected - 1; i <= expected + 1; i++)
                 {
@@ -207,9 +211,12 @@ namespace AllOverIt.Reactive.Tests.Extensions
             public async Task Should_Throw_When_Observable_Null()
             {
                 await Invoking(async () =>
-                {
-                    _ = await ObservableExtensions.WaitUntilAsync<int, int>(null, _ => true, Task.FromResult);
-                })
+                    {
+                        _ = await ObservableExtensions.WaitUntilAsync<int, int>(
+                            null,
+                            _ => true,
+                            Task.FromResult);
+                    })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
                     .WithNamedMessageWhenNull("observable");
@@ -219,9 +226,12 @@ namespace AllOverIt.Reactive.Tests.Extensions
             public async Task Should_Throw_When_Predicate_Null()
             {
                 await Invoking(async () =>
-                {
-                    _ = await ObservableExtensions.WaitUntilAsync<int, int>(this.CreateStub<IObservable<int>>(), null, Task.FromResult);
-                })
+                    {
+                        _ = await ObservableExtensions.WaitUntilAsync<int, int>(
+                            this.CreateStub<IObservable<int>>(),
+                            null,
+                            Task.FromResult);
+                    })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
                     .WithNamedMessageWhenNull("predicate");
@@ -234,8 +244,11 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 var multiplier = GetWithinRange(3, 5);
                 var subject = new Subject<int>();
 
-                var observable = ObservableExtensions.WaitUntilAsync(subject,
-                    value => value == expected, result => Task.FromResult($"{result * multiplier}"));
+                var observable = ObservableExtensions
+                    .WaitUntilAsync(
+                        subject,
+                        value => value == expected,
+                        result => Task.FromResult($"{result * multiplier}"));
 
                 for (var i = expected - 1; i <= expected + 1; i++)
                 {
@@ -254,8 +267,11 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 var multiplier = GetWithinRange(3, 5);
                 var subject = new Subject<int>();
 
-                var observable = ObservableExtensions.WaitUntilAsync(subject,
-                    value => value == expected, result => throw new Exception($"{result * multiplier}"));
+                var observable = ObservableExtensions
+                    .WaitUntilAsync(
+                        subject,
+                        value => value == expected,
+                        result => throw new Exception($"{result * multiplier}"));
 
                 for (var i = expected - 1; i <= expected + 1; i++)
                 {
@@ -263,12 +279,12 @@ namespace AllOverIt.Reactive.Tests.Extensions
                 }
 
                 await Invoking(async () =>
-                {
-                    _ = await observable;
-                })
-                .Should()
-                .ThrowAsync<Exception>()
-                .WithMessage($"{expected * multiplier}");
+                    {
+                        _ = await observable;
+                    })
+                    .Should()
+                    .ThrowAsync<Exception>()
+                    .WithMessage($"{expected * multiplier}");
             }
         }
     }
