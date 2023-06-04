@@ -348,8 +348,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NamedPipeClientDemo", "Demo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllOverIt.Pipes", "Source\AllOverIt.Pipes\AllOverIt.Pipes.csproj", "{A1BB1F1A-D060-4DA3-AF79-41D98F483675}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetryOnExceptionDemo", "Demos\AllOverIt.Reactive\RetryOnExceptionDemo\RetryOnExceptionDemo.csproj", "{689E7BAF-0C3E-4472-8E1E-51CAC4F5A3D3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -828,10 +826,6 @@ Global
 		{A1BB1F1A-D060-4DA3-AF79-41D98F483675}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1BB1F1A-D060-4DA3-AF79-41D98F483675}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1BB1F1A-D060-4DA3-AF79-41D98F483675}.Release|Any CPU.Build.0 = Release|Any CPU
-		{689E7BAF-0C3E-4472-8E1E-51CAC4F5A3D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{689E7BAF-0C3E-4472-8E1E-51CAC4F5A3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{689E7BAF-0C3E-4472-8E1E-51CAC4F5A3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{689E7BAF-0C3E-4472-8E1E-51CAC4F5A3D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -997,7 +991,6 @@ Global
 		{E71C2731-0A99-43B3-BB10-1C366F564973} = {EF315D3E-378C-4A31-BFF6-86B7D5796FED}
 		{C321637D-E561-4CD4-908E-B133EE7E0F1D} = {EF315D3E-378C-4A31-BFF6-86B7D5796FED}
 		{A1BB1F1A-D060-4DA3-AF79-41D98F483675} = {FC8E8DB2-1299-44F4-A233-0EDCE225BB8C}
-		{689E7BAF-0C3E-4472-8E1E-51CAC4F5A3D3} = {5CBF91E4-7BC4-40C4-A68C-55726C4D0E1B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19DD11B3-596E-4862-B5C4-1FFFFB173106}
