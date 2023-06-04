@@ -14,46 +14,44 @@ namespace AllOverIt.Pipes.Connection
         private PipeStream _pipeStream;
         private SemaphoreSlim _semaphoreSlim = new(1, 1);
 
-
-        /// <summary>
-        /// Constructs a new <c>PipeStreamWriter</c> object that writes to given <paramref name="stream"/>.
-        /// </summary>
+        /// <summary>Constructor.</summary>
         /// <param name="stream">Pipe to write to</param>
         public PipeStreamWriter(PipeStream stream)
         {
             _pipeStream = stream.WhenNotNull(nameof(stream));
         }
 
-        /// <summary>
-        /// Writes an object to the pipe.
-        /// </summary>
+        /// <summary>Writes an array of bytes to the pipe.</summary>
         /// <param name="buffer">Object to write to the pipe</param>
         /// <param name="cancellationToken"></param>
         public async Task WriteAsync(byte[] buffer, CancellationToken cancellationToken)
         {
-            buffer = buffer.WhenNotNull(nameof(buffer));
+            _ = buffer.WhenNotNull(nameof(buffer));
 
-            using (await _semaphoreSlim.DisposableWaitAsync(cancellationToken))
+            try
             {
-                await WriteLengthAsync(buffer.Length, cancellationToken).ConfigureAwait(false);
-
-                await _pipeStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
-
-                try
+                using (await _semaphoreSlim.DisposableWaitAsync(cancellationToken).ConfigureAwait(false))
                 {
+                    await WriteLengthAsync(buffer.Length, cancellationToken).ConfigureAwait(false);
+
+                    await _pipeStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
+
                     // Flush all buffers to the underlying device
                     await _pipeStream.FlushAsync(cancellationToken).ConfigureAwait(false);
 
                     // Wait for the other end to read all sent bytes
                     _pipeStream.WaitForPipeDrain();
                 }
-                catch (IOException exception)
-                {
-                    // Ignore: https://stackoverflow.com/questions/45308306/gracefully-closing-a-named-pipe-and-disposing-of-streams
-                }
             }
+            catch (IOException)
+            {
+                // Thrown if the pipe is broken due to the server terminating
+            }
+            //catch (Exception ex)
+            //{
+            //    var t = ex.GetType().GetFriendlyName();
+            //}
         }
-
 
         /// <summary>
         /// Dispose internal <see cref="PipeStream"/>
@@ -73,11 +71,11 @@ namespace AllOverIt.Pipes.Connection
 
         private async Task WriteLengthAsync(int length, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             var buffer = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(length));
 
             await _pipeStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
         }
     }
-
-
 }

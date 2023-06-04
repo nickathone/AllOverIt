@@ -7,6 +7,7 @@ using NamedPipeTypes;
 using System;
 using System.IO;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,11 +16,6 @@ namespace NamedPipeDemo
 {
     internal static class PipeClient
     {
-        private static void OnExceptionOccurred(Exception exception)
-        {
-            Console.Error.WriteLine($"Exception: {exception}");
-        }
-
         public static async Task RunAsync(string pipeName, bool useCustomReaderWriter = true)
         {
             // If the custom reader/writers are not register then a DynamicBinaryValueReader / DynamicBinaryValueWriter
@@ -39,13 +35,10 @@ namespace NamedPipeDemo
 
                 await using var client = new PipeClient<PipeMessage>(pipeName, serializer);
 
+                client.OnConnected += DoOnClientConnected;
+                client.OnDisconnected += DoOnClientDisconnected;
                 client.OnMessageReceived += (o, args) => Console.WriteLine("MessageReceived: " + args.Message);
-
-                client.OnDisconnected += (o, args) => Console.WriteLine("Disconnected from server");
-
-                client.OnConnected += Client_OnConnected;
-
-                client.OnException += (o, args) => OnExceptionOccurred(args.Exception);
+                client.OnException += (o, args) => DoOnException(args.Exception);
 
                 _ = Task.Run(async () =>
                 {
@@ -74,7 +67,7 @@ namespace NamedPipeDemo
                         }
                         catch (Exception exception)
                         {
-                            OnExceptionOccurred(exception);
+                            DoOnException(exception);
                             source.Cancel();
                         }
 
@@ -99,7 +92,7 @@ namespace NamedPipeDemo
             }
             catch (Exception exception)
             {
-                OnExceptionOccurred(exception);
+                DoOnException(exception);
             }
         }
 
@@ -114,16 +107,21 @@ namespace NamedPipeDemo
             }
         }
 
-        private static void Client_OnConnected(object sender, ConnectionEventArgs<PipeMessage> args)
+        private static void DoOnClientConnected(object sender, ConnectionEventArgs<PipeMessage> args)
         {
             Console.WriteLine("Connected to server");
 
             SendConnectionRegularMessages(args.Connection);
         }
 
+        private static void DoOnClientDisconnected(object sender, ConnectionEventArgs<PipeMessage> args)
+        {
+            Console.WriteLine("Disconnected from server");
+        }
+
         private static void SendConnectionRegularMessages(IPipeConnection<PipeMessage> connection)
         {
-            Observable
+            var subscription = Observable
                 .Interval(TimeSpan.FromMilliseconds(25))
                 .TakeWhile(_ => connection.IsConnected)
                 .SelectMany(async async =>
@@ -136,14 +134,25 @@ namespace NamedPipeDemo
                     {
                         // Most likely a broken pipe
                     }
+                    catch (OperationCanceledException)
+                    {
+                    }
                     catch (Exception exception)
                     {
+                        // It's possible an internal semaphore in PipeStreamWriter may throw an ObjectDisposedException
+                        // if the server is terminated and the pipe is broken.
                         Console.WriteLine(exception.Message);
                     }
 
                     return Unit.Default;
                 })
                 .Subscribe();
+        }
+
+
+        private static void DoOnException(Exception exception)
+        {
+            Console.Error.WriteLine($"Exception: {exception}");
         }
     }   
 }

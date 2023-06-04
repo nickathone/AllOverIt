@@ -19,27 +19,19 @@ namespace AllOverIt.Pipes.Server
 {
     public sealed class PipeServer<TType> : IPipeServer<TType>, IPipeEvents<TType>, IPipeServerEvents<TType>
     {
+        private readonly IMessageSerializer<TType> _serializer;
+        private ICollection<IPipeConnection<TType>> Connections { get; } = new List<IPipeConnection<TType>>();
+        private IAwaitableLock _connectionsLock = new AwaitableLock();
         private BackgroundTask _backgroundTask;
+
 
         public string PipeName { get; }
 
+        /// <summary>An event raised when a client connects to the server. This event may be raised on a background thread.</summary>
+        public event EventHandler<ConnectionEventArgs<TType>> OnClientConnected;
 
-        private readonly IMessageSerializer<TType> _serializer;
-
-        private IList<IPipeConnection<TType>> Connections { get; } = new List<IPipeConnection<TType>>();
-        private IAwaitableLock _connectionsLock = new AwaitableLock();
-
-
-
-        /// <summary>
-        /// Invoked whenever a client connects to the server.
-        /// </summary>
-        public event EventHandler<ConnectionEventArgs<TType>> ClientConnected;
-
-        /// <summary>
-        /// Invoked whenever a client disconnects from the server.
-        /// </summary>
-        public event EventHandler<ConnectionEventArgs<TType>> ClientDisconnected;
+        /// <summary>An event raised when a client disconnects from the server. This event may be raised on a background thread.</summary>
+        public event EventHandler<ConnectionEventArgs<TType>> OnClientDisconnected;
 
         /// <summary>
         /// Invoked whenever a client sends a message to the server.
@@ -109,9 +101,6 @@ namespace AllOverIt.Pipes.Server
                         // Wait for the client to connect to the data pipe
                         var connectionStream = PipeServerFactory.Create(connectionPipeName);
 
-                        //check out use
-                        //PipeStreamInitializeAction?.Invoke(connectionStream);
-
                         try
                         {
                             await connectionStream.WaitForConnectionAsync(token).ConfigureAwait(false);
@@ -132,12 +121,7 @@ namespace AllOverIt.Pipes.Server
 
                         connection.Connect();
 
-                        using (await _connectionsLock.GetLockAsync(token))
-                        {
-                            Connections.Add(connection);
-                        }
-
-                        DoOnClientConnected(new ConnectionEventArgs<TType>(connection));
+                        await DoOnClientConnectedAsync(connection);
                     }
                     catch (OperationCanceledException)
                     {
@@ -243,23 +227,32 @@ namespace AllOverIt.Pipes.Server
             }
         }
 
-
-        private void DoOnClientConnected(ConnectionEventArgs<TType> args)
+        private async Task DoOnClientConnectedAsync(IPipeConnection<TType> connection)
         {
-            ClientConnected?.Invoke(this, args);
+            using (await _connectionsLock.GetLockAsync().ConfigureAwait(false))
+            {
+                Connections.Add(connection);
+            }
+
+            var clientConnected = OnClientConnected;
+
+            if (clientConnected is not null)
+            {
+                var args = new ConnectionEventArgs<TType>(connection);
+
+                clientConnected.Invoke(this, args);
+            }
         }
 
         private void DoOnClientDisconnected(ConnectionEventArgs<TType> args)
         {
-            ClientDisconnected?.Invoke(this, args);
+            OnClientDisconnected?.Invoke(this, args);
 
             Reactive.TaskHelper.ExecuteAsyncAndWait(async () =>
             {
-                using (await _connectionsLock.GetLockAsync())
+                using (await _connectionsLock.GetLockAsync().ConfigureAwait(false))
                 {
-                    var connection = args.Connection;
-
-                    Connections.Remove(connection);
+                    Connections.Remove(args.Connection);
                 }
             });
         }
@@ -271,7 +264,14 @@ namespace AllOverIt.Pipes.Server
 
         private void DoOnConnectionException(Exception exception)
         {
-            OnException?.Invoke(this, new ExceptionEventArgs(exception));
+            var onException = OnException;
+
+            if (onException is not null)
+            {
+                var args = new ExceptionEventArgs(exception);
+
+                onException.Invoke(this, args);
+            }
         }
     }
 }

@@ -43,9 +43,9 @@ namespace NamedPipeDemo
 
                 await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
                 {
-                    server.ClientConnected += (_, args) => OnClientConnected(server, args, source.Token);
+                    server.OnClientConnected += (_, args) => OnClientConnected(server, args, source.Token);
 
-                    server.ClientDisconnected += (_, args) =>
+                    server.OnClientDisconnected += (_, args) =>
                     {
                         Console.WriteLine($"Client {args.Connection.PipeName} disconnected");
                     };

@@ -8,9 +8,7 @@ namespace AllOverIt.Pipes.Server
 {
     public interface IPipeServer<TType> : IPipe<TType>
     {
-        /// <summary>
-        /// Name of pipe
-        /// </summary>
+        /// <summary>The name of pipe.</summary>
         string PipeName { get; }
 
 

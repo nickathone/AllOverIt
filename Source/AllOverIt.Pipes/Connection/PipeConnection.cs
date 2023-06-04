@@ -19,6 +19,7 @@ namespace AllOverIt.Pipes.Connection
 
         private readonly IMessageSerializer<TType> _serializer;
 
+        private CancellationTokenSource _cancellationTokenSource;
         private BackgroundTask _backgroundReader;
         private PipeReaderWriter _pipeReaderWriter;
 
@@ -77,6 +78,8 @@ namespace AllOverIt.Pipes.Connection
             // TODO: Custom exception
             Throw<InvalidOperationException>.WhenNotNull(_backgroundReader, "The connection is already open.");
 
+            _cancellationTokenSource = new CancellationTokenSource();
+
             _backgroundReader = new BackgroundTask(async cancellationToken =>
             {
                 _pipeReaderWriter = new PipeReaderWriter(_pipeStream);
@@ -115,24 +118,25 @@ namespace AllOverIt.Pipes.Connection
             {
                 DoOnExceptionOccurred(edi.SourceException);
                 return false;
-            });
+            },
+            _cancellationTokenSource.Token);
         }
 
         public async Task DisconnectAsync()
         {
-            if (_pipeReaderWriter is not null)
+            if (_cancellationTokenSource is not null)
             {
+                _cancellationTokenSource.Cancel();
+
                 // This must be disposed so the background reader can detect when the server breaks the connection
                 await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
-
                 _pipeReaderWriter = null;
-            }
 
-            if (_backgroundReader != null)
-            {
                 await _backgroundReader.DisposeAsync().ConfigureAwait(false);
-
                 _backgroundReader = null;
+
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null;
             }
         }
 
@@ -145,8 +149,11 @@ namespace AllOverIt.Pipes.Connection
         {
             if (!IsConnected || !_pipeReaderWriter.CanWrite)
             {
-                throw new InvalidOperationException("Client is not connected");
+                // TODO : Custom exception - also required in PipeReaderWriter
+                throw new InvalidOperationException("Connection is not connected or writable.");
             }
+
+            cancellationToken.ThrowIfCancellationRequested();
 
             var bytes = _serializer.Serialize(value);
 
@@ -172,11 +179,7 @@ namespace AllOverIt.Pipes.Connection
             return serverStream.GetImpersonationUserName();
         }
 
-
-
-        /// <summary>
-        /// Dispose internal resources
-        /// </summary>
+        /// <inheritdoc />
         public async ValueTask DisposeAsync()
         {
             await DisconnectAsync().ConfigureAwait(false);
@@ -184,17 +187,38 @@ namespace AllOverIt.Pipes.Connection
 
         private void DoOnDisconnected()
         {
-            OnDisconnected?.Invoke(this, new ConnectionEventArgs<TType>(this));
+            var onDisconnected = OnDisconnected;
+
+            if ( onDisconnected is not null)
+            {
+                var args = new ConnectionEventArgs<TType>(this);
+
+                onDisconnected.Invoke(this, args);
+            }
         }
 
         private void DoOnMessageReceived(TType message)
         {
-            OnMessageReceived?.Invoke(this, new ConnectionMessageEventArgs<TType>(this, message));
+            var onMessageReceived = OnMessageReceived;
+
+            if (onMessageReceived  is not null)
+            {
+                var args = new ConnectionMessageEventArgs<TType>(this, message);
+
+                onMessageReceived.Invoke(this, args);
+            }
         }
 
         private void DoOnExceptionOccurred(Exception exception)
         {
-            OnException?.Invoke(this, new ConnectionExceptionEventArgs<TType>(this, exception));
+            var onException = OnException;
+
+            if (onException is not null)
+            {
+                var args = new ConnectionExceptionEventArgs<TType>(this, exception);
+
+                onException.Invoke(this, args);
+            }
         }
     }
 }

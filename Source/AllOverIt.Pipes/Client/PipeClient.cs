@@ -112,14 +112,14 @@ namespace AllOverIt.Pipes.Client
                 _connection = new PipeConnection<TType>(dataPipe, connectionPipeName, _serializer, ServerName);
 
                 // Unsubscribes all event handlers and disposes of the connection
-                _connection.OnDisconnected += OnConnectionDisconnected;
+                _connection.OnDisconnected += DoOnConnectionDisconnected;
 
                 _connection.OnMessageReceived += DoOnConnectionMessageReceived;
                 _connection.OnException += DoOnConnectionException;
 
                 _connection.Connect();
 
-                DoOnConnected(new ConnectionEventArgs<TType>(_connection));
+                DoOnConnected(_connection);
             }
             //catch (Exception)
             //{
@@ -203,7 +203,7 @@ namespace AllOverIt.Pipes.Client
             }
         }
 
-        private void OnConnectionDisconnected(object sender, ConnectionEventArgs<TType> args)
+        private void DoOnConnectionDisconnected(object sender, ConnectionEventArgs<TType> args)
         {
             try
             {
@@ -211,7 +211,7 @@ namespace AllOverIt.Pipes.Client
             }
             catch (Exception exception)
             {
-                RaiseExceptionOccurred(exception);
+                DoOnException(exception);
             }
 
             OnDisconnected?.Invoke(this, args);
@@ -224,7 +224,7 @@ namespace AllOverIt.Pipes.Client
                 return;
             }
 
-            _connection.OnDisconnected -= OnConnectionDisconnected;
+            _connection.OnDisconnected -= DoOnConnectionDisconnected;
             _connection.OnMessageReceived -= DoOnConnectionMessageReceived;
             _connection.OnException -= DoOnConnectionException;
 
@@ -233,9 +233,16 @@ namespace AllOverIt.Pipes.Client
             _connection = null;
         }
 
-        private void DoOnConnected(ConnectionEventArgs<TType> args)
+        private void DoOnConnected(IPipeConnection<TType> connection)
         {
-            OnConnected?.Invoke(this, args);
+            var onConnected = OnConnected;
+
+            if (onConnected is not null)
+            {
+                var args = new ConnectionEventArgs<TType>(connection);
+
+                onConnected.Invoke(this, args);
+            }
         }
 
         private void DoOnConnectionMessageReceived(object sender, ConnectionMessageEventArgs<TType> args)
@@ -245,10 +252,10 @@ namespace AllOverIt.Pipes.Client
 
         private void DoOnConnectionException(object sender, ConnectionExceptionEventArgs<TType> args)
         {
-            RaiseExceptionOccurred(args.Exception);
+            DoOnException(args.Exception);
         }
 
-        private void RaiseExceptionOccurred(Exception exception)
+        private void DoOnException(Exception exception)
         {
             OnException?.Invoke(this, new ExceptionEventArgs(exception));
         }

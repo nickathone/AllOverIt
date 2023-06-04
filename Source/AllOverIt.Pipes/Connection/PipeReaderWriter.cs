@@ -57,6 +57,12 @@ namespace AllOverIt.Pipes.Connection
         /// <returns>The next object read from the pipe, or <c>null</c> if the pipe disconnected.</returns>
         public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
+            if (!IsConnected)
+            {
+                // TODO : Custom exception - also required in PipeConnection
+                throw new InvalidOperationException("The pipe is not connected.");
+            }
+
             return _streamReader.ReadAsync(cancellationToken);
         }
 
@@ -67,6 +73,14 @@ namespace AllOverIt.Pipes.Connection
         /// <param name="cancellationToken"></param>
         public Task WriteAsync(byte[] buffer, CancellationToken cancellationToken = default)
         {
+            if (!IsConnected)
+            {
+                // TODO : Custom exception - also required in PipeConnection
+                throw new InvalidOperationException("The pipe is not connected.");
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+
             // Writes, flushes, and waits for the pipe to drain
             return _streamWriter.WriteAsync(buffer, cancellationToken);
         }
@@ -78,12 +92,6 @@ namespace AllOverIt.Pipes.Connection
         /// </summary>
         public async ValueTask DisposeAsync()
         {
-            if (_pipeStream is not null)
-            {
-                await _pipeStream.DisposeAsync().ConfigureAwait(false);
-                _pipeStream = null;
-            }
-
             // TODO: Check this - they seem to dispose the same reference as BaseStream
             //
             // This is redundant, just to avoid mistakes and follow the general logic of Dispose
@@ -97,6 +105,12 @@ namespace AllOverIt.Pipes.Connection
             {
                 await _streamWriter.DisposeAsync().ConfigureAwait(false);
                 _streamWriter = null;
+            }
+
+            if (_pipeStream is not null)
+            {
+                await _pipeStream.DisposeAsync().ConfigureAwait(false);
+                _pipeStream = null;
             }
         }
     }

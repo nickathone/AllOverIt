@@ -7,10 +7,7 @@ namespace AllOverIt.Pipes.Client
 {
     public interface IPipeClient<TType> : IPipe<TType>
     {
-
-        /// <summary>
-        /// Used pipe name.
-        /// </summary>
+        /// <summary>The name of pipe.</summary>
         public string PipeName { get; }
 
 
