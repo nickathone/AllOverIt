@@ -7,8 +7,8 @@ namespace AllOverIt.Serialization.Binary
     /// <summary>Represents a binary writer that will serialize objects and values to a stream.</summary>
     public interface IEnrichedBinaryWriter
     {
-        /// <summary>Provides a list of custom value writer that can serialize custom types to the underyling stream.</summary>
-        IList<IEnrichedBinaryValueWriter> Writers { get; }
+        /// <summary>Provides a collection of custom value writer that can serialize custom types to the underyling stream.</summary>
+        ICollection<IEnrichedBinaryValueWriter> Writers { get; }
 
         #region BinaryWriter methods
 

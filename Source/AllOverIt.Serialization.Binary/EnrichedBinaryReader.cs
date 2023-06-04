@@ -77,7 +77,7 @@ namespace AllOverIt.Serialization.Binary
         /// <inheritdoc />
         /// <remarks>If a property type doesn't have a registered reader the <see cref="EnrichedBinaryReader"/> will use a
         /// <see cref="DynamicBinaryValueReader"/>.</remarks>
-        public IList<IEnrichedBinaryValueReader> Readers { get; } = new List<IEnrichedBinaryValueReader>();
+        public ICollection<IEnrichedBinaryValueReader> Readers { get; } = new List<IEnrichedBinaryValueReader>();
 
         /// <inheritdoc cref="BinaryReader(Stream)"/>
         public EnrichedBinaryReader(Stream output)

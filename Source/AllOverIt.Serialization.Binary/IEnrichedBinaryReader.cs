@@ -7,8 +7,8 @@ namespace AllOverIt.Serialization.Binary
     /// <summary>Represents a binary reader that will deserialize objects and values from a stream.</summary>
     public interface IEnrichedBinaryReader
     {
-        /// <summary>Provides a list of custom value readers that can deserialize custom types from the underyling stream.</summary>
-        IList<IEnrichedBinaryValueReader> Readers { get; }
+        /// <summary>Provides a collection of custom value readers that can deserialize custom types from the underyling stream.</summary>
+        ICollection<IEnrichedBinaryValueReader> Readers { get; }
 
         #region Implemented by BinaryReader
 

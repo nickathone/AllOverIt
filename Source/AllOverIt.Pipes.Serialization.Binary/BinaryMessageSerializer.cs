@@ -7,8 +7,8 @@ namespace AllOverIt.Pipes.Serialization.Binary
 {
     public sealed class BinaryMessageSerializer<TType> : MessageSerializerBase<TType>
     {
-        public IList<EnrichedBinaryValueReader<TType>> Readers { get; } = new List<EnrichedBinaryValueReader<TType>>();
-        public IList<EnrichedBinaryValueWriter<TType>> Writers { get; } = new List<EnrichedBinaryValueWriter<TType>>();
+        public ICollection<EnrichedBinaryValueReader<TType>> Readers { get; } = new List<EnrichedBinaryValueReader<TType>>();
+        public ICollection<EnrichedBinaryValueWriter<TType>> Writers { get; } = new List<EnrichedBinaryValueWriter<TType>>();
 
         protected override byte[] SerializeToBytes(TType @object)
         {
