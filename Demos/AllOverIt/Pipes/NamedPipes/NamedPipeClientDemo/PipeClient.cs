@@ -2,6 +2,7 @@
 using AllOverIt.Pipes.Connection;
 using AllOverIt.Pipes.Events;
 using AllOverIt.Pipes.Serialization;
+using AllOverIt.Pipes.Serialization.Binary;
 using NamedPipeTypes;
 using System;
 using System.IO;

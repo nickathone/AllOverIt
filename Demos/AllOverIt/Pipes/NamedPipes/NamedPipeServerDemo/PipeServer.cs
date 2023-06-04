@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Pipes.Connection;
 using AllOverIt.Pipes.Events;
 using AllOverIt.Pipes.Serialization;
+using AllOverIt.Pipes.Serialization.Binary;
 using AllOverIt.Pipes.Server;
 using AllOverIt.Reactive;
 using NamedPipeTypes;
