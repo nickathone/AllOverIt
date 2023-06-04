@@ -352,3 +352,4 @@ _build
 Demos/AllOverIt.Aws.Cdk.AppSync/cdk.out
 TestCoverage
 TestResults
+.idea
