@@ -21,8 +21,7 @@ namespace AllOverIt.Serialization.Binary
 
             var properties = Type
                .GetPropertyInfo(/*Options.BindingOptions*/)
-               .Where(propInfo => propInfo.CanRead &&
-                                  !propInfo.IsIndexer());
+               .Where(propInfo => propInfo.CanRead && propInfo.CanWrite && !propInfo.IsIndexer());
 
             foreach (var propertyInfo in properties)
             {
