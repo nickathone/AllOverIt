@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AllOverIt.Pipes
+namespace AllOverIt.Pipes.Connection
 {
     public interface IPipe<TType> : IAsyncDisposable
     {

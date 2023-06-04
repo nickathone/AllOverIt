@@ -1,10 +1,9 @@
-﻿using AllOverIt.Pipes.Serialization;
-using AllOverIt.Serialization.Binary;
+﻿using AllOverIt.Serialization.Binary;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace NamedPipeTypes
+namespace AllOverIt.Pipes.Serialization.Binary
 {
     public sealed class BinaryMessageSerializer<TType> : MessageSerializerBase<TType>
     {

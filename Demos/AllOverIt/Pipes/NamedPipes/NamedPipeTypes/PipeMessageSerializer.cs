@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Pipes.Serialization;
+using AllOverIt.Pipes.Serialization.Binary;
 
 namespace NamedPipeTypes
 {
