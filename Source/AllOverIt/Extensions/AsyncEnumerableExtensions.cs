@@ -53,6 +53,32 @@ namespace AllOverIt.Extensions
             }
         }
 
+        /// <summary>Asynchronously projects each item within a sequence to an <see cref="IEnumerable{TResult}"/> and flattens the result to
+        /// to a new sequence.</summary>
+        /// <typeparam name="TType">The type of each element to be projected.</typeparam>
+        /// <typeparam name="TResult">The projected result type.</typeparam>
+        /// <param name="items">The sequence of elements to be projected.</param>
+        /// <param name="selector">The transform function to be applied to each element.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
+        /// <returns>An enumerator that provides asynchronous iteration over a sequence of elements.</returns>
+        public static async IAsyncEnumerable<TResult> SelectManyAsync<TType, TResult>(this IAsyncEnumerable<TType> items, Func<TType, IEnumerable<TResult>> selector,
+           [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            _ = items.WhenNotNull(nameof(items));
+
+            await foreach (var item in items.WithCancellation(cancellationToken).ConfigureAwait(false))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                var results = selector.Invoke(item);
+
+                foreach (var result in results)
+                {
+                    yield return result;
+                }
+            }
+        }
+
         /// <summary>Iterates over an <see cref="IAsyncEnumerable{T}"/> to create a <see cref="List{T}"/>.</summary>
         /// <typeparam name="TType">The element type.</typeparam>
         /// <param name="items">The enumerable to convert to a list asynchronously.</param>

@@ -33,6 +33,7 @@
 * Added SemaphoreSlim DisposableWaitAsync() extension method
 * Added a CancellationToken to ForEachAsync()
 * Added Type extension methods GetEnumerableElementType(), CreateList()
+* Added SelectManyAsync() extension method
 
 
 ## AllOverIt.AspNetCore
