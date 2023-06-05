@@ -82,7 +82,85 @@ namespace AllOverIt.Tests.Extensions
                 await Task.CompletedTask;
             }
         }
+        
+        public class SelectManyAsync : EnumerableExtensionsFixture
+        {
+            [Fact]
+            public async Task Should_Throw_When_Null()
+            {
+                await Invoking(
+                        async () =>
+                        {
+                            IAsyncEnumerable<IEnumerable<IEnumerable<bool>>>items = null;
 
+                            await items.SelectManyAsync(item => item).ToListAsync();
+                        })
+                    .Should()
+                    .ThrowAsync<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("items");
+            }
+
+            [Fact]
+            public async Task Should_Cancel_Iteration()
+            {
+                var cts = new CancellationTokenSource();
+                cts.Cancel();
+
+                await Invoking(
+                        async () =>
+                        {
+                            var items = AsAsyncEnumerable(new[] { new[] { true } });
+
+                            await items.SelectManyAsync(item => item, cts.Token).ToListAsync();
+                        })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
+            }
+
+            [Theory]
+            [InlineData(false)]
+            [InlineData(true)]
+            public async Task Should_Iterate_Collection(bool useCancellationToken)
+            {
+                var values = new[]
+                {
+                    CreateMany<bool>(),
+                    CreateMany<bool>(),
+                    CreateMany<bool>()
+                };
+                
+                var expected = values
+                    .SelectMany(item => item)
+                    .AsReadOnlyCollection();
+            
+                IList<bool> actual;
+            
+                if (useCancellationToken)
+                {
+                    using (var cts = new CancellationTokenSource())
+                    {
+                        actual = await AsAsyncEnumerable(values).SelectManyAsync(item => item, cts.Token).ToListAsync();
+                    }
+                }
+                else
+                {
+                    actual = await AsAsyncEnumerable(values).SelectManyAsync(item => item).ToListAsync();
+                }
+            
+                expected.Should().BeEquivalentTo(actual);
+            }
+
+            private static async IAsyncEnumerable<IEnumerable<bool>> AsAsyncEnumerable(IEnumerable<IEnumerable<bool>> items)
+            {
+                foreach (var item in items)
+                {
+                    yield return item;
+                }
+
+                await Task.CompletedTask;
+            }
+        }
+        
         public class ToListAsync : AsyncEnumerableExtensionsFixture
         {
             [Fact]
