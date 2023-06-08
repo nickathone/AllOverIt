@@ -120,6 +120,7 @@
 ## AllOverIt.Serialization.Binary :new:
 * Moved the binary serialization from `AllOverIt` into this dedicated package
 * Improved support for IEnumerable and arrays
+* Added DynamicBinaryValueReader and DynamicBinaryValueWriter
 
 
 ## AllOverIt.Serialization.Json.Abstractions

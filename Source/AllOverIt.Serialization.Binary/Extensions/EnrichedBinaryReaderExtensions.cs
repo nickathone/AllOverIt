@@ -97,7 +97,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
         /// <typeparam name="TValue">The value type to be read from the current stream.</typeparam>
         /// <param name="reader">The reader that is reading from the current stream.</param>
         /// <returns>The object read from the stream. If the value written was a collection then the value
-        /// read will always be a <see cref="List{TValue}}"/>.</returns>
+        /// read will always be a <see cref="List{TValue}"/>.</returns>
         public static TValue ReadObject<TValue>(this IEnrichedBinaryReader reader)
         {
             return (TValue) reader
