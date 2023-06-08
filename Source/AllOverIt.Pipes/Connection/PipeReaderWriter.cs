@@ -8,6 +8,7 @@ namespace AllOverIt.Pipes.Connection
 {
     public sealed class PipeReaderWriter : IAsyncDisposable
     {
+        private readonly bool _leaveConnected;
         private PipeStream _pipeStream;
         private PipeStreamReader _streamReader;
         private PipeStreamWriter _streamWriter;
@@ -19,7 +20,8 @@ namespace AllOverIt.Pipes.Connection
         /// <returns>
         ///     <c>true</c> if the <see cref="_pipeStream"/> object is connected; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsConnected => _pipeStream.IsConnected && _streamReader.IsConnected;
+        //public bool IsConnected => _pipeStream.IsConnected; // _streamReader.IsConnected and _streamWriter.IsConnected
+
 
         /// <summary>
         ///     Gets a value indicating whether the current stream supports read operations.
@@ -41,10 +43,12 @@ namespace AllOverIt.Pipes.Connection
         /// Constructs a new <c>PipeStreamWrapper</c> object that reads from and writes to the given <paramref name="stream"/>.
         /// </summary>
         /// <param name="stream">Stream to read from and write to</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public PipeReaderWriter(PipeStream stream)
+        /// <param name="leaveConnected">When the <see cref="PipeReaderWriter"/> is disposed, the stream will be disposed when
+        /// <see langword="false"/> otherwise it will remain connected.</param>
+        public PipeReaderWriter(PipeStream stream, bool leaveConnected)
         {
             _pipeStream = stream.WhenNotNull(nameof(stream));
+            _leaveConnected = leaveConnected;
 
             _streamReader = new PipeStreamReader(_pipeStream);
             _streamWriter = new PipeStreamWriter(_pipeStream);
@@ -57,7 +61,7 @@ namespace AllOverIt.Pipes.Connection
         /// <returns>The next object read from the pipe, or <c>null</c> if the pipe disconnected.</returns>
         public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
-            if (!IsConnected)
+            if (! /*_streamReader*/ _pipeStream.IsConnected)
             {
                 // TODO : Custom exception - also required in PipeConnection
                 throw new InvalidOperationException("The pipe is not connected.");
@@ -73,7 +77,7 @@ namespace AllOverIt.Pipes.Connection
         /// <param name="cancellationToken"></param>
         public Task WriteAsync(byte[] buffer, CancellationToken cancellationToken = default)
         {
-            if (!IsConnected)
+            if (! /*_streamReader*/ _pipeStream.IsConnected)
             {
                 // TODO : Custom exception - also required in PipeConnection
                 throw new InvalidOperationException("The pipe is not connected.");
@@ -87,31 +91,26 @@ namespace AllOverIt.Pipes.Connection
 
 
 
-        /// <summary>
-        /// Dispose internal <see cref="PipeStream"/>
-        /// </summary>
+        /// <inheritdoc />
         public async ValueTask DisposeAsync()
         {
-            // TODO: Check this - they seem to dispose the same reference as BaseStream
-            //
-            // This is redundant, just to avoid mistakes and follow the general logic of Dispose
-            if (_streamReader is not null)
-            {
-                await _streamReader.DisposeAsync().ConfigureAwait(false);
-                _streamReader = null;
-            }
-
-            if (_streamWriter is not null)
-            {
-                await _streamWriter.DisposeAsync().ConfigureAwait(false);
-                _streamWriter = null;
-            }
-
-            if (_pipeStream is not null)
+            if (!_leaveConnected && _pipeStream is not null)
             {
                 await _pipeStream.DisposeAsync().ConfigureAwait(false);
                 _pipeStream = null;
             }
+
+            //if (_streamReader is not null)
+            //{
+            //    await _streamReader.DisposeAsync().ConfigureAwait(false);
+            //    _streamReader = null;
+            //}
+
+            //if (_streamWriter is not null)
+            //{
+            //    await _streamWriter.DisposeAsync().ConfigureAwait(false);
+            //    _streamWriter = null;
+            //}
         }
     }
 }

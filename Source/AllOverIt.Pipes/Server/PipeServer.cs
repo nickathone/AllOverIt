@@ -84,13 +84,9 @@ namespace AllOverIt.Pipes.Server
 
                         await using (serverStream)
                         {
-                            //check out use
-                            //PipeStreamInitializeAction?.Invoke(serverStream);
-
-
                             await serverStream.WaitForConnectionAsync(token).ConfigureAwait(false);
 
-                            await using (var writer = new PipeReaderWriter(serverStream))
+                            await using (var writer = new PipeReaderWriter(serverStream, false))
                             {
                                 await writer
                                     .WriteAsync(Encoding.UTF8.GetBytes(connectionPipeName), token)

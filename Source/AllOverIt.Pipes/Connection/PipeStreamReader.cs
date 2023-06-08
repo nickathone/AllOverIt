@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-    public sealed class PipeStreamReader : IAsyncDisposable
+    public sealed class PipeStreamReader //: IAsyncDisposable
     {
         private PipeStream _pipeStream;
 
@@ -17,7 +17,7 @@ namespace AllOverIt.Pipes.Connection
         /// <summary>
         /// Gets a value indicating whether the pipe is connected or not.
         /// </summary>
-        public bool IsConnected => _pipeStream.IsConnected;// { get; private set; }
+        //public bool IsConnected => _pipeStream.IsConnected;// { get; private set; }
 
 
 
@@ -25,10 +25,9 @@ namespace AllOverIt.Pipes.Connection
         /// Constructs a new <c>PipeStreamReader</c> object that reads data from the given <paramref name="stream"/>.
         /// </summary>
         /// <param name="stream">Pipe to read from</param>
-        public PipeStreamReader(PipeStream stream)
+        public PipeStreamReader(PipeStream stream)      // only wraps the stream, does not assume ownership
         {
             _pipeStream = stream.WhenNotNull(nameof(stream));
-            //IsConnected = stream.IsConnected;
         }
 
 
@@ -50,14 +49,15 @@ namespace AllOverIt.Pipes.Connection
 
 
 
-        public async ValueTask DisposeAsync()
-        {
-            if (_pipeStream is not null)
-            {
-                await _pipeStream.DisposeAsync().ConfigureAwait(false);
-                _pipeStream = null;
-            }
-        }
+        ///// <inheritdoc />
+        //public async ValueTask DisposeAsync()
+        //{
+        //    if (_pipeStream is not null)
+        //    {
+        //        await _pipeStream.DisposeAsync().ConfigureAwait(false);
+        //        _pipeStream = null;
+        //    }
+        //}
 
         /// <summary>
         /// Reads the length of the next message (in bytes) from the client.
@@ -71,7 +71,6 @@ namespace AllOverIt.Pipes.Connection
 
             if (!bytes.Any())
             {
-                //IsConnected = false;
                 return 0;
             }
 
@@ -95,6 +94,4 @@ namespace AllOverIt.Pipes.Connection
             return buffer;
         }
     }
-
-
 }

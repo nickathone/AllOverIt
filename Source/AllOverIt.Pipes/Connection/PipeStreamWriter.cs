@@ -9,14 +9,16 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-    public sealed class PipeStreamWriter : IAsyncDisposable
+    public sealed class PipeStreamWriter //: IAsyncDisposable
     {
         private PipeStream _pipeStream;
         private SemaphoreSlim _semaphoreSlim = new(1, 1);
 
+        //public bool IsConnected => _semaphoreSlim is not null && _pipeStream.IsConnected;
+
         /// <summary>Constructor.</summary>
-        /// <param name="stream">Pipe to write to</param>
-        public PipeStreamWriter(PipeStream stream)
+        /// <param name="stream">The pipe stream to write to.</param>
+        public PipeStreamWriter(PipeStream stream)      // only wraps the stream, does not assume ownership
         {
             _pipeStream = stream.WhenNotNull(nameof(stream));
         }
@@ -47,26 +49,23 @@ namespace AllOverIt.Pipes.Connection
             {
                 // Thrown if the pipe is broken due to the server terminating
             }
-            //catch (Exception ex)
-            //{
-            //    var t = ex.GetType().GetFriendlyName();
-            //}
         }
 
-        /// <summary>
-        /// Dispose internal <see cref="PipeStream"/>
-        /// </summary>
-        public async ValueTask DisposeAsync()
-        {
-            if (_pipeStream is not null)
-            {
-                await _pipeStream.DisposeAsync().ConfigureAwait(false);
-                _pipeStream = null;
-            }
+        ///// <inheritdoc />
+        //public async ValueTask DisposeAsync()
+        //{
+        //    if (_semaphoreSlim is not null)
+        //    {
+        //        using (await _semaphoreSlim.DisposableWaitAsync(CancellationToken.None).ConfigureAwait(false))
+        //        {
+        //            await _pipeStream.DisposeAsync().ConfigureAwait(false);
+        //            _pipeStream = null;
+        //        }
 
-            _semaphoreSlim?.Dispose();
-            _semaphoreSlim = null;
-        }
+        //        _semaphoreSlim?.Dispose();
+        //        _semaphoreSlim = null;
+        //    }
+        //}
 
 
         private async Task WriteLengthAsync(int length, CancellationToken cancellationToken)
