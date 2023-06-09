@@ -10,54 +10,42 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-    // This connection is not re-usable (connect / disconnect) since the decorated stream is disposed of.
+   
 
     public sealed class PipeConnection<TType> : IPipeConnection<TType>, IAsyncDisposable
     {
         private readonly IMessageSerializer<TType> _serializer;
 
-        // Decorated pipe stream (NamedPipeClientStream or NamedPipeServerStream).
+        // A NamedPipeClientStream or NamedPipeServerStream
         private PipeStream _pipeStream;
 
         private CancellationTokenSource _cancellationTokenSource;
         private BackgroundTask _backgroundReader;
         private PipeReaderWriter _pipeReaderWriter;
 
-        /// <summary>
-        /// Gets the connection's pipe name.
-        /// </summary>
-        public string PipeName { get; }
-
-        /// <summary>
-        /// Gets the connection's server name. Only for client connections.
-        /// </summary>
-        public string ServerName { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether the pipe is connected or not.
-        /// </summary>
-        public bool IsConnected => _pipeStream?.IsConnected ?? false;                   // ?? _pipeReaderWriter is re-instate its' IsConnected
-
-
-        /// <summary>
-        /// Invoked when the named pipe connection terminates.
-        /// </summary>
-        public event EventHandler<ConnectionEventArgs<TType>> OnDisconnected;
-
-        /// <summary>
-        /// Invoked whenever a message is received from the other end of the pipe.
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler<ConnectionMessageEventArgs<TType>> OnMessageReceived;
 
-        /// <summary>
-        /// Invoked when an exception is thrown during any read/write operation over the named pipe.
-        /// </summary>
+        /// <inheritdoc />
+        public event EventHandler<ConnectionEventArgs<TType>> OnDisconnected;
+
+        /// <inheritdoc />
         public event EventHandler<ConnectionExceptionEventArgs<TType>> OnException;
+
+        /// <inheritdoc />
+        public string PipeName { get; }
+
+        /// <inheritdoc />
+        public string ServerName { get; }
+
+        /// <inheritdoc />
+        public bool IsConnected => _pipeStream?.IsConnected ?? false;
+
 
 
         internal PipeConnection(PipeStream stream, string pipeName, IMessageSerializer<TType> serializer)
         {
-            _pipeStream = stream.WhenNotNull(nameof(stream));
+            _pipeStream = stream.WhenNotNull(nameof(stream));               // Assume ownership of this stream
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
@@ -68,11 +56,7 @@ namespace AllOverIt.Pipes.Connection
             ServerName = serverName.WhenNotNullOrEmpty(nameof(serverName));
         }
 
-
-
-        /// <summary>
-        /// Begins reading from and writing to the named pipe on a background thread.
-        /// </summary>
+        /// <inheritdoc />
         public void Connect()
         {
             // TODO: Custom exception
@@ -122,6 +106,7 @@ namespace AllOverIt.Pipes.Connection
             _cancellationTokenSource.Token);
         }
 
+        /// <inheritdoc />
         public async Task DisconnectAsync()
         {
             // _pipeStream is only disposed of in DisposeAsync().
@@ -188,15 +173,14 @@ namespace AllOverIt.Pipes.Connection
             {
                 await _pipeStream.DisposeAsync().ConfigureAwait(false);
                 _pipeStream = null;
-            }
-            
+            }            
         }
 
         private void DoOnDisconnected()
         {
             var onDisconnected = OnDisconnected;
 
-            if ( onDisconnected is not null)
+            if (onDisconnected is not null)
             {
                 var args = new ConnectionEventArgs<TType>(this);
 
@@ -208,7 +192,7 @@ namespace AllOverIt.Pipes.Connection
         {
             var onMessageReceived = OnMessageReceived;
 
-            if (onMessageReceived  is not null)
+            if (onMessageReceived is not null)
             {
                 var args = new ConnectionMessageEventArgs<TType>(this, message);
 

@@ -84,10 +84,10 @@ namespace AllOverIt.Pipes.Connection
             var read = await _pipeStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
 
             // This can occur if the connection is killed mid-communication
-            if (read != buffer.Length)
+            if (read != length)
             {
                 return throwIfReadLessThanLength
-                    ? throw new IOException($"Expected {buffer.Length} bytes but read {read}")
+                    ? throw new IOException($"Expected {length} bytes but read {read}")
                     : Array.Empty<byte>();
             }
 

@@ -36,93 +36,95 @@ namespace NamedPipeDemo
 
             try
             {
-                using var source = new CancellationTokenSource();
-
-                Console.WriteLine($"Running in SERVER mode. PipeName: {pipeName}");
-                Console.WriteLine("Enter 'quit' to exit");
-
-                await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
+                using (var source = new CancellationTokenSource())
                 {
-                    server.OnClientConnected += (_, args) => OnClientConnected(server, args, source.Token);
+                    Console.WriteLine($"Running in SERVER mode. PipeName: {pipeName}");
+                    Console.WriteLine("Enter 'quit' to exit");
 
-                    server.OnClientDisconnected += (_, args) =>
+                    await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
                     {
-                        Console.WriteLine($"Client {args.Connection.PipeName} disconnected");
-                    };
+                        server.OnClientConnected += (_, args) => OnClientConnected(server, args, source.Token);
 
-                    server.OnMessageReceived += (_, args) =>
-                    {
-                        var connection = args.Connection;
-
-                        Console.WriteLine($"Client {connection.PipeName} (as '{connection.GetImpersonationUserName()}') sent: {args.Message}");
-                    };
-
-                    server.OnException += (_, args) => OnExceptionOccurred(args.Exception);
-
-                    _ = Task.Run(async () =>
-                    {
-                        while (!source.Token.IsCancellationRequested)
+                        server.OnClientDisconnected += (_, args) =>
                         {
-                            try
+                            Console.WriteLine($"Client {args.Connection.PipeName} disconnected");
+                        };
+
+                        server.OnMessageReceived += (_, args) =>
+                        {
+                            var connection = args.Connection;
+
+                            Console.WriteLine($"Client {connection.PipeName} (as '{connection.GetImpersonationUserName()}') sent: {args.Message}");
+                        };
+
+                        server.OnException += (_, args) => OnExceptionOccurred(args.Exception);
+
+                        _ = Task.Run(async () =>
+                        {
+                            while (!source.Token.IsCancellationRequested)
                             {
-                                var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
-
-                                if (message == "quit")
+                                try
                                 {
-                                    source.Cancel();
+                                    var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
 
-                                    Console.WriteLine("Quiting...");
+                                    if (message == "quit")
+                                    {
+                                        source.Cancel();
 
-                                    break;
+                                        Console.WriteLine("Quiting...");
+
+                                        break;
+                                    }
+
+                                    // Console.WriteLine($"Sent to {server.ConnectedClients.Count} clients");
+
+                                    await server.WriteAsync(new PipeMessage
+                                    {
+                                        Text = message,
+                                    }, source.Token).ConfigureAwait(false);
                                 }
-
-                                // Console.WriteLine($"Sent to {server.ConnectedClients.Count} clients");
-
-                                await server.WriteAsync(new PipeMessage
+                                catch (Exception exception)
                                 {
-                                    Text = message,
-                                }, source.Token).ConfigureAwait(false);
+                                    OnExceptionOccurred(exception);
+                                }
                             }
-                            catch (Exception exception)
-                            {
-                                OnExceptionOccurred(exception);
-                            }
-                        }
-                    }, source.Token);
+                        }, source.Token);
 
-                    Console.WriteLine("Server starting...");
+                        Console.WriteLine("Server starting...");
 
 
 
 
-                            var pipeSecurity = new PipeSecurity();
+                        var pipeSecurity = new PipeSecurity();
 
-                            // Get the identity of the user account you want to grant or deny access
-                            var userSid = new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null);
+                        // Get the identity of the user account you want to grant or deny access
+                        var userSid = new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null);
 
-                            // Create an access rule to grant or deny specific rights to the user
-                            var allowRule = new PipeAccessRule(userSid, PipeAccessRights.ReadWrite, AccessControlType.Allow);
-                            //var denyRule = new PipeAccessRule(userSid, PipeAccessRights.FullControl, AccessControlType.Deny);
+                        // Create an access rule to grant or deny specific rights to the user
+                        var allowRule = new PipeAccessRule(userSid, PipeAccessRights.ReadWrite, AccessControlType.Allow);
+                        //var denyRule = new PipeAccessRule(userSid, PipeAccessRights.FullControl, AccessControlType.Deny);
 
-                            // Add the access rules to the PipeSecurity object
-                            pipeSecurity.AddAccessRule(allowRule);
-                            //pipeSecurity.AddAccessRule(denyRule);
-
-
+                        // Add the access rules to the PipeSecurity object
+                        pipeSecurity.AddAccessRule(allowRule);
+                        //pipeSecurity.AddAccessRule(denyRule);
 
 
-                    server.Start(pipeSecurity);
 
-                    Console.WriteLine("Server is started!");
 
-                    // Wait until the user quites with 'q'
-                    await WaitForCancellationAsync(source.Token).ConfigureAwait(false);
+                        server.Start(pipeSecurity);
 
-                    // When the server is disposed it will shut down
-                    Console.WriteLine("Stopping Server...!");
+                        Console.WriteLine("Server is started!");
+
+                        // Wait until the user quits
+                        await WaitForCancellationAsync(source.Token).ConfigureAwait(false);
+
+                        // When the server is disposed it will shut down
+                        Console.WriteLine("Stopping Server...!");
+
+                        // Or we can explicitly disconnect all clients
+                        await server.StopAsync().ConfigureAwait(false);
+                    }
                 }
-
-                Console.WriteLine("Server Stopped!");
             }
             catch (OperationCanceledException)
             {
@@ -131,6 +133,8 @@ namespace NamedPipeDemo
             {
                 OnExceptionOccurred(exception);
             }
+
+            Console.WriteLine("Server Stopped!");
         }
 
         private static async Task WaitForCancellationAsync(CancellationToken cancellationToken)

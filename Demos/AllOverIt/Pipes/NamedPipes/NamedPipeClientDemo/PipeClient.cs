@@ -28,64 +28,67 @@ namespace NamedPipeDemo
 
             try
             {
-                using var source = new CancellationTokenSource();
-
-                Console.WriteLine($"Running in CLIENT mode. PipeName: {pipeName}");
-                Console.WriteLine("Enter 'quit' to exit");
-
-                await using var client = new PipeClient<PipeMessage>(pipeName, serializer);
-
-                client.OnConnected += DoOnClientConnected;
-                client.OnDisconnected += DoOnClientDisconnected;
-                client.OnMessageReceived += (o, args) => Console.WriteLine("MessageReceived: " + args.Message);
-                client.OnException += (o, args) => DoOnException(args.Exception);
-
-                _ = Task.Run(async () =>
+                using (var source = new CancellationTokenSource())
                 {
-                    while (!source.Token.IsCancellationRequested)
+                    Console.WriteLine($"Running in CLIENT mode. PipeName: {pipeName}");
+                    Console.WriteLine("Enter 'quit' to exit");
+
+                    await using var client = new PipeClient<PipeMessage>(pipeName, serializer);
+
+                    client.OnConnected += DoOnClientConnected;
+                    client.OnDisconnected += DoOnClientDisconnected;
+                    client.OnMessageReceived += (o, args) => Console.WriteLine("MessageReceived: " + args.Message);
+                    client.OnException += (o, args) => DoOnException(args.Exception);
+
+                    _ = Task.Run(async () =>
                     {
-                        try
+                        while (!source.Token.IsCancellationRequested)
                         {
-                            Console.WriteLine("Waiting for user input");
-
-                            var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
-
-                            if (message == "quit")
+                            try
                             {
+                                Console.WriteLine("Waiting for user input");
+
+                                var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
+
+                                if (message == "quit")
+                                {
+                                    source.Cancel();
+                                    break;
+                                }
+
+                                Console.WriteLine($"Sending message: {message}");
+
+                                await client
+                                    .WriteAsync(new PipeMessage
+                                    {
+                                        Text = message
+                                    }, source.Token)
+                                    .ConfigureAwait(false);
+                            }
+                            catch (Exception exception)
+                            {
+                                DoOnException(exception);
                                 source.Cancel();
-                                break;
                             }
 
-                            Console.WriteLine($"Sending message: {message}");
-
-                            await client
-                                .WriteAsync(new PipeMessage
-                                {
-                                    Text = message
-                                }, source.Token)
-                                .ConfigureAwait(false);
+                            Console.WriteLine("User input processed");
                         }
-                        catch (Exception exception)
-                        {
-                            DoOnException(exception);
-                            source.Cancel();
-                        }
+                    }, source.Token);
 
-                        Console.WriteLine("User input processed");
-                    }
-                }, source.Token);
+                    Console.WriteLine("Client connecting...");
 
-                Console.WriteLine("Client connecting...");
+                    await client.ConnectAsync(source.Token).ConfigureAwait(false);
 
-                await client.ConnectAsync(source.Token).ConfigureAwait(false);
+                    Console.WriteLine("Client connected");
 
-                Console.WriteLine("Client connected");
+                    // Wait until the user quites with 'q'
+                    await WaitForCancellationAsync(source.Token).ConfigureAwait(false);
 
-                // Wait until the user quites with 'q'
-                await WaitForCancellationAsync(source.Token).ConfigureAwait(false);
+                    // When the client is disposed it will shut down
+                    Console.WriteLine("Disposing Client...");
+                }
 
-                // When the client is disposed it will shut down
-                Console.WriteLine("Disposing Client...");
+                Console.WriteLine("Client Stopped!");
             }
             catch (OperationCanceledException)
             {

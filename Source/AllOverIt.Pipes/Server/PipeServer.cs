@@ -20,7 +20,7 @@ namespace AllOverIt.Pipes.Server
     public sealed class PipeServer<TType> : IPipeServer<TType>, IPipeEvents<TType>, IPipeServerEvents<TType>
     {
         private readonly IMessageSerializer<TType> _serializer;
-        private ICollection<IPipeConnection<TType>> Connections { get; } = new List<IPipeConnection<TType>>();
+        private IList<IPipeConnection<TType>> Connections { get; } = new List<IPipeConnection<TType>>();
         private IAwaitableLock _connectionsLock = new AwaitableLock();
         private BackgroundTask _backgroundTask;
 
@@ -157,8 +157,9 @@ namespace AllOverIt.Pipes.Server
             // Can't use foreach() as the collection is modified.
             while (Connections.Any())
             {
-                var connection = Connections.First();
+                var connection = Connections[0];
 
+                // DoOnClientDisconnected() will be invoked, removing it from the list of connections
                 await connection.DisconnectAsync().ConfigureAwait(false);
             }
         }
@@ -198,7 +199,8 @@ namespace AllOverIt.Pipes.Server
                     .ToList();
             }
 
-            await connections.ForEachAsync(async (connection, _) =>
+            // TODO: Make the degree of parallelism configurable
+            await connections.ForEachAsParallelAsync(async connection =>
             {
                 try
                 {
@@ -208,7 +210,20 @@ namespace AllOverIt.Pipes.Server
                 {
                     // TODO: Report / handle
                 }
-            }, cancellationToken);
+
+            }, 4, cancellationToken);
+
+            //await connections.ForEachAsync(async (connection, _) =>
+            //{
+            //    try
+            //    {
+            //        await connection.WriteAsync(message, cancellationToken).ConfigureAwait(false);
+            //    }
+            //    catch
+            //    {
+            //        // TODO: Report / handle
+            //    }
+            //}, cancellationToken);
         }
 
         /// <summary>Stops the pipe server and releases resources.</summary>
