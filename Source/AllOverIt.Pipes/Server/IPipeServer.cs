@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Pipes.Connection;
+using AllOverIt.Pipes.Events;
 using System;
 using System.IO.Pipes;
 using System.Threading;
@@ -6,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Server
 {
-
-    public interface IPipeServer<TType> : IPipe<TType>
+    /// <summary>Represents a named pipe server that can broadcast a strongly type message to all connected clients
+    /// as well as receive messages from those clients.</summary>
+    /// <typeparam name="TType"></typeparam>
+    public interface IPipeServer<TType> : IPipe<TType>, IPipeEvents<TType>, IPipeServerEvents<TType>
     {
         /// <summary>The name of the pipe.</summary>
         string PipeName { get; }
 
-
+        /// <summary>Indicates if the server
+        /// 
+        /// </summary>
         bool IsActive { get; }
 
 

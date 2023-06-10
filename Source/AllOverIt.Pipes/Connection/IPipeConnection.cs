@@ -30,18 +30,23 @@ namespace AllOverIt.Pipes.Connection
         /// <summary>Indicates if the underlying pipe stream is connected.</summary>
         public bool IsConnected { get; }
 
-        /// <summary>Establishes a new connection and a background task to receive all new messages.</summary>
+        /// <summary>Starts a background task to receive messages from an underlying pipe stream, and allows messages
+        /// to be written to the pipe stream.</summary>
         void Connect();
 
-        /// <summary></summary>
+        /// <summary>Terminates the background reader task and disposes of the underlying pipe stream.</summary>
         Task DisconnectAsync();
 
-        /// <summary></summary>
+        /// <summary>Writes the specified <paramref name="value"/> and waits for the other end of the connection
+        /// to read it.</summary>
+        /// <param name="value">The value to be written to the pipe.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         Task WriteAsync(TType value, CancellationToken cancellationToken = default);
 
-        // Gets the username of the connected client.  Note that we will not have access to the client's
-        // username until it has written at least once to the pipe (and has set its impersonationLevel
-        // argument appropriately).
+        /// <summary>Gets the username of the connected client.  The client's username will not be available until it has 
+        /// written at least once to the pipe (and has set its impersonation level appropriately).</summary>
+        /// <returns>The username of the connected client or an <see cref="IOException"/> if the client has not yet
+        /// written to the pipe.</returns>
         string GetImpersonationUserName();
     }
 }

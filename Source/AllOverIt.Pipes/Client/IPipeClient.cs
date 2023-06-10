@@ -1,11 +1,12 @@
 ﻿using AllOverIt.Pipes.Connection;
+using AllOverIt.Pipes.Events;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Client
 {
-    public interface IPipeClient<TType> : IPipe<TType>
+    public interface IPipeClient<TType> : IPipe<TType>, IPipeEvents<TType>, IPipeClientEvents<TType>
     {
         /// <summary>The name of pipe.</summary>
         public string PipeName { get; }

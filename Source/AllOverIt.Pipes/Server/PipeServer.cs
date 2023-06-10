@@ -17,16 +17,20 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Server
 {
-    public sealed class PipeServer<TType> : IPipeServer<TType>, IPipeEvents<TType>, IPipeServerEvents<TType>
+    /// <summary>A named pipe server that can broadcast a strongly type message to all connected clients
+    /// as well as receive messages from those clients.</summary>
+    /// <typeparam name="TType"></typeparam>
+    public sealed class PipeServer<TType> : IPipeServer<TType>
     {
         private readonly IMessageSerializer<TType> _serializer;
         private IList<IPipeConnection<TType>> Connections { get; } = new List<IPipeConnection<TType>>();
         private IAwaitableLock _connectionsLock = new AwaitableLock();
         private BackgroundTask _backgroundTask;
 
-
+        /// <inheritdoc />
         public string PipeName { get; }
 
+        /// <inheritdoc />
         public bool IsActive
         {
             get
@@ -59,8 +63,6 @@ namespace AllOverIt.Pipes.Server
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
-
-
 
         public void Start(Action<PipeSecurity> securityConfiguration)
         {
@@ -220,18 +222,6 @@ namespace AllOverIt.Pipes.Server
                 }
 
             }, 4, cancellationToken);
-
-            //await connections.ForEachAsync(async (connection, _) =>
-            //{
-            //    try
-            //    {
-            //        await connection.WriteAsync(message, cancellationToken).ConfigureAwait(false);
-            //    }
-            //    catch
-            //    {
-            //        // TODO: Report / handle
-            //    }
-            //}, cancellationToken);
         }
 
         /// <summary>Stops the pipe server and releases resources.</summary>

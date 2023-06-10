@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Pipes.Exceptions;
 using System;
 using System.IO.Pipes;
 using System.Threading;
@@ -9,9 +10,9 @@ namespace AllOverIt.Pipes.Connection
     public sealed class PipeReaderWriter : IAsyncDisposable
     {
         private readonly bool _leaveConnected;
+        private readonly PipeStreamReader _streamReader;
+        private readonly PipeStreamWriter _streamWriter;
         private PipeStream _pipeStream;
-        private PipeStreamReader _streamReader;
-        private PipeStreamWriter _streamWriter;
 
 
         /// <summary>
@@ -61,10 +62,9 @@ namespace AllOverIt.Pipes.Connection
         /// <returns>The next object read from the pipe, or <c>null</c> if the pipe disconnected.</returns>
         public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
-            if (! /*_streamReader*/ _pipeStream.IsConnected)
+            if (!_pipeStream.IsConnected)
             {
-                // TODO : Custom exception - also required in PipeConnection
-                throw new InvalidOperationException("The pipe is not connected.");
+                throw new NotConnectedException("The pipe is not connected.");
             }
 
             return _streamReader.ReadAsync(cancellationToken);
@@ -77,9 +77,8 @@ namespace AllOverIt.Pipes.Connection
         /// <param name="cancellationToken"></param>
         public Task WriteAsync(byte[] buffer, CancellationToken cancellationToken = default)
         {
-            if (! /*_streamReader*/ _pipeStream.IsConnected)
+            if (!_pipeStream.IsConnected)
             {
-                // TODO : Custom exception - also required in PipeConnection
                 throw new InvalidOperationException("The pipe is not connected.");
             }
 

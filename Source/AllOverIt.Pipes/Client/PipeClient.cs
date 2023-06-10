@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Client
 {
-    public sealed class PipeClient<TType> : IPipeClient<TType>, IPipeEvents<TType>, IPipeClientEvents<TType>
+    public sealed class PipeClient<TType> : IPipeClient<TType>
     {
         private const string LocalServer = ".";
 

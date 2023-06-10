@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Async;
 using AllOverIt.Pipes.Events;
+using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Serialization;
 using System;
 using System.IO;
@@ -11,8 +12,6 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-   
-
     public sealed class PipeConnection<TType> : IPipeConnection<TType>, IAsyncDisposable
     {
         private readonly IMessageSerializer<TType> _serializer;
@@ -58,7 +57,7 @@ namespace AllOverIt.Pipes.Connection
         }
 
         /// <inheritdoc />
-        public void Connect()
+        public void Connect()           // Cannot be re-connectd once disconnected
         {
             // TODO: Custom exception
             Throw<InvalidOperationException>.WhenNotNull(_backgroundReader, "The connection is already open.");
@@ -110,7 +109,6 @@ namespace AllOverIt.Pipes.Connection
         /// <inheritdoc />
         public async Task DisconnectAsync()
         {
-            // _pipeStream is only disposed of in DisposeAsync().
             if (_cancellationTokenSource is not null)
             {
                 _cancellationTokenSource.Cancel();
@@ -121,22 +119,20 @@ namespace AllOverIt.Pipes.Connection
                 await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
                 _pipeReaderWriter = null;
 
+                await _pipeStream.DisposeAsync().ConfigureAwait(false);
+                _pipeStream = null;
+
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = null;
             }
         }
 
-        /// <summary>
-        /// Writes the specified <paramref name="value"/> and waits other end reading
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="cancellationToken"></param>
+        /// <inheritdoc />
         public async Task WriteAsync(TType value, CancellationToken cancellationToken = default)
         {
             if (!IsConnected || !_pipeReaderWriter.CanWrite)
             {
-                // TODO : Custom exception - also required in PipeReaderWriter
-                throw new InvalidOperationException("Connection is not connected or writable.");
+                throw new NotConnectedException("Connection is not connected or writable.");
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -146,22 +142,16 @@ namespace AllOverIt.Pipes.Connection
             await _pipeReaderWriter.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
         }
 
-        /// <summary>Gets the user name of the client on the other end of the pipe.</summary>
-        /// <returns>The user name of the client on the other end of the pipe.</returns>
-        /// <exception cref="InvalidOperationException"><see cref="_pipeStream"/> is not <see cref="NamedPipeServerStream"/>.</exception>
-        /// <exception cref="InvalidOperationException">No pipe connections have been made yet.</exception>
-        /// <exception cref="InvalidOperationException">The connected pipe has already disconnected.</exception>
-        /// <exception cref="InvalidOperationException">The pipe handle has not been set.</exception>
-        /// <exception cref="ObjectDisposedException">The pipe is closed.</exception>
-        /// <exception cref="IOException">The pipe connection has been broken.</exception>
-        /// <exception cref="IOException">The user name of the client is longer than 19 characters.</exception>
+        /// <inheritdoc />
         public string GetImpersonationUserName()
         {
             if (_pipeStream is not NamedPipeServerStream serverStream)
             {
-                throw new InvalidOperationException($"{nameof(_pipeStream)} is not {nameof(NamedPipeServerStream)}.");
+                throw new PipeConnectionException($"The pipe stream is not a {nameof(NamedPipeServerStream)}.");
             }
 
+            // IOException will be raised of the pipe connection has been broken or
+            // the user name is longer than 19 characters.
             return serverStream.GetImpersonationUserName();
         }
 
@@ -169,12 +159,6 @@ namespace AllOverIt.Pipes.Connection
         public async ValueTask DisposeAsync()
         {
             await DisconnectAsync().ConfigureAwait(false);
-
-            if (_pipeStream is not null)
-            {
-                await _pipeStream.DisposeAsync().ConfigureAwait(false);
-                _pipeStream = null;
-            }            
         }
 
         private void DoOnDisconnected()
