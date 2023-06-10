@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Extensions;
 using AllOverIt.Threading;
 using System;
 using System.IO;
@@ -10,31 +9,32 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-    public sealed class PipeStreamWriter //: IAsyncDisposable
+    /// <summary>Provides the ability to write buffered data to an underlying pipe stream.</summary>
+    public sealed class PipeStreamWriter
     {
         private PipeStream _pipeStream;
-        //private SemaphoreSlim _semaphoreSlim = new(1, 1);
-
         private readonly AwaitableLock _lock = new();
 
-
-
-
-        public bool IsConnected => _pipeStream?.IsConnected ?? false;
-
-
-
+        private bool IsConnected => _pipeStream?.IsConnected ?? false;
 
         /// <summary>Constructor.</summary>
-        /// <param name="stream">The pipe stream to write to.</param>
-        public PipeStreamWriter(PipeStream stream)      // only wraps the stream, does not assume ownership
+        /// <param name="pipeStream">The pipe stream to write to.</param>
+        public PipeStreamWriter(PipeStream pipeStream)
         {
-            _pipeStream = stream.WhenNotNull(nameof(stream));
+            _pipeStream = pipeStream.WhenNotNull(nameof(pipeStream));
         }
 
-        /// <summary>Writes an array of bytes to the pipe.</summary>
-        /// <param name="buffer">Object to write to the pipe</param>
-        /// <param name="cancellationToken"></param>
+        /// <summary>Writes an array of bytes to the underlying pipe stream. All data is prefixed with the length
+        /// (converted from host order to network byte order) of the message. This method is thread safe, meaning
+        /// multiple threads can safely write to the pipe stream, but an individual thread cannot call this method
+        /// a second time while it still has a lock from a previous call. Such a scenario can occur when a task
+        /// begins a write operation but the continuation occurs on another thread. If the first thread is re-used
+        /// (such as in a fast asynchronous polling operation) before the continuation completes then the internal
+        /// lock will become deadlocked due to the asynchronous lock not being capable of enforcing thread or task
+        /// identity. If this scenario is encountered, the underyling pipe stream will intentionally be disconnected
+        /// to allow for recovery.</summary>
+        /// <param name="buffer">Byte data to write to the underlying pipe stream.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         public async Task WriteAsync(byte[] buffer, CancellationToken cancellationToken)
         {
             _ = buffer.WhenNotNull(nameof(buffer));
@@ -47,9 +47,7 @@ namespace AllOverIt.Pipes.Connection
             }
 
             // TODO: Make the timeout period configurable
-            // If the same thread attempts to write while a lock is acquired, the semaphore's counter will decrement again
-            // making it imposible to re-gain access (the semaphore is not thread aware and hence non re-entrant). This can
-            // occur if the other end of the pipe is terminated but this end us unaware and this end is sending multiple messages.
+            // Using a timeout to detect a deadlock due to the semaphore not being thread aware and hence non re-entrant).
             var success = await _lock.TryEnterLockAsync(500, cancellationToken).ConfigureAwait(false);
 
             if (!success)
@@ -60,6 +58,7 @@ namespace AllOverIt.Pipes.Connection
                 _pipeStream = null;
             }
 
+            // Double-check locking pattern (and detects the above disconnection)
             if (!IsConnected)
             {
                 return;
@@ -71,10 +70,8 @@ namespace AllOverIt.Pipes.Connection
 
                 await _pipeStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
 
-                // Flush all buffers to the underlying device
                 await _pipeStream.FlushAsync(cancellationToken).ConfigureAwait(false);
 
-                // Wait for the other end to read all sent bytes
                 _pipeStream.WaitForPipeDrain();
             }
             catch (IOException)
@@ -87,28 +84,11 @@ namespace AllOverIt.Pipes.Connection
             }
         }
 
-        ///// <inheritdoc />
-        //public async ValueTask DisposeAsync()
-        //{
-        //    if (_semaphoreSlim is not null)
-        //    {
-        //        using (await _semaphoreSlim.DisposableWaitAsync(CancellationToken.None).ConfigureAwait(false))
-        //        {
-        //            await _pipeStream.DisposeAsync().ConfigureAwait(false);
-        //            _pipeStream = null;
-        //        }
-
-        //        _semaphoreSlim?.Dispose();
-        //        _semaphoreSlim = null;
-        //    }
-        //}
-
-
-        private async Task WriteLengthAsync(int length, CancellationToken cancellationToken)
+        private ValueTask WriteLengthAsync(int length, CancellationToken cancellationToken)
         {
             var buffer = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(length));
 
-            await _pipeStream.WriteAsync(buffer, cancellationToken).ConfigureAwait(false);
+            return _pipeStream.WriteAsync(buffer, cancellationToken);
         }
     }
 }

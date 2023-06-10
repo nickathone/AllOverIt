@@ -118,11 +118,10 @@ namespace NamedPipeDemo
                         // Wait until the user quits
                         await WaitForCancellationAsync(source.Token).ConfigureAwait(false);
 
-                        // When the server is disposed it will shut down
-                        Console.WriteLine("Stopping Server...!");
-
-                        // Or we can explicitly disconnect all clients
+                        // When the server is disposed it will shut down or we can explicitly disconnect all clients first
                         await server.StopAsync().ConfigureAwait(false);
+
+                        Console.WriteLine("Disposing Server...");
                     }
                 }
             }

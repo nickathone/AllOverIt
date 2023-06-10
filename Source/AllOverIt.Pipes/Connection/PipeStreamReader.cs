@@ -9,62 +9,31 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-    public sealed class PipeStreamReader //: IAsyncDisposable
+    /// <summary>Provides the ability to read buffered data from an underlying pipe stream.</summary>
+    public sealed class PipeStreamReader
     {
-        private PipeStream _pipeStream;
+        private readonly PipeStream _pipeStream;
 
-
-        /// <summary>
-        /// Gets a value indicating whether the pipe is connected or not.
-        /// </summary>
-        //public bool IsConnected => _pipeStream.IsConnected;// { get; private set; }
-
-
-
-        /// <summary>
-        /// Constructs a new <c>PipeStreamReader</c> object that reads data from the given <paramref name="stream"/>.
-        /// </summary>
-        /// <param name="stream">Pipe to read from</param>
-        public PipeStreamReader(PipeStream stream)      // only wraps the stream, does not assume ownership
+        /// <summary>Constructor.</summary>
+        /// <param name="pipeStream">The pipe stream to read from.</param>
+        public PipeStreamReader(PipeStream pipeStream)
         {
-            _pipeStream = stream.WhenNotNull(nameof(stream));
+            _pipeStream = pipeStream.WhenNotNull(nameof(pipeStream));
         }
 
-
-
-
-        /// <summary>
-        /// Reads the next object from the pipe.  This method waits until an object is sent
-        /// or the pipe is disconnected.
-        /// </summary>
-        /// <returns>The next object read from the pipe, or <c>null</c> if the pipe disconnected.</returns>
+        /// <summary>Reads an array of bytes from the pipe stream. This method waits until bytes are received
+        /// or the pipe stream is disconnected.</summary>
+        /// <returns>An array of bytes read from the pipe stream. This array will be empty if the pipe stream
+        /// is disconnected.</returns>
         public async Task<byte[]> ReadAsync(CancellationToken cancellationToken)
         {
             var length = await ReadLengthAsync(cancellationToken).ConfigureAwait(false);
 
             return length == 0
-                ? default
+                ? Array.Empty<byte>()
                 : await ReadAsync(length, true, cancellationToken).ConfigureAwait(false);
         }
 
-
-
-        ///// <inheritdoc />
-        //public async ValueTask DisposeAsync()
-        //{
-        //    if (_pipeStream is not null)
-        //    {
-        //        await _pipeStream.DisposeAsync().ConfigureAwait(false);
-        //        _pipeStream = null;
-        //    }
-        //}
-
-        /// <summary>
-        /// Reads the length of the next message (in bytes) from the client.
-        /// </summary>
-        /// <returns>Number of bytes of data the client will be sending.</returns>
-        /// <exception cref="InvalidOperationException">The pipe is disconnected, waiting to connect, or the handle has not been set.</exception>
-        /// <exception cref="IOException">Any I/O error occurred.</exception>
         private async Task<int> ReadLengthAsync(CancellationToken cancellationToken)
         {
             var bytes = await ReadAsync(sizeof(int), false, cancellationToken).ConfigureAwait(false);
@@ -77,17 +46,17 @@ namespace AllOverIt.Pipes.Connection
             return IPAddress.NetworkToHostOrder(BitConverter.ToInt32(bytes, 0));
         }
 
-        private async Task<byte[]> ReadAsync(int length, bool throwIfReadLessThanLength, CancellationToken cancellationToken)
+        private async Task<byte[]> ReadAsync(int length, bool throwIfInsufficientBytes, CancellationToken cancellationToken)
         {
             var buffer = new byte[length];
 
-            var read = await _pipeStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
+            var bytesRead = await _pipeStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
 
             // This can occur if the connection is killed mid-communication
-            if (read != length)
+            if (bytesRead != length)
             {
-                return throwIfReadLessThanLength
-                    ? throw new IOException($"Expected {length} bytes but read {read}")
+                return throwIfInsufficientBytes
+                    ? throw new IOException($"Expected {length} bytes but read {bytesRead}")
                     : Array.Empty<byte>();
             }
 

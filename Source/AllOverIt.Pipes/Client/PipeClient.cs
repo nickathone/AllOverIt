@@ -4,6 +4,7 @@ using AllOverIt.Pipes.Events;
 using AllOverIt.Pipes.Serialization;
 using AllOverIt.Pipes.Server;
 using System;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -197,7 +198,7 @@ namespace AllOverIt.Pipes.Client
                 var bytes = await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 
                 // TODO: Custom exception
-                Throw<InvalidOperationException>.WhenNull(bytes, "Connection handshake failed.");
+                Throw<InvalidOperationException>.When(!bytes.Any(), "Connection handshake failed.");
 
                 return Encoding.UTF8.GetString(bytes);
             }
