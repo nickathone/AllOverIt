@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Pipes.Connection;
 using AllOverIt.Pipes.Events;
+using AllOverIt.Pipes.Extensions;
 using AllOverIt.Pipes.Serialization;
 using AllOverIt.Pipes.Serialization.Binary;
 using AllOverIt.Pipes.Server;
@@ -92,26 +93,12 @@ namespace NamedPipeDemo
 
                         Console.WriteLine("Server starting...");
 
-
-
-
-                        var pipeSecurity = new PipeSecurity();
-
-                        // Get the identity of the user account you want to grant or deny access
-                        var userSid = new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null);
-
-                        // Create an access rule to grant or deny specific rights to the user
-                        var allowRule = new PipeAccessRule(userSid, PipeAccessRights.ReadWrite, AccessControlType.Allow);
-                        //var denyRule = new PipeAccessRule(userSid, PipeAccessRights.FullControl, AccessControlType.Deny);
-
-                        // Add the access rules to the PipeSecurity object
-                        pipeSecurity.AddAccessRule(allowRule);
-                        //pipeSecurity.AddAccessRule(denyRule);
-
-
-
-
-                        server.Start(pipeSecurity);
+                        server.Start(pipeSecurity =>
+                        {
+#pragma warning disable CA1416 // Validate platform compatibility
+                            pipeSecurity.AddIdentityAccessRule(WellKnownSidType.BuiltinUsersSid, PipeAccessRights.ReadWrite, AccessControlType.Allow);
+#pragma warning restore CA1416 // Validate platform compatibility
+                        });
 
                         Console.WriteLine("Server is started!");
 

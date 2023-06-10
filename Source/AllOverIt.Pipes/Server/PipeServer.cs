@@ -65,6 +65,17 @@ namespace AllOverIt.Pipes.Server
             }
         }
 
+        public void Start(Action<PipeSecurity> securityConfiguration)
+        {
+            _ = securityConfiguration.WhenNotNull(nameof(securityConfiguration));
+
+            var security = new PipeSecurity();
+            
+            securityConfiguration.Invoke(security);
+
+            Start(security);
+        }
+
         public void Start(PipeSecurity pipeSecurity = null)
         {
 

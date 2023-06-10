@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO.Pipes;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using AllOverIt.Pipes.Connection;
 
 namespace AllOverIt.Pipes.Server
 {
+
     public interface IPipeServer<TType> : IPipe<TType>
     {
         /// <summary>The name of pipe.</summary>
@@ -15,6 +18,7 @@ namespace AllOverIt.Pipes.Server
         bool IsActive { get; }
 
 
+        void Start(Action<PipeSecurity> securityConfiguration);
 
         /// <summary>
         /// 
