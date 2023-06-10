@@ -27,31 +27,6 @@ namespace AllOverIt.Pipes.Server
 
         public string PipeName { get; }
 
-        /// <summary>An event raised when a client connects to the server. This event may be raised on a background thread.</summary>
-        public event EventHandler<ConnectionEventArgs<TType>> OnClientConnected;
-
-        /// <summary>An event raised when a client disconnects from the server. This event may be raised on a background thread.</summary>
-        public event EventHandler<ConnectionEventArgs<TType>> OnClientDisconnected;
-
-        /// <summary>
-        /// Invoked whenever a client sends a message to the server.
-        /// </summary>
-        public event EventHandler<ConnectionMessageEventArgs<TType>> OnMessageReceived;
-
-        /// <summary>
-        /// Invoked whenever an exception is thrown during a read or write operation.
-        /// </summary>
-        public event EventHandler<ExceptionEventArgs> OnException;
-
-
-        // TODO: Create a factory so IOC can be used
-        public PipeServer(string pipeName, IMessageSerializer<TType> serializer)
-        {
-            PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
-            _serializer = serializer.WhenNotNull(nameof(serializer));
-        }
-
-
         public bool IsActive
         {
             get
@@ -64,6 +39,28 @@ namespace AllOverIt.Pipes.Server
                     !task.IsFaulted;
             }
         }
+
+        /// <summary>An event raised when a client connects to the server. This event may be raised on a background thread.</summary>
+        public event EventHandler<ConnectionEventArgs<TType>> OnClientConnected;
+
+        /// <summary>An event raised when a client disconnects from the server. This event may be raised on a background thread.</summary>
+        public event EventHandler<ConnectionEventArgs<TType>> OnClientDisconnected;
+
+        /// <summary>An event raised when a client sends a message to the server. This event may be raised on a background thread.</summary>
+        public event EventHandler<ConnectionMessageEventArgs<TType>> OnMessageReceived;
+
+        /// <summary>An event raised when an exception is thrown during a read or write operation.</summary>
+        public event EventHandler<ExceptionEventArgs> OnException;
+
+
+        // TODO: Create a factory so IOC can be used
+        public PipeServer(string pipeName, IMessageSerializer<TType> serializer)
+        {
+            PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
+            _serializer = serializer.WhenNotNull(nameof(serializer));
+        }
+
+
 
         public void Start(Action<PipeSecurity> securityConfiguration)
         {
