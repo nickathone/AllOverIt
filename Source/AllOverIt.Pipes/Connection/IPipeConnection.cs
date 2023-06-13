@@ -1,5 +1,4 @@
-﻿using AllOverIt.Pipes.Events;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 

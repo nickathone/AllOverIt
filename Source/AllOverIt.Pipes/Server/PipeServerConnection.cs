@@ -1,10 +1,11 @@
-﻿using AllOverIt.Pipes.Events;
+﻿using AllOverIt.Pipes.Connection;
+using AllOverIt.Pipes.Events;
 using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Serialization;
 using System;
 using System.IO.Pipes;
 
-namespace AllOverIt.Pipes.Connection
+namespace AllOverIt.Pipes.Server
 {
     internal sealed class PipeServerConnection<TMessage> : PipeConnection<TMessage>, IPipeServerConnection<TMessage>
     {
@@ -16,9 +17,6 @@ namespace AllOverIt.Pipes.Connection
 
         /// <inheritdoc />
         public event EventHandler<ConnectionExceptionEventArgs<TMessage, IPipeServerConnection<TMessage>>> OnException;
-
-        /// <inheritdoc />
-        public string ServerName { get; }
 
         public PipeServerConnection(PipeStream stream, string pipeName, IMessageSerializer<TMessage> serializer)
             : base(stream, pipeName, serializer)

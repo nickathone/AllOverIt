@@ -1,7 +1,8 @@
-﻿using AllOverIt.Pipes.Events;
+﻿using AllOverIt.Pipes.Connection;
+using AllOverIt.Pipes.Events;
 using System;
 
-namespace AllOverIt.Pipes.Connection
+namespace AllOverIt.Pipes.Server
 {
     public interface IPipeServerConnection<TMessage> : IPipeConnection<TMessage>
     {

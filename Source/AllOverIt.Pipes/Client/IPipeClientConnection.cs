@@ -16,7 +16,7 @@ namespace AllOverIt.Pipes.Connection
         /// background task.</summary>
         public event EventHandler<ConnectionExceptionEventArgs<TMessage, IPipeClientConnection<TMessage>>> OnException;
 
-        /// <summary>Gets the connection's server name. Only applicable for client connections.</summary>
+        /// <summary>Gets the connection's server name.</summary>
         public string ServerName { get; }
     }
 }

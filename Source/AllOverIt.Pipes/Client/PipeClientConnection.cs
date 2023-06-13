@@ -1,10 +1,11 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Pipes.Connection;
 using AllOverIt.Pipes.Events;
 using AllOverIt.Pipes.Serialization;
 using System;
 using System.IO.Pipes;
 
-namespace AllOverIt.Pipes.Connection
+namespace AllOverIt.Pipes.Client
 {
     internal sealed class PipeClientConnection<TMessage> : PipeConnection<TMessage>, IPipeClientConnection<TMessage>
     {
