@@ -4,14 +4,15 @@ using System;
 
 namespace AllOverIt.Pipes.Events
 {
-    public class ConnectionEventArgs<TType> : EventArgs
+    public class ConnectionEventArgs<TMessage, TPipeConnection> : EventArgs
+        where TPipeConnection : class, IPipeConnection<TMessage>
     {
         /// <summary>The connection associated with the event.</summary>
-        public IPipeConnection<TType> Connection { get; }
+        public TPipeConnection Connection { get; }
 
         /// <summary>Constructor.</summary>
         /// <param name="connection">The connection associated with the event.</param>
-        public ConnectionEventArgs(IPipeConnection<TType> connection)
+        public ConnectionEventArgs(TPipeConnection connection)
         {
             Connection = connection.WhenNotNull(nameof(connection));
         }

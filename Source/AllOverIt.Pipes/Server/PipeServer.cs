@@ -19,11 +19,11 @@ namespace AllOverIt.Pipes.Server
 {
     /// <summary>A named pipe server that can broadcast a strongly type message to all connected clients
     /// as well as receive messages from those clients.</summary>
-    /// <typeparam name="TType"></typeparam>
-    public sealed class PipeServer<TType> : IPipeServer<TType>
+    /// <typeparam name="TMessage"></typeparam>
+    public sealed class PipeServer<TMessage> : IPipeServer<TMessage>
     {
-        private readonly IMessageSerializer<TType> _serializer;
-        private IList<IPipeConnection<TType>> Connections { get; } = new List<IPipeConnection<TType>>();
+        private readonly IMessageSerializer<TMessage> _serializer;
+        private IList<IPipeServerConnection<TMessage>> Connections { get; } = new List<IPipeServerConnection<TMessage>>();
         private IAwaitableLock _connectionsLock = new AwaitableLock();
         private BackgroundTask _backgroundTask;
 
@@ -45,20 +45,20 @@ namespace AllOverIt.Pipes.Server
         }
 
         /// <summary>An event raised when a client connects to the server. This event may be raised on a background thread.</summary>
-        public event EventHandler<ConnectionEventArgs<TType>> OnClientConnected;
+        public event EventHandler<ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>>> OnClientConnected;
 
         /// <summary>An event raised when a client disconnects from the server. This event may be raised on a background thread.</summary>
-        public event EventHandler<ConnectionEventArgs<TType>> OnClientDisconnected;
+        public event EventHandler<ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>>> OnClientDisconnected;
 
         /// <summary>An event raised when a client sends a message to the server. This event may be raised on a background thread.</summary>
-        public event EventHandler<ConnectionMessageEventArgs<TType>> OnMessageReceived;
+        public event EventHandler<ConnectionMessageEventArgs<TMessage, IPipeServerConnection<TMessage>>> OnMessageReceived;
 
         /// <summary>An event raised when an exception is thrown during a read or write operation.</summary>
         public event EventHandler<ExceptionEventArgs> OnException;
 
 
         // TODO: Create a factory so IOC can be used
-        public PipeServer(string pipeName, IMessageSerializer<TType> serializer)
+        public PipeServer(string pipeName, IMessageSerializer<TMessage> serializer)
         {
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));
@@ -119,7 +119,7 @@ namespace AllOverIt.Pipes.Server
                         }
 
                         // Add the client's connection to the list of connections
-                        var connection = new PipeConnection<TType>(connectionStream, connectionPipeName, _serializer);
+                        var connection = new PipeServerConnection<TMessage>(connectionStream, connectionPipeName, _serializer);
 
                         connection.OnMessageReceived += (_, args) => DoOnMessageReceived(args);
                         connection.OnDisconnected += (_, args) => DoOnClientDisconnected(args);
@@ -177,7 +177,7 @@ namespace AllOverIt.Pipes.Server
         /// <summary>Asynchronously sends a message to all connected clients.</summary>
         /// <param name="message">The message to send to all connected clients.</param>
         /// <param name="cancellationToken">An optional cancellation token.</param>
-        public Task WriteAsync(TType message, CancellationToken cancellationToken = default)
+        public Task WriteAsync(TMessage message, CancellationToken cancellationToken = default)
         {
             return WriteAsync(message, _ => true, cancellationToken);
         }
@@ -186,7 +186,7 @@ namespace AllOverIt.Pipes.Server
         /// <param name="message">The message to send to all connected clients.</param>
         /// <param name="pipeName">The name of the pipe to send the message to. This name is case-insensitive.</param>
         /// <param name="cancellationToken">An optional cancellation token.</param>
-        public Task WriteAsync(TType message, string pipeName, CancellationToken cancellationToken = default)
+        public Task WriteAsync(TMessage message, string pipeName, CancellationToken cancellationToken = default)
         {
             return WriteAsync(message, connection => connection.PipeName.Equals(pipeName, StringComparison.OrdinalIgnoreCase), cancellationToken);
         }
@@ -195,12 +195,12 @@ namespace AllOverIt.Pipes.Server
         /// <param name="message">The message to send to all connected clients.</param>
         /// <param name="predicate">The predicate condition to be met.</param>
         /// <param name="cancellationToken">An optional cancellation token.</param>
-        public async Task WriteAsync(TType message, Predicate<IPipeConnection<TType>> predicate, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(TMessage message, Predicate<IPipeConnection<TMessage>> predicate, CancellationToken cancellationToken = default)
         {
             _ = predicate.WhenNotNull(nameof(predicate));
 
             // Get potential connections synchronously
-            IEnumerable<IPipeConnection<TType>> connections = null;
+            IEnumerable<IPipeConnection<TMessage>> connections = null;
 
             using (await _connectionsLock.GetLockAsync(cancellationToken))
             {
@@ -236,7 +236,7 @@ namespace AllOverIt.Pipes.Server
             }
         }
 
-        private async Task DoOnClientConnectedAsync(IPipeConnection<TType> connection)
+        private async Task DoOnClientConnectedAsync(IPipeServerConnection<TMessage> connection)
         {
             using (await _connectionsLock.GetLockAsync().ConfigureAwait(false))
             {
@@ -247,13 +247,13 @@ namespace AllOverIt.Pipes.Server
 
             if (clientConnected is not null)
             {
-                var args = new ConnectionEventArgs<TType>(connection);
+                var args = new ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>>(connection);
 
                 clientConnected.Invoke(this, args);
             }
         }
 
-        private void DoOnClientDisconnected(ConnectionEventArgs<TType> args)
+        private void DoOnClientDisconnected(ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>> args)
         {
             OnClientDisconnected?.Invoke(this, args);
 
@@ -266,7 +266,7 @@ namespace AllOverIt.Pipes.Server
             });
         }
 
-        private void DoOnMessageReceived(ConnectionMessageEventArgs<TType> args)
+        private void DoOnMessageReceived(ConnectionMessageEventArgs<TMessage, IPipeServerConnection<TMessage>> args)
         {
             OnMessageReceived?.Invoke(this, args);
         }

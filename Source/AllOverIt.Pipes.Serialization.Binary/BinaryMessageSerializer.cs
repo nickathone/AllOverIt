@@ -5,12 +5,12 @@ using System.Text;
 
 namespace AllOverIt.Pipes.Serialization.Binary
 {
-    public sealed class BinaryMessageSerializer<TType> : MessageSerializerBase<TType>
+    public sealed class BinaryMessageSerializer<TMessage> : MessageSerializerBase<TMessage>
     {
-        public ICollection<EnrichedBinaryValueReader<TType>> Readers { get; } = new List<EnrichedBinaryValueReader<TType>>();
-        public ICollection<EnrichedBinaryValueWriter<TType>> Writers { get; } = new List<EnrichedBinaryValueWriter<TType>>();
+        public ICollection<EnrichedBinaryValueReader<TMessage>> Readers { get; } = new List<EnrichedBinaryValueReader<TMessage>>();
+        public ICollection<EnrichedBinaryValueWriter<TMessage>> Writers { get; } = new List<EnrichedBinaryValueWriter<TMessage>>();
 
-        protected override byte[] SerializeToBytes(TType @object)
+        protected override byte[] SerializeToBytes(TMessage @object)
         {
             using (var stream = new MemoryStream())
             {
@@ -28,7 +28,7 @@ namespace AllOverIt.Pipes.Serialization.Binary
             }
         }
 
-        protected override TType DeserializeFromBytes(byte[] bytes)
+        protected override TMessage DeserializeFromBytes(byte[] bytes)
         {
             using (var stream = new MemoryStream(bytes))
             {
@@ -39,7 +39,7 @@ namespace AllOverIt.Pipes.Serialization.Binary
                         serializerReader.Readers.Add(reader);
                     }
 
-                    return (TType) serializerReader.ReadObject();
+                    return (TMessage) serializerReader.ReadObject();
                 }
             }
         }

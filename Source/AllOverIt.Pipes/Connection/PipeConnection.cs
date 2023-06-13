@@ -12,48 +12,30 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-    public sealed class PipeConnection<TType> : IPipeConnection<TType>, IAsyncDisposable
+    internal abstract class PipeConnection<TMessage> : IPipeConnection<TMessage>
     {
-        private readonly IMessageSerializer<TType> _serializer;
-
-        // A NamedPipeClientStream or NamedPipeServerStream
-        private PipeStream _pipeStream;
+        private readonly IMessageSerializer<TMessage> _serializer;
 
         private CancellationTokenSource _cancellationTokenSource;
         private BackgroundTask _backgroundReader;
         private PipeReaderWriter _pipeReaderWriter;
 
-        /// <inheritdoc />
-        public event EventHandler<ConnectionMessageEventArgs<TType>> OnMessageReceived;
 
-        /// <inheritdoc />
-        public event EventHandler<ConnectionEventArgs<TType>> OnDisconnected;
+        // A NamedPipeClientStream or NamedPipeServerStream
+        protected PipeStream _pipeStream;
 
-        /// <inheritdoc />
-        public event EventHandler<ConnectionExceptionEventArgs<TType>> OnException;
 
         /// <inheritdoc />
         public string PipeName { get; }
 
         /// <inheritdoc />
-        public string ServerName { get; }
-
-        /// <inheritdoc />
         public bool IsConnected => _pipeStream?.IsConnected ?? false;
 
-
-
-        internal PipeConnection(PipeStream stream, string pipeName, IMessageSerializer<TType> serializer)
+        internal PipeConnection(PipeStream stream, string pipeName, IMessageSerializer<TMessage> serializer)
         {
             _pipeStream = stream.WhenNotNull(nameof(stream));               // Assume ownership of this stream
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));
-        }
-
-        internal PipeConnection(PipeStream stream, string pipeName, IMessageSerializer<TType> serializer, string serverName)
-            : this(stream, pipeName, serializer)
-        {
-            ServerName = serverName.WhenNotNullOrEmpty(nameof(serverName));
         }
 
         /// <inheritdoc />
@@ -100,7 +82,7 @@ namespace AllOverIt.Pipes.Connection
             },
             edi =>
             {
-                DoOnExceptionOccurred(edi.SourceException);
+                DoOnException(edi.SourceException);
                 return false;
             },
             _cancellationTokenSource.Token);
@@ -128,7 +110,7 @@ namespace AllOverIt.Pipes.Connection
         }
 
         /// <inheritdoc />
-        public async Task WriteAsync(TType value, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(TMessage value, CancellationToken cancellationToken = default)
         {
             if (!IsConnected || !_pipeReaderWriter.CanWrite)
             {
@@ -143,58 +125,13 @@ namespace AllOverIt.Pipes.Connection
         }
 
         /// <inheritdoc />
-        public string GetImpersonationUserName()
-        {
-            if (_pipeStream is not NamedPipeServerStream serverStream)
-            {
-                throw new PipeConnectionException($"The pipe stream is not a {nameof(NamedPipeServerStream)}.");
-            }
-
-            // IOException will be raised of the pipe connection has been broken or
-            // the user name is longer than 19 characters.
-            return serverStream.GetImpersonationUserName();
-        }
-
-        /// <inheritdoc />
         public async ValueTask DisposeAsync()
         {
             await DisconnectAsync().ConfigureAwait(false);
         }
 
-        private void DoOnDisconnected()
-        {
-            var onDisconnected = OnDisconnected;
-
-            if (onDisconnected is not null)
-            {
-                var args = new ConnectionEventArgs<TType>(this);
-
-                onDisconnected.Invoke(this, args);
-            }
-        }
-
-        private void DoOnMessageReceived(TType message)
-        {
-            var onMessageReceived = OnMessageReceived;
-
-            if (onMessageReceived is not null)
-            {
-                var args = new ConnectionMessageEventArgs<TType>(this, message);
-
-                onMessageReceived.Invoke(this, args);
-            }
-        }
-
-        private void DoOnExceptionOccurred(Exception exception)
-        {
-            var onException = OnException;
-
-            if (onException is not null)
-            {
-                var args = new ConnectionExceptionEventArgs<TType>(this, exception);
-
-                onException.Invoke(this, args);
-            }
-        }
+        protected abstract void DoOnDisconnected();
+        protected abstract void DoOnMessageReceived(TMessage message);
+        protected abstract void DoOnException(Exception exception);
     }
 }

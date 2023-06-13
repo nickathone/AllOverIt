@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-    public interface IPipe<TType> : IAsyncDisposable
+    public interface IPipe<TMessage> : IAsyncDisposable
     {
         /// <summary>Asynchronously sends a message to all connected clients.</summary>
         /// <param name="message">The message to send to all connected clients.</param>
         /// <param name="cancellationToken">An optional cancellation token.</param>
-        Task WriteAsync(TType message, CancellationToken cancellationToken = default);
+        Task WriteAsync(TMessage message, CancellationToken cancellationToken = default);
     }
 }

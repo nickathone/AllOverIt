@@ -134,7 +134,8 @@ namespace NamedPipeDemo
             }
         }
 
-        private static void OnClientConnected(IPipeServer<PipeMessage> server, ConnectionEventArgs<PipeMessage> args, CancellationToken cancellationToken)
+        private static void OnClientConnected(IPipeServer<PipeMessage> server, ConnectionEventArgs<PipeMessage, IPipeServerConnection<PipeMessage>> args,
+            CancellationToken cancellationToken)
         {
             var connection = args.Connection;
 

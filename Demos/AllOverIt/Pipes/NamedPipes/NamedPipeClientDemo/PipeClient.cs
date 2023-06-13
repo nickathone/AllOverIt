@@ -7,7 +7,6 @@ using NamedPipeTypes;
 using System;
 using System.IO;
 using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -110,14 +109,14 @@ namespace NamedPipeDemo
             }
         }
 
-        private static void DoOnClientConnected(object sender, ConnectionEventArgs<PipeMessage> args)
+        private static void DoOnClientConnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
         {
             Console.WriteLine("Connected to server");
 
             SendConnectionRegularMessages(args.Connection);
         }
 
-        private static void DoOnClientDisconnected(object sender, ConnectionEventArgs<PipeMessage> args)
+        private static void DoOnClientDisconnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
         {
             Console.WriteLine("Disconnected from server");
         }

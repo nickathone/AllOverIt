@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Client
 {
-    public sealed class PipeClient<TType> : IPipeClient<TType>
+    public sealed class PipeClient<TMessage> : IPipeClient<TMessage>
     {
         private const string LocalServer = ".";
 
-        private readonly IMessageSerializer<TType> _serializer;
-        private PipeConnection<TType> _connection;
+        private readonly IMessageSerializer<TMessage> _serializer;
+        private IPipeClientConnection<TMessage> _connection;
 
 
         /// <inheritdoc/>
@@ -34,17 +34,17 @@ namespace AllOverIt.Pipes.Client
         /// <summary>
         /// Invoked whenever a message is received from the server.
         /// </summary>
-        public event EventHandler<ConnectionMessageEventArgs<TType>> OnMessageReceived;
+        public event EventHandler<ConnectionMessageEventArgs<TMessage, IPipeClientConnection<TMessage>>> OnMessageReceived;
 
         /// <summary>
         /// Invoked after each the client connect to the server (include reconnects).
         /// </summary>
-        public event EventHandler<ConnectionEventArgs<TType>> OnConnected;
+        public event EventHandler<ConnectionEventArgs<TMessage, IPipeClientConnection<TMessage>>> OnConnected;
 
         /// <summary>
         /// Invoked when the client disconnects from the server (e.g., the pipe is closed or broken).
         /// </summary>
-        public event EventHandler<ConnectionEventArgs<TType>> OnDisconnected;
+        public event EventHandler<ConnectionEventArgs<TMessage, IPipeClientConnection<TMessage>>> OnDisconnected;
 
         /// <summary>
         /// Invoked whenever an exception is thrown during a read or write operation on the named pipe.
@@ -60,7 +60,7 @@ namespace AllOverIt.Pipes.Client
 
         // TODO: Create a factory so IOC can be used
 
-        public PipeClient(string pipeName, IMessageSerializer<TType> serializer)
+        public PipeClient(string pipeName, IMessageSerializer<TMessage> serializer)
             : this(pipeName, LocalServer, serializer)
         {
         }
@@ -71,7 +71,7 @@ namespace AllOverIt.Pipes.Client
         /// <param name="pipeName"></param>
         /// <param name="serverName">The name of the server to communicate with.</param>
         /// <param name="serializer"></param>
-        public PipeClient(string pipeName, string serverName, IMessageSerializer<TType> serializer)
+        public PipeClient(string pipeName, string serverName, IMessageSerializer<TMessage> serializer)
         {
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             ServerName = serverName.WhenNotNullOrEmpty(nameof(serverName));
@@ -110,7 +110,7 @@ namespace AllOverIt.Pipes.Client
 
 
                 // TODO: Handle cleanup if exception occurs after this
-                _connection = new PipeConnection<TType>(dataPipe, connectionPipeName, _serializer, ServerName);
+                _connection = new PipeClientConnection<TMessage>(dataPipe, connectionPipeName, _serializer, ServerName);
 
                 // Unsubscribes all event handlers and disposes of the connection
                 _connection.OnDisconnected += DoOnConnectionDisconnected;
@@ -156,7 +156,7 @@ namespace AllOverIt.Pipes.Client
         /// <param name="value">Message to send to the server.</param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="InvalidOperationException"></exception>
-        public async Task WriteAsync(TType value, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(TMessage value, CancellationToken cancellationToken = default)
         {
             //if (!IsConnected && AutoReconnect)
             //{
@@ -204,7 +204,7 @@ namespace AllOverIt.Pipes.Client
             }
         }
 
-        private void DoOnConnectionDisconnected(object sender, ConnectionEventArgs<TType> args)
+        private void DoOnConnectionDisconnected(object sender, ConnectionEventArgs<TMessage, IPipeClientConnection<TMessage>> args)
         {
             try
             {
@@ -234,24 +234,24 @@ namespace AllOverIt.Pipes.Client
             _connection = null;
         }
 
-        private void DoOnConnected(IPipeConnection<TType> connection)
+        private void DoOnConnected(IPipeClientConnection<TMessage> connection)
         {
             var onConnected = OnConnected;
 
             if (onConnected is not null)
             {
-                var args = new ConnectionEventArgs<TType>(connection);
+                var args = new ConnectionEventArgs<TMessage, IPipeClientConnection<TMessage>>(connection);
 
                 onConnected.Invoke(this, args);
             }
         }
 
-        private void DoOnConnectionMessageReceived(object sender, ConnectionMessageEventArgs<TType> args)
+        private void DoOnConnectionMessageReceived(object sender, ConnectionMessageEventArgs<TMessage, IPipeClientConnection<TMessage>> args)
         {
             OnMessageReceived?.Invoke(this, args);
         }
 
-        private void DoOnConnectionException(object sender, ConnectionExceptionEventArgs<TType> args)
+        private void DoOnConnectionException(object sender, ConnectionExceptionEventArgs<TMessage, IPipeClientConnection<TMessage>> args)
         {
             DoOnException(args.Exception);
         }
