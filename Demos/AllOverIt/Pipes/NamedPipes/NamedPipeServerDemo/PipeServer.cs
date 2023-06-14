@@ -20,7 +20,7 @@ namespace NamedPipeDemo
 {
     internal static class PipeServer
     {
-        private static void OnExceptionOccurred(Exception exception)
+        private static void OnException(Exception exception)
         {
             Console.Error.WriteLine($"Exception: {exception}");
         }
@@ -55,10 +55,10 @@ namespace NamedPipeDemo
                         {
                             var connection = args.Connection;
 
-                            Console.WriteLine($"Client {connection.PipeName} (as '{connection.GetImpersonationUserName()}') sent: {args.Message}");
+                            PipeLogger.Append(ConsoleColor.Yellow, $"Received: {args.Message} from {connection.PipeName} (as '{connection.GetImpersonationUserName()}')");
                         };
 
-                        server.OnException += (_, args) => OnExceptionOccurred(args.Exception);
+                        server.OnException += (_, args) => OnException(args.Exception);
 
                         _ = Task.Run(async () =>
                         {
@@ -79,14 +79,18 @@ namespace NamedPipeDemo
 
                                     // Console.WriteLine($"Sent to {server.ConnectedClients.Count} clients");
 
-                                    await server.WriteAsync(new PipeMessage
+                                    var pipeMessage = new PipeMessage
                                     {
                                         Text = message,
-                                    }, source.Token).ConfigureAwait(false);
+                                    };
+
+                                    PipeLogger.Append(ConsoleColor.Red, $" >> Sent with Id {pipeMessage}");
+
+                                    await server.WriteAsync(pipeMessage, source.Token).ConfigureAwait(false);
                                 }
                                 catch (Exception exception)
                                 {
-                                    OnExceptionOccurred(exception);
+                                    OnException(exception);
                                 }
                             }
                         }, source.Token);
@@ -117,7 +121,7 @@ namespace NamedPipeDemo
             }
             catch (Exception exception)
             {
-                OnExceptionOccurred(exception);
+                OnException(exception);
             }
 
             Console.WriteLine("Server Stopped!");
@@ -141,23 +145,26 @@ namespace NamedPipeDemo
 
             TaskHelper.ExecuteAsyncAndWait(async () =>
             {
-                Console.WriteLine($"Client {connection.PipeName} is now connected.");
-
                 try
                 {
-                    Console.WriteLine("Sending welcome message");
+                    // Uncomment to test exception handling
+                    // _ = connection.GetImpersonationUserName();
 
-                    await connection.WriteAsync(new PipeMessage
+                    Console.WriteLine($"Client {connection.PipeName} is now connected.");
+
+                    var pipeMessage = new PipeMessage
                     {
                         Text = "Welcome!"
-                    }, cancellationToken).ConfigureAwait(false);
+                    };
+
+                    await connection.WriteAsync(pipeMessage, cancellationToken).ConfigureAwait(false);
+
+                    PipeLogger.Append(ConsoleColor.Red, $"Sending : {pipeMessage}");
                 }
                 catch (Exception exception)
                 {
-                    OnExceptionOccurred(exception);
+                    OnException(exception);
                 }
-
-                Console.WriteLine("Message sent");
 
                 SendConnectionRegularMessages(server, connection);
             });
@@ -166,13 +173,24 @@ namespace NamedPipeDemo
         private static void SendConnectionRegularMessages(IPipeServer<PipeMessage> server, IPipeConnection<PipeMessage> connection)
         {
             Observable
-                .Interval(TimeSpan.FromMilliseconds(25))
+                .Interval(TimeSpan.FromMilliseconds(100))
                 .TakeWhile(_ => server.IsActive && connection.IsConnected)
+                .Take(5)
                 .SelectMany(async async =>
                 {
                     try
                     {
-                        await connection.WriteAsync(new PipeMessage { Text = $"{DateTime.Now:o}" }).ConfigureAwait(false);
+                        var pipeMessage = new PipeMessage
+                        {
+                            Id = Guid.NewGuid(),
+                            Text = $"{DateTime.Now.Ticks}"
+                        };
+
+                        PipeLogger.Append(ConsoleColor.Red, $"Sending : {pipeMessage}");
+
+                        await connection
+                            .WriteAsync(pipeMessage)
+                            .ConfigureAwait(false);
                     }
                     catch (IOException)
                     {

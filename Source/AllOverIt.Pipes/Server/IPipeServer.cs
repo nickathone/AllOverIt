@@ -10,7 +10,7 @@ namespace AllOverIt.Pipes.Server
     /// <summary>Represents a named pipe server that can broadcast a strongly type message to all connected clients
     /// as well as receive messages from those clients.</summary>
     /// <typeparam name="TMessage">The message type.</typeparam>
-    public interface IPipeServer<TMessage> : IPipe<TMessage>, IPipeEvents<TMessage>, IPipeServerEvents<TMessage>
+    public interface IPipeServer<TMessage> : IPipe<TMessage>, IPipeEvents<TMessage>, IPipeServerEvents<TMessage>, IAsyncDisposable
     {
         /// <summary>The name of the pipe.</summary>
         string PipeName { get; }

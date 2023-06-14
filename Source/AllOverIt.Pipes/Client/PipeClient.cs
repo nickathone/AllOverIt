@@ -112,10 +112,8 @@ namespace AllOverIt.Pipes.Client
                 // TODO: Handle cleanup if exception occurs after this
                 _connection = new PipeClientConnection<TMessage>(dataPipe, connectionPipeName, _serializer, ServerName);
 
-                // Unsubscribes all event handlers and disposes of the connection
-                _connection.OnDisconnected += DoOnConnectionDisconnected;
-
                 _connection.OnMessageReceived += DoOnConnectionMessageReceived;
+                _connection.OnDisconnected += DoOnConnectionDisconnected;
                 _connection.OnException += DoOnConnectionException;
 
                 _connection.Connect();
@@ -183,9 +181,8 @@ namespace AllOverIt.Pipes.Client
 
 
         /// <summary>
-        /// Get the name of the data pipe that should be used from now on by this NamedPipeClient
+        /// Get the name of the data pipe that should be used from now on by this pipe client.
         /// </summary>
-        /// <exception cref="InvalidOperationException"></exception>
         /// <returns></returns>
         private async Task<string> GetConnectionPipeName(CancellationToken cancellationToken)
         {
@@ -258,7 +255,14 @@ namespace AllOverIt.Pipes.Client
 
         private void DoOnException(Exception exception)
         {
-            OnException?.Invoke(this, new ExceptionEventArgs(exception));
+            var onException = OnException;
+
+            if (onException is not null)
+            {
+                var args = new ExceptionEventArgs(exception);
+
+                onException.Invoke(this, args);
+            }
         }
     }
 }

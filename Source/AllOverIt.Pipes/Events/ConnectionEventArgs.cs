@@ -8,7 +8,8 @@ namespace AllOverIt.Pipes.Events
         where TPipeConnection : class, IPipeConnection<TMessage>
     {
         /// <summary>The connection associated with the event.</summary>
-        public TPipeConnection Connection { get; }
+        public TPipeConnection Connection { get; }              // TODO: Look at reducing visibility of Connect/Disconnect/Write available in IPipeConnection<TMessage>
+                                                                //       PipeServer needs to be able to Disconnect / Write
 
         /// <summary>Constructor.</summary>
         /// <param name="connection">The connection associated with the event.</param>

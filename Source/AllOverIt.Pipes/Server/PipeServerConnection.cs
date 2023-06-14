@@ -26,7 +26,7 @@ namespace AllOverIt.Pipes.Server
         /// <inheritdoc />
         public string GetImpersonationUserName()
         {
-            if (_pipeStream is not NamedPipeServerStream serverStream)
+            if (PipeStream is not NamedPipeServerStream serverStream)
             {
                 throw new PipeConnectionException($"The pipe stream is not a {nameof(NamedPipeServerStream)}.");
             }

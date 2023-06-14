@@ -36,7 +36,9 @@ namespace NamedPipeDemo
 
                     client.OnConnected += DoOnClientConnected;
                     client.OnDisconnected += DoOnClientDisconnected;
-                    client.OnMessageReceived += (o, args) => Console.WriteLine("MessageReceived: " + args.Message);
+                    
+                    client.OnMessageReceived += (o, args) => PipeLogger.Append(ConsoleColor.Red, $"Received: {args.Message}");
+
                     client.OnException += (o, args) => DoOnException(args.Exception);
 
                     _ = Task.Run(async () =>
@@ -45,8 +47,6 @@ namespace NamedPipeDemo
                         {
                             try
                             {
-                                Console.WriteLine("Waiting for user input");
-
                                 var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
 
                                 if (message == "quit")
@@ -55,13 +55,15 @@ namespace NamedPipeDemo
                                     break;
                                 }
 
-                                Console.WriteLine($"Sending message: {message}");
+                                var pipeMessage = new PipeMessage
+                                {
+                                    Text = message
+                                };
+
+                                PipeLogger.Append(ConsoleColor.Yellow, $"Sending : {pipeMessage}");
 
                                 await client
-                                    .WriteAsync(new PipeMessage
-                                    {
-                                        Text = message
-                                    }, source.Token)
+                                    .WriteAsync(pipeMessage, source.Token)
                                     .ConfigureAwait(false);
                             }
                             catch (Exception exception)
@@ -69,8 +71,6 @@ namespace NamedPipeDemo
                                 DoOnException(exception);
                                 source.Cancel();
                             }
-
-                            Console.WriteLine("User input processed");
                         }
                     }, source.Token);
 
@@ -124,13 +124,24 @@ namespace NamedPipeDemo
         private static void SendConnectionRegularMessages(IPipeConnection<PipeMessage> connection)
         {
             var subscription = Observable
-                .Interval(TimeSpan.FromMilliseconds(25))
+                .Interval(TimeSpan.FromMilliseconds(100))
                 .TakeWhile(_ => connection.IsConnected)
+                .Take(5)
                 .SelectMany(async async =>
                 {
                     try
                     {
-                        await connection.WriteAsync(new PipeMessage { Text = $"{DateTime.Now:o}" }).ConfigureAwait(false);
+                        var pipeMessage = new PipeMessage
+                        {
+                            Id = Guid.NewGuid(),
+                            Text = $"{DateTime.Now.Ticks}"
+                        };
+
+                        PipeLogger.Append(ConsoleColor.Yellow, $"Sending : {pipeMessage}");
+
+                        await connection
+                            .WriteAsync(pipeMessage)
+                            .ConfigureAwait(false);
                     }
                     catch (IOException)
                     {

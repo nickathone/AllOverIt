@@ -3,7 +3,7 @@ using System;
 
 namespace AllOverIt.Pipes.Connection
 {
-    public interface IPipeClientConnection<TMessage> : IPipeConnection<TMessage>
+    public interface IPipeClientConnection<TMessage> : IConnectablePipeConnection<TMessage>
     {
         /// <summary>Event raised when a message is received from the other end of the pipe. Messages are raised
         /// on a background task.</summary>

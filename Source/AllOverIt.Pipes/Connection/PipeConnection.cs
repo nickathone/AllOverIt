@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Connection
 {
-    internal abstract class PipeConnection<TMessage> : IPipeConnection<TMessage>
+    internal abstract class PipeConnection<TMessage> : IConnectablePipeConnection<TMessage>
     {
         private readonly IMessageSerializer<TMessage> _serializer;
 
@@ -20,20 +20,18 @@ namespace AllOverIt.Pipes.Connection
         private BackgroundTask _backgroundReader;
         private PipeReaderWriter _pipeReaderWriter;
 
-
         // A NamedPipeClientStream or NamedPipeServerStream
-        protected PipeStream _pipeStream;
-
+        protected PipeStream PipeStream { get; private set; }
 
         /// <inheritdoc />
         public string PipeName { get; }
 
         /// <inheritdoc />
-        public bool IsConnected => _pipeStream?.IsConnected ?? false;
+        public bool IsConnected => PipeStream?.IsConnected ?? false;
 
         internal PipeConnection(PipeStream stream, string pipeName, IMessageSerializer<TMessage> serializer)
         {
-            _pipeStream = stream.WhenNotNull(nameof(stream));               // Assume ownership of this stream
+            PipeStream = stream.WhenNotNull(nameof(stream));               // Assume ownership of this stream
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
@@ -46,7 +44,7 @@ namespace AllOverIt.Pipes.Connection
 
             _cancellationTokenSource = new CancellationTokenSource();
 
-            _pipeReaderWriter = new PipeReaderWriter(_pipeStream, true);
+            _pipeReaderWriter = new PipeReaderWriter(PipeStream, true);
 
             _backgroundReader = new BackgroundTask(async cancellationToken =>
             {
@@ -83,7 +81,7 @@ namespace AllOverIt.Pipes.Connection
             edi =>
             {
                 DoOnException(edi.SourceException);
-                return false;
+                return true;
             },
             _cancellationTokenSource.Token);
         }
@@ -101,8 +99,8 @@ namespace AllOverIt.Pipes.Connection
                 await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
                 _pipeReaderWriter = null;
 
-                await _pipeStream.DisposeAsync().ConfigureAwait(false);
-                _pipeStream = null;
+                await PipeStream.DisposeAsync().ConfigureAwait(false);
+                PipeStream = null;
 
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = null;

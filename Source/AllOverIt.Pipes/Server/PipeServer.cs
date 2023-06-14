@@ -121,9 +121,9 @@ namespace AllOverIt.Pipes.Server
                         // Add the client's connection to the list of connections
                         var connection = new PipeServerConnection<TMessage>(connectionStream, connectionPipeName, _serializer);
 
-                        connection.OnMessageReceived += (_, args) => DoOnMessageReceived(args);
-                        connection.OnDisconnected += (_, args) => DoOnClientDisconnected(args);
-                        connection.OnException += (_, args) => DoOnConnectionException(args.Exception);
+                        connection.OnMessageReceived += DoOnConnectionMessageReceived;
+                        connection.OnDisconnected += DoOnConnectionDisconnected;
+                        connection.OnException += DoOnConnectionException;
 
                         connection.Connect();
 
@@ -131,15 +131,19 @@ namespace AllOverIt.Pipes.Server
                     }
                     catch (OperationCanceledException)
                     {
-                        throw;
                     }
-                    // Catch the IOException that is raised if the pipe is broken or disconnected.
-                    catch (IOException)
-                    {
-                        // TODO: should be reported - for example, cannot get impersonated user until data has been read from the stream
 
-                        await Task.Yield();
-                    }
+
+
+                    //// Catch the IOException that is raised if the pipe is broken or disconnected.
+                    //catch (IOException)
+                    //{
+                    //    // TODO: should be reported - for example, cannot get impersonated user until data has been read from the stream
+
+                    //    await Task.Yield();
+                    //}
+
+
 
                     // allow this to go through the exception handler
                     //catch (Exception exception)
@@ -148,11 +152,13 @@ namespace AllOverIt.Pipes.Server
                     //    break;
                     //}
                 }
-            }, edi => true);        // TODO: Need to raise exception event
+            },
+            edi =>
+            {
+                DoOnException(edi.SourceException);
+                return true;
+            });        // TODO: Need to raise exception event
         }
-
-
-
 
         public async Task StopAsync()
         {
@@ -169,8 +175,9 @@ namespace AllOverIt.Pipes.Server
             {
                 var connection = Connections[0];
 
-                // DoOnClientDisconnected() will be invoked, removing it from the list of connections
-                await connection.DisconnectAsync().ConfigureAwait(false);
+                // Disposing the connection will disconnect it and DoOnClientDisconnected() will be invoked,
+                // removing it from the list of connections.
+                await connection.DisposeAsync().ConfigureAwait(false);
             }
         }
 
@@ -206,7 +213,7 @@ namespace AllOverIt.Pipes.Server
             {
                 connections = Connections
                     .Where(connection => connection.IsConnected && predicate.Invoke(connection))
-                    .ToList();
+                    .AsReadOnlyCollection();
             }
 
             // TODO: Make the degree of parallelism configurable
@@ -253,7 +260,12 @@ namespace AllOverIt.Pipes.Server
             }
         }
 
-        private void DoOnClientDisconnected(ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>> args)
+        private void DoOnConnectionMessageReceived(object sender, ConnectionMessageEventArgs<TMessage, IPipeServerConnection<TMessage>> args)
+        {
+            OnMessageReceived?.Invoke(this, args);
+        }
+
+        private void DoOnConnectionDisconnected(object sender, ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>> args)
         {
             OnClientDisconnected?.Invoke(this, args);
 
@@ -266,12 +278,12 @@ namespace AllOverIt.Pipes.Server
             });
         }
 
-        private void DoOnMessageReceived(ConnectionMessageEventArgs<TMessage, IPipeServerConnection<TMessage>> args)
+        private void DoOnConnectionException(object sender, ConnectionExceptionEventArgs<TMessage, IPipeServerConnection<TMessage>> args)
         {
-            OnMessageReceived?.Invoke(this, args);
+            DoOnException(args.Exception);
         }
 
-        private void DoOnConnectionException(Exception exception)
+        private void DoOnException(Exception exception)
         {
             var onException = OnException;
 

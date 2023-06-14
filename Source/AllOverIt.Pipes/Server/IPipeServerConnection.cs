@@ -4,7 +4,7 @@ using System;
 
 namespace AllOverIt.Pipes.Server
 {
-    public interface IPipeServerConnection<TMessage> : IPipeConnection<TMessage>
+    public interface IPipeServerConnection<TMessage> : IConnectablePipeConnection<TMessage>
     {
         /// <summary>Event raised when a message is received from the other end of the pipe. Messages are raised
         /// on a background task.</summary>
