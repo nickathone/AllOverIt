@@ -34,7 +34,7 @@ namespace AllOverIt.Process
             }
         }
 
-        internal SystemProcess _process = new();
+        internal SystemProcess _process;
         internal readonly ProcessExecutorOptions _options;
 
         /// <summary>Constructor.</summary>
@@ -43,21 +43,7 @@ namespace AllOverIt.Process
         {
             _options = options.WhenNotNull(nameof(options));
 
-            _process.StartInfo.UseShellExecute = false;
-            _process.StartInfo.CreateNoWindow = true;
-            _process.StartInfo.RedirectStandardError = true;
-            _process.StartInfo.RedirectStandardOutput = true;
-            _process.StartInfo.WorkingDirectory = _options.WorkingDirectory;
-            _process.StartInfo.FileName = _options.ProcessFileName;
-            _process.StartInfo.Arguments = _options.Arguments;
-
-            if (_options.EnvironmentVariables.IsNotNullOrEmpty())
-            {
-                foreach (var (key, value) in _options.EnvironmentVariables)
-                {
-                    _process.StartInfo.EnvironmentVariables.Add(key, value);
-                }
-            }
+            _process = ProcessFactory.CreateProcess(_options);
         }
 
         /// <inheritdoc />

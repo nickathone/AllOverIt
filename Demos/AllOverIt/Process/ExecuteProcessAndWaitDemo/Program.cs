@@ -11,6 +11,12 @@ namespace ExecuteProcessAndWaitDemo
     {
         static async Task Main()
         {
+            // Example of launching a process without waiting
+            // var process = ProcessBuilder
+            //     .For("notepad.exe")
+            //     .WithWorkingDirectory(@"C:\Windows")
+            //     .Start();
+
             Console.WriteLine("Close notepad within 10 seconds so this console application can complete");
 
             var cts = new CancellationTokenSource(10000);
@@ -39,9 +45,10 @@ namespace ExecuteProcessAndWaitDemo
 
             //        var r2 = await p.ExecuteBufferedAsync(new CancellationTokenSource(timeoutMilliseconds).Token);
 
-
             try
             {
+                // The commented code below shows an alternative approach to capturing the output.
+
                 var process = ProcessBuilder
                     .For("notepad.exe")
                     .WithWorkingDirectory(@"C:\Windows")
@@ -66,6 +73,8 @@ namespace ExecuteProcessAndWaitDemo
 
         private static async Task CaptureCmdOutputAsync(CancellationToken cancellationToken)
         {
+            // The commented code below shows an alternative approach to capturing the output.
+
             var process = ProcessBuilder
                 .For("cmd.exe")
                 .WithArguments("/c", "dir", "/s")

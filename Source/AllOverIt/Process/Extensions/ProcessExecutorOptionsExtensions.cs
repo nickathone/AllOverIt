@@ -129,5 +129,16 @@ namespace AllOverIt.Process.Extensions
         {
             return new ProcessExecutor(options);
         }
+
+        /// <summary>Starts a configured process without waiting for it to exit.</summary>
+        /// <returns>The backing <see cref="System.Diagnostics.Process"/> that has been started.</returns>
+        public static System.Diagnostics.Process Start(this ProcessExecutorOptions options)
+        {
+            var process = ProcessFactory.CreateProcess(options);
+            
+            process.Start();
+            
+            return process;
+        }
     }
 }
