@@ -4,7 +4,7 @@ namespace AllOverIt.Pipes.Server
 {
     public static class PipeServerFactory
     {
-        public static NamedPipeServerStream Create(string pipeName, PipeSecurity pipeSecurity = null)
+        public static NamedPipeServerStream Create(string pipeName, PipeSecurity pipeSecurity = default)
         {
             return NamedPipeServerStreamAcl.Create(
                 pipeName: pipeName,
@@ -14,7 +14,9 @@ namespace AllOverIt.Pipes.Server
                 options: PipeOptions.Asynchronous | PipeOptions.WriteThrough,
                 inBufferSize: 0,
                 outBufferSize: 0,
-                pipeSecurity: pipeSecurity);
+                pipeSecurity: pipeSecurity,
+                inheritability: System.IO.HandleInheritability.None,
+                additionalAccessRights: default);
         }
     }
 }

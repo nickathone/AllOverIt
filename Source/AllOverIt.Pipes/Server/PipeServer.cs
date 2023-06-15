@@ -64,13 +64,13 @@ namespace AllOverIt.Pipes.Server
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
 
-        public void Start(Action<PipeSecurity> securityConfiguration)
+        public void Start(Action<PipeSecurity> pipeSecurity)
         {
-            _ = securityConfiguration.WhenNotNull(nameof(securityConfiguration));
+            _ = pipeSecurity.WhenNotNull(nameof(pipeSecurity));
 
             var security = new PipeSecurity();
             
-            securityConfiguration.Invoke(security);
+            pipeSecurity.Invoke(security);
 
             Start(security);
         }
@@ -170,14 +170,9 @@ namespace AllOverIt.Pipes.Server
             }
 
             // We don't need to lock since no new connections are possible.
-            // Can't use foreach() as the collection is modified.
-            while (Connections.Any())
+            if (Connections.Any())
             {
-                var connection = Connections[0];
-
-                // Disposing the connection will disconnect it and DoOnClientDisconnected() will be invoked,
-                // removing it from the list of connections.
-                await connection.DisposeAsync().ConfigureAwait(false);
+                await Connections.DisposeAllAsync().ConfigureAwait(false);
             }
         }
 

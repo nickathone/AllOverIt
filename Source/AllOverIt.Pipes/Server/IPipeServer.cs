@@ -15,20 +15,16 @@ namespace AllOverIt.Pipes.Server
         /// <summary>The name of the pipe.</summary>
         string PipeName { get; }
 
-        /// <summary>Indicates if the server
-        /// 
-        /// </summary>
+        /// <summary>Indicates if the server has started and is actively allowing client connections.</summary>
         bool IsActive { get; }
 
+        /// <summary>Starts listening for new pipe client connections.</summary>
+        /// <param name="pipeSecurity">Access control and audit security that allows or denies new pipe client connections.</param>
+        void Start(Action<PipeSecurity> pipeSecurity);
 
-        void Start(Action<PipeSecurity> securityConfiguration);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <summary>Starts listening for new pipe client connections.</summary>
+        /// <param name="pipeSecurity">Access control and audit security that allows or denies new pipe client connections.</param>
         void Start(PipeSecurity pipeSecurity = null);
-
 
         /// <summary>Closes all client connections and stops listening for new connections.</summary>
         Task StopAsync();

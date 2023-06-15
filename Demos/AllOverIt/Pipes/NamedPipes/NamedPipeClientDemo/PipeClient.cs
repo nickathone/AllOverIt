@@ -13,9 +13,15 @@ using System.Threading.Tasks;
 
 namespace NamedPipeDemo
 {
-    internal static class PipeClient
+    internal class PipeClient
     {
-        public static async Task RunAsync(string pipeName, bool useCustomReaderWriter = true)
+        private IDisposable _pingSubscription;
+
+        private PipeClient()
+        {            
+        }
+
+        public static Task RunAsync(string pipeName, bool useCustomReaderWriter = true)
         {
             // If the custom reader/writers are not register then a DynamicBinaryValueReader / DynamicBinaryValueWriter
             // will be created by EnrichedBinaryReader / EnrichedBinaryWriter. The customer reader / writer will be
@@ -25,6 +31,13 @@ namespace NamedPipeDemo
                 ? new PipeMessageSerializer()
                 : new BinaryMessageSerializer<PipeMessage>();
 
+            var pipeClient = new PipeClient();
+
+            return pipeClient.RunAsync(pipeName, serializer);
+        }
+
+        private async Task RunAsync(string pipeName, IMessageSerializer<PipeMessage> serializer)
+        {
             try
             {
                 using (var source = new CancellationTokenSource())
@@ -34,11 +47,9 @@ namespace NamedPipeDemo
 
                     await using var client = new PipeClient<PipeMessage>(pipeName, serializer);
 
-                    client.OnConnected += DoOnClientConnected;
-                    client.OnDisconnected += DoOnClientDisconnected;
-                    
-                    client.OnMessageReceived += (o, args) => PipeLogger.Append(ConsoleColor.Red, $"Received: {args.Message}");
-
+                    client.OnConnected += DoOnConnected;
+                    client.OnDisconnected += DoOnDisconnected;
+                    client.OnMessageReceived += DoOnMessageReceived;
                     client.OnException += (o, args) => DoOnException(args.Exception);
 
                     _ = Task.Run(async () =>
@@ -109,24 +120,28 @@ namespace NamedPipeDemo
             }
         }
 
-        private static void DoOnClientConnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
+        private static void DoOnConnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
         {
             Console.WriteLine("Connected to server");
-
-            SendConnectionRegularMessages(args.Connection);
         }
 
-        private static void DoOnClientDisconnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
+        private void DoOnDisconnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
         {
+            _pingSubscription?.Dispose();
+            _pingSubscription = null;
+
             Console.WriteLine("Disconnected from server");
         }
 
-        private static void SendConnectionRegularMessages(IPipeConnection<PipeMessage> connection)
+        private void DoOnMessageReceived(object sender, ConnectionMessageEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
         {
-            var subscription = Observable
-                .Interval(TimeSpan.FromMilliseconds(100))
-                .TakeWhile(_ => connection.IsConnected)
-                .Take(5)
+            PipeLogger.Append(ConsoleColor.Green, $"Received: {args.Message}");
+
+            var connection = args.Connection;
+
+            // Ping back
+            _pingSubscription = Observable
+                .Timer(TimeSpan.FromMilliseconds(10))
                 .SelectMany(async async =>
                 {
                     try
@@ -161,7 +176,6 @@ namespace NamedPipeDemo
                 })
                 .Subscribe();
         }
-
 
         private static void DoOnException(Exception exception)
         {
