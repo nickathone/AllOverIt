@@ -5,12 +5,13 @@ using System.Text;
 
 namespace AllOverIt.Pipes.Serialization.Binary
 {
-    public sealed class BinaryMessageSerializer<TMessage> : MessageSerializerBase<TMessage>
+    // Will use dynamic readers / writers if custom readers / writers are not registered
+    public class BinaryMessageSerializer<TMessage> : MessageSerializerBase<TMessage>
     {
         public ICollection<EnrichedBinaryValueReader<TMessage>> Readers { get; } = new List<EnrichedBinaryValueReader<TMessage>>();
         public ICollection<EnrichedBinaryValueWriter<TMessage>> Writers { get; } = new List<EnrichedBinaryValueWriter<TMessage>>();
 
-        protected override byte[] SerializeToBytes(TMessage @object)
+        protected sealed override byte[] SerializeToBytes(TMessage @object)
         {
             using (var stream = new MemoryStream())
             {
@@ -28,7 +29,7 @@ namespace AllOverIt.Pipes.Serialization.Binary
             }
         }
 
-        protected override TMessage DeserializeFromBytes(byte[] bytes)
+        protected sealed override TMessage DeserializeFromBytes(byte[] bytes)
         {
             using (var stream = new MemoryStream(bytes))
             {

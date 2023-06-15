@@ -1,28 +1,13 @@
-﻿using AllOverIt.Pipes.Serialization;
-using AllOverIt.Pipes.Serialization.Binary;
+﻿using AllOverIt.Pipes.Serialization.Binary;
 
 namespace NamedPipeTypes
 {
-    public sealed class PipeMessageSerializer : IMessageSerializer<PipeMessage>
+    public sealed class PipeMessageSerializer : BinaryMessageSerializer<PipeMessage>
     {
-        private readonly BinaryMessageSerializer<PipeMessage> _serializer;   // Inherits IMessageSerializer<PipeMessage>
-
         public PipeMessageSerializer()
         {
-            _serializer = new BinaryMessageSerializer<PipeMessage>();
-
-            _serializer.Readers.Add(new PipeMessageReader());
-            _serializer.Writers.Add(new PipeMessageWriter());
-        }
-
-        public PipeMessage Deserialize(byte[] bytes)
-        {
-            return _serializer.Deserialize(bytes);
-        }
-
-        public byte[] Serialize(PipeMessage @object)
-        {
-            return _serializer.Serialize(@object);
+            Readers.Add(new PipeMessageReader());
+            Writers.Add(new PipeMessageWriter());
         }
     }
 }
