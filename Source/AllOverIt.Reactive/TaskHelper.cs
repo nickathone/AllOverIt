@@ -17,8 +17,7 @@ namespace AllOverIt.Reactive
 
             Observable
                .FromAsync(action.Invoke)
-               .Subscribe()
-               .Dispose();
+               .Subscribe();
         }
 
         /// <summary>Asynchronously invokes the provided <paramref name="action"/> while ensuring exceptions are re-raised.
@@ -34,8 +33,7 @@ namespace AllOverIt.Reactive
 
             Observable
                .FromAsync(action.Invoke)
-               .Subscribe(result => returnValue = result)
-               .Dispose();
+               .Subscribe(result => returnValue = result);
             
             return returnValue;
         }
