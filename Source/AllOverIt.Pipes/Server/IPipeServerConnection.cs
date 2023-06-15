@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Pipes.Connection;
 using AllOverIt.Pipes.Events;
 using System;
+using System.IO;
 
 namespace AllOverIt.Pipes.Server
 {

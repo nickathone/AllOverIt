@@ -122,7 +122,7 @@ namespace NamedPipeDemo
 
         private static void DoOnConnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
         {
-            Console.WriteLine("Connected to server");
+            PipeLogger.Append(ConsoleColor.Blue, "Connected to server");
         }
 
         private void DoOnDisconnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
@@ -130,7 +130,7 @@ namespace NamedPipeDemo
             _pingSubscription?.Dispose();
             _pingSubscription = null;
 
-            Console.WriteLine("Disconnected from server");
+            PipeLogger.Append(ConsoleColor.Magenta, "Disconnected from server");
         }
 
         private void DoOnMessageReceived(object sender, ConnectionMessageEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)

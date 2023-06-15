@@ -144,12 +144,7 @@ namespace NamedPipeDemo
             {
                 try
                 {
-                    // Uncomment to test exception handling
-                    // The call to GetImpersonationUserName() cannot be called until the client sends at least one message
-                    //
-                    // _ = connection.GetImpersonationUserName();
-
-                    Console.WriteLine($"Client {connection.PipeName} is now connected.");
+                    PipeLogger.Append(ConsoleColor.Blue, $"Client {connection.PipeName} is now connected.");
 
                     var pipeMessage = new PipeMessage
                     {
@@ -158,7 +153,7 @@ namespace NamedPipeDemo
 
                     await connection.WriteAsync(pipeMessage).ConfigureAwait(false);
 
-                    PipeLogger.Append(ConsoleColor.Blue, $"Sending : {pipeMessage}");
+                    PipeLogger.Append(ConsoleColor.Green, $"Sending : {pipeMessage}");
                 }
                 catch (Exception exception)
                 {
@@ -175,7 +170,7 @@ namespace NamedPipeDemo
 
             _pingSubscriptions.Remove(connection, out _);
 
-            Console.WriteLine($"Client {args.Connection.PipeName} disconnected");
+            PipeLogger.Append(ConsoleColor.Magenta, $"Client {args.Connection.PipeName} disconnected");
         }
 
         private void DoOnMessageReceived(object sender, ConnectionMessageEventArgs<PipeMessage, IPipeServerConnection<PipeMessage>> args)

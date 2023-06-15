@@ -12,6 +12,7 @@ namespace NamedPipeDemo
 
             await PipeClient.RunAsync(pipeName, Constants.UseCustomReaderWriter).ConfigureAwait(false);
 
+            Console.WriteLine();
             Console.WriteLine("All Over It.");
             Console.ReadKey();
         }
