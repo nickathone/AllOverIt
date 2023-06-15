@@ -22,6 +22,7 @@ namespace NamedPipeDemo
     internal class PipeServer
     {
         private readonly ConcurrentDictionary<IPipeServerConnection<PipeMessage>, IDisposable> _pingSubscriptions = new();
+        private CancellationTokenSource _runningToken;
 
         private PipeServer()
         {
@@ -46,21 +47,23 @@ namespace NamedPipeDemo
         {
             try
             {
-                using (var source = new CancellationTokenSource())
+                using (_runningToken = new CancellationTokenSource())
                 {
-                    Console.WriteLine($"Running in SERVER mode. PipeName: {pipeName}");
-                    Console.WriteLine("Enter 'quit' to exit");
+                    PipeLogger.Append(ConsoleColor.Gray, $"Running in SERVER mode. PipeName: {pipeName}");
+                    PipeLogger.Append(ConsoleColor.Gray, "Enter 'quit' to exit");
 
                     await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
                     {
+                        PipeLogger.Append(ConsoleColor.Gray, "Server starting...");
+
                         server.OnClientConnected += DoOnClientConnected;
                         server.OnClientDisconnected += DoOnClientDisconnected;
                         server.OnMessageReceived += DoOnMessageReceived;
                         server.OnException += (_, args) => OnException(args.Exception);
 
-                        _ = Task.Run(async () =>
+                        var runningTask = Task.Run(async () =>
                         {
-                            while (!source.Token.IsCancellationRequested)
+                            while (!_runningToken.Token.IsCancellationRequested)
                             {
                                 try
                                 {
@@ -68,14 +71,14 @@ namespace NamedPipeDemo
 
                                     if (message == "quit")
                                     {
-                                        source.Cancel();
+                                        _runningToken.Cancel();
 
-                                        Console.WriteLine("Quiting...");
+                                        PipeLogger.Append(ConsoleColor.Gray, "Quiting...");
 
                                         break;
                                     }
 
-                                    // Console.WriteLine($"Sent to {server.ConnectedClients.Count} clients");
+                                    // PipeLogger.Append(ConsoleColor.Gray, $"Sent to {server.ConnectedClients.Count} clients");
 
                                     var pipeMessage = new PipeMessage
                                     {
@@ -84,16 +87,14 @@ namespace NamedPipeDemo
 
                                     PipeLogger.Append(ConsoleColor.Red, $" >> Sent with Id {pipeMessage}");
 
-                                    await server.WriteAsync(pipeMessage, source.Token).ConfigureAwait(false);
+                                    await server.WriteAsync(pipeMessage, _runningToken.Token).ConfigureAwait(false);
                                 }
                                 catch (Exception exception)
                                 {
                                     OnException(exception);
                                 }
                             }
-                        }, source.Token);
-
-                        Console.WriteLine("Server starting...");
+                        }, _runningToken.Token);
 
                         server.Start(pipeSecurity =>
                         {
@@ -102,15 +103,17 @@ namespace NamedPipeDemo
 #pragma warning restore CA1416 // Validate platform compatibility
                         });
 
-                        Console.WriteLine("Server is started!");
+                        PipeLogger.Append(ConsoleColor.Gray, "Server is started!");
 
                         // Wait until the user quits
-                        await WaitForCancellationAsync(source.Token).ConfigureAwait(false);
+                        await RunUntilUserQuits().ConfigureAwait(false);
+
+                        await runningTask.ConfigureAwait(false);
 
                         // When the server is disposed it will shut down or we can explicitly disconnect all clients first
                         await server.StopAsync().ConfigureAwait(false);
 
-                        Console.WriteLine("Disposing Server...");
+                        PipeLogger.Append(ConsoleColor.Gray, "Disposing Server...");
                     }
                 }
             }
@@ -122,14 +125,14 @@ namespace NamedPipeDemo
                 OnException(exception);
             }
 
-            Console.WriteLine("Server Stopped!");
+            PipeLogger.Append(ConsoleColor.Gray, "Server Stopped!");
         }
 
-        private static async Task WaitForCancellationAsync(CancellationToken cancellationToken)
+        private async Task RunUntilUserQuits()
         {
             try
             {
-                await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken).ConfigureAwait(false);
+                await Task.Delay(Timeout.InfiniteTimeSpan, _runningToken.Token).ConfigureAwait(false);
             }
             catch (OperationCanceledException)
             {
@@ -179,6 +182,12 @@ namespace NamedPipeDemo
 
             PipeLogger.Append(ConsoleColor.Yellow, $"Received: {args.Message} from {connection.PipeName} (as '{connection.GetImpersonationUserName()}')");
 
+            if (_runningToken.Token.IsCancellationRequested)
+            {
+                _pingSubscriptions.Remove(connection, out _);
+                return;
+            }
+
             // Ping back
             var subscription = Observable
                 .Timer(TimeSpan.FromMilliseconds(10))
@@ -209,7 +218,7 @@ namespace NamedPipeDemo
                     {
                         // It's possible an internal semaphore in PipeStreamWriter may throw an ObjectDisposedException
                         // if the server is terminated and the pipe is broken.
-                        Console.WriteLine(exception.Message);
+                        PipeLogger.Append(ConsoleColor.Gray, exception.Message);
                     }
 
                     return Unit.Default;
