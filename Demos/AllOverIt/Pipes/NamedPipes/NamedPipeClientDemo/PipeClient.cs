@@ -39,13 +39,13 @@ namespace NamedPipeDemo
 
         private async Task RunAsync(string pipeName, IMessageSerializer<PipeMessage> serializer)
         {
+            PipeLogger.Append(ConsoleColor.Gray, $"Running in CLIENT mode. PipeName: {pipeName}");
+            PipeLogger.Append(ConsoleColor.Gray, "Enter 'quit' to exit");
+
             try
             {
                 using (_runningToken = new CancellationTokenSource())
                 {
-                    PipeLogger.Append(ConsoleColor.Gray, $"Running in CLIENT mode. PipeName: {pipeName}");
-                    PipeLogger.Append(ConsoleColor.Gray, "Enter 'quit' to exit");
-
                     await using var client = new PipeClient<PipeMessage>(pipeName, serializer);
 
                     client.OnConnected += DoOnConnected;
@@ -92,7 +92,7 @@ namespace NamedPipeDemo
 
                     PipeLogger.Append(ConsoleColor.Gray, "Client connected");
 
-                    await RunUntilUserQuits().ConfigureAwait(false);
+                    await WaitForUserQuit().ConfigureAwait(false);
 
                     await runningTask.ConfigureAwait(false);
 
@@ -111,7 +111,7 @@ namespace NamedPipeDemo
             }
         }
 
-        private async Task RunUntilUserQuits()
+        private async Task WaitForUserQuit()
         {
             try
             {

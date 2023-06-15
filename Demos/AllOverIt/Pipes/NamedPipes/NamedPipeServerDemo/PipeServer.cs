@@ -45,13 +45,13 @@ namespace NamedPipeDemo
 
         private async Task RunAsync(string pipeName, IMessageSerializer<PipeMessage> serializer)
         {
+            PipeLogger.Append(ConsoleColor.Gray, $"Running in SERVER mode. PipeName: {pipeName}");
+            PipeLogger.Append(ConsoleColor.Gray, "Enter 'quit' to exit");
+
             try
             {
                 using (_runningToken = new CancellationTokenSource())
                 {
-                    PipeLogger.Append(ConsoleColor.Gray, $"Running in SERVER mode. PipeName: {pipeName}");
-                    PipeLogger.Append(ConsoleColor.Gray, "Enter 'quit' to exit");
-
                     await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
                     {
                         PipeLogger.Append(ConsoleColor.Gray, "Server starting...");
@@ -59,7 +59,7 @@ namespace NamedPipeDemo
                         server.OnClientConnected += DoOnClientConnected;
                         server.OnClientDisconnected += DoOnClientDisconnected;
                         server.OnMessageReceived += DoOnMessageReceived;
-                        server.OnException += (_, args) => OnException(args.Exception);
+                        server.OnException += (_, args) => DoOnException(args.Exception);
 
                         var runningTask = Task.Run(async () =>
                         {
@@ -91,7 +91,7 @@ namespace NamedPipeDemo
                                 }
                                 catch (Exception exception)
                                 {
-                                    OnException(exception);
+                                    DoOnException(exception);
                                 }
                             }
                         }, _runningToken.Token);
@@ -106,7 +106,7 @@ namespace NamedPipeDemo
                         PipeLogger.Append(ConsoleColor.Gray, "Server is started!");
 
                         // Wait until the user quits
-                        await RunUntilUserQuits().ConfigureAwait(false);
+                        await WaitForUserQuit().ConfigureAwait(false);
 
                         await runningTask.ConfigureAwait(false);
 
@@ -122,13 +122,13 @@ namespace NamedPipeDemo
             }
             catch (Exception exception)
             {
-                OnException(exception);
+                DoOnException(exception);
             }
 
             PipeLogger.Append(ConsoleColor.Gray, "Server Stopped!");
         }
 
-        private async Task RunUntilUserQuits()
+        private async Task WaitForUserQuit()
         {
             try
             {
@@ -162,7 +162,7 @@ namespace NamedPipeDemo
                 {
                     await connection.DisconnectAsync().ConfigureAwait(false);
 
-                    OnException(exception);
+                    DoOnException(exception);
                 }
             });
         }
@@ -228,7 +228,7 @@ namespace NamedPipeDemo
             _pingSubscriptions.AddOrUpdate(connection, c => subscription, (c, d) => subscription);
         }
 
-        private static void OnException(Exception exception)
+        private static void DoOnException(Exception exception)
         {
             Console.Error.WriteLine($"Exception: {exception}");
         }
