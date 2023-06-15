@@ -36,18 +36,6 @@ namespace AllOverIt.Pipes.Server
             return serverStream.GetImpersonationUserName();
         }
 
-        protected override void DoOnDisconnected()
-        {
-            var onDisconnected = OnDisconnected;
-
-            if (onDisconnected is not null)
-            {
-                var args = new ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>>(this);
-
-                onDisconnected.Invoke(this, args);
-            }
-        }
-
         protected override void DoOnMessageReceived(TMessage message)
         {
             var onMessageReceived = OnMessageReceived;
@@ -57,6 +45,18 @@ namespace AllOverIt.Pipes.Server
                 var args = new ConnectionMessageEventArgs<TMessage, IPipeServerConnection<TMessage>>(this, message);
 
                 onMessageReceived.Invoke(this, args);
+            }
+        }
+
+        protected override void DoOnDisconnected()
+        {
+            var onDisconnected = OnDisconnected;
+
+            if (onDisconnected is not null)
+            {
+                var args = new ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>>(this);
+
+                onDisconnected.Invoke(this, args);
             }
         }
 

@@ -27,18 +27,6 @@ namespace AllOverIt.Pipes.Client
             ServerName = serverName.WhenNotNullOrEmpty(nameof(serverName));
         }
 
-        protected override void DoOnDisconnected()
-        {
-            var onDisconnected = OnDisconnected;
-
-            if (onDisconnected is not null)
-            {
-                var args = new ConnectionEventArgs<TMessage, IPipeClientConnection<TMessage>>(this);
-
-                onDisconnected.Invoke(this, args);
-            }
-        }
-
         protected override void DoOnMessageReceived(TMessage message)
         {
             var onMessageReceived = OnMessageReceived;
@@ -48,6 +36,18 @@ namespace AllOverIt.Pipes.Client
                 var args = new ConnectionMessageEventArgs<TMessage, IPipeClientConnection<TMessage>>(this, message);
 
                 onMessageReceived.Invoke(this, args);
+            }
+        }
+
+        protected override void DoOnDisconnected()
+        {
+            var onDisconnected = OnDisconnected;
+
+            if (onDisconnected is not null)
+            {
+                var args = new ConnectionEventArgs<TMessage, IPipeClientConnection<TMessage>>(this);
+
+                onDisconnected.Invoke(this, args);
             }
         }
 

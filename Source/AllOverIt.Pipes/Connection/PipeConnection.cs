@@ -1,6 +1,5 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Async;
-using AllOverIt.Pipes.Events;
 using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Serialization;
 using System;

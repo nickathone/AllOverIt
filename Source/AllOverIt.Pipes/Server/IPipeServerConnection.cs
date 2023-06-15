@@ -19,8 +19,8 @@ namespace AllOverIt.Pipes.Server
 
         /// <summary>Gets the username of the connected client. The client's username will not be available until it has 
         /// written at least once to the pipe (and has set its impersonation level appropriately).</summary>
-        /// <returns>The username of the connected client or an <see cref="IOException"/> if the client has not yet
-        /// written to the pipe.</returns>
+        /// <returns>The username of the connected client.</returns>
+        /// <exception cref="IOException">If the client has not yet written to the pipe.</exception>
         string GetImpersonationUserName();
     }
 }
