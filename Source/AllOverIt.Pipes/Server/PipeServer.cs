@@ -85,6 +85,8 @@ namespace AllOverIt.Pipes.Server
             {
                 while (!token.IsCancellationRequested)
                 {
+                    PipeServerConnection<TMessage> connection = null;
+
                     try
                     {
                         var connectionPipeName = $"{Guid.NewGuid()}";
@@ -119,7 +121,7 @@ namespace AllOverIt.Pipes.Server
                         }
 
                         // Add the client's connection to the list of connections
-                        var connection = new PipeServerConnection<TMessage>(connectionStream, connectionPipeName, _serializer);
+                        connection = new PipeServerConnection<TMessage>(connectionStream, connectionPipeName, _serializer);
 
                         connection.OnMessageReceived += DoOnConnectionMessageReceived;
                         connection.OnDisconnected += DoOnConnectionDisconnected;
@@ -132,32 +134,17 @@ namespace AllOverIt.Pipes.Server
                     catch (OperationCanceledException)
                     {
                     }
+                    catch (Exception exception)
+                    {
+                        if (connection is not null)
+                        {
+                            await connection.DisposeAsync().ConfigureAwait(false);
+                        }
 
-
-
-                    //// Catch the IOException that is raised if the pipe is broken or disconnected.
-                    //catch (IOException)
-                    //{
-                    //    // TODO: should be reported - for example, cannot get impersonated user until data has been read from the stream
-
-                    //    await Task.Yield();
-                    //}
-
-
-
-                    // allow this to go through the exception handler
-                    //catch (Exception exception)
-                    //{
-                    //    OnExceptionOccurred(exception);
-                    //    break;
-                    //}
+                        DoOnException(exception);
+                    }
                 }
-            },
-            edi =>
-            {
-                DoOnException(edi.SourceException);
-                return true;
-            });        // TODO: Need to raise exception event
+            });
         }
 
         public async Task StopAsync()

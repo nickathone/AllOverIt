@@ -145,6 +145,8 @@ namespace NamedPipeDemo
                 try
                 {
                     // Uncomment to test exception handling
+                    // The call to GetImpersonationUserName() cannot be called until the client sends at least one message
+                    //
                     // _ = connection.GetImpersonationUserName();
 
                     Console.WriteLine($"Client {connection.PipeName} is now connected.");
@@ -160,6 +162,8 @@ namespace NamedPipeDemo
                 }
                 catch (Exception exception)
                 {
+                    await connection.DisconnectAsync().ConfigureAwait(false);
+
                     OnException(exception);
                 }
             });

@@ -19,7 +19,7 @@ namespace AllOverIt.Pipes.Connection
         private BackgroundTask _backgroundReader;
         private PipeReaderWriter _pipeReaderWriter;
 
-        // A NamedPipeClientStream or NamedPipeServerStream
+        // Will be a NamedPipeClientStream or NamedPipeServerStream
         protected PipeStream PipeStream { get; private set; }
 
         /// <inheritdoc />
@@ -36,10 +36,11 @@ namespace AllOverIt.Pipes.Connection
         }
 
         /// <inheritdoc />
-        public void Connect()           // Cannot be re-connectd once disconnected
+        /// <remarks>A connection cannot be re-established after it has been disconnected.</remarks>
+        public void Connect()
         {
-            // TODO: Custom exception
-            Throw<InvalidOperationException>.WhenNotNull(_backgroundReader, "The connection is already open.");
+            Throw<PipeConnectionException>.WhenNotNull(_backgroundReader, "The connection is already open.");
+            Throw<PipeConnectionException>.WhenNull(PipeStream, "The connection cannot be opened after it has been disconnected.");
 
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -69,20 +70,25 @@ namespace AllOverIt.Pipes.Connection
                         // PipeStreamReader will throw IOException if an expected byte count is not received.
                         // This can occur if the connection is killed during communication. Fall through so
                         // the connection is treated as disconnected.
+
+                        // Make sure the PipeStream and associated reader/writer are disposed so IsConnected is reported as false
+                        await DisposePipeStreamResources().ConfigureAwait(false);
                     }
                     catch (OperationCanceledException)
                     {
                     }
+                    catch (Exception ex)
+                    {
+
+                        // Make sure the PipeStream and associated reader/writer are disposed so IsConnected is reported as false
+                        await DisposePipeStreamResources().ConfigureAwait(false);
+
+                        DoOnException(ex);
+                    }
                 }
 
                 DoOnDisconnected();
-            },
-            edi =>
-            {
-                DoOnException(edi.SourceException);
-                return true;
-            },
-            _cancellationTokenSource.Token);
+            }, _cancellationTokenSource.Token);
         }
 
         /// <inheritdoc />
@@ -95,11 +101,7 @@ namespace AllOverIt.Pipes.Connection
                 await _backgroundReader.DisposeAsync().ConfigureAwait(false);
                 _backgroundReader = null;
 
-                await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
-                _pipeReaderWriter = null;
-
-                await PipeStream.DisposeAsync().ConfigureAwait(false);
-                PipeStream = null;
+                await DisposePipeStreamResources().ConfigureAwait(false);
 
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = null;
@@ -130,5 +132,14 @@ namespace AllOverIt.Pipes.Connection
         protected abstract void DoOnDisconnected();
         protected abstract void DoOnMessageReceived(TMessage message);
         protected abstract void DoOnException(Exception exception);
+
+        private async Task DisposePipeStreamResources()
+        {
+            await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
+            _pipeReaderWriter = null;
+
+            await PipeStream.DisposeAsync().ConfigureAwait(false);
+            PipeStream = null;
+        }
     }
 }
