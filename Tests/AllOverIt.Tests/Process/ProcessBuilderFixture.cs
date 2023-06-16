@@ -59,6 +59,7 @@ namespace AllOverIt.Tests.Process
                 ProcessFileName = processFileName,
                 WorkingDirectory = (string) default,
                 Arguments = (string) default,
+                NoWindow = (bool) default,
                 Timeout = (TimeSpan) default,
                 EnvironmentVariables = (IDictionary<string, string>) default,
                 StandardOutputHandler = (DataReceivedEventHandler) default,

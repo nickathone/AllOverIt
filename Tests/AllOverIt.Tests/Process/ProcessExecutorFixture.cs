@@ -44,10 +44,10 @@ namespace AllOverIt.Tests.Process
             var expected = new
             {
                 UseShellExecute = false,
-                CreateNoWindow = true,
+                CreateNoWindow = false,
                 RedirectStandardInput = false,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true,
+                RedirectStandardError = false,
+                RedirectStandardOutput = false,
                 StandardInputEncoding = (Encoding) default,
                 StandardErrorEncoding = (Encoding) default,
                 StandardOutputEncoding = (Encoding) default,
@@ -97,10 +97,10 @@ namespace AllOverIt.Tests.Process
             var expected = new
             {
                 UseShellExecute = false,
-                CreateNoWindow = true,
+                CreateNoWindow = false,
                 RedirectStandardInput = false,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true,
+                RedirectStandardError = false,
+                RedirectStandardOutput = false,
                 StandardInputEncoding = (Encoding) default,
                 StandardErrorEncoding = (Encoding) default,
                 StandardOutputEncoding = (Encoding) default,
