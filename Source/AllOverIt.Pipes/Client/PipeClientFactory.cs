@@ -16,19 +16,19 @@ namespace AllOverIt.Pipes.Client
 
         public static async Task<NamedPipeClientStream> CreateAndConnectAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
         {
-            var pipe = Create(pipeName, serverName);
+            var pipeStream = CreateNamedPipeClientStream(pipeName, serverName);
 
             try
             {
-                await pipe
+                await pipeStream
                     .ConnectAsync(cancellationToken)
                     .ConfigureAwait(false);
 
-                return pipe;
+                return pipeStream;
             }
             catch
             {
-                await pipe
+                await pipeStream
                     .DisposeAsync()
                     .ConfigureAwait(false);
 
@@ -36,7 +36,7 @@ namespace AllOverIt.Pipes.Client
             }
         }
 
-        public static NamedPipeClientStream Create(string pipeName, string serverName)
+        private static NamedPipeClientStream CreateNamedPipeClientStream(string pipeName, string serverName)
         {
             return new NamedPipeClientStream(
                 serverName,

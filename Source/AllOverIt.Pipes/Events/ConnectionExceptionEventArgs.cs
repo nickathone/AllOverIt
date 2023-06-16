@@ -1,9 +1,15 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Pipes.Client;
 using AllOverIt.Pipes.Connection;
+using AllOverIt.Pipes.Server;
 using System;
 
 namespace AllOverIt.Pipes.Events
 {
+    /// <summary>Defines pipe connection event arguments for when an exception is raised.</summary>
+    /// <typeparam name="TMessage">The message type serialized on the pipe connection.</typeparam>
+    /// <typeparam name="TPipeConnection">The connection type. This will be <see cref="IPipeServerConnection{TMessage}"/> or
+    /// <see cref="IPipeClientConnection{TMessage}"/>.</typeparam>
     public sealed class ConnectionExceptionEventArgs<TMessage, TPipeConnection> : ConnectionEventArgs<TMessage, TPipeConnection>
         where TPipeConnection : class, IPipeConnection<TMessage>
     {

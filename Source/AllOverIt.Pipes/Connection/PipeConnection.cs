@@ -65,20 +65,15 @@ namespace AllOverIt.Pipes.Connection
 
                         DoOnMessageReceived(@object);
                     }
-                    catch (IOException)
+                    catch (OperationCanceledException)
+                    {
+                    }
+                    catch (Exception ex)    // IOException or any other
                     {
                         // PipeStreamReader will throw IOException if an expected byte count is not received.
                         // This can occur if the connection is killed during communication. Fall through so
                         // the connection is treated as disconnected.
 
-                        // Make sure the PipeStream and associated reader/writer are disposed so IsConnected is reported as false
-                        await DisposePipeStreamResources().ConfigureAwait(false);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                    }
-                    catch (Exception ex)
-                    {
 
                         // Make sure the PipeStream and associated reader/writer are disposed so IsConnected is reported as false
                         await DisposePipeStreamResources().ConfigureAwait(false);

@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Pipes.Client;
-using AllOverIt.Pipes.Connection;
 using AllOverIt.Pipes.Events;
 using AllOverIt.Pipes.Serialization;
 using AllOverIt.Pipes.Serialization.Binary;
@@ -51,7 +50,7 @@ namespace NamedPipeDemo
                     client.OnConnected += DoOnConnected;
                     client.OnDisconnected += DoOnDisconnected;
                     client.OnMessageReceived += DoOnMessageReceived;
-                    client.OnException += (o, args) => DoOnException(args.Exception);
+                    client.OnException += DoOnException;
 
                     var runningTask = Task.Run(async () =>
                     {
@@ -95,6 +94,11 @@ namespace NamedPipeDemo
                     await WaitForUserQuit().ConfigureAwait(false);
 
                     await runningTask.ConfigureAwait(false);
+
+                    client.OnConnected -= DoOnConnected;
+                    client.OnDisconnected -= DoOnDisconnected;
+                    client.OnMessageReceived -= DoOnMessageReceived;
+                    client.OnException -= DoOnException;
 
                     // When the client is disposed it will shut down
                     PipeLogger.Append(ConsoleColor.Gray, "Disposing Client...");
@@ -187,6 +191,11 @@ namespace NamedPipeDemo
         private static void DoOnException(Exception exception)
         {
             Console.Error.WriteLine($"Exception: {exception}");
+        }
+
+        private void DoOnException(object sender, ExceptionEventArgs args)
+        {
+            DoOnException(args.Exception);
         }
     }   
 }

@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Pipes.Connection;
 using AllOverIt.Pipes.Events;
 using AllOverIt.Pipes.Serialization;
 using AllOverIt.Pipes.Server;
@@ -104,13 +103,13 @@ namespace AllOverIt.Pipes.Client
                 var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
 
                 // Connect to the actual data pipe
-                var dataPipe = await PipeClientFactory
+                var connectionStream = await PipeClientFactory
                     .CreateAndConnectAsync(connectionPipeName, ServerName, cancellationToken)
                     .ConfigureAwait(false);
 
 
                 // TODO: Handle cleanup if exception occurs after this
-                _connection = new PipeClientConnection<TMessage>(dataPipe, connectionPipeName, _serializer, ServerName);
+                _connection = new PipeClientConnection<TMessage>(connectionStream, connectionPipeName, _serializer, ServerName);
 
                 _connection.OnMessageReceived += DoOnConnectionMessageReceived;
                 _connection.OnDisconnected += DoOnConnectionDisconnected;
@@ -222,8 +221,8 @@ namespace AllOverIt.Pipes.Client
                 return;
             }
 
-            _connection.OnDisconnected -= DoOnConnectionDisconnected;
             _connection.OnMessageReceived -= DoOnConnectionMessageReceived;
+            _connection.OnDisconnected -= DoOnConnectionDisconnected;
             _connection.OnException -= DoOnConnectionException;
 
             await _connection.DisposeAsync().ConfigureAwait(false);

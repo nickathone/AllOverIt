@@ -4,7 +4,7 @@ namespace AllOverIt.Pipes.Server
 {
     public static class PipeServerFactory
     {
-        public static NamedPipeServerStream Create(string pipeName, PipeSecurity pipeSecurity = default)
+        public static NamedPipeServerStream CreateNamedPipeServerStream(string pipeName, PipeSecurity pipeSecurity = default)
         {
             return NamedPipeServerStreamAcl.Create(
                 pipeName: pipeName,

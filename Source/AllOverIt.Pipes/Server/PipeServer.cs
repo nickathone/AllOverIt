@@ -92,7 +92,7 @@ namespace AllOverIt.Pipes.Server
                         var connectionPipeName = $"{Guid.NewGuid()}";
 
                         // Send the client the name of the data pipe to use
-                        var serverStream = PipeServerFactory.Create(PipeName, pipeSecurity);       // TODO: Allow the factory to provide default security, this will override if not null
+                        var serverStream = PipeServerFactory.CreateNamedPipeServerStream(PipeName, pipeSecurity);       // TODO: Allow the factory to provide default security, this will override if not null
 
                         await using (serverStream)
                         {
@@ -107,7 +107,7 @@ namespace AllOverIt.Pipes.Server
                         }
 
                         // Wait for the client to connect to the data pipe
-                        var connectionStream = PipeServerFactory.Create(connectionPipeName);
+                        var connectionStream = PipeServerFactory.CreateNamedPipeServerStream(connectionPipeName, pipeSecurity);
 
                         try
                         {
@@ -159,6 +159,8 @@ namespace AllOverIt.Pipes.Server
             // We don't need to lock since no new connections are possible.
             if (Connections.Any())
             {
+                // DoOnConnectionDisconnected() will be called for each connection where
+                // its' event handlers are also released.
                 await Connections.DisposeAllAsync().ConfigureAwait(false);
             }
         }
@@ -253,9 +255,15 @@ namespace AllOverIt.Pipes.Server
 
             Reactive.TaskHelper.ExecuteAsyncAndWait(async () =>
             {
+                var connection = args.Connection;
+
+                connection.OnMessageReceived -= DoOnConnectionMessageReceived;
+                connection.OnDisconnected -= DoOnConnectionDisconnected;
+                connection.OnException -= DoOnConnectionException;
+
                 using (await _connectionsLock.GetLockAsync().ConfigureAwait(false))
                 {
-                    Connections.Remove(args.Connection);
+                    Connections.Remove(connection);
                 }
             });
         }

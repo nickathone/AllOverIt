@@ -1,5 +1,4 @@
-﻿using AllOverIt.Pipes.Connection;
-using AllOverIt.Pipes.Events;
+﻿using AllOverIt.Pipes.Events;
 using System;
 
 namespace AllOverIt.Pipes.Client

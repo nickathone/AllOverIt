@@ -59,7 +59,7 @@ namespace NamedPipeDemo
                         server.OnClientConnected += DoOnClientConnected;
                         server.OnClientDisconnected += DoOnClientDisconnected;
                         server.OnMessageReceived += DoOnMessageReceived;
-                        server.OnException += (_, args) => DoOnException(args.Exception);
+                        server.OnException += DoOnException;
 
                         var runningTask = Task.Run(async () =>
                         {
@@ -112,6 +112,11 @@ namespace NamedPipeDemo
 
                         // When the server is disposed it will shut down or we can explicitly disconnect all clients first
                         await server.StopAsync().ConfigureAwait(false);
+
+                        server.OnClientConnected -= DoOnClientConnected;
+                        server.OnClientDisconnected -= DoOnClientDisconnected;
+                        server.OnMessageReceived -= DoOnMessageReceived;
+                        server.OnException -= DoOnException;
 
                         PipeLogger.Append(ConsoleColor.Gray, "Disposing Server...");
                     }
@@ -231,6 +236,11 @@ namespace NamedPipeDemo
         private static void DoOnException(Exception exception)
         {
             Console.Error.WriteLine($"Exception: {exception}");
+        }
+
+        private void DoOnException(object sender, ExceptionEventArgs args)
+        {
+            DoOnException(args.Exception);
         }
     }
 }
