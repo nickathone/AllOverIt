@@ -66,20 +66,8 @@ namespace AllOverIt.Process
         [ExcludeFromCodeCoverage]
         public void Dispose()
         {
-            if (_process is not null)
-            {
-                if (_options.StandardOutputHandler is not null)
-                {
-                    _process.OutputDataReceived -= _options.StandardOutputHandler;
-                }
-
-                if (_options.ErrorOutputHandler is not null)
-                {
-                    _process.ErrorDataReceived -= _options.ErrorOutputHandler;
-                }
-
-                _process.Dispose();
-            }
+            _process?.Close();
+            _process?.Dispose();
 
             _process = null;
         }
