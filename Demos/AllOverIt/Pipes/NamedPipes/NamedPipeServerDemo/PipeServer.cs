@@ -1,8 +1,8 @@
-﻿using AllOverIt.Pipes.Events;
-using AllOverIt.Pipes.Extensions;
+﻿using AllOverIt.Pipes.Named.Events;
+using AllOverIt.Pipes.Named.Extensions;
 using AllOverIt.Pipes.Serialization;
 using AllOverIt.Pipes.Serialization.Binary;
-using AllOverIt.Pipes.Server;
+using AllOverIt.Pipes.Named.Server;
 using AllOverIt.Reactive;
 using NamedPipeTypes;
 using System;

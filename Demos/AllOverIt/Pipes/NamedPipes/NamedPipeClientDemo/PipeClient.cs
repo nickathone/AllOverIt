@@ -1,5 +1,5 @@
-﻿using AllOverIt.Pipes.Client;
-using AllOverIt.Pipes.Events;
+﻿using AllOverIt.Pipes.Named.Client;
+using AllOverIt.Pipes.Named.Events;
 using AllOverIt.Pipes.Serialization;
 using AllOverIt.Pipes.Serialization.Binary;
 using NamedPipeTypes;
