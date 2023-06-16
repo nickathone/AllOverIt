@@ -19,6 +19,9 @@ namespace AllOverIt.Process
         /// <summary>The arguments to be passed to the process being executed.</summary>
         public string Arguments { get; init; }
 
+        /// <summary>Indicates whether to start the process in a new window.</summary>
+        public bool NoWindow { get; init; }
+
         /// <summary>An execution timeout period for the process being executed. This property does not need
         /// to be set if the process is executed with an expiring <see cref="System.Threading.CancellationToken"/>.</summary>
         public TimeSpan Timeout { get; init; }

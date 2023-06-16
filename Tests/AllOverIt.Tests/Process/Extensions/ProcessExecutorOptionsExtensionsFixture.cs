@@ -39,6 +39,7 @@ namespace AllOverIt.Tests.Process.Extensions
                 _sut.ProcessFileName.Should().NotBeNull();
                 _sut.WorkingDirectory.Should().NotBeNull();
                 _sut.Arguments.Should().NotBeNull();
+                _sut.NoWindow.Should().BeFalse();
                 _sut.Timeout.Should().NotBe(default);
                 _sut.EnvironmentVariables.Should().NotBeNull();
                 _sut.StandardOutputHandler.Should().NotBeNull();
@@ -91,6 +92,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     WorkingDirectory = value,
                     _sut.Arguments,
+                    _sut.NoWindow,
                     _sut.Timeout,
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,
@@ -138,6 +140,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     Arguments = string.Join(" ", values),
+                    _sut.NoWindow,
                     _sut.Timeout,
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,
@@ -187,6 +190,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     Arguments = string.Join(" ", values),
+                    _sut.NoWindow,
                     _sut.Timeout,
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,
@@ -208,6 +212,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     Arguments = string.Join(" ", values.Take(3).Concat(new[] { "\"a a\"" })),
+                    _sut.NoWindow,
                     _sut.Timeout,
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,
@@ -215,6 +220,29 @@ namespace AllOverIt.Tests.Process.Extensions
                 };
 
                 var actual = ProcessExecutorOptionsExtensions.WithArguments(_sut, values, true);
+
+                expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
+            }
+        }
+
+        public class WithNoWindow : ProcessExecutorOptionsExtensionsFixture
+        {
+            [Fact]
+            public void Should_Set_NoWindow()
+            {
+                var expected = new
+                {
+                    _sut.ProcessFileName,
+                    _sut.WorkingDirectory,
+                    _sut.Arguments,
+                    NoWindow = true,
+                    _sut.Timeout,
+                    _sut.EnvironmentVariables,
+                    _sut.StandardOutputHandler,
+                    _sut.ErrorOutputHandler
+                };
+
+                var actual = ProcessExecutorOptionsExtensions.WithNoWindow(_sut);
 
                 expected.Should().BeEquivalentTo(actual, options => options.IncludingInternalProperties());
             }
@@ -232,6 +260,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     _sut.Arguments,
+                    _sut.NoWindow,
                     Timeout = value,
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,
@@ -262,6 +291,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     _sut.Arguments,
+                    _sut.NoWindow,
                     Timeout = value,
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,
@@ -309,6 +339,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     _sut.Arguments,
+                    _sut.NoWindow,
                     _sut.Timeout,
                     EnvironmentVariables = value,
                     _sut.StandardOutputHandler,
@@ -359,6 +390,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     sut.ProcessFileName,
                     sut.WorkingDirectory,
                     sut.Arguments,
+                    _sut.NoWindow,
                     sut.Timeout,
                     EnvironmentVariables = values,
                     sut.StandardOutputHandler,
@@ -386,6 +418,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     _sut.Arguments,
+                    _sut.NoWindow,
                     _sut.Timeout,
                     EnvironmentVariables = _sut.EnvironmentVariables.Concat(values).ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
                     _sut.StandardOutputHandler,
@@ -425,6 +458,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     _sut.Arguments,
+                    _sut.NoWindow,
                     _sut.Timeout,
                     _sut.EnvironmentVariables,
                     StandardOutputHandler = (DataReceivedEventHandler) LogStandardOutput2,
@@ -458,6 +492,7 @@ namespace AllOverIt.Tests.Process.Extensions
                     _sut.ProcessFileName,
                     _sut.WorkingDirectory,
                     _sut.Arguments,
+                    _sut.NoWindow,
                     _sut.Timeout,
                     _sut.EnvironmentVariables,
                     _sut.StandardOutputHandler,

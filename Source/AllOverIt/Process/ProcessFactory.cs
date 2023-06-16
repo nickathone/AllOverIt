@@ -12,9 +12,11 @@ namespace AllOverIt.Process
             var process = new SystemProcess();
 
             process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.CreateNoWindow = options.NoWindow;
+
+            // RedirectStandardError and RedirectStandardOutput are set based on 'options' containing
+            // redirect handlers or the executor assigning internal handlers.
+
             process.StartInfo.WorkingDirectory = options.WorkingDirectory;
             process.StartInfo.FileName = options.ProcessFileName;
             process.StartInfo.Arguments = options.Arguments;

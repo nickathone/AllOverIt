@@ -56,6 +56,14 @@ namespace AllOverIt.Process.Extensions
             return options with { Arguments = stringBuilder.ToString() };
         }
 
+        /// <summary>Creates a new <see cref="ProcessExecutorOptions"/> by cloning the provided <paramref name="options"/> and updating the 'NoWindow' option.</summary>
+        /// <param name="options">The options to be cloned.</param>
+        /// <returns>A new <see cref="ProcessExecutorOptions"/> with its 'NoWindow' option set to <see langword="true"/>.</returns>
+        public static ProcessExecutorOptions WithNoWindow(this ProcessExecutorOptions options)
+        {
+            return options with { NoWindow = true };
+        }
+
         /// <summary>Creates a new <see cref="ProcessExecutorOptions"/> by cloning the provided <paramref name="options"/> and updating the timeout period.</summary>
         /// <param name="options">The options to be cloned.</param>
         /// <param name="milliseconds">The timeout period, in milliseconds.</param>

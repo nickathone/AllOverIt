@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Extensions;
 using AllOverIt.Process.Exceptions;
 using System;
 using System.Diagnostics;
@@ -78,11 +77,13 @@ namespace AllOverIt.Process
         {
             if (standardOutputHandler is not null)
             {
+                _process.StartInfo.RedirectStandardOutput = true;
                 _process.OutputDataReceived += standardOutputHandler;
             }
 
             if (errorOutputHandler is not null)
             {
+                _process.StartInfo.RedirectStandardError = true;
                 _process.ErrorDataReceived += errorOutputHandler;
             }
 
