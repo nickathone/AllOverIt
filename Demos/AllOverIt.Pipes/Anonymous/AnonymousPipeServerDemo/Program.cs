@@ -22,38 +22,32 @@ namespace AnonymousPipeServerDemo
                 // Start the pipe server and get the client handle (the client app needs this to connect back to the server). 
                 var clientHandle = pipeServer.Start(inheritability: HandleInheritability.Inheritable);
 
-                // Determine the location of the client demo to launch
+                // Determine the location of the client demo to launch.
                 var clientPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("Server", "Client");
                 var clientExePath = Path.Combine(clientPath, "AnonymousPipeClientDemo.exe");
 
                 Console.WriteLine("Launching client app...");
 
-                // Launch the client application, giving it the client handle provided by the server.
+                // Launch the client application, giving it the client handle provided by the pipe server.
                 clientProcess = ProcessBuilder
                     .For(clientExePath)
                     .WithArguments(clientHandle)
                     .Start();
 
-                try
-                {
-                    // Send a handshake message and wait for client to receive it.
-                    pipeServer.Writer.WriteLine("Handshake");
-                    pipeServer.WaitForPipeDrain();
+                // Send a handshake message.
+                pipeServer.Writer.WriteLine("Handshake");
 
-                    string message;
+                // And wait for the client to completely read it.
+                pipeServer.WaitForPipeDrain();
 
-                    do
-                    {
-                        Console.WriteLine("Enter text to send to the client: ");
-                        message = Console.ReadLine();
-                        pipeServer.Writer.WriteLine(message);
-                    } while (!message.Equals("quit", StringComparison.InvariantCultureIgnoreCase));
-                }
-                catch (IOException e)
+                string message;
+
+                do
                 {
-                    //  raised if the pipe is broken or disconnected
-                    Console.WriteLine($"Server Error: {e.Message}");
-                }
+                    Console.WriteLine("Enter text to send to the client: ");
+                    message = Console.ReadLine();
+                    pipeServer.Writer.WriteLine(message);
+                } while (!message.Equals("quit", StringComparison.InvariantCultureIgnoreCase));
             }
 
             clientProcess.WaitForExit();
