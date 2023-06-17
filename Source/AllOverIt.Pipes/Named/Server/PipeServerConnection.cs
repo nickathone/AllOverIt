@@ -1,6 +1,6 @@
-﻿using AllOverIt.Pipes.Named.Connection;
+﻿using AllOverIt.Pipes.Exceptions;
+using AllOverIt.Pipes.Named.Connection;
 using AllOverIt.Pipes.Named.Events;
-using AllOverIt.Pipes.Named.Exceptions;
 using AllOverIt.Pipes.Serialization;
 using System;
 using System.IO.Pipes;

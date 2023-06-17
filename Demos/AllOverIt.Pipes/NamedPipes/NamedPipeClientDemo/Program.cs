@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace NamedPipeDemo
+namespace NamedPipeClientDemo
 {
     internal class Program
     {

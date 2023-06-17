@@ -17,7 +17,7 @@ using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NamedPipeDemo
+namespace NamedPipeServerDemo
 {
     internal class PipeServer
     {

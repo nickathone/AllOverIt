@@ -1,5 +1,5 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Pipes.Named.Exceptions;
+using AllOverIt.Pipes.Exceptions;
 using System;
 using System.IO.Pipes;
 using System.Threading;

@@ -16,8 +16,4 @@
         <ProjectReference Include="..\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Anonymous\" />
-    </ItemGroup>
-
 </Project>

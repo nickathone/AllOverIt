@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AllOverIt.Pipes.Named.Exceptions
+namespace AllOverIt.Pipes.Exceptions
 {
     public class PipeConnectionException : Exception
     {
