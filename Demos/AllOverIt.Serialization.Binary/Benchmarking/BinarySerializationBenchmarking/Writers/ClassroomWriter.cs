@@ -1,5 +1,5 @@
-﻿using AllOverIt.Serialization.Binary;
-using AllOverIt.Serialization.Binary.Extensions;
+﻿using AllOverIt.Serialization.Binary.Writers;
+using AllOverIt.Serialization.Binary.Writers.Extensions;
 using BinarySerializationBenchmarking.Models;
 
 namespace BinarySerializationBenchmarking.Writers

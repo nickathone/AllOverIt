@@ -1,12 +1,12 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Pipes.Named.Events;
-using AllOverIt.Pipes.Serialization;
 using AllOverIt.Pipes.Named.Server;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AllOverIt.Pipes.Named.Serialization;
 
 namespace AllOverIt.Pipes.Named.Client
 {
@@ -14,7 +14,7 @@ namespace AllOverIt.Pipes.Named.Client
     {
         private const string LocalServer = ".";
 
-        private readonly IMessageSerializer<TMessage> _serializer;
+        private readonly IPipeSerializer<TMessage> _serializer;
         private IPipeClientConnection<TMessage> _connection;
 
 
@@ -59,7 +59,7 @@ namespace AllOverIt.Pipes.Named.Client
 
         // TODO: Create a factory so IOC can be used
 
-        public PipeClient(string pipeName, IMessageSerializer<TMessage> serializer)
+        public PipeClient(string pipeName, IPipeSerializer<TMessage> serializer)
             : this(pipeName, LocalServer, serializer)
         {
         }
@@ -70,7 +70,7 @@ namespace AllOverIt.Pipes.Named.Client
         /// <param name="pipeName"></param>
         /// <param name="serverName">The name of the server to communicate with.</param>
         /// <param name="serializer"></param>
-        public PipeClient(string pipeName, string serverName, IMessageSerializer<TMessage> serializer)
+        public PipeClient(string pipeName, string serverName, IPipeSerializer<TMessage> serializer)
         {
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             ServerName = serverName.WhenNotNullOrEmpty(nameof(serverName));

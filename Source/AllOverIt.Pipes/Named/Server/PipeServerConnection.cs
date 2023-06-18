@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Named.Connection;
 using AllOverIt.Pipes.Named.Events;
-using AllOverIt.Pipes.Serialization;
+using AllOverIt.Pipes.Named.Serialization;
 using System;
 using System.IO.Pipes;
 
@@ -18,7 +18,7 @@ namespace AllOverIt.Pipes.Named.Server
         /// <inheritdoc />
         public event EventHandler<ConnectionExceptionEventArgs<TMessage, IPipeServerConnection<TMessage>>> OnException;
 
-        public PipeServerConnection(PipeStream stream, string pipeName, IMessageSerializer<TMessage> serializer)
+        public PipeServerConnection(PipeStream stream, string pipeName, IPipeSerializer<TMessage> serializer)
             : base(stream, pipeName, serializer)
         {
         }

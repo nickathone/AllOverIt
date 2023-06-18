@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AllOverIt.Serialization.Binary
+namespace AllOverIt.Serialization.Binary.Writers
 {
     /// <inheritdoc cref="IEnrichedBinaryValueWriter"/>
     public abstract class EnrichedBinaryValueWriter : IEnrichedBinaryValueWriter

@@ -1,6 +1,6 @@
-﻿using AllOverIt.Serialization.Binary;
-using AllOverIt.Serialization.Binary.Extensions;
-using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Models;
+﻿using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Models;
+using AllOverIt.Serialization.Binary.Writers;
+using AllOverIt.Serialization.Binary.Writers.Extensions;
 
 namespace AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Writers
 {

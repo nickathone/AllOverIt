@@ -1,9 +1,10 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Extensions;
+using AllOverIt.Serialization.Binary.Readers;
 using System;
 using System.Linq;
 
-namespace AllOverIt.Serialization.Binary
+namespace AllOverIt.Serialization.Binary.Writers
 {
     /// <summary>A dynamic binary value writer for a given object type. This writer is typically used by an <see cref="EnrichedBinaryWriter"/>
     /// when an object type needs to be written to a stream that has no previously registered custom writer. It is assumed that the object type

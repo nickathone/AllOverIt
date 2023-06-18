@@ -1,9 +1,10 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Extensions;
+using AllOverIt.Serialization.Binary.Writers;
 using System;
 using System.Linq;
 
-namespace AllOverIt.Serialization.Binary
+namespace AllOverIt.Serialization.Binary.Readers
 {
     /// <summary>A dynamic binary value reader for a given object type. This reader is typically used by an <see cref="EnrichedBinaryReader"/>
     /// when an object type needs to be read from a stream that has no previously registered custom reader. It is assumed that the object type

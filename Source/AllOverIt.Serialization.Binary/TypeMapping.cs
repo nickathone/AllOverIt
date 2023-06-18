@@ -1,6 +1,9 @@
-﻿namespace AllOverIt.Serialization.Binary
+﻿using AllOverIt.Serialization.Binary.Readers;
+using AllOverIt.Serialization.Binary.Writers;
+
+namespace AllOverIt.Serialization.Binary
 {
-    /// <summary>An identifier that's used to determine how <see cref="IEnrichedBinaryReader"/> reads data on a stream.</summary>
+    /// <summary>An identifier that's used to determine how <see cref="IEnrichedBinaryReader"/> and <see cref="IEnrichedBinaryWriter"/> reads and writes data on a stream.</summary>
     internal enum TypeIdentifier : byte
     {
         /// <summary>Indicates the next value in the stream is a boolean.</summary>

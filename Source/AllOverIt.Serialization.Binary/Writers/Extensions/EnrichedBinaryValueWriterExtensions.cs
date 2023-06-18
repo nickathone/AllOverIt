@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Serialization.Binary.Writers;
 
-namespace AllOverIt.Serialization.Binary.Extensions
+namespace AllOverIt.Serialization.Binary.Writers.Extensions
 {
     /// <summary>Provides extension methods for <see cref="IEnrichedBinaryValueWriter"/>.</summary>
     public static class EnrichedBinaryValueWriterExtensions

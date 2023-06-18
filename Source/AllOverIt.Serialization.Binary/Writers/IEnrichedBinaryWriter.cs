@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace AllOverIt.Serialization.Binary
+namespace AllOverIt.Serialization.Binary.Writers
 {
     /// <summary>Represents a binary writer that will serialize objects and values to a stream.</summary>
     public interface IEnrichedBinaryWriter

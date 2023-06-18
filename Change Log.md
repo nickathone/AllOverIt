@@ -143,6 +143,7 @@
 ## AllOverIt.Validation
 * Unchanged
 
+
 ## AllOverIt.Validation.Options :new:
 * Provides support for Configuration Options validation using `FluentValidation` and `AllOverIt.Validation` via the
   `OptionsBuilder<TOptions>` extension method called `UseFluentValidation()`.

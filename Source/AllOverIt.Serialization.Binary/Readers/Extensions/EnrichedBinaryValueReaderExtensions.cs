@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Serialization.Binary.Readers;
 
-namespace AllOverIt.Serialization.Binary.Extensions
+namespace AllOverIt.Serialization.Binary.Readers.Extensions
 {
     /// <summary>Provides extension methods for <see cref="IEnrichedBinaryValueReader"/>.</summary>
     public static class EnrichedBinaryValueReaderExtensions

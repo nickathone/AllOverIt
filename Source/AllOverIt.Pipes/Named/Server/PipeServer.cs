@@ -3,7 +3,7 @@ using AllOverIt.Async;
 using AllOverIt.Extensions;
 using AllOverIt.Pipes.Named.Connection;
 using AllOverIt.Pipes.Named.Events;
-using AllOverIt.Pipes.Serialization;
+using AllOverIt.Pipes.Named.Serialization;
 using AllOverIt.Threading;
 using AllOverIt.Threading.Extensions;
 using System;
@@ -21,7 +21,7 @@ namespace AllOverIt.Pipes.Named.Server
     /// <typeparam name="TMessage"></typeparam>
     public sealed class PipeServer<TMessage> : IPipeServer<TMessage>
     {
-        private readonly IMessageSerializer<TMessage> _serializer;
+        private readonly IPipeSerializer<TMessage> _serializer;
         private IList<IPipeServerConnection<TMessage>> Connections { get; } = new List<IPipeServerConnection<TMessage>>();
         private IAwaitableLock _connectionsLock = new AwaitableLock();
         private BackgroundTask _backgroundTask;
@@ -57,7 +57,7 @@ namespace AllOverIt.Pipes.Named.Server
 
 
         // TODO: Create a factory so IOC can be used
-        public PipeServer(string pipeName, IMessageSerializer<TMessage> serializer)
+        public PipeServer(string pipeName, IPipeSerializer<TMessage> serializer)
         {
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));

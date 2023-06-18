@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Async;
 using AllOverIt.Pipes.Exceptions;
-using AllOverIt.Pipes.Serialization;
+using AllOverIt.Pipes.Named.Serialization;
 using System;
 using System.IO.Pipes;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace AllOverIt.Pipes.Named.Connection
 {
     internal abstract class PipeConnection<TMessage> : IConnectablePipeConnection<TMessage>
     {
-        private readonly IMessageSerializer<TMessage> _serializer;
+        private readonly IPipeSerializer<TMessage> _serializer;
 
         private CancellationTokenSource _cancellationTokenSource;
         private BackgroundTask _backgroundReader;
@@ -27,7 +27,7 @@ namespace AllOverIt.Pipes.Named.Connection
         /// <inheritdoc />
         public bool IsConnected => PipeStream?.IsConnected ?? false;
 
-        internal PipeConnection(PipeStream stream, string pipeName, IMessageSerializer<TMessage> serializer)
+        internal PipeConnection(PipeStream stream, string pipeName, IPipeSerializer<TMessage> serializer)
         {
             PipeStream = stream.WhenNotNull(nameof(stream));               // Assume ownership of this stream
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));

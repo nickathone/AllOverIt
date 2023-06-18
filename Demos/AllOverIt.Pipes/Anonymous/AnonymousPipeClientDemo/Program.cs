@@ -20,12 +20,14 @@ namespace AnonymousPipeClientDemo
 
                     var message = pipeClient.Reader.ReadLine();
 
-                    if (message.Equals("Handshake", StringComparison.InvariantCultureIgnoreCase))
+                    if (!message.Equals("Handshake", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        Console.WriteLine("Invalid handshake message received");
+                        Console.WriteLine("Invalid handshake message received.");
                     }
                     else
                     {
+                        Console.WriteLine("Handshake completed.");
+
                         // Read the server message and echo to the console - until 'quit' is received.
                         do
                         {

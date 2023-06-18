@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using AllOverIt.Serialization.Binary.Writers;
 
 namespace AllOverIt.Serialization.Binary.Exceptions
 {

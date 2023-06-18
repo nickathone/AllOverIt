@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using AllOverIt.Serialization.Binary.Writers;
 
-namespace AllOverIt.Serialization.Binary
+namespace AllOverIt.Serialization.Binary.Readers
 {
     /// <summary>Represents a binary reader that will deserialize objects and values from a stream.</summary>
     public interface IEnrichedBinaryReader

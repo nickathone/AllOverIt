@@ -1,5 +1,5 @@
-﻿using AllOverIt.Serialization.Binary;
-using AllOverIt.Serialization.Binary.Extensions;
+﻿using AllOverIt.Serialization.Binary.Readers;
+using AllOverIt.Serialization.Binary.Readers.Extensions;
 using BinarySerializationDemo.Models;
 
 namespace BinarySerializationDemo.Readers

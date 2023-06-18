@@ -1,11 +1,12 @@
 ﻿using AllOverIt.Fixture;
-using AllOverIt.Serialization.Binary;
-using AllOverIt.Serialization.Binary.Extensions;
+using AllOverIt.Serialization.Binary.Readers;
+using AllOverIt.Serialization.Binary.Readers.Extensions;
 using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Models;
 using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Readers;
 using AllOverIt.Serialization.Binary.Tests.FunctionalTypes.Writers;
+using AllOverIt.Serialization.Binary.Writers;
+using AllOverIt.Serialization.Binary.Writers.Extensions;
 using FluentAssertions;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;

@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Pipes.Named.Connection;
 using AllOverIt.Pipes.Named.Events;
-using AllOverIt.Pipes.Serialization;
+using AllOverIt.Pipes.Named.Serialization;
 using System;
 using System.IO.Pipes;
 
@@ -21,7 +21,7 @@ namespace AllOverIt.Pipes.Named.Client
         /// <inheritdoc />
         public string ServerName { get; }
 
-        public PipeClientConnection(PipeStream stream, string pipeName, IMessageSerializer<TMessage> serializer, string serverName)
+        public PipeClientConnection(PipeStream stream, string pipeName, IPipeSerializer<TMessage> serializer, string serverName)
             : base(stream, pipeName, serializer)
         {
             ServerName = serverName.WhenNotNullOrEmpty(nameof(serverName));

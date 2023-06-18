@@ -2,12 +2,15 @@
 using AllOverIt.Extensions;
 using AllOverIt.Reflection;
 using AllOverIt.Serialization.Binary.Exceptions;
+using AllOverIt.Serialization.Binary.Readers;
+using AllOverIt.Serialization.Binary.Writers;
+using AllOverIt.Serialization.Binary.Writers.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AllOverIt.Serialization.Binary.Extensions
+namespace AllOverIt.Serialization.Binary.Readers.Extensions
 {
     /// <summary>Provides extension methods for <see cref="IEnrichedBinaryReader"/>.</summary>
     public static class EnrichedBinaryReaderExtensions
@@ -167,7 +170,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
         /// <returns>The array read from the stream.</returns>
         public static TValue[] ReadArray<TValue>(this IEnrichedBinaryReader reader)
         {
-            return (TValue[]) ReadArray(reader);
+            return (TValue[]) reader.ReadArray();
         }
 
         /// <summary>Reads an enumerable value from the current stream that was originally written using
@@ -236,7 +239,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
         }
 
         /// <summary>Reads a dictionary value from the current stream that was originally written using
-        /// <see cref="EnrichedBinaryWriterExtensions.WriteDictionary(IEnrichedBinaryWriter, System.Collections.IDictionary, Type, Type)"/>
+        /// <see cref="EnrichedBinaryWriterExtensions.WriteDictionary(IEnrichedBinaryWriter, IDictionary, Type, Type)"/>
         /// or one of its overloads.</summary>
         /// <typeparam name="TKey">The key type to be read from the current stream.</typeparam>
         /// <typeparam name="TValue">The value type to be read from the current stream.</typeparam>

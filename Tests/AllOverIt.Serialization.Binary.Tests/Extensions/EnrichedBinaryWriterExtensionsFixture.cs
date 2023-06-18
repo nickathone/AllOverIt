@@ -1,8 +1,8 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
 using AllOverIt.Fixture.FakeItEasy;
-using AllOverIt.Serialization.Binary;
-using AllOverIt.Serialization.Binary.Extensions;
+using AllOverIt.Serialization.Binary.Writers;
+using AllOverIt.Serialization.Binary.Writers.Extensions;
 using FakeItEasy;
 using FluentAssertions;
 using System;

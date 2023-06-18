@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AllOverIt.Serialization.Binary
+namespace AllOverIt.Serialization.Binary.Writers
 {
     /// <inheritdoc cref="IEnrichedBinaryValueWriter"/>
     /// <typeparam name="TType">The object type written by this value writer.</typeparam>

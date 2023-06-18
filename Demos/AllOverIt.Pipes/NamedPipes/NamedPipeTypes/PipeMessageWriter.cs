@@ -1,5 +1,5 @@
-﻿using AllOverIt.Serialization.Binary;
-using AllOverIt.Serialization.Binary.Extensions;
+﻿using AllOverIt.Serialization.Binary.Writers;
+using AllOverIt.Serialization.Binary.Writers.Extensions;
 
 namespace NamedPipeTypes
 {
@@ -11,7 +11,7 @@ namespace NamedPipeTypes
 
             writer.WriteGuid(message.Id);
             writer.WriteSafeString(message.Text);
-            writer.WriteInt32(message.Child.Value);
+            writer.WriteObject(message.Child, typeof(PipeMessage.ChildClass));
         }
     }
 }

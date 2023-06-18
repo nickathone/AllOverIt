@@ -1,12 +1,15 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Extensions;
 using AllOverIt.Reflection;
+using AllOverIt.Serialization.Binary.Readers;
+using AllOverIt.Serialization.Binary.Readers.Extensions;
+using AllOverIt.Serialization.Binary.Writers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-namespace AllOverIt.Serialization.Binary.Extensions
+namespace AllOverIt.Serialization.Binary.Writers.Extensions
 {
     /// <summary>Provides extension methods for <see cref="IEnrichedBinaryWriter"/>.</summary>
     public static class EnrichedBinaryWriterExtensions
@@ -191,7 +194,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
         {
             _ = array.WhenNotNull(nameof(array));
 
-            WriteEnumerable(writer, array, typeof(TValue));
+            writer.WriteEnumerable(array, typeof(TValue));
         }
 
         /// <summary>Writes an <see cref="IEnumerable"/> to the current stream. Each value type will be determined by the generic
@@ -236,7 +239,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
                 }
             }
 
-            WriteEnumerable(writer, enumerable, elementType);
+            writer.WriteEnumerable(enumerable, elementType);
         }
 
         /// <summary>Writes an <see cref="IEnumerable{TType}"/> to the current stream.<br />
@@ -249,7 +252,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
             _ = writer.WhenNotNull(nameof(writer));
             _ = enumerable.WhenNotNull(nameof(enumerable));
 
-            WriteEnumerable(writer, enumerable, typeof(TType));
+            writer.WriteEnumerable(enumerable, typeof(TType));
         }
 
         /// <summary>Writes an <see cref="IEnumerable"/> to the current stream. The number of elements and the element type is included
@@ -337,7 +340,7 @@ namespace AllOverIt.Serialization.Binary.Extensions
                 valueType = CommonTypes.ObjectType;
             }
 
-            WriteDictionary(writer, dictionary, keyType, valueType);
+            writer.WriteDictionary(dictionary, keyType, valueType);
         }
 
         /// <summary>>Writes an IDictionary to the current stream.</summary>
@@ -345,14 +348,14 @@ namespace AllOverIt.Serialization.Binary.Extensions
         /// <typeparam name="TValue">The value type.</typeparam>
         /// <param name="writer">The binary writer that is writing to the current stream.</param>
         /// <param name="dictionary">The IDictionary to be written.</param>
-        /// <remarks>This method cannot exist as an overload of <see cref="EnrichedBinaryWriterExtensions.WriteDictionary(IEnrichedBinaryWriter, IDictionary)"/>
+        /// <remarks>This method cannot exist as an overload of <see cref="WriteDictionary(IEnrichedBinaryWriter, IDictionary)"/>
         /// without becoming ambigious.</remarks>
         public static void WriteDictionary<TKey, TValue>(this IEnrichedBinaryWriter writer, IDictionary<TKey, TValue> dictionary)
         {
             _ = writer.WhenNotNull(nameof(writer));
             _ = dictionary.WhenNotNull(nameof(dictionary));
 
-            WriteDictionary(writer, (IDictionary) dictionary, typeof(TKey), typeof(TValue));
+            writer.WriteDictionary((IDictionary) dictionary, typeof(TKey), typeof(TValue));
         }
 
         /// <summary>Writes an IDictionary to the current stream.</summary>

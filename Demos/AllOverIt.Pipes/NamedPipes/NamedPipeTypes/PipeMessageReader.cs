@@ -1,5 +1,5 @@
-﻿using AllOverIt.Serialization.Binary;
-using AllOverIt.Serialization.Binary.Extensions;
+﻿using AllOverIt.Serialization.Binary.Readers;
+using AllOverIt.Serialization.Binary.Readers.Extensions;
 
 namespace NamedPipeTypes
 {
@@ -9,16 +9,13 @@ namespace NamedPipeTypes
         {
             var id = reader.ReadGuid();
             var text = reader.ReadSafeString();
-            var value = reader.ReadInt32();
+            var child = reader.ReadObject<PipeMessage.ChildClass>();
 
             return new PipeMessage
             {
                 Id = id,
                 Text = text,
-                Child =
-                {
-                    Value = value
-                }
+                Child = child
             };
         }
     }

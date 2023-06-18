@@ -1,7 +1,6 @@
 ﻿using AllOverIt.Pipes.Named.Events;
 using AllOverIt.Pipes.Named.Extensions;
-using AllOverIt.Pipes.Serialization;
-using AllOverIt.Pipes.Serialization.Binary;
+using AllOverIt.Pipes.Named.Serialization;
 using AllOverIt.Pipes.Named.Server;
 using AllOverIt.Reactive;
 using NamedPipeTypes;
@@ -34,16 +33,16 @@ namespace NamedPipeServerDemo
             // will be created by EnrichedBinaryReader / EnrichedBinaryWriter. The customer reader / writer will be
             // more efficient in time and space as they can be tailored to the exact shape of the model and avoid
             // writing unnecessary type information.
-            IMessageSerializer<PipeMessage> serializer = useCustomReaderWriter
+            IPipeSerializer<PipeMessage> serializer = useCustomReaderWriter
                 ? new PipeMessageSerializer()
-                : new BinaryMessageSerializer<PipeMessage>();
+                : new PipeSerializer<PipeMessage>();
 
             var pipeServer = new PipeServer();
 
             return pipeServer.RunAsync(pipeName, serializer);
         }
 
-        private async Task RunAsync(string pipeName, IMessageSerializer<PipeMessage> serializer)
+        private async Task RunAsync(string pipeName, IPipeSerializer<PipeMessage> serializer)
         {
             PipeLogger.Append(ConsoleColor.Gray, $"Running in SERVER mode. PipeName: {pipeName}");
             PipeLogger.Append(ConsoleColor.Gray, "Enter 'quit' to exit");
