@@ -330,14 +330,14 @@ namespace AllOverItDependencyDiagram.Generator
             _logger
                 .Write(ConsoleColor.White, "Creating image: ")
                 .Write(ConsoleColor.Yellow, Path.GetFileName(imageFileName))
-                .Write(ConsoleColor.White, "...");
+                .WriteLine(ConsoleColor.White, "...");
 
-            var export = ProcessBuilder
+            var d2Process = ProcessBuilder
                .For("d2.exe")
                .WithArguments("-l", "elk", d2FileName, imageFileName)
                .BuildProcessExecutor();
 
-            await export.ExecuteAsync();
+            await d2Process.ExecuteAsync();
 
             // An example using a foreground color and text
             _logger.WriteLine(ConsoleColor.Green, "Done");
