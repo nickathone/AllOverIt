@@ -7,7 +7,7 @@ namespace AnonymousPipeClientDemo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Client Started");
+            LogMessage("Client Started");
 
             // This client app is launched by the anonymous pipe server demo, where it sends a client handle.
             if (args.Length > 0)
@@ -16,29 +16,35 @@ namespace AnonymousPipeClientDemo
                 {
                     pipeClient.Start(args[0]);
 
-                    Console.WriteLine("Client waiting for handshake...");
+                    LogMessage("Client waiting for handshake...");
 
                     var message = pipeClient.Reader.ReadLine();
 
                     if (!message.Equals("Handshake", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        Console.WriteLine("Invalid handshake message received.");
+                        LogMessage("Client received an invalid handshake message.");
                     }
                     else
                     {
-                        Console.WriteLine("Handshake completed.");
+                        LogMessage("Client ready to receive messages...");
 
                         // Read the server message and echo to the console - until 'quit' is received.
                         do
                         {
                             message = pipeClient.Reader.ReadLine();
-                            Console.WriteLine($"Client received: {message}");
+
+                            LogMessage($"Client received: {message}");
                         } while (!message.Equals("quit", StringComparison.InvariantCultureIgnoreCase));
                     }
                 }
 
-                Console.WriteLine("Client terminated");
+                LogMessage("Client terminated");
             }
+        }
+
+        private static void LogMessage(string message)
+        {
+            Console.WriteLine($"{DateTime.Now:o} {message}");
         }
     }
 }

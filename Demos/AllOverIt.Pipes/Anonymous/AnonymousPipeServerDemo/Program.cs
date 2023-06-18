@@ -13,7 +13,7 @@ namespace AnonymousPipeServerDemo
     {
         static void Main()
         {
-            Console.WriteLine("Server Started");
+            LogMessage("Server Started");
             
             Process clientProcess;
 
@@ -26,7 +26,7 @@ namespace AnonymousPipeServerDemo
                 var clientPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("Server", "Client");
                 var clientExePath = Path.Combine(clientPath, "AnonymousPipeClientDemo.exe");
 
-                Console.WriteLine("Launching client app...");
+                LogMessage("Server launching client app...");
 
                 // Launch the client application, giving it the client handle provided by the pipe server.
                 clientProcess = ProcessBuilder
@@ -34,30 +34,42 @@ namespace AnonymousPipeServerDemo
                     .WithArguments(clientHandle)
                     .Start();
 
+                LogMessage("Server started Client, sending handshake...");
+
                 // Send a handshake message.
                 pipeServer.Writer.WriteLine("Handshake");
 
                 // And wait for the client to completely read it.
                 pipeServer.WaitForPipeDrain();
 
+                LogMessage("Server completed handshake with the Client.");
+
                 string message;
 
                 do
                 {
-                    Console.WriteLine("Enter text to send to the client: ");
+                    LogMessage("Server can now send messages to the client (type 'quit' to exit): ");
+
                     message = Console.ReadLine();
+
                     pipeServer.Writer.WriteLine(message);
+
                 } while (!message.Equals("quit", StringComparison.InvariantCultureIgnoreCase));
             }
 
             clientProcess.WaitForExit();
             clientProcess.Close();
 
-            Console.WriteLine("Server terminated");
+            LogMessage("Server terminated");
 
             Console.WriteLine();
             Console.WriteLine("All Over It.");
             Console.ReadKey();
+        }
+
+        private static void LogMessage(string message)
+        {
+            Console.WriteLine($"{DateTime.Now:o} {message}");
         }
     }
 }
