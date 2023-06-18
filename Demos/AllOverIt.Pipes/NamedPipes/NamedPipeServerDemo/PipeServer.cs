@@ -20,7 +20,7 @@ namespace NamedPipeServerDemo
 {
     internal class PipeServer
     {
-        private readonly ConcurrentDictionary<IPipeServerConnection<PipeMessage>, IDisposable> _pingSubscriptions = new();
+        private readonly ConcurrentDictionary<INamedPipeServerConnection<PipeMessage>, IDisposable> _pingSubscriptions = new();
         private CancellationTokenSource _runningToken;
 
         private PipeServer()
@@ -33,16 +33,16 @@ namespace NamedPipeServerDemo
             // will be created by EnrichedBinaryReader / EnrichedBinaryWriter. The customer reader / writer will be
             // more efficient in time and space as they can be tailored to the exact shape of the model and avoid
             // writing unnecessary type information.
-            IPipeSerializer<PipeMessage> serializer = useCustomReaderWriter
+            INamedPipeSerializer<PipeMessage> serializer = useCustomReaderWriter
                 ? new PipeMessageSerializer()
-                : new PipeSerializer<PipeMessage>();
+                : new NamedPipeSerializer<PipeMessage>();
 
             var pipeServer = new PipeServer();
 
             return pipeServer.RunAsync(pipeName, serializer);
         }
 
-        private async Task RunAsync(string pipeName, IPipeSerializer<PipeMessage> serializer)
+        private async Task RunAsync(string pipeName, INamedPipeSerializer<PipeMessage> serializer)
         {
             PipeLogger.Append(ConsoleColor.Gray, $"Running in SERVER mode. PipeName: {pipeName}");
             PipeLogger.Append(ConsoleColor.Gray, "Enter 'quit' to exit");
@@ -51,7 +51,7 @@ namespace NamedPipeServerDemo
             {
                 using (_runningToken = new CancellationTokenSource())
                 {
-                    await using (var server = new PipeServer<PipeMessage>(pipeName, serializer))
+                    await using (var server = new NamedPipeServer<PipeMessage>(pipeName, serializer))
                     {
                         PipeLogger.Append(ConsoleColor.Gray, "Server starting...");
 
@@ -143,7 +143,7 @@ namespace NamedPipeServerDemo
             }
         }
 
-        private static void DoOnClientConnected(object server, ConnectionEventArgs<PipeMessage, IPipeServerConnection<PipeMessage>> args)
+        private static void DoOnClientConnected(object server, NamedPipeConnectionEventArgs<PipeMessage, INamedPipeServerConnection<PipeMessage>> args)
         {
             var connection = args.Connection;
 
@@ -171,7 +171,7 @@ namespace NamedPipeServerDemo
             });
         }
 
-        private void DoOnClientDisconnected(object server, ConnectionEventArgs<PipeMessage, IPipeServerConnection<PipeMessage>> args)
+        private void DoOnClientDisconnected(object server, NamedPipeConnectionEventArgs<PipeMessage, INamedPipeServerConnection<PipeMessage>> args)
         {
             var connection = args.Connection;
 
@@ -180,7 +180,7 @@ namespace NamedPipeServerDemo
             PipeLogger.Append(ConsoleColor.Magenta, $"Client {args.Connection.PipeName} disconnected");
         }
 
-        private void DoOnMessageReceived(object sender, ConnectionMessageEventArgs<PipeMessage, IPipeServerConnection<PipeMessage>> args)
+        private void DoOnMessageReceived(object sender, NamedPipeConnectionMessageEventArgs<PipeMessage, INamedPipeServerConnection<PipeMessage>> args)
         {
             var connection = args.Connection;
 
@@ -237,7 +237,7 @@ namespace NamedPipeServerDemo
             Console.Error.WriteLine($"Exception: {exception}");
         }
 
-        private void DoOnException(object sender, ExceptionEventArgs args)
+        private void DoOnException(object sender, NamedPipeExceptionEventArgs args)
         {
             DoOnException(args.Exception);
         }

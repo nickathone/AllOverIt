@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Named.Client
 {
-    public interface IPipeClient<TMessage> : IPipe<TMessage>, IPipeEvents<TMessage>, IPipeClientEvents<TMessage>, IAsyncDisposable
+    public interface INamedPipeClient<TMessage> : INamedPipe<TMessage>, INamedPipeEvents<TMessage>, INamedPipeClientEvents<TMessage>, IAsyncDisposable
     {
         /// <summary>The name of pipe.</summary>
         public string PipeName { get; }

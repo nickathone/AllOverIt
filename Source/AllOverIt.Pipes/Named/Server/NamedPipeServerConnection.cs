@@ -7,18 +7,18 @@ using System.IO.Pipes;
 
 namespace AllOverIt.Pipes.Named.Server
 {
-    internal sealed class PipeServerConnection<TMessage> : PipeConnection<TMessage>, IPipeServerConnection<TMessage>
+    internal sealed class NamedPipeServerConnection<TMessage> : NamedPipeConnection<TMessage>, INamedPipeServerConnection<TMessage>
     {
         /// <inheritdoc />
-        public event EventHandler<ConnectionMessageEventArgs<TMessage, IPipeServerConnection<TMessage>>> OnMessageReceived;
+        public event EventHandler<NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeServerConnection<TMessage>>> OnMessageReceived;
 
         /// <inheritdoc />
-        public event EventHandler<ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>>> OnDisconnected;
+        public event EventHandler<NamedPipeConnectionEventArgs<TMessage, INamedPipeServerConnection<TMessage>>> OnDisconnected;
 
         /// <inheritdoc />
-        public event EventHandler<ConnectionExceptionEventArgs<TMessage, IPipeServerConnection<TMessage>>> OnException;
+        public event EventHandler<NamedPipeConnectionExceptionEventArgs<TMessage, INamedPipeServerConnection<TMessage>>> OnException;
 
-        public PipeServerConnection(PipeStream stream, string pipeName, IPipeSerializer<TMessage> serializer)
+        public NamedPipeServerConnection(PipeStream stream, string pipeName, INamedPipeSerializer<TMessage> serializer)
             : base(stream, pipeName, serializer)
         {
         }
@@ -42,7 +42,7 @@ namespace AllOverIt.Pipes.Named.Server
 
             if (onMessageReceived is not null)
             {
-                var args = new ConnectionMessageEventArgs<TMessage, IPipeServerConnection<TMessage>>(this, message);
+                var args = new NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeServerConnection<TMessage>>(this, message);
 
                 onMessageReceived.Invoke(this, args);
             }
@@ -54,7 +54,7 @@ namespace AllOverIt.Pipes.Named.Server
 
             if (onDisconnected is not null)
             {
-                var args = new ConnectionEventArgs<TMessage, IPipeServerConnection<TMessage>>(this);
+                var args = new NamedPipeConnectionEventArgs<TMessage, INamedPipeServerConnection<TMessage>>(this);
 
                 onDisconnected.Invoke(this, args);
             }
@@ -66,7 +66,7 @@ namespace AllOverIt.Pipes.Named.Server
 
             if (onException is not null)
             {
-                var args = new ConnectionExceptionEventArgs<TMessage, IPipeServerConnection<TMessage>>(this, exception);
+                var args = new NamedPipeConnectionExceptionEventArgs<TMessage, INamedPipeServerConnection<TMessage>>(this, exception);
 
                 onException.Invoke(this, args);
             }

@@ -2,9 +2,9 @@
 
 namespace AllOverIt.Pipes.Named.Connection
 {
-    /// <summary>A <see cref="IPipeConnection{TMessage}"/> that can be connected and disconnected.</summary>
+    /// <summary>A <see cref="INamedPipeConnection{TMessage}"/> that can be connected and disconnected.</summary>
     /// <typeparam name="TMessage">The message type serialized by the connection.</typeparam>
-    public interface IConnectablePipeConnection<TMessage> : IPipeConnection<TMessage>
+    public interface IConnectableNamedPipeConnection<TMessage> : INamedPipeConnection<TMessage>
     {
         /// <summary>Utilizes an underlying pipe stream to send and receive messages.</summary>
         void Connect();

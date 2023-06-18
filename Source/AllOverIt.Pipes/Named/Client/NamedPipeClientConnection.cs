@@ -7,21 +7,21 @@ using System.IO.Pipes;
 
 namespace AllOverIt.Pipes.Named.Client
 {
-    internal sealed class PipeClientConnection<TMessage> : PipeConnection<TMessage>, IPipeClientConnection<TMessage>
+    internal sealed class NamedPipeClientConnection<TMessage> : NamedPipeConnection<TMessage>, INamedPipeClientConnection<TMessage>
     {
         /// <inheritdoc />
-        public event EventHandler<ConnectionMessageEventArgs<TMessage, IPipeClientConnection<TMessage>>> OnMessageReceived;
+        public event EventHandler<NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeClientConnection<TMessage>>> OnMessageReceived;
 
         /// <inheritdoc />
-        public event EventHandler<ConnectionEventArgs<TMessage, IPipeClientConnection<TMessage>>> OnDisconnected;
+        public event EventHandler<NamedPipeConnectionEventArgs<TMessage, INamedPipeClientConnection<TMessage>>> OnDisconnected;
 
         /// <inheritdoc />
-        public event EventHandler<ConnectionExceptionEventArgs<TMessage, IPipeClientConnection<TMessage>>> OnException;
+        public event EventHandler<NamedPipeConnectionExceptionEventArgs<TMessage, INamedPipeClientConnection<TMessage>>> OnException;
 
         /// <inheritdoc />
         public string ServerName { get; }
 
-        public PipeClientConnection(PipeStream stream, string pipeName, IPipeSerializer<TMessage> serializer, string serverName)
+        public NamedPipeClientConnection(PipeStream stream, string pipeName, INamedPipeSerializer<TMessage> serializer, string serverName)
             : base(stream, pipeName, serializer)
         {
             ServerName = serverName.WhenNotNullOrEmpty(nameof(serverName));
@@ -33,7 +33,7 @@ namespace AllOverIt.Pipes.Named.Client
 
             if (onMessageReceived is not null)
             {
-                var args = new ConnectionMessageEventArgs<TMessage, IPipeClientConnection<TMessage>>(this, message);
+                var args = new NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeClientConnection<TMessage>>(this, message);
 
                 onMessageReceived.Invoke(this, args);
             }
@@ -45,7 +45,7 @@ namespace AllOverIt.Pipes.Named.Client
 
             if (onDisconnected is not null)
             {
-                var args = new ConnectionEventArgs<TMessage, IPipeClientConnection<TMessage>>(this);
+                var args = new NamedPipeConnectionEventArgs<TMessage, INamedPipeClientConnection<TMessage>>(this);
 
                 onDisconnected.Invoke(this, args);
             }
@@ -57,7 +57,7 @@ namespace AllOverIt.Pipes.Named.Client
 
             if (onException is not null)
             {
-                var args = new ConnectionExceptionEventArgs<TMessage, IPipeClientConnection<TMessage>>(this, exception);
+                var args = new NamedPipeConnectionExceptionEventArgs<TMessage, INamedPipeClientConnection<TMessage>>(this, exception);
 
                 onException.Invoke(this, args);
             }

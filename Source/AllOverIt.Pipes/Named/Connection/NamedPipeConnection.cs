@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Named.Connection
 {
-    internal abstract class PipeConnection<TMessage> : IConnectablePipeConnection<TMessage>
+    internal abstract class NamedPipeConnection<TMessage> : IConnectableNamedPipeConnection<TMessage>
     {
-        private readonly IPipeSerializer<TMessage> _serializer;
+        private readonly INamedPipeSerializer<TMessage> _serializer;
 
         private CancellationTokenSource _cancellationTokenSource;
         private BackgroundTask _backgroundReader;
-        private PipeReaderWriter _pipeReaderWriter;
+        private NamedPipeReaderWriter _pipeReaderWriter;
 
         // Will be a NamedPipeClientStream or NamedPipeServerStream
         protected PipeStream PipeStream { get; private set; }
@@ -27,7 +27,7 @@ namespace AllOverIt.Pipes.Named.Connection
         /// <inheritdoc />
         public bool IsConnected => PipeStream?.IsConnected ?? false;
 
-        internal PipeConnection(PipeStream stream, string pipeName, IPipeSerializer<TMessage> serializer)
+        internal NamedPipeConnection(PipeStream stream, string pipeName, INamedPipeSerializer<TMessage> serializer)
         {
             PipeStream = stream.WhenNotNull(nameof(stream));               // Assume ownership of this stream
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
@@ -43,7 +43,7 @@ namespace AllOverIt.Pipes.Named.Connection
 
             _cancellationTokenSource = new CancellationTokenSource();
 
-            _pipeReaderWriter = new PipeReaderWriter(PipeStream, true);
+            _pipeReaderWriter = new NamedPipeReaderWriter(PipeStream, true);
 
             _backgroundReader = new BackgroundTask(async cancellationToken =>
             {

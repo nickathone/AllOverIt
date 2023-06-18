@@ -10,7 +10,7 @@ namespace AllOverIt.Pipes.Named.Server
     /// <summary>Represents a named pipe server that can broadcast a strongly type message to all connected clients
     /// as well as receive messages from those clients.</summary>
     /// <typeparam name="TMessage">The message type.</typeparam>
-    public interface IPipeServer<TMessage> : IPipe<TMessage>, IPipeEvents<TMessage>, IPipeServerEvents<TMessage>, IAsyncDisposable
+    public interface INamedPipeServer<TMessage> : INamedPipe<TMessage>, INamedPipeEvents<TMessage>, INamedPipeServerEvents<TMessage>, IAsyncDisposable
     {
         /// <summary>The name of the pipe.</summary>
         string PipeName { get; }
@@ -39,6 +39,6 @@ namespace AllOverIt.Pipes.Named.Server
         /// <param name="message">The message to send to all connected clients.</param>
         /// <param name="predicate">The predicate condition to be met.</param>
         /// <param name="cancellationToken">An optional cancellation token.</param>
-        Task WriteAsync(TMessage message, Predicate<IPipeConnection<TMessage>> predicate, CancellationToken cancellationToken = default);
+        Task WriteAsync(TMessage message, Predicate<INamedPipeConnection<TMessage>> predicate, CancellationToken cancellationToken = default);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace AllOverIt.Pipes.Named.Events
 {
-    public interface IPipeEvents<TMessage>
+    public interface INamedPipeEvents<TMessage>
     {
         /// <summary>
         /// Invoked whenever an exception is thrown during a read or write operation on the named pipe.
         /// </summary>
-        event EventHandler<ExceptionEventArgs> OnException;
+        event EventHandler<NamedPipeExceptionEventArgs> OnException;
     }
 }

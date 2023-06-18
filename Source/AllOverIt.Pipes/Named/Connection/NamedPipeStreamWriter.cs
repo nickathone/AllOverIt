@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace AllOverIt.Pipes.Named.Connection
 {
     /// <summary>Provides the ability to write buffered data to an underlying pipe stream.</summary>
-    public sealed class PipeStreamWriter
+    public sealed class NamedPipeStreamWriter
     {
         private PipeStream _pipeStream;
         private readonly AwaitableLock _lock = new();
@@ -19,7 +19,7 @@ namespace AllOverIt.Pipes.Named.Connection
 
         /// <summary>Constructor.</summary>
         /// <param name="pipeStream">The pipe stream to write to.</param>
-        public PipeStreamWriter(PipeStream pipeStream)
+        public NamedPipeStreamWriter(PipeStream pipeStream)
         {
             _pipeStream = pipeStream.WhenNotNull(nameof(pipeStream));
         }

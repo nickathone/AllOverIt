@@ -6,7 +6,7 @@ namespace AllOverIt.Pipes.Named.Connection
 {
     /// <summary>A connection for an underlying <see cref="System.IO.Pipes.PipeStream"/> that can serialize messages.</summary>
     /// <typeparam name="TMessage">The message type serialized by the connection.</typeparam>
-    public interface IPipeConnection<TMessage> : IAsyncDisposable
+    public interface INamedPipeConnection<TMessage> : IAsyncDisposable
     {
         /// <summary>Gets the connection's pipe name.</summary>
         public string PipeName { get; }

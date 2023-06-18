@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Named.Client
 {
-    internal static class PipeClientFactory
+    internal static class NamedPipeClientFactory
     {
-        public static async Task<PipeReaderWriter> ConnectAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
+        public static async Task<NamedPipeReaderWriter> ConnectAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
         {
             var pipeStream = await CreateAndConnectAsync(pipeName, serverName, cancellationToken).ConfigureAwait(false);
 
-            return new PipeReaderWriter(pipeStream, false);
+            return new NamedPipeReaderWriter(pipeStream, false);
         }
 
         public static async Task<NamedPipeClientStream> CreateAndConnectAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)

@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 namespace AllOverIt.Pipes.Named.Connection
 {
     /// <summary>Provides the ability to read buffered data from an underlying pipe stream.</summary>
-    public sealed class PipeStreamReader
+    public sealed class NamedPipeStreamReader
     {
         private readonly PipeStream _pipeStream;
 
         /// <summary>Constructor.</summary>
         /// <param name="pipeStream">The pipe stream to read from.</param>
-        public PipeStreamReader(PipeStream pipeStream)
+        public NamedPipeStreamReader(PipeStream pipeStream)
         {
             _pipeStream = pipeStream.WhenNotNull(nameof(pipeStream));
         }

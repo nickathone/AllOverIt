@@ -26,16 +26,16 @@ namespace NamedPipeClientDemo
             // will be created by EnrichedBinaryReader / EnrichedBinaryWriter. The customer reader / writer will be
             // more efficient in time and space as they can be tailored to the exact shape of the model and avoid
             // writing unnecessary type information.
-            IPipeSerializer<PipeMessage> serializer = useCustomReaderWriter
+            INamedPipeSerializer<PipeMessage> serializer = useCustomReaderWriter
                 ? new PipeMessageSerializer()
-                : new PipeSerializer<PipeMessage>();
+                : new NamedPipeSerializer<PipeMessage>();
 
             var pipeClient = new PipeClient();
 
             return pipeClient.RunAsync(pipeName, serializer);
         }
 
-        private async Task RunAsync(string pipeName, IPipeSerializer<PipeMessage> serializer)
+        private async Task RunAsync(string pipeName, INamedPipeSerializer<PipeMessage> serializer)
         {
             PipeLogger.Append(ConsoleColor.Gray, $"Running in CLIENT mode. PipeName: {pipeName}");
             PipeLogger.Append(ConsoleColor.Gray, "Enter 'quit' to exit");
@@ -44,7 +44,7 @@ namespace NamedPipeClientDemo
             {
                 using (_runningToken = new CancellationTokenSource())
                 {
-                    await using var client = new PipeClient<PipeMessage>(pipeName, serializer);
+                    await using var client = new NamedPipeClient<PipeMessage>(pipeName, serializer);
 
                     client.OnConnected += DoOnConnected;
                     client.OnDisconnected += DoOnDisconnected;
@@ -125,12 +125,12 @@ namespace NamedPipeClientDemo
             }
         }
 
-        private static void DoOnConnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
+        private static void DoOnConnected(object sender, NamedPipeConnectionEventArgs<PipeMessage, INamedPipeClientConnection<PipeMessage>> args)
         {
             PipeLogger.Append(ConsoleColor.Blue, "Connected to server");
         }
 
-        private void DoOnDisconnected(object sender, ConnectionEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
+        private void DoOnDisconnected(object sender, NamedPipeConnectionEventArgs<PipeMessage, INamedPipeClientConnection<PipeMessage>> args)
         {
             _pingSubscription?.Dispose();
             _pingSubscription = null;
@@ -138,7 +138,7 @@ namespace NamedPipeClientDemo
             PipeLogger.Append(ConsoleColor.Magenta, "Disconnected from server");
         }
 
-        private void DoOnMessageReceived(object sender, ConnectionMessageEventArgs<PipeMessage, IPipeClientConnection<PipeMessage>> args)
+        private void DoOnMessageReceived(object sender, NamedPipeConnectionMessageEventArgs<PipeMessage, INamedPipeClientConnection<PipeMessage>> args)
         {
             PipeLogger.Append(ConsoleColor.Green, $"Received: {args.Message}");
 
@@ -192,7 +192,7 @@ namespace NamedPipeClientDemo
             Console.Error.WriteLine($"Exception: {exception}");
         }
 
-        private void DoOnException(object sender, ExceptionEventArgs args)
+        private void DoOnException(object sender, NamedPipeExceptionEventArgs args)
         {
             DoOnException(args.Exception);
         }

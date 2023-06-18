@@ -2,7 +2,7 @@
 {
     /// <summary>Represents a binary message serializer for a named pipe.</summary>
     /// <typeparam name="TMessage">The message type to be serialized.</typeparam>
-    public interface IPipeSerializer<TMessage>
+    public interface INamedPipeSerializer<TMessage>
     {
         /// <summary>Serializes a <typeparamref name="TMessage"/> to a byte array.</summary>
         /// <param name="message">The message to be serialized.</param>

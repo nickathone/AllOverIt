@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Named.Connection
 {
-    public sealed class PipeReaderWriter : IAsyncDisposable
+    public sealed class NamedPipeReaderWriter : IAsyncDisposable
     {
         private readonly bool _leaveConnected;
-        private readonly PipeStreamReader _streamReader;
-        private readonly PipeStreamWriter _streamWriter;
+        private readonly NamedPipeStreamReader _streamReader;
+        private readonly NamedPipeStreamWriter _streamWriter;
         private PipeStream _pipeStream;
 
 
@@ -44,15 +44,15 @@ namespace AllOverIt.Pipes.Named.Connection
         /// Constructs a new <c>PipeStreamWrapper</c> object that reads from and writes to the given <paramref name="stream"/>.
         /// </summary>
         /// <param name="stream">Stream to read from and write to</param>
-        /// <param name="leaveConnected">When the <see cref="PipeReaderWriter"/> is disposed, the stream will be disposed when
+        /// <param name="leaveConnected">When the <see cref="NamedPipeReaderWriter"/> is disposed, the stream will be disposed when
         /// <see langword="false"/> otherwise it will remain connected.</param>
-        public PipeReaderWriter(PipeStream stream, bool leaveConnected)
+        public NamedPipeReaderWriter(PipeStream stream, bool leaveConnected)
         {
             _pipeStream = stream.WhenNotNull(nameof(stream));
             _leaveConnected = leaveConnected;
 
-            _streamReader = new PipeStreamReader(_pipeStream);
-            _streamWriter = new PipeStreamWriter(_pipeStream);
+            _streamReader = new NamedPipeStreamReader(_pipeStream);
+            _streamWriter = new NamedPipeStreamWriter(_pipeStream);
         }
 
 

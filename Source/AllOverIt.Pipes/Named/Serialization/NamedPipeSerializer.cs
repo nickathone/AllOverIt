@@ -15,7 +15,7 @@ namespace AllOverIt.Pipes.Named.Serialization
     /// type (or even <typeparamref name="TMessage"/>) then a <see cref="DynamicBinaryValueReader"/> or <see cref="DynamicBinaryValueWriter"/> will be
     /// used as required.</summary>
     /// <typeparam name="TMessage">The message type to be serialized.</typeparam>
-    public class PipeSerializer<TMessage> : IPipeSerializer<TMessage>
+    public class NamedPipeSerializer<TMessage> : INamedPipeSerializer<TMessage>
     {
         /// <summary>Contains custom value readers for <typeparamref name="TMessage"/> or any of its' property types. If the serializer
         /// encounters a type for which there is no <see cref="IEnrichedBinaryValueReader"/> then a <see cref="DynamicBinaryValueReader"/>

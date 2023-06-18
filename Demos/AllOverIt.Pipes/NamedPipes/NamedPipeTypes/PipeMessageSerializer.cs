@@ -2,7 +2,7 @@
 
 namespace NamedPipeTypes
 {
-    public sealed class PipeMessageSerializer : PipeSerializer<PipeMessage>
+    public sealed class PipeMessageSerializer : NamedPipeSerializer<PipeMessage>
     {
         public PipeMessageSerializer()
         {

@@ -2,7 +2,7 @@
 
 namespace AllOverIt.Pipes.Named.Server
 {
-    public static class PipeServerFactory
+    public static class NamedPipeServerFactory
     {
         public static NamedPipeServerStream CreateNamedPipeServerStream(string pipeName, PipeSecurity pipeSecurity = default)
         {
