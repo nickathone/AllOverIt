@@ -2,15 +2,16 @@ direction: right
 
 aoi: AllOverIt
 aoi.alloverit-pipes: AllOverIt.Pipes
-aoi.alloverit-pipes-serialization: AllOverIt.Pipes.Serialization
-aoi.alloverit-pipes-serialization <- aoi.alloverit-pipes
+aoi.alloverit-serialization-binary: AllOverIt.Serialization.Binary
+aoi.alloverit: AllOverIt
+aoi.alloverit-assertion: AllOverIt.Assertion
+aoi.alloverit-assertion <- aoi.alloverit
+aoi.alloverit <- aoi.alloverit-serialization-binary
+aoi.alloverit-serialization-binary <- aoi.alloverit-pipes
 aoi.alloverit-reactive: AllOverIt.Reactive
 system-reactive_5-0-0: System.Reactive\nv5.0.0
 system-reactive_5-0-0.style.fill: "#ADD8E6"
 system-reactive_5-0-0.style.opacity: 0.8
 system-reactive_5-0-0 <- aoi.alloverit-reactive
-aoi.alloverit: AllOverIt
-aoi.alloverit-assertion: AllOverIt.Assertion
-aoi.alloverit-assertion <- aoi.alloverit
 aoi.alloverit <- aoi.alloverit-reactive
 aoi.alloverit-reactive <- aoi.alloverit-pipes
