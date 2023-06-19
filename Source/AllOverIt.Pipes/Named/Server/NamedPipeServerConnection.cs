@@ -28,7 +28,7 @@ namespace AllOverIt.Pipes.Named.Server
         {
             if (PipeStream is not NamedPipeServerStream serverStream)
             {
-                throw new PipeConnectionException($"The pipe stream is not a {nameof(NamedPipeServerStream)}.");
+                throw new PipeException($"The pipe stream must be a {nameof(NamedPipeServerStream)}.");
             }
 
             // IOException will be raised of the pipe connection has been broken or

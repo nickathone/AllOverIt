@@ -38,8 +38,8 @@ namespace AllOverIt.Pipes.Named.Connection
         /// <remarks>A connection cannot be re-established after it has been disconnected.</remarks>
         public void Connect()
         {
-            Throw<PipeConnectionException>.WhenNotNull(_backgroundReader, "The connection is already open.");
-            Throw<PipeConnectionException>.WhenNull(PipeStream, "The connection cannot be opened after it has been disconnected.");
+            Throw<PipeException>.WhenNotNull(_backgroundReader, "The named pipe connection is already open.");
+            Throw<PipeException>.WhenNull(PipeStream, "The named pipe connection cannot be opened after it has been disconnected.");
 
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -105,10 +105,8 @@ namespace AllOverIt.Pipes.Named.Connection
         /// <inheritdoc />
         public async Task WriteAsync(TMessage value, CancellationToken cancellationToken = default)
         {
-            if (!IsConnected || !_pipeReaderWriter.CanWrite)
-            {
-                throw new NotConnectedException("Connection is not connected or writable.");
-            }
+            Throw<PipeException>.When(!IsConnected, "Named pipe connection is not connected.");
+            Throw<PipeException>.When(!_pipeReaderWriter.CanWrite, "Named pipe connection is not writable.");
 
             cancellationToken.ThrowIfCancellationRequested();
 

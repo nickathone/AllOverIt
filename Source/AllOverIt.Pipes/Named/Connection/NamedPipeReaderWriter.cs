@@ -62,10 +62,7 @@ namespace AllOverIt.Pipes.Named.Connection
         /// <returns>The next object read from the pipe, or <c>null</c> if the pipe disconnected.</returns>
         public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
-            if (!_pipeStream.IsConnected)
-            {
-                throw new NotConnectedException("The pipe is not connected.");
-            }
+            Throw<PipeException>.When(!_pipeStream.IsConnected, "The named pipe is not connected.");
 
             return _streamReader.ReadAsync(cancellationToken);
         }
