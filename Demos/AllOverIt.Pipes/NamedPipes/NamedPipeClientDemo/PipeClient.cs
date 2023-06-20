@@ -42,65 +42,70 @@ namespace NamedPipeClientDemo
 
             try
             {
+                var namedPipeClientFactory = new NamedPipeClientFactory<PipeMessage>(serializer);
+
                 using (_runningToken = new CancellationTokenSource())
                 {
-                    await using var client = new NamedPipeClient<PipeMessage>(pipeName, serializer);
-
-                    client.OnConnected += DoOnConnected;
-                    client.OnDisconnected += DoOnDisconnected;
-                    client.OnMessageReceived += DoOnMessageReceived;
-                    client.OnException += DoOnException;
-
-                    var runningTask = Task.Run(async () =>
+                    // Could also use this (without the NamedPipeClientFactory)
+                    // var client = new NamedPipeClient<PipeMessage>(pipeName, serializer);
+                    await using (var client = namedPipeClientFactory.CreateNamedPipeClient(pipeName))
                     {
-                        while (!_runningToken.Token.IsCancellationRequested)
+                        client.OnConnected += DoOnConnected;
+                        client.OnDisconnected += DoOnDisconnected;
+                        client.OnMessageReceived += DoOnMessageReceived;
+                        client.OnException += DoOnException;
+
+                        var runningTask = Task.Run(async () =>
                         {
-                            try
+                            while (!_runningToken.Token.IsCancellationRequested)
                             {
-                                var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
-
-                                if (message == "quit")
+                                try
                                 {
-                                    _runningToken.Cancel();
-                                    break;
+                                    var message = await Console.In.ReadLineAsync().ConfigureAwait(false);
+
+                                    if (message == "quit")
+                                    {
+                                        _runningToken.Cancel();
+                                        break;
+                                    }
+
+                                    var pipeMessage = new PipeMessage
+                                    {
+                                        Text = message
+                                    };
+
+                                    PipeLogger.Append(ConsoleColor.Yellow, $"Sending : {pipeMessage}");
+
+                                    await client
+                                        .WriteAsync(pipeMessage, _runningToken.Token)
+                                        .ConfigureAwait(false);
                                 }
-
-                                var pipeMessage = new PipeMessage
+                                catch (Exception exception)
                                 {
-                                    Text = message
-                                };
-
-                                PipeLogger.Append(ConsoleColor.Yellow, $"Sending : {pipeMessage}");
-
-                                await client
-                                    .WriteAsync(pipeMessage, _runningToken.Token)
-                                    .ConfigureAwait(false);
+                                    DoOnException(exception);
+                                    _runningToken.Cancel();
+                                }
                             }
-                            catch (Exception exception)
-                            {
-                                DoOnException(exception);
-                                _runningToken.Cancel();
-                            }
-                        }
-                    }, _runningToken.Token);
+                        }, _runningToken.Token);
 
-                    PipeLogger.Append(ConsoleColor.Gray, "Client connecting...");
+                        PipeLogger.Append(ConsoleColor.Gray, "Client connecting...");
 
-                    await client.ConnectAsync(_runningToken.Token).ConfigureAwait(false);
+                        await client.ConnectAsync(_runningToken.Token).ConfigureAwait(false);
 
-                    PipeLogger.Append(ConsoleColor.Gray, "Client connected");
+                        PipeLogger.Append(ConsoleColor.Gray, "Client connected");
 
-                    await WaitForUserQuit().ConfigureAwait(false);
+                        await WaitForUserQuit().ConfigureAwait(false);
 
-                    await runningTask.ConfigureAwait(false);
+                        await runningTask.ConfigureAwait(false);
 
-                    client.OnConnected -= DoOnConnected;
-                    client.OnDisconnected -= DoOnDisconnected;
-                    client.OnMessageReceived -= DoOnMessageReceived;
-                    client.OnException -= DoOnException;
+                        client.OnConnected -= DoOnConnected;
+                        client.OnDisconnected -= DoOnDisconnected;
+                        client.OnMessageReceived -= DoOnMessageReceived;
+                        client.OnException -= DoOnException;
 
-                    // When the client is disposed it will shut down
-                    PipeLogger.Append(ConsoleColor.Gray, "Disposing Client...");
+                        // When the client is disposed it will shut down
+                        PipeLogger.Append(ConsoleColor.Gray, "Disposing Client...");
+                    }
                 }
 
                 PipeLogger.Append(ConsoleColor.Gray, "Client Stopped!");

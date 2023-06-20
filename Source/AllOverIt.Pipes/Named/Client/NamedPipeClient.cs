@@ -10,6 +10,8 @@ using AllOverIt.Pipes.Named.Serialization;
 
 namespace AllOverIt.Pipes.Named.Client
 {
+    /// <summary>A named pipe client that can serialize messages of type <typeparamref name="TMessage"/> with a named pipe server.</summary>
+    /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
     public sealed class NamedPipeClient<TMessage> : INamedPipeClient<TMessage>
     {
         private const string LocalServer = ".";
@@ -17,10 +19,8 @@ namespace AllOverIt.Pipes.Named.Client
         private readonly INamedPipeSerializer<TMessage> _serializer;
         private INamedPipeClientConnection<TMessage> _connection;
 
-
         /// <inheritdoc/>
         public bool IsConnected => _connection?.IsConnected ?? false;
-
 
         /// <inheritdoc/>
         public string PipeName { get; }
@@ -28,26 +28,16 @@ namespace AllOverIt.Pipes.Named.Client
         /// <inheritdoc/>
         public string ServerName { get; }
 
-
-
-        /// <summary>
-        /// Invoked whenever a message is received from the server.
-        /// </summary>
-        public event EventHandler<NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeClientConnection<TMessage>>> OnMessageReceived;
-
-        /// <summary>
-        /// Invoked after each the client connect to the server (include reconnects).
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<NamedPipeConnectionEventArgs<TMessage, INamedPipeClientConnection<TMessage>>> OnConnected;
 
-        /// <summary>
-        /// Invoked when the client disconnects from the server (e.g., the pipe is closed or broken).
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<NamedPipeConnectionEventArgs<TMessage, INamedPipeClientConnection<TMessage>>> OnDisconnected;
 
-        /// <summary>
-        /// Invoked whenever an exception is thrown during a read or write operation on the named pipe.
-        /// </summary>
+        /// <inheritdoc/>
+        public event EventHandler<NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeClientConnection<TMessage>>> OnMessageReceived;
+
+        /// <inheritdoc/>
         public event EventHandler<NamedPipeExceptionEventArgs> OnException;
 
 
@@ -103,8 +93,8 @@ namespace AllOverIt.Pipes.Named.Client
                 var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
 
                 // Connect to the actual data pipe
-                var connectionStream = await NamedPipeClientFactory
-                    .CreateAndConnectAsync(connectionPipeName, ServerName, cancellationToken)
+                var connectionStream = await NamedPipeClientStreamFactory
+                    .CreateConnectedClientStreamAsync(connectionPipeName, ServerName, cancellationToken)
                     .ConfigureAwait(false);
 
 
@@ -185,8 +175,8 @@ namespace AllOverIt.Pipes.Named.Client
         /// <returns></returns>
         private async Task<string> GetConnectionPipeName(CancellationToken cancellationToken)
         {
-            var reader = await NamedPipeClientFactory
-                .ConnectAsync(PipeName, ServerName, cancellationToken)
+            var reader = await NamedPipeClientStreamFactory
+                .CreateConnectedReaderWriterAsync(PipeName, ServerName, cancellationToken)
                 .ConfigureAwait(false);
 
             await using (reader)

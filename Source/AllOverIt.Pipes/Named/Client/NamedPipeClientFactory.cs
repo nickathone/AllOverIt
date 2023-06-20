@@ -1,48 +1,31 @@
-﻿using AllOverIt.Pipes.Named.Connection;
-using System.IO.Pipes;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Pipes.Named.Serialization;
 
 namespace AllOverIt.Pipes.Named.Client
 {
-    internal static class NamedPipeClientFactory
+    /// <summary>Represents a factory that creates instances of a named pipe client.</summary>
+    /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
+    public sealed class NamedPipeClientFactory<TMessage> : INamedPipeClientFactory<TMessage>
     {
-        public static async Task<NamedPipeReaderWriter> ConnectAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
-        {
-            var pipeStream = await CreateAndConnectAsync(pipeName, serverName, cancellationToken).ConfigureAwait(false);
+        private readonly INamedPipeSerializer<TMessage> _serializer;
 
-            return new NamedPipeReaderWriter(pipeStream, false);
+        /// <summary>Constructor.</summary>
+        /// <param name="serializer">The serializer to be used by named pipe client instances.</param>
+        public NamedPipeClientFactory(INamedPipeSerializer<TMessage> serializer)
+        {
+            _serializer = serializer.WhenNotNull(nameof(serializer));
         }
 
-        public static async Task<NamedPipeClientStream> CreateAndConnectAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
+        /// <inheritdoc/>
+        public INamedPipeClient<TMessage> CreateNamedPipeClient(string pipeName)
         {
-            var pipeStream = CreateNamedPipeClientStream(pipeName, serverName);
-
-            try
-            {
-                await pipeStream
-                    .ConnectAsync(cancellationToken)
-                    .ConfigureAwait(false);
-
-                return pipeStream;
-            }
-            catch
-            {
-                await pipeStream
-                    .DisposeAsync()
-                    .ConfigureAwait(false);
-
-                throw;
-            }
+            return new NamedPipeClient<TMessage>(pipeName, _serializer);
         }
 
-        private static NamedPipeClientStream CreateNamedPipeClientStream(string pipeName, string serverName)
+        /// <inheritdoc/>
+        public INamedPipeClient<TMessage> CreateNamedPipeClient(string pipeName, string serverName)
         {
-            return new NamedPipeClientStream(
-                serverName,
-                pipeName,
-                PipeDirection.InOut,
-                PipeOptions.Asynchronous | PipeOptions.WriteThrough);
+            return new NamedPipeClient<TMessage>(pipeName, serverName, _serializer);
         }
     }
 }
