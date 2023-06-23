@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace AllOverIt.Pagination.Extensions
 {
