@@ -3,6 +3,8 @@ using System;
 
 namespace AllOverIt.Pipes.Named.Server
 {
+    /// <summary>Declares event handlers specific to a named pipe server.</summary>
+    /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
     public interface INamedPipeServerEvents<TMessage>
     {
         /// <summary>

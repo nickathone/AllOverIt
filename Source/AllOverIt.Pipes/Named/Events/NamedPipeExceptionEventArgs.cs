@@ -3,6 +3,7 @@ using System;
 
 namespace AllOverIt.Pipes.Named.Events
 {
+    /// <summary>Defines named pipe exception related event arguments.</summary>
     public class NamedPipeExceptionEventArgs : EventArgs
     {
         /// <summary>The exception that was raised.</summary>

@@ -55,14 +55,14 @@ namespace AllOverIt.Pipes.Named.Server
         /// <summary>An event raised when an exception is thrown during a read or write operation.</summary>
         public event EventHandler<NamedPipeExceptionEventArgs> OnException;
 
-
-        // TODO: Create a factory so IOC can be used
+        /// <inheritdoc />
         public NamedPipeServer(string pipeName, INamedPipeSerializer<TMessage> serializer)
         {
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
 
+        /// <inheritdoc />
         public void Start(Action<PipeSecurity> pipeSecurity)
         {
             _ = pipeSecurity.WhenNotNull(nameof(pipeSecurity));
@@ -74,6 +74,7 @@ namespace AllOverIt.Pipes.Named.Server
             Start(security);
         }
 
+        /// <inheritdoc />
         public void Start(PipeSecurity pipeSecurity = null)
         {
 
@@ -91,7 +92,7 @@ namespace AllOverIt.Pipes.Named.Server
                         var connectionPipeName = $"{Guid.NewGuid()}";
 
                         // Send the client the name of the data pipe to use
-                        var serverStream = NamedPipeServerFactory.CreateNamedPipeServerStream(PipeName, pipeSecurity);       // TODO: Allow the factory to provide default security, this will override if not null
+                        var serverStream = NamedPipeServerStreamFactory.CreateStream(PipeName, pipeSecurity);       // TODO: Allow the factory to provide default security, this will override if not null
 
                         await using (serverStream)
                         {
@@ -106,7 +107,7 @@ namespace AllOverIt.Pipes.Named.Server
                         }
 
                         // Wait for the client to connect to the data pipe
-                        var connectionStream = NamedPipeServerFactory.CreateNamedPipeServerStream(connectionPipeName, pipeSecurity);
+                        var connectionStream = NamedPipeServerStreamFactory.CreateStream(connectionPipeName, pipeSecurity);
 
                         try
                         {

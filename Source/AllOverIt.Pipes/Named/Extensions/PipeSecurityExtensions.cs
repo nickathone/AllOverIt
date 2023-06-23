@@ -4,8 +4,15 @@ using System.Security.Principal;
 
 namespace AllOverIt.Pipes.Named.Extensions
 {
+    /// <summary>Provides extension methods for <see cref="PipeSecurity"/>.</summary>
     public static class PipeSecurityExtensions
     {
+        /// <summary>Adds an access rule to a Discretionary Access Control List (DACL) that is associated with the provided <see cref="PipeSecurity"/>.</summary>
+        /// <param name="pipeSecurity">The <see cref="PipeSecurity"/> instance.</param>
+        /// <param name="wellKnownSid">The well known security identifier.</param>
+        /// <param name="accessRight">The access right to apply.</param>
+        /// <param name="accessControl">Indicates if the access rule is to be allowed or denied.</param>
+        /// <returns>The modified <see cref="PipeSecurity"/> instance.</returns>
         public static PipeSecurity AddIdentityAccessRule(this PipeSecurity pipeSecurity, WellKnownSidType wellKnownSid, PipeAccessRights accessRight,
             AccessControlType accessControl)
         {
@@ -15,6 +22,13 @@ namespace AllOverIt.Pipes.Named.Extensions
             return pipeSecurity.AddIdentityAccessRule(identity, accessRight, accessControl);
         }
 
+        /// <summary>Adds an access rule to a Discretionary Access Control List (DACL) that is associated with the provided <see cref="PipeSecurity"/>.</summary>
+        /// <param name="pipeSecurity">The <see cref="PipeSecurity"/> instance.</param>
+        /// <param name="wellKnownSid">The well known security identifier.</param>
+        /// <param name="domainSid">A domain security identifier. This can be <see langword="null"/>.</param>
+        /// <param name="accessRight">The access right to apply.</param>
+        /// <param name="accessControl">Indicates if the access rule is to be allowed or denied.</param>
+        /// <returns>The modified <see cref="PipeSecurity"/> instance.</returns>
         public static PipeSecurity AddIdentityAccessRule(this PipeSecurity pipeSecurity, WellKnownSidType wellKnownSid, SecurityIdentifier domainSid,
             PipeAccessRights accessRight, AccessControlType accessControl)
         {

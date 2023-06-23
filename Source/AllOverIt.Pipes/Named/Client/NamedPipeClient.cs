@@ -1,12 +1,11 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Pipes.Named.Events;
-using AllOverIt.Pipes.Named.Server;
+using AllOverIt.Pipes.Named.Serialization;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AllOverIt.Pipes.Named.Serialization;
 
 namespace AllOverIt.Pipes.Named.Client
 {
@@ -40,26 +39,18 @@ namespace AllOverIt.Pipes.Named.Client
         /// <inheritdoc/>
         public event EventHandler<NamedPipeExceptionEventArgs> OnException;
 
-
-        /// <summary>
-        /// Constructs a new <see cref="NamedPipeClient{T}"/> to connect to the <see cref="NamedPipeServer{T}"/> specified by <paramref name="pipeName"/>.
-        /// </summary>
-        /// <param name="pipeName">Name of the server's pipe</param>
-        /// <param name="serializer"> ... </param>
-
-        // TODO: Create a factory so IOC can be used
-
+        /// <summary>Constructor.</summary>
+        /// <param name="pipeName">The name of the pipe.</param>
+        /// <param name="serializer">The serializer to be used by named pipe client instances.</param>
         public NamedPipeClient(string pipeName, INamedPipeSerializer<TMessage> serializer)
             : this(pipeName, LocalServer, serializer)
         {
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pipeName"></param>
+        /// <summary>Constructor.</summary>
+        /// <param name="pipeName">The name of the pipe.</param>
         /// <param name="serverName">The name of the server to communicate with.</param>
-        /// <param name="serializer"></param>
+        /// <param name="serializer">The serializer to be used by named pipe client instances.</param>
         public NamedPipeClient(string pipeName, string serverName, INamedPipeSerializer<TMessage> serializer)
         {
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
@@ -67,112 +58,55 @@ namespace AllOverIt.Pipes.Named.Client
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
 
-
-
-        /// <summary>
-        /// Connects to the named pipe server asynchronously.
-        /// </summary>
+        /// <summary>Asynchronously connects to the named pipe server.</summary>
+        /// <param name="cancellationToken">A cancellation token.</param>
+        /// <returns>A task that completes when the connection has been established.</returns>
         public async Task ConnectAsync(CancellationToken cancellationToken = default)
         {
-            // TODO: Add auto-reconnect if the server is lost
-
-            //while (IsConnecting)
-            //{
-            //    await Task.Delay(TimeSpan.FromMilliseconds(1), cancellationToken).ConfigureAwait(false);
-            //}
-
             if (IsConnected)
             {
                 return;
             }
 
-            try
-            {
-                //IsConnecting = true;
+            var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
 
-                var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
+            var connectionStream = await NamedPipeClientStreamFactory
+                .CreateConnectedStreamAsync(connectionPipeName, ServerName, cancellationToken)
+                .ConfigureAwait(false);
 
-                // Connect to the actual data pipe
-                var connectionStream = await NamedPipeClientStreamFactory
-                    .CreateConnectedClientStreamAsync(connectionPipeName, ServerName, cancellationToken)
-                    .ConfigureAwait(false);
+            _connection = new NamedPipeClientConnection<TMessage>(connectionStream, connectionPipeName, ServerName, _serializer);
 
+            _connection.OnMessageReceived += DoOnConnectionMessageReceived;
+            _connection.OnDisconnected += DoOnConnectionDisconnected;
+            _connection.OnException += DoOnConnectionException;
 
-                // TODO: Handle cleanup if exception occurs after this
-                _connection = new NamedPipeClientConnection<TMessage>(connectionStream, connectionPipeName, _serializer, ServerName);
+            _connection.Connect();
 
-                _connection.OnMessageReceived += DoOnConnectionMessageReceived;
-                _connection.OnDisconnected += DoOnConnectionDisconnected;
-                _connection.OnException += DoOnConnectionException;
-
-                _connection.Connect();
-
-                DoOnConnected(_connection);
-            }
-            //catch (Exception)
-            //{
-            //    ReconnectionTimer.Stop();
-
-            //    throw;
-            //}
-            finally
-            {
-                //IsConnecting = false;
-            }
+            DoOnConnected(_connection);
         }
 
-
-
-        /// <summary>
-        /// Disconnects from server
-        /// </summary>
-        /// <param name="_"></param>
-        /// <returns></returns>
-        public async Task DisconnectAsync(CancellationToken _ = default)
+        /// <summary>Asynchronously disconnects from the named pipe server.</summary>
+        /// <returns>A task that completes when the connection has been disconnected.</returns>
+        public async Task DisconnectAsync()
         {
             await DoOnDisconnectedAsync().ConfigureAwait(false);
         }
 
-
-
-
-        /// <summary>
-        /// Sends a message to the server over a named pipe. <br/>
-        /// If client is not connected, <see cref="InvalidOperationException"/> is occurred
-        /// </summary>
-        /// <param name="value">Message to send to the server.</param>
-        /// <param name="cancellationToken"></param>
-        /// <exception cref="InvalidOperationException"></exception>
-        public async Task WriteAsync(TMessage value, CancellationToken cancellationToken = default)
+        /// <summary>Sends a message to the named pipe server.</summary>
+        /// <param name="message">The message to send to the server.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
+        public async Task WriteAsync(TMessage message, CancellationToken cancellationToken = default)
         {
-            //if (!IsConnected && AutoReconnect)
-            //{
-            //    await ConnectAsync(cancellationToken).ConfigureAwait(false);
-            //}
-
-            if (_connection == null)
-            {
-                throw new InvalidOperationException("Client is not connected");
-            }
-
-            await _connection.WriteAsync(value, cancellationToken).ConfigureAwait(false);
+            await _connection.WriteAsync(message, cancellationToken).ConfigureAwait(false);
         }
 
-
-
+        /// <summary>Disconnects from the server if it's connected and disposes of resources.</summary>
+        /// <returns>A task that completes when the client has been disposed.</returns>
         public async ValueTask DisposeAsync()
         {
-            //ReconnectionTimer.Dispose();
-
             await DoOnDisconnectedAsync().ConfigureAwait(false);
         }
 
-
-
-        /// <summary>
-        /// Get the name of the data pipe that should be used from now on by this pipe client.
-        /// </summary>
-        /// <returns></returns>
         private async Task<string> GetConnectionPipeName(CancellationToken cancellationToken)
         {
             var reader = await NamedPipeClientStreamFactory

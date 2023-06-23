@@ -49,9 +49,13 @@ namespace NamedPipeServerDemo
 
             try
             {
+                var namedPipeServerFactory = new NamedPipeServerFactory<PipeMessage>(serializer);
+
                 using (_runningToken = new CancellationTokenSource())
                 {
-                    await using (var server = new NamedPipeServer<PipeMessage>(pipeName, serializer))
+                    // Could also use this (without the NamedPipeServerFactory)
+                    // var server = new NamedPipeServer<PipeMessage>(pipeName, serializer);
+                    await using (var server = namedPipeServerFactory.CreateNamedPipeServer(pipeName))
                     {
                         PipeLogger.Append(ConsoleColor.Gray, "Server starting...");
 

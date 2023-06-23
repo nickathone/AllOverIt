@@ -19,7 +19,7 @@ namespace AllOverIt.Pipes.Named.Server
         bool IsActive { get; }
 
         /// <summary>Starts listening for new pipe client connections.</summary>
-        /// <param name="pipeSecurity">Access control and audit security that allows or denies new pipe client connections.</param>
+        /// <param name="pipeSecurity">An action to configure access control and audit security that allows or denies new pipe client connections.</param>
         void Start(Action<PipeSecurity> pipeSecurity);
 
         /// <summary>Starts listening for new pipe client connections.</summary>

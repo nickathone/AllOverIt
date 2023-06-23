@@ -9,12 +9,12 @@ namespace AllOverIt.Pipes.Named.Client
     {
         public static async Task<NamedPipeReaderWriter> CreateConnectedReaderWriterAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
         {
-            var pipeStream = await CreateConnectedClientStreamAsync(pipeName, serverName, cancellationToken).ConfigureAwait(false);
+            var pipeStream = await CreateConnectedStreamAsync(pipeName, serverName, cancellationToken).ConfigureAwait(false);
 
             return new NamedPipeReaderWriter(pipeStream, false);
         }
 
-        public static async Task<NamedPipeClientStream> CreateConnectedClientStreamAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
+        public static async Task<NamedPipeClientStream> CreateConnectedStreamAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)
         {
             var pipeStream = CreateNamedPipeClientStream(pipeName, serverName);
 

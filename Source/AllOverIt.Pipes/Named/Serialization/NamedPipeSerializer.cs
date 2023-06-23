@@ -8,8 +8,6 @@ using System.Text;
 
 namespace AllOverIt.Pipes.Named.Serialization
 {
-    // Will use dynamic readers / writers if custom readers / writers are not registered
-
     /// <summary>Provides binary serialization support for a named pipe. Reading is performed using <see cref="EnrichedBinaryValueReader"/>
     /// and writing is performed using <see cref="EnrichedBinaryValueWriter"/>. If a custom reader or writer is not provided for any property
     /// type (or even <typeparamref name="TMessage"/>) then a <see cref="DynamicBinaryValueReader"/> or <see cref="DynamicBinaryValueWriter"/> will be

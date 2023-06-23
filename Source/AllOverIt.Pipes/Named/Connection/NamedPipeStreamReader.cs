@@ -9,22 +9,17 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Named.Connection
 {
-    /// <summary>Provides the ability to read buffered data from an underlying pipe stream.</summary>
-    public sealed class NamedPipeStreamReader
+    // Reads buffered data from an underlying pipe stream
+    internal sealed class NamedPipeStreamReader
     {
         private readonly PipeStream _pipeStream;
 
-        /// <summary>Constructor.</summary>
-        /// <param name="pipeStream">The pipe stream to read from.</param>
         public NamedPipeStreamReader(PipeStream pipeStream)
         {
             _pipeStream = pipeStream.WhenNotNull(nameof(pipeStream));
         }
 
-        /// <summary>Reads an array of bytes from the pipe stream. This method waits until bytes are received
-        /// or the pipe stream is disconnected.</summary>
-        /// <returns>An array of bytes read from the pipe stream. This array will be empty if the pipe stream
-        /// is disconnected.</returns>
+        // Reads an array of bytes from the pipe stream. This method waits until bytes are received or the pipe stream is disconnected.
         public async Task<byte[]> ReadAsync(CancellationToken cancellationToken)
         {
             var length = await ReadLengthAsync(cancellationToken).ConfigureAwait(false);

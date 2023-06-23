@@ -1,22 +1,23 @@
-﻿using System.IO.Pipes;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Pipes.Named.Serialization;
 
 namespace AllOverIt.Pipes.Named.Server
 {
-    public static class NamedPipeServerFactory
+    /// <summary>A factory that creates instances of a named pipe server.</summary>
+    /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
+    public sealed class NamedPipeServerFactory<TMessage> : INamedPipeServerFactory<TMessage>
     {
-        public static NamedPipeServerStream CreateNamedPipeServerStream(string pipeName, PipeSecurity pipeSecurity = default)
+        private readonly INamedPipeSerializer<TMessage> _serializer;
+
+        public NamedPipeServerFactory(INamedPipeSerializer<TMessage> serializer)
         {
-            return NamedPipeServerStreamAcl.Create(
-                pipeName: pipeName,
-                direction: PipeDirection.InOut,
-                maxNumberOfServerInstances: 1,
-                transmissionMode: PipeTransmissionMode.Byte,
-                options: PipeOptions.Asynchronous | PipeOptions.WriteThrough,
-                inBufferSize: 0,
-                outBufferSize: 0,
-                pipeSecurity: pipeSecurity,
-                inheritability: System.IO.HandleInheritability.None,
-                additionalAccessRights: default);
+            _serializer = serializer.WhenNotNull(nameof(serializer));
+        }
+
+        /// <inheritdoc />
+        public INamedPipeServer<TMessage> CreateNamedPipeServer(string pipeName)
+        {
+            return new NamedPipeServer<TMessage>(pipeName, _serializer);
         }
     }
 }

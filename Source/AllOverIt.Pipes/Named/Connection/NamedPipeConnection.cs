@@ -18,14 +18,12 @@ namespace AllOverIt.Pipes.Named.Connection
         private BackgroundTask _backgroundReader;
         private NamedPipeReaderWriter _pipeReaderWriter;
 
-        // Will be a NamedPipeClientStream or NamedPipeServerStream
-        protected PipeStream PipeStream { get; private set; }
-
-        /// <inheritdoc />
         public string PipeName { get; }
 
-        /// <inheritdoc />
         public bool IsConnected => PipeStream?.IsConnected ?? false;
+
+        // Will be a NamedPipeClientStream or NamedPipeServerStream
+        protected PipeStream PipeStream { get; private set; }
 
         internal NamedPipeConnection(PipeStream stream, string pipeName, INamedPipeSerializer<TMessage> serializer)
         {
@@ -34,8 +32,7 @@ namespace AllOverIt.Pipes.Named.Connection
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
 
-        /// <inheritdoc />
-        /// <remarks>A connection cannot be re-established after it has been disconnected.</remarks>
+        // Note: A connection cannot be re-established after it has been disconnected
         public void Connect()
         {
             Throw<PipeException>.WhenNotNull(_backgroundReader, "The named pipe connection is already open.");
@@ -85,7 +82,6 @@ namespace AllOverIt.Pipes.Named.Connection
             }, _cancellationTokenSource.Token);
         }
 
-        /// <inheritdoc />
         public async Task DisconnectAsync()
         {
             if (_cancellationTokenSource is not null)
@@ -102,7 +98,6 @@ namespace AllOverIt.Pipes.Named.Connection
             }
         }
 
-        /// <inheritdoc />
         public async Task WriteAsync(TMessage value, CancellationToken cancellationToken = default)
         {
             Throw<PipeException>.When(!IsConnected, "Named pipe connection is not connected.");
@@ -115,7 +110,6 @@ namespace AllOverIt.Pipes.Named.Connection
             await _pipeReaderWriter.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
         }
 
-        /// <inheritdoc />
         public async ValueTask DisposeAsync()
         {
             await DisconnectAsync().ConfigureAwait(false);

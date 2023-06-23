@@ -2,6 +2,7 @@
 
 namespace AllOverIt.Pipes.Named.Events
 {
+    /// <summary>Defines named pipe message related event arguments.</summary>
     public sealed class NamedPipeConnectionMessageEventArgs<TMessage, TPipeConnection> : NamedPipeConnectionEventArgs<TMessage, TPipeConnection>
         where TPipeConnection : class, INamedPipeConnection<TMessage>
     {

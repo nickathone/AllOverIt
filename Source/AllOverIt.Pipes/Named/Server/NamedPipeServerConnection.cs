@@ -18,6 +18,10 @@ namespace AllOverIt.Pipes.Named.Server
         /// <inheritdoc />
         public event EventHandler<NamedPipeConnectionExceptionEventArgs<TMessage, INamedPipeServerConnection<TMessage>>> OnException;
 
+        /// <summary>Constructor.</summary>
+        /// <param name="stream">The underlying pipe stream.</param>
+        /// <param name="pipeName">The name of the pipe.</param>
+        /// <param name="serializer">The message serializer.</param>
         public NamedPipeServerConnection(PipeStream stream, string pipeName, INamedPipeSerializer<TMessage> serializer)
             : base(stream, pipeName, serializer)
         {
@@ -36,6 +40,8 @@ namespace AllOverIt.Pipes.Named.Server
             return serverStream.GetImpersonationUserName();
         }
 
+        /// <summary>Raises an <see cref="OnMessageReceived"/> event.</summary>
+        /// <param name="message">The message received.</param>
         protected override void DoOnMessageReceived(TMessage message)
         {
             var onMessageReceived = OnMessageReceived;
@@ -48,6 +54,7 @@ namespace AllOverIt.Pipes.Named.Server
             }
         }
 
+        /// <summary>Raises an <see cref="OnDisconnected"/> event.</summary>
         protected override void DoOnDisconnected()
         {
             var onDisconnected = OnDisconnected;
@@ -60,6 +67,7 @@ namespace AllOverIt.Pipes.Named.Server
             }
         }
 
+        /// <summary>Raises an <see cref="OnException"/> event.</summary>
         protected override void DoOnException(Exception exception)
         {
             var onException = OnException;

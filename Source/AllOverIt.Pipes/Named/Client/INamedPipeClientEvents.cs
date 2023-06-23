@@ -3,7 +3,7 @@ using System;
 
 namespace AllOverIt.Pipes.Named.Client
 {
-    /// <summary>Declares event handlers specific to named pipe clients.</summary>
+    /// <summary>Declares event handlers specific to a named pipe client.</summary>
     /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
     public interface INamedPipeClientEvents<TMessage>
     {

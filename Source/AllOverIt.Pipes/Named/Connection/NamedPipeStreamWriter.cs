@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Named.Connection
 {
-    /// <summary>Provides the ability to write buffered data to an underlying pipe stream.</summary>
+    // Writes buffered data to an underlying pipe stream
     public sealed class NamedPipeStreamWriter
     {
         private PipeStream _pipeStream;
@@ -24,17 +24,15 @@ namespace AllOverIt.Pipes.Named.Connection
             _pipeStream = pipeStream.WhenNotNull(nameof(pipeStream));
         }
 
-        /// <summary>Writes an array of bytes to the underlying pipe stream. All data is prefixed with the length
-        /// (converted from host order to network byte order) of the message. This method is thread safe, meaning
-        /// multiple threads can safely write to the pipe stream, but an individual thread cannot call this method
-        /// a second time while it still has a lock from a previous call. Such a scenario can occur when a task
-        /// begins a write operation but the continuation occurs on another thread. If the first thread is re-used
-        /// (such as in a fast asynchronous polling operation) before the continuation completes then the internal
-        /// lock will become deadlocked due to the asynchronous lock not being capable of enforcing thread or task
-        /// identity. If this scenario is encountered, the underyling pipe stream will intentionally be disconnected
-        /// to allow for recovery.</summary>
-        /// <param name="buffer">Byte data to write to the underlying pipe stream.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
+        // Writes an array of bytes to the underlying pipe stream. All data is prefixed with the length
+        // (converted from host order to network byte order) of the message. This method is thread safe, meaning
+        // multiple threads can safely write to the pipe stream, but an individual thread cannot call this method
+        // a second time while it still has a lock from a previous call. Such a scenario can occur when a task
+        // begins a write operation but the continuation occurs on another thread. If the first thread is re-used
+        // (such as in a fast asynchronous polling operation) before the continuation completes then the internal
+        // lock will become deadlocked due to the asynchronous lock not being capable of enforcing thread or task
+        // identity. If this scenario is encountered, the underyling pipe stream will intentionally be disconnected
+        // to allow for recovery.
         public async Task WriteAsync(byte[] buffer, CancellationToken cancellationToken)
         {
             _ = buffer.WhenNotNull(nameof(buffer));

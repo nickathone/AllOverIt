@@ -25,6 +25,6 @@ namespace AllOverIt.Pipes.Named.Client
 
         /// <summary>Asynchronously disconnects from the named pipe server.</summary>
         /// <returns>A task that completes when the disconnection is complete.</returns>
-        Task DisconnectAsync(CancellationToken cancellationToken = default);
+        Task DisconnectAsync();
     }
 }

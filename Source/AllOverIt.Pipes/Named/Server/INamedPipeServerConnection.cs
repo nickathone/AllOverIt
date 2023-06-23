@@ -5,6 +5,8 @@ using System.IO;
 
 namespace AllOverIt.Pipes.Named.Server
 {
+    /// <summary>Represents a named pipe server connection to a named pipe client.</summary>
+    /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
     public interface INamedPipeServerConnection<TMessage> : IConnectableNamedPipeConnection<TMessage>
     {
         /// <summary>Event raised when a message is received from the other end of the pipe. Messages are raised

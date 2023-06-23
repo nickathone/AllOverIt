@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Named.Connection
 {
+    /// <summary>Represents and named pipe that can write a message to an underlying pipe stream.</summary>
+    /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
     public interface INamedPipe<TMessage>
     {
         /// <summary>Asynchronously sends a message to all connected clients.</summary>
