@@ -1,30 +1,30 @@
 # Summary
 |||
 |:---|:---|
-| Generated on: | 5/06/2023 - 12:26:06 PM |
-| Coverage date: | 5/06/2023 - 12:19:45 PM - 5/06/2023 - 12:25:21 PM |
+| Generated on: | 24/06/2023 - 5:28:58 PM |
+| Coverage date: | 24/06/2023 - 5:25:46 PM - 24/06/2023 - 5:28:38 PM |
 | Parser: | MultiReport (64x Cobertura) |
 | Assemblies: | 17 |
-| Classes: | 400 |
-| Files: | 409 |
-| **Line coverage:** | 99.6% (11665 of 11709) |
-| Covered lines: | 11665 |
-| Uncovered lines: | 44 |
-| Coverable lines: | 11709 |
-| Total lines: | 29539 |
-| **Branch coverage:** | 96.3% (2375 of 2466) |
-| Covered branches: | 2375 |
-| Total branches: | 2466 |
+| Classes: | 401 |
+| Files: | 410 |
+| **Line coverage:** | 99.6% (11659 of 11701) |
+| Covered lines: | 11659 |
+| Uncovered lines: | 42 |
+| Coverable lines: | 11701 |
+| Total lines: | 29593 |
+| **Branch coverage:** | 96.8% (2359 of 2436) |
+| Covered branches: | 2359 |
+| Total branches: | 2436 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|
-|**AllOverIt**|**5147**|**8**|**5155**|**14165**|**99.8%**|**982**|**1010**|**97.2%**|
+|**AllOverIt**|**5143**|**6**|**5149**|**14186**|**99.8%**|**964**|**980**|**98.3%**|
 |AllOverIt.Aspects.Interceptor.InterceptorBase`1|41|0|41|100|100%|2|2|100%|
 |AllOverIt.Aspects.Interceptor.InterceptorFactory|11|0|11|35|100%|2|2|100%|
 |AllOverIt.Aspects.Interceptor.InterceptorState|1|0|1|13|100%|0|0||
 |AllOverIt.Async.AsyncLazy`1|9|0|9|44|100%|0|0||
-|AllOverIt.Async.BackgroundTask|83|2|85|165|97.6%|12|14|85.7%|
+|AllOverIt.Async.BackgroundTask|85|0|85|165|100%|13|14|92.8%|
 |AllOverIt.Async.BackgroundTask`1|83|0|83|166|100%|17|18|94.4%|
 |AllOverIt.Async.CompositeAsyncDisposable|51|0|51|95|100%|6|6|100%|
 |AllOverIt.Async.RepeatingTask|82|2|84|166|97.6%|0|0||
@@ -62,13 +62,14 @@
 |AllOverIt.Expressions.Strings.Extensions.StringComparisonModeExtensions|23|0|23|41|100%|6|6|100%|
 |AllOverIt.Expressions.Strings.StringComparisonMode|12|0|12|48|100%|0|0||
 |AllOverIt.Expressions.Strings.StringComparisonUtils|150|0|150|329|100%|22|22|100%|
-|AllOverIt.Extensions.AsyncEnumerableExtensions|76|0|76|221|100%|33|48|68.7%|
+|AllOverIt.Extensions.AsyncDisposableExtensions|5|0|5|25|100%|0|0||
+|AllOverIt.Extensions.AsyncEnumerableExtensions|76|0|76|221|100%|22|28|78.5%|
 |AllOverIt.Extensions.ComparableExtensions|18|0|18|68|100%|0|0||
 |AllOverIt.Extensions.ComparerExtensions|28|0|28|74|100%|4|4|100%|
 |AllOverIt.Extensions.DictionaryExtensions|16|0|16|55|100%|8|8|100%|
 |AllOverIt.Extensions.DoubleExtensions|12|0|12|54|100%|0|0||
 |AllOverIt.Extensions.EndianExtensions|140|0|140|335|100%|36|36|100%|
-|AllOverIt.Extensions.EnumerableExtensions|291|0|291|690|100%|40|44|90.9%|
+|AllOverIt.Extensions.EnumerableExtensions|291|0|291|690|100%|36|38|94.7%|
 |AllOverIt.Extensions.ExceptionExtensions|21|0|21|47|100%|14|14|100%|
 |AllOverIt.Extensions.ExpressionExtensions|89|0|89|187|100%|37|38|97.3%|
 |AllOverIt.Extensions.ListExtensions|16|0|16|53|100%|0|0||
@@ -152,9 +153,9 @@
 |AllOverIt.Patterns.ValueObject.ValueObject`2|47|0|47|134|100%|10|10|100%|
 |AllOverIt.Plugin.Exceptions.CannotLoadPluginTypeException|9|0|9|32|100%|0|0||
 |AllOverIt.Process.Exceptions.ProcessException|9|0|9|28|100%|0|0||
-|AllOverIt.Process.Extensions.ProcessExecutorOptionsExtensions|45|0|45|133|100%|8|8|100%|
+|AllOverIt.Process.Extensions.ProcessExecutorOptionsExtensions|48|0|48|154|100%|8|8|100%|
 |AllOverIt.Process.ProcessBuilder|4|0|4|19|100%|0|0||
-|AllOverIt.Process.ProcessExecutor|19|0|19|224|100%|4|4|100%|
+|AllOverIt.Process.ProcessExecutor|5|0|5|199|100%|0|0||
 |AllOverIt.Reflection.BindingOptionsHelper|93|0|93|121|100%|20|20|100%|
 |AllOverIt.Reflection.CommonTypes|48|0|48|155|100%|0|0||
 |AllOverIt.Reflection.Exceptions.ReflectionException|9|0|9|28|100%|0|0||
@@ -279,9 +280,9 @@
 |AllOverIt.Evaluator.Variables.VariableFactory|34|0|34|74|100%|4|4|100%|
 |AllOverIt.Evaluator.Variables.VariableLookup|25|0|25|61|100%|8|8|100%|
 |AllOverIt.Evaluator.Variables.VariableRegistry|37|0|37|80|100%|8|8|100%|
-|**AllOverIt.Filtering**|**646**|**1**|**647**|**1615**|**99.8%**|**118**|**130**|**90.7%**|
+|**AllOverIt.Filtering**|**646**|**1**|**647**|**1615**|**99.8%**|**120**|**130**|**92.3%**|
 |AllOverIt.Filtering.Builders.FilterBuilder`2|71|0|71|159|100%|19|24|79.1%|
-|AllOverIt.Filtering.Builders.FilterSpecificationBuilder`2|219|1|220|410|99.5%|49|56|87.5%|
+|AllOverIt.Filtering.Builders.FilterSpecificationBuilder`2|219|1|220|410|99.5%|51|56|91%|
 |AllOverIt.Filtering.Exceptions.NullNotSupportedException|9|0|9|28|100%|0|0||
 |AllOverIt.Filtering.Extensions.FilterExtensions|12|0|12|42|100%|2|2|100%|
 |AllOverIt.Filtering.Extensions.FilterSpecificationExtensions|5|0|5|27|100%|0|0||
@@ -330,7 +331,7 @@
 |AllOverIt.Mapping.PropertyMatcherCache|31|0|31|60|100%|2|2|100%|
 |AllOverIt.Mapping.PropertyMatcherOptions|95|0|95|193|100%|24|24|100%|
 |AllOverIt.Mapping.TypedPropertyMatcherOptions`2|58|0|58|157|100%|2|2|100%|
-|**AllOverIt.Pagination**|**726**|**1**|**727**|**1742**|**99.8%**|**119**|**124**|**95.9%**|
+|**AllOverIt.Pagination**|**726**|**1**|**727**|**1741**|**99.8%**|**119**|**124**|**95.9%**|
 |AllOverIt.Pagination.ColumnDefinition`1|7|0|7|71|100%|0|0||
 |AllOverIt.Pagination.ColumnDefinition`2|30|0|30|71|100%|6|6|100%|
 |AllOverIt.Pagination.ContinuationToken|3|0|3|12|100%|0|0||
@@ -339,14 +340,14 @@
 |AllOverIt.Pagination.Extensions.ColumnItemExtensions|12|0|12|28|100%|0|0||
 |AllOverIt.Pagination.Extensions.ContinuationTokenEncoderExtensions|9|0|9|24|100%|0|0||
 |AllOverIt.Pagination.Extensions.PaginationDirectionExtensions|5|0|5|12|100%|2|2|100%|
-|AllOverIt.Pagination.Extensions.QueryPaginatorExtensions|102|0|102|310|100%|10|12|83.3%|
+|AllOverIt.Pagination.Extensions.QueryPaginatorExtensions|102|0|102|308|100%|10|12|83.3%|
 |AllOverIt.Pagination.Extensions.ServiceCollectionExtensions|8|0|8|26|100%|0|0||
 |AllOverIt.Pagination.PageResult`1|15|0|15|49|100%|0|0||
 |AllOverIt.Pagination.QueryPaginator`1|267|0|267|535|100%|68|68|100%|
 |AllOverIt.Pagination.QueryPaginatorBase|30|0|30|59|100%|4|4|100%|
 |AllOverIt.Pagination.QueryPaginatorConfiguration|4|0|4|20|100%|0|0||
 |AllOverIt.Pagination.QueryPaginatorFactory|9|0|9|29|100%|0|0||
-|AllOverIt.Pagination.TokenEncoding.ContinuationTokenBinaryStreamer|18|0|18|38|100%|0|0||
+|AllOverIt.Pagination.TokenEncoding.ContinuationTokenBinaryStreamer|18|0|18|39|100%|0|0||
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenCompressor|18|0|18|38|100%|0|0||
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenEncoder|55|1|56|105|98.2%|11|14|78.5%|
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenEncoderFactory|10|0|10|26|100%|0|0||
@@ -355,15 +356,15 @@
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenSerializerFactory|4|0|4|14|100%|0|0||
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenValidator|12|0|12|33|100%|2|2|100%|
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenWriter|7|0|7|27|100%|0|0||
-|**AllOverIt.Reactive**|**192**|**0**|**192**|**556**|**100%**|**35**|**36**|**97.2%**|
+|**AllOverIt.Reactive**|**190**|**0**|**190**|**552**|**100%**|**35**|**36**|**97.2%**|
 |AllOverIt.Reactive.EventBus|10|0|10|39|100%|0|0||
 |AllOverIt.Reactive.EventBusHandler`1|40|0|40|89|100%|5|6|83.3%|
 |AllOverIt.Reactive.Extensions.DisposableExtensions|3|0|3|17|100%|0|0||
-|AllOverIt.Reactive.Extensions.ObservableExtensions|44|0|44|113|100%|10|10|100%|
+|AllOverIt.Reactive.Extensions.ObservableExtensions|44|0|44|111|100%|10|10|100%|
 |AllOverIt.Reactive.Extensions.PropertyNotifyExtensions|24|0|24|59|100%|0|0||
 |AllOverIt.Reactive.ObservableObject|32|0|32|104|100%|12|12|100%|
 |AllOverIt.Reactive.ObservableProxy`1|23|0|23|92|100%|8|8|100%|
-|AllOverIt.Reactive.TaskHelper|16|0|16|43|100%|0|0||
+|AllOverIt.Reactive.TaskHelper|14|0|14|41|100%|0|0||
 |**AllOverIt.ReactiveUI**|**156**|**0**|**156**|**432**|**100%**|**25**|**26**|**96.1%**|
 |AllOverIt.ReactiveUI.ActivatableViewModel|12|0|12|39|100%|0|0||
 |AllOverIt.ReactiveUI.CommandPipeline.ReactiveCommandPipelineBuilder|5|0|5|24|100%|0|0||
@@ -373,21 +374,21 @@
 |AllOverIt.ReactiveUI.Extensions.ReactiveCommandExtensions|5|0|5|27|100%|0|0||
 |AllOverIt.ReactiveUI.Factories.ViewFactory|7|0|7|26|100%|0|0||
 |AllOverIt.ReactiveUI.ReactiveProxy`1|23|0|23|94|100%|8|8|100%|
-|**AllOverIt.Serialization.Binary**|**592**|**1**|**593**|**1282**|**99.8%**|**101**|**110**|**91.8%**|
-|AllOverIt.Serialization.Binary.DynamicBinaryValueReader|16|0|16|38|100%|4|6|66.6%|
-|AllOverIt.Serialization.Binary.DynamicBinaryValueWriter|16|0|16|35|100%|4|6|66.6%|
-|AllOverIt.Serialization.Binary.EnrichedBinaryReader|81|0|81|121|100%|4|4|100%|
-|AllOverIt.Serialization.Binary.EnrichedBinaryValueReader|5|0|5|21|100%|0|0||
-|AllOverIt.Serialization.Binary.EnrichedBinaryValueReader`1|1|0|1|15|100%|0|0||
-|AllOverIt.Serialization.Binary.EnrichedBinaryValueWriter|5|0|5|19|100%|0|0||
-|AllOverIt.Serialization.Binary.EnrichedBinaryValueWriter`1|1|0|1|15|100%|0|0||
-|AllOverIt.Serialization.Binary.EnrichedBinaryWriter|181|1|182|271|99.4%|34|36|94.4%|
-|AllOverIt.Serialization.Binary.Exceptions.BinaryReaderException|9|0|9|29|100%|0|0||
-|AllOverIt.Serialization.Binary.Exceptions.BinaryWriterException|9|0|9|29|100%|0|0||
-|AllOverIt.Serialization.Binary.Extensions.EnrichedBinaryReaderExtensions|116|0|116|270|100%|22|22|100%|
-|AllOverIt.Serialization.Binary.Extensions.EnrichedBinaryValueReaderExtensions|5|0|5|21|100%|0|0||
-|AllOverIt.Serialization.Binary.Extensions.EnrichedBinaryValueWriterExtensions|5|0|5|21|100%|0|0||
-|AllOverIt.Serialization.Binary.Extensions.EnrichedBinaryWriterExtensions|142|0|142|377|100%|33|36|91.6%|
+|**AllOverIt.Serialization.Binary**|**592**|**1**|**593**|**1320**|**99.8%**|**101**|**110**|**91.8%**|
+|AllOverIt.Serialization.Binary.Exceptions.BinaryReaderException|9|0|9|30|100%|0|0||
+|AllOverIt.Serialization.Binary.Exceptions.BinaryWriterException|9|0|9|30|100%|0|0||
+|AllOverIt.Serialization.Binary.Readers.DynamicBinaryValueReader|16|0|16|51|100%|4|6|66.6%|
+|AllOverIt.Serialization.Binary.Readers.EnrichedBinaryReader|81|0|81|121|100%|4|4|100%|
+|AllOverIt.Serialization.Binary.Readers.EnrichedBinaryValueReader|5|0|5|21|100%|0|0||
+|AllOverIt.Serialization.Binary.Readers.EnrichedBinaryValueReader`1|1|0|1|15|100%|0|0||
+|AllOverIt.Serialization.Binary.Readers.Extensions.EnrichedBinaryReaderExtensions|116|0|116|273|100%|22|22|100%|
+|AllOverIt.Serialization.Binary.Readers.Extensions.EnrichedBinaryValueReaderExtensions|5|0|5|22|100%|0|0||
+|AllOverIt.Serialization.Binary.Writers.DynamicBinaryValueWriter|16|0|16|48|100%|4|6|66.6%|
+|AllOverIt.Serialization.Binary.Writers.EnrichedBinaryValueWriter|5|0|5|21|100%|0|0||
+|AllOverIt.Serialization.Binary.Writers.EnrichedBinaryValueWriter`1|1|0|1|15|100%|0|0||
+|AllOverIt.Serialization.Binary.Writers.EnrichedBinaryWriter|181|1|182|271|99.4%|34|36|94.4%|
+|AllOverIt.Serialization.Binary.Writers.Extensions.EnrichedBinaryValueWriterExtensions|5|0|5|22|100%|0|0||
+|AllOverIt.Serialization.Binary.Writers.Extensions.EnrichedBinaryWriterExtensions|142|0|142|380|100%|33|36|91.6%|
 |**AllOverIt.Serialization.Json.Abstractions**|**321**|**0**|**321**|**759**|**100%**|**46**|**46**|**100%**|
 |AllOverIt.Serialization.Json.Abstractions.ElementDictionary|16|0|16|37|100%|0|0||
 |AllOverIt.Serialization.Json.Abstractions.Exceptions.JsonHelperException|9|0|9|28|100%|0|0||
