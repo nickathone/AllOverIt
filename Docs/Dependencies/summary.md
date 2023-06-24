@@ -73,7 +73,7 @@
 * Microsoft.Extensions.Logging v7.0.0
 * Microsoft.Extensions.Logging.Abstractions v7.0.0
 * Microsoft.Extensions.Options v7.0.0
-* System.Reactive v5.0.0
+* System.Reactive v6.0.0
 
 <br>
 
@@ -89,20 +89,20 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* Amazon.CDK v1.201.0
-* Amazon.CDK.AWS.AppSync v1.201.0
-* Amazon.CDK.AWS.CertificateManager v1.201.0
-* Amazon.CDK.AWS.Cognito v1.201.0
-* Amazon.CDK.AWS.DynamoDB v1.201.0
-* Amazon.CDK.AWS.EC2 v1.201.0
-* Amazon.CDK.AWS.Elasticsearch v1.201.0
-* Amazon.CDK.AWS.IAM v1.201.0
-* Amazon.CDK.AWS.Lambda v1.201.0
-* Amazon.CDK.AWS.OpenSearchService v1.201.0
-* Amazon.CDK.AWS.RDS v1.201.0
-* Amazon.CDK.AWS.S3.Assets v1.201.0
-* Amazon.CDK.AWS.SecretsManager v1.201.0
-* Amazon.JSII.Runtime v1.74.0
+* Amazon.CDK v1.204.0
+* Amazon.CDK.AWS.AppSync v1.204.0
+* Amazon.CDK.AWS.CertificateManager v1.204.0
+* Amazon.CDK.AWS.Cognito v1.204.0
+* Amazon.CDK.AWS.DynamoDB v1.204.0
+* Amazon.CDK.AWS.EC2 v1.204.0
+* Amazon.CDK.AWS.Elasticsearch v1.204.0
+* Amazon.CDK.AWS.IAM v1.204.0
+* Amazon.CDK.AWS.Lambda v1.204.0
+* Amazon.CDK.AWS.OpenSearchService v1.204.0
+* Amazon.CDK.AWS.RDS v1.204.0
+* Amazon.CDK.AWS.S3.Assets v1.204.0
+* Amazon.CDK.AWS.SecretsManager v1.204.0
+* Amazon.JSII.Runtime v1.84.0
 * Constructs v3.3.69
 
 <br>
@@ -151,8 +151,8 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* Microsoft.EntityFrameworkCore v7.0.5
-* Microsoft.EntityFrameworkCore.Relational v7.0.5
+* Microsoft.EntityFrameworkCore v7.0.8
+* Microsoft.EntityFrameworkCore.Relational v7.0.8
 * Microsoft.Extensions.Configuration.Abstractions v7.0.0
 
 <br>
@@ -169,8 +169,8 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* Microsoft.EntityFrameworkCore v7.0.5
-* Microsoft.EntityFrameworkCore.Relational v7.0.5
+* Microsoft.EntityFrameworkCore v7.0.8
+* Microsoft.EntityFrameworkCore.Relational v7.0.8
 * Microsoft.Extensions.Configuration.Abstractions v7.0.0
 
 <br>
@@ -190,8 +190,8 @@
 * AllOverIt.EntityFrameworkCore
 * AllOverIt.Pagination
 * AllOverIt.Serialization.Binary
-* Microsoft.EntityFrameworkCore v7.0.5
-* Microsoft.EntityFrameworkCore.Relational v7.0.5
+* Microsoft.EntityFrameworkCore v7.0.8
+* Microsoft.EntityFrameworkCore.Relational v7.0.8
 * Microsoft.Extensions.Configuration.Abstractions v7.0.0
 * Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0
 
@@ -353,7 +353,7 @@
 * AllOverIt.Assertion
 * AllOverIt.Reactive
 * AllOverIt.Serialization.Binary
-* System.Reactive v5.0.0
+* System.Reactive v6.0.0
 
 <br>
 
@@ -369,7 +369,7 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* System.Reactive v5.0.0
+* System.Reactive v6.0.0
 
 <br>
 
@@ -385,10 +385,10 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* DynamicData v7.13.5
+* DynamicData v7.14.2
 * Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0
-* ReactiveUI v18.4.44
-* Splat v14.6.8
+* ReactiveUI v19.2.1
+* Splat v14.6.37
 
 <br>
 
@@ -453,7 +453,7 @@
 * AllOverIt.Assertion
 * AllOverIt.Serialization.Json.Abstractions
 * System.Text.Encodings.Web v7.0.0
-* System.Text.Json v7.0.2
+* System.Text.Json v7.0.3
 
 <br>
 
