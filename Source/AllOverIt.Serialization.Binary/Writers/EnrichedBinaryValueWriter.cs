@@ -8,6 +8,8 @@ namespace AllOverIt.Serialization.Binary.Writers
         /// <inheritdoc />
         public Type Type { get; }
 
+        /// <summary>Constructor.</summary>
+        /// <param name="type">The value type this writer write to a stream.</param>
         public EnrichedBinaryValueWriter(Type type)
         {
             Type = type;

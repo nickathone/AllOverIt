@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Async;
 using AllOverIt.Extensions;
+using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Named.Connection;
 using AllOverIt.Pipes.Named.Events;
 using AllOverIt.Pipes.Named.Serialization;
@@ -77,9 +78,7 @@ namespace AllOverIt.Pipes.Named.Server
         /// <inheritdoc />
         public void Start(PipeSecurity pipeSecurity = null)
         {
-
-            // TODO: Throw if already started
-
+            Throw<PipeException>.WhenNotNull(_backgroundTask, "The named pipe server has already been started.");
 
             _backgroundTask = new BackgroundTask(async token =>
             {
@@ -147,6 +146,7 @@ namespace AllOverIt.Pipes.Named.Server
             });
         }
 
+        /// <inheritdoc />
         public async Task StopAsync()
         {
             // Prevent new connections from being established

@@ -9,7 +9,7 @@ namespace AllOverIt.Serialization.Binary.Readers
         public Type Type { get; }
 
         /// <summary>Constructor.</summary>
-        /// <param name="type">The object type read by this value reader.</param>
+        /// <param name="type">The value type read by this value reader.</param>
         public EnrichedBinaryValueReader(Type type)
         {
             Type = type;

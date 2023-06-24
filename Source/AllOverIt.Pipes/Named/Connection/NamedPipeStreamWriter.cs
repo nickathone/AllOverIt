@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace AllOverIt.Pipes.Named.Connection
 {
     // Writes buffered data to an underlying pipe stream
-    public sealed class NamedPipeStreamWriter
+    internal sealed class NamedPipeStreamWriter
     {
         private PipeStream _pipeStream;
         private readonly AwaitableLock _lock = new();

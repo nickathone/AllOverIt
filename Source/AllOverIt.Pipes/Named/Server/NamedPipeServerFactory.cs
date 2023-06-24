@@ -9,6 +9,8 @@ namespace AllOverIt.Pipes.Named.Server
     {
         private readonly INamedPipeSerializer<TMessage> _serializer;
 
+        /// <summary>Constructor.</summary>
+        /// <param name="serializer">The message serializer.</param>
         public NamedPipeServerFactory(INamedPipeSerializer<TMessage> serializer)
         {
             _serializer = serializer.WhenNotNull(nameof(serializer));
