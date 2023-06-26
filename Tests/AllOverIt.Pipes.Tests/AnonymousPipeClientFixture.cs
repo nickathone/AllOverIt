@@ -11,7 +11,77 @@ namespace AllOverIt.Pipes.Tests
 {
     public class AnonymousPipeClientFixture : FixtureBase
     {
-        public class Start : AnonymousPipeClientFixture
+        public class Start_Handle : AnonymousPipeClientFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Client_Handle_Null()
+            {
+                using (var client = new AnonymousPipeClient())
+                {
+                    Invoking(() =>
+                    {
+                        client.Start(null);
+                    })
+                   .Should()
+                   .Throw<ArgumentNullException>()
+                   .WithNamedMessageWhenNull("clientHandle");
+                }
+            }
+
+            [Fact]
+            public void Should_Throw_When_Client_Handle_Empty()
+            {
+                using (var client = new AnonymousPipeClient())
+                {
+                    Invoking(() =>
+                    {
+                        client.Start(string.Empty);
+                    })
+                   .Should()
+                   .Throw<ArgumentException>()
+                   .WithNamedMessageWhenEmpty("clientHandle");
+                }
+            }
+
+            [Fact]
+            public void Should_Throw_When_Client_Handle_Whitespace()
+            {
+                using (var client = new AnonymousPipeClient())
+                {
+                    Invoking(() =>
+                    {
+                        client.Start("  ");
+                    })
+                   .Should()
+                   .Throw<ArgumentException>()
+                   .WithNamedMessageWhenEmpty("clientHandle");
+                }
+            }
+
+            [Fact]
+            public void Should_Throw_When_Initialized_Twice()
+            {
+                using (var server = new AnonymousPipeServer())
+                {
+                    var clientHandle = server.Start(PipeDirection.In, Create<HandleInheritability>());
+
+                    using (var client = new AnonymousPipeClient())
+                    {
+                        client.Start(clientHandle);
+
+                        Invoking(() =>
+                        {
+                            client.Start(Create<PipeDirection>(), clientHandle);
+                        })
+                       .Should()
+                       .Throw<InvalidOperationException>()
+                       .WithMessage("The anonymous pipe has already been initialized.");
+                    }
+                }
+            }
+        }
+
+        public class Start_Direction_Handle : AnonymousPipeClientFixture
         {
             [Fact]
             public void Should_Throw_When_Client_Handle_Null()
