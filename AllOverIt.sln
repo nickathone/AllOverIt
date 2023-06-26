@@ -356,6 +356,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonymousPipeServerDemo", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonymousPipeClientDemo", "Demos\AllOverIt.Pipes\Anonymous\AnonymousPipeClientDemo\AnonymousPipeClientDemo.csproj", "{E6436991-AA83-4C60-AB24-982A6CD56038}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllOverIt.Pipes.Tests", "Tests\AllOverIt.Pipes.Tests\AllOverIt.Pipes.Tests.csproj", "{223C1486-397C-48CC-AC8D-A6E750668C3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -842,6 +844,10 @@ Global
 		{E6436991-AA83-4C60-AB24-982A6CD56038}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6436991-AA83-4C60-AB24-982A6CD56038}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6436991-AA83-4C60-AB24-982A6CD56038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{223C1486-397C-48CC-AC8D-A6E750668C3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{223C1486-397C-48CC-AC8D-A6E750668C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{223C1486-397C-48CC-AC8D-A6E750668C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{223C1486-397C-48CC-AC8D-A6E750668C3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1011,6 +1017,7 @@ Global
 		{1CD4E66C-1DBA-4D81-83A9-5CAFC692023E} = {A91B8047-0BEE-4480-87BD-F41320D8F40E}
 		{29DA1B96-F902-4495-883F-F81DD37C610D} = {1CD4E66C-1DBA-4D81-83A9-5CAFC692023E}
 		{E6436991-AA83-4C60-AB24-982A6CD56038} = {1CD4E66C-1DBA-4D81-83A9-5CAFC692023E}
+		{223C1486-397C-48CC-AC8D-A6E750668C3A} = {0C08FAE6-4CD9-4C7B-A849-EB0DB9BD1451}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19DD11B3-596E-4862-B5C4-1FFFFB173106}

@@ -1,5 +1,4 @@
 ﻿using AllOverIt.Assertion;
-using AllOverIt.Pipes.Exceptions;
 using System;
 using System.IO;
 using System.IO.Pipes;
@@ -64,7 +63,9 @@ namespace AllOverIt.Pipes.Anonymous
         /// <param name="pipeStream">The pipe's stream.</param>
         protected void InitializeStart(PipeDirection direction, PipeStream pipeStream)
         {
-            Throw<PipeException>.WhenNotNull(_pipeStream, $"The anonymous pipe has already been initialized.");
+            _ = pipeStream.WhenNotNull(nameof(pipeStream));
+
+            Throw<InvalidOperationException>.WhenNotNull(_pipeStream, "The anonymous pipe has already been initialized.");
 
             _direction = direction;
             _pipeStream = pipeStream;
@@ -102,13 +103,13 @@ namespace AllOverIt.Pipes.Anonymous
         private void AssertCanRead()
         {
             Throw<InvalidOperationException>.WhenNull(_pipeStream, $"The anonymous pipe has not been initialized. Call the {nameof(InitializeStart)}() method.");
-            Throw<PipeException>.When(_direction == PipeDirection.Out, "The anonymous pipe is write-only.");
+            Throw<InvalidOperationException>.When(_direction == PipeDirection.Out, "The anonymous pipe is write-only.");
         }
 
         private void AssertCanWrite()
         {
             Throw<InvalidOperationException>.WhenNull(_pipeStream, $"The anonymous pipe has not been initialized. Call the {nameof(InitializeStart)}() method.");
-            Throw<PipeException>.When(_direction == PipeDirection.In, "The anonymous pipe is read-only.");
+            Throw<InvalidOperationException>.When(_direction == PipeDirection.In, "The anonymous pipe is read-only.");
         }
     }
 }

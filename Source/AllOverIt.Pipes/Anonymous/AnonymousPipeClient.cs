@@ -1,4 +1,5 @@
-﻿using System.IO.Pipes;
+﻿using AllOverIt.Assertion;
+using System.IO.Pipes;
 
 namespace AllOverIt.Pipes.Anonymous
 {
@@ -12,6 +13,8 @@ namespace AllOverIt.Pipes.Anonymous
         /// <param name="clientHandle">A string representation of the client handle as provided by an anonymous pipe server.</param>
         public void Start(string clientHandle)
         {
+            _ = clientHandle.WhenNotNullOrEmpty();
+
             Start(PipeDirection.In, clientHandle);
         }
 
@@ -22,6 +25,8 @@ namespace AllOverIt.Pipes.Anonymous
         /// <param name="clientHandle">A string representation of the client handle as provided by an anonymous pipe server.</param>
         public void Start(PipeDirection direction, string clientHandle)
         {
+            _ = clientHandle.WhenNotNullOrEmpty();
+
             _pipeClientStream = new AnonymousPipeClientStream(direction, clientHandle);
 
             InitializeStart(direction, _pipeClientStream);
