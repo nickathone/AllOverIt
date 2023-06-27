@@ -249,11 +249,11 @@ namespace AllOverIt.Pipes.Named.Server
             OnMessageReceived?.Invoke(this, args);
         }
 
-        private void DoOnConnectionDisconnected(object sender, NamedPipeConnectionEventArgs<TMessage, INamedPipeServerConnection<TMessage>> args)
+        private async void DoOnConnectionDisconnected(object sender, NamedPipeConnectionEventArgs<TMessage, INamedPipeServerConnection<TMessage>> args)
         {
             OnClientDisconnected?.Invoke(this, args);
 
-            Reactive.TaskHelper.ExecuteAsyncAndWait(async () =>
+            try
             {
                 var connection = args.Connection;
 
@@ -265,7 +265,11 @@ namespace AllOverIt.Pipes.Named.Server
                 {
                     Connections.Remove(connection);
                 }
-            });
+            }
+            catch ( Exception exception)
+            {
+                DoOnException(exception);
+            }
         }
 
         private void DoOnConnectionException(object sender, NamedPipeConnectionExceptionEventArgs<TMessage, INamedPipeServerConnection<TMessage>> args)

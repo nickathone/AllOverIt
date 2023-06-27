@@ -1,8 +1,8 @@
-﻿using AllOverIt.Pipes.Named.Events;
+﻿using AllOverIt.Async;
+using AllOverIt.Pipes.Named.Events;
 using AllOverIt.Pipes.Named.Extensions;
 using AllOverIt.Pipes.Named.Serialization;
 using AllOverIt.Pipes.Named.Server;
-using AllOverIt.Reactive;
 using NamedPipeTypes;
 using System;
 using System.Collections.Concurrent;
@@ -147,32 +147,29 @@ namespace NamedPipeServerDemo
             }
         }
 
-        private static void DoOnClientConnected(object server, NamedPipeConnectionEventArgs<PipeMessage, INamedPipeServerConnection<PipeMessage>> args)
+        private static async void DoOnClientConnected(object server, NamedPipeConnectionEventArgs<PipeMessage, INamedPipeServerConnection<PipeMessage>> args)
         {
             var connection = args.Connection;
 
-            TaskHelper.ExecuteAsyncAndWait(async () =>
+            try
             {
-                try
+                PipeLogger.Append(ConsoleColor.Blue, $"Client {connection.PipeName} is now connected.");
+
+                var pipeMessage = new PipeMessage
                 {
-                    PipeLogger.Append(ConsoleColor.Blue, $"Client {connection.PipeName} is now connected.");
+                    Text = "Welcome!"
+                };
 
-                    var pipeMessage = new PipeMessage
-                    {
-                        Text = "Welcome!"
-                    };
+                await connection.WriteAsync(pipeMessage).ConfigureAwait(false);
 
-                    await connection.WriteAsync(pipeMessage).ConfigureAwait(false);
+                PipeLogger.Append(ConsoleColor.Green, $"Sending : {pipeMessage}");
+            }
+            catch (Exception exception)
+            {
+                await connection.DisconnectAsync().ConfigureAwait(false);
 
-                    PipeLogger.Append(ConsoleColor.Green, $"Sending : {pipeMessage}");
-                }
-                catch (Exception exception)
-                {
-                    await connection.DisconnectAsync().ConfigureAwait(false);
-
-                    DoOnException(exception);
-                }
-            });
+                DoOnException(exception);
+            }
         }
 
         private void DoOnClientDisconnected(object server, NamedPipeConnectionEventArgs<PipeMessage, INamedPipeServerConnection<PipeMessage>> args)

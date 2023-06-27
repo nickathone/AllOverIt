@@ -124,11 +124,11 @@ namespace AllOverIt.Pipes.Named.Client
             }
         }
 
-        private void DoOnConnectionDisconnected(object sender, NamedPipeConnectionEventArgs<TMessage, INamedPipeClientConnection<TMessage>> args)
+        private async void DoOnConnectionDisconnected(object sender, NamedPipeConnectionEventArgs<TMessage, INamedPipeClientConnection<TMessage>> args)
         {
             try
             {
-                Reactive.TaskHelper.ExecuteAsyncAndWait(DoOnDisconnectedAsync);
+                await DoOnDisconnectedAsync();
             }
             catch (Exception exception)
             {
