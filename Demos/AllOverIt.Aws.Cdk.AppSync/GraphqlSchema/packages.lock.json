@@ -2,552 +2,40 @@
   "version": 1,
   "dependencies": {
     "net7.0": {
-      "Amazon.CDK": {
+      "Amazon.CDK.Asset.AwsCliV1": {
         "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "l4R4I7Uy3wGodYfHc6sm4adi9lgYSzhbPlicJmL71Fahrz/3Isl9WwkADmKNWPZAgdVZeRw6aQHpd7IW4o71Cg==",
+        "resolved": "2.2.177",
+        "contentHash": "belnOrGmZ+YsyGPFL0SRA5pubfbOGh+iU2VljxHPnDZn4nLgAkWMxoquR/3DScWl8xvHL7Sh9ulGNS+zAgfLZA==",
         "dependencies": {
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.CDK.CloudAssembly.Schema": "1.204.0",
-          "Amazon.CDK.RegionInfo": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
+          "Amazon.JSII.Runtime": "[1.81.0, 2.0.0)"
         }
       },
-      "Amazon.CDK.Assets": {
+      "Amazon.CDK.Asset.KubectlV20": {
         "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "aOCQBqFS/yTULscWH+InkSfnPYMaLLw4WEl+9JIqfIo5ZYr9PexhRbWkUsvsJJMUjWefXp2OT+SMEKj/4WpToQ==",
+        "resolved": "2.1.1",
+        "contentHash": "d/Dtwp4PQ30awCAdGIueWC2H1+WI9F8vXFdUMkrTjTevNvMvW+L9r8xDXdxLwHJPswL6t+33/LMyKx1QmGtaTw==",
         "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
+          "Amazon.JSII.Runtime": "[1.70.0, 2.0.0)"
         }
       },
-      "Amazon.CDK.AWS.ACMPCA": {
+      "Amazon.CDK.Asset.NodeProxyAgentV5": {
         "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "KS3vF0fX0t6aPr1r1/4fuJ2uVjOfBdNIwaW9CNEKKUEGUJAqW2tY6lYduYfCGycsNvyuWHRF0p1DH9ELVlB6Kg==",
+        "resolved": "2.0.148",
+        "contentHash": "xg6rRYXgh90I52RCNie64Q3uztOG3fEz2lUGN9K3TBezIGi3xpZexYnbsb//vkilMCJCGonXMceC+/uH1UT9ig==",
         "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
+          "Amazon.JSII.Runtime": "[1.81.0, 2.0.0)"
         }
       },
-      "Amazon.CDK.AWS.ApplicationAutoScaling": {
+      "Amazon.CDK.Lib": {
         "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "6HT+MnHJWbmswt/xEUcZ+cdThFy6BZL+SMDrUrh2e4qrRhQ8hnHTD8PgTQEvBPczc2dPSpksYqH3bONgVi11Gg==",
+        "resolved": "2.85.0",
+        "contentHash": "4jIArB6yU/Y5HacyOVy5rktIll6JaM/f6pVhXhcdkXx80rgtY3NDwdx93WpYThxZlFHDfOqXBfQTZJsuD104Ew==",
         "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.AutoScaling.Common": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.AppSync": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "T/N/XBvz+Zervrxtd/4zOI4zfh35bPdbmpAA28JTr12RQ7u1gkbJaUHznNMHbpMU4D3MTyzfHaJaYGFcrko0jw==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CertificateManager": "1.204.0",
-          "Amazon.CDK.AWS.Cognito": "1.204.0",
-          "Amazon.CDK.AWS.DynamoDB": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.Elasticsearch": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.Lambda": "1.204.0",
-          "Amazon.CDK.AWS.OpenSearchService": "1.204.0",
-          "Amazon.CDK.AWS.RDS": "1.204.0",
-          "Amazon.CDK.AWS.S3.Assets": "1.204.0",
-          "Amazon.CDK.AWS.SecretsManager": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.AutoScaling.Common": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "g9nxkevb8aSxPTtXS3xPCGgHkBMEId7CiOBcJuc2IehBreMiskzNAdMjttxD2mkIYgOnxkA+idshbJYw2g3Oog==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.CertificateManager": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "Mty/7Pgeo1Wo0WVUx7T0r/337yZ3cr2mrsimB8To2yRiNQ19ReYGeOdT3n5l+XxDE8JvHXuDvwfbK9TTcKPnqg==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.ACMPCA": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.Lambda": "1.204.0",
-          "Amazon.CDK.AWS.Route53": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.CloudFormation": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "QKhSrUo/y/f9yOXv90cXwLcAS9vix32vI+hrRVluL0/haK0Uqj07j6aJZ47Cz7hfiP4WABf8Ua1uBacX6p2/Hw==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.Lambda": "1.204.0",
-          "Amazon.CDK.AWS.S3": "1.204.0",
-          "Amazon.CDK.AWS.SNS": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.CloudWatch": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "JQH2v221PaxIOoOa4A4CtkZ3LrgObqu+Z6KauonBg8BXBElrR9g1BKc6DvEFB/WzLbWKB+jk0iUpYeaGE1kaKQ==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.CodeGuruProfiler": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "a2afB9ULjzyLWkAN4zTiOwhVuvytclrQa4tqUiAYHEaT33B3SGUggZw4z7XugZ82RWyk+vNSVvmBKlFLlBMhww==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.CodeStarNotifications": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "G2/vdmo80QJzq0lTsqxL/CCMoOXFY7Y4ZdbQ5tyWrgfQknaoJbwVB6Cdw29QEtZAfu2caTPUC4PHpe/U70VgRA==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.Cognito": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "mrXsnKtd8rQhSCLFdbUh4ssfEjQhNGlPyZlvVc5g0M9gPSbrsqBskfPgF6JFaJ6oKBBfct6UcyCPeKYLxh59mQ==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CertificateManager": "1.204.0",
-          "Amazon.CDK.AWS.CustomResources": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Lambda": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.CustomResources": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "Wpx7EnturNT6JliirbpwTv+ZvOE0PJ0s9parH35j4VYTazyrBRvxNksB44r6iJPhTwpVSYygAHE4F/WrvdxRyA==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CloudFormation": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.Lambda": "1.204.0",
-          "Amazon.CDK.AWS.Logs": "1.204.0",
-          "Amazon.CDK.AWS.SNS": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.DynamoDB": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "Psfdhu0QrVjVMCJ2E7Q9IImjNyW2fRi7EftUHblWVYi8z+0VtgFMR2Rf1Mcn7bZiodyJpmPZR5gzNmSHUQFBqw==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.ApplicationAutoScaling": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.CustomResources": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Kinesis": "1.204.0",
-          "Amazon.CDK.AWS.Lambda": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.EC2": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "QUUY53aO4RJTY9Uyv5F6fBUftj+b66PrbdaSLQR+DEufUvEmowLwGIUfxJjsvoagJ7eY9iVi72PJlCUTg2MGcA==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Logs": "1.204.0",
-          "Amazon.CDK.AWS.S3": "1.204.0",
-          "Amazon.CDK.AWS.S3.Assets": "1.204.0",
-          "Amazon.CDK.AWS.SSM": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.CDK.CloudAssembly.Schema": "1.204.0",
-          "Amazon.CDK.RegionInfo": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.ECR": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "5JHpZABGw3sMWrjkQlnN6ueVlhMKId8E5m+w8TLv3co0upIGaiQyKDfo8qstnwXyA7bnELaxFvyK+EZLLYv4JA==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.Events": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.EFS": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "wp6p1sCt5gKWbgeVRuLkCVnDC/OV+X0RjYAOH77d85Is5hIJflnsGkQV2DxyMNTXmLNoplSeA4gCw5GrLJU8zQ==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.CDK.CloudAssembly.Schema": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.Elasticsearch": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "zznKpHAXPaH+DaH7KRYUvcboMc0VQWtbCXwe/LHkbgrH0tqwQng/7esDqxs0ebtJrwkEXb4Yvn7I7I191cBRxg==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CertificateManager": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.CustomResources": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Logs": "1.204.0",
-          "Amazon.CDK.AWS.Route53": "1.204.0",
-          "Amazon.CDK.AWS.SecretsManager": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.Events": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "gnUZp+VfL1DM1RH5AS1pyn530Fp92LpvkBs5uxARm/NO5epoisAfAW+VuitpfuoBxJ4u58IdMOaXkwqjZBPdsw==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.IAM": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "Hx670JDYTV06zxgBlAteFdIgfIEcWQH3KYiyGRZI7l+FkEUQ79L071tdqW50mvuxHE/TU+PMIfEi2C4RtBTuVA==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.CDK.RegionInfo": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.Kinesis": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "2xAdlwsaNKmgu7Kc/wZ2kB3I8d1tU4kFTbw2Q+u8soKnwfadIxR251BLLDvhXVPiv5y/ROQNPApEsIOggs52UQ==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Logs": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.KMS": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "MjifVkP1Mp6QpQrVmUtRZhyri4pwztoKxkg8Usv3/3AA+CHYmICuTH7XGDPSFzzuECs9nycemlq5ZZrCXZvoiA==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.CDK.CloudAssembly.Schema": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.Lambda": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "WIlvzPIgrTbIdlMYAirUJ6YDI1kueK1vAGM0zdJsClwImW55sF7wkQU5OSNsuAhcqwHtXwtJRUnmgvRdacWc+w==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.ApplicationAutoScaling": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.CodeGuruProfiler": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.ECR": "1.204.0",
-          "Amazon.CDK.AWS.EFS": "1.204.0",
-          "Amazon.CDK.AWS.Events": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Logs": "1.204.0",
-          "Amazon.CDK.AWS.S3": "1.204.0",
-          "Amazon.CDK.AWS.S3.Assets": "1.204.0",
-          "Amazon.CDK.AWS.SNS": "1.204.0",
-          "Amazon.CDK.AWS.SQS": "1.204.0",
-          "Amazon.CDK.AWS.Signer": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.CDK.ECR.Assets": "1.204.0",
-          "Amazon.CDK.RegionInfo": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.Logs": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "EK67lkSxLTSmrZQgjeVjObXmus9ZIgEwHy1CDBgW/w6Og8x5HDY4t3wKVLrks8VG+9ZGV64AWkwfM1VAGGcN5A==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.S3.Assets": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.OpenSearchService": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "Wjrk8HqQm9k247nqquAB76a2lLgHlnAWtkj3kTtGTdC/043XWs3Dc9UqByfnP5AVSeqbGkoAACNjKWqp1dujVA==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CertificateManager": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.CustomResources": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Logs": "1.204.0",
-          "Amazon.CDK.AWS.Route53": "1.204.0",
-          "Amazon.CDK.AWS.SecretsManager": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.RDS": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "xsHOouLzDJEQzg+af49p50i97auuBrhI3Aw5p8omBHakZfeu6rqj+SISI+muVoyHaGHOzDouJor+Wu5Hj0iUyQ==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.Events": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Logs": "1.204.0",
-          "Amazon.CDK.AWS.S3": "1.204.0",
-          "Amazon.CDK.AWS.SecretsManager": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.Route53": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "kUKocLGAx0tlDoYh5MLNSrIzZoimQObJGPHiDw8mz6SfFu+zMwFz83AIQTT5nQyIuD7DtE/O5WmQgOwIJxnZEw==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CustomResources": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.Logs": "1.204.0",
-          "Amazon.CDK.CloudAssembly.Schema": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.S3": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "ftR+FqoXrxtx75iD0khPsIiX9rit91F1kz+pAIZXld2+Rm7r3DEawhM+cd9mWeB/oiYcJKo6gZN2Du0T+tRdyA==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.Events": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.S3.Assets": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "Lb6phv1XbquONw6Ogh+3bGW37ZHOHE//AU9moaPH7ccrk/QOBjk/dKU2t5bYT26rQF8Se/3Zrz0HoWoE23UJOg==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.S3": "1.204.0",
-          "Amazon.CDK.Assets": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.SAM": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "xWldAqEJ0YYDQx5Wp8ET2EUlk3iAbow/qJLioVXSj8Z2gIvutntNO/EogSpcQts/zQbz9mv1Yx5LukbNCoSLSg==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.SecretsManager": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "78cGkgr83zghmyBHOgUnPEQPpEuCVrV8rIFwCFVmoLdD7DCIsLYu3cVUMsGb7GPJdGtug5WgAiQ9dB6kRk9waw==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.EC2": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.Lambda": "1.204.0",
-          "Amazon.CDK.AWS.SAM": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.Signer": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "18E9A+2uHpy8Q2kTrygDiypBdBsUOXC87elqzJDJywKHr9hh+uoo1LOT4zfjSffysNpoXAcoTog51bkE16jH7g==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.SNS": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "yG8xBDbi2Y80+JPv/55eCL/VVWAvllaTdSUt7GQwwECI2KHcwf1zMqBAzTe2mI86LoqD/SGBhmqeiD3KYOA6SQ==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.CodeStarNotifications": "1.204.0",
-          "Amazon.CDK.AWS.Events": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.AWS.SQS": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.SQS": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "GS8cvQ+dxfXb96pmCtU6fnYXJaCbcCORdTnDrIajllqoKnYB9RXzWCpTREoZ1r7+jqvi34kvbsWUG8+mhwUFsg==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.CloudWatch": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.AWS.SSM": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "TyV48byF5gvRZO+BiSBY1KiPwRtUPQZz6+fGfIfaIiAOLciNwXLkrmE1fdq8RQQ3KyeHUYmPD1JDwk2l2GbLgQ==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.KMS": "1.204.0",
-          "Amazon.CDK.CloudAssembly.Schema": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.CloudAssembly.Schema": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "KtdYCPZsA/lfEZjhyER227CzXEwM7IazavdZ7j5RMM3sXEeSQF+VeToHtCQLZolbBheFbDjD8x4QnVJKX7GOqA==",
-        "dependencies": {
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)"
-        }
-      },
-      "Amazon.CDK.CXAPI": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "QttS38EtZBa1E5tcdnJTCI7ZNML641CS997765IxfTj+WpJ6MPebwb2BJdLI+vHV+DOJiw5H7WvXk8peT+ekmw==",
-        "dependencies": {
-          "Amazon.CDK.CloudAssembly.Schema": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)"
-        }
-      },
-      "Amazon.CDK.ECR.Assets": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "/u8FF1Qf7MlokaxF6pxqxrh7HMvmXtl4SXhPXQzmIYT4ppBf5EM/doGyGVsUyjw13rSzXFhvTwJXS9son6cj7A==",
-        "dependencies": {
-          "Amazon.CDK": "1.204.0",
-          "Amazon.CDK.AWS.ECR": "1.204.0",
-          "Amazon.CDK.AWS.IAM": "1.204.0",
-          "Amazon.CDK.AWS.S3": "1.204.0",
-          "Amazon.CDK.Assets": "1.204.0",
-          "Amazon.CDK.CXAPI": "1.204.0",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
-          "Constructs": "[3.3.69, 4.0.0)"
-        }
-      },
-      "Amazon.CDK.RegionInfo": {
-        "type": "Transitive",
-        "resolved": "1.204.0",
-        "contentHash": "ITTQzKIyBqnHqz4nh47vu6qeUG/GSylu24nOV651xQIJX1c4tZvVye0mjDgNBbxG9zQqLtAizUvEckB9jITe4w==",
-        "dependencies": {
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)"
+          "Amazon.CDK.Asset.AwsCliV1": "[2.2.177, 3.0.0)",
+          "Amazon.CDK.Asset.KubectlV20": "[2.1.1, 3.0.0)",
+          "Amazon.CDK.Asset.NodeProxyAgentV5": "[2.0.148, 3.0.0)",
+          "Amazon.JSII.Runtime": "[1.82.0, 2.0.0)",
+          "Constructs": "[10.0.0, 11.0.0)"
         }
       },
       "Amazon.JSII.Runtime": {
@@ -561,12 +49,22 @@
           "Newtonsoft.Json": "13.0.3"
         }
       },
+      "Cdklabs.AwsCdkAppsyncUtils": {
+        "type": "Transitive",
+        "resolved": "0.0.132",
+        "contentHash": "QW53y6wAK1Yai5s9P/b8qRkv/1wzwmDXcfpT13gKdahVFYELvvaf5aAQoaj6q1wDvRbIhvkwiczmjEOfsBoGIw==",
+        "dependencies": {
+          "Amazon.CDK.Lib": "[2.60.0, 3.0.0)",
+          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
+          "Constructs": "[10.0.5, 11.0.0)"
+        }
+      },
       "Constructs": {
         "type": "Transitive",
-        "resolved": "3.3.69",
-        "contentHash": "bokQf6+jwS1bU4HA+GgtvYunR+iaQnOrqJ/ufXrkT8OdsT51/6MAyah+TUcUbq/jj4XZ6b92gZYN74v+mPsImA==",
+        "resolved": "10.0.5",
+        "contentHash": "z2/KMnDFIrH7/pFjHiUN7G3MGwlqasxuMAvImaCQ19+CVS+646LFjyPAYkXbqjQE8JYv6hcUM+KvXaIdE7dMGw==",
         "dependencies": {
-          "Amazon.JSII.Runtime": "[1.26.0, 2.0.0)"
+          "Amazon.JSII.Runtime": "[1.28.0, 2.0.0)"
         }
       },
       "Microsoft.Extensions.Configuration": {
@@ -686,7 +184,7 @@
       "alloverit": {
         "type": "Project",
         "dependencies": {
-          "AllOverIt.Assertion": "[7.0.0-rc.9, )"
+          "AllOverIt.Assertion": "[7.0.0-rc.10, )"
         }
       },
       "alloverit.assertion": {
@@ -695,8 +193,9 @@
       "alloverit.aws.cdk.appsync": {
         "type": "Project",
         "dependencies": {
-          "AllOverIt": "[7.0.0-rc.9, )",
-          "Amazon.CDK.AWS.AppSync": "[1.204.0, )"
+          "AllOverIt": "[7.0.0-rc.10, )",
+          "Amazon.CDK.Lib": "[2.85.0, )",
+          "Cdklabs.AwsCdkAppsyncUtils": "[0.0.132, )"
         }
       }
     }

@@ -2,8 +2,8 @@
 using AllOverIt.Aws.Cdk.AppSync.Factories;
 using AllOverIt.Aws.Cdk.AppSync.Mapping;
 using AllOverIt.Aws.Cdk.AppSync.Schema;
-using Amazon.CDK;
 using Amazon.CDK.AWS.AppSync;
+using Constructs;
 using System.Collections.Generic;
 using SystemType = System.Type;
 

@@ -8,6 +8,7 @@ using AllOverIt.Aws.Cdk.AppSync.Mapping;
 using AllOverIt.Collections;
 using AllOverIt.Extensions;
 using Amazon.CDK.AWS.AppSync;
+using Cdklabs.AwsCdkAppsyncUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
