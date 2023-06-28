@@ -16,13 +16,13 @@ namespace GraphqlSchema
     {
         public AppSyncDemoGraphql(Construct scope, AppSyncDemoAppProps appProps, IAuthorizationMode authMode, IReadOnlyDictionary<SystemType, string> typeNameOverrides,
             MappingTemplates mappingTemplates, MappingTypeFactory mappingTypeFactory)
-            : base(scope, "GraphQl", GetGraphqlApiProps(scope, appProps, authMode), typeNameOverrides, mappingTemplates, mappingTypeFactory)
+            : base(scope, "GraphQl", GetAppGraphqlProps(scope, appProps, authMode), typeNameOverrides, mappingTemplates, mappingTypeFactory)
         {
         }
 
-        private static CodeFirstGraphqlApiProps GetGraphqlApiProps(Construct scope, AppSyncDemoAppProps appProps, IAuthorizationMode authMode)
+        private static AppGraphqlProps GetAppGraphqlProps(Construct scope, AppSyncDemoAppProps appProps, IAuthorizationMode authMode)
         {
-            return new CodeFirstGraphqlApiProps
+            return new AppGraphqlProps
             {
                 Name = $"{appProps.AppName} V{appProps.Version}",
 

@@ -4,10 +4,10 @@ using Cdklabs.AwsCdkAppsyncUtils;
 namespace AllOverIt.Aws.Cdk.AppSync
 {
     /// <summary>Contains options for an AppSync GraphQL API with the Schema pre-configured as a <see cref="CodeFirstSchema"/>.</summary>
-    public sealed class CodeFirstGraphqlApiProps : GraphqlApiProps
+    public sealed class AppGraphqlProps : GraphqlApiProps
     {
         /// <summary>Constructor.</summary>
-        public CodeFirstGraphqlApiProps()
+        public AppGraphqlProps()
         {
             Schema = new CodeFirstSchema();
         }

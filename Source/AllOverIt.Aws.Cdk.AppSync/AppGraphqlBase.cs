@@ -25,7 +25,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
         /// a mapping type. If null then an an internal version will be created.</param>
         /// <param name="mappingTypeFactory">Contains registrations for mapping types (defined on a DataSource) that do not have
         /// a default constructor because arguments need to be provided at runtime.</param>
-        protected AppGraphqlBase(Construct scope, string id, CodeFirstGraphqlApiProps apiProps, IReadOnlyDictionary<SystemType, string> typeNameOverrides = default,
+        protected AppGraphqlBase(Construct scope, string id, AppGraphqlProps apiProps, IReadOnlyDictionary<SystemType, string> typeNameOverrides = default,
             MappingTemplates mappingTemplates = default, MappingTypeFactory mappingTypeFactory = default)
             : base(scope, id, apiProps)
         {
