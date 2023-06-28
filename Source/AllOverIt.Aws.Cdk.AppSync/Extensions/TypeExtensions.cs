@@ -4,7 +4,7 @@ using AllOverIt.Aws.Cdk.AppSync.Attributes.Types;
 using AllOverIt.Aws.Cdk.AppSync.Exceptions;
 using AllOverIt.Extensions;
 using AllOverIt.Reflection;
-using Amazon.CDK.AWS.AppSync;
+using Cdklabs.AwsCdkAppsyncUtils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;

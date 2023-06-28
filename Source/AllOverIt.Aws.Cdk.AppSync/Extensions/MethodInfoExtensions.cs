@@ -8,6 +8,7 @@ using AllOverIt.Aws.Cdk.AppSync.Mapping;
 using AllOverIt.Collections;
 using AllOverIt.Extensions;
 using Amazon.CDK.AWS.AppSync;
+using Cdklabs.AwsCdkAppsyncUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace AllOverIt.Aws.Cdk.AppSync.Extensions
             }
         }
 
-        public static IDictionary<string, GraphqlType> GetMethodArgs(this MethodInfo methodInfo, GraphqlApi graphqlApi, GraphqlTypeStore typeStore)
+        public static IDictionary<string, GraphqlType> GetMethodArgs(this MethodInfo methodInfo, CodeFirstSchema schema, GraphqlTypeStore typeStore)
         {
             var parameters = methodInfo.GetParameters();
 
@@ -64,7 +65,7 @@ namespace AllOverIt.Aws.Cdk.AppSync.Extensions
 
                 // Passing null for the field name because we are not creating a graphql field type, it is an argument type.
                 // The graphql fields are tracked for things like determining request/response mappings.
-                var graphqlType = typeStore.GetGraphqlType(null, requiredTypeInfo, objectType => graphqlApi.AddType(objectType));
+                var graphqlType = typeStore.GetGraphqlType(null, requiredTypeInfo, objectType => schema.AddType(objectType));
 
                 args.Add(parameterInfo.Name.GetGraphqlName(), graphqlType);
             }

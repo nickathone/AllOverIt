@@ -1,5 +1,5 @@
 ﻿using AllOverIt.Aws.Cdk.AppSync.Attributes.Directives;
-using Amazon.CDK.AWS.AppSync;
+using Cdklabs.AwsCdkAppsyncUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

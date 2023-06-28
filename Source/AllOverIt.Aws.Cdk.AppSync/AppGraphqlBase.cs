@@ -2,8 +2,9 @@
 using AllOverIt.Aws.Cdk.AppSync.Factories;
 using AllOverIt.Aws.Cdk.AppSync.Mapping;
 using AllOverIt.Aws.Cdk.AppSync.Schema;
-using Amazon.CDK;
 using Amazon.CDK.AWS.AppSync;
+using Cdklabs.AwsCdkAppsyncUtils;
+using Constructs;
 using System.Collections.Generic;
 using SystemType = System.Type;
 
@@ -34,8 +35,12 @@ namespace AllOverIt.Aws.Cdk.AppSync
             mappingTypeFactory ??= new MappingTypeFactory();
 
             var dataSourceFactory = new DataSourceFactory(this);
-            var gqlTypeCache = new GraphqlTypeStore(this, typeNameOverrides, mappingTemplates, mappingTypeFactory, dataSourceFactory);
-            _schemaBuilder = new SchemaBuilder(this, mappingTemplates, mappingTypeFactory, gqlTypeCache, dataSourceFactory);
+
+            var schema = apiProps.Schema as CodeFirstSchema;
+
+            var gqlTypeCache = new GraphqlTypeStore(schema, typeNameOverrides, mappingTemplates, mappingTypeFactory, dataSourceFactory);
+
+            _schemaBuilder = new SchemaBuilder(schema, mappingTemplates, mappingTypeFactory, gqlTypeCache, dataSourceFactory);
         }
 
         /// <summary>Adds a Query definition to the AppSync GraphQL API.</summary>
