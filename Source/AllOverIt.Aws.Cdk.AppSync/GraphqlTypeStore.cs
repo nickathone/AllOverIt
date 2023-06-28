@@ -16,7 +16,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
     internal sealed class GraphqlTypeStore
     {
         private readonly IList<SystemType> _typeUnderConstruction = new List<SystemType>();
-        private readonly GraphqlApi _graphqlApi;
+        private readonly CodeFirstSchema _schema;
         private readonly IReadOnlyDictionary<SystemType, string> _typeNameOverrides;
         private readonly MappingTemplates _mappingTemplates;
         private readonly MappingTypeFactory _mappingTypeFactory;
@@ -41,10 +41,10 @@ namespace AllOverIt.Aws.Cdk.AppSync
             {nameof(String), requiredTypeInfo => GraphqlType.String(CreateTypeOptions(requiredTypeInfo))}
         };
 
-        public GraphqlTypeStore(GraphqlApi graphqlApi, IReadOnlyDictionary<SystemType, string> typeNameOverrides, MappingTemplates mappingTemplates,
+        public GraphqlTypeStore(CodeFirstSchema schema, IReadOnlyDictionary<SystemType, string> typeNameOverrides, MappingTemplates mappingTemplates,
             MappingTypeFactory mappingTypeFactory, DataSourceFactory dataSourceFactory)
         {
-            _graphqlApi = graphqlApi.WhenNotNull();
+            _schema = schema.WhenNotNull();
             _typeNameOverrides = typeNameOverrides.WhenNotNull();
             _mappingTemplates = mappingTemplates.WhenNotNull();
             _mappingTypeFactory = mappingTypeFactory.WhenNotNull();
@@ -200,7 +200,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
                         GetGraphqlType(
                             fieldMapping,
                             requiredTypeInfo,
-                            objectType => _graphqlApi.AddType(objectType));
+                            objectType => _schema.AddType(objectType));
                 }
 
                 // optionally specified via a custom attribute
@@ -216,7 +216,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
                         new Field(
                             new FieldOptions
                             {
-                                Args = methodInfo.GetMethodArgs(_graphqlApi, this),
+                                Args = methodInfo.GetMethodArgs(_schema, this),
                                 ReturnType = returnObjectType,
                                 Directives = authDirectives
                             })
@@ -234,7 +234,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
                                 DataSource = dataSource,
                                 RequestMappingTemplate = _mappingTemplates.GetRequestMapping(fieldMapping),
                                 ResponseMappingTemplate = _mappingTemplates.GetResponseMapping(fieldMapping),
-                                Args = methodInfo.GetMethodArgs(_graphqlApi, this),
+                                Args = methodInfo.GetMethodArgs(_schema, this),
                                 ReturnType = returnObjectType,
                                 Directives = authDirectives
                             })

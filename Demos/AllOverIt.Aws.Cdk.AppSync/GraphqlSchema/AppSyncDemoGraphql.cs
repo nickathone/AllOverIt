@@ -6,6 +6,7 @@ using Amazon.CDK.AWS.AppSync;
 using Amazon.CDK.AWS.Cognito;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.S3;
+using Cdklabs.AwsCdkAppsyncUtils;
 using Constructs;
 using System.Collections.Generic;
 using SystemType = System.Type;
@@ -25,6 +26,8 @@ namespace GraphqlSchema
             return new GraphqlApiProps
             {
                 Name = $"{appProps.AppName} V{appProps.Version}",
+
+                Schema = new CodeFirstSchema(),
 
                 AuthorizationConfig = new AuthorizationConfig
                 {

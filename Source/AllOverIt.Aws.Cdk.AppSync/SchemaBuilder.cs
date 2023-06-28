@@ -20,15 +20,15 @@ namespace AllOverIt.Aws.Cdk.AppSync
         private const string MutationPrefix = "Mutation";
         private const string SubscriptionPrefix = "Subscription";
 
-        private readonly GraphqlApi _graphqlApi;
+        private readonly CodeFirstSchema _schema;
         private readonly MappingTemplates _mappingTemplates;
         private readonly MappingTypeFactory _mappingTypeFactory;
         private readonly GraphqlTypeStore _typeStore;
         private readonly DataSourceFactory _dataSourceFactory;
 
-        public SchemaBuilder(GraphqlApi graphQlApi, MappingTemplates mappingTemplates, MappingTypeFactory mappingTypeFactory, GraphqlTypeStore typeStore, DataSourceFactory dataSourceFactory)
+        public SchemaBuilder(CodeFirstSchema schema, MappingTemplates mappingTemplates, MappingTypeFactory mappingTypeFactory, GraphqlTypeStore typeStore, DataSourceFactory dataSourceFactory)
         {
-            _graphqlApi = graphQlApi.WhenNotNull(nameof(graphQlApi));
+            _schema = schema.WhenNotNull(nameof(schema));
             _mappingTemplates = mappingTemplates.WhenNotNull(nameof(mappingTemplates));
             _mappingTypeFactory = mappingTypeFactory.WhenNotNull(nameof(mappingTypeFactory));
             _typeStore = typeStore.WhenNotNull(nameof(typeStore));
@@ -38,13 +38,13 @@ namespace AllOverIt.Aws.Cdk.AppSync
         public SchemaBuilder AddQuery<TType>()
             where TType : IQueryDefinition
         {
-            CreateGraphqlSchemaType<TType>((fieldName, field) => _graphqlApi.AddQuery(fieldName, field));
+            CreateGraphqlSchemaType<TType>((fieldName, field) => _schema.AddQuery(fieldName, field));
             return this;
         }
 
         public SchemaBuilder AddMutation<TType>() where TType : IMutationDefinition
         {
-            CreateGraphqlSchemaType<TType>((fieldName, field) => _graphqlApi.AddMutation(fieldName, field));
+            CreateGraphqlSchemaType<TType>((fieldName, field) => _schema.AddMutation(fieldName, field));
             return this;
         }
 
@@ -73,9 +73,9 @@ namespace AllOverIt.Aws.Cdk.AppSync
                     .GetGraphqlType(
                         fieldMapping,
                         requiredTypeInfo,
-                        objectType => _graphqlApi.AddType(objectType));
+                        objectType => _schema.AddType(objectType));
 
-                _graphqlApi.AddSubscription(methodInfo.Name.GetGraphqlName(),
+                _schema.AddSubscription(methodInfo.Name.GetGraphqlName(),
                     new ResolvableField(
                         new ResolvableFieldOptions
                         {
@@ -86,7 +86,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
                             {
                                 Directive.Subscribe(GetSubscriptionMutations(methodInfo).ToArray())
                             },
-                            Args = methodInfo.GetMethodArgs(_graphqlApi, _typeStore),
+                            Args = methodInfo.GetMethodArgs(_schema, _typeStore),
                             ReturnType = returnObjectType
                         })
                 );
@@ -135,7 +135,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
                     .GetGraphqlType(
                         fieldMapping,
                         requiredTypeInfo,
-                        objectType => _graphqlApi.AddType(objectType));
+                        objectType => _schema.AddType(objectType));
 
                 var authDirectives = methodInfo.GetAuthDirectivesOrDefault();
 
@@ -147,7 +147,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
                             DataSource = dataSource,
                             RequestMappingTemplate = _mappingTemplates.GetRequestMapping(fieldMapping),
                             ResponseMappingTemplate = _mappingTemplates.GetResponseMapping(fieldMapping),
-                            Args = methodInfo.GetMethodArgs(_graphqlApi, _typeStore),
+                            Args = methodInfo.GetMethodArgs(_schema, _typeStore),
                             ReturnType = returnObjectType,
                             Directives = authDirectives
                         })
