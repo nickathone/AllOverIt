@@ -50,7 +50,7 @@
 
 
 ## AllOverIt.Aws.Cdk.Appsync
-* Unchanged
+* Updated to Amazon.CDK.Lib v2.85.0
 
 
 ## AllOverIt.Csv
