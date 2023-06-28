@@ -3,7 +3,6 @@ using AllOverIt.Aws.Cdk.AppSync.Factories;
 using AllOverIt.Aws.Cdk.AppSync.Mapping;
 using AllOverIt.Aws.Cdk.AppSync.Schema;
 using Amazon.CDK.AWS.AppSync;
-using Cdklabs.AwsCdkAppsyncUtils;
 using Constructs;
 using System.Collections.Generic;
 using SystemType = System.Type;
@@ -26,7 +25,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
         /// a mapping type. If null then an an internal version will be created.</param>
         /// <param name="mappingTypeFactory">Contains registrations for mapping types (defined on a DataSource) that do not have
         /// a default constructor because arguments need to be provided at runtime.</param>
-        protected AppGraphqlBase(Construct scope, string id, IGraphqlApiProps apiProps, IReadOnlyDictionary<SystemType, string> typeNameOverrides = default,
+        protected AppGraphqlBase(Construct scope, string id, CodeFirstGraphqlApiProps apiProps, IReadOnlyDictionary<SystemType, string> typeNameOverrides = default,
             MappingTemplates mappingTemplates = default, MappingTypeFactory mappingTypeFactory = default)
             : base(scope, id, apiProps)
         {
@@ -36,7 +35,7 @@ namespace AllOverIt.Aws.Cdk.AppSync
 
             var dataSourceFactory = new DataSourceFactory(this);
 
-            var schema = apiProps.Schema as CodeFirstSchema;
+            var schema = apiProps.GetCodeFirstSchema();
 
             var gqlTypeCache = new GraphqlTypeStore(schema, typeNameOverrides, mappingTemplates, mappingTypeFactory, dataSourceFactory);
 
