@@ -2,7 +2,7 @@
 using AllOverIt.Pipes.Exceptions;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests
+namespace AllOverIt.Pipes.Tests.Exceptions
 {
     public class PipeExceptionFixture : FixtureBase
     {

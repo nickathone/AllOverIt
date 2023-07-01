@@ -7,7 +7,7 @@ using System.IO;
 using System.IO.Pipes;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests
+namespace AllOverIt.Pipes.Tests.Anonymous
 {
     public class AnonymousPipeClientFixture : FixtureBase
     {

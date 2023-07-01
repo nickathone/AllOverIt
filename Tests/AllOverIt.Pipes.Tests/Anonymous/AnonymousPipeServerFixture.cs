@@ -6,7 +6,7 @@ using System.IO;
 using System.IO.Pipes;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests
+namespace AllOverIt.Pipes.Tests.Anonymous
 {
     public class AnonymousPipeServerFixture : FixtureBase
     {
@@ -17,7 +17,7 @@ namespace AllOverIt.Pipes.Tests
             {
                 using (var server = new AnonymousPipeServer())
                 {
-                    var actual = server.Start(CreateExcluding<PipeDirection>(PipeDirection.InOut), Create<HandleInheritability>());
+                    var actual = server.Start(CreateExcluding(PipeDirection.InOut), Create<HandleInheritability>());
 
                     actual.Should().NotBeNullOrEmpty();
                 }
@@ -32,7 +32,7 @@ namespace AllOverIt.Pipes.Tests
 
                     Invoking(() =>
                     {
-                        server.Start(CreateExcluding<PipeDirection>(PipeDirection.InOut), Create<HandleInheritability>());
+                        server.Start(CreateExcluding(PipeDirection.InOut), Create<HandleInheritability>());
                     })
                    .Should()
                    .Throw<InvalidOperationException>()

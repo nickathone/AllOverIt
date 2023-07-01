@@ -16,7 +16,7 @@ namespace AllOverIt.Pipes.Named.Server
         string PipeName { get; }
 
         /// <summary>Indicates if the server has started and is actively allowing client connections.</summary>
-        bool IsActive { get; }
+        bool IsStarted { get; }
 
         /// <summary>Starts listening for new pipe client connections.</summary>
         /// <param name="pipeSecurity">An action to configure access control and audit security that allows or denies new pipe client connections.</param>

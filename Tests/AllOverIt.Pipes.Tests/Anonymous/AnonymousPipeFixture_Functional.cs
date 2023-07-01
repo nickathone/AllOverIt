@@ -8,7 +8,7 @@ using System.IO.Pipes;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests
+namespace AllOverIt.Pipes.Tests.Anonymous
 {
     public class AnonymousPipeFixture_Functional : FixtureBase
     {

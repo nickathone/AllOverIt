@@ -1,4 +1,5 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Named.Events;
 using AllOverIt.Pipes.Named.Serialization;
 using System;
@@ -63,10 +64,7 @@ namespace AllOverIt.Pipes.Named.Client
         /// <returns>A task that completes when the connection has been established.</returns>
         public async Task ConnectAsync(CancellationToken cancellationToken = default)
         {
-            if (IsConnected)
-            {
-                return;
-            }
+            Throw<PipeException>.When(IsConnected, "The named pipe client is already connected.");
 
             var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
 

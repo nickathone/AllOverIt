@@ -1,5 +1,4 @@
-﻿using AllOverIt.Async;
-using AllOverIt.Pipes.Named.Events;
+﻿using AllOverIt.Pipes.Named.Events;
 using AllOverIt.Pipes.Named.Extensions;
 using AllOverIt.Pipes.Named.Serialization;
 using AllOverIt.Pipes.Named.Server;

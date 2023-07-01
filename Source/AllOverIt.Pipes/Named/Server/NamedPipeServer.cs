@@ -31,7 +31,7 @@ namespace AllOverIt.Pipes.Named.Server
         public string PipeName { get; }
 
         /// <inheritdoc />
-        public bool IsActive
+        public bool IsStarted
         {
             get
             {
