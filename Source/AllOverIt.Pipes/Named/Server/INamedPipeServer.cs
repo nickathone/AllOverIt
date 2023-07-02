@@ -24,7 +24,7 @@ namespace AllOverIt.Pipes.Named.Server
 
         /// <summary>Starts listening for new pipe client connections.</summary>
         /// <param name="pipeSecurity">Access control and audit security that allows or denies new pipe client connections.</param>
-        void Start(PipeSecurity pipeSecurity = null);
+        void Start(PipeSecurity pipeSecurity = default);
 
         /// <summary>Closes all client connections and stops listening for new connections.</summary>
         Task StopAsync();

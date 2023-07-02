@@ -71,7 +71,7 @@ namespace AllOverIt.Pipes.Tests.Anonymous
 
                         Invoking(() =>
                         {
-                            client.Start(Create<PipeDirection>(), clientHandle);
+                            client.Start(PipeDirection.In, clientHandle);
                         })
                        .Should()
                        .Throw<InvalidOperationException>()
@@ -141,7 +141,7 @@ namespace AllOverIt.Pipes.Tests.Anonymous
 
                         Invoking(() =>
                         {
-                            client.Start(Create<PipeDirection>(), clientHandle);
+                            client.Start(PipeDirection.Out, clientHandle);
                         })
                        .Should()
                        .Throw<InvalidOperationException>()

@@ -16,4 +16,8 @@
         <ProjectReference Include="..\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="AllOverIt.Pipes.Tests" />
+    </ItemGroup>
+
 </Project>

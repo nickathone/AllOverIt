@@ -42,9 +42,16 @@ namespace AllOverIt.Pipes.Named.Client
 
             if (onMessageReceived is not null)
             {
-                var args = new NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeClientConnection<TMessage>>(this, message);
+                try
+                {
+                    var args = new NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeClientConnection<TMessage>>(this, message);
 
-                onMessageReceived.Invoke(this, args);
+                    onMessageReceived.Invoke(this, args);
+                }
+                catch (Exception ex)
+                {
+                    DoOnException(ex);
+                }
             }
         }
 

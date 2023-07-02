@@ -76,7 +76,7 @@ namespace AllOverIt.Pipes.Named.Server
         }
 
         /// <inheritdoc />
-        public void Start(PipeSecurity pipeSecurity = null)
+        public void Start(PipeSecurity pipeSecurity = default)
         {
             Throw<PipeException>.WhenNotNull(_backgroundTask, "The named pipe server has already been started.");
 
