@@ -127,13 +127,13 @@ namespace AllOverIt.Pipes.Named.Client
             try
             {
                 await DoOnDisconnectedAsync();
+
+                OnDisconnected?.Invoke(this, args);
             }
             catch (Exception exception)
             {
                 DoOnException(exception);
             }
-
-            OnDisconnected?.Invoke(this, args);
         }
 
         private async Task DoOnDisconnectedAsync()

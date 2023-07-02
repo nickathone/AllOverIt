@@ -25,9 +25,9 @@ namespace AllOverIt.Pipes.Named.Connection
         // Will be a NamedPipeClientStream or NamedPipeServerStream
         protected PipeStream PipeStream { get; private set; }
 
-        internal NamedPipeConnection(PipeStream stream, string pipeName, INamedPipeSerializer<TMessage> serializer)
+        internal NamedPipeConnection(PipeStream pipeStream, string pipeName, INamedPipeSerializer<TMessage> serializer)
         {
-            PipeStream = stream.WhenNotNull(nameof(stream));               // Assume ownership of this stream
+            PipeStream = pipeStream.WhenNotNull(nameof(pipeStream));               // Assume ownership of this stream
             PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
@@ -69,7 +69,6 @@ namespace AllOverIt.Pipes.Named.Connection
                         // PipeStreamReader will throw IOException if an expected byte count is not received.
                         // This can occur if the connection is killed during communication. Fall through so
                         // the connection is treated as disconnected.
-
 
                         // Make sure the PipeStream and associated reader/writer are disposed so IsConnected is reported as false
                         await DisposePipeStreamResources().ConfigureAwait(false);
@@ -121,11 +120,14 @@ namespace AllOverIt.Pipes.Named.Connection
 
         private async Task DisposePipeStreamResources()
         {
-            await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
-            _pipeReaderWriter = null;
+            if (_pipeReaderWriter is not null)
+            {
+                await _pipeReaderWriter.DisposeAsync().ConfigureAwait(false);
+                _pipeReaderWriter = null;
 
-            await PipeStream.DisposeAsync().ConfigureAwait(false);
-            PipeStream = null;
+                await PipeStream.DisposeAsync().ConfigureAwait(false);
+                PipeStream = null;
+            }
         }
     }
 }
