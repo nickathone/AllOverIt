@@ -29,14 +29,16 @@ namespace AllOverIt.Pipes.Named.Connection
 
         public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
-            Throw<PipeException>.When(!_pipeStream.IsConnected, "The named pipe is not connected.");
+            // Not checking if the connection is active here since it can be broken when further down the line.
+            // Making the caller resposible for ensuring read/write operations are performed correctly.
 
             return _streamReader.ReadAsync(cancellationToken);
         }
 
         public Task WriteAsync(byte[] buffer, CancellationToken cancellationToken = default)
         {
-            Throw<PipeException>.When(!_pipeStream.IsConnected, "The named pipe is not connected.");
+            // Not checking if the connection is active here since it can be broken when further down the line.
+            // Making the caller resposible for ensuring read/write operations are performed correctly.
 
             cancellationToken.ThrowIfCancellationRequested();
 

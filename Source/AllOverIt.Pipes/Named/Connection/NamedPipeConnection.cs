@@ -2,6 +2,7 @@
 using AllOverIt.Async;
 using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Named.Serialization;
+using AllOverIt.Threading;
 using System;
 using System.IO.Pipes;
 using System.Linq;
@@ -57,24 +58,30 @@ namespace AllOverIt.Pipes.Named.Connection
                             break;
                         }
 
-                        var @object = _serializer.Deserialize(bytes);
+                        var message = _serializer.Deserialize(bytes);
 
-                        DoOnMessageReceived(@object);
+                        DoOnMessageReceived(message);
                     }
                     catch (OperationCanceledException)
                     {
                     }
-                    catch (Exception ex)    // IOException or any other
+                    catch (Exception exception)    // IOException or any other
                     {
                         // PipeStreamReader will throw IOException if an expected byte count is not received.
                         // This can occur if the connection is killed during communication. Fall through so
                         // the connection is treated as disconnected.
 
-                        // Make sure the PipeStream and associated reader/writer are disposed so IsConnected is reported as false
-                        await DisposePipeStreamResources().ConfigureAwait(false);
+                        DoOnException(exception);
 
-                        DoOnException(ex);
+                        break;
                     }
+                }
+
+                if (IsConnected)
+                {
+                    // Dispose of the PipeStream and associated reader/writer - cannot call DisconnectAsync() here
+                    // as this will attempt to cancel / dispose of this background worker thread and cause a deadlock.
+                    await DisposePipeStreamResources().ConfigureAwait(false);
                 }
 
                 DoOnDisconnected();
@@ -99,7 +106,9 @@ namespace AllOverIt.Pipes.Named.Connection
 
         public async Task WriteAsync(TMessage value, CancellationToken cancellationToken = default)
         {
-            Throw<PipeException>.When(!IsConnected, "Named pipe connection is not connected.");
+            // Not checking if the connection is active here since it can be broken when further down the line.
+            // Making the caller resposible for ensuring read/write operations are performed correctly.
+
             Throw<PipeException>.When(!_pipeReaderWriter.CanWrite, "Named pipe connection is not writable.");
 
             cancellationToken.ThrowIfCancellationRequested();
