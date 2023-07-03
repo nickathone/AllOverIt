@@ -20,10 +20,10 @@ namespace AllOverIt.Pipes.Named.Server
 
         /// <summary>Constructor.</summary>
         /// <param name="stream">The underlying pipe stream.</param>
-        /// <param name="pipeName">The name of the pipe.</param>
+        /// <param name="connectionId">The name of the pipe.</param>
         /// <param name="serializer">The message serializer.</param>
-        public NamedPipeServerConnection(PipeStream stream, string pipeName, INamedPipeSerializer<TMessage> serializer)
-            : base(stream, pipeName, serializer)
+        public NamedPipeServerConnection(PipeStream stream, string connectionId, INamedPipeSerializer<TMessage> serializer)
+            : base(stream, connectionId, serializer)
         {
         }
 

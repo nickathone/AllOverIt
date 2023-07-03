@@ -9,6 +9,7 @@ namespace AllOverIt.Pipes.Named.Client
     /// <summary>Represents a named pipe client that can serialize messages of type <typeparamref name="TMessage"/> with a named pipe server.</summary>
     /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
     public interface INamedPipeClient<TMessage> : INamedPipe<TMessage>, INamedPipeEvents<TMessage>, INamedPipeClientEvents<TMessage>, IAsyncDisposable
+        where TMessage : class, new()
     {
         /// <summary>The name of pipe.</summary>
         public string PipeName { get; }

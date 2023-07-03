@@ -152,7 +152,7 @@ namespace NamedPipeServerDemo
 
             try
             {
-                PipeLogger.Append(ConsoleColor.Blue, $"Client {connection.PipeName} is now connected.");
+                PipeLogger.Append(ConsoleColor.Blue, $"Client connection {connection.ConnectionId} is now connected.");
 
                 var pipeMessage = new PipeMessage
                 {
@@ -177,14 +177,14 @@ namespace NamedPipeServerDemo
 
             _pingSubscriptions.Remove(connection, out _);
 
-            PipeLogger.Append(ConsoleColor.Magenta, $"Client {args.Connection.PipeName} disconnected");
+            PipeLogger.Append(ConsoleColor.Magenta, $"Client connection {args.Connection.ConnectionId} disconnected");
         }
 
         private void DoOnMessageReceived(object sender, NamedPipeConnectionMessageEventArgs<PipeMessage, INamedPipeServerConnection<PipeMessage>> args)
         {
             var connection = args.Connection;
 
-            PipeLogger.Append(ConsoleColor.Yellow, $"Received: {args.Message} from {connection.PipeName} (as '{connection.GetImpersonationUserName()}')");
+            PipeLogger.Append(ConsoleColor.Yellow, $"Received: {args.Message} from {connection.ConnectionId} (as '{connection.GetImpersonationUserName()}')");
 
             if (_runningToken.Token.IsCancellationRequested)
             {

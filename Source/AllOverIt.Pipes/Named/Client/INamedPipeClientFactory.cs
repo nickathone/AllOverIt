@@ -2,7 +2,7 @@
 {
     /// <summary>Represents a factory that creates instances of a named pipe client.</summary>
     /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
-    public interface INamedPipeClientFactory<TMessage>
+    public interface INamedPipeClientFactory<TMessage> where TMessage : class, new()
     {
         /// <summary>Creates a named pipe client using the provided <paramref name="pipeName"/> that will connect to a local
         /// named pipe server.</summary>

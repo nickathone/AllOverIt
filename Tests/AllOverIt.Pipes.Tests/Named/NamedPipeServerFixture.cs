@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Pipes.Named.Connection;
 using AllOverIt.Pipes.Named.Serialization;
 using AllOverIt.Pipes.Named.Server;
 using FakeItEasy;
@@ -149,6 +150,115 @@ namespace AllOverIt.Pipes.Tests.Named
                 await server.StopAsync();
 
                 server.IsStarted.Should().BeFalse();
+            }
+        }
+
+        // NamedPipeFixture_Functional contains additional tests
+        public class WriteAsync : NamedPipeServerFixture
+        {
+            private readonly string _pipeName;
+            private readonly INamedPipeServer<DummyMessage> _server;
+
+            public WriteAsync()
+            {
+                _pipeName = Create<string>();
+
+                var serializer = new NamedPipeSerializer<DummyMessage>();
+
+                _server = new NamedPipeServer<DummyMessage>(_pipeName, serializer);
+            }
+
+            public class WriteAsync_Message : WriteAsync
+            {
+                [Fact]
+                public async Task Should_Throw_When_Message_Null()
+                {
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(null);
+                    })
+                    .Should()
+                    .ThrowAsync<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("message");
+                }
+            }
+
+            public class WriteAsync_Message_PipeName : WriteAsync
+            {
+                [Fact]
+                public async Task Should_Throw_When_Message_Null()
+                {
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(null, Create<string>());
+                    })
+                    .Should()
+                    .ThrowAsync<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("message");
+                }
+
+                [Fact]
+                public async Task Should_Throw_When_PipeName_Null()
+                {
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(Create<DummyMessage>(), (string)null);
+                    })
+                    .Should()
+                    .ThrowAsync<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("pipeName");
+                }
+
+                [Fact]
+                public async Task Should_Throw_When_PipeName_Empty()
+                {
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(Create<DummyMessage>(), string.Empty);
+                    })
+                    .Should()
+                    .ThrowAsync<ArgumentException>()
+                    .WithNamedMessageWhenEmpty("pipeName");
+                }
+
+                [Fact]
+                public async Task Should_Throw_When_PipeName_Whitespace()
+                {
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(Create<DummyMessage>(), "  ");
+                    })
+                    .Should()
+                    .ThrowAsync<ArgumentException>()
+                    .WithNamedMessageWhenEmpty("pipeName");
+                }
+            }
+
+            public class WriteAsync_Message_Predicate : WriteAsync
+            {
+                [Fact]
+                public async Task Should_Throw_When_Message_Null()
+                {
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(null, _ => Create<bool>());
+                    })
+                    .Should()
+                    .ThrowAsync<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("message");
+                }
+
+                [Fact]
+                public async Task Should_Throw_When_Predicate_Null()
+                {
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(Create<DummyMessage>(), (Func<INamedPipeConnection<DummyMessage>, bool>) null);
+                    })
+                    .Should()
+                    .ThrowAsync<ArgumentNullException>()
+                    .WithNamedMessageWhenNull("predicate");
+                }
             }
         }
     }

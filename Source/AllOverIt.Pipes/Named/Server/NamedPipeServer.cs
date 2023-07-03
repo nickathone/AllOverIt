@@ -20,10 +20,10 @@ namespace AllOverIt.Pipes.Named.Server
     /// <summary>A named pipe server that can broadcast a strongly type message to all connected clients
     /// as well as receive messages from those clients.</summary>
     /// <typeparam name="TMessage"></typeparam>
-    public sealed class NamedPipeServer<TMessage> : INamedPipeServer<TMessage>
+    public sealed class NamedPipeServer<TMessage> : INamedPipeServer<TMessage> where TMessage : class, new()
     {
         private readonly INamedPipeSerializer<TMessage> _serializer;
-        private IList<INamedPipeServerConnection<TMessage>> Connections { get; } = new List<INamedPipeServerConnection<TMessage>>();
+        internal IList<INamedPipeServerConnection<TMessage>> Connections { get; } = new List<INamedPipeServerConnection<TMessage>>();
         private IAwaitableLock _connectionsLock = new AwaitableLock();
         private BackgroundTask _backgroundTask;
 
@@ -108,16 +108,7 @@ namespace AllOverIt.Pipes.Named.Server
                         // Wait for the client to connect to the data pipe
                         var connectionStream = NamedPipeServerStreamFactory.CreateStream(connectionPipeName, pipeSecurity);
 
-                        try
-                        {
-                            await connectionStream.WaitForConnectionAsync(token).ConfigureAwait(false);
-                        }
-                        catch
-                        {
-                            await connectionStream.DisposeAsync().ConfigureAwait(false);
-
-                            throw;
-                        }
+                        await connectionStream.WaitForConnectionAsync(token).ConfigureAwait(false);
 
                         // Add the client's connection to the list of connections
                         connection = new NamedPipeServerConnection<TMessage>(connectionStream, connectionPipeName, _serializer);
@@ -179,15 +170,18 @@ namespace AllOverIt.Pipes.Named.Server
         /// <param name="cancellationToken">An optional cancellation token.</param>
         public Task WriteAsync(TMessage message, string pipeName, CancellationToken cancellationToken = default)
         {
-            return WriteAsync(message, connection => connection.PipeName.Equals(pipeName, StringComparison.OrdinalIgnoreCase), cancellationToken);
+            _ = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
+
+            return WriteAsync(message, connection => connection.ConnectionId.Equals(pipeName, StringComparison.OrdinalIgnoreCase), cancellationToken);
         }
 
         /// <summary>Asynchronously sends a message to all connected clients that meet a predicate condition.</summary>
         /// <param name="message">The message to send to all connected clients.</param>
         /// <param name="predicate">The predicate condition to be met.</param>
         /// <param name="cancellationToken">An optional cancellation token.</param>
-        public async Task WriteAsync(TMessage message, Predicate<INamedPipeConnection<TMessage>> predicate, CancellationToken cancellationToken = default)
+        public async Task WriteAsync(TMessage message, Func<INamedPipeConnection<TMessage>, bool> predicate, CancellationToken cancellationToken = default)
         {
+            _ = message.WhenNotNull(nameof(message));
             _ = predicate.WhenNotNull(nameof(predicate));
 
             // Get potential connections synchronously
@@ -207,9 +201,9 @@ namespace AllOverIt.Pipes.Named.Server
                 {
                     await connection.WriteAsync(message, cancellationToken).ConfigureAwait(false);
                 }
-                catch
+                catch (Exception exception)
                 {
-                    // TODO: Report / handle
+                    DoOnException(exception);
                 }
 
             }, 4, cancellationToken);

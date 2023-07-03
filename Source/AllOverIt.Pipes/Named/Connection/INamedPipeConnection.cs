@@ -8,8 +8,8 @@ namespace AllOverIt.Pipes.Named.Connection
     /// <typeparam name="TMessage">The message type serialized by the connection.</typeparam>
     public interface INamedPipeConnection<TMessage> : IAsyncDisposable
     {
-        /// <summary>Gets the connection's pipe name.</summary>
-        public string PipeName { get; }
+        /// <summary>Gets the connection's unique identifier.</summary>
+        public string ConnectionId { get; }
 
         /// <summary>Indicates if the underlying pipe stream is connected.</summary>
         public bool IsConnected { get; }

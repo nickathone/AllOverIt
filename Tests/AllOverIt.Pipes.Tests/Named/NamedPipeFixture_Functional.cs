@@ -1,10 +1,14 @@
-﻿using AllOverIt.Fixture;
+﻿using AllOverIt.Async;
+using AllOverIt.Extensions;
+using AllOverIt.Fixture;
 using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Named.Client;
 using AllOverIt.Pipes.Named.Serialization;
 using AllOverIt.Pipes.Named.Server;
 using FluentAssertions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -180,6 +184,89 @@ namespace AllOverIt.Pipes.Tests.Named
             }
 
             expected.Should().BeEquivalentTo(actual);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        public async Task Should_Send_Message_From_Server_To_Filtered_Client(int connectionIndex)
+        {
+            var pipeName = Create<string>();
+            var serializer = new NamedPipeSerializer<DummyMessage>();
+            var expected = Create<DummyMessage>();
+            var actual = new List<string>();
+
+            var tcs = new TaskCompletionSource<string>();
+
+            void Client_OnMessageReceived(object sender, Pipes.Named.Events.NamedPipeConnectionMessageEventArgs<DummyMessage, INamedPipeClientConnection<DummyMessage>> eventArgs)
+            {
+                tcs.SetResult(eventArgs.Message.Value);
+            }
+
+            await using (var server = new NamedPipeServer<DummyMessage>(pipeName, serializer))
+            {
+                server.Start();
+
+                var composites = new CompositeAsyncDisposable();
+
+                async Task<NamedPipeClient< DummyMessage>> CreateClientAsync()
+                {
+                    var client = new NamedPipeClient<DummyMessage>(pipeName, serializer);
+
+                    composites.Add(client);
+
+                    client.OnMessageReceived += Client_OnMessageReceived;
+                    await client.ConnectAsync();
+
+                    return client;
+                }
+
+                var client1 = await CreateClientAsync();
+                var client2 = await CreateClientAsync();
+
+                await using (composites)
+                {
+                    var serverTask = Task.Run(async () =>
+                    {
+                        if (connectionIndex == 2)
+                        {
+                            var filteredIds = (server as NamedPipeServer<DummyMessage>)
+                                .Connections
+                                .Select(item => item.ConnectionId)
+                                .ToArray();
+
+                            await server.WriteAsync(
+                                expected,
+                                connection => connection.ConnectionId == filteredIds[0] ||
+                                              connection.ConnectionId == filteredIds[1],
+                                CancellationToken.None).ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            var filteredId = (server as NamedPipeServer<DummyMessage>)
+                                .Connections
+                                .ElementAt(connectionIndex)
+                                .ConnectionId;
+
+                            expected.Value = filteredId;
+
+                            await server.WriteAsync(expected, connection => connection.ConnectionId == filteredId, CancellationToken.None).ConfigureAwait(false);
+                        }
+                    });
+
+                    var result = await tcs.Task;
+
+                    actual.Add(result);
+
+                    if (connectionIndex != 2)
+                    {
+                        result.Should().Be(expected.Value);
+                    }
+                }
+            }
+
+            actual.Should().HaveCount(1);
         }
 
         [Fact]

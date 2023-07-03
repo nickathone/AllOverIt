@@ -18,17 +18,17 @@ namespace AllOverIt.Pipes.Named.Connection
         private BackgroundTask _backgroundReader;
         private NamedPipeReaderWriter _pipeReaderWriter;
 
-        public string PipeName { get; }
+        public string ConnectionId { get; }
 
         public bool IsConnected => PipeStream?.IsConnected ?? false;
 
         // Will be a NamedPipeClientStream or NamedPipeServerStream
         protected PipeStream PipeStream { get; private set; }
 
-        internal NamedPipeConnection(PipeStream pipeStream, string pipeName, INamedPipeSerializer<TMessage> serializer)
+        internal NamedPipeConnection(PipeStream pipeStream, string connectionId, INamedPipeSerializer<TMessage> serializer)
         {
             PipeStream = pipeStream.WhenNotNull(nameof(pipeStream));               // Assume ownership of this stream
-            PipeName = pipeName.WhenNotNullOrEmpty(nameof(pipeName));
+            ConnectionId = connectionId.WhenNotNullOrEmpty(nameof(connectionId));
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
 

@@ -12,7 +12,7 @@ namespace AllOverIt.Pipes.Named.Client
 {
     /// <summary>A named pipe client that can serialize messages of type <typeparamref name="TMessage"/> with a named pipe server.</summary>
     /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
-    public sealed class NamedPipeClient<TMessage> : INamedPipeClient<TMessage>
+    public sealed class NamedPipeClient<TMessage> : INamedPipeClient<TMessage> where TMessage : class, new()
     {
         private const string LocalServer = ".";
 

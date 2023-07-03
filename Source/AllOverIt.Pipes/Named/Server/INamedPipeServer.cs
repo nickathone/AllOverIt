@@ -11,6 +11,7 @@ namespace AllOverIt.Pipes.Named.Server
     /// as well as receive messages from those clients.</summary>
     /// <typeparam name="TMessage">The message type.</typeparam>
     public interface INamedPipeServer<TMessage> : INamedPipe<TMessage>, INamedPipeEvents<TMessage>, INamedPipeServerEvents<TMessage>, IAsyncDisposable
+        where TMessage : class, new()
     {
         /// <summary>The name of the pipe.</summary>
         string PipeName { get; }
@@ -39,6 +40,6 @@ namespace AllOverIt.Pipes.Named.Server
         /// <param name="message">The message to send to all connected clients.</param>
         /// <param name="predicate">The predicate condition to be met.</param>
         /// <param name="cancellationToken">An optional cancellation token.</param>
-        Task WriteAsync(TMessage message, Predicate<INamedPipeConnection<TMessage>> predicate, CancellationToken cancellationToken = default);
+        Task WriteAsync(TMessage message, Func<INamedPipeConnection<TMessage>, bool> predicate, CancellationToken cancellationToken = default);
     }
 }

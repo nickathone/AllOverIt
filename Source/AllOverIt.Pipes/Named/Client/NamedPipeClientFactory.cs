@@ -5,7 +5,7 @@ namespace AllOverIt.Pipes.Named.Client
 {
     /// <summary>Represents a factory that creates instances of a named pipe client.</summary>
     /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
-    public sealed class NamedPipeClientFactory<TMessage> : INamedPipeClientFactory<TMessage>
+    public sealed class NamedPipeClientFactory<TMessage> : INamedPipeClientFactory<TMessage> where TMessage : class, new()
     {
         private readonly INamedPipeSerializer<TMessage> _serializer;
 
