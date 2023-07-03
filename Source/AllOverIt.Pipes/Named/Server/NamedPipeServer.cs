@@ -88,7 +88,7 @@ namespace AllOverIt.Pipes.Named.Server
 
                     try
                     {
-                        var connectionPipeName = $"{Guid.NewGuid()}";
+                        var connectionId = $"{Guid.NewGuid()}";
 
                         // Send the client the name of the data pipe to use
                         var serverStream = NamedPipeServerStreamFactory.CreateStream(PipeName, pipeSecurity);       // TODO: Allow the factory to provide default security, this will override if not null
@@ -100,18 +100,18 @@ namespace AllOverIt.Pipes.Named.Server
                             await using (var writer = new NamedPipeReaderWriter(serverStream, false))
                             {
                                 await writer
-                                    .WriteAsync(Encoding.UTF8.GetBytes(connectionPipeName), token)
+                                    .WriteAsync(Encoding.UTF8.GetBytes(connectionId), token)
                                     .ConfigureAwait(false);
                             }
                         }
 
                         // Wait for the client to connect to the data pipe
-                        var connectionStream = NamedPipeServerStreamFactory.CreateStream(connectionPipeName, pipeSecurity);
+                        var connectionStream = NamedPipeServerStreamFactory.CreateStream(connectionId, pipeSecurity);
 
                         await connectionStream.WaitForConnectionAsync(token).ConfigureAwait(false);
 
                         // Add the client's connection to the list of connections
-                        connection = new NamedPipeServerConnection<TMessage>(connectionStream, connectionPipeName, _serializer);
+                        connection = new NamedPipeServerConnection<TMessage>(connectionStream, connectionId, _serializer);
 
                         connection.OnMessageReceived += DoOnConnectionMessageReceived;
                         connection.OnDisconnected += DoOnConnectionDisconnected;

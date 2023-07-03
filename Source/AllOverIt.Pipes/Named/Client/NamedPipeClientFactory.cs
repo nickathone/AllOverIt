@@ -19,12 +19,17 @@ namespace AllOverIt.Pipes.Named.Client
         /// <inheritdoc/>
         public INamedPipeClient<TMessage> CreateNamedPipeClient(string pipeName)
         {
+            _ = pipeName.WhenNotNullOrEmpty();
+
             return new NamedPipeClient<TMessage>(pipeName, _serializer);
         }
 
         /// <inheritdoc/>
         public INamedPipeClient<TMessage> CreateNamedPipeClient(string pipeName, string serverName)
         {
+            _ = pipeName.WhenNotNullOrEmpty();
+            _ = serverName.WhenNotNullOrEmpty();
+
             return new NamedPipeClient<TMessage>(pipeName, serverName, _serializer);
         }
     }

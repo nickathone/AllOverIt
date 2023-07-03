@@ -1,10 +1,12 @@
 ﻿using AllOverIt.Pipes.Named.Connection;
+using System.Diagnostics.CodeAnalysis;
 using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AllOverIt.Pipes.Named.Client
 {
+    [ExcludeFromCodeCoverage]
     internal static class NamedPipeClientStreamFactory
     {
         public static async Task<NamedPipeReaderWriter> CreateConnectedReaderWriterAsync(string pipeName, string serverName, CancellationToken cancellationToken = default)

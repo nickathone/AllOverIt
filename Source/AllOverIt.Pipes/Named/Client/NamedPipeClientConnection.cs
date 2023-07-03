@@ -25,11 +25,11 @@ namespace AllOverIt.Pipes.Named.Client
 
         /// <summary>Constructor.</summary>
         /// <param name="pipeStream">The underlying pipe stream.</param>
-        /// <param name="pipeName">The name of the pipe.</param>
+        /// <param name="connectionId">Gets the conection's unique identifier.</param>
         /// <param name="serverName">The name of the server to communicate with.</param>
         /// <param name="serializer">The serializer to be used by named pipe client instances.</param>
-        public NamedPipeClientConnection(PipeStream pipeStream, string pipeName, string serverName, INamedPipeSerializer<TMessage> serializer)
-            : base(pipeStream, pipeName, serializer)
+        public NamedPipeClientConnection(PipeStream pipeStream, string connectionId, string serverName, INamedPipeSerializer<TMessage> serializer)
+            : base(pipeStream, connectionId, serializer)
         {
             ServerName = serverName.WhenNotNullOrEmpty(nameof(serverName));
         }

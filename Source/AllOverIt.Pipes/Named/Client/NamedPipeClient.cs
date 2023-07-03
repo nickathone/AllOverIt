@@ -66,13 +66,13 @@ namespace AllOverIt.Pipes.Named.Client
         {
             Throw<PipeException>.When(IsConnected, "The named pipe client is already connected.");
 
-            var connectionPipeName = await GetConnectionPipeName(cancellationToken).ConfigureAwait(false);
+            var connectionId = await GetConnectionId(cancellationToken).ConfigureAwait(false);
 
             var connectionStream = await NamedPipeClientStreamFactory
-                .CreateConnectedStreamAsync(connectionPipeName, ServerName, cancellationToken)
+                .CreateConnectedStreamAsync(connectionId, ServerName, cancellationToken)
                 .ConfigureAwait(false);
 
-            _connection = new NamedPipeClientConnection<TMessage>(connectionStream, connectionPipeName, ServerName, _serializer);
+            _connection = new NamedPipeClientConnection<TMessage>(connectionStream, connectionId, ServerName, _serializer);
 
             _connection.OnMessageReceived += DoOnConnectionMessageReceived;
             _connection.OnDisconnected += DoOnConnectionDisconnected;
@@ -105,7 +105,7 @@ namespace AllOverIt.Pipes.Named.Client
             await DoOnDisconnectedAsync().ConfigureAwait(false);
         }
 
-        private async Task<string> GetConnectionPipeName(CancellationToken cancellationToken)
+        private async Task<string> GetConnectionId(CancellationToken cancellationToken)
         {
             var reader = await NamedPipeClientStreamFactory
                 .CreateConnectedReaderWriterAsync(PipeName, ServerName, cancellationToken)
@@ -115,8 +115,7 @@ namespace AllOverIt.Pipes.Named.Client
             {
                 var bytes = await reader.ReadAsync(cancellationToken).ConfigureAwait(false);
 
-                // TODO: Custom exception
-                Throw<InvalidOperationException>.When(!bytes.Any(), "Connection handshake failed.");
+                Throw<PipeException>.When(!bytes.Any(), "Failed to get Connection Id.");
 
                 return Encoding.UTF8.GetString(bytes);
             }

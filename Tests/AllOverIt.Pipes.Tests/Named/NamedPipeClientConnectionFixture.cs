@@ -42,7 +42,7 @@ namespace AllOverIt.Pipes.Tests.Named
             }
 
             [Fact]
-            public void Should_Throw_When_PipeName_Null()
+            public void Should_Throw_When_ConnectionId_Null()
             {
                 Invoking(() =>
                 {
@@ -50,11 +50,11 @@ namespace AllOverIt.Pipes.Tests.Named
                 })
                 .Should()
                 .Throw<ArgumentNullException>()
-                .WithNamedMessageWhenNull("pipeName");
+                .WithNamedMessageWhenNull("connectionId");
             }
 
             [Fact]
-            public void Should_Throw_When_PipeName_Empty()
+            public void Should_Throw_When_ConnectionId_Empty()
             {
                 Invoking(() =>
                 {
@@ -62,11 +62,11 @@ namespace AllOverIt.Pipes.Tests.Named
                 })
                 .Should()
                 .Throw<ArgumentException>()
-                .WithNamedMessageWhenEmpty("pipeName");
+                .WithNamedMessageWhenEmpty("connectionId");
             }
 
             [Fact]
-            public void Should_Throw_When_PipeName_Whitespace()
+            public void Should_Throw_When_ConnectionId_Whitespace()
             {
                 Invoking(() =>
                 {
@@ -74,7 +74,7 @@ namespace AllOverIt.Pipes.Tests.Named
                 })
                 .Should()
                 .Throw<ArgumentException>()
-                .WithNamedMessageWhenEmpty("pipeName");
+                .WithNamedMessageWhenEmpty("connectionId");
             }
 
             [Fact]
