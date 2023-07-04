@@ -1,9 +1,11 @@
-﻿using System.IO.Pipes;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO.Pipes;
 using System.Security.AccessControl;
 using System.Security.Principal;
 
 namespace AllOverIt.Pipes.Named.Extensions
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>Provides extension methods for <see cref="PipeSecurity"/>.</summary>
     public static class PipeSecurityExtensions
     {

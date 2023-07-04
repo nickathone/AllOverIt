@@ -62,14 +62,14 @@ namespace AllOverIt.Pipes.Named.Client
         /// <summary>Asynchronously connects to the named pipe server.</summary>
         /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>A task that completes when the connection has been established.</returns>
-        public async Task ConnectAsync(CancellationToken cancellationToken = default)
+        public async Task ConnectAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
         {
             Throw<PipeException>.When(IsConnected, "The named pipe client is already connected.");
 
-            var connectionId = await GetConnectionId(cancellationToken).ConfigureAwait(false);
+            var connectionId = await GetConnectionId(timeout, cancellationToken).ConfigureAwait(false);
 
             var connectionStream = await NamedPipeClientStreamFactory
-                .CreateConnectedStreamAsync(connectionId, ServerName, cancellationToken)
+                .CreateConnectedStreamAsync(connectionId, ServerName, timeout, cancellationToken)
                 .ConfigureAwait(false);
 
             _connection = new NamedPipeClientConnection<TMessage>(connectionStream, connectionId, ServerName, _serializer);
@@ -95,7 +95,15 @@ namespace AllOverIt.Pipes.Named.Client
         /// <param name="cancellationToken">A cancellation token.</param>
         public async Task WriteAsync(TMessage message, CancellationToken cancellationToken = default)
         {
-            await _connection.WriteAsync(message, cancellationToken).ConfigureAwait(false);
+            _ = message.WhenNotNull();
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (_connection is not null)
+            {
+                // This won't fault if the connection is broken
+                await _connection.WriteAsync(message, cancellationToken).ConfigureAwait(false);
+            }
         }
 
         /// <summary>Disconnects from the server if it's connected and disposes of resources.</summary>
@@ -105,10 +113,10 @@ namespace AllOverIt.Pipes.Named.Client
             await DoOnDisconnectedAsync().ConfigureAwait(false);
         }
 
-        private async Task<string> GetConnectionId(CancellationToken cancellationToken)
+        private async Task<string> GetConnectionId(TimeSpan timeout, CancellationToken cancellationToken)
         {
             var reader = await NamedPipeClientStreamFactory
-                .CreateConnectedReaderWriterAsync(PipeName, ServerName, cancellationToken)
+                .CreateConnectedReaderWriterAsync(PipeName, ServerName, timeout, cancellationToken)
                 .ConfigureAwait(false);
 
             await using (reader)

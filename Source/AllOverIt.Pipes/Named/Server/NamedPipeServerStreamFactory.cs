@@ -1,8 +1,9 @@
-﻿using AllOverIt.Pipes.Named.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.IO.Pipes;
 
 namespace AllOverIt.Pipes.Named.Server
 {
+    [ExcludeFromCodeCoverage]
     internal static class NamedPipeServerStreamFactory
     {
         public static NamedPipeServerStream CreateStream(string pipeName, PipeSecurity pipeSecurity = default)

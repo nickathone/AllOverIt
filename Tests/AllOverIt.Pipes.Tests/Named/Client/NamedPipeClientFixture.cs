@@ -7,9 +7,11 @@ using AllOverIt.Pipes.Named.Server;
 using FakeItEasy;
 using FluentAssertions;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests.Named
+namespace AllOverIt.Pipes.Tests.Named.Client
 {
     public class NamedPipeClientFixture : FixtureBase
     {
@@ -159,6 +161,39 @@ namespace AllOverIt.Pipes.Tests.Named
             }
         }
 
-        // Remaining tests in NamedPipeFixture_Functional
+        public class WriteAsync : NamedPipeClientFixture
+        {
+            [Fact]
+            public async Task Should_Throw_When_Message_Null()
+            {
+                var client = new NamedPipeClient<DummyMessage>(Create<string>(), Create<string>(), A.Fake<INamedPipeSerializer<DummyMessage>>());
+
+                await Invoking(async () =>
+                {
+                    await client.WriteAsync(null, CancellationToken.None);
+                })
+                .Should()
+                .ThrowAsync<ArgumentNullException>()
+                .WithNamedMessageWhenNull("message");
+            }
+
+            [Fact]
+            public async Task Should_Throw_When_Cancelledl()
+            {
+                var client = new NamedPipeClient<DummyMessage>(Create<string>(), Create<string>(), A.Fake<INamedPipeSerializer<DummyMessage>>());
+
+                var cts = new CancellationTokenSource();
+                cts.Cancel();
+
+                await Invoking(async () =>
+                {
+                    await client.WriteAsync(Create<DummyMessage>(), cts.Token);
+                })
+                .Should()
+                .ThrowAsync<OperationCanceledException>();
+            }
+        }
+
+        // Remaining tests in NamedPipeFixture_Mixed_Functional
     }
 }

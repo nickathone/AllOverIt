@@ -7,7 +7,7 @@ using FluentAssertions;
 using System;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests.Named
+namespace AllOverIt.Pipes.Tests.Named.Client
 {
     public class NamedPipeClientFactoryFixture : FixtureBase
     {
@@ -25,8 +25,6 @@ namespace AllOverIt.Pipes.Tests.Named
             [Fact]
             public void Should_Throw_When_Serializer_Null()
             {
-                //  public NamedPipeClientFactory(INamedPipeSerializer<TMessage> serializer)
-
                 Invoking(() =>
                 {
                     _ = new NamedPipeClientFactory<DummyMessage>(null);

@@ -149,17 +149,20 @@ namespace AllOverIt.Async
                     return default;
                 }
 
+                var edi = ExceptionDispatchInfo.Capture(exception);
+
                 if (exceptionHandler is not null)
                 {
-                    var edi = ExceptionDispatchInfo.Capture(exception);
-                    
                     if (exceptionHandler.Invoke(edi))
                     {
                         return default;
                     }
                 }
 
-                throw;
+                edi.Throw();
+
+                // Only to keep the compiler happy - the previous line throws
+                return default;
             }
         }
     }

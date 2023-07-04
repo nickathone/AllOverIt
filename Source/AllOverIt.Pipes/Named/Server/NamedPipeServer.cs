@@ -184,6 +184,8 @@ namespace AllOverIt.Pipes.Named.Server
             _ = message.WhenNotNull(nameof(message));
             _ = predicate.WhenNotNull(nameof(predicate));
 
+            cancellationToken.ThrowIfCancellationRequested();
+
             // Get potential connections synchronously
             IEnumerable<INamedPipeConnection<TMessage>> connections = null;
 

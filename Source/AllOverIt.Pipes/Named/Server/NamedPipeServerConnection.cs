@@ -19,11 +19,11 @@ namespace AllOverIt.Pipes.Named.Server
         public event EventHandler<NamedPipeConnectionExceptionEventArgs<TMessage, INamedPipeServerConnection<TMessage>>> OnException;
 
         /// <summary>Constructor.</summary>
-        /// <param name="stream">The underlying pipe stream.</param>
+        /// <param name="pipeStream">The underlying pipe stream.</param>
         /// <param name="connectionId">Gets the conection's unique identifier.</param>
         /// <param name="serializer">The message serializer.</param>
-        public NamedPipeServerConnection(PipeStream stream, string connectionId, INamedPipeSerializer<TMessage> serializer)
-            : base(stream, connectionId, serializer)
+        public NamedPipeServerConnection(PipeStream pipeStream, string connectionId, INamedPipeSerializer<TMessage> serializer)
+            : base(pipeStream, connectionId, serializer)
         {
         }
 

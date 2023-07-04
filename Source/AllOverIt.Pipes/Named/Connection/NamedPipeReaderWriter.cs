@@ -15,9 +15,6 @@ namespace AllOverIt.Pipes.Named.Connection
         private readonly NamedPipeStreamWriter _streamWriter;
         private PipeStream _pipeStream;
 
-        public bool CanRead => _pipeStream.CanRead;
-        public bool CanWrite => _pipeStream.CanWrite;
-
         public NamedPipeReaderWriter(PipeStream stream, bool leaveConnected)
         {
             _pipeStream = stream.WhenNotNull(nameof(stream));
@@ -29,20 +26,15 @@ namespace AllOverIt.Pipes.Named.Connection
 
         public Task<byte[]> ReadAsync(CancellationToken cancellationToken = default)
         {
-            // Not checking if the connection is active here since it can be broken when further down the line.
-            // Making the caller resposible for ensuring read/write operations are performed correctly.
-
+            // An empty array will be returned if the connection has been broken
             return _streamReader.ReadAsync(cancellationToken);
         }
 
         public Task WriteAsync(byte[] buffer, CancellationToken cancellationToken = default)
         {
-            // Not checking if the connection is active here since it can be broken when further down the line.
-            // Making the caller resposible for ensuring read/write operations are performed correctly.
-
             cancellationToken.ThrowIfCancellationRequested();
 
-            // Writes, flushes, and waits for the pipe to drain
+            // Writes, flushes, and waits for the pipe to drain - _streamWriter checks for a broken connection
             return _streamWriter.WriteAsync(buffer, cancellationToken);
         }
 

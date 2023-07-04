@@ -1,5 +1,6 @@
 ﻿using AllOverIt.Fixture;
 using AllOverIt.Fixture.Extensions;
+using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Named.Serialization;
 using AllOverIt.Pipes.Named.Server;
 using FakeItEasy;
@@ -8,7 +9,7 @@ using System;
 using System.IO.Pipes;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests.Named
+namespace AllOverIt.Pipes.Tests.Named.Server
 {
     public class NamedPipeServerConnectionFixture : FixtureBase
     {
@@ -87,6 +88,23 @@ namespace AllOverIt.Pipes.Tests.Named
                 .Should()
                 .Throw<ArgumentNullException>()
                 .WithNamedMessageWhenNull("serializer");
+            }
+        }
+
+        public class GetImpersonationUserName : NamedPipeServerConnectionFixture
+        {
+            [Fact]
+            public void Should_Throw_When_Not_NamedPipeServerStream()
+            {
+                var connection = new NamedPipeServerConnection<DummyMessage>(new DummyStream(), Create<string>(), A.Fake<INamedPipeSerializer<DummyMessage>>());
+
+                Invoking(() =>
+                {
+                    connection.GetImpersonationUserName();
+                })
+               .Should()
+               .Throw<PipeException>()
+               .WithMessage($"The pipe stream must be a {nameof(NamedPipeServerStream)}.");
             }
         }
     }

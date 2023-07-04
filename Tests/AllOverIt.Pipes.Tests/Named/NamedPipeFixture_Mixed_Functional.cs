@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Async;
 using AllOverIt.Extensions;
 using AllOverIt.Fixture;
+using AllOverIt.Fixture.Extensions;
 using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Named.Client;
 using AllOverIt.Pipes.Named.Serialization;
@@ -8,6 +9,7 @@ using AllOverIt.Pipes.Named.Server;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 using System.Threading;
@@ -16,8 +18,10 @@ using Xunit;
 
 namespace AllOverIt.Pipes.Tests.Named
 {
-    public class NamedPipeFixture_Functional : FixtureBase
+    public class NamedPipeFixture_Mixed_Functional : FixtureBase
     {
+        private static TimeSpan ConnectTimeout = TimeSpan.FromSeconds(1);
+
         private class DummyMessage
         {
             public int Id { get; set; }
@@ -63,12 +67,6 @@ namespace AllOverIt.Pipes.Tests.Named
             }
         }
 
-
-
-
-
-
-
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
@@ -109,11 +107,13 @@ namespace AllOverIt.Pipes.Tests.Named
 
                     if (connected)
                     {
-                        await client.ConnectAsync();
+                        await client.ConnectAsync(ConnectTimeout);
                     }
 
                     client.IsConnected.Should().Be(connected);
                 }
+
+                await Task.Yield();
             }
         }
 
@@ -130,11 +130,11 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     await Invoking(async () =>
                     {
-                        await client.ConnectAsync();
+                        await client.ConnectAsync(ConnectTimeout);
                     })
                         .Should()
                         .ThrowAsync<PipeException>()
@@ -142,6 +142,8 @@ namespace AllOverIt.Pipes.Tests.Named
 
                     client.IsConnected.Should().BeTrue();
                 }
+
+                await Task.Yield();
             }
         }
 
@@ -158,7 +160,7 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     client.IsConnected.Should().BeTrue();
 
@@ -166,6 +168,8 @@ namespace AllOverIt.Pipes.Tests.Named
 
                     client.IsConnected.Should().BeFalse();
                 }
+
+                await Task.Yield();
             }
         }
 
@@ -195,6 +199,8 @@ namespace AllOverIt.Pipes.Tests.Named
                 {
                     client.PipeName.Should().Be(pipeName);
                 }
+
+                await Task.Yield();
             }
         }
 
@@ -210,13 +216,15 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     // Give the server time to update the connection list
                     await Task.Delay(10);
 
                     server.Connections.Single().IsConnected.Should().BeTrue();
                 }
+
+                await Task.Yield();
             }
         }
 
@@ -232,13 +240,15 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     // Give the server time to update the connection list
                     await Task.Delay(10);
 
                     server.Connections.Single().IsConnected.Should().BeTrue();
                 }
+
+                await Task.Yield();
 
                 server.Connections.Should().BeEmpty();
             }
@@ -266,14 +276,14 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
-                    var serverTask = Task.Run(async () =>
+                    await Task.Run(async () =>
                     {
                         await server.WriteAsync(Create<DummyMessage>(), CancellationToken.None).ConfigureAwait(false);
-                    });
 
-                    actual = await tcs.Task;
+                        actual = await tcs.Task;
+                    });
                 }
             }
 
@@ -302,18 +312,84 @@ namespace AllOverIt.Pipes.Tests.Named
                 {
                     client.OnException += Client_OnException;
 
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
-                    var serverTask = Task.Run(async () =>
+                    await Task.Run(async () =>
                     {
                         await server.WriteAsync(Create<DummyMessage>(), CancellationToken.None).ConfigureAwait(false);
-                    });
 
-                    actual = await tcs.Task;
+                        actual = await tcs.Task;
+                    });
                 }
             }
 
             actual.Should().BeAssignableTo<Exception>();
+        }
+
+        [Fact]
+        public async Task Should_Throw_When_Cannot_Get_Impersonation_User_Name()
+        {
+            var pipeName = Create<string>();
+            var serializer = new NamedPipeSerializer<DummyMessage>();
+
+            await using (var server = new NamedPipeServer<DummyMessage>(pipeName, serializer))
+            {
+                server.Start();
+
+                await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
+                {
+                    await client.ConnectAsync(ConnectTimeout);
+
+                    // Allow the server to update its connection list
+                    await Task.Delay(100);
+
+                    Invoking(() =>
+                    {
+                        _ = server.Connections.Single().GetImpersonationUserName();
+                    })
+                    .Should()
+                    .Throw<IOException>()
+                    .WithMessage("Unable to impersonate using a named pipe until data has been read from that pipe.");
+                }
+
+                await Task.Yield();
+            }
+        }
+
+        [Fact]
+        public async Task Should_Get_Impersonation_User_Name()
+        {
+            var pipeName = Create<string>();
+            var serializer = new NamedPipeSerializer<DummyMessage>();
+
+            var tcs = new TaskCompletionSource<DummyMessage>();
+
+            void Server_OnMessageReceived(object sender, Pipes.Named.Events.NamedPipeConnectionMessageEventArgs<DummyMessage, INamedPipeServerConnection<DummyMessage>> eventArgs)
+            {
+                tcs.SetResult(eventArgs.Message);
+            }
+
+            await using (var server = new NamedPipeServer<DummyMessage>(pipeName, serializer))
+            {
+                server.OnMessageReceived += Server_OnMessageReceived;
+
+                server.Start();
+
+                await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
+                {
+                    await client.ConnectAsync(ConnectTimeout);
+
+                    await client.WriteAsync(Create<DummyMessage>(), CancellationToken.None).ConfigureAwait(false);
+
+                    _ = await tcs.Task;
+
+                    var username = server.Connections.Single().GetImpersonationUserName();
+
+                    username.Should().Be(Environment.UserName);
+                }
+
+                await Task.Yield();
+            }
         }
 
         [Fact]
@@ -339,14 +415,14 @@ namespace AllOverIt.Pipes.Tests.Named
                 {
                     client.OnMessageReceived += Client_OnMessageReceived;
 
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
-                    var serverTask = Task.Run(async () =>
+                    await Task.Run(async () =>
                     {
                         await server.WriteAsync(expected, CancellationToken.None).ConfigureAwait(false);
-                    });
 
-                    actual = await tcs.Task;
+                        actual = await tcs.Task;
+                    });
                 }
             }
 
@@ -384,7 +460,7 @@ namespace AllOverIt.Pipes.Tests.Named
                     composites.Add(client);
 
                     client.OnMessageReceived += Client_OnMessageReceived;
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     return client;
                 }
@@ -394,7 +470,7 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (composites)
                 {
-                    var serverTask = Task.Run(async () =>
+                    await Task.Run(async () =>
                     {
                         if (connectionIndex == 2)
                         {
@@ -420,16 +496,16 @@ namespace AllOverIt.Pipes.Tests.Named
 
                             await server.WriteAsync(expected, connection => connection.ConnectionId == filteredId, CancellationToken.None).ConfigureAwait(false);
                         }
+
+                        var result = await tcs.Task;
+
+                        actual.Add(result);
+
+                        if (connectionIndex != 2)
+                        {
+                            result.Should().Be(expected.Value);
+                        }
                     });
-
-                    var result = await tcs.Task;
-
-                    actual.Add(result);
-
-                    if (connectionIndex != 2)
-                    {
-                        result.Should().Be(expected.Value);
-                    }
                 }
             }
 
@@ -459,15 +535,49 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     await client.WriteAsync(expected, CancellationToken.None).ConfigureAwait(false);
 
                     actual = await tcs.Task;
                 }
+
+                await Task.Yield();
             }
 
             expected.Should().BeEquivalentTo(actual);
+        }
+
+        [Fact]
+        public async Task Should_Not_Throw_When_Write_When_Disconnected()
+        {
+            await Invoking(async () =>
+            {
+                var serializer = new NamedPipeSerializer<DummyMessage>();
+
+                await using (var client = new NamedPipeClient<DummyMessage>(Create<string>(), serializer))
+                {
+                    await client.WriteAsync(Create<DummyMessage>(), CancellationToken.None).ConfigureAwait(false);
+                }
+            })
+            .Should()
+            .NotThrowAsync();
+        }
+
+        [Fact]
+        public async Task Should_Throw_TimeoutException_When_Cannot_Find_Server()
+        {
+            await Invoking(async () =>
+            {
+                var serializer = new NamedPipeSerializer<DummyMessage>();
+
+                await using (var client = new NamedPipeClient<DummyMessage>(Create<string>(), serializer))
+                {
+                    await client.ConnectAsync(TimeSpan.FromMilliseconds(100)).ConfigureAwait(false);
+                }
+            })
+            .Should()
+            .ThrowAsync<TimeoutException>();
         }
 
         [Fact]
@@ -492,10 +602,12 @@ namespace AllOverIt.Pipes.Tests.Named
                 {
                     client.OnConnected += Client_OnConnected;
 
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     actual = await tcs.Task;
                 }
+
+                await Task.Yield();
             }
 
             actual.Should().BeTrue();
@@ -523,12 +635,14 @@ namespace AllOverIt.Pipes.Tests.Named
                 {
                     client.OnDisconnected += Client_OnDisconnected;
 
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     await server.StopAsync();
 
                     actual = await tcs.Task;
                 }
+
+                await Task.Yield();
             }
 
             actual.Should().BeTrue();
@@ -556,14 +670,14 @@ namespace AllOverIt.Pipes.Tests.Named
                 {
                     client.OnMessageReceived += Client_OnMessageReceived;
 
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
-                    var serverTask = Task.Run(async () =>
+                    await Task.Run(async () =>
                     {
                         await server.WriteAsync(Create<DummyMessage>(), CancellationToken.None);
-                    });
 
-                    actual = await tcs.Task;
+                        actual = await tcs.Task;
+                    });
                 }
             }
 
@@ -599,14 +713,14 @@ namespace AllOverIt.Pipes.Tests.Named
                     client.OnMessageReceived += Client_OnMessageReceived;
                     client.OnException += Client_OnException;
 
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
-                    var serverTask = Task.Run(async () =>
+                    await Task.Run(async () =>
                     {
                         await server.WriteAsync(Create<DummyMessage>(), CancellationToken.None);
-                    });
 
-                    actual = await tcs.Task;
+                        actual = await tcs.Task;
+                    });
                 }
             }
 
@@ -642,7 +756,7 @@ namespace AllOverIt.Pipes.Tests.Named
                     client.OnDisconnected += Client_OnDisconnected;
                     client.OnException += Client_OnException;
 
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     await server.StopAsync();
 
@@ -650,6 +764,8 @@ namespace AllOverIt.Pipes.Tests.Named
 
                     client.IsConnected.Should().BeFalse();
                 }
+
+                await Task.Yield();
             }
 
             actual.Should().BeSameAs(expected);
@@ -672,17 +788,62 @@ namespace AllOverIt.Pipes.Tests.Named
             await using (var server = new NamedPipeServer<DummyMessage>(pipeName, serializer))
             {
                 server.OnClientConnected += Server_OnClientConnected;
+
                 server.Start();
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     actual = await tcs.Task;
                 }
+
+                await Task.Yield();
             }
 
             actual.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Should_Disconnect_When_OnClientConnected_Throws()
+        {
+            var pipeName = Create<string>();
+            var serializer = new NamedPipeSerializer<DummyMessage>();
+            var expected = new Exception();
+            Exception actual = null;
+
+            var tcs = new TaskCompletionSource<Exception>();
+
+            void Server_OnClientConnected(object sender, Pipes.Named.Events.NamedPipeConnectionEventArgs<DummyMessage, INamedPipeServerConnection<DummyMessage>> eventArgs)
+            {
+                throw expected;
+            }
+
+            void Server_OnException(object sender, Pipes.Named.Events.NamedPipeExceptionEventArgs eventArgs)
+            {
+                tcs.SetResult(eventArgs.Exception);
+            }
+
+            await using (var server = new NamedPipeServer<DummyMessage>(pipeName, serializer))
+            {
+                server.OnClientConnected += Server_OnClientConnected;
+                server.OnException += Server_OnException;
+
+                server.Start();
+
+                await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
+                {
+                    await client.ConnectAsync(ConnectTimeout);
+
+                    actual = await tcs.Task;
+
+                    client.IsConnected.Should().BeFalse();
+                }
+
+                await Task.Yield();
+            }
+
+            actual.Should().BeSameAs(expected);
         }
 
         [Fact]
@@ -706,12 +867,14 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     await client.DisconnectAsync();
 
                     actual = await tcs.Task;
                 }
+
+                await Task.Yield();
             }
 
             actual.Should().BeTrue();
@@ -738,15 +901,63 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     await client.WriteAsync(Create<DummyMessage>(), CancellationToken.None);
 
                     actual = await tcs.Task;
                 }
+
+                await Task.Yield();
             }
 
             actual.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task Should_Not_Throw_When_Server_OnMessageReceived_Not_Assigned()
+        {
+            var pipeName = Create<string>();
+            var serializer = new NamedPipeSerializer<DummyMessage>();
+            var expected = Create<DummyMessage>();
+            DummyMessage actual = null;
+            var counter = 0;
+
+            var tcs = new TaskCompletionSource<DummyMessage>();
+
+            void Server_OnMessageReceived(object sender, Pipes.Named.Events.NamedPipeConnectionMessageEventArgs<DummyMessage, INamedPipeServerConnection<DummyMessage>> eventArgs)
+            {
+                counter++;
+                tcs.SetResult(eventArgs.Message);
+            }
+
+            await using (var server = new NamedPipeServer<DummyMessage>(pipeName, serializer))
+            {
+                server.Start();
+
+                await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
+                {
+                    await client.ConnectAsync(ConnectTimeout);
+
+                    // Code path testing when OnMessageReceived is not assigned
+                    await client.WriteAsync(Create<DummyMessage>(), CancellationToken.None);
+
+                    // Give the server some time to receive the message (cannot use OnMessageReceived here since we are testing when it is not assigned)
+                    await Task.Delay(10);
+
+                    // Now assign the handler
+                    server.OnMessageReceived += Server_OnMessageReceived;
+
+                    await client.WriteAsync(expected, CancellationToken.None);
+
+                    actual = await tcs.Task;
+                }
+
+                await Task.Yield();
+            }
+
+            counter.Should().Be(1);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -778,12 +989,14 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 await using (var client = new NamedPipeClient<DummyMessage>(pipeName, serializer))
                 {
-                    await client.ConnectAsync();
+                    await client.ConnectAsync(ConnectTimeout);
 
                     await client.WriteAsync(Create<DummyMessage>(), CancellationToken.None);
 
                     actual = await tcs.Task;
                 }
+
+                await Task.Yield();
             }
 
             actual.Should().BeSameAs(expected);

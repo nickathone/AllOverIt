@@ -281,7 +281,7 @@ namespace AllOverIt.Tests.Async
             [Theory]
             [InlineData(true)]
             [InlineData(false)]
-            public async Task Should_Throw_When_Task_Cancelled(bool handled)
+            public async Task Should_Handle_When_Task_Cancelled(bool handled)
             {
                 var cts = new CancellationTokenSource();
 
@@ -292,14 +292,28 @@ namespace AllOverIt.Tests.Async
                     return Create<bool>();
                 }, TaskCreationOptions.None, TaskScheduler.Current, edi => handled, cts.Token);
 
+                await Task.Delay(10);
+
                 cts.Cancel();
 
-                await Invoking(async () =>
+                if (handled)
                 {
-                    await backgroundTask;
-                })
-                 .Should()
-                 .ThrowAsync<TaskCanceledException>();
+                    await Invoking(async () =>
+                    {
+                        await backgroundTask;
+                    })
+                     .Should()
+                     .NotThrowAsync();
+                }
+                else
+                {
+                    await Invoking(async () =>
+                    {
+                        await backgroundTask;
+                    })
+                     .Should()
+                     .ThrowAsync<TaskCanceledException>();
+                }
             }
 
             [Fact]

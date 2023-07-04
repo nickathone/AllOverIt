@@ -13,6 +13,7 @@ namespace NamedPipeClientDemo
 {
     internal class PipeClient
     {
+        private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(5);
         private CancellationTokenSource _runningToken;
         private IDisposable _pingSubscription;
 
@@ -90,7 +91,7 @@ namespace NamedPipeClientDemo
 
                         PipeLogger.Append(ConsoleColor.Gray, "Client connecting...");
 
-                        await client.ConnectAsync(_runningToken.Token).ConfigureAwait(false);
+                        await client.ConnectAsync(ConnectTimeout, _runningToken.Token).ConfigureAwait(false);
 
                         PipeLogger.Append(ConsoleColor.Gray, "Client connected");
 

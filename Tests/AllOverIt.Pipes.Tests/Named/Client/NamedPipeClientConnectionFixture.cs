@@ -8,7 +8,7 @@ using System;
 using System.IO.Pipes;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests.Named
+namespace AllOverIt.Pipes.Tests.Named.Client
 {
     public class NamedPipeClientConnectionFixture : FixtureBase
     {

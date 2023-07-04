@@ -2,7 +2,6 @@
 using AllOverIt.Async;
 using AllOverIt.Pipes.Exceptions;
 using AllOverIt.Pipes.Named.Serialization;
-using AllOverIt.Threading;
 using System;
 using System.IO.Pipes;
 using System.Linq;
@@ -106,16 +105,15 @@ namespace AllOverIt.Pipes.Named.Connection
 
         public async Task WriteAsync(TMessage value, CancellationToken cancellationToken = default)
         {
-            // Not checking if the connection is active here since it can be broken when further down the line.
-            // Making the caller resposible for ensuring read/write operations are performed correctly.
-
-            Throw<PipeException>.When(!_pipeReaderWriter.CanWrite, "Named pipe connection is not writable.");
-
             cancellationToken.ThrowIfCancellationRequested();
 
-            var bytes = _serializer.Serialize(value);
+            // The connection can be broken at any time
+            if (IsConnected)
+            {
+                var bytes = _serializer.Serialize(value);
 
-            await _pipeReaderWriter.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+                await _pipeReaderWriter.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+            }
         }
 
         public async ValueTask DisposeAsync()

@@ -22,7 +22,7 @@ namespace AllOverIt.Pipes.Named.Client
 
         /// <summary>Asynchronously connects to the named pipe server.</summary>
         /// <returns>A task that completes when the connection is complete.</returns>
-        Task ConnectAsync(CancellationToken cancellationToken = default);
+        Task ConnectAsync(TimeSpan timeout, CancellationToken cancellationToken = default);
 
         /// <summary>Asynchronously disconnects from the named pipe server.</summary>
         /// <returns>A task that completes when the disconnection is complete.</returns>

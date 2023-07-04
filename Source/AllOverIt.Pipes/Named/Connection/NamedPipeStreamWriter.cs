@@ -1,6 +1,7 @@
 ﻿using AllOverIt.Assertion;
 using AllOverIt.Threading;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Pipes;
 using System.Net;
@@ -35,7 +36,7 @@ namespace AllOverIt.Pipes.Named.Connection
         // to allow for recovery.
         public async Task WriteAsync(byte[] buffer, CancellationToken cancellationToken)
         {
-            _ = buffer.WhenNotNull(nameof(buffer));
+            _ = buffer.WhenNotNullOrEmpty(nameof(buffer));
 
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -44,20 +45,9 @@ namespace AllOverIt.Pipes.Named.Connection
                 return;
             }
 
-            // TODO: Make the timeout period configurable
-            // Using a timeout to detect a deadlock due to the semaphore not being thread aware and hence non re-entrant).
-            var success = await _lock.TryEnterLockAsync(500, cancellationToken).ConfigureAwait(false);
+            var success = await TryEnterLockAsync(cancellationToken).ConfigureAwait(false);
 
             if (!success)
-            {
-                // Kill the underlying connection so the other end of the pipe will abort reading from the pipe
-                // (PipeStreamReader.ReadAsync() will return 0 bytes).
-                _pipeStream?.Dispose();
-                _pipeStream = null;
-            }
-
-            // Double-check locking pattern (and detects the above disconnection)
-            if (!IsConnected)
             {
                 return;
             }
@@ -78,7 +68,7 @@ namespace AllOverIt.Pipes.Named.Connection
             }
             finally
             {
-                _lock.ExitLock();
+                ExitLock();
             }
         }
 
@@ -87,6 +77,29 @@ namespace AllOverIt.Pipes.Named.Connection
             var buffer = BitConverter.GetBytes(IPAddress.HostToNetworkOrder(length));
 
             return _pipeStream.WriteAsync(buffer, cancellationToken);
+        }
+
+        [ExcludeFromCodeCoverage]
+        private async Task<bool> TryEnterLockAsync(CancellationToken cancellationToken)
+        {
+            // TODO: Make the timeout period configurable
+            var success = await _lock.TryEnterLockAsync(500, cancellationToken).ConfigureAwait(false);
+
+            if (!success)
+            {
+                // Kill the underlying connection so the other end of the pipe will abort reading from the pipe
+                // (PipeStreamReader.ReadAsync() will return 0 bytes).
+                _pipeStream?.Dispose();
+                _pipeStream = null;
+            }
+
+            return IsConnected;
+        }
+
+        // Only exists to match TryEnterLockAsync() - code readability
+        private void ExitLock()
+        {
+            _lock.ExitLock();
         }
     }
 }

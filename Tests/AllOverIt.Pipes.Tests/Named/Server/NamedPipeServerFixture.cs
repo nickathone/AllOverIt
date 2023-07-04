@@ -8,10 +8,11 @@ using FluentAssertions;
 using System;
 using System.IO.Pipes;
 using System.Security.AccessControl;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AllOverIt.Pipes.Tests.Named
+namespace AllOverIt.Pipes.Tests.Named.Server
 {
     public class NamedPipeServerFixture : FixtureBase
     {
@@ -127,7 +128,7 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 Invoking(() =>
                 {
-                    server.Start((PipeSecurity)null);
+                    server.Start((PipeSecurity) null);
                 })
                 .Should()
                 .NotThrow();
@@ -181,6 +182,20 @@ namespace AllOverIt.Pipes.Tests.Named
                     .ThrowAsync<ArgumentNullException>()
                     .WithNamedMessageWhenNull("message");
                 }
+
+                [Fact]
+                public async Task Should_Throw_When_Cancelledl()
+                {
+                    var cts = new CancellationTokenSource();
+                    cts.Cancel();
+
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(Create<DummyMessage>(), cts.Token);
+                    })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
+                }
             }
 
             public class WriteAsync_Message_PipeName : WriteAsync
@@ -202,7 +217,7 @@ namespace AllOverIt.Pipes.Tests.Named
                 {
                     await Invoking(async () =>
                     {
-                        await _server.WriteAsync(Create<DummyMessage>(), (string)null);
+                        await _server.WriteAsync(Create<DummyMessage>(), (string) null);
                     })
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
@@ -232,6 +247,20 @@ namespace AllOverIt.Pipes.Tests.Named
                     .ThrowAsync<ArgumentException>()
                     .WithNamedMessageWhenEmpty("pipeName");
                 }
+
+                [Fact]
+                public async Task Should_Throw_When_Cancelledl()
+                {
+                    var cts = new CancellationTokenSource();
+                    cts.Cancel();
+
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(Create<DummyMessage>(), Create<string>(), cts.Token);
+                    })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
+                }
             }
 
             public class WriteAsync_Message_Predicate : WriteAsync
@@ -258,6 +287,20 @@ namespace AllOverIt.Pipes.Tests.Named
                     .Should()
                     .ThrowAsync<ArgumentNullException>()
                     .WithNamedMessageWhenNull("predicate");
+                }
+
+                [Fact]
+                public async Task Should_Throw_When_Cancelledl()
+                {
+                    var cts = new CancellationTokenSource();
+                    cts.Cancel();
+
+                    await Invoking(async () =>
+                    {
+                        await _server.WriteAsync(Create<DummyMessage>(), _ => Create<bool>(), cts.Token);
+                    })
+                    .Should()
+                    .ThrowAsync<OperationCanceledException>();
                 }
             }
         }

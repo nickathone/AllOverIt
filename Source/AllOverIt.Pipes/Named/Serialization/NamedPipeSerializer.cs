@@ -1,4 +1,6 @@
-﻿using AllOverIt.Serialization.Binary.Readers;
+﻿using AllOverIt.Assertion;
+using AllOverIt.Extensions;
+using AllOverIt.Serialization.Binary.Readers;
 using AllOverIt.Serialization.Binary.Writers;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ namespace AllOverIt.Pipes.Named.Serialization
     /// used as required.</summary>
     /// <typeparam name="TMessage">The message type to be serialized.</typeparam>
     public class NamedPipeSerializer<TMessage> : INamedPipeSerializer<TMessage>
+        where TMessage : class, new()
     {
         /// <summary>Contains custom value readers for <typeparamref name="TMessage"/> or any of its' property types. If the serializer
         /// encounters a type for which there is no <see cref="IEnrichedBinaryValueReader"/> then a <see cref="DynamicBinaryValueReader"/>
@@ -28,10 +31,7 @@ namespace AllOverIt.Pipes.Named.Serialization
         /// <inheritdoc/>
         public byte[] Serialize(TMessage message)
         {
-            if (message == null)
-            {
-                return Array.Empty<byte>();
-            }
+            _ = message.WhenNotNull();
 
             using (var stream = new MemoryStream())
             {
@@ -52,7 +52,8 @@ namespace AllOverIt.Pipes.Named.Serialization
         /// <inheritdoc/>
         public TMessage Deserialize(byte[] bytes)
         {
-            if (bytes == null || !bytes.Any())
+            // If a connection is broken we get back an empty byte array - we don't want to throw
+            if (bytes.IsNullOrEmpty())
             {
                 return default;
             }

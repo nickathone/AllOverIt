@@ -38,7 +38,10 @@ namespace AllOverIt.Pipes.Tests.Anonymous
                         actual = client.Reader.ReadLine();
                     });
 
-                    await Task.WhenAll(clientTask, serverTask);
+                    await serverTask;
+                    await clientTask;
+
+                    //await Task.WhenAll(clientTask, serverTask);
                 }
             }
 
