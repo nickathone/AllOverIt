@@ -6,6 +6,18 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
     /// <summary>Provides options that define how the entity relationship diagram will be created.</summary>
     public sealed record ErdOptions
     {
+        public abstract class EntityOptionsBase
+        {
+            /// <summary>Specifies how each entity column nullability is depicted on the generated diagram.</summary>
+            public NullableColumn Nullable { get; } = new();
+
+            /// <summary>Indicates if a column's maximum length should be depicted on the generated diagram.</summary>
+            public bool ShowMaxLength { get; set; } = true;
+
+            /// <summary>Provides styling options for an entity shape.</summary>
+            public ShapeStyle ShapeStyle { get; internal set; } = new();
+        }
+
         private const string DefaultOneToOneLabel = "ONE-TO-ONE";
         private const string DefaultOneToManyLabel = "ONE-TO-MANY";
         private const string DefaultIsNullLabel = "[NULL]";
@@ -32,23 +44,13 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
         }
 
         /// <summary>Provides options for an individual entity that override the global <see cref="Entities"/> options.</summary>
-        public sealed class EntityOptions
+        public sealed class EntityOptions : EntityOptionsBase
         {
-            /// <summary>Provides styling options for an entity shape.</summary>
-            public ShapeStyle ShapeStyle { get; internal set; } = new();
         }
 
         /// <summary>Provides global options for all entities generated in the diagram.</summary>
-        public sealed class EntityGlobalOptions
+        public sealed class EntityGlobalOptions : EntityOptionsBase
         {
-            /// <summary>Specifies how each entity column nullability is depicted on the generated diagram.</summary>
-            public NullableColumn Nullable { get; } = new();
-
-            /// <summary>Indicates if a column's maximum length should be depicted on the generated diagram.</summary>
-            public bool ShowMaxLength { get; set; } = true;
-
-            /// <summary>Provides default styling options for all entity shapes in the diagram.</summary>
-            public ShapeStyle ShapeStyle { get; internal set; } = new();
         }
 
         /// <summary>Provides cardinality options for all relationships generated in the diagram.</summary>
@@ -80,6 +82,14 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
         public EntityOptions Entity<TEntity>() where TEntity : class
         {
             return GetEntityOptions(typeof(TEntity));
+        }
+
+        /// <summary>Sets options for a single entity that overrides the global <see cref="Entities"/> options.</summary>
+        /// <param name="entityType">The entity type to set option overrides.</param>
+        /// <returns>Options for an entity type that override the global <see cref="Entities"/> options.</returns>
+        public EntityOptions Entity(Type entityType)
+        {
+            return GetEntityOptions(entityType);
         }
 
         internal bool TryGetEntityOptions(Type entity, out EntityOptions options)

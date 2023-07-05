@@ -62,7 +62,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
             foreach (var column in columns)
             {
                 var columnName = column.ColumnName;
-                var columnType = GetColumnDetail(column, _options);
+                var columnType = GetColumnDetail(entityType, column, _options);
                 var columnConstraint = GetColumnConstraint(column);
 
                 sb.AppendLine($"  {columnName}: {columnType} {columnConstraint}");
@@ -85,13 +85,29 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams.D2
             return sb.ToString();
         }
 
-        private static string GetColumnDetail(ColumnDescriptor column, ErdOptions configuration)
+        private static string GetColumnDetail(Type entityType, ColumnDescriptor column, ErdOptions configuration)
         {
-            var columnType = column.MaxLength.HasValue && configuration.Entities.ShowMaxLength
-                ? $"{column.ColumnType}({column.MaxLength})"
-                : column.ColumnType;
+            var hasEntityOptions = configuration.TryGetEntityOptions(entityType, out var options);
 
-            if (configuration.Entities.Nullable.IsVisible)
+            var columnType = column.ColumnType;
+
+            if (column.MaxLength.HasValue)
+            {
+                var showMaxLength = hasEntityOptions
+                    ? options.ShowMaxLength
+                    : configuration.Entities.ShowMaxLength;
+
+                if (showMaxLength)
+                {
+                    columnType = $"{column.ColumnType}({column.MaxLength})";
+                }
+            }
+
+            var nullableIsVisible = hasEntityOptions
+                ? options.Nullable.IsVisible
+                : configuration.Entities.Nullable.IsVisible;
+
+            if (nullableIsVisible)
             {
                 if (column.IsNullable && configuration.Entities.Nullable.Mode == NullableColumnMode.IsNull)
                 {

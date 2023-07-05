@@ -32,6 +32,11 @@ namespace D2ErdDiagramDemo
                     // This is the default
                     options.Entities.ShowMaxLength = true;
 
+                    // Testing turning off features for one entity
+                    var commentOptions = options.Entity<Comment>();
+
+                    commentOptions.ShowMaxLength = false;
+                    commentOptions.Nullable.IsVisible = false;
 
                     var globalShapeStyle = new ShapeStyle
                     {

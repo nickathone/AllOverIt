@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using D2ErdDiagramDemo.Data.Attributes;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace D2ErdDiagramDemo.Data.Entities
@@ -9,6 +10,7 @@ namespace D2ErdDiagramDemo.Data.Entities
         public int Id { get; set; }
 
         [Required]
+        [LongString]
         public string Content { get; set; }
 
         [Required]

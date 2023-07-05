@@ -8,9 +8,9 @@ Author: {
     stroke-dash: 2
   }
 
-  Id: INTEGER \[NOT NULL\] {constraint: primary_key}
-  Email: TEXT(50) \[NOT NULL\]
-  FirstName: TEXT(50) \[NOT NULL\]
+  Id: INTEGER {constraint: primary_key}
+  Email: TEXT(50)
+  FirstName: TEXT(50)
   LastName: TEXT(50)
 }
 
@@ -36,22 +36,18 @@ Blog: {
     stroke-dash: 2
   }
 
-  Id: INTEGER \[NOT NULL\] {constraint: primary_key}
-  Description: TEXT(500) \[NOT NULL\]
-  WebSiteId: INTEGER \[NOT NULL\] {constraint: foreign_key}
+  Id: INTEGER {constraint: primary_key}
+  Description: TEXT(500)
+  WebSiteId: INTEGER {constraint: foreign_key}
 }
 
 Comment: {
   shape: sql_table
 
-  style: {
-    stroke: yellow
-  }
-
-  Id: INTEGER \[NOT NULL\] {constraint: primary_key}
-  AuthorId: INTEGER \[NOT NULL\] {constraint: foreign_key}
-  Content: TEXT \[NOT NULL\]
-  PostId: INTEGER \[NOT NULL\] {constraint: foreign_key}
+  Id: INTEGER {constraint: primary_key}
+  AuthorId: INTEGER {constraint: foreign_key}
+  Content: TEXT
+  PostId: INTEGER {constraint: foreign_key}
 }
 
 Post: {
@@ -90,7 +86,13 @@ WebSite: {
   Description: TEXT(500) \[NOT NULL\]
 }
 
-Author.Id -> AuthorBlog.AuthorId: ONE-TO-MANY {
+Author.Id <-> AuthorBlog.AuthorId: {
+  source-arrowhead: {
+    shape: cf-one-required
+  }
+  target-arrowhead: {
+    shape: cf-many
+  }
   style: {
     font-size: 18
     font-color: blue
@@ -98,7 +100,13 @@ Author.Id -> AuthorBlog.AuthorId: ONE-TO-MANY {
   }
 }
 
-Blog.Id -> AuthorBlog.BlogId: ONE-TO-MANY {
+Blog.Id <-> AuthorBlog.BlogId: {
+  source-arrowhead: {
+    shape: cf-one-required
+  }
+  target-arrowhead: {
+    shape: cf-many
+  }
   style: {
     font-size: 18
     font-color: blue
@@ -106,7 +114,13 @@ Blog.Id -> AuthorBlog.BlogId: ONE-TO-MANY {
   }
 }
 
-WebSite.Id -> Blog.WebSiteId: ONE-TO-MANY {
+WebSite.Id <-> Blog.WebSiteId: {
+  source-arrowhead: {
+    shape: cf-one-required
+  }
+  target-arrowhead: {
+    shape: cf-many
+  }
   style: {
     font-size: 18
     font-color: blue
@@ -114,7 +128,13 @@ WebSite.Id -> Blog.WebSiteId: ONE-TO-MANY {
   }
 }
 
-Author.Id -> Comment.AuthorId: ONE-TO-MANY {
+Author.Id <-> Comment.AuthorId: {
+  source-arrowhead: {
+    shape: cf-one-required
+  }
+  target-arrowhead: {
+    shape: cf-many
+  }
   style: {
     font-size: 18
     font-color: blue
@@ -122,7 +142,13 @@ Author.Id -> Comment.AuthorId: ONE-TO-MANY {
   }
 }
 
-Post.Id -> Comment.PostId: ONE-TO-MANY {
+Post.Id <-> Comment.PostId: {
+  source-arrowhead: {
+    shape: cf-one-required
+  }
+  target-arrowhead: {
+    shape: cf-many
+  }
   style: {
     font-size: 18
     font-color: blue
@@ -130,7 +156,13 @@ Post.Id -> Comment.PostId: ONE-TO-MANY {
   }
 }
 
-Blog.Id -> Post.BlogId: ONE-TO-MANY {
+Blog.Id <-> Post.BlogId: {
+  source-arrowhead: {
+    shape: cf-one-required
+  }
+  target-arrowhead: {
+    shape: cf-many
+  }
   style: {
     font-size: 18
     font-color: blue
@@ -138,7 +170,13 @@ Blog.Id -> Post.BlogId: ONE-TO-MANY {
   }
 }
 
-WebSite.Id -- Settings.WebSiteId: ONE-TO-ONE {
+WebSite.Id <-> Settings.WebSiteId: {
+  source-arrowhead: {
+    shape: cf-one-required
+  }
+  target-arrowhead: {
+    shape: cf-one
+  }
   style: {
     font-size: 18
     font-color: blue
