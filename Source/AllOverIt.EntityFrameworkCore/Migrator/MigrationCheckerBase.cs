@@ -19,7 +19,7 @@ namespace AllOverIt.EntityFrameworkCore.Migrator
         }
 
         /// <inheritdoc />
-        public async Task<MigrationStatus> GetStatus()
+        public async Task<MigrationStatus> GetStatusAsync()
         {
             using (var dbContext = _dbContextFactory.CreateDbContext())
             {

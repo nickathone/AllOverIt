@@ -8,6 +8,6 @@ namespace AllOverIt.EntityFrameworkCore.Migrator
     {
         /// <summary>Gets the current migration status of the database.</summary>
         /// <returns>A task that completes with the migration status of the database</returns>
-        Task<MigrationStatus> GetStatus();
+        Task<MigrationStatus> GetStatusAsync();
     }
 }
