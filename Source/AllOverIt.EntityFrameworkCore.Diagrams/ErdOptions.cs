@@ -6,6 +6,7 @@ namespace AllOverIt.EntityFrameworkCore.Diagrams
     /// <summary>Provides options that define how the entity relationship diagram will be created.</summary>
     public sealed record ErdOptions
     {
+        /// <summary>Provides entity specific options that can be applied to a single entity, or globally.</summary>
         public abstract class EntityOptionsBase
         {
             /// <summary>Specifies how each entity column nullability is depicted on the generated diagram.</summary>

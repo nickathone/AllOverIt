@@ -21,6 +21,8 @@ namespace AllOverIt.Pipes.Named.Client
         public string ServerName { get; }
 
         /// <summary>Asynchronously connects to the named pipe server.</summary>
+        /// <param name="timeout">The timout period to wait for a successful connection.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>A task that completes when the connection is complete.</returns>
         Task ConnectAsync(TimeSpan timeout, CancellationToken cancellationToken = default);
 

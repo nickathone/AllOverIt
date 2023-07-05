@@ -59,9 +59,7 @@ namespace AllOverIt.Pipes.Named.Client
             _serializer = serializer.WhenNotNull(nameof(serializer));
         }
 
-        /// <summary>Asynchronously connects to the named pipe server.</summary>
-        /// <param name="cancellationToken">A cancellation token.</param>
-        /// <returns>A task that completes when the connection has been established.</returns>
+        /// <inheritdoc />
         public async Task ConnectAsync(TimeSpan timeout, CancellationToken cancellationToken = default)
         {
             Throw<PipeException>.When(IsConnected, "The named pipe client is already connected.");
@@ -83,16 +81,13 @@ namespace AllOverIt.Pipes.Named.Client
             DoOnConnected(_connection);
         }
 
-        /// <summary>Asynchronously disconnects from the named pipe server.</summary>
-        /// <returns>A task that completes when the connection has been disconnected.</returns>
+        /// <inheritdoc />
         public async Task DisconnectAsync()
         {
             await DoOnDisconnectedAsync().ConfigureAwait(false);
         }
 
-        /// <summary>Sends a message to the named pipe server.</summary>
-        /// <param name="message">The message to send to the server.</param>
-        /// <param name="cancellationToken">A cancellation token.</param>
+        /// <inheritdoc />
         public async Task WriteAsync(TMessage message, CancellationToken cancellationToken = default)
         {
             _ = message.WhenNotNull();

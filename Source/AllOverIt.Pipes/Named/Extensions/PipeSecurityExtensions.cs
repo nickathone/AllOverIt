@@ -5,8 +5,8 @@ using System.Security.Principal;
 
 namespace AllOverIt.Pipes.Named.Extensions
 {
-    [ExcludeFromCodeCoverage]
     /// <summary>Provides extension methods for <see cref="PipeSecurity"/>.</summary>
+    [ExcludeFromCodeCoverage]
     public static class PipeSecurityExtensions
     {
         /// <summary>Adds an access rule to a Discretionary Access Control List (DACL) that is associated with the provided <see cref="PipeSecurity"/>.</summary>
