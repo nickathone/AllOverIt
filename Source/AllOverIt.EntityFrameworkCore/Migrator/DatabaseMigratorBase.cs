@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Assertion;
+using AllOverIt.EntityFrameworkCore.Migrator.Events;
 using AllOverIt.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading;
@@ -9,20 +9,6 @@ using System.Threading.Tasks;
 
 namespace AllOverIt.EntityFrameworkCore.Migrator
 {
-    /// <summary>Defines database migration related event arguments.</summary>
-    public class MigrationEventArgs : EventArgs
-    {
-        /// <summary>The name of the migration.</summary>
-        public string Migration { get; }
-
-        /// <summary>Constructor.</summary>
-        /// <param name="migration">The name of the migration.</param>
-        public MigrationEventArgs(string migration)
-        {
-            Migration = migration.WhenNotNull(nameof(migration));
-        }
-    }
-
     /// <summary>An abstract class providing the ability to report and apply pending migrations to a database.
     /// If the database does not exist then it will be created.</summary>
     /// <typeparam name="TDbContext">The <see cref="DbContext"/> representing the database to be updated.</typeparam>
@@ -30,7 +16,7 @@ namespace AllOverIt.EntityFrameworkCore.Migrator
     {
         private readonly IDbContextFactory<TDbContext> _dbContextFactory;
 
-        /// <summary>Raised with the name of a migration to be applied to the database.</summary>
+        /// <inheritdoc />
         public event EventHandler<MigrationEventArgs> OnNewMigration;
 
         /// <summary>Constructor.</summary>
