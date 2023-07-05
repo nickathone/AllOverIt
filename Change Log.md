@@ -62,7 +62,8 @@
 
 
 ## AllOverIt.EntityFrameworkCore
-* Unchanged
+* Added a database migrator that emits all pending migrations to be applied
+* Added a utility to get the current migration status of a database
 
 
 ## AllOverIt.EntityFrameworkCore.Diagrams :new:
