@@ -8,6 +8,7 @@ using System.IO.Pipes;
 namespace AllOverIt.Pipes.Named.Server
 {
     internal sealed class NamedPipeServerConnection<TMessage> : NamedPipeConnection<TMessage>, INamedPipeServerConnection<TMessage>
+        where TMessage : class, new()
     {
         /// <inheritdoc />
         public event EventHandler<NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeServerConnection<TMessage>>> OnMessageReceived;

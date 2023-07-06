@@ -10,6 +10,7 @@ namespace AllOverIt.Pipes.Named.Client
     /// <summary>Implements a named pipe client connection.</summary>
     /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
     internal sealed class NamedPipeClientConnection<TMessage> : NamedPipeConnection<TMessage>, INamedPipeClientConnection<TMessage>
+        where TMessage : class, new()
     {
         /// <inheritdoc />
         public event EventHandler<NamedPipeConnectionMessageEventArgs<TMessage, INamedPipeClientConnection<TMessage>>> OnMessageReceived;

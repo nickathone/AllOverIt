@@ -12,6 +12,7 @@ namespace AllOverIt.Pipes.Named.Events
     /// <see cref="INamedPipeClientConnection{TMessage}"/>.</typeparam>
     public sealed class NamedPipeConnectionExceptionEventArgs<TMessage, TPipeConnection> : NamedPipeConnectionEventArgs<TMessage, TPipeConnection>
         where TPipeConnection : class, INamedPipeConnection<TMessage>
+        where TMessage : class, new()
     {
         /// <summary>The exception that was raised.</summary>
         public Exception Exception { get; }

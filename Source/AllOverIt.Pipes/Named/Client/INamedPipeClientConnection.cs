@@ -6,7 +6,7 @@ namespace AllOverIt.Pipes.Named.Client
 {
     /// <summary>Represents a named pipe client connection to a named pipe server.</summary>
     /// <typeparam name="TMessage">The message type serialized between a named pipe client and a named pipe server.</typeparam>
-    public interface INamedPipeClientConnection<TMessage> : IConnectableNamedPipeConnection<TMessage>
+    public interface INamedPipeClientConnection<TMessage> : IConnectableNamedPipeConnection<TMessage> where TMessage : class, new()
     {
         /// <summary>Event raised when a message is received from the other end of the pipe. Messages are raised
         /// on a background task.</summary>

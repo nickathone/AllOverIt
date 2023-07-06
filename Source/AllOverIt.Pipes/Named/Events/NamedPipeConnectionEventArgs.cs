@@ -12,6 +12,7 @@ namespace AllOverIt.Pipes.Named.Events
     /// <see cref="INamedPipeClientConnection{TMessage}"/>.</typeparam>
     public class NamedPipeConnectionEventArgs<TMessage, TPipeConnection> : EventArgs
         where TPipeConnection : class, INamedPipeConnection<TMessage>
+        where TMessage : class, new()
     {
         /// <summary>The connection associated with the event.</summary>
         public TPipeConnection Connection { get; }
