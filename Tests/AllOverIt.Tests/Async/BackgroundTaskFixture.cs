@@ -241,10 +241,8 @@ namespace AllOverIt.Tests.Async
                 .WithNamedMessageWhenNull("exceptionHandler");
             }
 
-            [Theory]
-            [InlineData(true)]
-            [InlineData(false)]
-            public async Task Should_Throw_When_Task_Cancelled(bool handled)
+            [Fact]
+            public async Task Should_Throw_When_Task_Cancelled_And_Not_Handled()
             {
                 var cts = new CancellationTokenSource();
 
@@ -252,16 +250,47 @@ namespace AllOverIt.Tests.Async
                     token => Task.Delay(-1, token),
                     TaskCreationOptions.None,
                     TaskScheduler.Current,
-                    edi => handled, cts.Token);
-
-                cts.Cancel();
+                    edi => false, cts.Token);
 
                 await Invoking(async () =>
                 {
-                    await backgroundTask;
+                    await Task.Run(async () =>
+                    {
+                        await Task.Delay(10);
+
+                        cts.Cancel();
+
+                        await backgroundTask;
+                    });
                 })
-                 .Should()
-                 .ThrowAsync<TaskCanceledException>();
+                .Should()
+                .ThrowAsync<TaskCanceledException>();
+            }
+
+            [Fact]
+            public async Task Should_Not_Throw_When_Task_Cancelled_And_Handled()
+            {
+                var cts = new CancellationTokenSource();
+
+                var backgroundTask = new BackgroundTask(
+                    token => Task.Delay(-1, token),
+                    TaskCreationOptions.None,
+                    TaskScheduler.Current,
+                    edi => true, cts.Token);
+
+                await Invoking(async () =>
+                {
+                    await Task.Run(async () =>
+                    {
+                        await Task.Delay(10);
+
+                        cts.Cancel();
+
+                        await backgroundTask;
+                    });
+                })
+                .Should()
+                .NotThrowAsync();
             }
 
             [Fact]
