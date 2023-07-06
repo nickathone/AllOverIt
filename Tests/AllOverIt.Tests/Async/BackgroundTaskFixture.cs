@@ -71,16 +71,16 @@ namespace AllOverIt.Tests.Async
                 .WithNamedMessageWhenNull("exceptionHandler");
             }
 
-            [Theory]
-            [InlineData(true)]
-            [InlineData(false)]
-            public async Task Should_Throw_When_Task_Cancelled(bool handled)
+            [Fact]
+            public async Task Should_Throw_When_Task_Cancelled_And_Not_Handled()
             {
                 var cts = new CancellationTokenSource();
 
                 var backgroundTask = new BackgroundTask(
                     token => Task.Delay(-1, token),
-                    edi => handled, cts.Token);
+                    edi => false, cts.Token);
+
+                await Task.Delay(10);
 
                 cts.Cancel();
 
@@ -90,6 +90,27 @@ namespace AllOverIt.Tests.Async
                 })
                 .Should()
                 .ThrowAsync<TaskCanceledException>();
+            }
+
+            [Fact]
+            public async Task Should_Not_Throw_When_Task_Cancelled_And_Handled()
+            {
+                var cts = new CancellationTokenSource();
+
+                var backgroundTask = new BackgroundTask(
+                    token => Task.Delay(-1, token),
+                    edi => true, cts.Token);
+
+                await Task.Delay(10);
+
+                cts.Cancel();
+
+                await Invoking(async () =>
+                {
+                    await backgroundTask;
+                })
+                .Should()
+                .NotThrowAsync();
             }
 
             [Fact]
