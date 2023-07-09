@@ -2,10 +2,8 @@
 using AllOverIt.Extensions;
 using AllOverIt.Serialization.Binary.Readers;
 using AllOverIt.Serialization.Binary.Writers;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace AllOverIt.Pipes.Named.Serialization

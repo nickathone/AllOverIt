@@ -18,8 +18,6 @@ namespace AllOverIt.Pipes.Tests.Named.Client
         public sealed class DummyMessage
         {
             public int Id { get; set; }
-            public string Value { get; set; }
-            public Guid Guid { get; set; }
         }
 
         public class Constructor_PipeName_Serializer : NamedPipeClientFixture

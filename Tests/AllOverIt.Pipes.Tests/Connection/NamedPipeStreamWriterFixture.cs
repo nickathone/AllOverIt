@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using static System.Collections.Specialized.BitVector32;
 
 namespace AllOverIt.Pipes.Tests.Connection
 {

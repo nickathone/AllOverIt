@@ -16,8 +16,6 @@ namespace AllOverIt.Pipes.Tests.Events
         public sealed class DummyMessage
         {
             public int Id { get; set; }
-            public string Value { get; set; }
-            public Guid Guid { get; set; }
         }
 
         public class DummyNamedPipeConnection : INamedPipeConnection<DummyMessage>

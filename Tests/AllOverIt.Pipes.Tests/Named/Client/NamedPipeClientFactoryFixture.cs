@@ -14,8 +14,6 @@ namespace AllOverIt.Pipes.Tests.Named.Client
         public sealed class DummyMessage
         {
             public int Id { get; set; }
-            public string Value { get; set; }
-            public Guid Guid { get; set; }
         }
 
         private readonly NamedPipeClientFactory<DummyMessage> _factory = new(A.Fake<INamedPipeSerializer<DummyMessage>>());
