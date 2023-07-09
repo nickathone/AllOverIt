@@ -89,21 +89,16 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* Amazon.CDK v1.204.0
-* Amazon.CDK.AWS.AppSync v1.204.0
-* Amazon.CDK.AWS.CertificateManager v1.204.0
-* Amazon.CDK.AWS.Cognito v1.204.0
-* Amazon.CDK.AWS.DynamoDB v1.204.0
-* Amazon.CDK.AWS.EC2 v1.204.0
-* Amazon.CDK.AWS.Elasticsearch v1.204.0
-* Amazon.CDK.AWS.IAM v1.204.0
-* Amazon.CDK.AWS.Lambda v1.204.0
-* Amazon.CDK.AWS.OpenSearchService v1.204.0
-* Amazon.CDK.AWS.RDS v1.204.0
-* Amazon.CDK.AWS.S3.Assets v1.204.0
-* Amazon.CDK.AWS.SecretsManager v1.204.0
+* Amazon.CDK.Asset.AwsCliV1 v2.2.177
+* Amazon.CDK.Asset.KubectlV20 v2.1.1
+* Amazon.CDK.Asset.NodeProxyAgentV5 v2.0.148
+* Amazon.CDK.Lib v2.60.0
+* Amazon.CDK.Lib v2.87.0
+* Amazon.JSII.Runtime v1.82.0
 * Amazon.JSII.Runtime v1.84.0
-* Constructs v3.3.69
+* Cdklabs.AwsCdkAppsyncUtils v0.0.143
+* Constructs v10.0.0
+* Constructs v10.0.5
 
 <br>
 
@@ -387,7 +382,7 @@
 * AllOverIt.Assertion
 * DynamicData v7.14.2
 * Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0
-* ReactiveUI v19.2.1
+* ReactiveUI v19.3.3
 * Splat v14.6.37
 
 <br>
@@ -469,7 +464,7 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* FluentValidation v11.5.2
+* FluentValidation v11.6.0
 
 <br>
 
@@ -486,7 +481,7 @@
 * AllOverIt
 * AllOverIt.Assertion
 * AllOverIt.Validation
-* FluentValidation v11.5.2
+* FluentValidation v11.6.0
 * Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0
 * Microsoft.Extensions.Options v7.0.1
 * Microsoft.Extensions.Primitives v7.0.0
