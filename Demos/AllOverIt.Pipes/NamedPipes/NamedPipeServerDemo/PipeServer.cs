@@ -194,7 +194,7 @@ namespace NamedPipeServerDemo
 
             // Ping back
             var subscription = Observable
-                .Timer(TimeSpan.FromMilliseconds(10))
+                .Timer(TimeSpan.FromMilliseconds(100))
                 .SelectMany(async async =>
                 {
                     try

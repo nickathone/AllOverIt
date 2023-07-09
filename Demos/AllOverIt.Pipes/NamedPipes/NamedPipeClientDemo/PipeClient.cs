@@ -157,7 +157,7 @@ namespace NamedPipeClientDemo
 
             // Ping back
             _pingSubscription = Observable
-                .Timer(TimeSpan.FromMilliseconds(10))
+                .Timer(TimeSpan.FromMilliseconds(100))
                 .SelectMany(async async =>
                 {
                     try
