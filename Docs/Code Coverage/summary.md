@@ -1,31 +1,31 @@
 # Summary
 |||
 |:---|:---|
-| Generated on: | 24/06/2023 - 5:28:58 PM |
-| Coverage date: | 24/06/2023 - 5:25:46 PM - 24/06/2023 - 5:28:38 PM |
-| Parser: | MultiReport (64x Cobertura) |
-| Assemblies: | 17 |
-| Classes: | 401 |
-| Files: | 410 |
-| **Line coverage:** | 99.6% (11659 of 11701) |
-| Covered lines: | 11659 |
-| Uncovered lines: | 42 |
-| Coverable lines: | 11701 |
-| Total lines: | 29593 |
-| **Branch coverage:** | 96.8% (2359 of 2436) |
-| Covered branches: | 2359 |
-| Total branches: | 2436 |
+| Generated on: | 9/07/2023 - 7:33:55 PM |
+| Coverage date: | 9/07/2023 - 7:32:55 PM - 9/07/2023 - 7:33:43 PM |
+| Parser: | MultiReport (17x Cobertura) |
+| Assemblies: | 18 |
+| Classes: | 419 |
+| Files: | 428 |
+| **Line coverage:** | 99.6% (12297 of 12346) |
+| Covered lines: | 12297 |
+| Uncovered lines: | 49 |
+| Coverable lines: | 12346 |
+| Total lines: | 31026 |
+| **Branch coverage:** | 96.5% (2448 of 2536) |
+| Covered branches: | 2448 |
+| Total branches: | 2536 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|
-|**AllOverIt**|**5143**|**6**|**5149**|**14186**|**99.8%**|**964**|**980**|**98.3%**|
+|**AllOverIt**|**5141**|**9**|**5150**|**14189**|**99.8%**|**964**|**980**|**98.3%**|
 |AllOverIt.Aspects.Interceptor.InterceptorBase`1|41|0|41|100|100%|2|2|100%|
 |AllOverIt.Aspects.Interceptor.InterceptorFactory|11|0|11|35|100%|2|2|100%|
 |AllOverIt.Aspects.Interceptor.InterceptorState|1|0|1|13|100%|0|0||
 |AllOverIt.Async.AsyncLazy`1|9|0|9|44|100%|0|0||
-|AllOverIt.Async.BackgroundTask|85|0|85|165|100%|13|14|92.8%|
-|AllOverIt.Async.BackgroundTask`1|83|0|83|166|100%|17|18|94.4%|
+|AllOverIt.Async.BackgroundTask|83|2|85|165|97.6%|13|14|92.8%|
+|AllOverIt.Async.BackgroundTask`1|83|1|84|169|98.8%|17|18|94.4%|
 |AllOverIt.Async.CompositeAsyncDisposable|51|0|51|95|100%|6|6|100%|
 |AllOverIt.Async.RepeatingTask|82|2|84|166|97.6%|0|0||
 |AllOverIt.Async.TaskHelper|37|0|37|224|100%|0|0||
@@ -166,8 +166,8 @@
 |AllOverIt.Threading.Extensions.AwaitableLockExtensions|4|0|4|23|100%|0|0||
 |AllOverIt.Threading.Extensions.ReadWriteLockExtensions|6|0|6|26|100%|0|0||
 |AllOverIt.Threading.ReadWriteLock|57|0|57|118|100%|10|10|100%|
-|**AllOverIt.Assertion**|**307**|**0**|**307**|**976**|**100%**|**138**|**138**|**100%**|
-|AllOverIt.Assertion.Guard|130|0|130|455|100%|76|76|100%|
+|**AllOverIt.Assertion**|**296**|**0**|**296**|**976**|**100%**|**132**|**132**|**100%**|
+|AllOverIt.Assertion.Guard|119|0|119|455|100%|70|70|100%|
 |AllOverIt.Assertion.Throw`1|177|0|177|521|100%|62|62|100%|
 |**AllOverIt.Csv**|**166**|**0**|**166**|**329**|**100%**|**29**|**30**|**96.6%**|
 |AllOverIt.Csv.CsvSerializer`1|92|0|92|153|100%|15|16|93.7%|
@@ -280,9 +280,9 @@
 |AllOverIt.Evaluator.Variables.VariableFactory|34|0|34|74|100%|4|4|100%|
 |AllOverIt.Evaluator.Variables.VariableLookup|25|0|25|61|100%|8|8|100%|
 |AllOverIt.Evaluator.Variables.VariableRegistry|37|0|37|80|100%|8|8|100%|
-|**AllOverIt.Filtering**|**646**|**1**|**647**|**1615**|**99.8%**|**120**|**130**|**92.3%**|
-|AllOverIt.Filtering.Builders.FilterBuilder`2|71|0|71|159|100%|19|24|79.1%|
-|AllOverIt.Filtering.Builders.FilterSpecificationBuilder`2|219|1|220|410|99.5%|51|56|91%|
+|**AllOverIt.Filtering**|**646**|**1**|**647**|**1615**|**99.8%**|**116**|**130**|**89.2%**|
+|AllOverIt.Filtering.Builders.FilterBuilder`2|71|0|71|159|100%|18|24|75%|
+|AllOverIt.Filtering.Builders.FilterSpecificationBuilder`2|219|1|220|410|99.5%|48|56|85.7%|
 |AllOverIt.Filtering.Exceptions.NullNotSupportedException|9|0|9|28|100%|0|0||
 |AllOverIt.Filtering.Extensions.FilterExtensions|12|0|12|42|100%|2|2|100%|
 |AllOverIt.Filtering.Extensions.FilterSpecificationExtensions|5|0|5|27|100%|0|0||
@@ -356,7 +356,27 @@
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenSerializerFactory|4|0|4|14|100%|0|0||
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenValidator|12|0|12|33|100%|2|2|100%|
 |AllOverIt.Pagination.TokenEncoding.ContinuationTokenWriter|7|0|7|27|100%|0|0||
-|**AllOverIt.Reactive**|**190**|**0**|**190**|**552**|**100%**|**35**|**36**|**97.2%**|
+|**AllOverIt.Pipes**|**665**|**4**|**669**|**1471**|**99.4%**|**99**|**106**|**93.3%**|
+|AllOverIt.Pipes.Anonymous.AnonymousPipeBase|53|0|53|115|100%|12|14|85.7%|
+|AllOverIt.Pipes.Anonymous.AnonymousPipeClient|9|0|9|35|100%|0|0||
+|AllOverIt.Pipes.Anonymous.AnonymousPipeServer|18|0|18|50|100%|2|2|100%|
+|AllOverIt.Pipes.Exceptions.PipeException|9|0|9|28|100%|0|0||
+|AllOverIt.Pipes.Named.Client.NamedPipeClient`1|91|0|91|191|100%|15|18|83.3%|
+|AllOverIt.Pipes.Named.Client.NamedPipeClientConnection`1|35|0|35|85|100%|6|6|100%|
+|AllOverIt.Pipes.Named.Client.NamedPipeClientFactory`1|13|0|13|36|100%|0|0||
+|AllOverIt.Pipes.Named.Connection.NamedPipeConnection`1|89|0|89|140|100%|8|8|100%|
+|AllOverIt.Pipes.Named.Connection.NamedPipeReaderWriter|21|0|21|50|100%|4|4|100%|
+|AllOverIt.Pipes.Named.Connection.NamedPipeStreamReader|27|0|27|61|100%|7|8|87.5%|
+|AllOverIt.Pipes.Named.Connection.NamedPipeStreamWriter|36|0|36|105|100%|8|8|100%|
+|AllOverIt.Pipes.Named.Events.NamedPipeConnectionEventArgs`2|5|0|5|27|100%|0|0||
+|AllOverIt.Pipes.Named.Events.NamedPipeConnectionExceptionEventArgs`2|5|0|5|29|100%|0|0||
+|AllOverIt.Pipes.Named.Events.NamedPipeConnectionMessageEventArgs`2|5|0|5|23|100%|0|0||
+|AllOverIt.Pipes.Named.Events.NamedPipeExceptionEventArgs|5|0|5|19|100%|0|0||
+|AllOverIt.Pipes.Named.Serialization.NamedPipeSerializer`1|30|0|30|73|100%|6|6|100%|
+|AllOverIt.Pipes.Named.Server.NamedPipeServer`1|168|4|172|288|97.6%|23|24|95.8%|
+|AllOverIt.Pipes.Named.Server.NamedPipeServerConnection`1|39|0|39|91|100%|8|8|100%|
+|AllOverIt.Pipes.Named.Server.NamedPipeServerFactory`1|7|0|7|25|100%|0|0||
+|**AllOverIt.Reactive**|**176**|**0**|**176**|**511**|**100%**|**35**|**36**|**97.2%**|
 |AllOverIt.Reactive.EventBus|10|0|10|39|100%|0|0||
 |AllOverIt.Reactive.EventBusHandler`1|40|0|40|89|100%|5|6|83.3%|
 |AllOverIt.Reactive.Extensions.DisposableExtensions|3|0|3|17|100%|0|0||
@@ -364,7 +384,6 @@
 |AllOverIt.Reactive.Extensions.PropertyNotifyExtensions|24|0|24|59|100%|0|0||
 |AllOverIt.Reactive.ObservableObject|32|0|32|104|100%|12|12|100%|
 |AllOverIt.Reactive.ObservableProxy`1|23|0|23|92|100%|8|8|100%|
-|AllOverIt.Reactive.TaskHelper|14|0|14|41|100%|0|0||
 |**AllOverIt.ReactiveUI**|**156**|**0**|**156**|**432**|**100%**|**25**|**26**|**96.1%**|
 |AllOverIt.ReactiveUI.ActivatableViewModel|12|0|12|39|100%|0|0||
 |AllOverIt.ReactiveUI.CommandPipeline.ReactiveCommandPipelineBuilder|5|0|5|24|100%|0|0||
