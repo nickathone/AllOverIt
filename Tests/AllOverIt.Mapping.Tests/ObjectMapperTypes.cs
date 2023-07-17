@@ -118,7 +118,7 @@ namespace AllOverIt.Mapping.Tests
 
         internal class DummyRootParentSource
         {
-            public DummyRootChildSource RootA { get; set; }
+            public DummyRootChildSource RootA { get; set; } = new DummyRootChildSource();       // Testing this initialization scenario
             public DummyRootChildSource RootB { get; set; }
             public DummyRootChildSource RootC { get; set; }
 

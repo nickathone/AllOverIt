@@ -139,24 +139,23 @@ namespace AllOverIt.Mapping
                 return ConvertValueIfNotTargetType(sourceValue, sourceValueType, targetPropertyType);
             }
 
-            var isAssignable = targetPropertyType.IsAssignableFrom(sourceValueType);
+            // Precedence order
+            // * ConstructUsing()
+            // * DeepCopy()
+            // * Mapping properties
 
-            if (!isAssignable || deepCopy)
-            {
-                return CreateTargetFromSourceValue(sourceValue, sourceValueType, sourcePropertyType, targetPropertyType, deepCopy);
-            }
-
-            return sourceValue;
-        }
-
-        private object CreateTargetFromSourceValue(object sourceValue, Type sourceValueType, Type sourcePropertyType, Type targetPropertyType, bool deepCopy)
-        {
-            // Configuration via ConstructUsing() takes precedence over mapping properties
             if (_configuration._typeFactory.TryGet(sourcePropertyType, targetPropertyType, out var factory))
             {
                 return factory.Invoke(this, sourceValue);
             }
 
+            return deepCopy || !targetPropertyType.IsAssignableFrom(sourceValueType)
+                ? CreateTargetFromSourceValue(sourceValue, sourceValueType, sourcePropertyType, targetPropertyType, deepCopy)
+                : sourceValue;
+        }
+
+        private object CreateTargetFromSourceValue(object sourceValue, Type sourceValueType, Type sourcePropertyType, Type targetPropertyType, bool deepCopy)
+        {
             if (sourceValueType.IsEnumerableType())
             {
                 return sourceValue switch

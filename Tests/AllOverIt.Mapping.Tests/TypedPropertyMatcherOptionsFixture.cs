@@ -425,12 +425,6 @@ namespace AllOverIt.Mapping.Tests
                     });
                 });
 
-                configuration.Configure<DummySource, DummyTarget>(opt =>
-                {
-                    // need to force a deep clone for source / target properties of the same type
-                    opt.DeepCopy(src => src.Child);
-                });
-
                 var mapper = new ObjectMapper(configuration);
 
                 var source = Create<DummySource>();
@@ -479,12 +473,6 @@ namespace AllOverIt.Mapping.Tests
                         actual = expected;
                         return expected;
                     });
-                });
-
-                configuration.Configure<DummySource, DummyTarget>(opt =>
-                {
-                    // need to force a deep clone for source / target properties of the same type
-                    opt.DeepCopy(src => src.Child);
                 });
 
                 var mapper = new ObjectMapper(configuration);

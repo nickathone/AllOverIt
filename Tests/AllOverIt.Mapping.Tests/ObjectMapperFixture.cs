@@ -737,6 +737,7 @@ namespace AllOverIt.Mapping.Tests
                 var actual = mapper.Map<DummyRootParentTarget>(source);
 
                 actual.RootA.Should().NotBeSameAs(source.RootA);                // deep cloned
+                actual.RootA.Prop1.Should().Be(source.RootA.Prop1);             // deep cloned
                 actual.RootA.Prop2a.Should().NotBeSameAs(source.RootA.Prop2a);  // deep cloned
                 actual.RootB.Should().NotBeSameAs(source.RootB);                // source and target types are different
                 actual.RootC.Should().BeSameAs(source.RootC);                   // not deep cloned
