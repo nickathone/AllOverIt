@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace AllOverIt.Validation
 {
     /// <summary>A validation invoker that utilizes a registry to determine which validator to invoke based on the model type.</summary>
-    public sealed class ValidationInvoker : IValidationRegistry, IValidationInvoker
+    public class ValidationInvoker : IValidationRegistry, IValidationInvoker
     {
         // can only re-use validators that don't store state (context)
         private readonly IDictionary<Type, Lazy<IValidator>> _validatorCache = new Dictionary<Type, Lazy<IValidator>>();

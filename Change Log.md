@@ -141,7 +141,7 @@
 
 
 ## AllOverIt.Validation
-* Unchanged
+* Unsealed ValidationInvoker so multiple types can be registered with DI.
 
 
 ## AllOverIt.Validation.Options :new:
