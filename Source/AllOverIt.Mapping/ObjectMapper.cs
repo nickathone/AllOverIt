@@ -4,7 +4,6 @@ using AllOverIt.Mapping.Exceptions;
 using AllOverIt.Reflection;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace AllOverIt.Mapping
 {
@@ -150,11 +149,11 @@ namespace AllOverIt.Mapping
             }
 
             return deepCopy || !targetPropertyType.IsAssignableFrom(sourceValueType)
-                ? CreateTargetFromSourceValue(sourceValue, sourceValueType, sourcePropertyType, targetPropertyType, deepCopy)
+                ? CreateTargetFromSourceValue(sourceValue, sourceValueType, targetPropertyType, deepCopy)
                 : sourceValue;
         }
 
-        private object CreateTargetFromSourceValue(object sourceValue, Type sourceValueType, Type sourcePropertyType, Type targetPropertyType, bool deepCopy)
+        private object CreateTargetFromSourceValue(object sourceValue, Type sourceValueType, Type targetPropertyType, bool deepCopy)
         {
             if (sourceValueType.IsEnumerableType())
             {
