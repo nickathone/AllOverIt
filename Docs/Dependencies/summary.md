@@ -96,7 +96,7 @@
 * Amazon.CDK.Lib v2.87.0
 * Amazon.JSII.Runtime v1.82.0
 * Amazon.JSII.Runtime v1.84.0
-* Cdklabs.AwsCdkAppsyncUtils v0.0.143
+* Cdklabs.AwsCdkAppsyncUtils v0.0.151
 * Constructs v10.0.0
 * Constructs v10.0.5
 
@@ -146,8 +146,8 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* Microsoft.EntityFrameworkCore v7.0.8
-* Microsoft.EntityFrameworkCore.Relational v7.0.8
+* Microsoft.EntityFrameworkCore v7.0.9
+* Microsoft.EntityFrameworkCore.Relational v7.0.9
 * Microsoft.Extensions.Configuration.Abstractions v7.0.0
 
 <br>
@@ -164,8 +164,8 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* Microsoft.EntityFrameworkCore v7.0.8
-* Microsoft.EntityFrameworkCore.Relational v7.0.8
+* Microsoft.EntityFrameworkCore v7.0.9
+* Microsoft.EntityFrameworkCore.Relational v7.0.9
 * Microsoft.Extensions.Configuration.Abstractions v7.0.0
 
 <br>
@@ -185,8 +185,8 @@
 * AllOverIt.EntityFrameworkCore
 * AllOverIt.Pagination
 * AllOverIt.Serialization.Binary
-* Microsoft.EntityFrameworkCore v7.0.8
-* Microsoft.EntityFrameworkCore.Relational v7.0.8
+* Microsoft.EntityFrameworkCore v7.0.9
+* Microsoft.EntityFrameworkCore.Relational v7.0.9
 * Microsoft.Extensions.Configuration.Abstractions v7.0.0
 * Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0
 
@@ -382,7 +382,7 @@
 * AllOverIt.Assertion
 * DynamicData v7.14.2
 * Microsoft.Extensions.DependencyInjection.Abstractions v7.0.0
-* ReactiveUI v19.3.3
+* ReactiveUI v19.4.1
 * Splat v14.6.37
 
 <br>
