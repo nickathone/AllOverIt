@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+        <TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
         <Description>A library containing utility extensions for use with ReactiveUI.</Description>
         <PackageTags>AllOverIt;Utilities;Reactive;ReactiveUI</PackageTags>
     </PropertyGroup>
@@ -10,11 +10,7 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'net5.0'">
-        <PackageReference Include="ReactiveUI" Version="16.4.15" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' or '$(TargetFramework)' == 'net7.0'">
+    <ItemGroup>
         <PackageReference Include="ReactiveUI" Version="19.4.1" />
     </ItemGroup>
 

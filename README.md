@@ -27,9 +27,9 @@ A general purpose library containing a variety of classes and helper utilities.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
+<!--![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)-->
+<!--![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)-->
 
 
 Refer to the online [Documentation](https://mjfreelancing.github.io/AllOverIt/) for usage information.
@@ -50,8 +50,6 @@ A library containing ASP.NET Core utilities.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 
 
 ---
@@ -65,8 +63,6 @@ A library containing pre and post condition assertion helper methods.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -81,8 +77,6 @@ A library containing AppSync GraphQL and Subscription clients.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -97,8 +91,6 @@ A library to help build AWS Graphql schemas using a code-first approach.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 
 
 ---
@@ -112,8 +104,6 @@ A library to assist with CSV export using CsvHelper.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -128,8 +118,6 @@ A library containing useful dependency injection related utilities.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -144,9 +132,6 @@ A library providing utilities for use with EntityFramework Core.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
-![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -160,9 +145,6 @@ A library providing formatters to generate ERD diagrams using EntityFramework Co
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
-![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -176,9 +158,6 @@ A library providing keyset-based pagination for use with EntityFramework Core.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
-![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
 ---
@@ -192,8 +171,6 @@ A library containing an extendable expression compiler and evaluator.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -208,8 +185,6 @@ A library providing queryable filtering utilities.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -224,8 +199,6 @@ A library containing a base fixture class with numerous helper methods to assist
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -240,8 +213,6 @@ A library extending **AllOverIt.Fixture** to support FakeItEasy integration.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -256,8 +227,6 @@ A library containing a convenient wrapper for building console applications that
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -272,8 +241,6 @@ A library containing an object mapper that is mostly configuration free.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -288,8 +255,6 @@ A library providing queryable keyset-based pagination utilities.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -343,8 +308,6 @@ A library containing utility extensions for use with System.Reactive.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -359,8 +322,6 @@ A library containing utility extensions for use with ReactiveUI.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -375,8 +336,6 @@ A library providing support for binary serialization.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -391,8 +350,6 @@ A library containing JSON serialization abstractions.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -407,8 +364,6 @@ A library containing a wrapper for Newtonsoft.Json serialization based on AllOve
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -423,8 +378,6 @@ A library containing a wrapper for System.Text.Json serialization based on AllOv
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -439,8 +392,6 @@ A library containing additional validators and extensions for use with FluentVal
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -455,8 +406,6 @@ A library containing Options validation using FluentValidation.
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
 
 
@@ -471,8 +420,6 @@ A library containing general purpose WPF utilities.
 
 ![](https://img.shields.io/badge/.NET-7.0--windows-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0--windows-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0--windows-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 
 
 ---
@@ -486,8 +433,6 @@ A library containing useful WPF controls.
 
 ![](https://img.shields.io/badge/.NET-7.0--windows-55A9EE.svg)
 ![](https://img.shields.io/badge/.NET-6.0--windows-FF8C67.svg)
-![](https://img.shields.io/badge/.NET-5.0--windows-FFC33C.svg)
-![](https://img.shields.io/badge/.NET-coreapp3.1-C56EE0.svg)
 
 
 ---

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
-#if !NET5_0_OR_GREATER
-using System.Collections;
+#if !NETSTANDARD2_1
+using System.Runtime.CompilerServices;
 #endif
 
 namespace AllOverIt.Assertion
@@ -170,10 +169,10 @@ namespace AllOverIt.Assertion
         /// is "Value cannot be null".</param>
         /// <returns>The original object instance when not null.</returns>
         public static TType WhenNotNull<TType>(this TType @object,
-#if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression(nameof(@object))] string name = "",
-#else
+#if NETSTANDARD2_1
             string name,
+#else
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #endif
             string errorMessage = default)
             where TType : class
@@ -194,10 +193,10 @@ namespace AllOverIt.Assertion
         /// instance and "Value cannot be empty" for an empty collection.</param>
         /// <returns>The original object instance when not null and not empty.</returns>
         public static IEnumerable<TType> WhenNotNullOrEmpty<TType>(this IEnumerable<TType> @object,
-#if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression(nameof(@object))] string name = "",
-#else
+#if NETSTANDARD2_1
             string name,
+#else
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #endif
             string errorMessage = default)
         {
@@ -216,30 +215,30 @@ namespace AllOverIt.Assertion
         /// <param name="errorMessage">The error message to report. If not provided, the default message is "Value cannot be empty".</param>
         /// <returns>The original collection instance when not empty. If the instance was null then null will be returned.</returns>
         public static IEnumerable<TType> WhenNotEmpty<TType>(this IEnumerable<TType> @object,
-#if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression(nameof(@object))] string name = "",
-#else
+#if NETSTANDARD2_1
             string name,
+#else
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #endif
             string errorMessage = default)
         {
             if (@object is not null)
             {
-#if NET5_0_OR_GREATER
-                var any = @object.Any();
-#else
+#if NETSTANDARD2_1
                 // We don't have access to IListProvider<TType> so do the best we can to avoid multiple enumeration via Any()
                 var any = @object switch
                 {
                     IList<TType> iList => iList.Count != 0,
                     IReadOnlyCollection<TType> iReadOnlyCollection => iReadOnlyCollection.Count != 0,
                     ICollection<TType> items => items.Count != 0,
-                    
+
                     // Not applicable in this method as it's generic
                     // ICollection iCollection => iCollection.Count != 0,
 
                     _ => @object.Any()
                 };
+#else
+                var any = @object.Any();
 #endif
 
                 if (!any)
@@ -258,10 +257,10 @@ namespace AllOverIt.Assertion
         /// instance and "Value cannot be empty" for an empty collection.</param>
         /// <returns>The original string instance when not null and not empty.</returns>
         public static string WhenNotNullOrEmpty(this string @object,
-#if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression(nameof(@object))] string name = "",
-#else
+#if NETSTANDARD2_1
             string name,
+#else
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #endif
             string errorMessage = default)
         {
@@ -279,10 +278,10 @@ namespace AllOverIt.Assertion
         /// <param name="errorMessage">The error message to report. If not provided, the default message is "Value cannot be empty".</param>
         /// <returns>The original string instance when not empty.</returns>
         public static string WhenNotEmpty(this string @object,
-#if NETCOREAPP3_1_OR_GREATER
-            [CallerArgumentExpression(nameof(@object))] string name = "",
-#else
+#if NETSTANDARD2_1
             string name,
+#else
+            [CallerArgumentExpression(nameof(@object))] string name = "",
 #endif
             string errorMessage = default)
         {

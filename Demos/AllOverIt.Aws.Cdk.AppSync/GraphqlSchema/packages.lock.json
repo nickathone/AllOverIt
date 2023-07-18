@@ -40,8 +40,8 @@
       },
       "Amazon.JSII.Runtime": {
         "type": "Transitive",
-        "resolved": "1.84.0",
-        "contentHash": "UlV/8tcJ8BjK0Pl0gu4lG/1GZ00XlY8JN7/opj7CqtQ+QOnvvfYIQqC7uehmSDrXqCH2FCOKAba0Ajjk645j2g==",
+        "resolved": "1.85.0",
+        "contentHash": "9uEpEVALoF/9rQz2gYB3F0XKN+7ia+MGqm+VmU5NGJqAjQFiMS2G0Nz9IaJBpCcgkLwEV2ww0iA3jtN8k5k87w==",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "Microsoft.Extensions.Logging": "5.0.0",
@@ -51,11 +51,11 @@
       },
       "Cdklabs.AwsCdkAppsyncUtils": {
         "type": "Transitive",
-        "resolved": "0.0.151",
-        "contentHash": "dSDa4YfCE2YVPmymnMRS7HBPRvJp0j4RukLEwpsygOdE+B5h3/AhCPzd3XnwhuS74wl5JmMLTPeiUpCwWVVDUg==",
+        "resolved": "0.0.152",
+        "contentHash": "WwMPadVcj1CjxbRuGrVy1rQr/WeXTARPpJy6TTqdcO+K5QSap338RwZrrQw//rIPeJQIhP0ZKP9Azt31d9Cjbw==",
         "dependencies": {
           "Amazon.CDK.Lib": "[2.60.0, 3.0.0)",
-          "Amazon.JSII.Runtime": "[1.84.0, 2.0.0)",
+          "Amazon.JSII.Runtime": "[1.85.0, 2.0.0)",
           "Constructs": "[10.0.5, 11.0.0)"
         }
       },
@@ -195,7 +195,7 @@
         "dependencies": {
           "AllOverIt": "[7.0.0-rc.19, )",
           "Amazon.CDK.Lib": "[2.87.0, )",
-          "Cdklabs.AwsCdkAppsyncUtils": "[0.0.151, )"
+          "Cdklabs.AwsCdkAppsyncUtils": "[0.0.152, )"
         }
       }
     }

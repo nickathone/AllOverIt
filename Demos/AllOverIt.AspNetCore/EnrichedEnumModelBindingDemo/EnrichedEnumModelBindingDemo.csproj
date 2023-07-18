@@ -15,5 +15,4 @@
         <ProjectReference Include="..\..\..\Source\AllOverIt.Validation\AllOverIt.Validation.csproj" />
     </ItemGroup>
 
-
 </Project>

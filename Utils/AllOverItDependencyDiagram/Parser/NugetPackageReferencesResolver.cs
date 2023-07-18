@@ -13,6 +13,8 @@ namespace AllOverItDependencyDiagram.Parser
     {
         public static readonly string[] TargetFrameworkOrderPreference = new[]
         {
+            // Keep all of these even as supported frameworks are removed
+            "net8.0",
             "net7.0",
             "net6.0",
             "net5.0",

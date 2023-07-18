@@ -194,7 +194,7 @@ namespace AllOverIt.Caching
             return success;
         }
 
-#if NET5_0_OR_GREATER
+#if !NETSTANDARD2_1
         /// <inheritdoc />
         public bool TryRemove<TValue>(KeyValuePair<GenericCacheKeyBase, TValue> item)
         {

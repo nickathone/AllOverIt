@@ -1,20 +1,20 @@
 # Summary
 |||
 |:---|:---|
-| Generated on: | 9/07/2023 - 7:33:55 PM |
-| Coverage date: | 9/07/2023 - 7:32:55 PM - 9/07/2023 - 7:33:43 PM |
+| Generated on: | 18/07/2023 - 9:50:59 PM |
+| Coverage date: | 18/07/2023 - 9:50:24 PM - 18/07/2023 - 9:50:48 PM |
 | Parser: | MultiReport (17x Cobertura) |
 | Assemblies: | 18 |
 | Classes: | 419 |
 | Files: | 428 |
-| **Line coverage:** | 99.6% (12297 of 12346) |
-| Covered lines: | 12297 |
+| **Line coverage:** | 99.6% (12295 of 12344) |
+| Covered lines: | 12295 |
 | Uncovered lines: | 49 |
-| Coverable lines: | 12346 |
-| Total lines: | 31026 |
-| **Branch coverage:** | 96.5% (2448 of 2536) |
-| Covered branches: | 2448 |
-| Total branches: | 2536 |
+| Coverable lines: | 12344 |
+| Total lines: | 31023 |
+| **Branch coverage:** | 96.5% (2450 of 2538) |
+| Covered branches: | 2450 |
+| Total branches: | 2538 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|
@@ -166,8 +166,8 @@
 |AllOverIt.Threading.Extensions.AwaitableLockExtensions|4|0|4|23|100%|0|0||
 |AllOverIt.Threading.Extensions.ReadWriteLockExtensions|6|0|6|26|100%|0|0||
 |AllOverIt.Threading.ReadWriteLock|57|0|57|118|100%|10|10|100%|
-|**AllOverIt.Assertion**|**296**|**0**|**296**|**976**|**100%**|**132**|**132**|**100%**|
-|AllOverIt.Assertion.Guard|119|0|119|455|100%|70|70|100%|
+|**AllOverIt.Assertion**|**296**|**0**|**296**|**975**|**100%**|**132**|**132**|**100%**|
+|AllOverIt.Assertion.Guard|119|0|119|454|100%|70|70|100%|
 |AllOverIt.Assertion.Throw`1|177|0|177|521|100%|62|62|100%|
 |**AllOverIt.Csv**|**166**|**0**|**166**|**329**|**100%**|**29**|**30**|**96.6%**|
 |AllOverIt.Csv.CsvSerializer`1|92|0|92|153|100%|15|16|93.7%|
@@ -319,10 +319,10 @@
 |AllOverIt.Fixture.Extensions.ExceptionAssertionsExtensions|58|0|58|211|100%|32|32|100%|
 |AllOverIt.Fixture.FixtureBase|254|0|254|523|100%|64|64|100%|
 |**AllOverIt.Fixture.FakeItEasy**|**0**|**0**|**0**|**0**|****|**0**|**0**|****|
-|**AllOverIt.Mapping**|**530**|**1**|**531**|**1089**|**99.8%**|**105**|**108**|**97.2%**|
+|**AllOverIt.Mapping**|**528**|**1**|**529**|**1087**|**99.8%**|**107**|**110**|**97.2%**|
 |AllOverIt.Mapping.Exceptions.ObjectMapperException|9|0|9|28|100%|0|0||
 |AllOverIt.Mapping.Extensions.ObjectMapperExtensions|18|0|18|51|100%|2|2|100%|
-|AllOverIt.Mapping.ObjectMapper|193|1|194|343|99.4%|55|58|94.8%|
+|AllOverIt.Mapping.ObjectMapper|191|1|192|341|99.4%|57|60|95%|
 |AllOverIt.Mapping.ObjectMapperConfiguration|24|0|24|52|100%|2|2|100%|
 |AllOverIt.Mapping.ObjectMapperHelper|44|0|44|79|100%|16|16|100%|
 |AllOverIt.Mapping.ObjectMapperOptions|1|0|1|14|100%|0|0||

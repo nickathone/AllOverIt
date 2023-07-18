@@ -42,7 +42,7 @@ namespace AllOverItDependencyDiagram.Parser
 
                 var targetFrameworks = GetTargetFrameworks(projectRootElement.PropertyGroups);
 
-                // Can't skip (without additional logic) as we need to cater for WPF projects targeting, such as net7.0-windows;net6.0-windows;net5.0-windows
+                // Can't skip (without additional logic) as we need to cater for WPF projects targeting, such as net7.0-windows;net6.0-windows
                 //
                 // if (!targetFrameworks.Contains(targetFramework))
                 // {
@@ -92,7 +92,7 @@ namespace AllOverItDependencyDiagram.Parser
                 // Should more elaborate parsing be required, refer to this link for possible condition usage:
                 // https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions?view=vs-2022
 
-                // Example: '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netcoreapp3.1' or '$(TargetFramework)' == 'net5.0'
+                // Example: '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'net5.0'
                 var condition = itemGroup.Key;
 
                 // Only process conditions that have an exact match (when not empty)

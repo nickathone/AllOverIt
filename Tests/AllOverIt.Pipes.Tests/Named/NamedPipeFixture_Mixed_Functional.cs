@@ -324,7 +324,7 @@ namespace AllOverIt.Pipes.Tests.Named
             {
                 async void Server_OnClientConnected(object sender, Pipes.Named.Events.NamedPipeConnectionEventArgs<DummyMessage, INamedPipeServerConnection<DummyMessage>> eventArgs)
                 {
-                    await server.WriteAsync(Create<DummyMessage>(), CancellationToken.None);                  
+                    await server.WriteAsync(Create<DummyMessage>(), CancellationToken.None);
                 }
 
                 server.OnClientConnected += Server_OnClientConnected;
@@ -491,7 +491,7 @@ namespace AllOverIt.Pipes.Tests.Named
 
                 var composites = new CompositeAsyncDisposable();
 
-                async Task<NamedPipeClient< DummyMessage>> CreateClientAsync()
+                async Task<NamedPipeClient<DummyMessage>> CreateClientAsync()
                 {
                     var client = new NamedPipeClient<DummyMessage>(pipeName, serializer);
 

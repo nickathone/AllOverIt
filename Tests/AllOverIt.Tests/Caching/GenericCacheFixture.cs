@@ -641,7 +641,7 @@ namespace AllOverIt.Tests.Caching
             }
         }
 
-#if NET5_0_OR_GREATER
+#if !NETSTANDARD2_1
         public class TryRemove_TValue_KeyValuePair : GenericCacheFixture
         {
             [Fact]

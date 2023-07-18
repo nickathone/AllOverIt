@@ -43,7 +43,7 @@ namespace AllOverIt.Caching
         /// <returns><see langword="true" /> if the key was found in the cache, otherwise <see langword="false" />.</returns>
         bool TryRemove<TValue>(GenericCacheKeyBase key, out TValue value);
 
-#if NET5_0_OR_GREATER
+#if !NETSTANDARD2_1
         /// <summary>Attempts to remove a key and its associated value from the cache.</summary>
         /// <typeparam name="TValue">The value type.</typeparam>
         /// <param name="item">The custom key and associated value.</param>

@@ -9,31 +9,21 @@ namespace AllOverItDependencyDiagram.Generator
 {
     internal static class DependencySummaryGenerator
     {
-        /*
-            55A9EE: A brighter blue that should provide good contrast against white and also complement the other colors you've chosen.
-            6EBE50: A green color that is similar to 62B178 but brighter, and should provide good contrast against white.
-            C56EE0: A purple color that is similar to B19CD9 but brighter, and should provide good contrast against white.
-            FF8C67: An orange color that is similar to FF7F50 but brighter, and should provide good contrast against white.
-            E3505C: A red color that is similar to CB484D but brighter, and should provide good contrast against white.
-            FFC33C: A bright yellow color that can complement the other colors you've chosen and should provide good contrast against white.
-        */
-
         private const string Blue = "55A9EE";
         private const string Green = "6EBE50";
         private const string Purple = "C56EE0";
         private const string Orange = "FF8C67";
         private const string Red = "E3505C";
-        private const string Yellow = "FFC33C";
+        //private const string Yellow = "FFC33C";
 
         public static readonly IDictionary<string, string> TargetFrameworkBadges = new Dictionary<string, string>
         {
+            { "net8.0", $"![](https://img.shields.io/badge/.NET-7.0-{Purple}.svg)"},
+            { "net8.0-windows", $"![](https://img.shields.io/badge/.NET-7.0--windows-{Purple}.svg)"},
             { "net7.0", $"![](https://img.shields.io/badge/.NET-7.0-{Blue}.svg)"},
             { "net7.0-windows", $"![](https://img.shields.io/badge/.NET-7.0--windows-{Blue}.svg)"},
             { "net6.0", $"![](https://img.shields.io/badge/.NET-6.0-{Orange}.svg)"},
             { "net6.0-windows", $"![](https://img.shields.io/badge/.NET-6.0--windows-{Orange}.svg)"},
-            { "net5.0", $"![](https://img.shields.io/badge/.NET-5.0-{Yellow}.svg)"},
-            { "net5.0-windows", $"![](https://img.shields.io/badge/.NET-5.0--windows-{Yellow}.svg)"},
-            { "netcoreapp3.1", $"![](https://img.shields.io/badge/.NET-coreapp3.1-{Purple}.svg)"},
             { "netstandard2.1", $"![](https://img.shields.io/badge/.NET-standard2.1-{Green}.svg)"},
             { "netstandard2.0", $"![](https://img.shields.io/badge/.NET-standard2.0-{Red}.svg)"}
         };

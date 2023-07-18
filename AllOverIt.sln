@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Change Log.md = Change Log.md
+		Docs\Dependencies\Dependency Summary.md = Docs\Dependencies\Dependency Summary.md
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
@@ -356,7 +357,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonymousPipeServerDemo", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonymousPipeClientDemo", "Demos\AllOverIt.Pipes\Anonymous\AnonymousPipeClientDemo\AnonymousPipeClientDemo.csproj", "{E6436991-AA83-4C60-AB24-982A6CD56038}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllOverIt.Pipes.Tests", "Tests\AllOverIt.Pipes.Tests\AllOverIt.Pipes.Tests.csproj", "{223C1486-397C-48CC-AC8D-A6E750668C3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllOverIt.Pipes.Tests", "Tests\AllOverIt.Pipes.Tests\AllOverIt.Pipes.Tests.csproj", "{223C1486-397C-48CC-AC8D-A6E750668C3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

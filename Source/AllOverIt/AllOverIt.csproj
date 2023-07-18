@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+        <TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
         <Description>A general purpose library containing a variety of classes and helper utilities.</Description>
         <PackageTags>AllOverIt;Utilities;Async;Threading;Diagnostics;Patterns;IO;Reflection;Process;Collections;Caching;Conversions</PackageTags>
     </PropertyGroup>

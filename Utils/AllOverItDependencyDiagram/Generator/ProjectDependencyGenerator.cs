@@ -159,7 +159,7 @@ namespace AllOverItDependencyDiagram.Generator
         {
             var content = DependencySummaryGenerator.CreateContent(solutionProjects);
 
-            var summaryPath = Path.Combine(exportPath, "summary.md");
+            var summaryPath = Path.Combine(exportPath, "Dependency Summary.md");
 
             await File.WriteAllTextAsync(summaryPath, content);
         }
