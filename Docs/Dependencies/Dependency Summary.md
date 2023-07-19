@@ -22,20 +22,6 @@
 
 * AllOverIt
 * AllOverIt.Assertion
-* Microsoft.AspNetCore.Mvc v2.2.0
-* Microsoft.AspNetCore.Mvc.Analyzers v2.2.0
-* Microsoft.AspNetCore.Mvc.ApiExplorer v2.2.0
-* Microsoft.AspNetCore.Mvc.Cors v2.2.0
-* Microsoft.AspNetCore.Mvc.DataAnnotations v2.2.0
-* Microsoft.AspNetCore.Mvc.Formatters.Json v2.2.0
-* Microsoft.AspNetCore.Mvc.Localization v2.2.0
-* Microsoft.AspNetCore.Mvc.Razor.Extensions v2.2.0
-* Microsoft.AspNetCore.Mvc.RazorPages v2.2.0
-* Microsoft.AspNetCore.Mvc.TagHelpers v2.2.0
-* Microsoft.AspNetCore.Mvc.ViewFeatures v2.2.0
-* Microsoft.AspNetCore.Razor.Design v2.2.0
-* Microsoft.Extensions.Caching.Memory v2.2.0
-* Microsoft.Extensions.DependencyInjection v2.2.0
 
 <br>
 
