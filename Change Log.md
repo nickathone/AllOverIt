@@ -35,6 +35,7 @@
 * Added Type extension methods GetEnumerableElementType(), CreateList()
 * Added SelectManyAsync() extension method
 * Added support for executing a Process and not wait for it to complete
+* Added some basic encryption helpers
 
 
 ## AllOverIt.AspNetCore
