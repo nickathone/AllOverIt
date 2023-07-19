@@ -116,7 +116,7 @@ namespace AllOverIt.Extensions
         {
             _ = value.WhenNotNull(nameof(value));
 
-            var bytes = Encoding.ASCII.GetBytes(value);
+            var bytes = Encoding.UTF8.GetBytes(value);
             return Convert.ToBase64String(bytes);
         }
 
@@ -128,7 +128,7 @@ namespace AllOverIt.Extensions
             _ = value.WhenNotNull(nameof(value));
 
             var bytes = Convert.FromBase64String(value);
-            return Encoding.ASCII.GetString(bytes);
+            return Encoding.UTF8.GetString(bytes);
         }
     }
 }
