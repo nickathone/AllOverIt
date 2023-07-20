@@ -66,6 +66,7 @@
             x:Name="TextInput"
             Grid.Row="2"
             Grid.Column="1"
+            MaxLength="{Binding MaxInputLength, Mode=OneTime}"
             Margin="0,16"
             Background="AliceBlue"
             FontWeight="Bold"

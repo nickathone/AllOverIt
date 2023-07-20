@@ -4,9 +4,11 @@
     {
         public static int GetMaxInputLength(int keySizeBits, bool useOAEPPadding)
         {
+            var keySizeBytes = keySizeBits / 8;
+
             return useOAEPPadding
-                ? ((keySizeBits - 384) / 8) + 7
-                : ((keySizeBits - 384) / 8) + 37;
+                ? keySizeBytes - 42
+                : keySizeBytes;
         }
 
         public static bool KeySizeIsValid(int keySizeBits)

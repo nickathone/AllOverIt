@@ -1,5 +1,4 @@
-﻿using AllOverIt.Encryption;
-using AllOverIt.Encryption.RSA;
+﻿using AllOverIt.Encryption.RSA;
 using AllOverIt.Encryption.RSA.Extensions;
 using AllOverIt.Reactive;
 using System;
@@ -8,7 +7,6 @@ namespace RSAEncryptionDemo
 {
     public sealed class MainWindowViewModel : ObservableObject
     {
-        private readonly RSAKeyPair _rsaKeyPair;
         private readonly RSAEncrypter _encrypter;
 
         private string _publicKey;
@@ -32,6 +30,13 @@ namespace RSAEncryptionDemo
             set => RaiseAndSetIfChanged(ref _textInput, value, null, OnTextInputChanged);
         }
 
+        private int _maxInputLength;
+        public int MaxInputLength
+        {
+            get => _maxInputLength;
+            private set => RaiseAndSetIfChanged(ref _maxInputLength, value);
+        }
+
         private string _textEncrypted;
         public string TextEncrypted
         {
@@ -49,20 +54,20 @@ namespace RSAEncryptionDemo
         public MainWindowViewModel()
         {
             // Creates a new public/private key pair with 128-bit security
-            _rsaKeyPair = RSAKeyGenerator.CreateKeyPair();
+            var rsaKeyPair = RSAKeyGenerator.CreateKeyPair();
 
-            _encrypter = new RSAEncrypter(_rsaKeyPair);
+            _encrypter = new RSAEncrypter(rsaKeyPair);
 
-            PublicKey = Convert.ToBase64String(_rsaKeyPair.PublicKey);
-            PrivateKey = Convert.ToBase64String(_rsaKeyPair.PrivateKey);
-
-            TextInput = $"Enter some text here to see it encrypted (max length {_encrypter.MaxInputLength} bytes)";
+            PublicKey = Convert.ToBase64String(rsaKeyPair.PublicKey);
+            PrivateKey = Convert.ToBase64String(rsaKeyPair.PrivateKey);
+            MaxInputLength = _encrypter.MaxInputLength;
+            TextInput = $"Enter some text here to see it encrypted (max length {MaxInputLength} bytes)";
         }
 
         private void OnTextInputChanged()
         {
-            TextEncrypted = _encrypter.EncryptTextToBase64(TextInput);
-            TextDecrypted = _encrypter.DecryptBase64ToText(TextEncrypted);
+            TextEncrypted = _encrypter.EncryptPlainTextToBase64(TextInput);
+            TextDecrypted = _encrypter.DecryptBase64ToPlainText(TextEncrypted);
         }
     }
 }
