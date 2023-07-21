@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace RSAEncryptionDemo
+namespace AESEncryptionDemo
 {
     public partial class App : Application
     {

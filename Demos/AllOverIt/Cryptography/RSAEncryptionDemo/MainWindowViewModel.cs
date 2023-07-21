@@ -1,15 +1,13 @@
-﻿using AllOverIt.Cryptography.AES;
-using AllOverIt.Cryptography.Extensions;
+﻿using AllOverIt.Cryptography.Extensions;
 using AllOverIt.Cryptography.RSA;
 using AllOverIt.Reactive;
 using System;
-using System.IO;
 
 namespace RSAEncryptionDemo
 {
     public sealed class MainWindowViewModel : ObservableObject
     {
-        private readonly RSAEncryptor _encrypter;
+        private readonly RSAEncryptor _encryptor;
 
         private string _publicKey;
         public string PublicKey
@@ -58,18 +56,18 @@ namespace RSAEncryptionDemo
             // Creates a new public/private key pair with 128-bit security
             var rsaKeyPair = RSAKeyGenerator.CreateKeyPair();
 
-            _encrypter = new RSAEncryptor(rsaKeyPair);
+            _encryptor = new RSAEncryptor(rsaKeyPair);
 
             PublicKey = Convert.ToBase64String(rsaKeyPair.PublicKey);
             PrivateKey = Convert.ToBase64String(rsaKeyPair.PrivateKey);
-            MaxInputLength = _encrypter.MaxInputLength;
+            MaxInputLength = _encryptor.MaxInputLength;
             TextInput = $"Enter some text here to see it encrypted (max length {MaxInputLength} bytes)";
         }
 
         private void OnTextInputChanged()
         {
-            TextEncrypted = _encrypter.EncryptPlainTextToBase64(TextInput);
-            TextDecrypted = _encrypter.DecryptBase64ToPlainText(TextEncrypted);
+            TextEncrypted = _encryptor.EncryptPlainTextToBase64(TextInput);
+            TextDecrypted = _encryptor.DecryptBase64ToPlainText(TextEncrypted);
         }
     }
 }
