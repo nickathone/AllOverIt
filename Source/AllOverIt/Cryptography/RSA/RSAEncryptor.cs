@@ -4,37 +4,37 @@ using System.Security.Cryptography;
 
 namespace AllOverIt.Cryptography.RSA
 {
-    public sealed class RSAEncrypter : IRSAEncrypter
+    public sealed class RSAEncryptor : IRSAEncryptor
     {
         private readonly IRSACryptoServiceProviderFactory _cryptoServiceProviderFactory;
         private readonly RSAKeyPair _rsaKeyPair;
-        private readonly bool _useOAEPPadding;      // Optimal Asymmetric Encryption Padding
+        private readonly bool _useOAEP;      // Optimal Asymmetric Encryption Padding
         private readonly Lazy<int> _maxInputLength;
         public int MaxInputLength => _maxInputLength.Value;     // only applicable for encryption
 
         // While RSAKeyGenerator could be used to create a RSAKeyPair this is approach is commonly used
-        public RSAEncrypter(string publicKeyBase64, string privateKeyBase64, bool useOAEPPadding = true)
-            : this(new RSACryptoServiceProviderFactory(), new RSAKeyPair(publicKeyBase64, privateKeyBase64), useOAEPPadding)
+        public RSAEncryptor(string publicKeyBase64, string privateKeyBase64, bool useOAEP = true)
+            : this(new RSACryptoServiceProviderFactory(), new RSAKeyPair(publicKeyBase64, privateKeyBase64), useOAEP)
         {
         }
 
         // RSAKeyGenerator creates RSAKeyPair from different sources such as RSAParameters, xml, or a new random pair
         // of keys with a provided key size.
-        public RSAEncrypter(RSAKeyPair rsaKeyPair, bool useOAEPPadding = true)
-            : this(new RSACryptoServiceProviderFactory(), rsaKeyPair, useOAEPPadding)
+        public RSAEncryptor(RSAKeyPair rsaKeyPair, bool useOAEP = true)
+            : this(new RSACryptoServiceProviderFactory(), rsaKeyPair, useOAEP)
         {
         }
 
-        public RSAEncrypter(RSAParameters parameters, bool useOAEPPadding = true)
-            : this(RSAKeyGenerator.CreateKeyPair(parameters), useOAEPPadding)
+        public RSAEncryptor(RSAParameters parameters, bool useOAEP = true)
+            : this(RSAKeyGenerator.CreateKeyPair(parameters), useOAEP)
         {
         }
 
-        internal RSAEncrypter(IRSACryptoServiceProviderFactory cryptoServiceProviderFactory, RSAKeyPair rsaKeyPair, bool useOAEPPadding = true)
+        internal RSAEncryptor(IRSACryptoServiceProviderFactory cryptoServiceProviderFactory, RSAKeyPair rsaKeyPair, bool useOAEP = true)
         {
             _cryptoServiceProviderFactory = cryptoServiceProviderFactory.WhenNotNull(nameof(cryptoServiceProviderFactory));
             _rsaKeyPair = rsaKeyPair.WhenNotNull(nameof(rsaKeyPair));
-            _useOAEPPadding = useOAEPPadding;
+            _useOAEP = useOAEP;
 
             _maxInputLength = new Lazy<int>(GetMaxInputLength);
         }
@@ -52,7 +52,7 @@ namespace AllOverIt.Cryptography.RSA
             {
                 rsa.ImportRSAPublicKey(_rsaKeyPair.PublicKey, out _);
 
-                return rsa.Encrypt(data, _useOAEPPadding);
+                return rsa.Encrypt(data, _useOAEP);
             }
         }
 
@@ -64,7 +64,7 @@ namespace AllOverIt.Cryptography.RSA
             {
                 rsa.ImportParameters(parameters);
 
-                return rsa.Encrypt(data, _useOAEPPadding);
+                return rsa.Encrypt(data, _useOAEP);
             }
         }
 
@@ -78,7 +78,7 @@ namespace AllOverIt.Cryptography.RSA
 
                 rsa.ImportRSAPrivateKey(_rsaKeyPair.PrivateKey, out _);
 
-                return rsa.Decrypt(data, _useOAEPPadding);
+                return rsa.Decrypt(data, _useOAEP);
             }
         }
 
@@ -90,7 +90,7 @@ namespace AllOverIt.Cryptography.RSA
             {
                 rsa.ImportParameters(parameters);
 
-                return rsa.Decrypt(data, _useOAEPPadding);
+                return rsa.Decrypt(data, _useOAEP);
             }
         }
 
@@ -102,7 +102,7 @@ namespace AllOverIt.Cryptography.RSA
             {
                 rsa.ImportRSAPublicKey(_rsaKeyPair.PublicKey, out _);
 
-                return RSAUtils.GetMaxInputLength(rsa.KeySize, _useOAEPPadding);
+                return RSAUtils.GetMaxInputLength(rsa.KeySize, _useOAEP);
             }
         }
     }

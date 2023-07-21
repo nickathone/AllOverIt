@@ -2,11 +2,11 @@
 {
     public static class RSAUtils
     {
-        public static int GetMaxInputLength(int keySizeBits, bool useOAEPPadding)
+        public static int GetMaxInputLength(int keySizeBits, bool useOAEP)
         {
             var keySizeBytes = keySizeBits / 8;
 
-            return useOAEPPadding
+            return useOAEP
                 ? keySizeBytes - 42
                 : keySizeBytes;
         }
