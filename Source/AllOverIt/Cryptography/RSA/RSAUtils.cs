@@ -1,4 +1,4 @@
-﻿namespace AllOverIt.Encryption.RSA
+﻿namespace AllOverIt.Cryptography.RSA
 {
     public static class RSAUtils
     {

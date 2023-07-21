@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace AllOverIt.Encryption.RSA
+namespace AllOverIt.Cryptography.RSA
 {
     internal sealed class RSACryptoServiceProviderFactory : IRSACryptoServiceProviderFactory
     {

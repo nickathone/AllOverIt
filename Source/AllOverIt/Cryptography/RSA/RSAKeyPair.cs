@@ -1,7 +1,7 @@
 ﻿using AllOverIt.Extensions;
 using System;
 
-namespace AllOverIt.Encryption.RSA
+namespace AllOverIt.Cryptography.RSA
 {
     public sealed class RSAKeyPair
     {
@@ -19,7 +19,7 @@ namespace AllOverIt.Encryption.RSA
             PrivateKey = rsa.ExportRSAPrivateKey();
         }
 
-        // these values can be null
+        // these values can be null / empty
         public RSAKeyPair(string publicKeyBase64, string privateKeyBase64)
         {
             PublicKey = GetAsBytes(publicKeyBase64);

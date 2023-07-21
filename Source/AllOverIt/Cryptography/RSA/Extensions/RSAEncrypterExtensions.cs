@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace AllOverIt.Encryption.RSA.Extensions
+namespace AllOverIt.Cryptography.RSA.Extensions
 {
     public static class RSAEncrypterExtensions
     {

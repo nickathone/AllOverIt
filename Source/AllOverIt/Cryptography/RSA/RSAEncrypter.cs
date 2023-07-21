@@ -2,7 +2,7 @@
 using System;
 using System.Security.Cryptography;
 
-namespace AllOverIt.Encryption.RSA
+namespace AllOverIt.Cryptography.RSA
 {
     public sealed class RSAEncrypter : IRSAEncrypter
     {

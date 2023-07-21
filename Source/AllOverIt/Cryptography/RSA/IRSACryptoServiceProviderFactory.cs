@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace AllOverIt.Encryption.RSA
+namespace AllOverIt.Cryptography.RSA
 {
     public interface IRSACryptoServiceProviderFactory
     {

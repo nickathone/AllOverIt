@@ -2,7 +2,7 @@
 
 using RSAAlgorithm = System.Security.Cryptography.RSA;
 
-namespace AllOverIt.Encryption.RSA
+namespace AllOverIt.Cryptography.RSA
 {
     public static class RSAKeyGenerator
     {

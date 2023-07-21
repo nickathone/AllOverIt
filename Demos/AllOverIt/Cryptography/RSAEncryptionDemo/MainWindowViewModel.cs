@@ -1,5 +1,5 @@
-﻿using AllOverIt.Encryption.RSA;
-using AllOverIt.Encryption.RSA.Extensions;
+﻿using AllOverIt.Cryptography.RSA;
+using AllOverIt.Cryptography.RSA.Extensions;
 using AllOverIt.Reactive;
 using System;
 
