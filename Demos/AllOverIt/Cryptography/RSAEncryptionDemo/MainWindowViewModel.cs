@@ -1,13 +1,15 @@
 ﻿using AllOverIt.Cryptography.Extensions;
+using AllOverIt.Cryptography.Hybrid;
 using AllOverIt.Cryptography.RSA;
 using AllOverIt.Reactive;
 using System;
+using System.Security.Cryptography;
 
 namespace RSAEncryptionDemo
 {
     public sealed class MainWindowViewModel : ObservableObject
     {
-        private readonly RSAEncryptor _encryptor;
+        private readonly IRsaEncryptor _encryptor;
 
         private string _publicKey;
         public string PublicKey
@@ -54,14 +56,38 @@ namespace RSAEncryptionDemo
         public MainWindowViewModel()
         {
             // Creates a new public/private key pair with 128-bit security
-            var rsaKeyPair = RSAKeyGenerator.CreateKeyPair();
+            var rsaKeyPair = RsaKeyPair.Create();
 
-            _encryptor = new RSAEncryptor(rsaKeyPair);
+            _encryptor = RsaEncryptorFactory.CreateEncryptor(rsaKeyPair);
 
             PublicKey = Convert.ToBase64String(rsaKeyPair.PublicKey);
             PrivateKey = Convert.ToBase64String(rsaKeyPair.PrivateKey);
-            MaxInputLength = _encryptor.MaxInputLength;
+            MaxInputLength = _encryptor.GetMaxInputLength();
             TextInput = $"Enter some text here to see it encrypted (max length {MaxInputLength} bytes)";
+
+
+
+            var configuration = new RsaAesHybridEncryptorConfiguration
+            {
+                Encryption = new RsaEncryptionConfiguration
+                {
+                    Keys = rsaKeyPair,
+                    Padding = RSAEncryptionPadding.OaepSHA256
+                },
+
+                Signing = new RsaSigningConfiguration
+                {
+                    HashAlgorithmName = HashAlgorithmName.SHA256,
+                    Padding = RSASignaturePadding.Pkcs1
+                }
+            };
+
+            var e = new RsaAesHybridEncryptor(configuration);
+
+            var hybridEncrypted = e.EncryptPlainTextToBytes(TextInput);
+
+            var hybridDecrypted = e.DecryptBytesToPlainText(hybridEncrypted);
+
         }
 
         private void OnTextInputChanged()

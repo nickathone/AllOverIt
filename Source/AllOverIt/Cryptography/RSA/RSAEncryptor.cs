@@ -1,108 +1,97 @@
 ﻿using AllOverIt.Assertion;
-using System;
 using System.Security.Cryptography;
 
 namespace AllOverIt.Cryptography.RSA
 {
-    public sealed class RSAEncryptor : IRSAEncryptor
+    public sealed class RsaEncryptor : IRsaEncryptor
     {
-        private readonly IRSACryptoServiceProviderFactory _cryptoServiceProviderFactory;
-        private readonly RSAKeyPair _rsaKeyPair;
-        private readonly bool _useOAEP;      // Optimal Asymmetric Encryption Padding
-        private readonly Lazy<int> _maxInputLength;
-        public int MaxInputLength => _maxInputLength.Value;     // only applicable for encryption
+        private readonly IRsaFactory _rsaFactory;
+        
+        private int? _maxInputLength;
+
+        public IRsaEncryptionConfiguration Configuration { get; }
 
         // While RSAKeyGenerator could be used to create a RSAKeyPair this is approach is commonly used
-        public RSAEncryptor(string publicKeyBase64, string privateKeyBase64, bool useOAEP = true)
-            : this(new RSACryptoServiceProviderFactory(), new RSAKeyPair(publicKeyBase64, privateKeyBase64), useOAEP)
+        public RsaEncryptor(IRsaEncryptionConfiguration configuration)
+            : this(new RsaFactory(), configuration)
         {
         }
 
-        // RSAKeyGenerator creates RSAKeyPair from different sources such as RSAParameters, xml, or a new random pair
-        // of keys with a provided key size.
-        public RSAEncryptor(RSAKeyPair rsaKeyPair, bool useOAEP = true)
-            : this(new RSACryptoServiceProviderFactory(), rsaKeyPair, useOAEP)
+        internal RsaEncryptor(IRsaFactory rsaFactory, IRsaEncryptionConfiguration configuration)
         {
+            _rsaFactory = rsaFactory.WhenNotNull(nameof(rsaFactory));
+            Configuration = configuration.WhenNotNull(nameof(configuration));
         }
 
-        public RSAEncryptor(RSAParameters parameters, bool useOAEP = true)
-            : this(RSAKeyGenerator.CreateKeyPair(parameters), useOAEP)
+        public int GetMaxInputLength()
         {
-        }
+            // TODO: Throw if _rsaKeyPair.PublicKey is null
 
-        internal RSAEncryptor(IRSACryptoServiceProviderFactory cryptoServiceProviderFactory, RSAKeyPair rsaKeyPair, bool useOAEP = true)
-        {
-            _cryptoServiceProviderFactory = cryptoServiceProviderFactory.WhenNotNull(nameof(cryptoServiceProviderFactory));
-            _rsaKeyPair = rsaKeyPair.WhenNotNull(nameof(rsaKeyPair));
-            _useOAEP = useOAEP;
+            if (!_maxInputLength.HasValue)
+            {
+                using (var rsa = _rsaFactory.Create())
+                {
+                    rsa.ImportRSAPublicKey(Configuration.Keys.PublicKey, out _);
 
-            _maxInputLength = new Lazy<int>(GetMaxInputLength);
+                    _maxInputLength = RsaUtils.GetMaxInputLength(rsa.KeySize, Configuration.Padding);
+                }
+            }
+
+            return _maxInputLength.Value;
         }
 
         //     true to perform direct System.Security.Cryptography.RSA encryption using OAEP
         //     padding (only available on a computer running Windows XP or later); otherwise,
         //     false to use PKCS#1 v1.5 padding.
-        public byte[] Encrypt(byte[] data)
+        public byte[] Encrypt(byte[] plainText)
         {
-            _ = data.WhenNotNullOrEmpty(nameof(data));
+            _ = plainText.WhenNotNullOrEmpty(nameof(plainText));
 
             // TODO: Throw if _rsaKeyPair.PublicKey is null
 
-            using (var rsa = _cryptoServiceProviderFactory.Create())
+            using (var rsa = _rsaFactory.Create())
             {
-                rsa.ImportRSAPublicKey(_rsaKeyPair.PublicKey, out _);
+                rsa.ImportRSAPublicKey(Configuration.Keys.PublicKey, out _);
 
-                return rsa.Encrypt(data, _useOAEP);
+                return rsa.Encrypt(plainText, Configuration.Padding);
             }
         }
 
-        public byte[] Encrypt(byte[] data, RSAParameters parameters)
+        public byte[] Encrypt(byte[] plainText, RSAParameters parameters)
         {
-            _ = data.WhenNotNullOrEmpty(nameof(data));
+            _ = plainText.WhenNotNullOrEmpty(nameof(plainText));
 
-            using (var rsa = _cryptoServiceProviderFactory.Create())
+            using (var rsa = _rsaFactory.Create())
             {
                 rsa.ImportParameters(parameters);
 
-                return rsa.Encrypt(data, _useOAEP);
+                return rsa.Encrypt(plainText, Configuration.Padding);
             }
         }
 
-        public byte[] Decrypt(byte[] data)
+        public byte[] Decrypt(byte[] cipherText)
         {
-            _ = data.WhenNotNullOrEmpty(nameof(data));
+            _ = cipherText.WhenNotNullOrEmpty(nameof(cipherText));
 
-            using (var rsa = _cryptoServiceProviderFactory.Create())
+            using (var rsa = _rsaFactory.Create())
             {
                 // TODO: Throw if _rsaKeyPair.PrivateKey is null
 
-                rsa.ImportRSAPrivateKey(_rsaKeyPair.PrivateKey, out _);
+                rsa.ImportRSAPrivateKey(Configuration.Keys.PrivateKey, out _);
 
-                return rsa.Decrypt(data, _useOAEP);
+                return rsa.Decrypt(cipherText, Configuration.Padding);
             }
         }
 
-        public byte[] Decrypt(byte[] data, RSAParameters parameters)
+        public byte[] Decrypt(byte[] cipherText, RSAParameters parameters)
         {
-            _ = data.WhenNotNullOrEmpty(nameof(data));
+            _ = cipherText.WhenNotNullOrEmpty(nameof(cipherText));
 
-            using (var rsa = _cryptoServiceProviderFactory.Create())
+            using (var rsa = _rsaFactory.Create())
             {
                 rsa.ImportParameters(parameters);
 
-                return rsa.Decrypt(data, _useOAEP);
-            }
-        }
-
-        private int GetMaxInputLength()
-        {
-            // TODO: Throw if _rsaKeyPair.PublicKey is null
-
-            using (var rsa = _cryptoServiceProviderFactory.Create())
-            {
-                rsa.ImportRSAPublicKey(_rsaKeyPair.PublicKey, out _);
-
-                return RSAUtils.GetMaxInputLength(rsa.KeySize, _useOAEP);
+                return rsa.Decrypt(cipherText, Configuration.Padding);
             }
         }
     }

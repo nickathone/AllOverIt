@@ -1,21 +1,39 @@
-﻿namespace AllOverIt.Cryptography.RSA
+﻿using AllOverIt.Cryptography.Extensions;
+using System.Security.Cryptography;
+
+namespace AllOverIt.Cryptography.RSA
 {
-    public static class RSAUtils
+    public static class RsaUtils
     {
-        public static int GetMaxInputLength(int keySizeBits, bool useOAEP)
+        // Valid key sizes are dependent on the cryptographic service provider (CSP) that is used by the RSACryptoServiceProvider instance.
+        // Windows CSPs enable keys sizes of 384 to 16384 bits for Windows versions prior to Windows 8.1, and key sizes of 512 to 16384 bits
+        // for Windows 8.1. For more information, see CryptGenKey function in the Windows documentation.
+        // https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsacryptoserviceprovider
+
+        public static int GetMaxInputLength(int keySizeBits, RSAEncryptionPadding padding)
         {
             var keySizeBytes = keySizeBits / 8;
 
-            return useOAEP
-                ? keySizeBytes - 42
-                : keySizeBytes;
-        }
+            if (padding == RSAEncryptionPadding.Pkcs1)
+            {
+                /*
+                   https://www.rfc-editor.org/rfc/rfc3447#section-7.2.1
 
-        public static bool KeySizeIsValid(int keySizeBits)
-        {
-            return keySizeBits >= 384 &&
-                   keySizeBits <= 16384 &&
-                   keySizeBits % 8 == 0;
+                   RSAES-PKCS1-V1_5-ENCRYPT ((n, e), M)
+
+                   Input:
+                   (n, e)   recipient's RSA public key (k denotes the length in octets
+                            of the modulus n)
+                   M        message to be encrypted, an octet string of length mLen,
+                            where mLen <= k - 11
+                 */
+                return keySizeBytes - 11;
+            }
+
+            // https://www.rfc-editor.org/rfc/rfc3447#section-7.1
+            // RSAES-OAEP can operate on messages of length up to k -2hLen - 2 octets, where hLen is the length of the output
+            // from the underlying hash function and k is the length in octets of the recipient's RSA modulus.
+            return keySizeBytes - (2 * padding.OaepHashAlgorithm.GetHashSize()) - 2;
         }
     }
 }

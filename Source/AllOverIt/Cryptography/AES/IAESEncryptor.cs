@@ -1,15 +1,14 @@
-﻿using System.IO;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 
 namespace AllOverIt.Cryptography.AES
 {
-    public interface IAESEncryptor : IEncryptor
+    public interface IAesEncryptor : IEncryptor, IStreamEncryptor
     {
-        CipherMode Mode { get; }
-        PaddingMode Padding { get; }
-        int KeySizeBits { get; }
-        int BlockSize { get; }
-        int FeedbackSize { get; }
+        CipherMode Mode { get; set; }
+        PaddingMode Padding { get; set; }
+        int KeySize { get; set; }               // Bytes
+        int BlockSize { get; set; }
+        int FeedbackSize { get; set; }
         byte[] Key { get; }
         byte[] IV { get; }
 
@@ -18,9 +17,6 @@ namespace AllOverIt.Cryptography.AES
 
 #if !NETSTANDARD2_1
         int GetCipherTextLength(int plainTextLength);
-#endif
-
-        void Encrypt(Stream source, Stream destination);
-        void Decrypt(Stream source, Stream destination);
+#endif        
     }
 }

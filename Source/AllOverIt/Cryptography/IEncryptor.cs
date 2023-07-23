@@ -2,7 +2,7 @@
 {
     public interface IEncryptor
     {
-        byte[] Encrypt(byte[] data);
-        byte[] Decrypt(byte[] data);
+        byte[] Encrypt(byte[] plainText);
+        byte[] Decrypt(byte[] cipherText);
     }
 }

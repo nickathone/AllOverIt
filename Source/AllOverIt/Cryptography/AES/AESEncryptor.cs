@@ -5,17 +5,18 @@ using System.Security.Cryptography;
 
 namespace AllOverIt.Cryptography.AES
 {
-    public sealed class AESEncryptor : IAESEncryptor
+    public sealed class AesEncryptor : IAesEncryptor
     {
-        public CipherMode Mode { get; init; } = CipherMode.CBC;
-        public PaddingMode Padding { get; init; } = PaddingMode.PKCS7;
-        public int KeySizeBits { get; init; } = 256;
-        public int BlockSize { get; init; } = 128;
-        public int FeedbackSize { get; init; } = 8;
+        // TODO: Add a IAesConfiguration (remove from IAesEncryptor)
+        public CipherMode Mode { get; set; } = CipherMode.CBC;
+        public PaddingMode Padding { get; set; } = PaddingMode.PKCS7;
+        public int KeySize { get; set; } = 256 / 8;
+        public int BlockSize { get; set; } = 128;
+        public int FeedbackSize { get; set; } = 8;
         public byte[] Key { get; private set; }
         public byte[] IV { get; private set; }
 
-        public AESEncryptor()
+        public AesEncryptor()
         {
             // Initialize the Key and IV
             using (_ = CreateAes())
@@ -23,13 +24,13 @@ namespace AllOverIt.Cryptography.AES
             }
         }
 
-        public AESEncryptor(byte[] key, byte[] iv)
+        public AesEncryptor(byte[] key, byte[] iv)
         {
             _ = key.WhenNotNullOrEmpty(nameof(key));
             _ = iv.WhenNotNullOrEmpty(nameof(iv));
 
             // Will be validated at the time of encrypt / decrypt
-            KeySizeBits = key.Length * 8;
+            KeySize = key.Length;
             Key = key;
             IV = iv;
         }
@@ -62,7 +63,7 @@ namespace AllOverIt.Cryptography.AES
         }
 #endif
 
-        public byte[] Encrypt(byte[] data)
+        public byte[] Encrypt(byte[] plainText)
         {
             using (var memoryStream = new MemoryStream())
             {
@@ -72,7 +73,7 @@ namespace AllOverIt.Cryptography.AES
 
                     using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
                     {
-                        cryptoStream.Write(data, 0, data.Length);
+                        cryptoStream.Write(plainText, 0, plainText.Length);
                     }
                 }
 
@@ -80,7 +81,7 @@ namespace AllOverIt.Cryptography.AES
             }
         }
 
-        public byte[] Decrypt(byte[] data)
+        public byte[] Decrypt(byte[] cipherText)
         {
             // TODO: Throw id Key / IV have not been set
 
@@ -92,7 +93,7 @@ namespace AllOverIt.Cryptography.AES
 
                     using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Write))
                     {
-                        cryptoStream.Write(data, 0, data.Length);
+                        cryptoStream.Write(cipherText, 0, cipherText.Length);
                     }
                 }
 
@@ -134,7 +135,7 @@ namespace AllOverIt.Cryptography.AES
 
             aes.Mode = Mode;
             aes.Padding = Padding;
-            aes.KeySize = KeySizeBits;      // The aes.Key will be updated if this is not the default
+            aes.KeySize = KeySize * 8;      // The aes.Key will be updated if this is not the default
             aes.BlockSize = BlockSize;
             aes.FeedbackSize = FeedbackSize;
 
