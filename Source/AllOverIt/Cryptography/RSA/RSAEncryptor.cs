@@ -11,7 +11,6 @@ namespace AllOverIt.Cryptography.RSA
 
         public IRsaEncryptionConfiguration Configuration { get; }
 
-        // While RSAKeyGenerator could be used to create a RSAKeyPair this is approach is commonly used
         public RsaEncryptor(IRsaEncryptionConfiguration configuration)
             : this(new RsaFactory(), configuration)
         {
@@ -40,9 +39,6 @@ namespace AllOverIt.Cryptography.RSA
             return _maxInputLength.Value;
         }
 
-        //     true to perform direct System.Security.Cryptography.RSA encryption using OAEP
-        //     padding (only available on a computer running Windows XP or later); otherwise,
-        //     false to use PKCS#1 v1.5 padding.
         public byte[] Encrypt(byte[] plainText)
         {
             _ = plainText.WhenNotNullOrEmpty(nameof(plainText));
@@ -93,6 +89,46 @@ namespace AllOverIt.Cryptography.RSA
 
                 return rsa.Decrypt(cipherText, Configuration.Padding);
             }
+        }
+
+        public static IRsaEncryptor Create(string publicKeyBase64, string privateKeyBase64)
+        {
+            _ = publicKeyBase64.WhenNotNull(nameof(publicKeyBase64));
+            _ = privateKeyBase64.WhenNotNull(nameof(privateKeyBase64));
+
+            var configuration = new RsaEncryptionConfiguration
+            {
+                Keys = new RsaKeyPair(publicKeyBase64, privateKeyBase64)
+            };
+
+            return new RsaEncryptor(configuration);
+        }
+
+        public static IRsaEncryptor Create(RsaKeyPair rsaKeyPair)
+        {
+            _ = rsaKeyPair.WhenNotNull(nameof(rsaKeyPair));
+
+            var configuration = new RsaEncryptionConfiguration
+            {
+                Keys = rsaKeyPair
+            };
+
+            return new RsaEncryptor(configuration);
+        }
+
+        public static IRsaEncryptor Create(RSAParameters parameters)
+        {
+            var configuration = new RsaEncryptionConfiguration
+            {
+                Keys = RsaKeyPair.Create(parameters)
+            };
+
+            return new RsaEncryptor(configuration);
+        }
+
+        public static IRsaEncryptor Create(IRsaEncryptionConfiguration configuration)
+        {
+            return new RsaEncryptor(configuration);
         }
     }
 }

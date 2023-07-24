@@ -26,7 +26,7 @@ namespace AllOverIt.Cryptography.Extensions
             throw new InvalidOperationException($"Unknown hash algorithm {algorithmName.Name}.");
         }
 
-        // In bytes
+        // In bits
         public static int GetHashSize(this HashAlgorithmName algorithmName)
         {
             var registry = new Dictionary<HashAlgorithmName, int>
@@ -40,7 +40,7 @@ namespace AllOverIt.Cryptography.Extensions
 
             if (registry.TryGetValue(algorithmName, out var sizeInBits))
             {
-                return sizeInBits / 8;
+                return sizeInBits;
             }
 
             // TODO: Custom exception

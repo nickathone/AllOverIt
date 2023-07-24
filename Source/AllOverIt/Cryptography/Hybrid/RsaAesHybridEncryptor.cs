@@ -4,37 +4,9 @@ using AllOverIt.Cryptography.Extensions;
 using AllOverIt.Cryptography.RSA;
 using System;
 using System.IO;
-using System.Security.Cryptography;
 
 namespace AllOverIt.Cryptography.Hybrid
 {
-    public interface IRsaSigningConfiguration
-    {
-        HashAlgorithmName HashAlgorithmName { get; }
-        RSASignaturePadding Padding { get; }
-    }
-
-    public sealed class RsaSigningConfiguration : IRsaSigningConfiguration
-    {
-        public HashAlgorithmName HashAlgorithmName { get; init; } = HashAlgorithmName.SHA256;
-        public RSASignaturePadding Padding { get; init; } = RSASignaturePadding.Pkcs1;
-    }
-
-    public interface IRsaAesHybridEncryptorConfiguration
-    {
-        public IRsaEncryptionConfiguration Encryption { get; }
-        IRsaSigningConfiguration Signing { get; }
-    }
-
-    public sealed class RsaAesHybridEncryptorConfiguration : IRsaAesHybridEncryptorConfiguration
-    {
-        public IRsaEncryptionConfiguration Encryption { get; init; } = new RsaEncryptionConfiguration();
-        public IRsaSigningConfiguration Signing { get; init; } = new RsaSigningConfiguration();
-
-    }
-
-
-
     public sealed class RsaAesHybridEncryptor : IRsaAesHybridEncryptor
     {
         private readonly IRsaFactory _rsaFactory;
@@ -47,7 +19,7 @@ namespace AllOverIt.Cryptography.Hybrid
         public RsaAesHybridEncryptor(IRsaAesHybridEncryptorConfiguration configuration)
             : this(
                   new RsaFactory(),
-                  RsaEncryptorFactory.CreateEncryptor(configuration.Encryption),
+                  RsaEncryptor.Create(configuration.Encryption),
                   new AesEncryptorFactory(),
                   configuration.Signing)
         {
@@ -70,24 +42,10 @@ namespace AllOverIt.Cryptography.Hybrid
             using (var memoryStream = new MemoryStream())
             {
                 // Calculate the hash for the plain text
-                byte[] hash;
+                var hash = CalculateHash(plainText);
 
-                using (var hashAlgorithm = _signingConfiguration.HashAlgorithmName.CreateHashAlgorithm())
-                {
-                    hash = hashAlgorithm.ComputeHash(plainText);
-                }
-
-                // Sign the hash
-                byte[] signature;
-
-                using (var rsa = _rsaFactory.Create())
-                {
-                    var rsaPrivateKey = _rsaEncryptor.Configuration.Keys.PrivateKey;
-
-                    rsa.ImportRSAPrivateKey(rsaPrivateKey, out _);
-
-                    signature = rsa.SignHash(hash, _signingConfiguration.HashAlgorithmName, _signingConfiguration.Padding);
-                }
+                // Sign the plain text hash
+                var signature = SignHash(hash);
 
                 // Prepare AES encryptor with a random Key and IV
                 var aesEncryptor = _aesEncryptorFactory.Create();
@@ -95,23 +53,18 @@ namespace AllOverIt.Cryptography.Hybrid
                 // RSA encrypt the AES key
                 var rsaEncryptedAesKey = _rsaEncryptor.Encrypt(aesEncryptor.Key);
 
+                // AES encrypt the plain text
                 var cipherText = aesEncryptor.Encrypt(plainText);
 
-                // Write the following to the stream:
-                // * signature
-                // * hash
-                // * AES IV
-                // * AES encrypted key
-                // * Encrypted data (cipherText)
-
+                // Write the data to the stream
                 memoryStream.Write(signature);              // A known length (same as RSA key size, 3072 bits = 384 bytes)
                 memoryStream.Write(hash);                   // A known length (based on the signature hash algorithm, SHA256 = 256 bits = 32 bytes)
                 memoryStream.Write(aesEncryptor.IV);        // A known length (always 16 bytes)
                 memoryStream.Write(rsaEncryptedAesKey);     // Can be calculated using AesUtils.GetCipherTextLength()
                 memoryStream.Write(cipherText);             // Can be calculated using AesUtils.GetCipherTextLength() (remainder of the stream)
 
-                var encryptedAesKeyLength = AesUtils.GetCipherTextLength(rsaEncryptedAesKey.Length);
-                var cipherTextLength = AesUtils.GetCipherTextLength(plainText.Length);
+                //var encryptedAesKeyLength = AesUtils.GetCipherTextLength(rsaEncryptedAesKey.Length);
+                //var cipherTextLength = AesUtils.GetCipherTextLength(plainText.Length);
 
                 return memoryStream.ToArray();
             }
@@ -122,12 +75,11 @@ namespace AllOverIt.Cryptography.Hybrid
             using (var memoryStream = new MemoryStream(cipherText))
             {
                 // Read the signature
-                var signatureLength = _rsaEncryptor.Configuration.Keys.KeySize;     // In bytes
-                var signature = new byte[signatureLength];
-                memoryStream.Read(signature);
+                     // In bytes
+                var signature = ReadFromStream(memoryStream, _rsaEncryptor.Configuration.Keys.KeySize / 8);
 
                 // Read the expected hash of the plain text
-                var hashLength = _signingConfiguration.HashAlgorithmName.GetHashSize();
+                var hashLength = _signingConfiguration.HashAlgorithmName.GetHashSize() / 8;
                 var hash = new byte[hashLength];
                 memoryStream.Read(hash);
 
@@ -136,7 +88,7 @@ namespace AllOverIt.Cryptography.Hybrid
                 memoryStream.Read(iv);
 
                 // Determine the AES key
-                var rsaEncryptedAesKeyLength = _rsaEncryptor.Configuration.Keys.KeySize;     // In bytes
+                var rsaEncryptedAesKeyLength = _rsaEncryptor.Configuration.Keys.KeySize / 8;
                 var rsaEncryptedAesKey = new byte[rsaEncryptedAesKeyLength];
                 memoryStream.Read(rsaEncryptedAesKey);
                 var aesKey = _rsaEncryptor.Decrypt(rsaEncryptedAesKey);
@@ -151,20 +103,17 @@ namespace AllOverIt.Cryptography.Hybrid
                 var plainText = aesEncryptor.Decrypt(encryptedPlainText);
 
                 // Calculate the hash of the plain text
-                using (var hashAlgorithm = _signingConfiguration.HashAlgorithmName.CreateHashAlgorithm())
+                var plainTextHash = CalculateHash(plainText);
+
+                // Verify the signature
+                using (var rsa = _rsaFactory.Create())
                 {
-                    var plainTextHash = hashAlgorithm.ComputeHash(plainText);
+                    rsa.ImportRSAPublicKey(_rsaEncryptor.Configuration.Keys.PublicKey, out _);
 
-                    // Verify the signature
-                    using (var rsa = _rsaFactory.Create())
-                    {
-                        rsa.ImportRSAPublicKey(_rsaEncryptor.Configuration.Keys.PublicKey, out _);
+                    var isValid = rsa.VerifyHash(plainTextHash, signature, _signingConfiguration.HashAlgorithmName, _signingConfiguration.Padding);
 
-                        var isValid = rsa.VerifyHash(plainTextHash, signature, _signingConfiguration.HashAlgorithmName, _signingConfiguration.Padding);
-
-                        // TODO: Custom exception
-                        Throw<InvalidOperationException>.WhenNot(isValid, "The digital signature is invalid.");
-                    }
+                    // TODO: Custom exception
+                    Throw<InvalidOperationException>.WhenNot(isValid, "The digital signature is invalid.");
                 }
 
                 return plainText;
@@ -179,6 +128,36 @@ namespace AllOverIt.Cryptography.Hybrid
         public void Decrypt(Stream source, Stream destination)
         {
 
+        }
+
+
+
+        private byte[] CalculateHash(byte[] plainText)
+        {
+            using (var hashAlgorithm = _signingConfiguration.HashAlgorithmName.CreateHashAlgorithm())
+            {
+                return hashAlgorithm.ComputeHash(plainText);
+            }
+        }
+
+        private byte[] SignHash(byte[] hash)
+        {
+            using (var rsa = _rsaFactory.Create())
+            {
+                var rsaPrivateKey = _rsaEncryptor.Configuration.Keys.PrivateKey;
+
+                rsa.ImportRSAPrivateKey(rsaPrivateKey, out _);
+
+                return rsa.SignHash(hash, _signingConfiguration.HashAlgorithmName, _signingConfiguration.Padding);
+            }
+        }
+
+        private static byte[] ReadFromStream(Stream stream, int length)
+        {
+            var data = new byte[length];
+            stream.Read(data);
+
+            return data;
         }
     }
 }

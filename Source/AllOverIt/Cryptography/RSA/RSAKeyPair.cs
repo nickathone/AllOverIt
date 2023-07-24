@@ -9,41 +9,49 @@ namespace AllOverIt.Cryptography.RSA
 {
     public sealed class RsaKeyPair
     {
-        public byte[] PublicKey { get; init; }
-        public byte[] PrivateKey { get; init; }
-        public int KeySize { get; private set; }            // in bytes
+        public byte[] PublicKey { get; private set; }
+        public byte[] PrivateKey { get; private set; }
+
+        /// <summary>Gets the size, in bits, of the key modulus use by the RSA algorithm.</summary>
+        public int KeySize { get; private set; }
 
         public RsaKeyPair(RSAAlgorithm rsa)
         {
-            PublicKey = rsa.ExportRSAPublicKey();
-            PrivateKey = rsa.ExportRSAPrivateKey();
-            KeySize = rsa.KeySize / 8;
+            var publicKey = rsa.ExportRSAPublicKey();
+            var privateKey = rsa.ExportRSAPrivateKey();
+
+            SetKeys(publicKey, privateKey);
         }
 
         // these values can be null / empty
         public RsaKeyPair(string publicKeyBase64, string privateKeyBase64)
+        {
+            SetKeys(publicKeyBase64, privateKeyBase64);
+        }
+
+        public void SetKeys(string publicKeyBase64, string privateKeyBase64)
         {
             // TODO: Custom exception
             Throw<InvalidOperationException>.When(
                 publicKeyBase64.IsNullOrEmpty() && privateKeyBase64.IsNullOrEmpty(),
                 "At least one RSA key is required.");
 
-            PublicKey = GetAsBytes(publicKeyBase64);
-            PrivateKey = GetAsBytes(privateKeyBase64);
+            var publicKey = GetAsBytes(publicKeyBase64);
+            var privateKey = GetAsBytes(privateKeyBase64);
 
-            using (var rsa = RSAAlgorithm.Create())
-            {
-                if (PublicKey.Length != 0)
-                {
-                    rsa.ImportRSAPublicKey(PublicKey, out _);
-                }
-                else
-                {
-                    rsa.ImportRSAPrivateKey(PrivateKey, out _);
-                }
+            SetKeys(publicKey, privateKey);
+        }
 
-                KeySize = rsa.KeySize / 8;
-            }
+        public void SetKeys(byte[] publicKeyBase64, byte[] privateKeyBase64)
+        {
+            // TODO: Custom exception
+            Throw<InvalidOperationException>.When(
+                publicKeyBase64.IsNullOrEmpty() && privateKeyBase64.IsNullOrEmpty(),
+                "At least one RSA key is required.");
+
+            PublicKey = publicKeyBase64;
+            PrivateKey = privateKeyBase64;
+            KeySize = GetKeySize();
         }
 
         public static RsaKeyPair Create(int keySizeInBits = 3072)
@@ -80,6 +88,23 @@ namespace AllOverIt.Cryptography.RSA
             }
 
             return Convert.FromBase64String(key);
+        }
+
+        private int GetKeySize()
+        {
+            using (var rsa = RSAAlgorithm.Create())
+            {
+                if (PublicKey.Length != 0)
+                {
+                    rsa.ImportRSAPublicKey(PublicKey, out _);
+                }
+                else
+                {
+                    rsa.ImportRSAPrivateKey(PrivateKey, out _);
+                }
+
+                return rsa.KeySize;
+            }
         }
     }
 }

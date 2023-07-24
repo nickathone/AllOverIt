@@ -10,9 +10,15 @@ namespace AllOverIt.Cryptography.RSA
         // for Windows 8.1. For more information, see CryptGenKey function in the Windows documentation.
         // https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsacryptoserviceprovider
 
-        public static int GetMaxInputLength(int keySizeBits, RSAEncryptionPadding padding)
+        /// <summary>Calculates the maximum input size, in bytes, the RSA algorithm can encrypt based on its key size, in bits,
+        /// and the encryption padding mode used.</summary>
+        /// <param name="keySize">The RSA key size, in bits.</param>
+        /// <param name="padding">The RSA encryption padding mode.</param>
+        /// <returns>The maximum input size, in bytes, the RSA algorithm can encrypt based on its key size, in bits,
+        /// and the encryption padding mode used.</returns>
+        public static int GetMaxInputLength(int keySize, RSAEncryptionPadding padding)
         {
-            var keySizeBytes = keySizeBits / 8;
+            var keySizeBytes = keySize / 8;
 
             if (padding == RSAEncryptionPadding.Pkcs1)
             {
@@ -33,7 +39,10 @@ namespace AllOverIt.Cryptography.RSA
             // https://www.rfc-editor.org/rfc/rfc3447#section-7.1
             // RSAES-OAEP can operate on messages of length up to k -2hLen - 2 octets, where hLen is the length of the output
             // from the underlying hash function and k is the length in octets of the recipient's RSA modulus.
-            return keySizeBytes - (2 * padding.OaepHashAlgorithm.GetHashSize()) - 2;
+
+            var hashLength = padding.OaepHashAlgorithm.GetHashSize() / 8;
+
+            return keySizeBytes - (2 * hashLength) - 2;
         }
     }
 }

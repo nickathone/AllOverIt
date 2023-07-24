@@ -10,7 +10,10 @@ namespace AllOverIt.Cryptography.AES
         // TODO: Add a IAesConfiguration (remove from IAesEncryptor)
         public CipherMode Mode { get; set; } = CipherMode.CBC;
         public PaddingMode Padding { get; set; } = PaddingMode.PKCS7;
-        public int KeySize { get; set; } = 256 / 8;
+        
+        // In bits
+        public int KeySize { get; set; } = 256;
+
         public int BlockSize { get; set; } = 128;
         public int FeedbackSize { get; set; } = 8;
         public byte[] Key { get; private set; }
@@ -30,7 +33,7 @@ namespace AllOverIt.Cryptography.AES
             _ = iv.WhenNotNullOrEmpty(nameof(iv));
 
             // Will be validated at the time of encrypt / decrypt
-            KeySize = key.Length;
+            KeySize = key.Length * 8;
             Key = key;
             IV = iv;
         }
@@ -116,7 +119,7 @@ namespace AllOverIt.Cryptography.AES
 
         public void Decrypt(Stream source, Stream destination)
         {
-            // TODO: Throw id Key / IV have not been set
+            // TODO: Throw if Key / IV have not been set
 
             using (var aes = CreateAes())
             {
@@ -135,7 +138,7 @@ namespace AllOverIt.Cryptography.AES
 
             aes.Mode = Mode;
             aes.Padding = Padding;
-            aes.KeySize = KeySize * 8;      // The aes.Key will be updated if this is not the default
+            aes.KeySize = KeySize;          // The aes.Key will be updated if this is not the default
             aes.BlockSize = BlockSize;
             aes.FeedbackSize = FeedbackSize;
 

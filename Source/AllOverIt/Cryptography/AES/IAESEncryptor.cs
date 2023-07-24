@@ -6,7 +6,7 @@ namespace AllOverIt.Cryptography.AES
     {
         CipherMode Mode { get; set; }
         PaddingMode Padding { get; set; }
-        int KeySize { get; set; }               // Bytes
+        int KeySize { get; set; }               // Bits
         int BlockSize { get; set; }
         int FeedbackSize { get; set; }
         byte[] Key { get; }
