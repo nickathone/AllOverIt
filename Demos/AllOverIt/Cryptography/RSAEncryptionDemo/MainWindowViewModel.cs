@@ -3,7 +3,9 @@ using AllOverIt.Cryptography.Hybrid;
 using AllOverIt.Cryptography.RSA;
 using AllOverIt.Reactive;
 using System;
+using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace RSAEncryptionDemo
 {
@@ -91,11 +93,20 @@ namespace RSAEncryptionDemo
                 Encryption = new RsaEncryptionConfiguration(rsaKeyPair)
             };
 
-            var e = new RsaAesHybridEncryptor(configuration);
 
-            var hybridEncrypted = e.EncryptPlainTextToBytes(TextInput);
 
-            var hybridDecrypted = e.DecryptBytesToPlainText(hybridEncrypted);
+            var e1 = new RsaAesHybridEncryptor(configuration);
+            var hybridEncrypted1 = e1.EncryptPlainTextToBytes(TextInput);
+            var hybridDecrypted1 = e1.DecryptBytesToPlainText(hybridEncrypted1);
+
+
+
+            var e2 = new RsaAesHybridEncryptor(configuration);
+            var hybridEncrypted2 = new MemoryStream(e2.EncryptPlainTextToBytes(TextInput));
+            var ms = new MemoryStream();
+            e2.Decrypt(hybridEncrypted2, ms);
+            ms.Position = 0;
+            var hybridDecrypted2 = Encoding.UTF8.GetString(ms.ToArray());    //e2.DecryptBytesToPlainText(ms.ToArray());
 
 
 

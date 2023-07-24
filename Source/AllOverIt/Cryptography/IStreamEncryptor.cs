@@ -4,7 +4,7 @@ namespace AllOverIt.Cryptography
 {
     public interface IStreamEncryptor
     {
-        void Encrypt(Stream source, Stream destination);
-        void Decrypt(Stream source, Stream destination);
+        void Encrypt(Stream plainTextStream, Stream cipherTextStream);
+        void Decrypt(Stream cipherTextStream, Stream plainTextStream);
     }
 }
