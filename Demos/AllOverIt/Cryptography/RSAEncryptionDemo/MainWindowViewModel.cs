@@ -102,13 +102,20 @@ namespace RSAEncryptionDemo
 
 
             var e2 = new RsaAesHybridEncryptor(configuration);
-            var hybridEncrypted2 = new MemoryStream(e2.EncryptPlainTextToBytes(TextInput));
-            var ms = new MemoryStream();
-            e2.Decrypt(hybridEncrypted2, ms);
-            ms.Position = 0;
-            var hybridDecrypted2 = Encoding.UTF8.GetString(ms.ToArray());    //e2.DecryptBytesToPlainText(ms.ToArray());
+            var ms1 = new MemoryStream(e2.EncryptPlainTextToBytes(TextInput));
+            var ms2 = new MemoryStream();
+            e2.Decrypt(ms1, ms2);
+            ms2.Position = 0;
+            var hybridDecrypted2 = Encoding.UTF8.GetString(ms2.ToArray());    //e2.DecryptBytesToPlainText(ms.ToArray());
 
 
+
+            var b = e2.EncryptStreamToBytes(new MemoryStream(Encoding.UTF8.GetBytes(TextInput)));       // encrypt plain text in a stream
+            var t1 = e2.DecryptBytesToPlainText(b);
+
+            var ms3 = new MemoryStream();
+            e2.DecryptBytesToStream(b, ms3);
+            var t2 = Encoding.UTF8.GetString(ms3.ToArray());
 
 
         }
