@@ -60,11 +60,8 @@ namespace AllOverIt.Cryptography.Hybrid
                 memoryStream.Write(signature);              // A known length (same as RSA key size, 3072 bits = 384 bytes)
                 memoryStream.Write(hash);                   // A known length (based on the signature hash algorithm, SHA256 = 256 bits = 32 bytes)
                 memoryStream.Write(aesEncryptor.IV);        // A known length (always 16 bytes)
-                memoryStream.Write(rsaEncryptedAesKey);     // Can be calculated using AesUtils.GetCipherTextLength()
-                memoryStream.Write(cipherText);             // Can be calculated using AesUtils.GetCipherTextLength() (remainder of the stream)
-
-                //var encryptedAesKeyLength = AesUtils.GetCipherTextLength(rsaEncryptedAesKey.Length);
-                //var cipherTextLength = AesUtils.GetCipherTextLength(plainText.Length);
+                memoryStream.Write(rsaEncryptedAesKey);     // Length can be calculated using AesUtils.GetCipherTextLength(rsaEncryptedAesKey.Length)
+                memoryStream.Write(cipherText);             // Length can be calculated using AesUtils.GetCipherTextLength(plainText.Length) - will be the remainder of the stream
 
                 return memoryStream.ToArray();
             }
@@ -75,28 +72,21 @@ namespace AllOverIt.Cryptography.Hybrid
             using (var memoryStream = new MemoryStream(cipherText))
             {
                 // Read the signature
-                     // In bytes
                 var signature = ReadFromStream(memoryStream, _rsaEncryptor.Configuration.Keys.KeySize / 8);
 
                 // Read the expected hash of the plain text
-                var hashLength = _signingConfiguration.HashAlgorithmName.GetHashSize() / 8;
-                var hash = new byte[hashLength];
-                memoryStream.Read(hash);
+                var hash = ReadFromStream(memoryStream, _signingConfiguration.HashAlgorithmName.GetHashSize() / 8);
 
                 // Read the AES IV
-                var iv = new byte[16];
-                memoryStream.Read(iv);
+                var iv = ReadFromStream(memoryStream, 16);
 
                 // Determine the AES key
-                var rsaEncryptedAesKeyLength = _rsaEncryptor.Configuration.Keys.KeySize / 8;
-                var rsaEncryptedAesKey = new byte[rsaEncryptedAesKeyLength];
-                memoryStream.Read(rsaEncryptedAesKey);
+                var rsaEncryptedAesKey = ReadFromStream(memoryStream, _rsaEncryptor.Configuration.Keys.KeySize / 8);
                 var aesKey = _rsaEncryptor.Decrypt(rsaEncryptedAesKey);
 
                 // Read the cipher text
                 var remaining = memoryStream.Length - memoryStream.Position;
-                var encryptedPlainText = new byte[remaining];
-                memoryStream.Read(encryptedPlainText);
+                var encryptedPlainText = ReadFromStream(memoryStream, (int)remaining);
 
                 // Decrypt the cipher text (in the stream)
                 var aesEncryptor = _aesEncryptorFactory.Create(aesKey, iv);

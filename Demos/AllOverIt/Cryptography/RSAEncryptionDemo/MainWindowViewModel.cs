@@ -67,19 +67,28 @@ namespace RSAEncryptionDemo
 
 
 
+
+
+            //var configuration = new RsaAesHybridEncryptorConfiguration
+            //{
+            //    Encryption = new RsaEncryptionConfiguration
+            //    {
+            //        Keys = rsaKeyPair,
+            //        Padding = RSAEncryptionPadding.OaepSHA256
+            //    },
+
+            //    Signing = new RsaSigningConfiguration
+            //    {
+            //        HashAlgorithmName = HashAlgorithmName.SHA256,
+            //        Padding = RSASignaturePadding.Pkcs1
+            //    }
+            //};
+
+
+            // Same as above due to defaults
             var configuration = new RsaAesHybridEncryptorConfiguration
             {
-                Encryption = new RsaEncryptionConfiguration
-                {
-                    Keys = rsaKeyPair,
-                    Padding = RSAEncryptionPadding.OaepSHA256
-                },
-
-                Signing = new RsaSigningConfiguration
-                {
-                    HashAlgorithmName = HashAlgorithmName.SHA256,
-                    Padding = RSASignaturePadding.Pkcs1
-                }
+                Encryption = new RsaEncryptionConfiguration(rsaKeyPair)
             };
 
             var e = new RsaAesHybridEncryptor(configuration);
@@ -87,6 +96,9 @@ namespace RSAEncryptionDemo
             var hybridEncrypted = e.EncryptPlainTextToBytes(TextInput);
 
             var hybridDecrypted = e.DecryptBytesToPlainText(hybridEncrypted);
+
+
+
 
         }
 
