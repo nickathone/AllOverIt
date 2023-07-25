@@ -92,6 +92,21 @@
 
 <br>
 
+## AllOverIt.Cryptography
+
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
+
+### Dependencies
+
+* AllOverIt
+* AllOverIt.Assertion
+
+<br>
+
+---
+
+<br>
+
 ## AllOverIt.Csv
 
 ![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg) ![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg) ![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)

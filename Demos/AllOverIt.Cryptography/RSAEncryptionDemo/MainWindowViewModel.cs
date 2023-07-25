@@ -4,7 +4,6 @@ using AllOverIt.Cryptography.RSA;
 using AllOverIt.Reactive;
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace RSAEncryptionDemo

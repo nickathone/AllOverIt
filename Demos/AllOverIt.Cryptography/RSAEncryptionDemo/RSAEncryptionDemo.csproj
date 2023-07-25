@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Source\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
-        <ProjectReference Include="..\..\..\..\Source\AllOverIt\AllOverIt.csproj" />
+        <ProjectReference Include="..\..\..\Source\AllOverIt.Reactive\AllOverIt.Reactive.csproj" />
+        <ProjectReference Include="..\..\..\Source\AllOverIt.Cryptography\AllOverIt.Cryptography.csproj" />
     </ItemGroup>
 
 </Project>

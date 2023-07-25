@@ -54,6 +54,10 @@
 * Updated from Amazon CDK v1 to Amazon.CDK.Lib v2
 
 
+## AllOverIt.Cryptography :new:
+* Provides a simple approach to using RSA, AES, and RSA-AES hybrid encryption.
+
+
 ## AllOverIt.Csv
 * Unchanged
 

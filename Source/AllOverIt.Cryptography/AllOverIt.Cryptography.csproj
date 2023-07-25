@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net6.0;netstandard2.1</TargetFrameworks>
+        <Description>Contains a number of helper classes and utilities to provide easy access to commonly used encryption and decryption algorthims.</Description>
+        <PackageTags>AllOverIt;Utilities;Cryptography;Encryption;Decryption;Hash;Signing</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AllOverIt\AllOverIt.csproj" />
+    </ItemGroup>
+
+</Project>

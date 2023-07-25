@@ -96,6 +96,20 @@ A library to help build AWS Graphql schemas using a code-first approach.
 ---
 
 
+## AllOverIt.Cryptography
+[![NuGet](https://img.shields.io/nuget/v/AllOverIt.Cryptography?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Cryptography/)
+[![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Cryptography?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Cryptography/)
+
+Contains a number of helper classes and utilities to provide easy access to commonly used encryption and decryption algorthims.
+
+![](https://img.shields.io/badge/.NET-7.0-55A9EE.svg)
+![](https://img.shields.io/badge/.NET-6.0-FF8C67.svg)
+![](https://img.shields.io/badge/.NET-standard2.1-6EBE50.svg)
+
+
+---
+
+
 ## AllOverIt.Csv
 [![NuGet](https://img.shields.io/nuget/v/AllOverIt.Csv?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Csv/)
 [![NuGet](https://img.shields.io/nuget/dt/AllOverIt.Csv?style=for-the-badge)](https://www.nuget.org/packages/AllOverIt.Csv/)

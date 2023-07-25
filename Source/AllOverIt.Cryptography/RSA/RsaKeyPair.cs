@@ -54,6 +54,11 @@ namespace AllOverIt.Cryptography.RSA
             KeySize = GetKeySize();
         }
 
+        public static RsaKeyPair Create(RSAAlgorithm rsa)
+        {
+            return new RsaKeyPair(rsa);
+        }
+
         public static RsaKeyPair Create(int keySizeInBits = 3072)
         {
             using (var rsa = RSAAlgorithm.Create(keySizeInBits))
