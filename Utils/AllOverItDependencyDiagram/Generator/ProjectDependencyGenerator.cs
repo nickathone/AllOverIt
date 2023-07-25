@@ -16,29 +16,24 @@ namespace AllOverItDependencyDiagram.Generator
 {
     public sealed class ProjectDependencyGenerator
     {
-        private readonly ProjectDependencyGeneratorOptions _options;
+        private readonly IProjectDependencyGeneratorOptions _options;
         private readonly IColorConsoleLogger _logger;
 
         private string _projectGroupName;
         private string _projectGroupPrefix;
 
-        public ProjectDependencyGenerator(ProjectDependencyGeneratorOptions options, IColorConsoleLogger logger)
+        public ProjectDependencyGenerator(IProjectDependencyGeneratorOptions options, IColorConsoleLogger logger)
         {
             _options = options.WhenNotNull();
             _logger = logger.WhenNotNull();
         }
 
-        public async Task CreateDiagramsAsync(string solutionPath, string projectsRootPath, string targetFramework)
+        public async Task CreateDiagramsAsync()
         {
-            // The paths are required to work out dependency project absolute paths from their relative paths.
-            // projectsRootPath is the root of all projects to be processed (to ensure other sub-folders are excluded).
-            _ = solutionPath.WhenNotNullOrEmpty();
-            _ = projectsRootPath.WhenNotNullOrEmpty();
-
-            InitProjectGroupInfo(solutionPath);
+            InitProjectGroupInfo(_options.SolutionPath);
 
             var solutionParser = new SolutionParser(Math.Max(_options.IndividualProjectTransitiveDepth, _options.AllProjectsTransitiveDepth));
-            var allProjects = await solutionParser.ParseAsync(solutionPath, projectsRootPath, targetFramework);
+            var allProjects = await solutionParser.ParseAsync(_options.SolutionPath, _options.ProjectPathRegex, _options.TargetFramework);
 
             foreach (var project in allProjects)
             {
@@ -93,7 +88,7 @@ namespace AllOverItDependencyDiagram.Generator
         {
             var d2Content = GenerateD2Content(solutionProjects);
 
-            return CreateD2FileAndImages("AllOverIt-All", d2Content);
+            return CreateD2FileAndImages($"{_projectGroupName}-All", d2Content);
         }
 
         private async Task CreateD2FileAndImages(string projectScope, string d2Content)
@@ -114,7 +109,7 @@ namespace AllOverItDependencyDiagram.Generator
             sb.AppendLine("direction: right");
             sb.AppendLine();
 
-            sb.AppendLine($"aoi: AllOverIt");
+            sb.AppendLine($"aoi: {_projectGroupName}");
 
             var dependencySet = new HashSet<string>();
             AppendProjectDependencies(solutionProject, solutionProjects, dependencySet, _options.IndividualProjectTransitiveDepth);
@@ -157,7 +152,7 @@ namespace AllOverItDependencyDiagram.Generator
 
         private static async Task ExportAsSummary(string exportPath, IDictionary<string, SolutionProject> solutionProjects)
         {
-            var content = DependencySummaryGenerator.CreateContent(solutionProjects);
+            var content = SummaryDependencyGenerator.CreateContent(solutionProjects);
 
             var summaryPath = Path.Combine(exportPath, "Dependency Summary.md");
 

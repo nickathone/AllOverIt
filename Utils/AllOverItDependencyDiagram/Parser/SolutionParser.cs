@@ -21,17 +21,19 @@ namespace AllOverItDependencyDiagram.Parser
             _nugetResolver = new NugetPackageReferencesResolver(maxTransitiveDepth);
         }
 
-        public async Task<IReadOnlyCollection<SolutionProject>> ParseAsync(string solutionFilePath, string projectRootFolder, string targetFramework)
+        public async Task<IReadOnlyCollection<SolutionProject>> ParseAsync(string solutionFilePath, string projectPathRegex, string targetFramework)
         {
             var projects = new List<SolutionProject>();
 
             var solutionFile = SolutionFile.Parse(solutionFilePath);
 
+            var regex = new Regex(projectPathRegex);
+
             var orderedProjects = solutionFile.ProjectsInOrder
                 .Where(project => project.ProjectType == SolutionProjectType.KnownToBeMSBuildFormat)
                 .Where(project =>
                 {
-                    return project.AbsolutePath.StartsWith(projectRootFolder, StringComparison.OrdinalIgnoreCase);
+                    return regex.Matches(project.AbsolutePath).Count > 0;
                 })
                 .OrderBy(item => item.ProjectName);
 

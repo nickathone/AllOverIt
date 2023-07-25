@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AllOverItDependencyDiagram.Generator
 {
-    internal static class DependencySummaryGenerator
+    internal static class SummaryDependencyGenerator
     {
         private const string Blue = "55A9EE";
         private const string Green = "6EBE50";
