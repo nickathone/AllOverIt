@@ -6,7 +6,27 @@ namespace AllOverIt.Cryptography.Extensions
 {
     public static class EncryptorExtensions
     {
-
+        // Encrypt                                          Decrypt
+        // From             To                  Done        From            To                  Done
+        // =========================================        =========================================
+        // Bytes            Bytes               Yes         Bytes           Bytes               Yes
+        // Stream           Stream              Yes         Stream          Stream              Yes
+        //
+        // Stream           Bytes               Yes         Stream          Bytes               Yes
+        // Stream           Base64              Yes         Stream          Base64              Yes
+        // Stream           CipherText          N/A         Stream          PlainText           Yes
+        //
+        // Bytes            Base64              Yes         Bytes           Base64              Yes
+        // Bytes            CipherText          N/A         Bytes           PlainText           Yes
+        // Bytes            Stream              Yes         Bytes           Stream              Yes
+        //
+        // PlainText        Bytes               Yes         CipherText      Bytes               N/A
+        // PlainText        Base64              Yes         CipherText      Base64              N/A
+        // PlainText        Stream              Yes         CipherText      Stream              N/A
+        //
+        // Base64           Bytes               Yes         Base64          Bytes               Yes
+        // Base64           CipherText          N/A         Base64          PlainText           Yes
+        // Base64           Stream              Yes         Base64          Stream              Yes
 
         public static byte[] EncryptStreamToBytes(this IStreamEncryptor encrypter, Stream plainTextStream)
         {
@@ -20,9 +40,59 @@ namespace AllOverIt.Cryptography.Extensions
 
         public static string EncryptStreamToBase64(this IStreamEncryptor encrypter, Stream plainTextStream)
         {
-            var bytes = EncryptStreamToBytes(encrypter, plainTextStream);
+            var cipherTextBytes = EncryptStreamToBytes(encrypter, plainTextStream);
 
-            return Convert.ToBase64String(bytes);
+            return Convert.ToBase64String(cipherTextBytes);
+        }
+
+        public static string EncryptBytesToBase64(this IEncryptor encrypter, byte[] plainTextBytes)
+        {
+            var cipherTextBytes = encrypter.Encrypt(plainTextBytes);
+
+            return Convert.ToBase64String(cipherTextBytes);
+        }
+
+        public static void EncryptBytesToStream(this IStreamEncryptor encrypter, byte[] plainTextBytes, Stream cipherTextStream)
+        {
+            using (var plainTextStream = new MemoryStream(plainTextBytes))
+            {
+                encrypter.Encrypt(plainTextStream, cipherTextStream);
+            }
+        }
+
+        public static byte[] EncryptPlainTextToBytes(this IEncryptor encrypter, string plainText)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+
+            return encrypter.Encrypt(plainTextBytes);
+        }
+
+        public static string EncryptPlainTextToBase64(this IEncryptor encrypter, string plainText)
+        {
+            var cipherTextBytes = EncryptPlainTextToBytes(encrypter, plainText);
+
+            return Convert.ToBase64String(cipherTextBytes);
+        }
+
+        public static void EncryptPlainTextToStream(this IStreamEncryptor encrypter, string plainText, Stream cipherTextStream)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+
+            EncryptBytesToStream(encrypter, plainTextBytes, cipherTextStream);
+        }
+
+        public static byte[] EncryptBase64ToBytes(this IEncryptor encrypter, string plainTextBase64)
+        {
+            var plainTextBytes = Convert.FromBase64String(plainTextBase64);
+
+            return encrypter.Encrypt(plainTextBytes);
+        }
+
+        public static void EncryptBase64ToStream(this IStreamEncryptor encrypter, string plainTextBase64, Stream cipherTextStream)
+        {
+            var plainTextBytes = Convert.FromBase64String(plainTextBase64);
+
+            DecryptBytesToStream(encrypter, plainTextBytes, cipherTextStream);
         }
 
 
@@ -30,69 +100,72 @@ namespace AllOverIt.Cryptography.Extensions
 
 
 
-        public static byte[] EncryptPlainTextToBytes(this IEncryptor encrypter, string text)
-        {
-            var bytes = Encoding.UTF8.GetBytes(text);
 
-            return encrypter.Encrypt(bytes);
+        public static byte[] DecryptStreamToBytes(this IStreamEncryptor encrypter, Stream cipherTextStream)
+        {
+            using (var plainTextStream = new MemoryStream())
+            {
+                encrypter.Decrypt(cipherTextStream, plainTextStream);
+
+                return plainTextStream.ToArray();
+            }
         }
 
-        public static string EncryptPlainTextToBase64(this IEncryptor encrypter, string text)
+        public static string DecryptStreamToBase64(this IStreamEncryptor encrypter, Stream cipherTextStream)
         {
-            var bytes = encrypter.EncryptPlainTextToBytes(text);
+            var plainTextBytes = DecryptStreamToBytes(encrypter, cipherTextStream);
 
-            return Convert.ToBase64String(bytes);
+            return Convert.ToBase64String(plainTextBytes);
         }
 
-        public static string EncryptBytesToBase64(this IEncryptor encrypter, byte[] data)
+        public static string DecryptStreamToPlainText(this IStreamEncryptor encrypter, Stream cipherTextStream)
         {
-            var bytes = encrypter.Encrypt(data);
-
-            return Convert.ToBase64String(bytes);
+            var plainTextBytes = DecryptStreamToBytes(encrypter, cipherTextStream);
+            
+            return Encoding.UTF8.GetString(plainTextBytes);
         }
 
-
-
-
-
-        public static void DecryptBytesToStream(this IStreamEncryptor encrypter, byte[] bytes, Stream plainTextStream)
+        public static string DecryptBytesToBase64(this IEncryptor encrypter, byte[] cipherTextBytes)
         {
-            using (var cipherTextStream = new MemoryStream(bytes))
+            var plainTextBytes = encrypter.Decrypt(cipherTextBytes);
+
+            return Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static string DecryptBytesToPlainText(this IEncryptor encrypter, byte[] cipherTextBytes)
+        {
+            var plainTextBytes = encrypter.Decrypt(cipherTextBytes);
+
+            return Encoding.UTF8.GetString(plainTextBytes);
+        }
+
+        public static void DecryptBytesToStream(this IStreamEncryptor encrypter, byte[] cipherTextBytes, Stream plainTextStream)
+        {
+            using (var cipherTextStream = new MemoryStream(cipherTextBytes))
             {
                 encrypter.Decrypt(cipherTextStream, plainTextStream);
             }
         }
 
-        public static void DecryptBase64ToStream(this IStreamEncryptor encrypter, string text, Stream plainTextStream)
+        public static byte[] DecryptBase64ToBytes(this IEncryptor encrypter, string cipherTextBase64)
         {
-            var bytes = Convert.FromBase64String(text);
+            var cipherTextBytes = Convert.FromBase64String(cipherTextBase64);
 
-            DecryptBytesToStream(encrypter, bytes, plainTextStream);
+            return encrypter.Decrypt(cipherTextBytes);
         }
 
-
-
-
-
-        public static string DecryptBytesToPlainText(this IEncryptor encrypter, byte[] bytes)
+        public static string DecryptBase64ToPlainText(this IEncryptor encrypter, string cipherTextBase64)
         {
-            var plainTextBytes = encrypter.Decrypt(bytes);
+            var cipherTextBytes = Convert.FromBase64String(cipherTextBase64);
 
-            return Encoding.UTF8.GetString(plainTextBytes);
+            return DecryptBytesToPlainText(encrypter, cipherTextBytes);
         }
 
-        public static string DecryptBase64ToPlainText(this IEncryptor encrypter, string text)
+        public static void DecryptBase64ToStream(this IStreamEncryptor encrypter, string cipherTextBase64, Stream plainTextStream)
         {
-            var bytes = Convert.FromBase64String(text);
+            var cipherTextBytes = Convert.FromBase64String(cipherTextBase64);
 
-            return encrypter.DecryptBytesToPlainText(bytes);
-        }
-
-        public static byte[] DecryptBase64ToBytes(this IEncryptor encrypter, string text)
-        {
-            var bytes = Convert.FromBase64String(text);
-
-            return encrypter.Decrypt(bytes);
+            DecryptBytesToStream(encrypter, cipherTextBytes, plainTextStream);
         }
     }
 }

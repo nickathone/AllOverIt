@@ -1,10 +1,7 @@
 ﻿using AllOverIt.Cryptography.Extensions;
-using AllOverIt.Cryptography.Hybrid;
 using AllOverIt.Cryptography.RSA;
 using AllOverIt.Reactive;
 using System;
-using System.IO;
-using System.Text;
 
 namespace RSAEncryptionDemo
 {
@@ -65,58 +62,6 @@ namespace RSAEncryptionDemo
             PrivateKey = Convert.ToBase64String(rsaKeyPair.PrivateKey);
             MaxInputLength = _encryptor.GetMaxInputLength();
             TextInput = $"Enter some text here to see it encrypted (max length {MaxInputLength} bytes)";
-
-
-
-
-
-            //var configuration = new RsaAesHybridEncryptorConfiguration
-            //{
-            //    Encryption = new RsaEncryptionConfiguration
-            //    {
-            //        Keys = rsaKeyPair,
-            //        Padding = RSAEncryptionPadding.OaepSHA256
-            //    },
-
-            //    Signing = new RsaSigningConfiguration
-            //    {
-            //        HashAlgorithmName = HashAlgorithmName.SHA256,
-            //        Padding = RSASignaturePadding.Pkcs1
-            //    }
-            //};
-
-
-            // Same as above due to defaults
-            var configuration = new RsaAesHybridEncryptorConfiguration
-            {
-                Encryption = new RsaEncryptionConfiguration(rsaKeyPair)
-            };
-
-
-
-            var e1 = new RsaAesHybridEncryptor(configuration);
-            var hybridEncrypted1 = e1.EncryptPlainTextToBytes(TextInput);
-            var hybridDecrypted1 = e1.DecryptBytesToPlainText(hybridEncrypted1);
-
-
-
-            var e2 = new RsaAesHybridEncryptor(configuration);
-            var ms1 = new MemoryStream(e2.EncryptPlainTextToBytes(TextInput));
-            var ms2 = new MemoryStream();
-            e2.Decrypt(ms1, ms2);
-            ms2.Position = 0;
-            var hybridDecrypted2 = Encoding.UTF8.GetString(ms2.ToArray());    //e2.DecryptBytesToPlainText(ms.ToArray());
-
-
-
-            var b = e2.EncryptStreamToBytes(new MemoryStream(Encoding.UTF8.GetBytes(TextInput)));       // encrypt plain text in a stream
-            var t1 = e2.DecryptBytesToPlainText(b);
-
-            var ms3 = new MemoryStream();
-            e2.DecryptBytesToStream(b, ms3);
-            var t2 = Encoding.UTF8.GetString(ms3.ToArray());
-
-
         }
 
         private void OnTextInputChanged()

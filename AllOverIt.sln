@@ -365,6 +365,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AESEncryptionDemo", "Demos\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSAEncryptionDemo", "Demos\AllOverIt.Cryptography\RSAEncryptionDemo\RSAEncryptionDemo.csproj", "{EC387F70-37A0-4A17-B78E-D58027507225}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AesRsaHybridEncryptionDemo", "Demos\AllOverIt.Cryptography\AesRsaHybridEncryptionDemo\AesRsaHybridEncryptionDemo.csproj", "{D22EAE11-18A1-4473-A934-CDF509858D59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -863,6 +865,10 @@ Global
 		{EC387F70-37A0-4A17-B78E-D58027507225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC387F70-37A0-4A17-B78E-D58027507225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC387F70-37A0-4A17-B78E-D58027507225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D22EAE11-18A1-4473-A934-CDF509858D59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D22EAE11-18A1-4473-A934-CDF509858D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D22EAE11-18A1-4473-A934-CDF509858D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D22EAE11-18A1-4473-A934-CDF509858D59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1037,6 +1043,7 @@ Global
 		{02F12E9D-1953-487A-ADB7-0C0AD01F293E} = {D9F6B8A1-4B01-4708-8851-741FC19F2440}
 		{F60F9B85-056A-4B08-8B0A-EE6D9BCB70F0} = {02F12E9D-1953-487A-ADB7-0C0AD01F293E}
 		{EC387F70-37A0-4A17-B78E-D58027507225} = {02F12E9D-1953-487A-ADB7-0C0AD01F293E}
+		{D22EAE11-18A1-4473-A934-CDF509858D59} = {02F12E9D-1953-487A-ADB7-0C0AD01F293E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19DD11B3-596E-4862-B5C4-1FFFFB173106}
