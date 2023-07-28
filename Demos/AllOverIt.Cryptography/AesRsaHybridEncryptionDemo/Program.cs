@@ -81,6 +81,8 @@ namespace AesRsaHybridEncryptionDemo
 
 
 
+            // TODO: Add a decode method that can accept encrypted bytes, base64, or stream
+            //       and extract the embedded hash, signature, AES key, AES IV
 
 
 

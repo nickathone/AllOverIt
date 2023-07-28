@@ -118,7 +118,7 @@ namespace AllOverIt.Cryptography.RSA
         {
             using (var rsa = RSAAlgorithm.Create())
             {
-                if (PublicKey.Length != 0)
+                if (PublicKey is not null)
                 {
                     rsa.ImportRSAPublicKey(PublicKey, out _);
                 }

@@ -58,8 +58,8 @@ namespace RSAEncryptionDemo
 
             _encryptor = RsaEncryptor.Create(rsaKeyPair);
 
-            PublicKey = Convert.ToBase64String(rsaKeyPair.PublicKey);
-            PrivateKey = Convert.ToBase64String(rsaKeyPair.PrivateKey);
+            PublicKey = rsaKeyPair.GetPublicKeyAsBase64();
+            PrivateKey = rsaKeyPair.GetPrivateKeyAsBase64();
             MaxInputLength = _encryptor.GetMaxInputLength();
             TextInput = $"Enter some text here to see it encrypted (max length {MaxInputLength} bytes)";
         }
