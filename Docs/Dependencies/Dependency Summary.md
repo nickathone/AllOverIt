@@ -253,7 +253,6 @@
 
 * AllOverIt.Fixture
 * AutoFixture v4.18.0
-* AutoFixture v4.18.0
 * AutoFixture.AutoFakeItEasy v4.18.0
 * Castle.Core v4.3.1
 * FakeItEasy v4.9.0
