@@ -22,6 +22,7 @@
 
 * AllOverIt
 * AllOverIt.Assertion
+* Microsoft.AspNetCore.App
 
 <br>
 
